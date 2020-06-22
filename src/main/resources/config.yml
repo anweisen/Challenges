@@ -1,0 +1,62 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#     _____ _           _ _                                     #
+#    / ____| |         | | |                                    #
+#   | |    | |__   __ _| | | ___ _ __   __ _  ___  ___          #
+#   | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \/ __|         #
+#   | |____| | | | (_| | | |  __/ | | | (_| |  __/\__ \         #
+#    \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___||___/         #
+#                                       __/ |                   #
+#                                      |___/                    #
+#                                                               #
+#                                                               #
+# This plugin was made by                                       #
+# * https://github.com/anweisen                                 #
+# * https://github.com/Traolian                                 #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+config-version: 1.0
+
+# Available languages:
+# en (english)
+# de (german)
+language: 'en'
+
+# Prefix of all chat messages
+prefix: '§8§l┃ %name% §8┃ §7'
+
+# Timer design above the hotbar
+# (tags) %time%
+timer-up: '§8▶ §7Time: §a%time% §8◀'
+timer-up-info: '§8▶ §7Time: §a%time% §8┃ §7%info% §8◀'
+timer-down: '§8▶ §7Time: §c%time% §8◀'
+timer-down-info: '§8▶ §7Time: §c%time% §8┃ §7%info% §8◀'
+timer-stopped: '§8▶ §7Timer §cstopped §8◀'
+
+# This is the backpack size, its counting in rows
+# (i) MAX: 6
+backpack-size: 3
+
+# These message will be shown when somebody leaves/joins the server
+# (tags) %name% -> The player's name, %display% -> The player's display name
+connection-messages-enabled: true
+join-message: '§8§l┃ §6Challenges §8┃ §a%display% §ajoined'
+quit-message: '§8§l┃ §6Challenges §8┃ §c%display% §cleft'
+
+chatformat-enabled: true
+chatformat: '§7%display%%name% §8»§7 %message%'
+
+# If you enable this the start command defined in the spigot.yml will be executed
+# Otherwise the server will only be stopped if the reset command was executed
+restart-on-reset: true
+
+# This means that you you have to type /reset confirm to reset your server/worlds
+force-reset-confirm: true
+
+# This will reset the world and restart the server, when the last person leaves the server and the timer was already started at one time
+reset-on-last-quit: false
+disable-whitelist-on-start: true
+
+# This will set the gamestate of a server to ingame when the timer starts.
+# It will also start a new server (if enabled in the clouudnet config) if the timer was started for the first time
+# (i) Only available for the cloudnet version 3.3.0-RELEASE
+cloudnet-support: false

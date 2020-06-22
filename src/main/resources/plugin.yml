@@ -1,0 +1,62 @@
+name: Challenges
+author: anweisen & Dominik
+version: 1.0.0
+main: com.github.challengesplugin.Challenges
+api-version: 1.15
+
+commands:
+  challenges:
+    description: Opens the challenges menu
+    permission: challenges.gui
+    aliases:
+      - challenge
+      - c
+  timer:
+    permission: challenges.timer
+    description: Allows you to start/stop/set the timer
+    aliases:
+      - t
+  backpack:
+    aliases:
+      - b
+      - bp
+      - rucksack
+  gamemode:
+    permission: challenges.gamemode
+    description: Changes you gamemode
+    aliases:
+      - gm
+  heal:
+    permission: challenges.heal
+    description: Heals you
+    aliases:
+      - h
+  start:
+    description: Starts the timer
+    permission: challenges.start
+  pause:
+    description: Pauses the timer
+    permission: challenges.pause
+  reset:
+    description: Resets the worlds
+    permission: challenges.reset
+  setmaster:
+    description: Allows you to reset the master
+    permission: challenges.setmaster
+  search:
+    description: Search how to get a block, animal or something else in the randomizer
+    permission: challenges.search
+  position:
+    description: Allows you to mark position to check them later
+    aliases:
+      - pos
+  village:
+    description: Teleports you to a village
+    permission: challenges.village
+  language:
+    description: Temporily changes the language
+    permission: challenges.langage
+  up:
+    description: Teleports you to the highest location above you
+    aliases:
+      - top
