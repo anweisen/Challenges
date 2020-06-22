@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>groupId</groupId>
+    <artifactId>Challenges</artifactId>
+    <version>1.1.0</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>8</source>
+                    <target>8</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <repositories>
+        <!--  New Maven repository for releases -->
+        <repository>
+            <id>releases</id>
+            <url>https://repo.cloudnetservice.eu/repository/releases/</url>
+        </repository>
+    </repositories>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.12</version>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <!--  cloudnet driver for plugins and modules -->
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-driver</artifactId>
+            <version>3.3.0-RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  cloudnet wrapper for plugins -->
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-wrapper-jvm</artifactId>
+            <version>3.3.0-RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  cloudnet bridge module for plugins and modules -->
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-bridge</artifactId>
+            <version>3.3.0-RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  cloudnet syncproxy module for plugins (proxy) and modules -->
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-syncproxy</artifactId>
+            <version>3.3.0-RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!--  cloudnet signs module for plugins and modules -->
+        <dependency>
+            <groupId>de.dytanic.cloudnet</groupId>
+            <artifactId>cloudnet-signs</artifactId>
+            <version>3.3.0-RELEASE</version>
+            <scope>provided</scope>
+        </dependency>
+
+    </dependencies>
+
+</project>
