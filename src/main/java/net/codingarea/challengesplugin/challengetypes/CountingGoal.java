@@ -11,9 +11,10 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-02-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public abstract class CountingGoal extends Goal {

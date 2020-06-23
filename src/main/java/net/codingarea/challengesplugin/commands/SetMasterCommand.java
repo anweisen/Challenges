@@ -13,7 +13,7 @@ import org.jetbrains.annotations.NotNull;
  * @author anweisen & Dominik
  * Challenges developed on 06-06-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class SetMasterCommand implements CommandExecutor {

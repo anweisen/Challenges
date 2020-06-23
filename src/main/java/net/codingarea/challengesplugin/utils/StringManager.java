@@ -4,7 +4,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * @author anweisen & Dominik
- * Challenges developed on 05-29-2020ÖÖ
+ * Challenges developed on 05-29-2020
  * https://github.com/anweisen
  * https://github.com/KxmischesDomi
  */

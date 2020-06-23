@@ -18,7 +18,7 @@ import org.bukkit.inventory.meta.SkullMeta;
  * @author anweisen & Dominik
  * Challenges developed on 06-08-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class TimerMenu {

@@ -7,7 +7,7 @@ import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
  * @author anweisen & Dominik
  * Challenges developed on 06-04-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class CloudNetManager {

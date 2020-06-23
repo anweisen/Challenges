@@ -5,9 +5,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-11-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class ChallengeEditEvent {

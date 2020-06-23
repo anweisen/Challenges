@@ -16,17 +16,6 @@ import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
 import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.manager.ChallengeManager;
 import net.codingarea.challengesplugin.utils.Utils;
-import com.github.challengesplugin.challenges.challenges.*;
-import com.github.challengesplugin.challenges.challenges.force.*;
-import com.github.challengesplugin.challenges.challenges.randomizer.*;
-import com.github.challengesplugin.challenges.difficulty.*;
-import com.github.challengesplugin.challenges.goal.*;
-import com.github.challengesplugin.challenges.rules.*;
-import com.github.challengesplugin.challenges.settings.*;
-import net.godingarea.challengesplugin.challenges.challenges.*;
-import net.godingarea.challengesplugin.challenges.difficulty.*;
-import net.godingarea.challengesplugin.challenges.goal.*;
-import net.godingarea.challengesplugin.challenges.settings.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
@@ -37,7 +26,7 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
  * @author anweisen & Dominik
  * Challenges developed on 05-30-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class ChallengeLoader {

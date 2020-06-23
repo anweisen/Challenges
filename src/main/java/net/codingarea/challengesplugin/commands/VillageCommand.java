@@ -13,9 +13,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-07-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class VillageCommand implements CommandExecutor {

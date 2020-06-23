@@ -18,9 +18,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-07-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class PositionCommand implements CommandExecutor, TabCompleter {

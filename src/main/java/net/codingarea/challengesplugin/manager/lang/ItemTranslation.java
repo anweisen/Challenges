@@ -9,9 +9,10 @@ import java.util.List;
 import static net.codingarea.challengesplugin.utils.Replacement.replace;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-12-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public enum ItemTranslation {
@@ -47,7 +48,7 @@ public enum ItemTranslation {
 	UP_COMMAND(a("§dUpCommand"), b(a("With */top* you can teleport", "yourself to the *top* of the world"), a("Mit */top* kannst du dich", "zur *Oberfläche* teleportieren"))),
 	WATER_MLG(a("§9Water MLG", "§9Wasser-MLG"), b(a("Every few *minutes* you have to", "do a *WaterMLG*. If you *die*, you *lose*"), a("Du musst alle *paar Minuten* einen *Wasser-MLG* machen.", "Wenn diesen nicht schaffst, *stirbst* du"))),
 	DAMAGE_RULE(a("Angelo ist cool und Domi auch hehe"), b(a("You wont take *%info%*"), a("Du wirst kein *%info%* bekommen"))),
-	MATERIAL_RULE(a("Wenn du das hier liest solltest du das Plugin updaten xd"), b(a("You are not able to use a *%info%*"), a("Du wirst kein *%info%* bekommen"))),
+	MATERIAL_RULE(a("Wenn du das hier liest solltest du das Plugin updaten xd"), b(a("You are not able to use *%info%*"), a("Du wirst kein *%info%* bekommen"))),
 	DAMAGE_DISPLAY(a("§eDamage display"), b(a("When somebody takes *damage* it ", "will be shown *in chat*"), a("Wenn jemand *Schaden bekommt*, wird", "es im *Chat* angezeigt"))),
 	DIFFICULTY(a("§bDifficulty", "§bSchwierigkeit"), b(a("Sets the *difficulty*"), a("Stell die *Schwierigkeit* ein"))),
 	REGENERATION(a("§cRegeneration"), b(a("Sets how and whether to", "*regenerate*"), a("Stellt ein, wie und ob man", "*regeneriert*"))),

@@ -1,4 +1,5 @@
 package net.codingarea.challengesplugin.utils;
+
 import net.minecraft.server.v1_15_R1.*;
 import org.bukkit.*;
 import org.bukkit.Material;

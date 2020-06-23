@@ -12,9 +12,10 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-02-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class ResetCommand implements CommandExecutor, TabCompleter {

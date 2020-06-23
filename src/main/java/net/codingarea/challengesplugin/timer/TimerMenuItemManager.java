@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionType;
  * @author anweisen & Dominik
  * Challenges developed on 06-15-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class TimerMenuItemManager {

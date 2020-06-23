@@ -1,11 +1,11 @@
 package net.codingarea.challengesplugin.utils;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-22-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
-
 public class Replacement {
 
 	private String toReplace;

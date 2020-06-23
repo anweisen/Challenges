@@ -13,7 +13,7 @@ import org.bukkit.inventory.meta.ItemMeta;
  * @author anweisen & Dominik
  * Challenges developed on 05-31-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class UtilsListener implements Listener {

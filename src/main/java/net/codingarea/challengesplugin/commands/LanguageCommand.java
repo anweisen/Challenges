@@ -11,9 +11,10 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-10-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class LanguageCommand implements CommandExecutor {

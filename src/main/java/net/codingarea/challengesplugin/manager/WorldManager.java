@@ -11,9 +11,10 @@ import java.io.File;
 import java.util.logging.Level;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-03-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class WorldManager {
