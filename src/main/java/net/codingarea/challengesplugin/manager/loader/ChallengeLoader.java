@@ -47,6 +47,7 @@ public class ChallengeLoader {
 		registerChallenge(new KeepInventorySetting());
 		registerChallengeWithCommand("backpack", new BackpackModifier(challengeManager.getPlugin().getConfig().getInt("backpack-size"), challengeManager));
 		registerChallenge(new TimberSetting());
+		registerChallenge(new NoPvPSetting());
 		registerChallengeWithCommand("up", new UpCommand());
 
 		// CHALLENGES
@@ -59,9 +60,12 @@ public class ChallengeLoader {
 		registerChallenge(new NoExpChallenge());
 		registerChallenge(new HydraChallenge());
 		registerChallenge(new OnlyDirtChallenge());
+		registerChallenge(new InventoryClearOnDamageChallenge());
 		registerChallenge(new BlockRandomizerChallenge());
 		registerChallenge(new CraftingRandomizerChallenge());
 		registerChallenge(new EntitySpawnRandomizerChallenge());
+		registerChallenge(new NoSneakChallenge());
+		registerChallenge(new NoJumpChallenge());
 		registerChallenge(new ForceHighChallenge());
 		registerChallenge(new ForceBlockChallenge());
 		registerChallenge(new ChunkDeconstructChallenge());
@@ -77,11 +81,12 @@ public class ChallengeLoader {
 		// DIFFICULTY
 		registerChallenge(new DifficultyModifier());
 		registerChallenge(new RegenerationModifier());
-		registerChallenge(new MaxHealthModifier());
 		registerChallenge(new SplitHealthSetting());
+		registerChallenge(new MaxHealthModifier());
 		registerChallenge(new DamageMultiplierModifier());
 		registerChallenge(new PlayerRespawnSetting());
 		registerChallenge(new KillAllOnPlayerDeath());
+		registerChallenge(new NoHungerSetting());
 
 		// BLOCK & ITEMS
 		registerChallenge(new MaterialRule(Material.IRON_CHESTPLATE, "§7Armor", Utils.getArmors()));
