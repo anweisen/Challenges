@@ -1,5 +1,6 @@
 package net.codingarea.challengesplugin.manager;
 
+import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
@@ -16,25 +17,19 @@ import org.bukkit.inventory.ItemStack;
 
 public class ChallengeItemManager {
 
-    private Language language;
-
-    public ChallengeItemManager(Language language) {
-        this.language = language;
-    }
-
     public ItemStack getValueItem(int value) {
         return new ItemBuilder(Material.STONE_BUTTON, "§6" + value).hideAttributes().build();
     }
 
     public ItemStack getActivatedItem() {
         String name = "Activated";
-        if (language == Language.GERMAN) name = "Aktiviert";
+        if (LanguageManager.getLanguage() == Language.GERMAN) name = "Aktiviert";
         return new ItemBuilder(Material.LIME_DYE, "§a" + name).hideAttributes().build();
     }
 
     public ItemStack getNotActivatedItem() {
         String name = "Disabled";
-        if (language == Language.GERMAN) name = "Deaktiviert";
+        if (LanguageManager.getLanguage() == Language.GERMAN) name = "Deaktiviert";
         return new ItemBuilder(Material.RED_DYE, "§c" + name).hideAttributes().build();
     }
 
