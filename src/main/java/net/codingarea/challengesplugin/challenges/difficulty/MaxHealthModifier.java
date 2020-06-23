@@ -22,8 +22,8 @@ import org.bukkit.inventory.ItemStack;
 public class MaxHealthModifier extends Modifier implements Listener {
 
     public MaxHealthModifier() {
-        this.value = 20;
-        maxValue = 64;
+        value = 20;
+        maxValue = 100;
         menu = MenuType.DIFFICULTY;
     }
 
@@ -35,13 +35,13 @@ public class MaxHealthModifier extends Modifier implements Listener {
     @Override
     public void onMenuClick(ChallengeEditEvent event) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.setMaxHealth(this.value);
-            player.setHealth(this.value);
+            player.setMaxHealth(value);
+            player.setHealth(value);
         }
     }
 
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
-        event.getPlayer().setMaxHealth(this.value);
+        event.getPlayer().setMaxHealth(value);
     }
 }
