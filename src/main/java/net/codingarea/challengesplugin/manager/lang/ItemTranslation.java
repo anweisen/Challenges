@@ -63,6 +63,8 @@ public enum ItemTranslation {
 	COLLECT_ITEMS(a("§dCollect items", "§dItems sammeln"), b(a("Collect as many *different items*", "as you can in order to *win*"), a("Sammel die meisten *verschiedenen Items*", "um zu *gewinnen*"))),
 	BREAK_BLOCKS(a("§cBreak blocks", "§cBlöcke abbauen"), b(a("Mine the most *blocks* to win"), a("baue die meisten *Blöcke* ab", "um zu gewinnen"))),
 	MINE_DIAMONDS(a("§bMine diamonds"), b(a("Mine the most *diamonds* to win"), a("Baue die meisten *Diamanten*", "ab um zu *gewinnen*"))),
+	NO_SNEAK(a("§cNo sneak"), b(a("When you *sneak* you get the setted", "amount of *damage*"), a("Wenn du *sneakst* bekommst du die", "die gesetzte Anzahl *Schaden*"))),
+	NO_JUMP(a("§cNo jump"), b(a("When you *jump* you get the setted", "amount of *damage*"), a("Wenn du *springst* bekommst du die", "die gesetzte Anzahl *Schaden*"))),
 	;
 
 	private String[] name;

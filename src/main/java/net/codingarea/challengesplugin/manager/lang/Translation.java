@@ -46,6 +46,9 @@ public enum Translation {
 	TIMER_MODE_DOWN_ITEM("§7Timer counting §cdown", "§7Timer zählt §crunter"),
 	TIMER_MODE_UP_ITEM("§7Timer counting §aup", "§7Timer zählt §ahoch"),
 
+	NO_SNEAK_PLAYER_SNEAKED("§e%player% §7just sneaked", "§e%player% §7hat gerade gesneakt"),
+	NO_JUMP_PLAYER_JUMPED("§e%player% §7just jumped", "§e%player% §7ist gerade gesprungen"),
+
 	SECONDS("seconds", "Sekunden"),
 	MINUTES("minutes", "Minuten"),
 	HOURS("hours", "Stunden"),
