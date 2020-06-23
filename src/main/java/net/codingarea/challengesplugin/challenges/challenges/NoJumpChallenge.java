@@ -11,9 +11,11 @@ import net.codingarea.challengesplugin.utils.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
@@ -54,6 +56,17 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 	public void onTimeActivation() { }
 
 	private Set<UUID> prevPlayersOnGround = Sets.newHashSet();
+	private Set<UUID> prevPlayerHitted = Sets.newHashSet();
+
+	@EventHandler
+	public void onPlayerDamage(EntityDamageEvent event) {
+
+		if (!enabled ||!Challenges.timerIsStarted()) return;
+		if (event.getEntityType() != EntityType.PLAYER) return;
+
+		prevPlayerHitted.add(event.getEntity().getUniqueId());
+
+	}
 
 	@EventHandler
 	public void onMove(PlayerMoveEvent event) {
@@ -63,12 +76,16 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 
 		Player player = event.getPlayer();
 
-		if (player.getVelocity().getY() > 0) {
+		if (!prevPlayerHitted.contains(player.getUniqueId()) && player.getVelocity().getY() > 0) {
+
 			double jumpVelocity = 0.42F;
 			if (player.hasPotionEffect(PotionEffectType.JUMP)) {
 				jumpVelocity += (float) (player.getPotionEffect(PotionEffectType.JUMP).getAmplifier() + 1) * 0.1F;
 			}
-			if (player.getLocation().getBlock().getType() != Material.LADDER && prevPlayersOnGround.contains(player.getUniqueId())) {
+
+			if (!player.getLocation().getBlock().getType().name().contains("water")
+					&& player.getLocation().getBlock().getType() != Material.LADDER
+					&& prevPlayersOnGround.contains(player.getUniqueId())) {
 
 				if (!player.isOnGround() && Double.compare(player.getVelocity().getY(), jumpVelocity) == 0) {
 					Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.NO_JUMP_PLAYER_JUMPED.get()
@@ -79,6 +96,7 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 		}
 		if (player.isOnGround()) {
 			prevPlayersOnGround.add(player.getUniqueId());
+			prevPlayerHitted.remove(player.getUniqueId());
 		} else {
 			prevPlayersOnGround.remove(player.getUniqueId());
 		}
