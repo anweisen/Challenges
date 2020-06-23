@@ -3,6 +3,7 @@ package net.codingarea.challengesplugin.challenges.challenges;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -59,7 +60,7 @@ public class InventoryClearOnDamageChallenge extends Setting implements Listener
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(Material.STONE, "&0").build();
+        return new ItemBuilder(Material.TRAPPED_CHEST, ItemTranslation.DAMAGE_INVENTORY_CLEAR).build();
     }
 
 }
