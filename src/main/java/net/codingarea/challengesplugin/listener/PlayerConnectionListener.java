@@ -38,6 +38,9 @@ public class PlayerConnectionListener implements Listener {
 
 	@EventHandler
 	public void handleJoin(PlayerJoinEvent event) {
+
+		if (WorldManager.getInstance().getReseted()) return;
+
 		plugin.getPermissionsSystem().setPermissions(event.getPlayer(), false);
 
 		event.getPlayer().getLocation().getChunk().load(true);
@@ -56,6 +59,8 @@ public class PlayerConnectionListener implements Listener {
 
 	@EventHandler
 	public void handleQuit(PlayerQuitEvent event) {
+
+		if (WorldManager.getInstance().getReseted()) return;
 
 		if ((Bukkit.getOnlinePlayers().size() - 1) <= 0) {
 			if (resetOnLastQuit && CloudNetManager.wasAlreadyIngame()) {
