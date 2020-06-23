@@ -1,24 +1,18 @@
 package net.codingarea.challengesplugin;
 
-import com.github.challengesplugin.commands.*;
-import com.github.challengesplugin.listener.*;
-import com.github.challengesplugin.manager.*;
+import lombok.Getter;
 import net.codingarea.challengesplugin.commands.*;
 import net.codingarea.challengesplugin.listener.*;
 import net.codingarea.challengesplugin.manager.*;
-import net.codingarea.challengesplugin.manager.menu.MenuManager;
-import net.codingarea.challengesplugin.manager.permissions.MasterSystem;
-import net.codingarea.challengesplugin.utils.StringManager;
-import net.godingarea.challengesplugin.commands.*;
-import net.godingarea.challengesplugin.listener.*;
-import net.godingarea.challengesplugin.manager.*;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
+import net.codingarea.challengesplugin.manager.menu.MenuManager;
+import net.codingarea.challengesplugin.manager.permissions.MasterSystem;
 import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
+import net.codingarea.challengesplugin.utils.StringManager;
 import net.codingarea.challengesplugin.utils.YamlConfig;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -111,8 +105,11 @@ public class Challenges extends JavaPlugin {
         playerManager = new ChallengePlayerManager(this);
         stringManager = new StringManager();
         stringManager.load(getConfig());
-        itemManager = new ChallengeItemManager(LanguageManager.getLanguage());
-        permissionsSystem = new MasterSystem(this, getConfig().getString("master-changed-message"), getConfig().getString("master-set-message"), getConfig().getBoolean("master-system"));
+        itemManager = new ChallengeItemManager();
+        permissionsSystem = new MasterSystem(this,
+                getConfig().getString("master-changed-message"),
+                getConfig().getString("master-set-message"),
+                getConfig().getBoolean("master-system"));
         permissionsSystem.loadPermissions();
         permissionsSystem.onEnable();
         scoreboardManager = new ScoreboardManager(this);
