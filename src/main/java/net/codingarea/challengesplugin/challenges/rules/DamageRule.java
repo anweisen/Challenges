@@ -49,7 +49,7 @@ public class DamageRule extends Setting implements Listener {
     @Override
     public void onDisable(ChallengeEditEvent event) { }
 
-    @EventHandler(priority = EventPriority.HIGH)
+    @EventHandler
     public void onDamage(EntityDamageEvent event) {
         if (enabled || !Challenges.timerIsStarted()) return;
         if (!(event.getEntity() instanceof Player)) return;
