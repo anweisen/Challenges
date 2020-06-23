@@ -9,6 +9,7 @@ import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
@@ -48,7 +49,7 @@ public class DamageRule extends Setting implements Listener {
     @Override
     public void onDisable(ChallengeEditEvent event) { }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH)
     public void onDamage(EntityDamageEvent event) {
         if (enabled || !Challenges.timerIsStarted()) return;
         if (!(event.getEntity() instanceof Player)) return;
