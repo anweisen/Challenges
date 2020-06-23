@@ -17,9 +17,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-01-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class CollectDeathsGoal extends CollectGoal<DamageCause> implements Listener {

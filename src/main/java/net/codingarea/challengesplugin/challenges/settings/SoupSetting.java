@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionEffectType;
  * @author anweisen & Dominik
  * Challenges developed on 02-6-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class SoupSetting extends Setting implements Listener {

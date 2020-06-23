@@ -1,8 +1,8 @@
 package net.codingarea.challengesplugin.challenges.challenges;
 
+import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import org.bukkit.*;

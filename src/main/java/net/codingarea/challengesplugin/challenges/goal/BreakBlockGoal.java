@@ -20,9 +20,10 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-02-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class BreakBlockGoal extends Goal implements Listener {

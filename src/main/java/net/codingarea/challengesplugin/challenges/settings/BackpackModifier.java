@@ -28,7 +28,7 @@ import org.bukkit.inventory.ItemStack;
  * @author anweisen & Dominik
  * Challenges developed on 05-29-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class BackpackModifier extends Modifier implements Listener, CommandExecutor {

@@ -10,11 +10,11 @@ import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-06-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
-
 public class KillAllOnPlayerDeath extends Setting {
 
 	public KillAllOnPlayerDeath() {

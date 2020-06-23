@@ -22,9 +22,10 @@ import org.bukkit.inventory.ItemStack;
 import java.text.DecimalFormat;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-22-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class DamageDisplay extends Setting implements Listener {

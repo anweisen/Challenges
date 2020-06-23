@@ -135,5 +135,4 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
         int min = Utils.getRandomSecondsDown(value*60);
         return secondsRandom.nextInt(max - min) + min;
     }
-
 }

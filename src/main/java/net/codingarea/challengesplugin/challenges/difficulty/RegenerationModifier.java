@@ -21,7 +21,7 @@ import org.bukkit.potion.PotionType;
  * @author anweisen & Dominik
  * Challenges developed on 05-30-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class RegenerationModifier extends Modifier implements Listener {

@@ -18,9 +18,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.List;
 
 /**
- * @author anweisen
+ * @author anweisen & Dominik
  * Challenges developed on 06-13-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class WitherGoal extends Goal implements Listener {

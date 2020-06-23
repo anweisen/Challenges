@@ -22,9 +22,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.Random;
 
 /**
- * @author anweisen
- * Challenges developed on 06-12-2020
+ * @author anweisen & Dominik
+ * Challenges developed on 06-02-2020
  * https://github.com/anweisen
+ * https://github.com/KxmischesDomi
  */
 
 public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatusExecutor, Listener {

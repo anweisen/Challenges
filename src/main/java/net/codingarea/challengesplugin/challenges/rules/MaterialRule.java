@@ -21,7 +21,7 @@ import java.util.Arrays;
  * @author anweisen & Dominik
  * Challenges developed on 06-2-2020
  * https://github.com/anweisen
- * https://github.com/Traolian
+ * https://github.com/KxmischesDomi
  */
 
 public class MaterialRule extends Setting implements Listener {
