@@ -1,5 +1,6 @@
 package net.codingarea.challengesplugin.manager;
 
+import lombok.Getter;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
@@ -19,7 +20,10 @@ import java.util.logging.Level;
 
 public class WorldManager {
 
+	@Getter private static WorldManager instance;
+
 	private boolean restartOnReset;
+	private boolean reseted;
 
 	private final Challenges plugin;
 
@@ -53,14 +57,11 @@ public class WorldManager {
 		String[] worldSuffix = { "", "_nether", "_the_end" };
 
 		for (String currentSuffix : worldSuffix) {
-
 			String currentWorldFolderName = levelName + currentSuffix;
-
 			File worldFolder = new File(currentWorldFolderName);
-
 			Utils.deleteWorld(worldFolder);
-
 		}
+
 		Utils.deleteWorld(new File("watermlg"));
 
 		plugin.getConfigManager().getInternalConfig().getConfig().set("reset", false);
@@ -73,6 +74,9 @@ public class WorldManager {
 	public static void prepareReset(boolean shutdownAfter, CommandSender sender) {
 
 		Challenges.getInstance().getLogger().log(Level.INFO, "Preparing server reset..");
+		instance.reset = true;
+
+		Challenges.getInstance().getChallengeTimer().stopTimer(sender instanceof Player ? (Player) sender : null, false);
 
 		Challenges.getInstance().getConfigManager().getInternalConfig().getConfig().set("reset", true);
 		try {
@@ -109,4 +113,7 @@ public class WorldManager {
 
 	}
 
+	public boolean getReseted() {
+		return reseted;
+	}
 }
