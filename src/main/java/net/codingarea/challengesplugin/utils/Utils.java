@@ -1,16 +1,18 @@
 package net.codingarea.challengesplugin.utils;
 
-import net.minecraft.server.v1_15_R1.*;
-import org.bukkit.*;
-import org.bukkit.Material;
+import net.codingarea.challengesplugin.Challenges;
+import org.bukkit.Effect;
 import org.bukkit.Particle;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
+import org.bukkit.FireworkEffect;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.Color;
+import org.bukkit.Bukkit;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -23,10 +25,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 /**
  * @author anweisen & Dominik
@@ -37,28 +36,44 @@ import java.util.Random;
 
 public class Utils {
 
+    static int version = Challenges.getVersion();
+
+    public static Material getRedDye() {
+        return Material.valueOf(version == 13 ? "ROSE_RED" : "RED_DYE");
+    }
+
+    public static Material getGreenDye() {
+        return Material.valueOf(version == 13 ? "CACTUS_GREEN" : "GREEN_DYE");
+    }
+
     public static int getRandomSecondsDistance(int seconds) {
         return (((seconds / 60)) * 10) + 20;
-
     }
 
     public static int getRandomSecondsUp(int seconds) {
         return seconds + getRandomSecondsDistance(seconds);
-
     }
 
     public static int getRandomSecondsDown(int seconds) {
         return seconds - getRandomSecondsDistance(seconds);
-
     }
 
     public static Material[] getArmors() {
-
-        return new Material[]{Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS,
+        return new Material[] { Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS,
                 Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS, Material.CHAINMAIL_BOOTS,
                 Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS,
                 Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS,
                 Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS};
+    }
+
+    public static Material[] getFlowers() {
+        return new Material[] {
+          Material.RED_MUSHROOM, Material.BROWN_MUSHROOM, Material.SUNFLOWER, Material.LILY_OF_THE_VALLEY, Material.LILY_PAD,
+          Material.DANDELION, Material.WITHER_ROSE, Material.CORNFLOWER, Material.OXEYE_DAISY, Material.ORANGE_TULIP, Material.PINK_TULIP,
+          Material.WHITE_TULIP, Material.RED_TULIP, Material.ROSE_BUSH, Material.AZURE_BLUET, Material.ALLIUM, Material.BLUE_ORCHID,
+          Material.POPPY, Material.DEAD_BUSH, Material.FLOWER_POT, Material.TORCH, Material.REDSTONE_TORCH, Material.WALL_TORCH,
+          Material.REDSTONE_WALL_TORCH
+        };
     }
 
     public static boolean isHalfBlock(Material material) {
@@ -88,7 +103,6 @@ public class Utils {
         list.remove(Material.END_PORTAL);
         list.removeIf(material -> !material.isBlock());
         return list;
-
     }
 
     public static List<Material> getRandomizerDrops() {
@@ -214,7 +228,7 @@ public class Utils {
         dim[0] = loc1.getZ();
         dim[1] = loc2.getZ();
         Arrays.sort(dim);
-        if(location.getZ() > dim[1] || location.getZ() < dim[0])
+        if (location.getZ() > dim[1] || location.getZ() < dim[0])
             return false;
 
         return true;
@@ -222,8 +236,32 @@ public class Utils {
     }
 
     public static void sendActionbar(Player player, String message) {
-        PacketPlayOutChat packet = new PacketPlayOutChat(IChatBaseComponent.ChatSerializer.a("{\"text\":\"" + message + "\"}"), ChatMessageType.GAME_INFO);
-        ((CraftPlayer) player).getHandle().playerConnection.sendPacket(packet);
+
+        if (version == 15) {
+            Utils15.sendActionbar(player, message);
+        }
+        if (version == 14) {
+            Utils14.sendActionbar(player, message);
+        }
+        if (version == 13) {
+            Utils13.sendActionbar(player, message);
+        }
+
+    }
+
+    public static int getServerVersion() {
+        try {
+            Material.BEE_SPAWN_EGG.name();
+            return 15;
+        } catch (NoSuchFieldError ignored1) {
+            try {
+                Material.BAMBOO.name();
+                return 14;
+            } catch (NoSuchFieldError ignored2) {
+                return 13;
+            }
+
+        }
     }
 
     public static void spawnFireworks(Location location, int amount) {
@@ -263,8 +301,16 @@ public class Utils {
     public static void setFakeArmor(Player viewer, int entityID, Color color) {
         ItemStack armor = getChestplate(color);
 
-        PacketPlayOutEntityEquipment packet = new PacketPlayOutEntityEquipment(entityID, EnumItemSlot.CHEST, CraftItemStack.asNMSCopy(armor));
-        ((CraftPlayer) viewer).getHandle().playerConnection.sendPacket(packet);
+        if (version == 15) {
+            Utils15.setFakeArmor(viewer, entityID, color);
+        }
+        if (version == 14) {
+            Utils15.setFakeArmor(viewer, entityID, color);
+        }
+        if (version == 13) {
+            Utils13.setFakeArmor(viewer, entityID, color);
+        }
+
     }
 
     public static ItemStack getChestplate(Color color) {
@@ -524,14 +570,14 @@ public class Utils {
 
     }
 
-    public static boolean arrayHasSameContents(ItemStack[] array1, ItemStack[] array2) {
+    public static <T> boolean arrayHasSameContents(T[] array1, T[] array2) {
 
         if (array1.length != array2.length) return false;
 
-        List<ItemStack> list1 = Arrays.asList(array1);
-        List<ItemStack> list2 = Arrays.asList(array2);
+        List<T> list1 = Arrays.asList(array1);
+        List<T> list2 = Arrays.asList(array2);
 
-        for (ItemStack currentItem : list1) {
+        for (T currentItem : list1) {
 
             if (!list2.contains(currentItem)) {
                 return false;
@@ -539,7 +585,7 @@ public class Utils {
 
         }
 
-        for (ItemStack currentItem : list2) {
+        for (T currentItem : list2) {
 
             if (!list1.contains(currentItem)) {
                 return false;
@@ -559,13 +605,12 @@ public class Utils {
 
             if (files == null) return false;
 
-            for (int i = 0; i < files.length; i++) {
-                if (files[i].isDirectory()) {
-                    deleteWorld(files[i]);
+            for (File currentFile : files) {
+                if (currentFile.isDirectory()) {
+                    deleteWorld(currentFile);
                 } else {
-                    Bukkit.broadcastMessage("Deleting world file " + files[i].getName());
-                    if (files[i].getName().equals("session.lock")) continue;
-                    files[i].delete();
+                    if (currentFile.getName().equals("session.lock")) continue;
+                    currentFile.delete();
                 }
             }
         }
@@ -606,5 +651,17 @@ public class Utils {
         return location;
 
     }
+
+    public static interface PlayerRunnable {
+        public void run(Player player);
+    }
+
+    public static void forEachPlayerOnline(PlayerRunnable runnable) {
+        for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+            runnable.run(currentPlayer);
+        }
+    }
+
+
 
 }
