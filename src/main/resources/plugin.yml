@@ -1,8 +1,8 @@
 name: Challenges
 author: anweisen & Dominik
 version: 1.0.0
-main: com.github.challengesplugin.Challenges
-api-version: 1.15
+main: net.codingarea.challengesplugin.Challenges
+api-version: 1.13
 
 commands:
   challenges:
@@ -11,6 +11,7 @@ commands:
     aliases:
       - challenge
       - c
+      - settings
   timer:
     permission: challenges.timer
     description: Allows you to start/stop/set the timer

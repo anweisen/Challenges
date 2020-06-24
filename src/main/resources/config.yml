@@ -11,9 +11,8 @@
 #                                                               #
 # This plugin was made by                                       #
 # * https://github.com/anweisen                                 #
-# * https://github.com/Traolian                                 #
+# * https://github.com/KxmischesDomi                            #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-
 config-version: 1.0
 
 # Available languages:
@@ -57,6 +56,17 @@ reset-on-last-quit: false
 disable-whitelist-on-start: true
 
 # This will set the gamestate of a server to ingame when the timer starts.
-# It will also start a new server (if enabled in the clouudnet config) if the timer was started for the first time
+# It will also start a new server (if enabled in the cloudnet config) if the timer was started for the first time
 # (i) Only available for the cloudnet version 3.3.0-RELEASE
 cloudnet-support: false
+
+# You need a mysql connection to use this
+save-player-configs: false
+
+# This is only needed if you want to save the user configs
+mysql:
+  enabled: false
+  host: '127.0.0.1'
+  database: 'challenges'
+  user: 'root'
+  password: 'secret'
