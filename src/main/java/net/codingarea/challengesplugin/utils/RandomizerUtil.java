@@ -27,8 +27,14 @@ public class RandomizerUtil {
         list.remove(Material.END_PORTAL);
         list.remove(Material.LAVA);
         list.remove(Material.WATER);
-        list.remove(Material.JIGSAW);
-        list.removeIf(material -> !material.isBlock() || material.isAir() || material.isLegacy());
+
+        try {
+            list.remove(Material.JIGSAW);
+        } catch (NoSuchFieldError ignored) {
+
+        }
+        list.removeIf(material -> isAir(material) || material.isLegacy() || !material.isItem());
+
         return list;
 
     }
@@ -62,10 +68,27 @@ public class RandomizerUtil {
         list.remove(Material.LAVA);
         list.remove(Material.WATER);
         list.remove(Material.DEBUG_STICK);
-        list.remove(Material.JIGSAW);
         list.remove(Material.KNOWLEDGE_BOOK);
-        list.removeIf(material -> material.isAir() || material.isLegacy() || !material.isItem());
+        try {
+            list.remove(Material.JIGSAW);
+        } catch (NoSuchFieldError ignored) {
+
+        }
+        list.removeIf(material -> isAir(material) || material.isLegacy() || !material.isItem());
         return list;
+    }
+
+    private static boolean isAir(Material material) {
+
+        switch(material.ordinal()) {
+            case 18: case 145: case 922: case 976:
+                return true;
+            default:
+                return false;
+
+        }
+
+
     }
 
 }
