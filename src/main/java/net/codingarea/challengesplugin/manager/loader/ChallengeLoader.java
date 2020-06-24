@@ -2,20 +2,15 @@ package net.codingarea.challengesplugin.manager.loader;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challenges.challenges.*;
-import net.codingarea.challengesplugin.challenges.challenges.force.ForceBlockChallenge;
-import net.codingarea.challengesplugin.challenges.challenges.force.ForceHighChallenge;
-import net.codingarea.challengesplugin.challenges.challenges.randomizer.BlockRandomizerChallenge;
-import net.codingarea.challengesplugin.challenges.challenges.randomizer.CraftingRandomizerChallenge;
-import net.codingarea.challengesplugin.challenges.challenges.randomizer.EntitySpawnRandomizerChallenge;
+import net.codingarea.challengesplugin.challenges.challenges.force.*;
+import net.codingarea.challengesplugin.challenges.challenges.randomizer.*;
 import net.codingarea.challengesplugin.challenges.difficulty.*;
 import net.codingarea.challengesplugin.challenges.goal.*;
-import net.codingarea.challengesplugin.challenges.rules.DamageRule;
-import net.codingarea.challengesplugin.challenges.rules.MaterialRule;
+import net.codingarea.challengesplugin.challenges.rules.*;
 import net.codingarea.challengesplugin.challenges.settings.*;
-import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
-import net.codingarea.challengesplugin.challengetypes.Goal;
-import net.codingarea.challengesplugin.manager.ChallengeManager;
-import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.challengetypes.*;
+import net.codingarea.challengesplugin.manager.*;
+import net.codingarea.challengesplugin.utils.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
@@ -61,6 +56,7 @@ public class ChallengeLoader {
 		registerChallenge(new HydraChallenge());
 		registerChallenge(new OnlyDirtChallenge());
 		registerChallenge(new InventoryClearOnDamageChallenge());
+		registerChallenge(new OneDurabilityTools());
 		registerChallenge(new BlockRandomizerChallenge());
 		registerChallenge(new CraftingRandomizerChallenge());
 		registerChallenge(new EntitySpawnRandomizerChallenge());
@@ -75,6 +71,7 @@ public class ChallengeLoader {
 		registerChallenge(new WitherGoal());
 		registerChallenge(new CollectDeathsGoal());
 		registerChallenge(new CollectItemsGoal());
+		registerChallenge(new CollectAllWood());
 		registerChallenge(new BreakBlockGoal());
 		registerChallenge(new MineDiamondsGoal());
 
@@ -96,7 +93,7 @@ public class ChallengeLoader {
 		registerChallenge(new MaterialRule(Material.FURNACE, "§7"));
 		registerChallenge(new MaterialRule(Material.ENCHANTING_TABLE, "§5"));
 		registerChallenge(new MaterialRule(Material.ANVIL, "§7Anvil", Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL));
-		registerChallenge(new MaterialRule(Material.FLETCHING_TABLE, "§e"));
+		if (Challenges.getVersion() > 13) registerChallenge(new MaterialRule(Material.FLETCHING_TABLE, "§e"));
 		registerChallenge(new MaterialRule(Material.BREWING_STAND, "§d"));
 		registerChallenge(new MaterialRule(Material.BOW , "§c"));
 		registerChallenge(new MaterialRule(Material.SNOWBALL , "§f"));
@@ -110,7 +107,6 @@ public class ChallengeLoader {
 		registerChallenge(new DamageRule(Material.IRON_SWORD, "§dAttack Damage", DamageCause.PROJECTILE, DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK));
 		registerChallenge(new DamageRule(Material.FERMENTED_SPIDER_EYE, "§5Magic Damage", DamageCause.MAGIC, DamageCause.WITHER, DamageCause.POISON, DamageCause.DRAGON_BREATH, DamageCause.LIGHTNING));
 		registerChallenge(new DamageRule(Material.GRAVEL, "§cBlock Damage", DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.FLY_INTO_WALL, DamageCause.CONTACT));
-
 	}
 
 	public static void registerChallengeWithCommand(String command, GeneralChallenge challenge) {
