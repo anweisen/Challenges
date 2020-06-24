@@ -5,6 +5,7 @@ import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.ItemBuilder.SkullBuilder;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -30,7 +31,8 @@ public class ChallengeItemManager {
     public ItemStack getNotActivatedItem() {
         String name = "Disabled";
         if (LanguageManager.getLanguage() == Language.GERMAN) name = "Deaktiviert";
-        return new ItemBuilder(Material.RED_DYE, "§c" + name).hideAttributes().build();
+
+        return new ItemBuilder(Utils.getRedDye(), "§c" + name).hideAttributes().build();
     }
 
     public ItemStack getActivationItem(boolean activated) {
