@@ -5,6 +5,7 @@ import net.codingarea.challengesplugin.challengetypes.Modifier;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -29,7 +30,7 @@ public class MaxHealthModifier extends Modifier implements Listener {
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(Material.RED_DYE, ItemTranslation.MAX_HEALTH).build();
+        return new ItemBuilder(Utils.getRedDye(), ItemTranslation.MAX_HEALTH).build();
     }
 
     @Override
