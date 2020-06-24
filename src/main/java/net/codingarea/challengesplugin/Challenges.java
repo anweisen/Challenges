@@ -1,6 +1,5 @@
 package net.codingarea.challengesplugin;
 
-import lombok.Getter;
 import net.codingarea.challengesplugin.commands.*;
 import net.codingarea.challengesplugin.listener.*;
 import net.codingarea.challengesplugin.manager.*;
@@ -12,6 +11,7 @@ import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
 import net.codingarea.challengesplugin.utils.StringManager;
+import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.YamlConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -25,24 +25,26 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Challenges extends JavaPlugin {
 
-    @Getter private static Challenges instance;
+    private static Challenges instance;
+    private static int version;
 
-    @Getter private StringManager stringManager;
-    @Getter private ChallengeManager challengeManager;
-    @Getter private ChallengeItemManager itemManager;
-    @Getter private ChallengeTimer challengeTimer;
-    @Getter private ScoreboardManager scoreboardManager;
-    @Getter private MenuManager menuManager;
-    @Getter private ConfigManager configManager;
-    @Getter private WorldManager worldManager;
-    @Getter private CloudNetManager cloudnetManager;
-    @Getter private MasterSystem permissionsSystem;
-    @Getter private ChallengePlayerManager playerManager;
-    @Getter private ServerManager serverManager;
+    private StringManager stringManager;
+    private ChallengeManager challengeManager;
+    private ChallengeItemManager itemManager;
+    private ChallengeTimer challengeTimer;
+    private ScoreboardManager scoreboardManager;
+    private MenuManager menuManager;
+    private ConfigManager configManager;
+    private WorldManager worldManager;
+    private CloudNetManager cloudnetManager;
+    private MasterSystem permissionsSystem;
+    private ChallengePlayerManager playerManager;
+    private ServerManager serverManager;
 
     @Override
     public void onLoad() {
         instance = this;
+        version = Utils.getServerVersion();
 
         loadCloudNet();
         loadConfig();
@@ -145,6 +147,62 @@ public class Challenges extends JavaPlugin {
 
     public static boolean timerIsStarted() {
         return !getInstance().getChallengeTimer().isPaused();
+    }
+
+    public static Challenges getInstance() {
+        return instance;
+    }
+
+    public ChallengeManager getChallengeManager() {
+        return challengeManager;
+    }
+
+    public ChallengeItemManager getItemManager() {
+        return itemManager;
+    }
+
+    public static int getVersion() {
+        return version;
+    }
+
+    public ChallengePlayerManager getPlayerManager() {
+        return playerManager;
+    }
+
+    public StringManager getStringManager() {
+        return stringManager;
+    }
+
+    public ChallengeTimer getChallengeTimer() {
+        return challengeTimer;
+    }
+
+    public CloudNetManager getCloudnetManager() {
+        return cloudnetManager;
+    }
+
+    public ConfigManager getConfigManager() {
+        return configManager;
+    }
+
+    public MasterSystem getPermissionsSystem() {
+        return permissionsSystem;
+    }
+
+    public MenuManager getMenuManager() {
+        return menuManager;
+    }
+
+    public ScoreboardManager getScoreboardManager() {
+        return scoreboardManager;
+    }
+
+    public ServerManager getServerManager() {
+        return serverManager;
+    }
+
+    public WorldManager getWorldManager() {
+        return worldManager;
     }
 
 }
