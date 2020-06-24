@@ -5,6 +5,7 @@ import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.challengetypes.Modifier;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -50,11 +51,11 @@ public class DifficultyModifier extends Modifier {
         if (this.value == 1) {
             return new ItemBuilder(Material.LIME_DYE, "§aPeaceful").getItem();
         } else if (this.value == 2) {
-            return new ItemBuilder(Material.GREEN_DYE, "§2Easy").getItem();
+            return new ItemBuilder(Utils.getGreenDye(), "§2Easy").getItem();
         } else if (this.value == 3) {
             return new ItemBuilder(Material.ORANGE_DYE, "§6Normal").getItem();
         } else {
-            return new ItemBuilder(Material.RED_DYE, "§cHard").getItem();
+            return new ItemBuilder(Utils.getRedDye(), "§cHard").getItem();
         }
     }
 
