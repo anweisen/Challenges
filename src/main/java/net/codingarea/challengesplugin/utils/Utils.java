@@ -36,7 +36,7 @@ import java.util.*;
 
 public class Utils {
 
-    static int version = Challenges.getVersion();
+    private static final int version = getServerVersion();
 
     public static Material getRedDye() {
         return Material.valueOf(version == 13 ? "ROSE_RED" : "RED_DYE");
@@ -44,6 +44,25 @@ public class Utils {
 
     public static Material getGreenDye() {
         return Material.valueOf(version == 13 ? "CACTUS_GREEN" : "GREEN_DYE");
+    }
+
+    public static void setFakeArmor(Player viewer, int entityID, Color color) {
+        ItemStack armor = getChestplate(color);
+
+        if (version == 16) Utils16.setFakeArmor(viewer, entityID, color);
+        if (version == 15) Utils15.setFakeArmor(viewer, entityID, color);
+        if (version == 14) Utils15.setFakeArmor(viewer, entityID, color);
+        if (version == 13) Utils13.setFakeArmor(viewer, entityID, color);
+
+    }
+
+    public static void sendActionbar(Player player, String message) {
+
+        if (version == 16) Utils16.sendActionbar(player, message);
+        if (version == 15) Utils15.sendActionbar(player, message);
+        if (version == 14) Utils14.sendActionbar(player, message);
+        if (version == 13) Utils13.sendActionbar(player, message);
+
     }
 
     public static int getRandomSecondsDistance(int seconds) {
@@ -235,33 +254,25 @@ public class Utils {
 
     }
 
-    public static void sendActionbar(Player player, String message) {
-
-        if (version == 15) {
-            Utils15.sendActionbar(player, message);
-        }
-        if (version == 14) {
-            Utils14.sendActionbar(player, message);
-        }
-        if (version == 13) {
-            Utils13.sendActionbar(player, message);
-        }
-
-    }
-
     public static int getServerVersion() {
-        try {
-            Material.BEE_SPAWN_EGG.name();
-            return 15;
-        } catch (NoSuchFieldError ignored1) {
-            try {
-                Material.BAMBOO.name();
-                return 14;
-            } catch (NoSuchFieldError ignored2) {
-                return 13;
-            }
 
+        try {
+            Material.NETHERITE_INGOT.name();
+            return 16;
+        } catch (NoSuchFieldError ignored) {
+            try {
+                Material.BEE_SPAWN_EGG.name();
+                return 15;
+            } catch (NoSuchFieldError ignored1) {
+                try {
+                    Material.BAMBOO.name();
+                    return 14;
+                } catch (NoSuchFieldError ignored2) {
+                    return 13;
+                }
+            }
         }
+
     }
 
     public static void spawnFireworks(Location location, int amount) {
@@ -298,19 +309,12 @@ public class Utils {
         player.setVelocity(vector.multiply(3.4F).setY(1.3F));
     }
 
-    public static void setFakeArmor(Player viewer, int entityID, Color color) {
-        ItemStack armor = getChestplate(color);
-
-        if (version == 15) {
-            Utils15.setFakeArmor(viewer, entityID, color);
-        }
-        if (version == 14) {
-            Utils15.setFakeArmor(viewer, entityID, color);
-        }
-        if (version == 13) {
-            Utils13.setFakeArmor(viewer, entityID, color);
-        }
-
+    public static ItemStack getHelmet(Color color) {
+        ItemStack armor = new ItemStack(Material.LEATHER_HELMET);
+        LeatherArmorMeta meta = (LeatherArmorMeta) armor.getItemMeta();
+        meta.setColor(color);
+        armor.setItemMeta(meta);
+        return armor;
     }
 
     public static ItemStack getChestplate(Color color) {
@@ -319,6 +323,26 @@ public class Utils {
         meta.setColor(color);
         armor.setItemMeta(meta);
         return armor;
+    }
+
+    public static ItemStack getLeggings(Color color) {
+        ItemStack armor = new ItemStack(Material.LEATHER_LEGGINGS);
+        LeatherArmorMeta meta = (LeatherArmorMeta) armor.getItemMeta();
+        meta.setColor(color);
+        armor.setItemMeta(meta);
+        return armor;
+    }
+
+    public static ItemStack getBoots(Color color) {
+        ItemStack armor = new ItemStack(Material.LEATHER_BOOTS);
+        LeatherArmorMeta meta = (LeatherArmorMeta) armor.getItemMeta();
+        meta.setColor(color);
+        armor.setItemMeta(meta);
+        return armor;
+    }
+
+    public static ItemStack[] getLeatherArmor(Color color) {
+        return new ItemStack[]{getHelmet(color), getChestplate(color), getLeggings(color), getBoots(color)};
     }
 
     @SuppressWarnings("deprecation")
