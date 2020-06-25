@@ -23,6 +23,16 @@ public abstract class Setting extends GeneralChallenge {
 	public abstract void onDisable(ChallengeEditEvent event);
 
 	@Override
+	public void setValues(int value) {
+		enabled = value == 1;
+	}
+
+	@Override
+	public int toValue() {
+		return enabled ? 1 : 0;
+	}
+
+	@Override
 	public void handleClick(ChallengeEditEvent event) {
 		if (enabled) {
 			enabled = false;

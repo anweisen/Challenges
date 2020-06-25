@@ -11,6 +11,7 @@ import org.bukkit.entity.Player;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -22,7 +23,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public abstract class CollectGoal<T> extends Goal {
 
-	protected ConcurrentHashMap<Player, List<T>> points = new ConcurrentHashMap<>();
+	protected ConcurrentHashMap<UUID, List<T>> points = new ConcurrentHashMap<>();
 
 	@Override
 	public List<Player> getWinners() {
@@ -37,10 +38,10 @@ public abstract class CollectGoal<T> extends Goal {
 
 		}
 
-		for (Entry<Player, List<T>> entry : points.entrySet()) {
+		for (Entry<UUID, List<T>> entry : points.entrySet()) {
 
 			if (entry.getValue().size() == best) {
-				winners.add(entry.getKey());
+				winners.add(Bukkit.getPlayer(entry.getKey()));
 			}
 
 		}
@@ -52,19 +53,17 @@ public abstract class CollectGoal<T> extends Goal {
 	protected void updateScoreboard() {
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			if (!points.containsKey(currentPlayer)) {
-				points.put(currentPlayer, new ArrayList<>());
+			if (!points.containsKey(currentPlayer.getUniqueId())) {
+				points.put(currentPlayer.getUniqueId(), new ArrayList<>());
 			}
 		}
 
 		scoreboard.checkUpdate();
 
-		for (Entry<Player, List<T>> entry : points.entrySet()) {
-
-			Player currentPlayer = entry.getKey();
+		for (Entry<UUID, List<T>> entry : points.entrySet()) {
+			Player currentPlayer = Bukkit.getPlayer(entry.getKey());
 			List<T> collection = entry.getValue();
 			scoreboard.getUpdateObjective().getScore("§7" + currentPlayer.getDisplayName()).setScore(collection.size());
-
 		}
 
 		scoreboard.applyChanges();
@@ -77,11 +76,11 @@ public abstract class CollectGoal<T> extends Goal {
 		if (t == Material.AIR) return;
 
 		List<T> points;
-		if (this.points.containsKey(player)) {
-			points = this.points.get(player);
+		if (this.points.containsKey(player.getUniqueId())) {
+			points = this.points.get(player.getUniqueId());
 		} else {
 			points = new ArrayList<>();
-			this.points.put(player, points);
+			this.points.put(player.getUniqueId(), points);
 		}
 
 		if (!points.contains(t)) {

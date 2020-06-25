@@ -21,6 +21,15 @@ public abstract class AdvancedGoal extends Goal {
 
 	public abstract void onValueChange(ChallengeEditEvent event);
 
+	public void setValue(int value) {
+		if (value == 0) {
+			isCurrentGoal = false;
+		} else {
+			isCurrentGoal = true;
+			this.value = value;
+		}
+	}
+
 	@Override
 	public void handleClick(ChallengeEditEvent event) {
 

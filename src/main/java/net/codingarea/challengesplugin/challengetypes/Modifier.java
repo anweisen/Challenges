@@ -24,6 +24,16 @@ public abstract class Modifier extends GeneralChallenge {
     public abstract void onMenuClick(ChallengeEditEvent event);
 
     @Override
+    public void setValues(int value) {
+        this.value = value;
+    }
+
+    @Override
+    public int toValue() {
+        return value;
+    }
+
+    @Override
     public void handleClick(ChallengeEditEvent event) {
         if (sound != null) sound.play(event.getPlayer());
         if (event.wasRightClick()) {

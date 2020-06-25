@@ -21,6 +21,9 @@ public abstract class GeneralChallenge {
 	public abstract ItemStack getItem();
 	public abstract ItemStack getActivationItem();
 
+	public abstract void setValues(int value);
+	public abstract int toValue();
+
 	public ItemStack getItemToShow() {
 		return getItem();
 	}

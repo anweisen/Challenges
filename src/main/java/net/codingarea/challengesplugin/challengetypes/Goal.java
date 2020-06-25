@@ -30,6 +30,16 @@ public abstract class Goal extends GeneralChallenge implements ITimerStatusExecu
 	public abstract List<Player> getWinners();
 
 	@Override
+	public void setValues(int value) {
+		isCurrentGoal = value == 1;
+	}
+
+	@Override
+	public int toValue() {
+		return isCurrentGoal ? 1 : 0;
+	}
+
+	@Override
 	public void handleClick(ChallengeEditEvent event) { }
 
 	@Override

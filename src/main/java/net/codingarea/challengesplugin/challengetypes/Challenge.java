@@ -23,8 +23,17 @@ public abstract class Challenge extends GeneralChallenge {
 
     public abstract void onEnable(ChallengeEditEvent event);
     public abstract void onDisable(ChallengeEditEvent event);
-
     public abstract void onTimeActivation();
+
+    @Override
+    public void setValues(int value) {
+        enabled = value != 0;
+    }
+
+    @Override
+    public int toValue() {
+        return enabled ? 1 : 0;
+    }
 
     @Override
     public void handleClick(ChallengeEditEvent event) {
