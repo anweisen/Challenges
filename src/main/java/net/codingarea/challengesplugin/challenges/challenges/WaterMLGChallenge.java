@@ -45,10 +45,7 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
             Location chunkLocation = new Location(flatWorld, 0.5, 100, 0.5);
 
             for (Player player : Bukkit.getOnlinePlayers()) {
-
                 chunkLocation.add(0,50,0).getChunk().load(true);
-
-
             }
 
         Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
@@ -59,11 +56,12 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
             HashMap<Player, Integer> playerSlots = new HashMap<>();
 
             for (Player player : Bukkit.getOnlinePlayers()) {
+
                 if (player.getGameMode() == GameMode.SPECTATOR) continue;
 
                 playerInventories.put(player, player.getInventory().getContents().clone());
                 playerLocations.put(player, player.getLocation().clone());
-                playerSlots.put(player, (Integer) player.getInventory().getHeldItemSlot());
+                playerSlots.put(player, player.getInventory().getHeldItemSlot());
 
                 Location playerLocation = location.add(50,0,0).clone();
                 playerLocation.getChunk().load(true);
@@ -77,15 +75,13 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
         }
 
             Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+
                 for (Entry<Player, ItemStack[]> entry : playerInventories.entrySet()) {
                     try {
                         entry.getKey().getInventory().setContents(entry.getValue());
                         entry.getKey().teleport(playerLocations.get(entry.getKey()));
                         entry.getKey().getInventory().setHeldItemSlot(playerSlots.get(entry.getKey()));
-                    } catch (Exception e) {
-                        continue;
-                    }
-
+                    } catch (Exception ignored) {   }
                 }
 
                 for (Block block : blocks) {
@@ -100,23 +96,20 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
 
     @EventHandler
     public void onPlace(PlayerBucketEmptyEvent event) {
-        Bukkit.broadcastMessage("a");
         if (!this.enabled) return;
         if (event.getBlock().getLocation().getWorld() == flatWorld) blocks.add(event.getBlock());
-
     }
-
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
         this.value = 5;
+        this.nextActionInSeconds = getRandomSeconds();
         this.flatWorld = Bukkit.createWorld(new WorldCreator("watermlg").type(WorldType.FLAT));
         this.flatWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
     }
 
     @Override
-    public void onDisable(ChallengeEditEvent event) {
-    }
+    public void onDisable(ChallengeEditEvent event) { }
 
     @Override
     public ItemStack getItem() {
@@ -135,4 +128,5 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
         int min = Utils.getRandomSecondsDown(value*60);
         return secondsRandom.nextInt(max - min) + min;
     }
+
 }
