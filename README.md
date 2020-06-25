@@ -62,7 +62,10 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » No hunger <br>
 <br>
 **Damage** <br>
-» Allows you toggle every singe type of damage <br>
+» Allows you toggle every single type of damage <br>
+<br>
+**Items and blocks** <br>
+» Allows you to disable the most important items and blocks <br>
 <br>
 **Goal** <br>
 » Kill the enderdragon <br>
@@ -73,4 +76,16 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » Break blocks <br>
 » Mine diamonds <br>
 <br>
-• list updated 06-25-2020 •
+**Commands** <br>
+» /gamemode <gm> [player] <br>
+» /backpack <br>
+» /position <name> <br>
+» setmaster <player> <br>
+» /start <br>
+» /pause <br>
+» /reset <br>
+» /top <br>
+» /village <br>
+» /timer <br>
+<br>
+• list updated on 06-25-2020 •
