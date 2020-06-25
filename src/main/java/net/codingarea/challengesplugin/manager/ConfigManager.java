@@ -1,8 +1,6 @@
 package net.codingarea.challengesplugin.manager;
 
 import net.codingarea.challengesplugin.utils.YamlConfig;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @author anweisen & Dominik
@@ -13,8 +11,32 @@ import lombok.Setter;
 
 public class ConfigManager {
 
-	@Getter @Setter private YamlConfig backpackConfig;
-	@Getter @Setter private YamlConfig positionConfig;
-	@Getter @Setter private YamlConfig internalConfig;
+	private YamlConfig backpackConfig;
+	private YamlConfig positionConfig;
+	private YamlConfig internalConfig;
+
+	public YamlConfig getBackpackConfig() {
+		return backpackConfig;
+	}
+
+	public YamlConfig getInternalConfig() {
+		return internalConfig;
+	}
+
+	public YamlConfig getPositionConfig() {
+		return positionConfig;
+	}
+
+	public void setBackpackConfig(YamlConfig backpackConfig) {
+		this.backpackConfig = backpackConfig;
+	}
+
+	public void setInternalConfig(YamlConfig internalConfig) {
+		this.internalConfig = internalConfig;
+	}
+
+	public void setPositionConfig(YamlConfig positionConfig) {
+		this.positionConfig = positionConfig;
+	}
 
 }

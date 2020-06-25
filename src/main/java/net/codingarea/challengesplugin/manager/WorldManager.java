@@ -1,6 +1,5 @@
 package net.codingarea.challengesplugin.manager;
 
-import lombok.Getter;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
@@ -20,7 +19,7 @@ import java.util.logging.Level;
 
 public class WorldManager {
 
-	@Getter private static WorldManager instance;
+	private static WorldManager instance;
 
 	private boolean restartOnReset;
 	private boolean reseted;
@@ -31,6 +30,7 @@ public class WorldManager {
 	private boolean reset;
 
 	public WorldManager(Challenges plugin) {
+		instance = this;
 		this.plugin = plugin;
 	}
 
@@ -39,9 +39,7 @@ public class WorldManager {
 		reset = plugin.getConfigManager().getInternalConfig().getConfig().getBoolean("reset");
 		levelName = plugin.getConfigManager().getInternalConfig().getConfig().getString("level-name");
 
-		if (levelName == null) {
-			levelName = "world";
-		}
+		if (levelName == null) levelName = "world";
 
 		restartOnReset = plugin.getConfig().getBoolean("restart-on-reset");
 
@@ -74,7 +72,7 @@ public class WorldManager {
 	public static void prepareReset(boolean shutdownAfter, CommandSender sender) {
 
 		Challenges.getInstance().getLogger().log(Level.INFO, "Preparing server reset..");
-		instance.reset = true;
+		instance.reseted = true;
 
 		Challenges.getInstance().getChallengeTimer().stopTimer(sender instanceof Player ? (Player) sender : null, false);
 
@@ -115,5 +113,9 @@ public class WorldManager {
 
 	public boolean getReseted() {
 		return reseted;
+	}
+
+	public static WorldManager getInstance() {
+		return instance;
 	}
 }

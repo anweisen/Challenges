@@ -4,7 +4,6 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
 import net.codingarea.challengesplugin.manager.goal.GoalManager;
 import net.codingarea.challengesplugin.manager.loader.ChallengeLoader;
-import lombok.Getter;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -19,10 +18,10 @@ import java.util.List;
 
 public class ChallengeManager {
 
-    @Getter private Challenges plugin;
-    @Getter private final List<GeneralChallenge> challenges;
-    @Getter private final ChallengeLoader loader;
-    @Getter private final GoalManager goalManager;
+    private Challenges plugin;
+    private final List<GeneralChallenge> challenges;
+    private final ChallengeLoader loader;
+    private final GoalManager goalManager;
 
     public ChallengeManager(Challenges plugin) {
         this.plugin = plugin;
@@ -40,6 +39,16 @@ public class ChallengeManager {
         plugin.getMenuManager().load();
     }
 
+    public GeneralChallenge getChallengeByClass(Class<?> clazz) {
+
+        for (GeneralChallenge currentChallenge : challenges) {
+            if (challenges.getClass().getName().equals(clazz.getName())) return currentChallenge;
+        }
+
+        return null;
+
+    }
+
     public GeneralChallenge getChallengeByItem(ItemStack item) {
 
         for (GeneralChallenge currentChallenge : challenges) {
@@ -51,6 +60,21 @@ public class ChallengeManager {
         }
 
         return null;
+    }
 
+    public Challenges getPlugin() {
+        return plugin;
+    }
+
+    public ChallengeLoader getLoader() {
+        return loader;
+    }
+
+    public GoalManager getGoalManager() {
+        return goalManager;
+    }
+
+    public List<GeneralChallenge> getChallenges() {
+        return challenges;
     }
 }
