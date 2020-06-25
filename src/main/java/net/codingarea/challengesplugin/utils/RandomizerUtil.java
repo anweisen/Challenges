@@ -49,7 +49,6 @@ public class RandomizerUtil {
         list.remove(EntityType.PLAYER);
         list.remove(EntityType.GIANT);
         list.remove(EntityType.ZOMBIE_HORSE);
-        list.remove(EntityType.PIG_ZOMBIE);
 
         return list;
     }
