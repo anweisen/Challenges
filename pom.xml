@@ -30,6 +30,12 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.19</version>
+        </dependency>
+
         <!--  cloudnet driver for plugins and modules -->
         <dependency>
             <groupId>de.dytanic.cloudnet</groupId>
