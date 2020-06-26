@@ -1,6 +1,6 @@
 name: Challenges
 author: anweisen & Dominik
-version: 1.0.0
+version: 1.0.3
 main: net.codingarea.challengesplugin.Challenges
 api-version: 1.13
 
@@ -56,8 +56,11 @@ commands:
     permission: challenges.village
   language:
     description: Temporily changes the language
-    permission: challenges.langage
+    permission: challenges.language
   up:
     description: Teleports you to the highest location above you
     aliases:
       - top
+  config:
+    description: Saves the current challenge configuration to the database
+    permission: challenges.config
