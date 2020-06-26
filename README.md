@@ -77,15 +77,17 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » Mine diamonds <br>
 <br>
 **Commands** <br>
-» /gamemode <gm> [player] <br>
-» /backpack <br>
+» /backpack <br> 
 » /position <name> <br>
-» setmaster <player> <br>
-» /start <br>
-» /pause <br>
-» /reset <br>
 » /top <br>
-» /village <br>
-» /timer <br>
+» /gamemode <gm> [player] • challenges.gamemode <br>
+» /setmaster <player> • challenges.setmaster <br>
+» /start • challenges.start <br>
+» /pause • challenges.pause <br>
+» /reset • challenges.reset <br>
+» /village • challenges.village <br>
+» /timer • challenges.timer <br>
+» /challenges • challenges.gui <br>
+» /config • challenges.config <br>
 <br>
 • list updated on 06-25-2020 •
