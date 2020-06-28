@@ -24,6 +24,10 @@ public abstract class GeneralChallenge {
 	public abstract void setValues(int value);
 	public abstract int toValue();
 
+	public String getChallengeName() {
+		return this.getClass().getName().toLowerCase();
+	}
+
 	public ItemStack getItemToShow() {
 		return getItem();
 	}
@@ -42,7 +46,6 @@ public abstract class GeneralChallenge {
 			return null;
 		}
 	}
-
 
 	public final MenuType getMenu() {
 		return menu;
