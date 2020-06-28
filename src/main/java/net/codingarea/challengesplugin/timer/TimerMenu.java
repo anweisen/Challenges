@@ -5,7 +5,6 @@ import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.timer.ChallengeTimer.TimerMode;
 import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
 import net.codingarea.challengesplugin.utils.Utils;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,8 +24,6 @@ public class TimerMenu {
 
 	private ChallengeTimer timer;
 
-	@Getter private TimerMenuItemManager itemManager;
-
 	private Inventory mainPage,
 					  timePage;
 
@@ -39,8 +36,6 @@ public class TimerMenu {
 	public TimerMenu(ChallengeTimer timer) {
 
 		this.timer = timer;
-
-		itemManager = new TimerMenuItemManager();
 
 		createInventory();
 		generateInventory();
@@ -70,8 +65,8 @@ public class TimerMenu {
 	}
 
 	private void updateMainMenu() {
-		mainPage.setItem(startSlot, timer.isPaused() ? itemManager.getTimerStoppedItem() : itemManager.getTimerStartedItem());
-		mainPage.setItem(modeSlot, timer.getMode() == TimerMode.UP ? itemManager.getTimerModeUpItem() : itemManager.getTimerModeDownItem());
+		mainPage.setItem(startSlot, timer.isPaused() ? timer.getPlugin().getItemManager().getTimerStoppedItem() : timer.getPlugin().getItemManager().getTimerStartedItem());
+		mainPage.setItem(modeSlot, timer.getMode() == TimerMode.UP ? timer.getPlugin().getItemManager().getTimerModeUpItem() : timer.getPlugin().getItemManager().getTimerModeDownItem());
 	}
 
 	private void updateTimeMenu() {
@@ -201,6 +196,8 @@ public class TimerMenu {
 
 		if (event.isShiftClick()) seconds *= 10;
 
+		if (seconds <= 0 && timer.getSeconds() + seconds <= 0) return;
+
 		if (timer.getMode() == TimerMode.UP) {
 			timer.addSeconds(seconds);
 		} else {
@@ -245,5 +242,4 @@ public class TimerMenu {
 		return new ItemBuilder(material, " ", lore).build();
 
 	}
-
 }
