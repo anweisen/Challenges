@@ -10,6 +10,7 @@ import org.bukkit.*;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
@@ -28,7 +29,7 @@ public class ServerManager {
 
 	private static ServerManager instance;
 
-	private Challenges plugin;
+	private final Challenges plugin;
 
 	public ServerManager(Challenges plugin) {
 		instance = this;
@@ -36,35 +37,40 @@ public class ServerManager {
 	}
 
 	public static void simulateChallengeEnd(Player player, ChallengeEndCause cause) {
-		instance.handleChallengeEnd(player, cause);
+		instance.handleChallengeEnd(player, cause, null);
 	}
 
-	public void handleChallengeEnd(Player player, ChallengeEndCause cause) {
+	public void handleChallengeEnd(Player player, ChallengeEndCause cause, PlayerDeathEvent deathEvent) {
 
-		if (!Challenges.timerIsStarted()) {
-			System.out.println("Challenge tried to end :: Timer not started :: " + player);
-			return;
-		}
-
+		if (!Challenges.timerIsStarted()) return;
 		if (cause == ChallengeEndCause.KILL_ALL) return;
+
+		if (deathEvent != null) {
+			deathEvent.setKeepInventory(true);
+			deathEvent.getDrops().clear();
+		}
 
 		List<Player> winners = new ArrayList<>();
 		if (cause == ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED || cause == ChallengeEndCause.LAST_MAN_STANDING) {
 			winners.add(player);
 		} else {
-			try { winners.addAll(plugin.getChallengeManager().getGoalManager().getCurrentGoal().getWinners()); } catch (NullPointerException ignored) { };
+			try {
+				winners.addAll(plugin.getChallengeManager().getGoalManager().getCurrentGoal().getWinners());
+			} catch (NullPointerException ignored) { }
 		}
 
 		String players = Utils.getPlayerListAsString(winners);
 		boolean setAllToSpectator = true;
 
+		String message = "";
 		if (cause == ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED || cause == ChallengeEndCause.LAST_MAN_STANDING) {
-			Bukkit.broadcastMessage(Translation.CHALLENGE_END_GOAL_REACHED.get().replace("%time%", ChallengeTimer.getTimeDisplay(plugin.getChallengeTimer().getSeconds())).replace("%winner%", players).replace("%seed%", Bukkit.getWorlds().get(0).getSeed() + ""));
+			message = Translation.CHALLENGE_END_GOAL_REACHED.get();
 		} else if (cause == ChallengeEndCause.TIMER_END) {
-			Bukkit.broadcastMessage(Translation.CHALLENGE_END_TIMER_END.get().replace("%time%", ChallengeTimer.getTimeDisplay(plugin.getChallengeTimer().getSeconds())).replace("%winner%", players).replace("%seed%", Bukkit.getWorlds().get(0).getSeed() + ""));
+			message = Translation.CHALLENGE_END_TIMER_END.get();
 		} else if (cause == ChallengeEndCause.PLAYER_CHALLENGE_FAIL || cause == ChallengeEndCause.PLAYER_DEATH) {
-			Bukkit.broadcastMessage(Translation.CHALLENGE_END_GOAL_FAILED.get().replace("%time%", ChallengeTimer.getTimeDisplay(plugin.getChallengeTimer().getSeconds())).replace("%winner%", players).replace("%seed%", Bukkit.getWorlds().get(0).getSeed() + ""));
+			message = Translation.CHALLENGE_END_GOAL_FAILED.get();
 		}
+		message = message.replace("%time%", ChallengeTimer.getTimeDisplay(plugin.getChallengeTimer().getSeconds())).replace("%winner%", players).replace("%seed%", Bukkit.getWorlds().get(0).getSeed() + "");
 
 		plugin.getChallengeTimer().stopTimer(null, false);
 
@@ -78,17 +84,19 @@ public class ServerManager {
 
 		playEndEffect();
 
+		String finalMessage = message;
+		Bukkit.getScheduler().runTaskLater(plugin, () -> Bukkit.broadcastMessage(finalMessage), 2);
+
 	}
 
 	private void dropInventory(PlayerInventory inventory, Location location) {
 
-		List<ItemStack> items = new ArrayList<>();
-		items.addAll(Arrays.asList(inventory.getContents()));
-		items.addAll(Arrays.asList(inventory.getArmorContents()));
+		List<ItemStack> items = new ArrayList<>(Arrays.asList(inventory.getContents()));
 
 		inventory.clear();
 
 		for (ItemStack currentItemStack : items) {
+			if (currentItemStack == null) continue;
 			if (currentItemStack.getType() == Material.AIR) continue;
 			Item currentItem = (Item) location.getWorld().spawnEntity(location, EntityType.DROPPED_ITEM);
 			currentItem.setItemStack(currentItemStack);
