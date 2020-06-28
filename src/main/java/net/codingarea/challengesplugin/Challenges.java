@@ -9,10 +9,12 @@ import net.codingarea.challengesplugin.manager.menu.MenuManager;
 import net.codingarea.challengesplugin.manager.permissions.MasterSystem;
 import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
+import net.codingarea.challengesplugin.manager.settings.PlayerSettingsManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
 import net.codingarea.challengesplugin.utils.StringManager;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.YamlConfig;
+import net.codingarea.challengesplugin.utils.sql.MySQL;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -26,7 +28,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class Challenges extends JavaPlugin {
 
     private static Challenges instance;
-    private static int version;
+    private static final int version = Utils.getServerVersion();
+
+    private boolean isNewestVersion = true;
 
     private StringManager stringManager;
     private ChallengeManager challengeManager;
@@ -40,41 +44,44 @@ public class Challenges extends JavaPlugin {
     private MasterSystem permissionsSystem;
     private ChallengePlayerManager playerManager;
     private ServerManager serverManager;
+    private PlayerSettingsManager playerSettingsManager;
 
     @Override
     public void onLoad() {
-        instance = this;
-        version = Utils.getServerVersion();
 
+        instance = this;
+
+        loadVersions();
         loadCloudNet();
         loadConfig();
         loadWorlds();
+        loadSQL();
+
     }
 
     @Override
     public void onEnable() {
+
         saveDefaultConfig();
         reloadConfig();
 
-        load();
+        init();
         registerCommands();
         registerListener();
 
         challengeTimer.start();
-
-        scoreboardManager.setCurrentBoard(scoreboardManager.getNewScoreboard("main"));
-        scoreboardManager.getCurrentBoard().show();
         scoreboardManager.show();
 
     }
 
     @Override
     public void onDisable() {
-
-        if (scoreboardManager != null) scoreboardManager.hide();
+        if (scoreboardManager != null) {
+            scoreboardManager.hide();
+            scoreboardManager.destroyAllScoreboards();
+        }
         if (challengeTimer != null) {
             challengeTimer.stop();
-            challengeTimer = null;
         }
     }
 
@@ -91,6 +98,7 @@ public class Challenges extends JavaPlugin {
         getCommand("position").setExecutor(new PositionCommand());
         getCommand("village").setExecutor(new VillageCommand());
         getCommand("language").setExecutor(new LanguageCommand());
+        getCommand("config").setExecutor(new ConfigCommand(this));
     }
 
     private void registerListener() {
@@ -101,10 +109,11 @@ public class Challenges extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
     }
 
-    private void load() {
+    private void init() {
         LanguageManager.setLanguage(Language.getLanguage(getConfig().getString("language")));
         serverManager = new ServerManager(this);
         playerManager = new ChallengePlayerManager(this);
+        playerSettingsManager = new PlayerSettingsManager(this);
         stringManager = new StringManager();
         stringManager.load(getConfig());
         itemManager = new ChallengeItemManager();
@@ -142,6 +151,30 @@ public class Challenges extends JavaPlugin {
 
         if (cloudnetManager.cloudnetSupport) {
             cloudnetManager.setLobby();
+        }
+    }
+
+    private void loadSQL() {
+
+        if (!getConfig().getBoolean("mysql.enabled")) return;
+
+        String host = getConfig().getString("mysql.host");
+        String database = getConfig().getString("mysql.database");
+        String user = getConfig().getString("mysql.user");
+        String password = getConfig().getString("mysql.password");
+
+        if (host == null || database == null || user == null || password == null) return;
+
+        MySQL.connect(host, database, user, password);
+        MySQL.createDatabases();
+
+    }
+
+    private void loadVersions() {
+        String version = getConfig().getString("config-version");
+        if (!version.equals("1.0.3")) {
+            getLogger().warning("This plugin had an update. Please delete your config and restart the server to see whats new in the config");
+            isNewestVersion = false;
         }
     }
 
@@ -205,4 +238,11 @@ public class Challenges extends JavaPlugin {
         return worldManager;
     }
 
+    public PlayerSettingsManager getPlayerSettingsManager() {
+        return playerSettingsManager;
+    }
+
+    public boolean isNewestVersion() {
+        return isNewestVersion;
+    }
 }
