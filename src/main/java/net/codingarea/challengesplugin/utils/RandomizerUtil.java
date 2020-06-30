@@ -33,7 +33,7 @@ public class RandomizerUtil {
         } catch (NoSuchFieldError ignored) {
 
         }
-        list.removeIf(material -> isAir(material) || material.isLegacy() || !material.isItem());
+        list.removeIf(material -> isAir(material) || material.isLegacy() || material.isItem());
 
         return list;
 
