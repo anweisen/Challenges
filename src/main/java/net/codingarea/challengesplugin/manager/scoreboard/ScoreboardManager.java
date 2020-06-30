@@ -1,10 +1,21 @@
 package net.codingarea.challengesplugin.manager.scoreboard;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.boss.BossBar;
+import org.bukkit.boss.KeyedBossBar;
+import org.bukkit.entity.Boss;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * @author anweisen & Dominik
@@ -15,46 +26,38 @@ import org.bukkit.scoreboard.Scoreboard;
 
 public class ScoreboardManager {
 
-	private Challenges plugin;
+	private static ScoreboardManager instance;
+
+	private final List<ChallengeScoreboard> boardRegistered;
 
 	private boolean show;
 
-	private Scoreboard scoreboard;
+	private final Scoreboard scoreboard;
 
 	private ChallengeScoreboard currentBoard;
+	private final List<BossBar> activeBossBars;
 
-	public ScoreboardManager(Challenges plugin) {
-		this.plugin = plugin;
+	public ScoreboardManager() {
+		instance = this;
 		scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+		boardRegistered = new ArrayList<>();
+		activeBossBars = new ArrayList<>();
 	}
 
 	public void hide() {
-		if (!show) return;
 		show = false;
-
-		if (currentBoard == null) return;
-
-		currentBoard.hide();
-
+		if (currentBoard != null) {
+			currentBoard.hide();
+		}
 	}
 
 	public void show() {
-		if (show) return;
 		show = true;
-
-		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			showForPlayer(currentPlayer);
-		}
-
+		Utils.forEachPlayerOnline(this::showForPlayer);
 	}
 
 	public void showForPlayer(Player player) {
 		player.setScoreboard(scoreboard);
-	}
-
-	public void handleJoin(Player player) {
-		if (!show) return;
-		showForPlayer(player);
 	}
 
 	public void setCurrentBoard(ChallengeScoreboard board) {
@@ -72,7 +75,47 @@ public class ScoreboardManager {
 
 	public ChallengeScoreboard getNewScoreboard(String name) {
 		Objective objective = scoreboard.registerNewObjective(name, name, name);
-		return new ChallengeScoreboard(objective);
+		ChallengeScoreboard challengeScoreboard = new ChallengeScoreboard(objective);
+		boardRegistered.add(challengeScoreboard);
+		return challengeScoreboard;
 	}
 
+	public void destroyAllScoreboards() {
+		for (ChallengeScoreboard currentBoard : boardRegistered) {
+			currentBoard.destroyScoreboard();
+		}
+		Bukkit.getBossBars().forEachRemaining(currentBossBar -> {
+			Bukkit.removeBossBar(currentBossBar.getKey());
+		});
+	}
+
+	public void activateBossBar(BossBar bossBar) {
+		activeBossBars.add(bossBar);
+		Utils.forEachPlayerOnline(bossBar::addPlayer);
+	}
+
+	public void deactivateBossBar(BossBar bossBar) {
+		activeBossBars.remove(bossBar);
+		bossBar.removeAll();
+	}
+
+	public void handlePlayerConnect(PlayerJoinEvent event) {
+		if (show) {
+			showForPlayer(event.getPlayer());
+		}
+		for (BossBar currentBossBar : activeBossBars) {
+			currentBossBar.addPlayer(event.getPlayer());
+		}
+	}
+
+	public void handlePlayerDisconnect(PlayerQuitEvent event) {
+		for (@NotNull Iterator<KeyedBossBar> iterator = Bukkit.getBossBars(); iterator.hasNext();) {
+			BossBar currentBossBar = iterator.next();
+			currentBossBar.removePlayer(event.getPlayer());
+		}
+	}
+
+	public static ScoreboardManager getInstance() {
+		return instance;
+	}
 }
