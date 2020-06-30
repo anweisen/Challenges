@@ -1,7 +1,8 @@
 package net.codingarea.challengesplugin.challenges.settings;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.Setting;
+import net.codingarea.challengesplugin.challengetypes.Modifier;
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
@@ -22,10 +23,16 @@ import java.util.*;
  * https://github.com/anweisen
  * https://github.com/KxmischesDomi
  */
-public class TimberSetting extends Setting implements Listener {
+public class TimberSetting extends Modifier implements Listener {
 
     public TimberSetting() {
         this.menu = MenuType.SETTINGS;
+        maxValue = 3;
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "timber";
     }
 
     @Override
@@ -34,14 +41,14 @@ public class TimberSetting extends Setting implements Listener {
     }
 
     @Override
-    public void onEnable(ChallengeEditEvent event) { }
+    public void onMenuClick(ChallengeEditEvent event) {
 
-    @Override
-    public void onDisable(ChallengeEditEvent event) { }
+    }
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {
-        if (!enabled || !Challenges.timerIsStarted()) return;
+
+        if (value == 1 || !Challenges.timerIsStarted()) return;
         if (!isLog(event.getBlock().getType())) return;
 
         boolean broken = onTimber(event.getPlayer().getItemInHand(), event.getBlock(), LogType.getType(event.getBlock().getType()), false, 0);
@@ -69,7 +76,7 @@ public class TimberSetting extends Setting implements Listener {
         List<Block> blocksAround = getBlocksAroundBlock(block.getLocation());
         for (Block currentBlock : blocksAround) {
             boolean isLog = isLog(currentBlock.getType());
-            if (!(isLog || isLeaves(currentBlock.getType())) || LogType.getType(currentBlock.getType()) != type) continue;
+            if (!(isLog || (isLeaves(currentBlock.getType()) && value == 3)) || LogType.getType(currentBlock.getType()) != type) continue;
             if (byLeaves && isLog) continue;
             currentBlock.breakNaturally();
 
@@ -105,12 +112,23 @@ public class TimberSetting extends Setting implements Listener {
         return list;
     }
 
+    @Override
+    public ItemStack getActivationItem() {
+        if (value == 1) {
+            return ItemManager.getNotActivatedItem();
+        } else if (value == 2) {
+            return new ItemBuilder(Material.OAK_LOG, "§6Logs").build();
+        } else {
+            return new ItemBuilder(Material.OAK_LEAVES, "§2Logs & Leaves").build();
+        }
+    }
+
     public enum LogType {
 
-        OAK,
+        DARK_OAK,
         BIRCH,
         SPRUCE,
-        DARK_OAK,
+        OAK,
         ACACIA,
         JUNGLE;
 
@@ -118,10 +136,10 @@ public class TimberSetting extends Setting implements Listener {
 
             if (material == null) return null;
 
-            String name = material.name();
+            String name = material.name().toLowerCase();
 
             for (LogType currentLogType : values()) {
-                if (name.toLowerCase().contains(currentLogType.name().toLowerCase())) return currentLogType;
+                if (name.contains(currentLogType.name().toLowerCase())) return currentLogType;
             }
 
             return null;
