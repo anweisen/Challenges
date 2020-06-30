@@ -1,11 +1,17 @@
 name: Challenges
-author: anweisen & Dominik
-version: 1.0.3
-main: net.codingarea.challengesplugin.Challenges
+version: 1.0.4
 api-version: 1.13
+author: anweisen & Dominik
+authors:
+  - anweisen
+  - Dominik
+main: net.codingarea.challengesplugin.Challenges
+website: Coding-Area.net
+database: true
 
 commands:
   challenges:
+    usage: /challenges
     description: Opens the challenges menu
     permission: challenges.gui
     aliases:
@@ -13,54 +19,73 @@ commands:
       - c
       - settings
   timer:
+    usage: /timer <start/pause/reset/stop/set/mode> [arguments]
     permission: challenges.timer
     description: Allows you to start/stop/set the timer
     aliases:
       - t
   backpack:
+    usage: /backpack
     aliases:
       - b
       - bp
       - rucksack
   gamemode:
+    usage: /gamemode <gamemode> [player]
     permission: challenges.gamemode
     description: Changes you gamemode
     aliases:
       - gm
   heal:
+    usage: /heal <player>
     permission: challenges.heal
     description: Heals you
     aliases:
       - h
   start:
+    usage: /start
     description: Starts the timer
     permission: challenges.start
   pause:
+    usage: /pause
     description: Pauses the timer
     permission: challenges.pause
   reset:
+    usage: /reset [confirm]
     description: Resets the worlds
     permission: challenges.reset
   setmaster:
+    usage: /setmaster <player>
     description: Allows you to reset the master
     permission: challenges.setmaster
   search:
+    usage: /search <item>
     description: Search how to get a block, animal or something else in the randomizer
     permission: challenges.search
   position:
+    usage: /position <position name>
     description: Allows you to mark position to check them later
     aliases:
       - pos
   village:
+    usage: /village
     description: Teleports you to a village
     permission: challenges.village
   language:
+    usage: /language <language>
     description: Temporily changes the language
     permission: challenges.language
+    aliases:
+      - lang
   up:
+    usage: /up
     description: Teleports you to the highest location above you
     aliases:
       - top
   config:
+    usage: /config <save/load>
     description: Saves the current challenge configuration to the database
     permission: challenges.config
+    aliases:
+      - save
+      - load
