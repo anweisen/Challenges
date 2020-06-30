@@ -1,13 +1,14 @@
 package net.codingarea.challengesplugin.challenges.challenges.force;
 
-import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
-import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
+import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
 import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.RandomizerUtil;
@@ -21,9 +22,6 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -36,7 +34,7 @@ import java.util.Random;
  * https://github.com/anweisen
  * https://github.com/KxmischesDomi
  */
-public class ForceBlockChallenge extends Setting implements Listener, ISecondExecutor {
+public class ForceBlockChallenge extends Setting implements ISecondExecutor {
 
     private BossBar bossBar;
 
@@ -46,12 +44,11 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
     private Material material;
 
     private Random maxRandom,
-                    materialRandom,
-                    newRandom;
+                   materialRandom,
+                   newRandom;
 
     public ForceBlockChallenge() {
         this.menu = MenuType.CHALLENGES;
-
         time = 0;
         count = 0;
         material = Material.AIR;
@@ -60,16 +57,18 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
         newRandom = null;
     }
 
+    @Override
+    public String getChallengeName() {
+        return "forceblock";
+    }
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
         maxRandom = new Random();
         materialRandom = new Random();
         newRandom = new Random();
-
-        this.bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
-        addAllPlayersToBossBar();
-
+        bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
+        ScoreboardManager.getInstance().activateBossBar(bossBar);
     }
 
     @Override
@@ -77,8 +76,7 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
         maxRandom = null;
         materialRandom = null;
         newRandom = null;
-
-        this.bossBar.removeAll();
+        ScoreboardManager.getInstance().deactivateBossBar(bossBar);
     }
 
     @Override
@@ -86,9 +84,9 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
         if (!this.enabled) return;
 
         if (!Challenges.timerIsStarted()) {
-            this.bossBar.setColor(BarColor.RED);
-            this.bossBar.setProgress(1);
-            this.bossBar.setTitle("§cTimer stopped");
+            bossBar.setColor(BarColor.RED);
+            bossBar.setProgress(1);
+            bossBar.setTitle("§cTimer stopped");
             return;
         }
 
@@ -101,12 +99,11 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
                 List<Material> materials = RandomizerUtil.getRandomizerBlocks();
                 material = materials.get(materialRandom.nextInt(materials.size()));
                 count = 0;
-
             }
 
-            this.bossBar.setColor(BarColor.WHITE);
-            this.bossBar.setProgress(1);
-            this.bossBar.setTitle("§7Waiting...");
+            bossBar.setColor(BarColor.WHITE);
+            bossBar.setProgress(1);
+            bossBar.setTitle("§7Waiting...");
             return;
         }
         count++;
@@ -126,13 +123,6 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
 
     }
 
-    @EventHandler
-    public void onJoin(PlayerJoinEvent event) {
-        if (!this.enabled) return;
-        this.bossBar.addPlayer(event.getPlayer());
-
-    }
-
     /**
      * @return returns if the players not on the right position
      */
@@ -148,7 +138,6 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
             List<Block> blocks = new ArrayList<>();
             blocks.add(location.clone().getBlock());
             blocks.addAll(getBlocksAround(location.subtract(0,1,0)));
-
             blocks.removeIf(block -> block.getType() != material);
 
             if (blocks.isEmpty()) list.add(currentPlayer);
@@ -159,31 +148,17 @@ public class ForceBlockChallenge extends Setting implements Listener, ISecondExe
 
     }
 
-    private void addAllPlayersToBossBar() {
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            this.bossBar.addPlayer(player);
-        }
-
-    }
-
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(Material.DIAMOND_BOOTS, ItemTranslation.FORCE_BLOCK).hideAttributes().build();
     }
 
-    @Override
-    public void onTimerSecond() {
-
-    }
-
     public static List<Block> getBlocksAround(Location middle) {
-        List<Block> list = new ArrayList<>();
 
+        List<Block> list = new ArrayList<>();
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 list.add(middle.clone().add(i, 0, j).getBlock());
-
             }
         }
 

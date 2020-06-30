@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.challenges.challenges.force;
 
 import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
@@ -8,6 +9,7 @@ import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -21,6 +23,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.scoreboard.Score;
 
 import java.util.*;
 
@@ -30,7 +33,7 @@ import java.util.*;
  * https://github.com/anweisen
  * https://github.com/KxmischesDomi
  */
-public class ForceHighChallenge extends Setting implements Listener, ISecondExecutor {
+public class ForceHighChallenge extends Setting implements Listener, ISecondExecutor, ITimerStatusExecutor {
 
     private BossBar bossBar;
 
@@ -40,32 +43,39 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
     private int height;
 
     private Random maxRandom,
-                    highRandom,
-                    newRandom,
-                    playerRandom;
+                   highRandom,
+                   newRandom,
+                   playerRandom;
 
     public ForceHighChallenge() {
         this.menu = MenuType.CHALLENGES;
-
         time = 0;
         count = 0;
         height = -1;
         newRandom = new Random();
         timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
         newRandom = null;
-
     }
 
+    @Override
+    public String getChallengeName() {
+        return "forceheight";
+    }
+
+    @Override
+    public void onTimerStart() {
+        time = 125;
+    }
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
         maxRandom = new Random();
         highRandom = new Random();
         playerRandom = new Random();
+        newRandom = new Random();
 
-        this.bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
-        addAllPlayersToBossBar();
-
+        bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
+        ScoreboardManager.getInstance().activateBossBar(bossBar);
     }
 
     @Override
@@ -74,11 +84,7 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
         highRandom = null;
         newRandom = null;
         playerRandom = null;
-        this.bossBar.removeAll();
-    }
-
-    private void debug(String string) {
-        Bukkit.broadcastMessage(string);
+        ScoreboardManager.getInstance().deactivateBossBar(bossBar);
     }
 
     @Override
@@ -86,9 +92,9 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
         if (!this.enabled) return;
 
         if (!Challenges.timerIsStarted()) {
-            this.bossBar.setColor(BarColor.RED);
-            this.bossBar.setProgress(1);
-            this.bossBar.setTitle("§cTimer stopped");
+            bossBar.setColor(BarColor.RED);
+            bossBar.setProgress(1);
+            bossBar.setTitle("§cTimer stopped");
             return;
         }
 
@@ -101,12 +107,11 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
                 List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
                 height = highRandom.nextInt((players.get(playerRandom.nextInt(players.size())).getWorld().getMaxHeight() -1)) + 1;
                 count = 0;
-
             }
 
-            this.bossBar.setColor(BarColor.WHITE);
-            this.bossBar.setProgress(1);
-            this.bossBar.setTitle("§7Waiting...");
+            bossBar.setColor(BarColor.WHITE);
+            bossBar.setProgress(1);
+            bossBar.setTitle("§7Waiting...");
             return;
         }
         count++;
@@ -151,22 +156,9 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
 
     }
 
-    private void addAllPlayersToBossBar() {
-
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            this.bossBar.addPlayer(player);
-        }
-
-    }
-
     @Override
     public ItemStack getItem() {
         return new ItemBuilder(Material.IRON_BOOTS, ItemTranslation.FORCE_HIGH).hideAttributes().build();
-    }
-
-    @Override
-    public void onTimerSecond() {
-
     }
 
 }
