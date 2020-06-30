@@ -4,10 +4,11 @@ import net.codingarea.challengesplugin.Challenges;
 import de.dytanic.cloudnet.driver.CloudNetDriver;
 import de.dytanic.cloudnet.driver.permission.IPermissionUser;
 import de.dytanic.cloudnet.wrapper.Wrapper;
-import lombok.Getter;
+import net.codingarea.challengesplugin.manager.lang.Translation;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -22,35 +23,14 @@ import java.util.List;
 public class MasterSystem {
 
 	/*
-	 * Config section:
-	 * # This will toggle a system where the first user joined has the permissions to edit the challenges, reset the world, start/stop the timer and everything
-	 * # you add to the permission list. When the master leaves, a random user will get promoted to the master
-	 * master-system: false
-	 * master-changed-message: '§7The master has changed from §e%old% §7to §e%new%'
-	 * master-set-message: '§7The new master is §e%player%'
-	 * master-permissions:
-     * - 'challenges.gui'
-     * - 'challenges.timer'
-     * - 'challenges.start'
-     * - 'challenges.reset'
-     * - 'challenges.setmaster'
-     * - 'challenges.heal'
-     * - 'challenges.gamemode'
-     * - 'challenges.teleport'
-     * - 'challenges.village'
-     * - 'minecraft.command.locate'
-     * - 'minecraft.command.weather'
-     * - 'minecraft.command.time'
-     * - 'minecraft.command.teleport'
-     * - 'minecraft.command.spawnpoint'
-     * - 'minecraft.command.setworldspawn'
+	 * You found the master system so you can use it now lol you just have to find out how to activate it :)
 	 */
 
 	private final Challenges plugin;
 
-	@Getter private final boolean enabled;
+	private final boolean enabled;
 
-	@Getter private List<String> permissions;
+	private List<String> permissions;
 	private final String masterChangedMassage;
 	private final String masterSetMessage;
 	private Player currentMaster;
@@ -68,13 +48,10 @@ public class MasterSystem {
 	}
 
 	public void onEnable() {
-
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 			plugin.getPermissionsSystem().setPermissions(currentPlayer, false);
 		}
-
 		setRandomMaster(null);
-
 	}
 
 	public void handlePlayerDisconnect(Player player) {
@@ -82,6 +59,12 @@ public class MasterSystem {
 		if (!enabled) return;
 
 		if (currentMaster.equals(player)) {
+			try {
+				plugin.getPlayerSettingsManager().save(player.getName());
+				player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.SAVE_CONFIG_SUCCESS.get());
+			} catch (SQLException ex) {
+				player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.MYSQL_ERROR.get().replace("%error%", ex.getMessage()));
+			}
 			setRandomMaster(player);
 		}
 
@@ -106,6 +89,14 @@ public class MasterSystem {
 
 		if (currentMaster == null) {
 			changeMasterTo(player);
+
+			try {
+				if (plugin.getPlayerSettingsManager().isEnabled() && plugin.getPlayerSettingsManager().load(player.getName())) {
+					plugin.getMenuManager().loadMenus();
+					player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.LOAD_CONFIG_SUCCESS.get());
+				}
+			} catch (SQLException ignored) { }
+
 		}
 
 	}
@@ -135,6 +126,7 @@ public class MasterSystem {
 		}
 
 		setPermissions(master, true);
+		Bukkit.getScheduler().runTaskLater(plugin, () -> master.sendMessage(Translation.MASTER_COMMANDS.get()), 1);
 
 		currentMaster = master;
 
@@ -165,6 +157,14 @@ public class MasterSystem {
 		}
 		player.updateCommands();
 
+	}
+
+	public boolean isEnabled() {
+		return enabled;
+	}
+
+	public List<String> getPermissions() {
+		return permissions;
 	}
 
 }
