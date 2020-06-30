@@ -34,7 +34,6 @@ public class Challenges extends JavaPlugin {
 
     private StringManager stringManager;
     private ChallengeManager challengeManager;
-    private ChallengeItemManager itemManager;
     private ChallengeTimer challengeTimer;
     private ScoreboardManager scoreboardManager;
     private MenuManager menuManager;
@@ -116,7 +115,6 @@ public class Challenges extends JavaPlugin {
         playerSettingsManager = new PlayerSettingsManager(this);
         stringManager = new StringManager();
         stringManager.load(getConfig());
-        itemManager = new ChallengeItemManager();
         permissionsSystem = new MasterSystem(this,
                 getConfig().getString("master-changed-message"),
                 getConfig().getString("master-set-message"),
@@ -188,10 +186,6 @@ public class Challenges extends JavaPlugin {
 
     public ChallengeManager getChallengeManager() {
         return challengeManager;
-    }
-
-    public ChallengeItemManager getItemManager() {
-        return itemManager;
     }
 
     public static int getVersion() {
