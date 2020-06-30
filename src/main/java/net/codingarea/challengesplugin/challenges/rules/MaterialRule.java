@@ -49,6 +49,11 @@ public class MaterialRule extends Setting implements Listener {
     }
 
     @Override
+    public String getChallengeName() {
+        return Utils.getStringWithoutColorCodes(name).toLowerCase().replace(" ", "");
+    }
+
+    @Override
     public ItemStack getItem() {
         return new ItemBuilder(itemMaterial, ItemTranslation.MATERIAL_RULE, name).hideAttributes().getItem();
     }

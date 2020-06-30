@@ -6,6 +6,7 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -35,7 +36,11 @@ public class DamageRule extends Setting implements Listener {
         this.name = name;
         this.material = material;
         this.enabled = true;
+    }
 
+    @Override
+    public String getChallengeName() {
+        return Utils.getStringWithoutColorCodes(name).toLowerCase().replace(" ", "");
     }
 
     @Override
