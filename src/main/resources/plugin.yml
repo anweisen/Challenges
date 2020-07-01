@@ -1,5 +1,5 @@
 name: Challenges
-version: 1.0.4
+version: 1.1.1
 api-version: 1.13
 author: anweisen & Dominik
 authors:
@@ -89,3 +89,9 @@ commands:
     aliases:
       - save
       - load
+  skipflag:
+    usage: /skipflag
+    description: Skips the current flag in the GuessTheFlag challenge
+    permission: challenges.skipflag
+    aliases:
+      - currentflag
