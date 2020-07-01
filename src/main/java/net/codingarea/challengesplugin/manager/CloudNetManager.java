@@ -2,6 +2,8 @@ package net.codingarea.challengesplugin.manager;
 
 import de.dytanic.cloudnet.ext.bridge.BridgeHelper;
 import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
+import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.YamlConfig;
 
 /**
  * @author anweisen & Dominik
@@ -13,7 +15,8 @@ import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
 public class CloudNetManager {
 
 	public final boolean cloudnetSupport;
-	private static boolean wasIngame;
+	private boolean startNewServer;
+	private static boolean wasIngame; // Why static? - So the plugin keeps the setting when reloading the server
 
 	public CloudNetManager(boolean cloudnetSupport) {
 		this.cloudnetSupport = cloudnetSupport;
@@ -23,14 +26,14 @@ public class CloudNetManager {
 
 		try {
 			if (cloudnetSupport) {
-				if (!wasIngame) {
+				if (!wasIngame && startNewServer) {
 					BukkitCloudNetHelper.changeToIngame();
-					wasIngame = true;
-				} else
+				} else {
 					BukkitCloudNetHelper.setState("INGAME");
+				}
+				setWasIngame(true);
 				BridgeHelper.updateServiceInfo();
 			}
-
 		} catch (NoClassDefFoundError ex) {
 			ex.printStackTrace();
 		}
@@ -50,8 +53,20 @@ public class CloudNetManager {
 
 	}
 
+	public static void loadIngameFromConfig() {
+		Challenges.getInstance().getCloudnetManager().startNewServer = Challenges.getInstance().getConfig().getBoolean("start-new-server");
+		if (Challenges.getInstance().getConfigManager().getInternalConfig() == null) return;
+		wasIngame = Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().getBoolean("ingame");
+	}
+
 	public static boolean wasAlreadyIngame() {
 		return wasIngame;
 	}
 
+	public static void setWasIngame(boolean wasIngame) {
+		CloudNetManager.wasIngame = wasIngame;
+		if (Challenges.getInstance().getConfigManager().getInternalConfig() == null) return;
+		Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("ingame", wasIngame);
+		Challenges.getInstance().getConfigManager().getInternalConfig().save();
+	}
 }
