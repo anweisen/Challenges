@@ -3,6 +3,7 @@ package net.codingarea.challengesplugin.commands;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.Translation;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -25,18 +26,31 @@ import java.util.List;
 
 public class ConfigCommand implements CommandExecutor, TabCompleter {
 
-	private Challenges plugin;
+	private final Challenges plugin;
 
 	public ConfigCommand(Challenges plugin) {
 		this.plugin = plugin;
 	}
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
 		if (!(sender instanceof Player)) return true;
 
 		Player player = (Player) sender;
+
+		if (!plugin.getPlayerSettingsManager().isEnabled()) {
+			player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.FEATURE_DISABLED.get());
+			return true;
+		}
+
+		if (label.equalsIgnoreCase("save")) {
+			player.performCommand("config save");
+			return true;
+		} else if (label.equalsIgnoreCase("load")) {
+			player.performCommand("config load");
+			return true;
+		}
 
 		if (args.length != 1) {
 			player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + LanguageManager.syntax("/config <save/load>"));
@@ -78,22 +92,10 @@ public class ConfigCommand implements CommandExecutor, TabCompleter {
 	}
 
 	@Override
-	public @Nullable List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
 		if (args == null || args.length != 1) return null;
-
-		List<String> list = new ArrayList<>(Arrays.asList("load", "save"));
-		Collections.sort(list);
-
-		List<String> remove = new ArrayList<>();
-		for (String currentArg : list) {
-			if (!currentArg.toLowerCase().startsWith(args[0].toLowerCase())) {
-				remove.add(currentArg);
-			}
-		}
-		list.removeAll(remove);
-
-		return list;
+		return Utils.getMatchingSuggestions(args[0].toLowerCase(), "load", "save");
 
 	}
 }
