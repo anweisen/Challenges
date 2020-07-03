@@ -1,6 +1,10 @@
 package net.codingarea.challengesplugin.utils;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.nms.Utils13;
+import net.codingarea.challengesplugin.utils.nms.Utils14;
+import net.codingarea.challengesplugin.utils.nms.Utils15;
+import net.codingarea.challengesplugin.utils.nms.Utils16;
 import org.bukkit.Effect;
 import org.bukkit.Particle;
 import org.bukkit.FireworkEffect;
@@ -23,9 +27,15 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.logging.Level;
 
 /**
  * @author anweisen & Dominik
@@ -47,22 +57,17 @@ public class Utils {
     }
 
     public static void setFakeArmor(Player viewer, int entityID, Color color) {
-        ItemStack armor = getChestplate(color);
-
         if (version == 16) Utils16.setFakeArmor(viewer, entityID, color);
         if (version == 15) Utils15.setFakeArmor(viewer, entityID, color);
         if (version == 14) Utils15.setFakeArmor(viewer, entityID, color);
         if (version == 13) Utils13.setFakeArmor(viewer, entityID, color);
-
     }
 
     public static void sendActionbar(Player player, String message) {
-
         if (version == 16) Utils16.sendActionbar(player, message);
         if (version == 15) Utils15.sendActionbar(player, message);
         if (version == 14) Utils14.sendActionbar(player, message);
         if (version == 13) Utils13.sendActionbar(player, message);
-
     }
 
     public static int getRandomSecondsDistance(int seconds) {
@@ -78,37 +83,38 @@ public class Utils {
     }
 
     public static Material[] getArmors() {
-        return new Material[] { Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS,
-                Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS, Material.CHAINMAIL_BOOTS,
-                Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS,
-                Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS,
-                Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS};
+        return new Material[] {
+            Material.LEATHER_HELMET, Material.LEATHER_CHESTPLATE, Material.LEATHER_LEGGINGS, Material.LEATHER_BOOTS,
+            Material.CHAINMAIL_HELMET, Material.CHAINMAIL_CHESTPLATE, Material.CHAINMAIL_LEGGINGS, Material.CHAINMAIL_BOOTS,
+            Material.IRON_HELMET, Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS,
+            Material.DIAMOND_HELMET, Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS,
+            Material.GOLDEN_HELMET, Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS};
     }
 
     public static Material[] getFlowers() {
         return new Material[] {
-          Material.RED_MUSHROOM, Material.BROWN_MUSHROOM, Material.SUNFLOWER, Material.LILY_OF_THE_VALLEY, Material.LILY_PAD,
-          Material.DANDELION, Material.WITHER_ROSE, Material.CORNFLOWER, Material.OXEYE_DAISY, Material.ORANGE_TULIP, Material.PINK_TULIP,
-          Material.WHITE_TULIP, Material.RED_TULIP, Material.ROSE_BUSH, Material.AZURE_BLUET, Material.ALLIUM, Material.BLUE_ORCHID,
-          Material.POPPY, Material.DEAD_BUSH, Material.FLOWER_POT, Material.TORCH, Material.REDSTONE_TORCH, Material.WALL_TORCH,
-          Material.REDSTONE_WALL_TORCH
+            Material.RED_MUSHROOM, Material.BROWN_MUSHROOM, Material.SUNFLOWER, Material.LILY_OF_THE_VALLEY, Material.LILY_PAD,
+            Material.DANDELION, Material.WITHER_ROSE, Material.CORNFLOWER, Material.OXEYE_DAISY, Material.ORANGE_TULIP, Material.PINK_TULIP,
+            Material.WHITE_TULIP, Material.RED_TULIP, Material.ROSE_BUSH, Material.AZURE_BLUET, Material.ALLIUM, Material.BLUE_ORCHID,
+            Material.POPPY, Material.DEAD_BUSH, Material.FLOWER_POT, Material.TORCH, Material.REDSTONE_TORCH, Material.WALL_TORCH,
+            Material.REDSTONE_WALL_TORCH
         };
     }
 
     public static boolean isHalfBlock(Material material) {
         return material == Material.SOUL_SAND
-                || material == Material.GRASS_PATH
-                || material == Material.STONECUTTER
-                || material == Material.FARMLAND
-                || material == Material.ENCHANTING_TABLE
-                || material == Material.CHEST
-                || material == Material.TRAPPED_CHEST
-                || material == Material.ENDER_CHEST
-                || material == Material.CAMPFIRE
-                || material == Material.LANTERN
-                || material == Material.BREWING_STAND
-                || material == Material.CACTUS
-                || material == Material.SNOW;
+            || material == Material.GRASS_PATH
+            || material == Material.STONECUTTER
+            || material == Material.FARMLAND
+            || material == Material.ENCHANTING_TABLE
+            || material == Material.CHEST
+            || material == Material.TRAPPED_CHEST
+            || material == Material.ENDER_CHEST
+            || material == Material.CAMPFIRE
+            || material == Material.LANTERN
+            || material == Material.BREWING_STAND
+            || material == Material.CACTUS
+            || material == Material.SNOW;
     }
 
     public static List<Material> getRandomizerBlocks() {
@@ -125,7 +131,7 @@ public class Utils {
     }
 
     public static List<Material> getRandomizerDrops() {
-        List<Material> list = new ArrayList<Material>(Arrays.asList(Material.values()));
+        List<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
         list.remove(Material.COMMAND_BLOCK);
         list.remove(Material.CHAIN_COMMAND_BLOCK);
         list.remove(Material.REPEATING_COMMAND_BLOCK);
@@ -158,7 +164,7 @@ public class Utils {
             }
         }
 
-        return builder.toString();
+        return builder.toString().replace("And", "and");
 
     }
 
@@ -194,7 +200,7 @@ public class Utils {
 
         if (string == null) return "";
 
-        String[] strings = { "0", "1", "2", "3", "4", "5", "6", "8", "9", "o", "k", "l", "m", "f", "e", "d", "b", "a", "c" };
+        String[] strings = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "o", "k", "l", "m", "f", "e", "d", "b", "a", "c" };
 
         for (String currentString : strings) {
             string = string.replace("§" + currentString, "");
@@ -204,16 +210,14 @@ public class Utils {
 
     }
 
-    public static int getLocationInList(ItemStack toFind, List<ItemStack> list) {
+    public static <Type> int getLocationInList(Type toFind, List<Type> list) {
 
         if (list == null || toFind == null) return -1;
         if (!list.contains(toFind)) return -1;
 
         for (int i = 0; i < list.size(); i++)  {
-
-            ItemStack currentItem = list.get(i);
-            if (currentItem.equals(toFind)) return i;
-
+            Type currentEntry = list.get(i);
+            if (currentEntry.equals(toFind)) return i;
         }
 
         return -1;
@@ -223,9 +227,7 @@ public class Utils {
     public static String NO_PERMS_MESSAGE = "§cI'm sorry, but you do not have permission to perform this command. Please contact the server administrators if you believe this is in error.";
 
     public static boolean playerIsInArea(Player player, Location loc1, Location loc2) {
-
         return locationIsInArea(player.getLocation(), loc1, loc2);
-
     }
 
     public static boolean locationIsInArea(Location location, Location loc1, Location loc2) {
@@ -235,27 +237,23 @@ public class Utils {
         dim[0] = loc1.getX();
         dim[1] = loc2.getX();
         Arrays.sort(dim);
-        if(location.getX() > dim[1] || location.getX() < dim[0])
-            return false;
+        if(location.getX() > dim[1] || location.getX() < dim[0]) return false;
 
         dim[0] = loc1.getY();
         dim[1] = loc2.getY();
         Arrays.sort(dim);
-        if(location.getY() > dim[1] || location.getY() < dim[0])
-            return false;
+        if(location.getY() > dim[1] || location.getY() < dim[0]) return false;
 
         dim[0] = loc1.getZ();
         dim[1] = loc2.getZ();
         Arrays.sort(dim);
-        if (location.getZ() > dim[1] || location.getZ() < dim[0])
-            return false;
+        if (location.getZ() > dim[1] || location.getZ() < dim[0]) return false;
 
         return true;
 
     }
 
     public static int getServerVersion() {
-
         try {
             Material.NETHERITE_INGOT.name();
             return 16;
@@ -272,11 +270,10 @@ public class Utils {
                 }
             }
         }
-
     }
 
     public static void spawnFireworks(Location location, int amount) {
-        Location loc = location;
+        Location loc = location.clone();
         Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
         FireworkMeta fireworkMeta = firework.getFireworkMeta();
 
@@ -286,10 +283,10 @@ public class Utils {
         firework.setFireworkMeta(fireworkMeta);
         firework.detonate();
 
+        Random random = new Random();
         for(int i = 0; i < amount; i++) {
-            Random rand = new Random();
-            double x = 0.1 + (0.9 - 0.1) * rand.nextDouble();
-            double z = 0.1 + (0.9 - 0.1) * rand.nextDouble();
+            double x = 0.1 + (0.9 - 0.1) * random.nextDouble();
+            double z = 0.1 + (0.9 - 0.1) * random.nextDouble();
             Firework fireworkSpawned = (Firework) loc.getWorld().spawnEntity(loc.subtract(0.5, 0, 0.5).add(x, 0, z), EntityType.FIREWORK);
             fireworkSpawned.setFireworkMeta(fireworkMeta);
         }
@@ -297,14 +294,12 @@ public class Utils {
 
     public static void boostAway(Player player) {
         Vector vector = player.getLocation().getDirection();
-        player.getLocation().getYaw();
         player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.5F, 1F);
         player.setVelocity(vector.multiply(-1F).setY(0.5F));
     }
 
     public static void boostForwards(Player player) {
         Vector vector = player.getLocation().getDirection();
-        player.getLocation().getYaw();
         player.playSound(player.getLocation(), Sound.ENTITY_WITHER_SHOOT, 0.5F, 1F);
         player.setVelocity(vector.multiply(3.4F).setY(1.3F));
     }
@@ -342,7 +337,9 @@ public class Utils {
     }
 
     public static ItemStack[] getLeatherArmor(Color color) {
-        return new ItemStack[]{getHelmet(color), getChestplate(color), getLeggings(color), getBoots(color)};
+        return new ItemStack[] {
+                getHelmet(color), getChestplate(color), getLeggings(color), getBoots(color)
+        };
     }
 
     @SuppressWarnings("deprecation")
@@ -571,23 +568,19 @@ public class Utils {
         List<Integer> dontClearList = Arrays.asList(array);
 
         for (int i = 0; i < inventory.getSize(); i++) {
-
             if (dontClearList.contains(i)) continue;
-
             inventory.setItem(i, null);
-
         }
 
     }
 
     public static void fillInventory(Inventory inventory, ItemStack item, Integer[] dontFill) {
 
-        List<Integer> dontFillList = (dontFill != null ? Arrays.asList(dontFill) : null);
+        List<Integer> dontFillList = dontFill != null ? Arrays.asList(dontFill) : null;
 
         for (int i = 0; i < inventory.getSize(); i++) {
 
             if (dontFillList != null && dontFillList.contains(i)) continue;
-
             inventory.setItem(i, item);
 
         }
@@ -602,19 +595,15 @@ public class Utils {
         List<T> list2 = Arrays.asList(array2);
 
         for (T currentItem : list1) {
-
             if (!list2.contains(currentItem)) {
                 return false;
             }
-
         }
 
         for (T currentItem : list2) {
-
             if (!list1.contains(currentItem)) {
                 return false;
             }
-
         }
 
         return true;
@@ -626,7 +615,6 @@ public class Utils {
         if (path.exists()) {
 
             File[] files = path.listFiles();
-
             if (files == null) return false;
 
             for (File currentFile : files) {
@@ -660,9 +648,7 @@ public class Utils {
     public static Location getHighestBlock(Location location) {
 
         location = location.clone();
-
         location.getChunk().load(true);
-
         location.setY(255);
 
         while ((location.getBlock().isPassable() && location.getBlock().getType() != Material.WATER) && location.getBlockY() > 1) {
@@ -671,21 +657,56 @@ public class Utils {
         }
 
         location.add(0, 1, 0);
-
         return location;
 
     }
 
-    public static interface PlayerRunnable {
-        public void run(Player player);
+    public interface Runnable<ObjectType> {
+        void run(ObjectType object);
     }
 
-    public static void forEachPlayerOnline(PlayerRunnable runnable) {
-        for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-            runnable.run(currentPlayer);
+    public static void forEachPlayerOnline(Runnable<Player> runnable) {
+        Bukkit.getOnlinePlayers().forEach(runnable::run);
+    }
+
+    public static ArrayList<String> getMatchingSuggestions(String argument, String... suggestions) {
+        ArrayList<String> list = new ArrayList<>(Arrays.asList(suggestions));
+        list.removeIf(currentSuggestion -> !currentSuggestion.toLowerCase().startsWith(argument));
+        Collections.sort(list);
+        return list;
+    }
+
+    @SuppressWarnings("depraction")
+    public static Properties readProperties(File file) throws IOException {
+        return readProperties(file.toURL());
+    }
+
+    public static Properties readProperties(URL url) throws IOException {
+        Properties properties = new Properties();
+        InputStream input = url.openConnection().getInputStream();
+        properties.load(new InputStreamReader(input, StandardCharsets.UTF_8));
+        return properties;
+    }
+
+    public static void copyProperties(Properties source, Properties destination, File destinationFile) throws IOException {
+
+        for (String currentKey : source.stringPropertyNames()) {
+            String currentValue = source.getProperty(currentKey);
+            destination.setProperty(currentKey, currentValue);
         }
+
+        Writer writer = new PrintWriter(new FileOutputStream(destinationFile));
+        destination.store(writer, null);
+        writer.flush();
+        writer.close();
     }
 
-
+    public static void saveProperties(Properties properties, File file) throws IOException {
+        file.createNewFile();
+        Writer writer = new PrintWriter(new FileOutputStream(file));
+        properties.store(writer, null);
+        writer.flush();
+        writer.close();
+    }
 
 }
