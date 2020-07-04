@@ -8,7 +8,12 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * @author anweisen & Dominik
@@ -17,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
  * https://github.com/KxmischesDomi
  */
 
-public class LanguageCommand implements CommandExecutor {
+public class LanguageCommand implements CommandExecutor, TabCompleter {
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -28,10 +33,18 @@ public class LanguageCommand implements CommandExecutor {
 		}
 
 		Language language = Language.getLanguage(args[0]);
+		try {
+			LanguageManager.loadTemplate(language);
+		} catch (IOException ignored) { }
 		LanguageManager.setLanguage(language);
 		LanguageManager.onLanguageChange();
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + "§7Language temporarily set to §e" + Utils.getEnumName(language.name()));
+		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + "§7Language templates loaded: §e" + Utils.getEnumName(language.name()));
 		return true;
 
+	}
+
+	@Override
+	public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+		return args.length != 1 ? null : Utils.getMatchingSuggestions(args[0], "german", "english");
 	}
 }
