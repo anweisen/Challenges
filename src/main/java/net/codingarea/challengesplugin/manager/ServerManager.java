@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.manager;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challengetypes.Challenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
@@ -92,23 +93,27 @@ public class ServerManager {
 	private void dropInventory(PlayerInventory inventory, Location location) {
 
 		List<ItemStack> items = new ArrayList<>(Arrays.asList(inventory.getContents()));
-
 		inventory.clear();
 
 		for (ItemStack currentItemStack : items) {
-			if (currentItemStack == null) continue;
-			if (currentItemStack.getType() == Material.AIR) continue;
-			Item currentItem = (Item) location.getWorld().spawnEntity(location, EntityType.DROPPED_ITEM);
-			currentItem.setItemStack(currentItemStack);
+			try {
+				if (currentItemStack == null) continue;
+				if (currentItemStack.getType() == Material.AIR) continue;
+				location.getWorld().dropItemNaturally(location, currentItemStack);
+			} catch (IllegalArgumentException ignored) { }
 		}
 
 	}
 
 	private void playEndEffect() {
 
-		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			currentPlayer.getWorld().spawnEntity(currentPlayer.getLocation(), EntityType.FIREWORK);
-		}
+		// This try catch is needed because of a bug in the spigot-1.16 where you cannot spawn a firework and you get an IllegalArgumentException
+		// In the paper-1.16 the bug doesn't exists, so use it lol
+		try {
+			for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+				currentPlayer.getWorld().spawnEntity(currentPlayer.getLocation(), EntityType.FIREWORK);
+			}
+		} catch (IllegalArgumentException ignored) { };
 
 		new AnimationSound(Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 1F, 1F).broadcast();
 
