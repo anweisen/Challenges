@@ -1,7 +1,8 @@
 package net.codingarea.challengesplugin.timer;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
+import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
+import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
@@ -9,11 +10,10 @@ import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.challengetypes.Challenge;
 import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
 import net.codingarea.challengesplugin.utils.Utils;
-import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.Sound;
+import net.codingarea.challengesplugin.utils.YamlConfig;
+import org.bukkit.*;
+import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 /**
@@ -39,9 +39,8 @@ public class ChallengeTimer {
 
 	}
 
-	@Getter private final Challenges plugin;
-
-	@Getter private final TimerMenu menu;
+	private final Challenges plugin;
+	private final TimerMenu menu;
 
 	private boolean isPaused;
 	private boolean isHided;
@@ -60,17 +59,28 @@ public class ChallengeTimer {
 
 		menu = new TimerMenu(this);
 
+		loadSettingsDataFromSessionConfig();
+
 	}
 
 	public void start() {
 
 		if (taskID != null) return;
 
+		if ((seconds % 10) == 0) {
+			saveTimerDataToSessionConfig();
+			if (plugin.getPlayerSettingsManager().saveLocally()) saveSettingsDataToSessionConfig();
+		}
+
+		for (World currentWold : Bukkit.getWorlds()) {
+			currentWold.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+		}
+
 		taskID = Bukkit.getScheduler().scheduleSyncRepeatingTask(plugin, () -> {
 
 			menu.updateTime();
 
-			for (GeneralChallenge currentGeneralChallenge : plugin.getChallengeManager().getChallenges()) {
+			for (AbstractChallenge currentGeneralChallenge : plugin.getChallengeManager().getChallenges()) {
 				if (currentGeneralChallenge instanceof ISecondExecutor) {
 					((ISecondExecutor) currentGeneralChallenge).onSecond();
 					if (Challenges.timerIsStarted()) {
@@ -95,7 +105,7 @@ public class ChallengeTimer {
 					this.seconds++;
 				} else {
 					if (seconds <= MIN_VALUE) {
-						plugin.getServerManager().handleChallengeEnd(null, ChallengeEndCause.TIMER_END);
+						plugin.getServerManager().handleChallengeEnd(null, ChallengeEndCause.TIMER_END, null);
 					} else {
 						this.seconds--;
 					}
@@ -105,6 +115,7 @@ public class ChallengeTimer {
 			} else {
 				for (Player currentOnlinePlayer : Bukkit.getOnlinePlayers()) {
 					for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+						if (currentPlayer.getGameMode() == GameMode.SPECTATOR) continue;
 						currentOnlinePlayer.playEffect(currentPlayer.getLocation(), Effect.ENDER_SIGNAL, 1);
 					}
 				}
@@ -125,15 +136,24 @@ public class ChallengeTimer {
 
 	public void resume(Player player) {
 
+		saveTimerDataToSessionConfig();
+
+		for (World currentWold : Bukkit.getWorlds()) {
+			currentWold.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, true);
+		}
+
 		if (!isPaused) return;
 
 		Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_STARTED.get().replace("%player%", player.getName()));
 
 		plugin.getCloudnetManager().setIngame();
 
-		for (GeneralChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
+		for (AbstractChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
 			if (currentChallenge instanceof ITimerStatusExecutor) {
-				((ITimerStatusExecutor)currentChallenge).onTimerStop();
+				((ITimerStatusExecutor)currentChallenge).onTimerStart();
+			}
+			if (currentChallenge instanceof Goal) {
+				((Goal)currentChallenge).onTimerStarted();
 			}
 		}
 
@@ -155,6 +175,7 @@ public class ChallengeTimer {
 
 	public void stopTimer(Player player, boolean message) {
 
+		saveTimerDataToSessionConfig();
 		if (isPaused) return;
 
 		if (message) {
@@ -163,9 +184,13 @@ public class ChallengeTimer {
 
 		plugin.getCloudnetManager().setLobby();
 
-		for (GeneralChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
+		for (AbstractChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
 			if (currentChallenge instanceof ITimerStatusExecutor) {
 				((ITimerStatusExecutor)currentChallenge).onTimerStop();
+			}
+		}
+		for (World currentWorld : Bukkit.getWorlds()) {
+			for (Entity currentEntity : currentWorld.getEntities()) {
 			}
 		}
 
@@ -178,11 +203,13 @@ public class ChallengeTimer {
 
 	public void resetTimer(Player player) {
 
+		saveTimerDataToSessionConfig();
+
 		if (isPaused) return;
 
 		plugin.getCloudnetManager().setLobby();
 
-		for (GeneralChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
+		for (AbstractChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
 			if (currentChallenge instanceof ITimerStatusExecutor) {
 				((ITimerStatusExecutor)currentChallenge).onTimerStop();
 			}
@@ -208,11 +235,7 @@ public class ChallengeTimer {
 	}
 
 	public void sendBar(String bar) {
-
-		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			Utils.sendActionbar(currentPlayer, bar);
-		}
-
+		Utils.forEachPlayerOnline(player -> Utils.sendActionbar(player, bar));
 	}
 
 	public void sendActionbar() {
@@ -232,6 +255,7 @@ public class ChallengeTimer {
 	public void setMode(TimerMode mode, Player player) {
 
 		if (mode == null) throw new NullPointerException("TimerMode cannot be null!");
+		saveTimerDataToSessionConfig();
 
 		Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_SET_MODE.get().replace("%mode%", mode.name().toLowerCase()).replace("%player%", player != null ? player.getName() : "Console"));
 		AnimationSound.PLOP_SOUND.play(player);
@@ -258,20 +282,33 @@ public class ChallengeTimer {
 		return isPaused;
 	}
 
+	public boolean isHided() {
+		return isHided;
+	}
+
+	public void setHided(boolean hided) {
+		isHided = hided;
+		sendActionbar();
+		saveTimerDataToSessionConfig();
+	}
+
 	public void setSeconds(int seconds) {
 		this.seconds = seconds;
 		sendActionbar();
+		saveTimerDataToSessionConfig();
 	}
 
 	public void setMaxSeconds(int maxSeconds) {
 		this.maxSeconds = maxSeconds;
 		this.seconds = maxSeconds;
 		sendActionbar();
+		saveTimerDataToSessionConfig();
 	}
 
 	public void addSeconds(int seconds) {
 		this.seconds += seconds;
 		if (this.seconds < 0) this.seconds = 0;
+		saveTimerDataToSessionConfig();
 	}
 
 	public void addMaxSeconds(int seconds) {
@@ -279,6 +316,7 @@ public class ChallengeTimer {
 		this.seconds = maxSeconds;
 		if (this.seconds < 0) this.seconds = 0;
 		if (this.maxSeconds < 0) this.maxSeconds = 0;
+		saveTimerDataToSessionConfig();
 	}
 
 	public static String getTimeDisplay(int seconds) {
@@ -295,6 +333,65 @@ public class ChallengeTimer {
 				+ (hours > 0 ?  (hours > 9 ? hours : "0" + hours) + ":" : "")
 				+ (minutes > 9 ? minutes : "0" + minutes) + ":"
 				+ (seconds > 9 ? seconds : "0" + seconds);
+
+	}
+
+	public Challenges getPlugin() {
+		return plugin;
+	}
+
+	public Integer getTaskID() {
+		return taskID;
+	}
+
+	public TimerMenu getMenu() {
+		return menu;
+	}
+
+	public void saveTimerDataToSessionConfig() {
+
+		YamlConfig sessionConfig = plugin.getConfigManager().getInternalConfig();
+		FileConfiguration config = sessionConfig.toFileConfig();
+
+		config.set("timer.mode", mode.name());
+		config.set("timer.seconds", seconds);
+		config.set("timer.hide", isHided);
+
+		sessionConfig.save();
+
+	}
+
+	public void saveSettingsDataToSessionConfig() {
+
+		YamlConfig sessionConfig = plugin.getConfigManager().getInternalConfig();
+		FileConfiguration config = sessionConfig.toFileConfig();
+
+		config.set("settings", plugin.getPlayerSettingsManager().settingsToString());
+
+		sessionConfig.save();
+
+	}
+
+	private void loadSettingsDataFromSessionConfig() {
+
+		FileConfiguration config = plugin.getConfigManager().getInternalConfig().toFileConfig();
+		String settings = config.getString("settings");
+
+		if (settings == null) return;
+
+		plugin.getPlayerSettingsManager().loadSettings(settings);
+
+	}
+
+	public void loadTimerDataFromSessionConfig() {
+
+		FileConfiguration config = plugin.getConfigManager().getInternalConfig().toFileConfig();
+
+		seconds = config.getInt("timer.seconds");
+		try {
+			mode = TimerMode.valueOf(config.getString("timer.mode"));
+		} catch (Exception ignored) { }
+		isHided = config.getBoolean("timer.hide");
 
 	}
 
