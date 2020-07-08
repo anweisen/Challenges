@@ -68,6 +68,7 @@ public class Challenges extends JavaPlugin {
         registerCommands();
         registerListener();
 
+        challengeTimer.loadTimerDataFromSessionConfig();
         challengeTimer.start();
         scoreboardManager.show();
 
@@ -80,6 +81,7 @@ public class Challenges extends JavaPlugin {
             scoreboardManager.destroyAllScoreboards();
         }
         if (challengeTimer != null) {
+            challengeTimer.saveTimerDataToSessionConfig();
             challengeTimer.stop();
         }
     }
@@ -109,9 +111,11 @@ public class Challenges extends JavaPlugin {
     }
 
     private void init() {
+        LanguageManager.loadLanguageMessages();
         LanguageManager.setLanguage(Language.getLanguage(getConfig().getString("language")));
         serverManager = new ServerManager(this);
         playerManager = new ChallengePlayerManager(this);
+        challengeManager = new ChallengeManager(this);
         playerSettingsManager = new PlayerSettingsManager(this);
         stringManager = new StringManager();
         stringManager.load(getConfig());
@@ -121,14 +125,11 @@ public class Challenges extends JavaPlugin {
                 getConfig().getBoolean("master-system"));
         permissionsSystem.loadPermissions();
         permissionsSystem.onEnable();
-        scoreboardManager = new ScoreboardManager(this);
+        scoreboardManager = new ScoreboardManager();
         challengeTimer = new ChallengeTimer(this);
-        challengeManager = new ChallengeManager(this);
         menuManager = new MenuManager(this);
         challengeManager.init();
-        if (getConfig().getBoolean("disable-whitelist-on-start")) {
-            Bukkit.setWhitelist(false);
-        }
+        if (getConfig().getBoolean("disable-whitelist-on-start")) Bukkit.setWhitelist(false);
     }
 
     private void loadConfig() {
@@ -136,6 +137,7 @@ public class Challenges extends JavaPlugin {
         configManager.setBackpackConfig(new YamlConfig("internal/backpack"));
         configManager.setInternalConfig(new YamlConfig("internal/session"));
         configManager.setPositionConfig(new YamlConfig("internal/positions"));
+        CloudNetManager.loadIngameFromConfig();
     }
 
     private void loadWorlds() {
@@ -170,7 +172,7 @@ public class Challenges extends JavaPlugin {
 
     private void loadVersions() {
         String version = getConfig().getString("config-version");
-        if (!version.equals("1.0.3")) {
+        if (version == null || !version.equals("1.1.3")) {
             getLogger().warning("This plugin had an update. Please delete your config and restart the server to see whats new in the config");
             isNewestVersion = false;
         }
