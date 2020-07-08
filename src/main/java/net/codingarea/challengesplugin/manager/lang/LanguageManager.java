@@ -1,6 +1,14 @@
 package net.codingarea.challengesplugin.manager.lang;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challengetypes.Challenge;
+import net.codingarea.challengesplugin.utils.Utils;
+import org.apache.commons.codec.language.bm.Lang;
+import org.bukkit.Bukkit;
+
+import java.io.*;
+import java.net.URL;
+import java.util.Properties;
 
 /**
  * @author anweisen & Dominik
@@ -12,6 +20,7 @@ import net.codingarea.challengesplugin.Challenges;
 public class LanguageManager {
 
 	private static Language language = Language.ENGLISH;
+	private static File folder = new File(Challenges.getInstance().getDataFolder().getPath() + "/messages");;
 
 	public enum Language {
 
@@ -70,6 +79,43 @@ public class LanguageManager {
 
 	public static String syntax(String syntax) {
 		return Translation.SYNTAX.get().replace("%cmd%", syntax);
+	}
+
+	public static void loadLanguageMessages() {
+		try {
+
+			if (!folder.exists()) folder.mkdir();
+
+			File file = new File(folder + "/messages.properties");
+			boolean template = !file.exists();
+
+			if (template) {
+				loadTemplate(language);
+			} else {
+				Properties properties = Utils.readProperties(file);
+				for (Translation currentTranslation : Translation.values()) {
+					String value = properties.getProperty(currentTranslation.name());
+					currentTranslation.setCurrentMessage(value);
+				}
+			}
+
+		} catch (IOException ex) {
+			ex.printStackTrace();
+		}
+	}
+
+	public static void loadTemplate(Language language) throws IOException {
+
+		File destination = new File(folder + "/messages.properties");
+		destination.createNewFile();
+		Properties properties = Utils.readProperties(destination);
+
+		for (Translation translation : Translation.values()) {
+			properties.setProperty(translation.name(), translation.getTemplateMessage(language));
+		}
+
+		Utils.saveProperties(properties, destination);
+
 	}
 
 }
