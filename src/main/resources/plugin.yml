@@ -1,5 +1,5 @@
 name: Challenges
-version: 1.1.2
+version: 1.1.3
 api-version: 1.13
 author: anweisen & Dominik
 authors:
@@ -8,6 +8,9 @@ authors:
 main: net.codingarea.challengesplugin.Challenges
 website: Coding-Area.net
 database: true
+description: |
+  A simple-to-use plugin for challenges for beating minecraft in different ways
+  or compete with friend in "First to ... wins" challenges
 
 commands:
   challenges:
@@ -75,8 +78,6 @@ commands:
     usage: /language <language>
     description: Temporily changes the language
     permission: challenges.language
-    aliases:
-      - lang
   up:
     usage: /up
     description: Teleports you to the highest location above you
@@ -95,3 +96,6 @@ commands:
     permission: challenges.skipflag
     aliases:
       - currentflag
+  bingo:
+    usage: /bingo
+    description: Shows the items to collect for the goal "bingo"
