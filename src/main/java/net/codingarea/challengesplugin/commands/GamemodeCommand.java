@@ -1,7 +1,9 @@
 package net.codingarea.challengesplugin.commands;
 
+import com.mysql.fabric.xmlrpc.base.Array;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
@@ -9,6 +11,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -69,24 +72,20 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 		return true;
 	}
 	@Override
-	public List<String> onTabComplete(CommandSender sender, Command command, String label, String[] args) {
+	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
 		if (args.length == 2) {
-			return null;
+			ArrayList<String> suggestions = new ArrayList<>();
+			for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+				suggestions.add(currentPlayer.getName());
+			}
+			suggestions.add("@a");
+			return Utils.getMatchingSuggestions(args[1].toLowerCase(), suggestions);
 		} else if (args.length > 2) {
 			return new ArrayList<>();
 		}
 
-		List<String> list = new ArrayList<>();
-		list.addAll(Arrays.asList("creative", "survival", "adventure", "spectator", "0", "1", "2", "3"));
-		List<String> remove = new ArrayList<>();
-
-		for (String currentString : list) {
-			if (!(currentString.startsWith(args[0].toLowerCase()))) remove.add(currentString);
-		}
-		list.removeAll(remove);
-
-		return list;
+		return Utils.getMatchingSuggestions(args[0].toLowerCase(), "creative", "survival", "adventure", "spectator");
 	}
 
 }
