@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.manager;
 
 import net.codingarea.challengesplugin.utils.YamlConfig;
+import org.bukkit.configuration.file.FileConfiguration;
 
 /**
  * @author anweisen & Dominik
@@ -13,7 +14,7 @@ public class ConfigManager {
 
 	private YamlConfig backpackConfig;
 	private YamlConfig positionConfig;
-	private YamlConfig internalConfig;
+	private YamlConfig internalConfig; // This is the only config wich wont be reset in this manager
 
 	public YamlConfig getBackpackConfig() {
 		return backpackConfig;
@@ -37,6 +38,24 @@ public class ConfigManager {
 
 	public void setPositionConfig(YamlConfig positionConfig) {
 		this.positionConfig = positionConfig;
+	}
+
+	public void clearConfig(YamlConfig toClear) {
+
+		FileConfiguration config = toClear.toFileConfig();
+
+		for (String currentKey : config.getKeys(false)) {
+			config.set(currentKey, null);
+		}
+
+		toClear.save();
+	}
+
+	public void clearSession() {
+		clearConfig(backpackConfig);
+		clearConfig(positionConfig);
+		internalConfig.toFileConfig().set("ingame", false);
+		internalConfig.save();
 	}
 
 }
