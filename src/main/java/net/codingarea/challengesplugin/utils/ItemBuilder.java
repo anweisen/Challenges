@@ -13,6 +13,7 @@ import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionType;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public class ItemBuilder {
 
     public static class SimpleEnchantment {
 
-        private Enchantment enchantment;
-        private int level;
+        private final Enchantment enchantment;
+        private final int level;
 
         public SimpleEnchantment(Enchantment enchantment, int level) {
             this.level = level;
@@ -47,187 +48,67 @@ public class ItemBuilder {
         }
     }
 
-    public static class SkullBuilder {
-
-        private ItemStack item = new ItemStack(Material.PLAYER_HEAD);
-        private SkullMeta meta = (SkullMeta) item.getItemMeta();
+    public static class SkullBuilder extends ItemBuilder {
 
         public SkullBuilder(String skullOwner, String name) {
-            meta.setOwner(skullOwner);
-            meta.setDisplayName(name);
+            super(Material.PLAYER_HEAD, name);
         }
 
-        public SkullBuilder setDisplayName(String name) {
-            meta.setDisplayName(name);
+        @SuppressWarnings("depraction")
+        public SkullBuilder setOwner(String owner) {
+            ((SkullMeta)meta).setOwner(owner);
             return this;
-        }
-
-        public ItemStack build() {
-            item.setItemMeta(meta);
-            return item;
         }
 
     }
 
-    public static class LeatherArmorBuilder {
-
-        private ItemStack item;
-        private LeatherArmorMeta meta;
+    public static class LeatherArmorBuilder extends ItemBuilder {
 
         public LeatherArmorBuilder(Material material, String name, Color color) {
-            item = new ItemStack(material);
-            meta = (LeatherArmorMeta) item.getItemMeta();
-            setDisplayName(name);
+            super(material, name);
             setColor(color);
         }
 
         public LeatherArmorBuilder(Material material, ItemTranslation translation, Color color) {
-            item = new ItemStack(material);
-            meta = (LeatherArmorMeta) item.getItemMeta();
-            setDisplayName(translation.getName());
-            String itemName = translation.getName().substring(0, 2);
-            setLore(ItemTranslation.formatLore(translation.getLore(), itemName));
+           super(material, translation);
+           setColor(color);
         }
 
         public LeatherArmorBuilder setColor(Color color) {
-            meta.setColor(color);
-            return this;
-        }
-
-        public LeatherArmorBuilder setDisplayName(String name) {
-            meta.setDisplayName(name);
-            return this;
-      }
-
-        public ItemStack build() {
-            item.setItemMeta(meta);
-            return item;
-        }
-
-        public LeatherArmorBuilder setLore(String... lore) {
-            meta.setLore(Arrays.asList(lore));
-            return this;
-        }
-
-        public LeatherArmorBuilder setLore(List<String> lore) {
-            meta.setLore(lore);
-            return this;
-        }
-
-        public LeatherArmorBuilder addEnchant(Enchantment enchantment, int level) {
-            item.addUnsafeEnchantment(enchantment, level);
-            return this;
-        }
-
-        public LeatherArmorBuilder addEnchant(SimpleEnchantment... enchantment) {
-            for (SimpleEnchantment currentEnchantment : enchantment) {
-                item.addUnsafeEnchantment(currentEnchantment.getEnchantment(), currentEnchantment.getLevel());
-            }
-            return this;
-        }
-
-        public LeatherArmorBuilder hideAttributes() {
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
-            return this;
-        }
-
-        public LeatherArmorBuilder addAttributes(ItemFlag... flag) {
-            meta.addItemFlags(flag);
-            return this;
-        }
-
-        public LeatherArmorBuilder setUnbreakable() {
-            meta.setUnbreakable(true);
-            return this;
-        }
-
-        public LeatherArmorBuilder setAmount(int amount) {
-            item.setAmount(amount);
+            ((LeatherArmorMeta)meta).setColor(color);
             return this;
         }
 
     }
 
-    public static class TippedArrowBuilder {
-
-        private ItemStack item;
-        private PotionMeta meta;
+    public static class TippedArrowBuilder extends ItemBuilder {
 
         public TippedArrowBuilder(Material potion, PotionType type, String name) {
-            item = new ItemStack(potion);
-            meta = (PotionMeta) item.getItemMeta();
+            super(potion, name);
             setEffect(type);
             setDisplayName(name);
         }
 
         public TippedArrowBuilder(PotionType type, String name) {
-            item = new ItemStack(Material.POTION);
-            meta = (PotionMeta) item.getItemMeta();
+            super(Material.POTION, name);
             setEffect(type);
             setDisplayName(name);
         }
 
         public TippedArrowBuilder setEffect(PotionType effect) {
-            meta.setBasePotionData(new PotionData(effect));
+            ((PotionMeta)meta).setBasePotionData(new PotionData(effect));
             return this;
         }
 
         public TippedArrowBuilder addEffect(PotionEffect effect) {
-            meta.addCustomEffect(effect, true);
+           ((PotionMeta)meta).addCustomEffect(effect, true);
             return this;
-        }
-
-        public TippedArrowBuilder setDisplayName(String name) {
-            meta.setDisplayName(name);
-            return this;
-        }
-
-        public TippedArrowBuilder setLore(String... lore) {
-            meta.setLore(Arrays.asList(lore));
-            return this;
-        }
-
-        public TippedArrowBuilder addEnchant(Enchantment enchantment, int level) {
-            item.addUnsafeEnchantment(enchantment, level);
-            return this;
-        }
-
-        public TippedArrowBuilder addEnchant(SimpleEnchantment... enchantment) {
-            for (SimpleEnchantment currentEnchantment : enchantment) {
-                item.addUnsafeEnchantment(currentEnchantment.getEnchantment(), currentEnchantment.getLevel());
-            }
-            return this;
-        }
-
-        public TippedArrowBuilder hideAttributes() {
-            meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
-            return this;
-        }
-
-        public TippedArrowBuilder addAttributes(ItemFlag... flag) {
-            meta.addItemFlags(flag);
-            return this;
-        }
-
-        public TippedArrowBuilder setUnbreakable() {
-            meta.setUnbreakable(true);
-            return this;
-        }
-
-        public TippedArrowBuilder setAmount(int amount) {
-            item.setAmount(amount);
-            return this;
-        }
-
-        public ItemStack build() {
-            item.setItemMeta(meta);
-            return item;
         }
 
     }
 
-    private ItemStack item;
-    private ItemMeta meta;
+    protected final ItemStack item;
+    protected final ItemMeta meta;
 
     public ItemBuilder(Material material) {
         item = new ItemStack(material);
@@ -277,20 +158,27 @@ public class ItemBuilder {
         setLore(lore);
     }
 
-    public ItemBuilder(Material material, ItemTranslation translation) {
-        item = new ItemStack(material);
-        meta = item.getItemMeta();
-        setDisplayName(translation.getName());
-        String color = translation.getName().substring(0, 2);
-        setLore(ItemTranslation.formatLore(translation.getLore(), color));
-    }
-
     public ItemBuilder(Material material, ItemTranslation translation, String name) {
         item = new ItemStack(material);
         meta = item.getItemMeta();
         setDisplayName(name);
         String color = name.substring(0, 2);
-        setLore(ItemTranslation.formatLore(translation.getLore(), color, new Replacement("%info%", name.toLowerCase())));
+        setLore(ItemTranslation.formatLore(translation.getLore(), color, new Replacement<>("%info%", name.toLowerCase())));
+        hideAttributes();
+    }
+
+    public ItemBuilder(Material material, ItemTranslation translation, Replacement<?>... replacements) {
+        item = new ItemStack(material);
+        meta = item.getItemMeta();
+        setDisplayName(translation.getName());
+        String color = translation.getName().substring(0, 2);
+        setLore(ItemTranslation.formatLore(translation.getLore(), color, replacements));
+        hideAttributes();
+    }
+
+    public ItemBuilder(ItemStack item) {
+        this.item = item;
+        this.meta = item.getItemMeta();
     }
 
     public ItemBuilder setDisplayName(String name) {
@@ -308,12 +196,34 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder addLore(String... lines) {
+        List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<>();
+        lore.addAll(Arrays.asList(lines));
+        meta.setLore(lore);
+        return this;
+    }
+
+    public ItemBuilder addLore(List<String> lines) {
+        List<String> lore = meta.getLore() != null ? meta.getLore() : new ArrayList<>();
+        lore.addAll(lines);
+        meta.setLore(lore);
+        return this;
+    }
+
     public ItemBuilder addEnchant(Enchantment enchantment, int level) {
         item.addUnsafeEnchantment(enchantment, level);
         return this;
     }
 
     public ItemBuilder addEnchant(SimpleEnchantment... enchantment) {
+        for (SimpleEnchantment currentEnchantment : enchantment) {
+            item.addUnsafeEnchantment(currentEnchantment.getEnchantment(), currentEnchantment.getLevel());
+            meta.addEnchant(currentEnchantment.getEnchantment(), currentEnchantment.getLevel(), true);
+        }
+        return this;
+    }
+
+    public ItemBuilder addEnchant(List<SimpleEnchantment> enchantment) {
         for (SimpleEnchantment currentEnchantment : enchantment) {
             item.addUnsafeEnchantment(currentEnchantment.getEnchantment(), currentEnchantment.getLevel());
         }
@@ -335,9 +245,18 @@ public class ItemBuilder {
         return this;
     }
 
+    public ItemBuilder setDamage(short damage) {
+        item.setDurability(damage);
+        return this;
+    }
+
     public ItemBuilder setAmount(int amount) {
         item.setAmount(amount);
         return this;
+    }
+
+    public String getDisplayName() {
+        return meta.getDisplayName();
     }
 
     public ItemStack getItem() {
@@ -349,7 +268,6 @@ public class ItemBuilder {
         item.setItemMeta(meta);
         return item;
     }
-
 
 
 }
