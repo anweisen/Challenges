@@ -84,6 +84,9 @@ public class Challenges extends JavaPlugin {
             challengeTimer.saveTimerDataToSessionConfig();
             challengeTimer.stop();
         }
+        if (challengeManager != null) {
+            challengeManager.saveChallengeConfigurations();
+        }
     }
 
     private void registerCommands() {
@@ -134,7 +137,6 @@ public class Challenges extends JavaPlugin {
 
     private void loadConfig() {
         configManager = new ConfigManager();
-        configManager.setBackpackConfig(new YamlConfig("internal/backpack"));
         configManager.setInternalConfig(new YamlConfig("internal/session"));
         configManager.setPositionConfig(new YamlConfig("internal/positions"));
         CloudNetManager.loadIngameFromConfig();
@@ -148,7 +150,6 @@ public class Challenges extends JavaPlugin {
 
     private void loadCloudNet() {
         cloudnetManager = new CloudNetManager(getConfig().getBoolean("cloudnet-support"));
-
         if (cloudnetManager.cloudnetSupport) {
             cloudnetManager.setLobby();
         }
