@@ -1,9 +1,11 @@
 package net.codingarea.challengesplugin.challengetypes;
 
+import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.json.simple.JSONObject;
 
 /**
  * @author anweisen & Dominik
@@ -23,6 +25,14 @@ public abstract class AbstractChallenge {
 
 	public abstract void setValues(int value);
 	public abstract int toValue();
+
+
+	public void load(JSONObject object) {
+		setValues(Math.toIntExact((Long) object.getOrDefault("value", toValue())));
+	}
+	public void save(JSONObject object) {
+		object.put("value", toValue());
+	}
 
 	public String getChallengeName() {
 		return this.getClass().getSimpleName().toLowerCase().replace("setting", "").replace("challenge", "").replace("modifier", "");
@@ -49,6 +59,10 @@ public abstract class AbstractChallenge {
 
 	public final MenuType getMenu() {
 		return menu;
+	}
+
+	public final String getDataFile(String fileType) {
+		return Challenges.getInstance().getChallengeManager().getSettingsFolder() + getChallengeName() + "." + fileType.toLowerCase();
 	}
 
 }
