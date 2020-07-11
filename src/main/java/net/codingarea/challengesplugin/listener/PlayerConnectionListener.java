@@ -3,13 +3,20 @@ package net.codingarea.challengesplugin.listener;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.CloudNetManager;
 import net.codingarea.challengesplugin.manager.WorldManager;
+import net.codingarea.challengesplugin.manager.lang.Translation;
+import net.codingarea.challengesplugin.manager.players.stats.StatsWrapper;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
+import org.bukkit.boss.BossBar;
+import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.Iterator;
 
 /**
  * @author anweisen & Dominik
@@ -39,16 +46,21 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler
 	public void handleJoin(PlayerJoinEvent event) {
 
-		if (WorldManager.getInstance().getReseted()) return;
+		if (!plugin.isNewestVersion() && event.getPlayer().hasPermission("challenges.gui")) {
+			event.getPlayer().sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.CONFIG_OLD_VERSION.get());
+		}
 
+		if (plugin.getStatsManager().isEnabled()) {
+			plugin.getStatsManager().loadForPlayer(event.getPlayer());
+		}
+		
 		plugin.getPermissionsSystem().setPermissions(event.getPlayer(), false);
-
 		event.getPlayer().getLocation().getChunk().load(true);
+		plugin.getScoreboardManager().handlePlayerConnect(event);
+		Utils.spawnUpGoingParticleCircle(event.getPlayer().getLocation(), Particle.SPELL_MOB, Challenges.getInstance(), 2, 17, 1);
 
-		plugin.getScoreboardManager().handleJoin(event.getPlayer());
-
-		Utils.spawnUpgoingParticleCircle(event.getPlayer().getLocation(), Particle.SPELL_MOB, Challenges.getInstance(), 2, 17, 1);
-
+		// Sending the join message 1 tick after the player joined, so the permission systems have enough time to set the display name for the player
+		// Setting the join message to null, so it wont be sent twice
 		if (message) event.setJoinMessage(null);
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (message && joinMessage != null) Bukkit.broadcastMessage(joinMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
@@ -60,16 +72,27 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler
 	public void handleQuit(PlayerQuitEvent event) {
 
-		if (WorldManager.getInstance().getReseted()) return;
+		plugin.getScoreboardManager().handlePlayerDisconnect(event);
+
+		if (plugin.getStatsManager().isEnabled()) {
+			StatsWrapper.storeStats(Utils.getUUID(event.getPlayer().getName()), plugin.getStatsManager().getPlayerStats(event.getPlayer()));
+			plugin.getStatsManager().removeFromStorage(event.getPlayer());
+		}
+
+		if (WorldManager.getInstance().getReseted()) {
+			event.setQuitMessage(null);
+			return;
+		}
 
 		if ((Bukkit.getOnlinePlayers().size() - 1) <= 0) {
 			if (resetOnLastQuit && CloudNetManager.wasAlreadyIngame()) {
 				WorldManager.prepareReset(true, null);
+			} else {
+				plugin.getChallengeTimer().stopTimer(null, true);
 			}
 		}
 
 		plugin.getPermissionsSystem().handlePlayerDisconnect(event.getPlayer());
-
 
 		if (!message || quitMessage == null) return;
 		event.setQuitMessage(quitMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
