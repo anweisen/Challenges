@@ -1,11 +1,13 @@
 package net.codingarea.challengesplugin.utils;
 
-import lombok.Getter;
+import net.codingarea.challengesplugin.Challenges;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author anweisen & Dominik
@@ -16,9 +18,9 @@ import java.io.IOException;
 
 public class YamlConfig {
 
-	private FileConfiguration fileConfiguration;
+	private final FileConfiguration fileConfiguration;
 
-	@Getter private File configFile;
+	private final File configFile;
 
 	public YamlConfig(String name) {
 
@@ -26,7 +28,7 @@ public class YamlConfig {
 			name += ".yml";
 		}
 
-		configFile = new File("plugins/Challenges/" + name);
+		configFile = new File(Challenges.getInstance().getDataFolder() + "/" + name);
 
 		if (!configFile.exists()) {
 
@@ -56,7 +58,34 @@ public class YamlConfig {
 		}
 	}
 
-	public FileConfiguration getConfig() {
+	public FileConfiguration toFileConfig() {
 		return fileConfiguration;
 	}
+
+	public void clear() {
+		clear(new String[0]);
+	}
+
+	public void clear(boolean save) {
+		clear();
+		if (save) save();
+	}
+
+	public void clear(boolean save, String... doNotClear) {
+		clear(doNotClear);
+		if (save) save();
+	}
+
+	public void clear(String... doNotClear) {
+		List<String> leave = Arrays.asList(doNotClear);
+		for (String currentKey : fileConfiguration.getKeys(false)) {
+			if (leave.contains(currentKey)) continue;
+			fileConfiguration.set(currentKey, null);
+		}
+	}
+
+	public File getConfigFile() {
+		return configFile;
+	}
+
 }
