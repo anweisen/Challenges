@@ -6,7 +6,7 @@
 
     <groupId>groupId</groupId>
     <artifactId>Challenges</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.3</version>
     <build>
         <plugins>
             <plugin>
@@ -21,14 +21,29 @@
     </build>
 
     <repositories>
+
         <!--  New Maven repository for releases -->
         <repository>
             <id>releases</id>
             <url>https://repo.cloudnetservice.eu/repository/releases/</url>
         </repository>
+
+        <repository>
+            <id>jcenter</id>
+            <name>jcenter-bintray</name>
+            <url>https://jcenter.bintray.com</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
+
+        <!-- wrapper for discord -->
+        <dependency>
+            <groupId>net.dv8tion</groupId>
+            <artifactId>JDA</artifactId>
+            <version>4.2.0_177</version>
+        </dependency>
 
         <dependency>
             <groupId>mysql</groupId>
