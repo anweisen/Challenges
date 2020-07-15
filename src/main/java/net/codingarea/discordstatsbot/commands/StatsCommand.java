@@ -4,6 +4,7 @@ import net.codingarea.challengesplugin.manager.players.stats.PlayerStats;
 import net.codingarea.challengesplugin.manager.players.stats.StatsWrapper;
 import net.codingarea.challengesplugin.utils.ImageUtils;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.discordstatsbot.DiscordBot;
 import net.codingarea.discordstatsbot.commandmanager.CommandEvent;
 import net.codingarea.discordstatsbot.commandmanager.commands.Command;
 
@@ -12,7 +13,12 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
+import java.nio.Buffer;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
+
+import static net.codingarea.challengesplugin.utils.ImageUtils.addAttribute;
+import static net.codingarea.challengesplugin.utils.ImageUtils.getTime;
 
 /**
  * @author anweisen
@@ -22,19 +28,11 @@ import java.text.DecimalFormat;
 
 public class StatsCommand extends Command {
 
-	private final BufferedImage background = ImageUtils.getImage(new File("background.png"));
+	private final BufferedImage background;
 
-	public StatsCommand() {
+	public StatsCommand(DiscordBot bot) {
 		super("stats", "s");
-		darkImage();
-	}
-
-	private void darkImage() {
-		for (int i = 0; i < background.getWidth(); i++) {
-			for (int j = 0; j < background.getHeight(); j++) {
-				background.setRGB(i, j, new Color(background.getRGB(i, j)).darker().getRGB());
-			}
-		}
+		background = bot.getBackground();
 	}
 
 	@Override
@@ -59,8 +57,16 @@ public class StatsCommand extends Command {
 			File file = new File(folder + "/stats.png");
 			if (!file.exists()) file.createNewFile();
 
-			ImageIO.write(getImage(event.getArg(0)), "png", file);
-			event.getChannel().sendFile(file, "stats.png").queue();
+			try {
+
+				BufferedImage statsImage = getImage(event.getArg(0));
+				ImageIO.write(statsImage, "png", file);
+				event.getChannel().sendFile(file, "stats.png").queue();
+
+			} catch (SQLException ignored) {
+				event.queueReply("Etwas ist mit der Datenbank schief gelaufen");
+			}
+
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -68,9 +74,10 @@ public class StatsCommand extends Command {
 
 	}
 
-	private BufferedImage getImage(String playerName) {
+	private BufferedImage getImage(String playerName) throws SQLException {
 
 		String uuid = Utils.getUUID(playerName);
+		PlayerStats playerStats = StatsWrapper.getStatsByUUIDWithException(uuid);
 
 		int width = 2048;
 		int height = 1824;
@@ -116,12 +123,11 @@ public class StatsCommand extends Command {
 		graphics.setFont(new Font("Arial", Font.BOLD, attributeTextSize));
 
 		DecimalFormat format = new DecimalFormat("0.0");
-		PlayerStats playerStats = StatsWrapper.getStatsByUUID(uuid);
 
 		String challengesPlayed = String.valueOf(playerStats.getChallengesPlayed());
 		String challengesWon = String.valueOf(playerStats.getChallengesWon());
-		String damageDealt = format.format(playerStats.getDamageDealt() / 2); // Dividing by 2 because we are saving the exact
-		String damageTaken = format.format(playerStats.getDamageTaken() / 2); // damage and we want to display the damage
+		String damageDealt = format.format(playerStats.getDamageDealt() / 2) + " Herzen"; // Dividing by 2 because we are saving the exact
+		String damageTaken = format.format(playerStats.getDamageTaken() / 2) + " Herzen"; // damage and we want to display the damage in hearts
 		String blocksBroken = String.valueOf(playerStats.getBlocksBroken());
 		String entityKills = String.valueOf(playerStats.getEntityKills());
 		String timeSneaked = getTime(playerStats.getTimeSneaked());
@@ -152,30 +158,6 @@ public class StatsCommand extends Command {
 		scaledGraphics.dispose();
 
 		return scaled;
-	}
-
-	private void addAttribute(Graphics2D graphics, String label, String value, char splitter, int height, int imageWidth, Color textColor, Color valueColor) {
-		graphics.setColor(textColor);
-		ImageUtils.addTextEndingAtMid(graphics, label + " " + splitter, height, imageWidth);
-		graphics.setColor(valueColor);
-		graphics.drawString(" " + value, imageWidth / 2, height);
-	}
-
-	private String getTime(int seconds) {
-
-		int minutes = seconds / 60;
-		int hours = minutes / 60;
-		seconds %= 60;
-		minutes %= 60;
-
-		boolean showHours = hours > 0;
-		boolean showMinutes = !showHours && minutes > 0;
-		boolean showSeconds = !showMinutes;
-
-		return (showHours ? (hours > 1  ? hours + " Stunden " : hours + " Stunde") : "")
-			 + (showMinutes ? (minutes > 1 ? minutes + " Minuten" : minutes + " Minute ") : "")
-			 + (showSeconds ? (seconds > 1  || seconds == 0 ? seconds + " Sekunden" : seconds + " Sekunde") : "");
-
 	}
 
 }
