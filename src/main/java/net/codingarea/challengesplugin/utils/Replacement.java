@@ -6,27 +6,28 @@ package net.codingarea.challengesplugin.utils;
  * https://github.com/anweisen
  * https://github.com/KxmischesDomi
  */
-public class Replacement {
+public class Replacement<T> {
 
-	private String toReplace;
-	private String replacement;
+	private final T toReplace;
+	private final T replacement;
 
-	public Replacement(String toReplace, String replacement) {
+	public Replacement(T toReplace, T replacement) {
 		this.toReplace = toReplace;
 		this.replacement = replacement;
 	}
 
-	public String getReplacement() {
+	public T getReplacement() {
 		return replacement;
 	}
 
-	public String getToReplace() {
+	public T getToReplace() {
 		return toReplace;
 	}
 
-	public static String replace(String string, Replacement... replacements) {
+	@SafeVarargs
+	public static String replace(String string, Replacement<String>... replacements) {
 
-		for (Replacement currentReplacement : replacements) {
+		for (Replacement<String> currentReplacement : replacements) {
 			string = string.replace(currentReplacement.toReplace, currentReplacement.replacement);
 		}
 
