@@ -1,5 +1,7 @@
 package net.codingarea.challengesplugin.utils;
 
+import net.codingarea.challengesplugin.utils.commons.ChatColor;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.font.TextLayout;
@@ -149,6 +151,29 @@ public class ImageUtils {
 
 		graphics.drawString(text, imageWidth / 2 - lineWidth, yPosition);
 
+	}
+
+	public static void addAttribute(Graphics2D graphics, String label, String value, char splitter, int height, int imageWidth, Color textColor, Color valueColor) {
+		graphics.setColor(textColor);
+		ImageUtils.addTextEndingAtMid(graphics, label + " " + splitter, height, imageWidth);
+		graphics.setColor(valueColor);
+		graphics.drawString(" " + value, imageWidth / 2, height);
+	}
+
+	public static String getTime(int seconds) {
+
+		int minutes = seconds / 60;
+		int hours = minutes / 60;
+		seconds %= 60;
+		minutes %= 60;
+
+		boolean showHours = hours > 0;
+		boolean showMinutes = !showHours && minutes > 0;
+		boolean showSeconds = !showMinutes;
+
+		return (showHours ? (hours > 1  ? hours + " Stunden " : hours + " Stunde ") : "")
+				+ (showMinutes ? (minutes > 1 ? minutes + " Minuten" : minutes + " Minute ") : "")
+				+ (showSeconds ? (seconds > 1  || seconds == 0 ? seconds + " Sekunden" : seconds + " Sekunde") : "");
 
 	}
 
