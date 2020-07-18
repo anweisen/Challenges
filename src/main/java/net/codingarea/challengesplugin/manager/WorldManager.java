@@ -3,11 +3,14 @@ package net.codingarea.challengesplugin.manager;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
+import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.FileUtil;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -36,8 +39,8 @@ public class WorldManager {
 
 	public void loadSettings() {
 
-		reset = plugin.getConfigManager().getInternalConfig().getConfig().getBoolean("reset");
-		levelName = plugin.getConfigManager().getInternalConfig().getConfig().getString("level-name");
+		reset = plugin.getConfigManager().getInternalConfig().toFileConfig().getBoolean("reset");
+		levelName = plugin.getConfigManager().getInternalConfig().toFileConfig().getString("level-name");
 
 		if (levelName == null) levelName = "world";
 
@@ -52,17 +55,18 @@ public class WorldManager {
 		long millis = System.currentTimeMillis();
 		plugin.getLogger().log(Level.INFO, "Resetting worlds..");
 
-		String[] worldSuffix = { "", "_nether", "_the_end" };
+		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end", "watermlg" };
 
-		for (String currentSuffix : worldSuffix) {
-			String currentWorldFolderName = levelName + currentSuffix;
-			File worldFolder = new File(currentWorldFolderName);
+		for (String currentWorld : worlds) {
+			File worldFolder = new File(currentWorld);
 			Utils.deleteWorld(worldFolder);
 		}
 
-		Utils.deleteWorld(new File("watermlg"));
+		try {
+			FileUtils.cleanDirectory(new File(Challenges.getInstance().getChallengeManager().getSettingsFolder()));
+		} catch (IOException ignored) { }
 
-		plugin.getConfigManager().getInternalConfig().getConfig().set("reset", false);
+		plugin.getConfigManager().getInternalConfig().toFileConfig().set("reset", false);
 		plugin.getConfigManager().getInternalConfig().save();
 
 		plugin.getLogger().log(Level.INFO, "World resetting completed in " + (System.currentTimeMillis() - millis) + "ms!");
@@ -76,18 +80,12 @@ public class WorldManager {
 
 		Challenges.getInstance().getChallengeTimer().stopTimer(sender instanceof Player ? (Player) sender : null, false);
 
-		Challenges.getInstance().getConfigManager().getInternalConfig().getConfig().set("reset", true);
 		try {
-			Challenges.getInstance().getConfigManager().getInternalConfig().getConfig().set("level-name", Bukkit.getWorlds().get(0).getName());
+			Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("reset", true);
+			Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("level-name", Bukkit.getWorlds().get(0).getName());
 		} catch (NullPointerException | IndexOutOfBoundsException ignored) { }
 		Challenges.getInstance().getConfigManager().getInternalConfig().save();
-
-		Challenges.getInstance().getConfigManager().getBackpackConfig().getConfig().set("team", null);
-		Challenges.getInstance().getConfigManager().getBackpackConfig().getConfig().set("players", null);
-		Challenges.getInstance().getConfigManager().getBackpackConfig().save();
-
-		Challenges.getInstance().getConfigManager().getPositionConfig().getConfig().set("position", null);
-		Challenges.getInstance().getConfigManager().getPositionConfig().save();
+		Challenges.getInstance().getConfigManager().reset();
 
 		if (!shutdownAfter) return;
 
@@ -102,8 +100,12 @@ public class WorldManager {
 		}
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			if (Challenges.getInstance().getWorldManager().restartOnReset) {
-				Bukkit.spigot().restart();
+			if (instance.restartOnReset) {
+				try {
+					Bukkit.spigot().restart();
+				} catch (NoSuchMethodError ignored) {
+					Bukkit.shutdown();
+				}
 			} else {
 				Bukkit.shutdown();
 			}
