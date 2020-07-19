@@ -13,8 +13,10 @@
 # * https://github.com/anweisen                                 #
 # * https://github.com/KxmischesDomi                            #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-config-version: 1.0
+config-version: 1.1.2
 
+# This language will only be used for messages which are not set in the messages.properties
+# and for the descriptions of the challenges in the menu
 # Available languages:
 # en (english)
 # de (german)
@@ -56,17 +58,19 @@ reset-on-last-quit: false
 disable-whitelist-on-start: true
 
 # This will set the gamestate of a server to ingame when the timer starts.
-# It will also start a new server (if enabled in the cloudnet config) if the timer was started for the first time
+# It will also start a new server (if enabled) if the timer was started for the first time
 # (i) Only available for the cloudnet version 3.3.0-RELEASE
 cloudnet-support: false
+start-new-server: true
 
-# You need a mysql connection to use this
+# You need a mysql connection to save the player configs
 save-player-configs: false
+save-player-stats: false
 
-# This is only needed if you want to save the user configs
+# This is only needed if you want to save player configs or player stats
 mysql:
   enabled: false
-  host: '127.0.0.1'
+  host: '127.0.0.1:3306'
   database: 'challenges'
   user: 'root'
   password: 'secret'
