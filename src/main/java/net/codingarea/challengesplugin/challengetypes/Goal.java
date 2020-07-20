@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.scoreboard.ChallengeScoreboard;
@@ -17,12 +18,11 @@ import java.util.List;
  * https://github.com/KxmischesDomi
  */
 
-public abstract class Goal extends GeneralChallenge implements ITimerStatusExecutor {
+public abstract class Goal extends AbstractChallenge {
 
 	protected AnimationSound sound = AnimationSound.STANDARD_SOUND;
 	protected boolean isCurrentGoal;
 	protected ChallengeScoreboard scoreboard;
-	protected String name;
 
 	public abstract void onEnable(ChallengeEditEvent event);
 	public abstract void onDisable(ChallengeEditEvent event);
@@ -31,7 +31,10 @@ public abstract class Goal extends GeneralChallenge implements ITimerStatusExecu
 
 	@Override
 	public void setValues(int value) {
+		boolean before = isCurrentGoal;
 		isCurrentGoal = value == 1;
+		if (isCurrentGoal && !before) onEnable(new ChallengeEditEvent(null, null, null));
+		else if (!isCurrentGoal && before) onDisable(new ChallengeEditEvent(null, null, null));
 	}
 
 	@Override
@@ -44,7 +47,7 @@ public abstract class Goal extends GeneralChallenge implements ITimerStatusExecu
 
 	@Override
 	public ItemStack getActivationItem() {
-		return Challenges.getInstance().getItemManager().getActivationItem(isCurrentGoal);
+		return ItemManager.getActivationItem(isCurrentGoal);
 	}
 
 	public boolean isCurrentGoal() {
@@ -59,16 +62,17 @@ public abstract class Goal extends GeneralChallenge implements ITimerStatusExecu
 			onEnable(event);
 		}
 
-		if (sound != null) {
-			sound.play(event.getPlayer());
-		}
-
 		this.isCurrentGoal = currentGoal;
 
 	}
 
+	public void onTimerStarted() {
+		if (!isCurrentGoal) return;
+		showScoreboard();
+	}
+
 	public boolean equals(Goal anotherGoal) {
-		return this.name.equals(anotherGoal.name);
+		return anotherGoal != null && getChallengeName().equals(anotherGoal.getChallengeName());
 	}
 
 	public ChallengeScoreboard getScoreboard() {
@@ -76,24 +80,19 @@ public abstract class Goal extends GeneralChallenge implements ITimerStatusExecu
 	}
 
 	public void showScoreboard() {
-
-		if (scoreboard != null) {
-			scoreboard.hide();
-			scoreboard.destroyScoreboard();
-		}
-
-		scoreboard = Challenges.getInstance().getScoreboardManager().getNewScoreboard(name).setDisplayName(ChallengeScoreboard.STANDARD_DISPLAYNAME);
+		hideScoreboard();
+		scoreboard = Challenges.getInstance().getScoreboardManager().getNewScoreboard(getChallengeName()).setDisplayName(ChallengeScoreboard.STANDARD_DISPLAYNAME);
 		scoreboard.show();
-
 	}
 
 	public void hideScoreboard() {
-
 		if (scoreboard != null) {
 			scoreboard.hide();
 			scoreboard.destroyScoreboard();
 		}
-
 	}
 
+	public final AnimationSound getSound() {
+		return sound;
+	}
 }
