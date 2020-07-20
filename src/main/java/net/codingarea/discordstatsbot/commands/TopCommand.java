@@ -30,6 +30,8 @@ import static net.codingarea.challengesplugin.utils.ImageUtils.*;
 
 public class TopCommand extends Command {
 
+	public static final int COOLDOWN_MILLIS = 10*1000;
+
 	private final HashMap<User, Long> userOnCoolDown; // Saves the millis until the user is on cooldown
 	private final BufferedImage background;
 
@@ -67,7 +69,7 @@ public class TopCommand extends Command {
 			return;
 		}
 
-		userOnCoolDown.put(event.getUser(), System.currentTimeMillis() + 10*1000);
+		userOnCoolDown.put(event.getUser(), System.currentTimeMillis() + COOLDOWN_MILLIS);
 		event.getChannel().sendTyping().queue();
 
 		try {
@@ -103,11 +105,17 @@ public class TopCommand extends Command {
 			try {
 
 				BufferedImage image = getTopImage(stats, category);
-				File file = new File("images/top.png");
+
+				File folder = new File("./images");
+				if (!folder.exists()) folder.mkdirs();
+				File file = new File(folder + "/top-" + event.getUser().getId() + ".png");
 				if (!file.exists()) file.createNewFile();
+
 				ImageIO.write(image, "png", file);
 
-				event.getChannel().sendFile(file, "top.png").queue();
+				event.getChannel().sendFile(file, "top.png").queue(message -> {
+					file.delete();
+				}, exception -> {});
 
 			} catch (IOException ex) {
 				Log.severe("Could not create image files :: " + ex.getMessage());

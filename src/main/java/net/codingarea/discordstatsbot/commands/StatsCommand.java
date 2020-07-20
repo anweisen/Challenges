@@ -4,6 +4,7 @@ import net.codingarea.challengesplugin.manager.players.stats.PlayerStats;
 import net.codingarea.challengesplugin.manager.players.stats.StatsWrapper;
 import net.codingarea.challengesplugin.utils.ImageUtils;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.discordstatsbot.DiscordBot;
 import net.codingarea.discordstatsbot.commandmanager.CommandEvent;
 import net.codingarea.discordstatsbot.commandmanager.commands.Command;
@@ -13,7 +14,6 @@ import java.awt.*;
 import java.awt.geom.Ellipse2D;
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.nio.Buffer;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
 
@@ -54,22 +54,25 @@ public class StatsCommand extends Command {
 
 			File folder = new File("./images");
 			if (!folder.exists()) folder.mkdirs();
-			File file = new File(folder + "/stats.png");
+			File file = new File(folder + "/stats-" + event.getUser().getId() + ".png");
 			if (!file.exists()) file.createNewFile();
 
 			try {
 
 				BufferedImage statsImage = getImage(event.getArg(0));
 				ImageIO.write(statsImage, "png", file);
-				event.getChannel().sendFile(file, "stats.png").queue();
+				event.getChannel().sendFile(file, "stats.png").queue(message -> {
+					file.delete();
+				}, exception -> {});
 
-			} catch (SQLException ignored) {
+			} catch (SQLException ex) {
+				Log.severe("Could not send leaderboard :: " + ex.getMessage());
 				event.queueReply("Etwas ist mit der Datenbank schief gelaufen");
 			}
 
-
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Log.severe("Could not send leaderboard :: " + ex.getMessage());
+			event.queueReply("Etwas ist mit dem Server schief gelaufen");
 		}
 
 	}
