@@ -10,14 +10,17 @@ import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.projectiles.ProjectileSource;
 
 import java.text.DecimalFormat;
 
@@ -30,9 +33,17 @@ import java.text.DecimalFormat;
 
 public class DamageDisplay extends Setting implements Listener {
 
+	private static DamageDisplay instance;
+
 	public DamageDisplay() {
+		instance = this;
 		menu = MenuType.SETTINGS;
 		enabled = true;
+	}
+
+	@Override
+	public String getChallengeName() {
+		return "damagedisplay";
 	}
 
 	@Override
@@ -51,19 +62,14 @@ public class DamageDisplay extends Setting implements Listener {
 
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (event.getEntityType() != EntityType.PLAYER) return;
-		if (event.getCause() == DamageCause.CUSTOM || event.getCause() == DamageCause.ENTITY_ATTACK) return;
+		if (event.getCause() == DamageCause.CUSTOM || event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.PROJECTILE) return;
 
 		Player player = (Player) event.getEntity();
 
-		DecimalFormat format = new DecimalFormat("0.0");
-
-		String message = Translation.PLAYER_DAMAGE.get()
-				.replace("%player%", player.getName())
-				.replace("%cause%", Utils.getEnumName(event.getCause().name()))
-				.replace("%damage%", format.format(event.getDamage() / ((double)2)));
-
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().DAMAGE_PREFIX + message);
-
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			if (event.isCancelled()) return;
+			handleDamage(Utils.getEnumName(event.getCause().name()), event.getFinalDamage(), player);
+		}, 1);
 	}
 
 	@EventHandler
@@ -72,7 +78,7 @@ public class DamageDisplay extends Setting implements Listener {
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (event.getEntityType() != EntityType.PLAYER) return;
 		if (event.getCause() == DamageCause.CUSTOM) return;
-		if (event.getCause() != DamageCause.ENTITY_ATTACK) return;
+		if (event.getCause() != DamageCause.ENTITY_ATTACK && event.getCause() != DamageCause.PROJECTILE) return;
 
 		Player player = (Player) event.getEntity();
 
@@ -81,16 +87,43 @@ public class DamageDisplay extends Setting implements Listener {
 		if (event.getDamager() instanceof Player) {
 			Player damager = (Player) event.getDamager();
 			cause += " §8(§7" + damager.getName() + "§8)";
+		} else if (event.getDamager() instanceof Projectile) {
+			Projectile projectile = (Projectile) event.getDamager();
+			String damager = "";
+			ProjectileSource shooter = projectile.getShooter();
+			if (shooter instanceof Entity) {
+				Entity entity = (Entity) shooter;
+				if (entity instanceof Player) {
+					Player playerDamager = (Player) entity;
+					damager = playerDamager.getName();
+				} else {
+					damager = Utils.getEnumName(entity.getType().name());
+				}
+			}
+			cause += " §8(§7" + damager + "§8)";
 		} else {
 			cause += " §8(§7" + Utils.getEnumName(event.getDamager().getType().name()) + "§8)";
 		}
 
+		String finalCause = cause;
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			if (event.isCancelled()) return;
+			handleDamage(finalCause, event.getFinalDamage(), player);
+		}, 1);
+	}
+
+	public static void handleDamage(String cause, double damage, Player player) {
+
+		if (!instance.enabled) return;
+		if (damage <= 0) return;
+
 		DecimalFormat format = new DecimalFormat("0.0");
+		String damageString = damage > 2000 ? "∞" : format.format(damage / ((double)2));
 
 		String message = Translation.PLAYER_DAMAGE.get()
 				.replace("%player%", player.getName())
 				.replace("%cause%", cause)
-				.replace("%damage%", format.format(event.getDamage() / ((double)2)));
+				.replace("%damage%", damageString);
 
 		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().DAMAGE_PREFIX + message);
 
