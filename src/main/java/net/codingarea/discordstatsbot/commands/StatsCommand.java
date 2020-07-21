@@ -38,12 +38,17 @@ public class StatsCommand extends Command {
 	@Override
 	public void onCommand(CommandEvent event) {
 
-		if (event.getArgs().length != 1) {
+		String player = event.isFromGuild() ? event.getMember().getEffectiveName() : event.getUser().getName();
+
+		if (event.getArgs().length > 1 || !nameIsValid(player)) {
 			event.queueReply("Benutze `" + event.getPrefix() + "stats <player>`");
 			return;
 		}
+		if (event.getArgs().length == 1) {
+			player = event.getArg(0);
+		}
 
-		if (event.getArg(0).length() > 16) {
+		if (!nameIsValid(player)) {
 			event.queueReply("`" + event.getArg(0) + "` ist kein gültiger Spielername");
 			return;
 		}
@@ -59,7 +64,7 @@ public class StatsCommand extends Command {
 
 			try {
 
-				BufferedImage statsImage = getImage(event.getArg(0));
+				BufferedImage statsImage = getImage(player);
 				ImageIO.write(statsImage, "png", file);
 				event.getChannel().sendFile(file, "stats.png").queue(message -> {
 					file.delete();
@@ -75,6 +80,10 @@ public class StatsCommand extends Command {
 			event.queueReply("Etwas ist mit dem Server schief gelaufen");
 		}
 
+	}
+
+	private boolean nameIsValid(String name) {
+		return name != null && name.length() > 1 && name.length() < 17;
 	}
 
 	private BufferedImage getImage(String playerName) throws SQLException {
