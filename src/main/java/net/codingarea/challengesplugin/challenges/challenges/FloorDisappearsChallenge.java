@@ -25,15 +25,18 @@ import org.bukkit.inventory.ItemStack;
 public class FloorDisappearsChallenge extends AdvancedChallenge implements Listener {
 
     public FloorDisappearsChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES, 50);
         this.value = 5;
-        this.maxValue = 50;
-        this.nextActionInSeconds = -1;
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "floorhole";
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(Material.BARRIER, ItemTranslation.FLOOR_HOLE).build();
+        return new ItemBuilder(Material.BARRIER, ItemTranslation.FLOOR_HOLE).hideAttributes().build();
     }
 
     @Override

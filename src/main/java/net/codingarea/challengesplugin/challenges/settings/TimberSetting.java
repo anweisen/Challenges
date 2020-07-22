@@ -26,13 +26,7 @@ import java.util.*;
 public class TimberSetting extends Modifier implements Listener {
 
     public TimberSetting() {
-        this.menu = MenuType.SETTINGS;
-        maxValue = 3;
-    }
-
-    @Override
-    public String getChallengeName() {
-        return "timber";
+        super(MenuType.SETTINGS, 3);
     }
 
     @Override
@@ -41,9 +35,7 @@ public class TimberSetting extends Modifier implements Listener {
     }
 
     @Override
-    public void onMenuClick(ChallengeEditEvent event) {
-
-    }
+    public void onMenuClick(ChallengeEditEvent event) {}
 
     @EventHandler
     public void onBreak(BlockBreakEvent event) {

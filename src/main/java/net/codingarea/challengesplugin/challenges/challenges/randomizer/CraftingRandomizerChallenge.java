@@ -7,7 +7,6 @@ import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.RandomizerUtil;
-import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,11 +26,16 @@ import java.util.List;
  */
 public class CraftingRandomizerChallenge extends Setting implements Listener {
 
-    @Getter private static HashMap<Material, List<Material>> materials;
+    private static HashMap<Material, List<Material>> materials;
 
     public CraftingRandomizerChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
         load();
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "craftingrandomizer";
     }
 
     @Override
@@ -91,5 +95,7 @@ public class CraftingRandomizerChallenge extends Setting implements Listener {
     @Override
     public void onDisable(ChallengeEditEvent event) { }
 
-
+    public static HashMap<Material, List<Material>> getMaterials() {
+        return materials;
+    }
 }

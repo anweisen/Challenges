@@ -23,9 +23,8 @@ import org.bukkit.inventory.ItemStack;
 public class MaxHealthModifier extends Modifier implements Listener {
 
     public MaxHealthModifier() {
+        super(MenuType.DIFFICULTY, 100);
         value = 20;
-        maxValue = 100;
-        menu = MenuType.DIFFICULTY;
     }
 
     @Override

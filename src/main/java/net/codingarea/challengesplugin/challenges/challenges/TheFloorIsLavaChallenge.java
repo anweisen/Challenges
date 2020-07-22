@@ -23,10 +23,8 @@ import org.bukkit.inventory.ItemStack;
 public class TheFloorIsLavaChallenge extends AdvancedChallenge implements Listener {
 
 	public TheFloorIsLavaChallenge() {
-		menu = MenuType.CHALLENGES;
+		super(MenuType.CHALLENGES, 25);
 		this.value = 5;
-		maxValue = 25;
-		nextActionInSeconds = -1;
 	}
 
 	@Override
@@ -66,11 +64,11 @@ public class TheFloorIsLavaChallenge extends AdvancedChallenge implements Listen
 
 			block.setType(Material.MAGMA_BLOCK);
 
-		}, 20*value);
+		}, 20 * value);
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			block.setType(Material.LAVA);
-		}, 20*value*2);
+		}, 20 * value * 2);
 
 	}
 

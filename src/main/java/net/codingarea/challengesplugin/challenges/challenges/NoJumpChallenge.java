@@ -33,9 +33,8 @@ import java.util.UUID;
 public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 
 	public NoJumpChallenge() {
-		menu = MenuType.CHALLENGES;
+		super(MenuType.CHALLENGES, 50);
 		value = 20;
-		maxValue = 50;
 	}
 
 	@Override
@@ -55,8 +54,8 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 	@Override
 	public void onTimeActivation() { }
 
-	private Set<UUID> prevPlayersOnGround = Sets.newHashSet();
-	private Set<UUID> prevPlayerHitted = Sets.newHashSet();
+	private final Set<UUID> prevPlayersOnGround = Sets.newHashSet();
+	private final Set<UUID> prevPlayerHitted = Sets.newHashSet();
 
 	@EventHandler
 	public void onPlayerDamage(EntityDamageEvent event) {
@@ -72,7 +71,7 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 	public void onMove(PlayerMoveEvent event) {
 
 		if (!enabled || !Challenges.timerIsStarted()) return;
-		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 
 		Player player = event.getPlayer();
 
@@ -94,6 +93,7 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 				}
 			}
 		}
+
 		if (player.isOnGround()) {
 			prevPlayersOnGround.add(player.getUniqueId());
 			prevPlayerHitted.remove(player.getUniqueId());

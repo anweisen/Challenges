@@ -23,7 +23,7 @@ import org.bukkit.inventory.ItemStack;
 public class OnlyDirtChallenge extends Setting implements Listener {
 
     public OnlyDirtChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
     }
 
     @Override

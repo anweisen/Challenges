@@ -7,7 +7,6 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.RandomizerUtil;
-import lombok.Getter;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -25,10 +24,10 @@ import java.util.*;
 
 public class BlockRandomizerChallenge extends Setting implements Listener {
 
-    @Getter private static HashMap<Material, List<Material>> materials;
+    private static HashMap<Material, List<Material>> materials;
 
     public BlockRandomizerChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
         load();
     }
 
@@ -38,6 +37,7 @@ public class BlockRandomizerChallenge extends Setting implements Listener {
     }
 
     private void load() {
+
         materials = new HashMap<>();
 
         List<Material> drops = RandomizerUtil.getRandomizerDrops();
@@ -52,6 +52,7 @@ public class BlockRandomizerChallenge extends Setting implements Listener {
 
             int addDrops = getDropsForBlock(blocks.size(), drops.size());
             for (int i = 0; i < addDrops; i++) {
+                if (drops.size() == 0) return;
                 list.add(drops.remove(0));
             }
 
@@ -97,4 +98,7 @@ public class BlockRandomizerChallenge extends Setting implements Listener {
     @Override
     public void onDisable(ChallengeEditEvent event) { }
 
+    public static HashMap<Material, List<Material>> getMaterials() {
+        return materials;
+    }
 }

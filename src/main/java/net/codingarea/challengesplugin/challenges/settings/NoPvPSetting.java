@@ -3,9 +3,12 @@ package net.codingarea.challengesplugin.challenges.settings;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -19,6 +22,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class NoPvPSetting extends Setting implements Listener {
 
+	public NoPvPSetting() {
+		super(MenuType.SETTINGS);
+	}
+
 	@Override
 	public void onEnable(ChallengeEditEvent event) { }
 
@@ -27,7 +34,7 @@ public class NoPvPSetting extends Setting implements Listener {
 
 	@Override
 	public ItemStack getItem() {
-		return new ItemBuilder(Material.STONE_SWORD, ItemTranslation.PVP).build();
+		return new ItemBuilder(Material.STONE_SWORD, ItemTranslation.PVP).hideAttributes().build();
 	}
 
 	@EventHandler
@@ -35,9 +42,15 @@ public class NoPvPSetting extends Setting implements Listener {
 
 		if (!enabled) return;
 		if (event.getEntityType() != EntityType.PLAYER) return;
-		if (event.getDamager().getType() != EntityType.PLAYER) return;
 
-		event.setCancelled(true);
+		if (event.getDamager().getType() == EntityType.PLAYER) {
+			event.setCancelled(true);
+		} else if (event.getDamager() instanceof Projectile) {
+			if (((Projectile) event.getDamager()).getShooter() instanceof Player) {
+				event.setCancelled(true);
+			}
+		}
+
 
 	}
 

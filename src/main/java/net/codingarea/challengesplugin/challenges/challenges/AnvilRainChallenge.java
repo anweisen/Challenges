@@ -6,6 +6,7 @@ import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.*;
@@ -16,7 +17,8 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.block.*;
+import org.bukkit.event.entity.*;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -39,32 +41,23 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 	private int average = 0;
 
 	public AnvilRainChallenge() {
-		this.random = new Random();
-		this.menu = MenuType.CHALLENGES;
-		this.maxValue = 20;
+		super(MenuType.CHALLENGES, 20);
+		random = new Random();
 		bossBar = Bukkit.createBossBar("AnvilRain", BarColor.BLUE, BarStyle.SOLID);
-		bossBar.setVisible(false);
-	}
-
-	@Override
-	public String getChallengeName() {
-		return "anvilrain";
 	}
 
 	private void updateBossBar() {
 
-		Utils.forEachPlayerOnline(bossBar::addPlayer);
-
 		if (!enabled) {
-			bossBar.setVisible(false);
+			ScoreboardManager.getInstance().deactivateBossBar(bossBar);
 			return;
+		} else {
+			ScoreboardManager.getInstance().activateBossBar(bossBar);
 		}
 
-		bossBar.setVisible(true);
 		bossBar.setProgress(1);
 
 		String title;
-
 		if (!Challenges.timerIsStarted()) {
 			title = "§cTimer is paused";
 			bossBar.setColor(BarColor.RED);
@@ -75,7 +68,6 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 
 		bossBar.setTitle(title);
 
-
 	}
 
 	@Override
@@ -85,7 +77,7 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 
 	@Override
 	public void onEnable(ChallengeEditEvent event) {
-		this.nextActionInSeconds = 1;
+		nextActionInSeconds = 1;
 		updateBossBar();
 	}
 
@@ -102,13 +94,13 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 
 	@Override
 	public void onTimerStart() {
-		this.nextActionInSeconds = 1;
+		nextActionInSeconds = 1;
 	}
 
 	@Override
 	public void onTimeActivation() {
 
-		this.nextActionInSeconds = 1;
+		nextActionInSeconds = 1;
 		updateBossBar();
 
 		Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
@@ -177,12 +169,8 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (!(event.getEntity() instanceof FallingBlock)) return;
 		if (!((FallingBlock)event.getEntity()).getBlockData().getMaterial().name().toLowerCase().contains("anvil")) return;
-		if (event.getBlock().getLocation().clone().add(0, -1, 0).getBlock().getType() == Material.AIR) return;
-		Location location = event.getBlock().getLocation().add(0,-1, 0);
 
-		if (location.getBlock().getType() == Material.GRASS_PATH || Arrays.asList(Utils.getFlowers()).contains(location.getBlock().getType())) {
-			location.getBlock().setType(Material.AIR, true);
-		}
+		if (event.getBlock().getLocation().clone().add(0, -1, 0).getBlock().getType() == Material.AIR) return;
 
 		event.getBlock().setType(Material.AIR);
 		event.setCancelled(true);
@@ -194,8 +182,8 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 	private void charge(Location destination) {
 		int i = random.nextInt(2);
 		if (i == 0 || (i == 2 && value > 25)) return;
-		int blocks = i == 1 && value < 16 ? -1 : 0;
-		while (blocks < 1 && destination.getBlockY() > 1) {
+		int blocks = i == 1 && value < 16 ? 0 : 1;
+		while (blocks < 2 && destination.getBlockY() > 1) {
 			if (destination.getBlock().getType() == Material.WATER || destination.getBlock().getType() == Material.LAVA) return;
 			destination.subtract(0, 1, 0);
 			if (destination.getBlock().isPassable()) blocks--;

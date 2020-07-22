@@ -2,6 +2,7 @@ package net.codingarea.challengesplugin.challenges.goal;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.CollectGoal;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.lang.Translation;
@@ -25,12 +26,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * https://github.com/KxmischesDomi
  */
 
-public class CollectItemsGoal extends CollectGoal<Material> implements Listener {
+public class CollectItemsGoal extends CollectGoal<Material> implements Listener, ITimerStatusExecutor {
 
 	public CollectItemsGoal() {
-		menu = MenuType.GOALS;
-		name = "collectitems";
-		scoreboard = Challenges.getInstance().getScoreboardManager().getNewScoreboard(name);
+		super(MenuType.GOALS);
 	}
 
 	@Override
@@ -39,20 +38,10 @@ public class CollectItemsGoal extends CollectGoal<Material> implements Listener 
 	}
 
 	@Override
-	public void onEnable(ChallengeEditEvent event) {
-		if (Challenges.timerIsStarted()) showScoreboard();
-	}
-
-	@Override
-	public void onDisable(ChallengeEditEvent event) {
-		hideScoreboard();
-	}
-
-	@Override
 	public void onTimerStart() {
 		if (!isCurrentGoal) return;
 		points = new ConcurrentHashMap<>();
-		showScoreboard();
+		updateScoreboard();
 	}
 
 	@EventHandler

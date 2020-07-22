@@ -32,21 +32,19 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
     private final ArrayList<Block> blocks = new ArrayList<>();
 
     public WaterMLGChallenge() {
-        this.menu = MenuType.CHALLENGES;
-        this.maxValue = 10;
+        super(MenuType.CHALLENGES, 10);
         this.nextActionInSeconds = getRandomSeconds();
     }
 
-
     @Override
     public void onTimeActivation() {
+
         this.nextActionInSeconds = getRandomSeconds();
+        Location chunkLocation = new Location(flatWorld, 0.5, 100, 0.5);
 
-            Location chunkLocation = new Location(flatWorld, 0.5, 100, 0.5);
-
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                chunkLocation.add(0,50,0).getChunk().load(true);
-            }
+        for (Player player : Bukkit.getOnlinePlayers()) {
+            chunkLocation.add(0,50,0).getChunk().load(true);
+        }
 
         Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 

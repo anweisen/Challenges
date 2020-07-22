@@ -27,7 +27,7 @@ import org.bukkit.inventory.ItemStack;
 public class HydraChallenge extends Setting implements Listener {
 
     public HydraChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
     }
 
     @Override
@@ -53,7 +53,7 @@ public class HydraChallenge extends Setting implements Listener {
         for (int i = 0; i < 2; i++) {
             event.getEntity().getWorld().spawnEntity(event.getEntity().getLocation(), event.getEntityType());
         }
-        Utils.spawnUpgoingParticleCircle(event.getEntity().getLocation(), Particle.SPELL_MOB, Challenges.getInstance(), 2, 17, 1);
+        Utils.spawnUpGoingParticleCircle(event.getEntity().getLocation(), Particle.SPELL_MOB, Challenges.getInstance(), 2, 17, 1);
     }
 
 }

@@ -27,8 +27,7 @@ import java.util.List;
 public class WitherGoal extends Goal implements Listener {
 
 	public WitherGoal() {
-		this.name = "withergoal";
-		this.menu = MenuType.GOALS;
+		super(MenuType.GOALS);
 	}
 
 	@Override
@@ -37,12 +36,10 @@ public class WitherGoal extends Goal implements Listener {
 	}
 
 	@Override
-	public void onEnable(ChallengeEditEvent event) {
-	}
+	public void onEnable(ChallengeEditEvent event) { }
 
 	@Override
-	public void onDisable(ChallengeEditEvent event) {
-	}
+	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
 	public List<Player> getWinners() {
@@ -55,7 +52,7 @@ public class WitherGoal extends Goal implements Listener {
 		if (!isCurrentGoal || !Challenges.timerIsStarted()) return;
 		if (!(event.getEntity() instanceof Wither)) return;
 
-		Challenges.getInstance().getServerManager().handleChallengeEnd(event.getEntity().getKiller(), ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED);
+		Challenges.getInstance().getServerManager().handleChallengeEnd(event.getEntity().getKiller(), ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED, null);
 
 	}
 

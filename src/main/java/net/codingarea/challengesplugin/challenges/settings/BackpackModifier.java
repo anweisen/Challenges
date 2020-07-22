@@ -1,5 +1,6 @@
 package net.codingarea.challengesplugin.challenges.settings;
 
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
@@ -23,6 +24,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -33,7 +35,10 @@ import org.bukkit.inventory.ItemStack;
 
 public class BackpackModifier extends Modifier implements Listener, CommandExecutor {
 
-    private YamlConfig config;
+    private final YamlConfig config;
+    private final ChallengeManager manager;
+    private final Inventory teamBackpack;
+    private int size;
 
     @Override
     public ItemStack getItem() {
@@ -41,9 +46,9 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
     }
 
     public BackpackModifier(int size, ChallengeManager manager) {
-        this.menu = MenuType.SETTINGS;
-        this.maxValue = 3;
-        this.config = Challenges.getInstance().getConfigManager().getBackpackConfig();
+
+        super(MenuType.SETTINGS, 3);
+        this.config = new YamlConfig(getDataFile("yml"));
 
         this.manager = manager;
         this.size = size;
@@ -53,19 +58,22 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
 
         this.size *= 9;
 
-        YamlConfig yamlConfig = manager.getPlugin().getConfigManager().getBackpackConfig();
-        FileConfiguration config = yamlConfig.getConfig();
-        ItemStack[] content = BackpackUtil.getContent(config, "team", this.size);
+        ItemStack[] content = BackpackUtil.getContent(config.toFileConfig(), "team", this.size);
 
         if (content == null) {
-            BackpackUtil.saveArrayToConfig(config, "team", Bukkit.createInventory(null, this.size, "§5Team-Backpack").getContents());
+            BackpackUtil.saveArrayToConfig(config.toFileConfig(), "team", Bukkit.createInventory(null, this.size, "§5Team-Backpack").getContents());
         }
         this.teamBackpack = Bukkit.createInventory(null, this.size, "§5Team-Backpack");
         try {
-            this.teamBackpack.setContents(BackpackUtil.getContent(config, "team", this.size));
-            yamlConfig.save();
+            this.teamBackpack.setContents(BackpackUtil.getContent(config.toFileConfig(), "team", this.size));
+            config.save();
         } catch (Exception ignored) { }
 
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "backpack";
     }
 
     @Override
@@ -74,7 +82,7 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
     @Override
     public ItemStack getActivationItem() {
         if (this.value == 1) {
-            return Challenges.getInstance().getItemManager().getNotActivatedItem();
+            return ItemManager.getNotActivatedItem();
         } else if (this.value == 2) {
             return new ItemBuilder(Material.PLAYER_HEAD, "§6Player").getItem();
         } else {
@@ -84,27 +92,21 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
 
     @EventHandler
     public void handle(InventoryCloseEvent event) {
-
         Bukkit.getScheduler().runTaskAsynchronously(Challenges.getInstance(), () -> {
             if (event.getView().getTitle().equals("§5Team-Backpack")) {
-                BackpackUtil.saveArrayToConfig(config.getConfig(), "team", event.getInventory().getContents());
+                BackpackUtil.saveArrayToConfig(config.toFileConfig(), "team", event.getInventory().getContents());
                 AnimationSound.PLOP_SOUND.play((Player) event.getPlayer());
                 config.save();
             } else if (event.getView().getTitle().equals("§6Backpack")) {
-                BackpackUtil.saveArrayToConfig(config.getConfig(), "players." + event.getPlayer().getUniqueId().toString(), event.getInventory().getContents());
+                BackpackUtil.saveArrayToConfig(config.toFileConfig(), "players." + event.getPlayer().getUniqueId().toString(), event.getInventory().getContents());
                 AnimationSound.PLOP_SOUND.play((Player) event.getPlayer());
                 config.save();
             }
         });
-
     }
 
-    private ChallengeManager manager;
-    private int size;
-    Inventory teamBackpack;
-
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
         if(!(sender instanceof Player)) return true;
         Player player = (Player) sender;
@@ -115,21 +117,18 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
             return true;
         }
 
-        YamlConfig yamlConfig = manager.getPlugin().getConfigManager().getBackpackConfig();
-        FileConfiguration config = yamlConfig.getConfig();
-
         if (value == 2) {
 
             String uuid = player.getUniqueId().toString();
-            if (BackpackUtil.getContent(config, "players." + uuid, this.size) == null) {
-                BackpackUtil.saveArrayToConfig(config, "team", Bukkit.createInventory(null, size, "§6Backpack").getContents());
-                yamlConfig.save();
+            if (BackpackUtil.getContent(config.toFileConfig(), "players." + uuid, this.size) == null) {
+                BackpackUtil.saveArrayToConfig(config.toFileConfig(), "team", Bukkit.createInventory(null, size, "§6Backpack").getContents());
+                config.save();
             }
 
             Inventory inventory = Bukkit.createInventory(null, this.size, "§6Backpack");
 
             try {
-                inventory.setContents(BackpackUtil.getContent(config, "players." + uuid, this.size));
+                inventory.setContents(BackpackUtil.getContent(config.toFileConfig(), "players." + uuid, this.size));
             } catch (NullPointerException ignored) { }
 
             player.openInventory(inventory);

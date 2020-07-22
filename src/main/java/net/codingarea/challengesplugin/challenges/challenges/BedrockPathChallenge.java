@@ -26,8 +26,12 @@ import org.bukkit.inventory.ItemStack;
 public class BedrockPathChallenge extends Challenge implements Listener {
 
     public BedrockPathChallenge() {
-        this.menu = MenuType.CHALLENGES;
-        this.nextActionInSeconds = -1;
+        super(MenuType.CHALLENGES);
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "bedrockpath";
     }
 
     @Override

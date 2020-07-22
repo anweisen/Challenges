@@ -21,8 +21,10 @@ import org.bukkit.inventory.ItemStack;
 public class KeepInventorySetting extends Setting {
 
     public KeepInventorySetting() {
-        this.menu = MenuType.SETTINGS;
-        this.enabled = Bukkit.getWorlds().get(0).getGameRuleValue(GameRule.KEEP_INVENTORY).booleanValue();
+        super(MenuType.SETTINGS);
+        try {
+            enabled = Bukkit.getWorlds().get(0).getGameRuleValue(GameRule.KEEP_INVENTORY);
+        } catch (Exception ignored) { }
     }
 
     @Override

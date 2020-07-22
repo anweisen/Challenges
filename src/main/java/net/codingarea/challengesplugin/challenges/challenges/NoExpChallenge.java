@@ -21,7 +21,7 @@ import org.bukkit.inventory.ItemStack;
 public class NoExpChallenge extends Setting implements Listener {
 
     public NoExpChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
     }
 
     @Override

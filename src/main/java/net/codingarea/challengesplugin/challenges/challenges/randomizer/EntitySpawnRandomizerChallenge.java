@@ -30,8 +30,13 @@ public class EntitySpawnRandomizerChallenge extends Setting implements Listener 
     private HashMap<EntityType, EntityType> entities;
 
     public EntitySpawnRandomizerChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
         load();
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "mobrandomizer";
     }
 
     private void load() {

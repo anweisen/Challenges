@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.challenges.goal;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.challengetypes.CountingGoal;
@@ -25,8 +26,7 @@ import org.bukkit.inventory.ItemStack;
 public class MineDiamondsGoal extends CountingGoal implements Listener {
 
 	public MineDiamondsGoal() {
-		menu = MenuType.GOALS;
-		name = "diamonds";
+		super(MenuType.GOALS);
 	}
 
 	@Override

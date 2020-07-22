@@ -1,11 +1,12 @@
 package net.codingarea.challengesplugin.challenges.difficulty;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Modifier;
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.ItemBuilder.TippedArrowBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -26,17 +27,14 @@ import org.bukkit.potion.PotionType;
 
 public class RegenerationModifier extends Modifier implements Listener {
 
-    @SuppressWarnings("depraction")
     public RegenerationModifier() {
-        this.menu = MenuType.DIFFICULTY;
+        super(MenuType.DIFFICULTY, 3);
         this.value = 2;
-        this.maxValue = 3;
-        this.minValue = 1;
     }
 
     @Override
     public ItemStack getItem() {
-        ItemStack item = new ItemBuilder(Material.POTION, ItemTranslation.REGENERATION).hideAttributes().getItem();
+        ItemStack item = new ItemBuilder(Material.POTION, ItemTranslation.REGENERATION).hideAttributes().build();
         PotionMeta meta = (PotionMeta) item.getItemMeta();
         meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
         item.setItemMeta(meta);
@@ -49,7 +47,7 @@ public class RegenerationModifier extends Modifier implements Listener {
     @Override
     public ItemStack getActivationItem() {
         if (this.value == 1) {
-            return Challenges.getInstance().getItemManager().getNotActivatedItem();
+            return ItemManager.getNotActivatedItem();
         } else if (this.value == 2) {
             return new ItemBuilder(Material.LIME_DYE, "§aActivated").getItem();
         } else {

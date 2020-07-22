@@ -42,7 +42,7 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 	private Flag currentFlag;
 
 	public GuessTheFlag() {
-		menu = MenuType.CHALLENGES;
+		super(MenuType.CHALLENGES);
 		random = new Random();
 	}
 
@@ -149,6 +149,11 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 
 	@Override
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+
+		if (!enabled) {
+			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FEATURE_DISABLED);
+			return true;
+		}
 
 		if (label.equalsIgnoreCase("currentflag")) {
 			if (currentFlag == null) {

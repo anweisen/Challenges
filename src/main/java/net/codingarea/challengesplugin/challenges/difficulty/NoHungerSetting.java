@@ -22,12 +22,7 @@ import org.bukkit.inventory.ItemStack;
 public class NoHungerSetting extends Setting implements Listener {
 
 	public NoHungerSetting() {
-		menu = MenuType.DIFFICULTY;
-	}
-
-	@Override
-	public String getChallengeName() {
-		return "nohunger";
+		super(MenuType.DIFFICULTY);
 	}
 
 	@Override

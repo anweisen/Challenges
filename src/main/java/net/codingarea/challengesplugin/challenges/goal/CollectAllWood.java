@@ -3,6 +3,7 @@ package net.codingarea.challengesplugin.challenges.goal;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challenges.settings.TimberSetting.LogType;
 import net.codingarea.challengesplugin.challengetypes.CollectGoal;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
@@ -32,19 +33,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * https://github.com/anweisen
  */
 
-public class CollectAllWood extends CollectGoal<LogType> implements Listener {
+public class CollectAllWood extends CollectGoal<LogType> implements Listener, ITimerStatusExecutor {
 
-	private List<Player> winners = new ArrayList<>();
+	private final List<Player> winners = new ArrayList<>();
 
 	public CollectAllWood() {
-		menu = MenuType.GOALS;
-		name = "collectwood";
-		scoreboard = Challenges.getInstance().getScoreboardManager().getNewScoreboard(name);
-	}
-
-	@Override
-	public String getChallengeName() {
-		return "collectwood";
+		super(MenuType.GOALS);
 	}
 
 	@Override
@@ -53,30 +47,18 @@ public class CollectAllWood extends CollectGoal<LogType> implements Listener {
 	}
 
 	@Override
-	public void onEnable(ChallengeEditEvent event) {
-		if (Challenges.timerIsStarted()) showScoreboard();
-	}
-
-	@Override
-	public void onDisable(ChallengeEditEvent event) {
-		hideScoreboard();
-	}
-
-	@Override
 	public void onTimerStart() {
 		if (!isCurrentGoal) return;
 		points = new ConcurrentHashMap<>();
-		showScoreboard();
+		updateScoreboard();
 	}
 
 	@EventHandler
 	public void onPlayerItemCollect(PlayerPickupItemEvent event) {
-
 		if (!isCurrentGoal || !Challenges.timerIsStarted()) return;
 		LogType log = LogType.getType(event.getItem().getItemStack().getType());
 		handleNewPoint(event.getPlayer(), log, log.name(), Translation.COLLECT_ITEMS_ITEM_REGISTERED);
 		checkEnd();
-
 	}
 
 	@EventHandler

@@ -25,10 +25,8 @@ import org.bukkit.inventory.ItemStack;
 public class BedrockWallChallenge extends AdvancedChallenge implements Listener {
 
     public BedrockWallChallenge() {
-        this.menu = MenuType.CHALLENGES;
-        this.value = 10;
-        this.maxValue = 50;
-        this.nextActionInSeconds = -1;
+        super(MenuType.CHALLENGES, 50);
+        value = 10;
     }
 
     @Override

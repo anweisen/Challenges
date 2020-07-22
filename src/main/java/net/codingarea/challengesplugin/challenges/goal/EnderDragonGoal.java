@@ -26,9 +26,7 @@ import java.util.List;
 public class EnderDragonGoal extends Goal implements Listener {
 
     public EnderDragonGoal() {
-        this.isCurrentGoal = true;
-        this.name = "enderdragongoal";
-        this.menu = MenuType.GOALS;
+        super(MenuType.GOALS, true);
     }
 
     @Override
@@ -37,12 +35,10 @@ public class EnderDragonGoal extends Goal implements Listener {
     }
 
     @Override
-    public void onEnable(ChallengeEditEvent event) {
-    }
+    public void onEnable(ChallengeEditEvent event) { }
 
     @Override
-    public void onDisable(ChallengeEditEvent event) {
-    }
+    public void onDisable(ChallengeEditEvent event) { }
 
     @Override
     public List<Player> getWinners() {
@@ -55,7 +51,7 @@ public class EnderDragonGoal extends Goal implements Listener {
         if (!isCurrentGoal || !Challenges.timerIsStarted()) return;
         if (!(event.getEntity() instanceof EnderDragon)) return;
 
-        Challenges.getInstance().getServerManager().handleChallengeEnd(event.getEntity().getKiller(), ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED);
+        Challenges.getInstance().getServerManager().handleChallengeEnd(event.getEntity().getKiller(), ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED, null);
 
     }
 

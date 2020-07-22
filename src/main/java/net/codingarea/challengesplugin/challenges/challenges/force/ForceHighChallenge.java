@@ -8,6 +8,7 @@ import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
+import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
@@ -48,18 +49,13 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
                    playerRandom;
 
     public ForceHighChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
         time = 0;
         count = 0;
         height = -1;
         newRandom = new Random();
         timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
         newRandom = null;
-    }
-
-    @Override
-    public String getChallengeName() {
-        return "forceheight";
     }
 
     @Override
@@ -116,13 +112,19 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
         }
         count++;
         if (count >= time) {
+
             List<Player> playersOnTheFalseHeight = checkPlayersHeight(height);
 
-            if (!playersOnTheFalseHeight.isEmpty()) {
-                ServerManager.simulateChallengeEnd(playersOnTheFalseHeight.get(0), ChallengeEndCause.PLAYER_CHALLENGE_FAIL);
-                return;
+            for (Player currentPlayer : playersOnTheFalseHeight) {
+                Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FORCE_HEIGHT_FAIL.get().replace("%player%", currentPlayer.getName()).replace("%height%", currentPlayer.getLocation().getBlockY() + ""));
             }
+
             timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
+            if (playersOnTheFalseHeight.isEmpty()) {
+                Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FORCE_HEIGHT_COMPLETE);
+            } else {
+                ServerManager.simulateChallengeEnd(playersOnTheFalseHeight.get(0), ChallengeEndCause.PLAYER_CHALLENGE_FAIL);
+            }
         }
 
         this.bossBar.setColor(BarColor.GREEN);

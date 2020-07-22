@@ -29,7 +29,7 @@ import org.jetbrains.annotations.NotNull;
 public class UpCommand extends Setting implements CommandExecutor {
 
 	public UpCommand() {
-		this.menu = MenuType.SETTINGS;
+		super(MenuType.SETTINGS);
 	}
 
 	@Override

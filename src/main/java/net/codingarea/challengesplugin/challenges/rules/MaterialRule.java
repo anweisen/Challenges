@@ -26,24 +26,24 @@ import java.util.Arrays;
 
 public class MaterialRule extends Setting implements Listener {
 
-    private Material[] material;
-    private String name;
+    private final Material[] material;
+    private final String name;
 
-    private Material itemMaterial;
+    private final Material itemMaterial;
 
     public MaterialRule(Material material, String prefix) {
+        super(MenuType.BLOCK_ITEMS);
         this.material = new Material[1];
         this.material[0] = material;
         this.itemMaterial = material;
-        this.menu = MenuType.BLOCK_ITEMS;
         this.name = prefix + Utils.getEnumName(material.name());
         this.enabled = true;
     }
 
     public MaterialRule(Material itemMaterial, String name, Material... material) {
+        super(MenuType.BLOCK_ITEMS);
         this.material = material;
         this.itemMaterial = itemMaterial;
-        this.menu = MenuType.BLOCK_ITEMS;
         this.enabled = true;
         this.name = name;
     }

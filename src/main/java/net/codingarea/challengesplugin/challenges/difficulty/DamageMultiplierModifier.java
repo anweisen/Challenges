@@ -22,13 +22,12 @@ import org.bukkit.inventory.ItemStack;
 public class DamageMultiplierModifier extends Modifier implements Listener {
 
     public DamageMultiplierModifier() {
-        maxValue = 5;
-        menu = MenuType.DIFFICULTY;
+        super(MenuType.DIFFICULTY, 5);
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(Material.STONE_SWORD, ItemTranslation.DAMAGE_MULTIPLIER).build();
+        return new ItemBuilder(Material.STONE_SWORD, ItemTranslation.DAMAGE_MULTIPLIER).hideAttributes().build();
     }
 
     @Override

@@ -25,8 +25,7 @@ import org.bukkit.inventory.ItemStack;
 public class InventoryClearOnDamageChallenge extends Setting implements Listener {
 
     public InventoryClearOnDamageChallenge() {
-        this.menu = MenuType.CHALLENGES;
-
+        super(MenuType.CHALLENGES);
     }
 
     @EventHandler

@@ -27,12 +27,12 @@ public class DamageRule extends Setting implements Listener {
 
     private final DamageCause[] cause;
 
-    private String name;
-    private Material material;
+    private final String name;
+    private final Material material;
 
     public DamageRule(Material material, String name, DamageCause... cause) {
+        super(MenuType.DAMAGE);
         this.cause = cause;
-        this.menu = MenuType.DAMAGE;
         this.name = name;
         this.material = material;
         this.enabled = true;

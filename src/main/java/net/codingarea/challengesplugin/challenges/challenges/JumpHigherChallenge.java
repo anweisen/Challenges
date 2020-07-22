@@ -42,12 +42,7 @@ public class JumpHigherChallenge extends Setting implements Listener {
 	private Map<UUID, Integer> height = new HashMap<>();
 
 	public JumpHigherChallenge() {
-		menu = MenuType.CHALLENGES;
-	}
-
-	@Override
-	public String getChallengeName() {
-		return "jumphigher";
+		super(MenuType.CHALLENGES);
 	}
 
 	@Override

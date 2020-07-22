@@ -30,7 +30,7 @@ import org.bukkit.potion.PotionType;
 public class SplitHealthSetting extends Setting implements Listener {
 
     public SplitHealthSetting() {
-        this.menu = MenuType.DIFFICULTY;
+        super(MenuType.DIFFICULTY);
     }
 
     @Override
@@ -40,6 +40,11 @@ public class SplitHealthSetting extends Setting implements Listener {
         meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
         item.setItemMeta(meta);
         return item;
+    }
+
+    @Override
+    public String getChallengeName() {
+        return "splithealth";
     }
 
     @Override
@@ -54,7 +59,9 @@ public class SplitHealthSetting extends Setting implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
         if (event.getCause() == DamageCause.CUSTOM) return;
 
-        setHealth(((Player)event.getEntity()).getHealth() + ((Player)event.getEntity()).getAbsorptionAmount() - event.getDamage(), (Player)event.getEntity());
+        Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+            setHealth((Player) event.getEntity());
+        }, 1);
 
     }
 
@@ -64,23 +71,25 @@ public class SplitHealthSetting extends Setting implements Listener {
         if (!(event.getEntity() instanceof Player)) return;
         if (event.getRegainReason() == RegainReason.CUSTOM) return;
 
-        setHealth(((Player)event.getEntity()).getHealth() + ((Player)event.getEntity()).getAbsorptionAmount() + event.getAmount(), (Player)event.getEntity());
+        Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+            setHealth((Player) event.getEntity());
+        }, 1);
 
     }
 
-    private void setHealth(double health, Player player) {
+
+
+    private void setHealth(Player player) {
 
         for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 
             if (currentPlayer.getGameMode() == GameMode.SPECTATOR) continue;
             if (currentPlayer.equals(player)) continue;
 
-            if (health <= 0) {
-                currentPlayer.damage(currentPlayer.getMaxHealth());
-                continue;
-            } else if (health > currentPlayer.getMaxHealth()) {
-                currentPlayer.setHealth(currentPlayer.getMaxHealth());
-                continue;
+            double health = player.getHealth();
+
+            if (health > currentPlayer.getMaxHealth()) {
+                health = currentPlayer.getMaxHealth();
             }
 
             currentPlayer.setHealth(health);

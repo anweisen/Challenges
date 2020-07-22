@@ -48,18 +48,13 @@ public class ForceBlockChallenge extends Setting implements ISecondExecutor {
                    newRandom;
 
     public ForceBlockChallenge() {
-        this.menu = MenuType.CHALLENGES;
+        super(MenuType.CHALLENGES);
         time = 0;
         count = 0;
         material = Material.AIR;
         newRandom = new Random();
         timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
         newRandom = null;
-    }
-
-    @Override
-    public String getChallengeName() {
-        return "forceblock";
     }
 
     @Override
@@ -96,7 +91,7 @@ public class ForceBlockChallenge extends Setting implements ISecondExecutor {
             if (timeUntilNew <= 0) {
                 timeUntilNew = -1;
                 time = maxRandom.nextInt(5*60 - 2*60) + 2*60;
-                List<Material> materials = RandomizerUtil.getRandomizerBlocks();
+                List<Material> materials = RandomizerUtil.getForceBlockBlocks();
                 material = materials.get(materialRandom.nextInt(materials.size()));
                 count = 0;
             }

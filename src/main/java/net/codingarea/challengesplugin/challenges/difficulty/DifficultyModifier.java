@@ -21,15 +21,13 @@ import org.bukkit.inventory.ItemStack;
 public class DifficultyModifier extends Modifier {
 
     public DifficultyModifier() {
-        this.menu = MenuType.DIFFICULTY;
-        this.maxValue = 4;
-        this.minValue = 1;
-        this.value = getValueByDifficulty(Bukkit.getWorlds().get(0).getDifficulty());
+        super(MenuType.DIFFICULTY, 4);
+        value = getValueByDifficulty(Bukkit.getWorlds().get(0).getDifficulty());
     }
 
     @Override
     public ItemStack getItem() {
-        return new ItemBuilder(Material.DIAMOND_SWORD, ItemTranslation.DIFFICULTY).hideAttributes().getItem();
+        return new ItemBuilder(Material.MELON_SLICE, ItemTranslation.DIFFICULTY).hideAttributes().getItem();
     }
 
     @Override
@@ -60,7 +58,6 @@ public class DifficultyModifier extends Modifier {
     }
 
     private int getValueByDifficulty(Difficulty difficulty) {
-
         if (difficulty == Difficulty.PEACEFUL) {
             return 1;
         } else if (difficulty == Difficulty.EASY) {
@@ -70,7 +67,6 @@ public class DifficultyModifier extends Modifier {
         } else {
             return 4;
         }
-
     }
 
 }

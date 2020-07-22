@@ -27,7 +27,7 @@ import org.bukkit.potion.PotionEffectType;
 public class SoupSetting extends Setting implements Listener {
 
 	public SoupSetting() {
-		menu = MenuType.SETTINGS;
+		super(MenuType.SETTINGS);
 	}
 
 	@Override

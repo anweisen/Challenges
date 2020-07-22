@@ -1,7 +1,9 @@
 package net.codingarea.challengesplugin.challenges.goal;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challengetypes.CountingGoal;
 import net.codingarea.challengesplugin.challengetypes.Goal;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
@@ -26,14 +28,10 @@ import java.util.concurrent.ConcurrentHashMap;
  * https://github.com/KxmischesDomi
  */
 
-public class BreakBlockGoal extends Goal implements Listener {
-
-	private ConcurrentHashMap<Player, Integer> points;
+public class BreakBlockGoal extends CountingGoal implements Listener, ITimerStatusExecutor {
 
 	public BreakBlockGoal() {
-		menu = MenuType.GOALS;
-		points = new ConcurrentHashMap<>();
-		name = "breakblocks";
+		super(MenuType.GOALS);
 	}
 
 	@Override
@@ -42,23 +40,9 @@ public class BreakBlockGoal extends Goal implements Listener {
 	}
 
 	@Override
-	public void onEnable(ChallengeEditEvent event) {
-		if (Challenges.timerIsStarted()) {
-			showScoreboard();
-			updateScoreboard();
-		}
-	}
-
-	@Override
-	public void onDisable(ChallengeEditEvent event) {
-		hideScoreboard();
-	}
-
-	@Override
 	public void onTimerStart() {
 		if (!isCurrentGoal) return;
 		points = new ConcurrentHashMap<>();
-		showScoreboard();
 		updateScoreboard();
 	}
 
@@ -87,39 +71,6 @@ public class BreakBlockGoal extends Goal implements Listener {
 
 	}
 
-	private void updateScoreboard() {
-
-		scoreboard.checkUpdate();
-
-		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-
-			if (!points.containsKey(currentPlayer)) {
-				points.put(currentPlayer, 0);
-			}
-
-		}
-
-		for (Entry<Player, Integer> entry : points.entrySet()) {
-			scoreboard.getScore("§7" + entry.getKey().getDisplayName()).setScore(entry.getValue());
-		}
-
-		scoreboard.applyChanges();
-
-
-	}
-
-	private void handleNewBlock(Player player) {
-
-		if (!points.containsKey(player)) {
-			points.put(player, 1);
-		} else {
-			points.put(player, points.get(player) + 1);
-		}
-
-		updateScoreboard();
-
-	}
-
 	@EventHandler
 	public void onPlayerBreakBlock(BlockBreakEvent event) {
 
@@ -131,7 +82,7 @@ public class BreakBlockGoal extends Goal implements Listener {
 				|| event.getBlock().getType() == Material.SEAGRASS
 				|| event.getBlock().getType() == Material.FERN
 				|| event.getBlock().getType() == Material.LARGE_FERN) return;
-		handleNewBlock(event.getPlayer());
+		handleNewPoint(event.getPlayer());
 
 	}
 

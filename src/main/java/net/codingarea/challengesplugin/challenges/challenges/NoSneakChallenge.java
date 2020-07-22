@@ -24,9 +24,8 @@ import org.bukkit.inventory.ItemStack;
 public class NoSneakChallenge extends AdvancedChallenge implements Listener {
 
 	public NoSneakChallenge() {
-		menu = MenuType.CHALLENGES;
+		super(MenuType.CHALLENGES, 50);
 		value = 20;
-		maxValue = 50;
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class NoSneakChallenge extends AdvancedChallenge implements Listener {
 
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (!event.isSneaking()) return;
-		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 
 		event.setCancelled(true);
 

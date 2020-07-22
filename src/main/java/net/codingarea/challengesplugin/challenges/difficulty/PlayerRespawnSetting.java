@@ -19,7 +19,7 @@ import org.bukkit.inventory.ItemStack;
 public class PlayerRespawnSetting extends Setting {
 
 	public PlayerRespawnSetting() {
-		this.menu = MenuType.DIFFICULTY;
+		super(MenuType.DIFFICULTY);
 	}
 
 	@Override
@@ -36,4 +36,5 @@ public class PlayerRespawnSetting extends Setting {
 	public ItemStack getItem() {
 		return new ItemBuilder(Material.RED_BED, ItemTranslation.RESPAWN).build();
 	}
+
 }

@@ -22,9 +22,7 @@ import java.util.List;
 public class ChunkDeconstructChallenge extends AdvancedChallenge {
 
     public ChunkDeconstructChallenge() {
-        this.menu = MenuType.CHALLENGES;
-        this.maxValue = 60;
-
+       super(MenuType.CHALLENGES, 60);
     }
 
     @Override

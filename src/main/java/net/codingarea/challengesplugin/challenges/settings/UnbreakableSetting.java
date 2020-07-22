@@ -22,7 +22,7 @@ import org.bukkit.inventory.ItemStack;
 public class UnbreakableSetting extends Setting implements Listener {
 
 	public UnbreakableSetting() {
-		menu = MenuType.SETTINGS;
+		super(MenuType.SETTINGS);
 	}
 
 	@Override

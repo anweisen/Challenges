@@ -24,7 +24,7 @@ import org.bukkit.inventory.ItemStack;
 public class NoTradingSetting extends Setting implements Listener {
 
     public NoTradingSetting() {
-        menu = MenuType.SETTINGS;
+        super(MenuType.SETTINGS);
     }
 
     @Override

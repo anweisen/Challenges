@@ -18,8 +18,7 @@ import org.bukkit.inventory.ItemStack;
 public class KillAllOnPlayerDeath extends Setting {
 
 	public KillAllOnPlayerDeath() {
-		this.menu = MenuType.DIFFICULTY;
-		this.enabled = true;
+		super(MenuType.DIFFICULTY, true);
 		update();
 	}
 

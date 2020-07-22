@@ -36,14 +36,9 @@ public class DamageDisplay extends Setting implements Listener {
 	private static DamageDisplay instance;
 
 	public DamageDisplay() {
+		super(MenuType.SETTINGS);
 		instance = this;
-		menu = MenuType.SETTINGS;
 		enabled = true;
-	}
-
-	@Override
-	public String getChallengeName() {
-		return "damagedisplay";
 	}
 
 	@Override
