@@ -1,6 +1,6 @@
 package net.codingarea.challengesplugin.manager.players.stats;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -24,6 +24,8 @@ public class PlayerStats {
 	private double damageTaken,
 				   damageDealt;
 
+	private String savedName;
+
 	public PlayerStats(int challengesPlayed, int challengesWon, double damageTaken, double damageDealt, int timesJumped, int timeSneaked, int entityKills, int blocksBroken, int itemsCollected) {
 		this.challengesPlayed = challengesPlayed;
 		this.challengesWon = challengesWon;
@@ -34,6 +36,23 @@ public class PlayerStats {
 		this.entityKills = entityKills;
 		this.blocksBroken = blocksBroken;
 		this.itemsCollected = itemsCollected;
+	}
+
+	public PlayerStats(int challengesPlayed, int challengesWon, double damageTaken, double damageDealt, int timesJumped, int timeSneaked, int entityKills, int blocksBroken, int itemsCollected, String savedName) {
+		this.challengesPlayed = challengesPlayed;
+		this.challengesWon = challengesWon;
+		this.timesJumped = timesJumped;
+		this.timeSneaked = timeSneaked;
+		this.entityKills = entityKills;
+		this.blocksBroken = blocksBroken;
+		this.itemsCollected = itemsCollected;
+		this.damageTaken = damageTaken;
+		this.damageDealt = damageDealt;
+		this.savedName = savedName;
+	}
+
+	public String getSavedName() {
+		return savedName;
 	}
 
 	public void addChallengePlayed() {
@@ -108,6 +127,31 @@ public class PlayerStats {
 		return timeSneaked;
 	}
 
+	public double getAttribute(String string) {
+		switch (string) {
+			case "played":
+				return challengesPlayed;
+			case "won":
+				return challengesWon;
+			case "damageTaken":
+				return damageTaken;
+			case "damageDealt":
+				return damageDealt;
+			case "jumps":
+				return timesJumped;
+			case "sneaked":
+				return timeSneaked;
+			case "kills":
+				return entityKills;
+			case "blocksBroken":
+				return blocksBroken;
+			case "itemsCollected":
+				return itemsCollected;
+			default:
+				return -1;
+		}
+	}
+
 	@Override
 	public String toString() {
 		return toJSON().toString();
@@ -126,7 +170,6 @@ public class PlayerStats {
 		jsonObject.put("blocksBroken", blocksBroken);
 		jsonObject.put("itemsCollected", itemsCollected);
 
-
 		return jsonObject;
 
 	}
@@ -136,6 +179,10 @@ public class PlayerStats {
 	}
 
 	public static PlayerStats fromJSON(String json) {
+		return fromJSON(json, null);
+	}
+
+	public static PlayerStats fromJSON(String json, String playerName) {
 		try {
 
 			JSONParser parser = new JSONParser();
@@ -152,10 +199,10 @@ public class PlayerStats {
 			int blocksBroken = Utils.getIntOrDefault(jsonObject, "blocksBroken", 0);
 			int itemsCollected = Utils.getIntOrDefault(jsonObject, "itemsCollected", 0);
 
-			return new PlayerStats(challengesPlayed, challengesWon, damageTaken, damageDealt, jumps, sneaked, kills, blocksBroken, itemsCollected);
+			return new PlayerStats(challengesPlayed, challengesWon, damageTaken, damageDealt, jumps, sneaked, kills, blocksBroken, itemsCollected, playerName);
 
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().severe("Could not parse player stats from input string '" + json + "' :: " + ex.getMessage());
+			Log.severe("Could not parse player stats from input string '" + json + "' :: " + ex.getMessage());
 			return fresh();
 		}
 	}
