@@ -1,11 +1,12 @@
 package net.codingarea.challengesplugin.manager.players.stats;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.sql.MySQL;
 import org.jetbrains.annotations.NotNull;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  * @author anweisen
@@ -23,23 +24,32 @@ public class StatsWrapper {
 	@NotNull
 	public static PlayerStats getStatsByUUID(String uuid) {
 		try {
-
-			ResultSet result = MySQL.get("SELECT stats FROM user WHERE user = '" + uuid + "'");
-			if (result == null || !result.next()) return PlayerStats.fresh();
-
-			String statsJSON = result.getString("stats");
-
-			return PlayerStats.fromJSON(statsJSON);
-
+			return getStatsByUUIDWithException(uuid);
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().severe("Could not get player stats for uuid '" + uuid + "' :: " + ex.getMessage());
+			Log.severe("Could not get player stats for uuid '" + uuid + "' :: " + ex.getMessage());
 			return PlayerStats.fresh();
 		}
+	}
+
+	@NotNull
+	public static PlayerStats getStatsByUUIDWithException(String uuid) throws SQLException {
+
+		ResultSet result = MySQL.get("SELECT stats, player FROM user WHERE user = '" + uuid + "' LIMIT 1");
+		if (result == null || !result.next()) return PlayerStats.fresh();
+
+		String statsJSON = result.getString("stats");
+		String savedName = result.getString("player");
+
+		result.close();
+
+		return PlayerStats.fromJSON(statsJSON, savedName);
+
 	}
 
 	public static void storeStats(String uuid, PlayerStats stats) {
 		try {
 
+			if (uuid.equals("error")) throw new IllegalArgumentException("UUID cannot be equal to error");
 			String statsJSON = stats.toJSON().toString();
 
 			if (MySQL.isSet("SELECT stats FROM user WHERE user = '" + uuid + "'")) {
@@ -48,10 +58,8 @@ public class StatsWrapper {
 				MySQL.set("INSERT INTO user (user, stats) VALUES ('" + uuid + "', '" + statsJSON + "')");
 			}
 
-			Challenges.getInstance().getLogger().info("Stats saved! " + statsJSON);
-
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().severe("Could not save player stats for player " + uuid + " :: " + ex.getMessage());
+			Log.severe("Could not save player stats for player " + uuid + " :: " + ex.getMessage());
 		}
 	}
 
