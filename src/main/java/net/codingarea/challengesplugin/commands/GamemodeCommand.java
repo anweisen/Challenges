@@ -2,6 +2,7 @@ package net.codingarea.challengesplugin.commands;
 
 import com.mysql.fabric.xmlrpc.base.Array;
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
@@ -27,50 +28,53 @@ import java.util.List;
 public class GamemodeCommand implements CommandExecutor, TabCompleter {
 
 	@Override
-	public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+
 		if (!(sender instanceof Player)) return true;
 		Player player = (Player) sender;
 
-		Player[] players = {player};
-
-		if (args.length > 1) {
-			if (args[1].equals("@a")) {
-				players = (Player[]) Bukkit.getOnlinePlayers().toArray();
+		List<Player> players = new ArrayList<>();
+		if (args.length == 2) {
+			if (args[1].equalsIgnoreCase("@a") || args[1].equals("*")) {
+				players.addAll(Bukkit.getOnlinePlayers());
 			} else {
 				player = Bukkit.getPlayer(args[1]);
 				if (player == null) {
+					sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.PLAYER_NOT_FOUND.get().replace("%player%", args[0]));
 					return true;
 				}
-				players = new Player[]{player};
-
+				players.add(player);
 			}
+		} else {
+			players.add(player);
 		}
 
-		GameMode gameMode = GameMode.CREATIVE;
-
+		GameMode gamemode = GameMode.CREATIVE;
 		if (args.length > 0) {
 			String arg = args[0];
 			if (arg.equalsIgnoreCase("survival") || arg.equals("0") || arg.equalsIgnoreCase("s")) {
-				gameMode = GameMode.SURVIVAL;
+				gamemode = GameMode.SURVIVAL;
 			} else if (arg.equalsIgnoreCase("spectator") || arg.equals("3")) {
-				gameMode = GameMode.SPECTATOR;
+				gamemode = GameMode.SPECTATOR;
 			} else if (arg.equalsIgnoreCase("adventure") || arg.equals("2") || arg.equalsIgnoreCase("a")) {
-				gameMode = GameMode.ADVENTURE;
+				gamemode = GameMode.ADVENTURE;
 			}
-
 		}
 
-		String mode =  gameMode.name().substring(0, 1) + gameMode.name().toLowerCase().substring(1);
+		String mode = Utils.getEnumName(gamemode.name());
 
 		for (Player currentPlayer : players) {
 			currentPlayer.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GAMEMODE_CHANGED.get().replace("%mode%", mode));
-			currentPlayer.setGameMode(gameMode);
-
+			currentPlayer.setGameMode(gamemode);
 		}
 
+		if (!players.contains(sender)) {
+			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GAMEMODE_CHANGED_OTHERS.get().replace("%players%", players.size()+""));
+		}
 
 		return true;
 	}
+
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
