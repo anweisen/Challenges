@@ -41,7 +41,7 @@ public class StatsCommand extends Command {
 		String player = event.isFromGuild() ? event.getMember().getEffectiveName() : event.getUser().getName();
 
 		if (event.getArgs().length > 1 || !nameIsValid(player)) {
-			event.queueReply("Benutze `" + event.getPrefix() + "stats <player>`");
+			event.queueReply("Benutze `" + event.getPrefix() + event.getCommandName() + " <player>`");
 			return;
 		}
 		if (event.getArgs().length == 1) {
@@ -49,7 +49,7 @@ public class StatsCommand extends Command {
 		}
 
 		if (!nameIsValid(player)) {
-			event.queueReply("`" + event.getArg(0) + "` ist kein gültiger Spielername");
+			event.queueReply("`" + player + "` ist kein gültiger Spielername");
 			return;
 		}
 
@@ -71,12 +71,13 @@ public class StatsCommand extends Command {
 				}, exception -> {});
 
 			} catch (SQLException ex) {
-				Log.severe("Could not send leaderboard :: " + ex.getMessage());
+				Log.severe("Could not send stats :: " + ex.getMessage());
 				event.queueReply("Etwas ist mit der Datenbank schief gelaufen");
 			}
 
 		} catch (Exception ex) {
-			Log.severe("Could not send leaderboard :: " + ex.getMessage());
+			Log.severe("Could not send stats :: " + ex.getMessage());
+			ex.printStackTrace();
 			event.queueReply("Etwas ist mit dem Server schief gelaufen");
 		}
 
@@ -90,6 +91,10 @@ public class StatsCommand extends Command {
 
 		String uuid = Utils.getUUID(playerName);
 		PlayerStats playerStats = StatsWrapper.getStatsByUUIDWithException(uuid);
+
+		if (playerStats.getSavedName() != null && playerStats.getSavedName().equalsIgnoreCase(playerName)) {
+			playerName = playerStats.getSavedName();
+		}
 
 		int width = 2048;
 		int height = 1824;
