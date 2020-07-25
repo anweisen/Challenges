@@ -3,11 +3,13 @@ package net.codingarea.challengesplugin.manager;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import org.apache.commons.io.FileUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.FileUtil;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
 import java.io.IOException;
@@ -64,7 +66,7 @@ public class WorldManager {
 
 		try {
 			FileUtils.cleanDirectory(new File(Challenges.getInstance().getChallengeManager().getSettingsFolder()));
-		} catch (IOException ignored) { }
+		} catch (Exception ignored) { }
 
 		plugin.getConfigManager().getInternalConfig().toFileConfig().set("reset", false);
 		plugin.getConfigManager().getInternalConfig().save();
@@ -73,21 +75,22 @@ public class WorldManager {
 
 	}
 
-	public static void prepareReset(boolean shutdownAfter, CommandSender sender) {
+	public static void prepareReset(@Nullable CommandSender sender) {
 
 		Challenges.getInstance().getLogger().log(Level.INFO, "Preparing server reset..");
 		instance.reseted = true;
 
 		Challenges.getInstance().getChallengeTimer().stopTimer(sender instanceof Player ? (Player) sender : null, false);
+		Challenges.getInstance().getChallengeTimer().stop();
 
 		try {
+			Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("timer.seconds", 0);
 			Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("reset", true);
 			Challenges.getInstance().getConfigManager().getInternalConfig().toFileConfig().set("level-name", Bukkit.getWorlds().get(0).getName());
 		} catch (NullPointerException | IndexOutOfBoundsException ignored) { }
+		Challenges.getInstance().getChallengeTimer().setMaxSeconds(0);
 		Challenges.getInstance().getConfigManager().getInternalConfig().save();
 		Challenges.getInstance().getConfigManager().reset();
-
-		if (!shutdownAfter) return;
 
 		Challenges.getInstance().getLogger().log(Level.INFO, "Resetting server please wait..");
 
@@ -95,8 +98,8 @@ public class WorldManager {
 		String kickMessage = Translation.SERVER_RESET_KICK.get().replace("%player%", (sender instanceof Player ? ((Player) sender).getDisplayName() : "Console"));
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			currentPlayer.kickPlayer(kickMessage);
 			Challenges.getInstance().getPermissionsSystem().setPermissions(currentPlayer, false);
+			currentPlayer.kickPlayer(kickMessage);
 		}
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
@@ -104,6 +107,7 @@ public class WorldManager {
 				try {
 					Bukkit.spigot().restart();
 				} catch (NoSuchMethodError ignored) {
+					Log.severe("Could not restart server. Stopping server");
 					Bukkit.shutdown();
 				}
 			} else {
