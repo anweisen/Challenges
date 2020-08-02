@@ -16,17 +16,47 @@ public abstract class Command implements ICommand {
 		GUILD;
 	}
 
+	public static boolean REACT_TO_MENTION_PREFIX_DEFAULT = true;
+
 	public Command(String name, String... alias) {
-		this.name = name;
-		this.alias = alias;
+		this(name, false, alias);
 	}
 
-	protected String name;
-	protected String[] alias;
+	public Command(String name, boolean processInNewThread, String... alias) {
+		this.name = name;
+		this.alias = alias;
+		this.processInNewThread = processInNewThread;
+	}
 
-	protected CommandType type = CommandType.GENERAL;
-	protected boolean reactToWebhooks = false;
-	protected boolean reactToBots = false;
+	public Command(String name, CommandType commandType, String... alias) {
+		this(name, alias);
+		this.type = commandType;
+	}
+
+	public Command(String name, CommandType commandType, boolean processInNewThread, String... alias) {
+		this(name, processInNewThread, alias);
+		this.type = commandType;
+	}
+
+	public Command(String name, CommandType commandType, boolean processInNewThread, boolean reactToMentionPrefix, String... alias) {
+		this(name, commandType, processInNewThread, alias);
+		this.reactToMentionPrefix = reactToMentionPrefix;
+	}
+
+	public Command(String name, boolean processInNewThread, boolean reactToMentionPrefix, String... alias) {
+		this(name, processInNewThread, alias);
+		this.reactToMentionPrefix = reactToMentionPrefix;
+	}
+
+	private final String name;
+	private final String[] alias;
+
+	private final boolean processInNewThread;
+
+	private CommandType type = CommandType.GENERAL;
+	private boolean reactToWebhooks = false;
+	private boolean reactToBots = false;
+	private boolean reactToMentionPrefix = REACT_TO_MENTION_PREFIX_DEFAULT;
 
 	public abstract void onCommand(CommandEvent event);
 
@@ -43,6 +73,16 @@ public abstract class Command implements ICommand {
 	@Override
 	public final boolean shouldReactToBots() {
 		return reactToBots;
+	}
+
+	@Override
+	public final boolean shouldProcessInNewThread() {
+		return processInNewThread;
+	}
+
+	@Override
+	public final boolean shouldReactToMentionPrefix() {
+		return reactToMentionPrefix;
 	}
 
 	@Override

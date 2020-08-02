@@ -7,6 +7,7 @@ import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.requests.restaction.MessageAction;
 
 import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen
@@ -16,10 +17,10 @@ import java.util.List;
 
 public class CommandEvent {
 
-	private MessageReceivedEvent receivedEvent;
-	private String[] args;
-	private String prefix;
-	private String commandName;
+	private final MessageReceivedEvent receivedEvent;
+	private final String[] args;
+	private final String prefix;
+	private final String commandName;
 
 	public CommandEvent(String prefix, String commandName, MessageReceivedEvent event) {
 
@@ -112,7 +113,7 @@ public class CommandEvent {
 	}
 
 	public String getMemberName() {
-		return receivedEvent.getMember().getEffectiveName();
+		return receivedEvent.isFromGuild() ? receivedEvent.getMember().getEffectiveName() : receivedEvent.getAuthor().getName();
 	}
 
 	public boolean isPrivate() {
@@ -123,20 +124,20 @@ public class CommandEvent {
 		return receivedEvent.isFromGuild();
 	}
 
-	public void queueReply(String message) {
-		reply(message).queue();
-	}
-
 	public void queueReply(MessageEmbed message) {
-		reply(message).queue();
+		reply(message).queue(ignored -> {}, exception -> {});
 	}
 
 	public void queueReply(CharSequence message) {
-		reply(message).queue();
+		reply(message).queue(ignored -> {}, exception -> {});
 	}
 
-	public MessageAction reply(String message) {
-		return getChannel().sendMessage(message);
+	public void queueReply(MessageEmbed message, Consumer<Message> messageConsumer) {
+		reply(message).queue(messageConsumer, exception -> {});
+	}
+
+	public void queueReply(CharSequence message, Consumer<Message> messageConsumer) {
+		reply(message).queue(messageConsumer, exception -> {});
 	}
 
 	public MessageAction reply(MessageEmbed message) {
@@ -145,12 +146,6 @@ public class CommandEvent {
 
 	public MessageAction reply(CharSequence message) {
 		return getChannel().sendMessage(message);
-	}
-
-	public void replyPrivate(String message) {
-		getUser().openPrivateChannel().queue(channel -> {
-			channel.sendMessage(message).queue();
-		});
 	}
 
 	public void replyPrivate(MessageEmbed embed) {
@@ -183,6 +178,48 @@ public class CommandEvent {
 
 	public String getArg(int i) {
 		return args[i];
+	}
+
+	public static boolean containsMention(String text) {
+
+		char[] goal = {'<','@','!','n','n','n','n','n','n','n','n','n','n','n','n','n','n','n','n','n','n','>'};
+		int current = 0;
+		for (char currentChar : text.toCharArray()) {
+
+			boolean isInMention = false;
+			char expected = goal[current];
+
+			if (currentChar == expected) {
+				isInMention = true;
+			} else if (expected == 'n') {
+				try {
+					Integer.parseInt(String.valueOf(current));
+					isInMention = true;
+				} catch (NumberFormatException ignored) { }
+			}
+
+			if (isInMention) {
+				current++;
+			} else {
+				current = 0;
+			}
+
+			if (current == goal.length) return true;
+
+		}
+
+		return false;
+
+	}
+
+	public static String syntax(CommandEvent event, String syntax) {
+		return syntax(event, syntax, true);
+	}
+
+	public static String syntax(CommandEvent event, String syntax, boolean command) {
+		String message = event.getPrefix() + (command ? event.getCommandName() + " " : "") + syntax;
+		boolean mark = !containsMention(message);
+		return (mark ? "`" : "*") + message + (mark ? "`" : "*");
 	}
 
 }

@@ -13,14 +13,28 @@ public interface ICommand {
 
 	void onCommand(CommandEvent event);
 
-	CommandType getType();
-
-	boolean shouldReactToWebhooks();
-
-	boolean shouldReactToBots();
-
 	String getName();
 
 	String[] getAlias();
+
+	default CommandType getType() {
+		return CommandType.GENERAL;
+	}
+
+	default boolean shouldReactToWebhooks() {
+		return false;
+	}
+
+	default boolean shouldReactToBots() {
+		return false;
+	}
+
+	default boolean shouldProcessInNewThread() {
+		return false;
+	}
+
+	default boolean shouldReactToMentionPrefix() {
+		return false;
+	}
 
 }
