@@ -5,17 +5,20 @@ import net.codingarea.challengesplugin.listener.*;
 import net.codingarea.challengesplugin.manager.*;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.menu.MenuManager;
-import net.codingarea.challengesplugin.manager.permissions.MasterSystem;
 import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
+import net.codingarea.challengesplugin.manager.players.stats.StatsManager;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
-import net.codingarea.challengesplugin.manager.settings.PlayerSettingsManager;
+import net.codingarea.challengesplugin.manager.players.PlayerSettingsManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.StringManager;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.YamlConfig;
 import net.codingarea.challengesplugin.utils.sql.MySQL;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -25,7 +28,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  * https://github.com/KxmischesDomi
  */
 
-public class Challenges extends JavaPlugin {
+public final class Challenges extends JavaPlugin {
 
     private static Challenges instance;
     private static final int version = Utils.getServerVersion();
@@ -40,15 +43,16 @@ public class Challenges extends JavaPlugin {
     private ConfigManager configManager;
     private WorldManager worldManager;
     private CloudNetManager cloudnetManager;
-    private MasterSystem permissionsSystem;
     private ChallengePlayerManager playerManager;
     private ServerManager serverManager;
     private PlayerSettingsManager playerSettingsManager;
+    private StatsManager statsManager;
 
     @Override
     public void onLoad() {
 
         instance = this;
+        Log.setLogger(getLogger());
 
         loadVersions();
         loadCloudNet();
@@ -87,6 +91,9 @@ public class Challenges extends JavaPlugin {
         if (challengeManager != null) {
             challengeManager.saveChallengeConfigurations();
         }
+        try {
+            MySQL.disconnectWithException();
+        } catch (Exception ignored) { }
     }
 
     private void registerCommands() {
@@ -97,12 +104,12 @@ public class Challenges extends JavaPlugin {
         getCommand("gamemode").setExecutor(new GamemodeCommand());
         getCommand("heal").setExecutor(new HealCommand());
         getCommand("reset").setExecutor(new ResetCommand());
-        getCommand("setmaster").setExecutor(new SetMasterCommand());
         getCommand("search").setExecutor(new SearchCommand());
         getCommand("position").setExecutor(new PositionCommand());
         getCommand("village").setExecutor(new VillageCommand());
         getCommand("language").setExecutor(new LanguageCommand());
         getCommand("config").setExecutor(new ConfigCommand(this));
+        getCommand("stats").setExecutor(new StatsCommand(this));
     }
 
     private void registerListener() {
@@ -111,34 +118,33 @@ public class Challenges extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
         Bukkit.getPluginManager().registerEvents(new TimerNotStartedListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
+        Bukkit.getPluginManager().registerEvents(new StatsListener(this), this);
+        Bukkit.getPluginManager().registerEvents((Listener) getCommand("stats").getExecutor(), this);
     }
 
     private void init() {
-        LanguageManager.loadLanguageMessages();
         LanguageManager.setLanguage(Language.getLanguage(getConfig().getString("language")));
+        LanguageManager.loadLanguageMessages();
+        Prefix.load();
         serverManager = new ServerManager(this);
         playerManager = new ChallengePlayerManager(this);
         challengeManager = new ChallengeManager(this);
         playerSettingsManager = new PlayerSettingsManager(this);
         stringManager = new StringManager();
         stringManager.load(getConfig());
-        permissionsSystem = new MasterSystem(this,
-                getConfig().getString("master-changed-message"),
-                getConfig().getString("master-set-message"),
-                getConfig().getBoolean("master-system"));
-        permissionsSystem.loadPermissions();
-        permissionsSystem.onEnable();
         scoreboardManager = new ScoreboardManager();
         challengeTimer = new ChallengeTimer(this);
         menuManager = new MenuManager(this);
+        statsManager = new StatsManager(this);
+        statsManager.load();
         challengeManager.init();
         if (getConfig().getBoolean("disable-whitelist-on-start")) Bukkit.setWhitelist(false);
     }
 
     private void loadConfig() {
         configManager = new ConfigManager();
-        configManager.setInternalConfig(new YamlConfig("internal/session"));
-        configManager.setPositionConfig(new YamlConfig("internal/positions"));
+        configManager.setInternalConfig(new YamlConfig(getDataFolder() + "/internal/session"));
+        configManager.setPositionConfig(new YamlConfig(getDataFolder() + "/internal/positions"));
         CloudNetManager.loadIngameFromConfig();
     }
 
@@ -173,14 +179,14 @@ public class Challenges extends JavaPlugin {
 
     private void loadVersions() {
         String version = getConfig().getString("config-version");
-        if (version == null || !version.equals("1.1.3")) {
+        if (version == null || !version.equals(getDescription().getVersion())) {
             getLogger().warning("This plugin had an update. Please delete your config and restart the server to see whats new in the config");
             isNewestVersion = false;
         }
     }
 
     public static boolean timerIsStarted() {
-        return !getInstance().getChallengeTimer().isPaused();
+        return !instance.getChallengeTimer().isPaused();
     }
 
     public static Challenges getInstance() {
@@ -215,10 +221,6 @@ public class Challenges extends JavaPlugin {
         return configManager;
     }
 
-    public MasterSystem getPermissionsSystem() {
-        return permissionsSystem;
-    }
-
     public MenuManager getMenuManager() {
         return menuManager;
     }
@@ -239,7 +241,12 @@ public class Challenges extends JavaPlugin {
         return playerSettingsManager;
     }
 
+    public StatsManager getStatsManager() {
+        return statsManager;
+    }
+
     public boolean isNewestVersion() {
         return isNewestVersion;
     }
+
 }
