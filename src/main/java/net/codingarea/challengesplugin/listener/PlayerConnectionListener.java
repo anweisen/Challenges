@@ -53,8 +53,7 @@ public class PlayerConnectionListener implements Listener {
 		if (plugin.getStatsManager().isEnabled()) {
 			plugin.getStatsManager().loadForPlayer(event.getPlayer());
 		}
-		
-		plugin.getPermissionsSystem().setPermissions(event.getPlayer(), false);
+
 		event.getPlayer().getLocation().getChunk().load(true);
 		plugin.getScoreboardManager().handlePlayerConnect(event);
 		Utils.spawnUpGoingParticleCircle(event.getPlayer().getLocation(), Particle.SPELL_MOB, Challenges.getInstance(), 2, 17, 1);
@@ -64,7 +63,6 @@ public class PlayerConnectionListener implements Listener {
 		if (message) event.setJoinMessage(null);
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (message && joinMessage != null) Bukkit.broadcastMessage(joinMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
-			plugin.getPermissionsSystem().handlePlayerConnect(event.getPlayer());
 		}, 1);
 
 	}
@@ -86,13 +84,11 @@ public class PlayerConnectionListener implements Listener {
 
 		if ((Bukkit.getOnlinePlayers().size() - 1) <= 0) {
 			if (resetOnLastQuit && CloudNetManager.wasAlreadyIngame()) {
-				WorldManager.prepareReset(true, null);
+				WorldManager.prepareReset(null);
 			} else {
 				plugin.getChallengeTimer().stopTimer(null, true);
 			}
 		}
-
-		plugin.getPermissionsSystem().handlePlayerDisconnect(event.getPlayer());
 
 		if (!message || quitMessage == null) return;
 		event.setQuitMessage(quitMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
