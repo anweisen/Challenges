@@ -27,7 +27,7 @@ public class StatsWrapper {
 			return getStatsByUUIDWithException(uuid);
 		} catch (Exception ex) {
 			Log.severe("Could not get player stats for uuid '" + uuid + "' :: " + ex.getMessage());
-			return PlayerStats.fresh();
+			return PlayerStats.empty();
 		}
 	}
 
@@ -35,7 +35,7 @@ public class StatsWrapper {
 	public static PlayerStats getStatsByUUIDWithException(String uuid) throws SQLException {
 
 		ResultSet result = MySQL.get("SELECT stats, player FROM user WHERE user = '" + uuid + "' LIMIT 1");
-		if (result == null || !result.next()) return PlayerStats.fresh();
+		if (result == null || !result.next()) return PlayerStats.empty();
 
 		String statsJSON = result.getString("stats");
 		String savedName = result.getString("player");

@@ -48,7 +48,7 @@ public class StatsManager {
 
 	public void onSecond(Player player) {
 		if (!player.isSneaking()) return;
-		getPlayerStats(player).addSecondSneaked();
+		getPlayerStats(player).add(StatsAttribute.TIME_SNEAKED, 1);
 	}
 
 	public PlayerStats loadForPlayer(Player player) {

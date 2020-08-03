@@ -5,6 +5,10 @@ import net.codingarea.challengesplugin.utils.Utils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.List;
+import java.util.Set;
+import java.util.TreeMap;
+
 /**
  * @author anweisen
  * Challenges developed on 07-11-2020
@@ -13,144 +17,50 @@ import org.json.simple.parser.JSONParser;
 
 public class PlayerStats {
 
-	private int challengesPlayed,
-				challengesWon,
-				timesJumped,
-				timeSneaked,
-				entityKills,
-				blocksBroken,
-				itemsCollected;
-
-	private double damageTaken,
-				   damageDealt;
-
-	private String savedName;
+	private final TreeMap<StatsAttribute, Double> stats = new TreeMap<>();
+	private final String savedName;
 
 	public PlayerStats(int challengesPlayed, int challengesWon, double damageTaken, double damageDealt, int timesJumped, int timeSneaked, int entityKills, int blocksBroken, int itemsCollected) {
-		this.challengesPlayed = challengesPlayed;
-		this.challengesWon = challengesWon;
-		this.damageTaken = damageTaken;
-		this.damageDealt = damageDealt;
-		this.timesJumped = timesJumped;
-		this.timeSneaked = timeSneaked;
-		this.entityKills = entityKills;
-		this.blocksBroken = blocksBroken;
-		this.itemsCollected = itemsCollected;
+		this(challengesPlayed, challengesWon, damageTaken, damageDealt, timesJumped, timeSneaked, entityKills, blocksBroken, itemsCollected, null);
 	}
 
 	public PlayerStats(int challengesPlayed, int challengesWon, double damageTaken, double damageDealt, int timesJumped, int timeSneaked, int entityKills, int blocksBroken, int itemsCollected, String savedName) {
-		this.challengesPlayed = challengesPlayed;
-		this.challengesWon = challengesWon;
-		this.timesJumped = timesJumped;
-		this.timeSneaked = timeSneaked;
-		this.entityKills = entityKills;
-		this.blocksBroken = blocksBroken;
-		this.itemsCollected = itemsCollected;
-		this.damageTaken = damageTaken;
-		this.damageDealt = damageDealt;
+		stats.put(StatsAttribute.PLAYED, (double) challengesPlayed);
+		stats.put(StatsAttribute.WON, (double) challengesWon);
+		stats.put(StatsAttribute.DAMAGE_TAKEN, damageTaken);
+		stats.put(StatsAttribute.DAMAGE_DEALT, damageDealt);
+		stats.put(StatsAttribute.JUMPS, (double) timesJumped);
+		stats.put(StatsAttribute.ENTITIES_KILLED, (double) entityKills);
+		stats.put(StatsAttribute.BLOCKS_BROKEN, (double) blocksBroken);
+		stats.put(StatsAttribute.ITEMS_COLLECTED, (double) itemsCollected);
+		stats.put(StatsAttribute.TIME_SNEAKED, (double) timeSneaked);
 		this.savedName = savedName;
+		calculateWinRate();
 	}
 
 	public String getSavedName() {
 		return savedName;
 	}
 
-	public void addChallengePlayed() {
-		challengesPlayed++;
+	public void add(StatsAttribute attribute, double value) {
+		double stat = get(attribute) + value;
+		stats.put(attribute, stat);
+		if (attribute == StatsAttribute.WON || attribute == StatsAttribute.PLAYED) calculateWinRate();
 	}
 
-	public void addChallengeWon() {
-		challengesWon++;
+	private void set(StatsAttribute attribute, double value) {
+		stats.put(attribute, value);
 	}
 
-	public void addTimeJumped() {
-		timesJumped++;
+	public double get(StatsAttribute attribute) {
+		return stats.getOrDefault(attribute, 0D);
 	}
 
-	public void addSecondSneaked() {
-		timeSneaked++;
-	}
-
-	public void addEntityKill() {
-		entityKills++;
-	}
-
-	public void addBlockBroken() {
-		blocksBroken++;
-	}
-
-	public void addItemsCollected(int items) {
-		itemsCollected += items;
-	}
-
-	public void addDamageDealt(double damage) {
-		damageDealt += damage;
-	}
-
-	public void addDamageTaken(double damage) {
-		damageTaken += damage;
-	}
-
-	public double getDamageDealt() {
-		return damageDealt;
-	}
-
-	public int getChallengesPlayed() {
-		return challengesPlayed;
-	}
-
-	public double getDamageTaken() {
-		return damageTaken;
-	}
-
-	public int getBlocksBroken() {
-		return blocksBroken;
-	}
-
-	public int getChallengesWon() {
-		return challengesWon;
-	}
-
-	public int getEntityKills() {
-		return entityKills;
-	}
-
-	public int getItemsCollected() {
-		return itemsCollected;
-	}
-
-	public int getTimesJumped() {
-		return timesJumped;
-	}
-
-	public int getTimeSneaked() {
-		return timeSneaked;
-	}
-
-	public double getAttribute(String string) {
-		switch (string) {
-			case "played":
-				return challengesPlayed;
-			case "won":
-				return challengesWon;
-			case "damageTaken":
-				return damageTaken;
-			case "damageDealt":
-				return damageDealt;
-			case "jumps":
-				return timesJumped;
-			case "sneaked":
-				return timeSneaked;
-			case "kills":
-				return entityKills;
-			case "blocksBroken":
-				return blocksBroken;
-			case "itemsCollected":
-				return itemsCollected;
-			default:
-				return -1;
-		}
-	}
+	/*public double get(String string) {
+		StatsAttribute attribute = StatsAttribute.byName(string);
+		if (attribute == null) throw new IllegalArgumentException("No such attribute");
+		return get(attribute);
+	}*/
 
 	@Override
 	public String toString() {
@@ -160,21 +70,39 @@ public class PlayerStats {
 	public JSONObject toJSON() {
 
 		JSONObject jsonObject = new JSONObject();
-		jsonObject.put("played", challengesPlayed);
-		jsonObject.put("won", challengesWon);
-		jsonObject.put("damageTaken", damageTaken);
-		jsonObject.put("damageDealt", damageDealt);
-		jsonObject.put("jumps", timesJumped);
-		jsonObject.put("sneaked", timeSneaked);
-		jsonObject.put("kills", entityKills);
-		jsonObject.put("blocksBroken", blocksBroken);
-		jsonObject.put("itemsCollected", itemsCollected);
+		jsonObject.put("played", get(StatsAttribute.PLAYED));
+		jsonObject.put("won", get(StatsAttribute.WON));
+		jsonObject.put("damageTaken", get(StatsAttribute.DAMAGE_TAKEN));
+		jsonObject.put("damageDealt", get(StatsAttribute.DAMAGE_DEALT));
+		jsonObject.put("jumps", get(StatsAttribute.JUMPS));
+		jsonObject.put("sneaked", get(StatsAttribute.TIME_SNEAKED));
+		jsonObject.put("kills", get(StatsAttribute.ENTITIES_KILLED));
+		jsonObject.put("blocksBroken", get(StatsAttribute.BLOCKS_BROKEN));
+		jsonObject.put("itemsCollected", get(StatsAttribute.ITEMS_COLLECTED));
 
 		return jsonObject;
 
 	}
 
-	public static PlayerStats fresh() {
+	public String asString(StatsAttribute attribute, boolean ending) {
+		return attribute.format(get(attribute), ending);
+	}
+
+	public Set<StatsAttribute> getDeclaredAttributes() {
+		return stats.keySet();
+	}
+
+	private void calculateWinRate() {
+
+		double games = get(StatsAttribute.PLAYED);
+		double wins = get(StatsAttribute.WON);
+
+		double winRate = (games <= 0 ? 0 : (wins / games) * 100);
+		stats.put(StatsAttribute.WINRATE, winRate);
+
+	}
+
+	public static PlayerStats empty() {
 		return new PlayerStats(0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
@@ -203,7 +131,7 @@ public class PlayerStats {
 
 		} catch (Exception ex) {
 			Log.severe("Could not parse player stats from input string '" + json + "' :: " + ex.getMessage());
-			return fresh();
+			return empty();
 		}
 	}
 
