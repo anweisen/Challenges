@@ -1,20 +1,21 @@
 package net.codingarea.discordstatsbot;
 
-import net.codingarea.challengesplugin.utils.Log;
+import net.codingarea.challengesplugin.utils.ImageUtils;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.sql.MySQL;
 import net.codingarea.discordstatsbot.commandmanager.CommandHandler;
-import net.codingarea.discordstatsbot.commands.StatsCommand;
+import net.codingarea.discordstatsbot.commands.*;
 import net.codingarea.discordstatsbot.listener.MessageListener;
-import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.sharding.DefaultShardManager;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
 import net.dv8tion.jda.api.sharding.ShardManager;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Properties;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,11 +26,17 @@ import java.util.TimerTask;
  * https://github.com/anweisen
  */
 
-public class DiscordBot {
+public final class DiscordBot {
+
+	public static final String
+			BOT_INVITE = "https://discord.com/api/oauth2/authorize?client_id=731786326437003275&permissions=116736&scope=bot",
+			SERVER_INVITE = "https://discord.gg/JubAmHS";
 
 	public static void main(String[] args) {
 		new DiscordBot();
 	}
+
+	private final BufferedImage background = ImageUtils.getImage(new File("background.png"));
 
 	private String token,
 	               host,
@@ -41,6 +48,7 @@ public class DiscordBot {
 	private CommandHandler commandHandler;
 
 	public DiscordBot() {
+		if (background != null) ImageUtils.darkerImage(background);
 		load();
 		connectToMySQL();
 		startBot();
@@ -66,28 +74,39 @@ public class DiscordBot {
 	}
 
 	private void connectToMySQL() {
-		MySQL.connect(host, database, user, password);
-		MySQL.createDatabases();
+		try {
+			MySQL.connectWithException(host, database, user, password);
+			MySQL.createDatabases();
+		} catch (SQLException ex) {
+			Log.severe("Could not connect to MySQL server :: " + ex.getMessage());
+			System.exit(4);
+		}
 	}
 
 	private void startBot() {
 
 		commandHandler = new CommandHandler();
 		commandHandler.registerCommands(
-				new StatsCommand()
+				new StatsCommand(), new TopCommand(), new InviteCommand(),
+				new HelpCommand(), new CategoriesCommand()
 		);
 
 		try {
 
-			shardManager = DefaultShardManagerBuilder.createDefault(token).build();
-			shardManager.setActivity(Activity.playing("starting.."));
-			shardManager.setStatus(OnlineStatus.ONLINE);
+			shardManager = DefaultShardManagerBuilder.createDefault(token).setStatus(OnlineStatus.ONLINE).build();
 
 			shardManager.addEventListener(new MessageListener(commandHandler));
 
 		} catch (Exception ex) {
 			Log.severe("Could not start bot :: " + ex.getMessage());
+			System.exit(4);
 		}
+
+		startActivityTimer();
+
+	}
+
+	private void startActivityTimer() {
 
 		new Timer().schedule(new TimerTask() {
 
@@ -97,9 +116,8 @@ public class DiscordBot {
 			public void run() {
 
 				String[] status = {
-					"cs stats • " + shardManager.getGuilds().size() + " Server",
-					"cs stats • " + shardManager.getUsers().size() + " User",
-					"cs stats • Challenges"
+						"cs stats • Statistiken",
+						"cs top • Bestenliste"
 				};
 
 				i++;
@@ -107,8 +125,12 @@ public class DiscordBot {
 				shardManager.setActivity(Activity.playing(status[i]));
 
 			}
-		}, 5*1000, 30*1000);
+		}, 1000, 15*1000);
 
+	}
+
+	public BufferedImage getBackground() {
+		return background;
 	}
 
 }
