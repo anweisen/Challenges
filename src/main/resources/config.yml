@@ -9,11 +9,15 @@
 #                                      |___/                    #
 #                                                               #
 #                                                               #
-# This plugin was made by                                       #
-# * https://github.com/anweisen                                 #
-# * https://github.com/KxmischesDomi                            #
+# This plugin was made by the CodingArea team                   #
+# * anweisen | Angelo - https://github.com/anweisen             #
+# * KxmischesDomi | Dominik - https://github.com/KxmischesDomi  #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-config-version: 1.1.2
+
+config-version: 1.1.3
+# Most recent config changes: (v1.1.3)
+# - Moved prefix settings to messages/prefix.properties
+# - drop-inventory-on-end setting added
 
 # This language will only be used for messages which are not set in the messages.properties
 # and for the descriptions of the challenges in the menu
@@ -22,32 +26,32 @@ config-version: 1.1.2
 # de (german)
 language: 'en'
 
-# Prefix of all chat messages
-prefix: '§8§l┃ %name% §8┃ §7'
-
 # Timer design above the hotbar
 # (tags) %time%
-timer-up: '§8▶ §7Time: §a%time% §8◀'
-timer-up-info: '§8▶ §7Time: §a%time% §8┃ §7%info% §8◀'
-timer-down: '§8▶ §7Time: §c%time% §8◀'
-timer-down-info: '§8▶ §7Time: §c%time% §8┃ §7%info% §8◀'
-timer-stopped: '§8▶ §7Timer §cstopped §8◀'
+timer-up: '§8• §7Time: §a§l%time% §8•'
+timer-down: '§8• §7Time: §c§l%time% §8•'
+timer-stopped: '§8• §7Timer §c§lstopped §8•'
 
-# This is the backpack size, its counting in rows
-# (i) MAX: 6
+# This is the backpack size, its counting in 9slot rows
+# (i) The max count of rows is 6
 backpack-size: 3
 
 # These message will be shown when somebody leaves/joins the server
-# (tags) %name% -> The player's name, %display% -> The player's display name
+# (tags) %player% -> The player's name, %display% -> The player's display name
 connection-messages-enabled: true
-join-message: '§8§l┃ §6Challenges §8┃ §a%display% §ajoined'
-quit-message: '§8§l┃ §6Challenges §8┃ §c%display% §cleft'
+join-message: '§8§l┃ §6Challenges §8┃ §e%display% §ajoined §7the server'
+quit-message: '§8§l┃ §6Challenges §8┃ §e%display% §cleft §7the server'
 
 chatformat-enabled: true
-chatformat: '§7%display%%name% §8»§7 %message%'
+chatformat: '§8§l┃ §7%display%%name% §8»§7 %message%'
+
+# Toggles if the players inventories will be dropped on their positions if either they win or lose
+drop-inventory-on-end: true
 
 # If you enable this the start command defined in the spigot.yml will be executed
 # Otherwise the server will only be stopped if the reset command was executed
+# Please note: We are getting a lot of reports that the server is not restarting after the /reset command was executed.
+# So make sure that the server restarts when you perform the /restart command before reporting it to us!
 restart-on-reset: true
 
 # This means that you you have to type /reset confirm to reset your server/worlds
@@ -63,7 +67,7 @@ disable-whitelist-on-start: true
 cloudnet-support: false
 start-new-server: true
 
-# You need a mysql connection to save the player configs
+# You need a mysql connection to save the player configs or stats
 save-player-configs: false
 save-player-stats: false
 

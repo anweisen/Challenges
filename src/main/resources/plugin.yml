@@ -6,11 +6,11 @@ authors:
   - anweisen
   - Dominik
 main: net.codingarea.challengesplugin.Challenges
-website: Coding-Area.net
+website: coding-area.net
 database: true
 description: |
   A simple-to-use plugin for challenges for beating minecraft in different ways
-  or compete with friend in "First to ... wins" challenges
+  or to compete with friend in "First to ... wins" challenges
 
 commands:
   challenges:
@@ -27,6 +27,9 @@ commands:
     description: Allows you to start/stop/set the timer
     aliases:
       - t
+  stats:
+    usage: /stats [player]
+    description: Shows the stats of a player. Must be enabled in the config.yml and a MySQL connection is needed
   backpack:
     usage: /backpack
     aliases:
@@ -40,7 +43,7 @@ commands:
     aliases:
       - gm
   heal:
-    usage: /heal <player>
+    usage: /heal [player]
     permission: challenges.heal
     description: Heals you
     aliases:
@@ -57,10 +60,6 @@ commands:
     usage: /reset [confirm]
     description: Resets the worlds
     permission: challenges.reset
-  setmaster:
-    usage: /setmaster <player>
-    description: Allows you to reset the master
-    permission: challenges.setmaster
   search:
     usage: /search <item>
     description: Search how to get a block, animal or something else in the randomizer
@@ -70,6 +69,7 @@ commands:
     description: Allows you to mark position to check them later
     aliases:
       - pos
+      - coords
   village:
     usage: /village
     description: Teleports you to a village
@@ -87,15 +87,24 @@ commands:
     usage: /config <save/load>
     description: Saves the current challenge configuration to the database
     permission: challenges.config
-    aliases:
-      - save
-      - load
+  skipblock:
+    usage: /skipblock
+    description: Skips the current block in the ForceBlock challenge
+    permission: challenges.skipblock
   skipflag:
     usage: /skipflag
     description: Skips the current flag in the GuessTheFlag challenge
     permission: challenges.skipflag
-    aliases:
-      - currentflag
-  bingo:
-    usage: /bingo
-    description: Shows the items to collect for the goal "bingo"
+  currentflag:
+    description: Shows what the current flag is (GuessTheFlag)
+    permission: challenges.currentflag
+  #bingo:
+  #  usage: /bingo
+  #  description: Shows the items to collect for the goal "bingo"
+  #resetbingo:
+  #  usage: /resetbingo
+  #  description: Rerolls the bingo items
+  #  permission: challenges.resetbingo
+  #teams:
+  #  usage: /teams
+  #  description: You will be able to choose between different teams for bingo
