@@ -3,9 +3,9 @@ package net.codingarea.challengesplugin.challengetypes;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
-import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.manager.scoreboard.ChallengeScoreboard;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -23,6 +23,15 @@ public abstract class Goal extends AbstractChallenge {
 	protected AnimationSound sound = AnimationSound.STANDARD_SOUND;
 	protected boolean isCurrentGoal;
 	protected ChallengeScoreboard scoreboard;
+
+	public Goal(MenuType menu) {
+		super(menu);
+	}
+
+	public Goal(MenuType menu, boolean defaultActivated) {
+		super(menu);
+		setIsCurrentGoal(defaultActivated, null);
+	}
 
 	public abstract void onEnable(ChallengeEditEvent event);
 	public abstract void onDisable(ChallengeEditEvent event);
@@ -69,10 +78,6 @@ public abstract class Goal extends AbstractChallenge {
 	public void onTimerStarted() {
 		if (!isCurrentGoal) return;
 		showScoreboard();
-	}
-
-	public boolean equals(Goal anotherGoal) {
-		return anotherGoal != null && getChallengeName().equals(anotherGoal.getChallengeName());
 	}
 
 	public ChallengeScoreboard getScoreboard() {

@@ -5,7 +5,6 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.json.simple.JSONObject;
 
 /**
  * @author anweisen & Dominik
@@ -16,7 +15,11 @@ import org.json.simple.JSONObject;
 
 public abstract class AbstractChallenge {
 
-	protected MenuType menu;
+	private final MenuType menu;
+
+	public AbstractChallenge(MenuType menu) {
+		this.menu = menu;
+	}
 
 	public abstract void handleClick(ChallengeEditEvent event);
 
@@ -25,14 +28,6 @@ public abstract class AbstractChallenge {
 
 	public abstract void setValues(int value);
 	public abstract int toValue();
-
-
-	public void load(JSONObject object) {
-		setValues(Math.toIntExact((Long) object.getOrDefault("value", toValue())));
-	}
-	public void save(JSONObject object) {
-		object.put("value", toValue());
-	}
 
 	public String getChallengeName() {
 		return this.getClass().getSimpleName().toLowerCase().replace("setting", "").replace("challenge", "").replace("modifier", "");
@@ -57,12 +52,28 @@ public abstract class AbstractChallenge {
 		}
 	}
 
+	public void handleTimerSecond() { };
+
 	public final MenuType getMenu() {
 		return menu;
 	}
 
 	public final String getDataFile(String fileType) {
 		return Challenges.getInstance().getChallengeManager().getSettingsFolder() + getChallengeName() + "." + fileType.toLowerCase();
+	}
+
+	@Override
+	public final boolean equals(Object o) {
+		if (o == this) {
+			return true;
+		} else if (o == null) {
+			return false;
+		} else if (o instanceof AbstractChallenge) {
+			AbstractChallenge other = (AbstractChallenge) o;
+			return other.getClass() == this.getClass();
+		} else {
+			return false;
+		}
 	}
 
 }
