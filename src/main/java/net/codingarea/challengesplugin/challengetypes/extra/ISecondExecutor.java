@@ -9,11 +9,7 @@ package net.codingarea.challengesplugin.challengetypes.extra;
 
 public interface ISecondExecutor {
 
-	default void onSecond() {
+	default void onSecond() { }
+	default void onTimerSecond() { }
 
-	}
-
-	default void onTimerSecond() {
-
-	}
 }

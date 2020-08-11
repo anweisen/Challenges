@@ -2,6 +2,7 @@ package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -21,12 +22,14 @@ public abstract class CountingGoal extends Goal {
 
 	protected ConcurrentHashMap<Player, Integer> points = new ConcurrentHashMap<>();
 
+	public CountingGoal(MenuType menu) {
+		super(menu);
+	}
+
 	@Override
 	public void onEnable(ChallengeEditEvent event) {
-		if (Challenges.timerIsStarted()) {
-			showScoreboard();
-			updateScoreboard();
-		}
+		showScoreboard();
+		updateScoreboard();
 	}
 
 	@Override
@@ -35,9 +38,8 @@ public abstract class CountingGoal extends Goal {
 	}
 
 	@Override
-	public void onTimerStart() {
+	public void onTimerStarted() {
 		if (!isCurrentGoal) return;
-		points = new ConcurrentHashMap<>();
 		showScoreboard();
 		updateScoreboard();
 	}
@@ -48,13 +50,10 @@ public abstract class CountingGoal extends Goal {
 		int best = 0;
 
 		for (Entry<Player, Integer> entry : points.entrySet()) {
-
 			if (entry.getValue() > best) best = entry.getValue();
-
 		}
 
 		List<Player> winners = new ArrayList<>();
-
 		for (Entry<Player, Integer> entry : points.entrySet()) {
 
 			if (entry.getValue() == best) {
@@ -67,7 +66,7 @@ public abstract class CountingGoal extends Goal {
 
 	}
 
-	private void updateScoreboard() {
+	public void updateScoreboard() {
 
 		scoreboard.checkUpdate();
 
@@ -80,9 +79,7 @@ public abstract class CountingGoal extends Goal {
 		}
 
 		for (Entry<Player, Integer> entry : points.entrySet()) {
-
-			scoreboard.getScore("§7" + entry.getKey().getDisplayName()).setScore(entry.getValue());
-
+			scoreboard.getScore("§7" + entry.getKey().getName()).setScore(entry.getValue());
 		}
 
 		scoreboard.applyChanges();

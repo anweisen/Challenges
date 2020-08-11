@@ -1,9 +1,11 @@
 package net.codingarea.challengesplugin.challengetypes;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -21,9 +23,28 @@ import java.util.concurrent.ConcurrentHashMap;
  * https://github.com/KxmischesDomi
  */
 
-public abstract class CollectGoal<T> extends Goal {
+public abstract class CollectGoal<Collection> extends Goal {
 
-	protected ConcurrentHashMap<UUID, List<T>> points = new ConcurrentHashMap<>();
+	protected ConcurrentHashMap<UUID, List<Collection>> points = new ConcurrentHashMap<>();
+
+	public CollectGoal(MenuType menu) {
+		super(menu);
+	}
+
+	public CollectGoal(MenuType menu, boolean defaultActivated) {
+		super(menu, defaultActivated);
+	}
+
+	@Override
+	public void onEnable(ChallengeEditEvent event) {
+		showScoreboard();
+		updateScoreboard();
+	}
+
+	@Override
+	public void onDisable(ChallengeEditEvent event) {
+		hideScoreboard();
+	}
 
 	@Override
 	public List<Player> getWinners() {
@@ -32,13 +53,11 @@ public abstract class CollectGoal<T> extends Goal {
 
 		int best = 0;
 
-		for (List<T> pointList : points.values()) {
-
+		for (List<Collection> pointList : points.values()) {
 			if (pointList.size() > best) best = pointList.size();
-
 		}
 
-		for (Entry<UUID, List<T>> entry : points.entrySet()) {
+		for (Entry<UUID, List<Collection>> entry : points.entrySet()) {
 
 			if (entry.getValue().size() == best) {
 				winners.add(Bukkit.getPlayer(entry.getKey()));
@@ -60,22 +79,23 @@ public abstract class CollectGoal<T> extends Goal {
 
 		scoreboard.checkUpdate();
 
-		for (Entry<UUID, List<T>> entry : points.entrySet()) {
+		for (Entry<UUID, List<Collection>> entry : points.entrySet()) {
 			Player currentPlayer = Bukkit.getPlayer(entry.getKey());
-			List<T> collection = entry.getValue();
-			scoreboard.getUpdateObjective().getScore("§7" + currentPlayer.getDisplayName()).setScore(collection.size());
+			if (currentPlayer == null) continue;
+			List<Collection> collection = entry.getValue();
+			scoreboard.getUpdateObjective().getScore("§7" + currentPlayer.getName()).setScore(collection.size());
 		}
 
 		scoreboard.applyChanges();
 
 	}
 
-	protected void handleNewPoint(Player player, T t, String name, Translation translation) {
+	protected void handleNewPoint(Player player, Collection t, String name, Translation translation) {
 
 		if (t == null) return;
 		if (t == Material.AIR) return;
 
-		List<T> points;
+		List<Collection> points;
 		if (this.points.containsKey(player.getUniqueId())) {
 			points = this.points.get(player.getUniqueId());
 		} else {
@@ -85,7 +105,7 @@ public abstract class CollectGoal<T> extends Goal {
 
 		if (!points.contains(t)) {
 			points.add(t);
-			player.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + translation.get()
+			player.sendMessage(Prefix.CHALLENGES + translation.get()
 					.replace("%new%", Utils.getEnumName(name)).replace("%count%", points.size() + ""));
 			AnimationSound.PLING_SOUND.play(player);
 			updateScoreboard();

@@ -2,6 +2,7 @@ package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuClickHandler;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -18,6 +19,25 @@ public abstract class AdvancedGoal extends Goal {
 	protected int minValue = 1;
 
 	protected int countUp = 1;
+
+	public AdvancedGoal(MenuType menu) {
+		super(menu);
+	}
+
+	public AdvancedGoal(MenuType menu, int maxValue) {
+		super(menu);
+		this.maxValue = maxValue;
+	}
+
+	public AdvancedGoal(MenuType menu, int maxValue, int minValue) {
+		this(menu, maxValue);
+		this.minValue = minValue;
+	}
+
+	public AdvancedGoal(MenuType menu, int maxValue, int minValue, int countUp) {
+		this(menu, maxValue, minValue);
+		this.countUp = countUp;
+	}
 
 	public abstract void onValueChange(ChallengeEditEvent event);
 

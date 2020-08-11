@@ -1,8 +1,9 @@
 package net.codingarea.challengesplugin.challengetypes;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -12,7 +13,7 @@ import org.bukkit.inventory.ItemStack;
  * https://github.com/KxmischesDomi
  */
 
-public abstract class Challenge extends GeneralChallenge {
+public abstract class Challenge extends AbstractChallenge {
 
     protected AnimationSound activationSound = AnimationSound.ON_SOUND;
     protected AnimationSound deactivationSound = AnimationSound.OFF_SOUND;
@@ -21,13 +22,20 @@ public abstract class Challenge extends GeneralChallenge {
 
     protected int nextActionInSeconds = -1;
 
+    public Challenge(MenuType menu) {
+        super(menu);
+    }
+
     public abstract void onEnable(ChallengeEditEvent event);
     public abstract void onDisable(ChallengeEditEvent event);
     public abstract void onTimeActivation();
 
     @Override
     public void setValues(int value) {
+        boolean before = enabled;
         enabled = value != 0;
+        if (enabled && !before) onEnable(new ChallengeEditEvent(null, null, null));
+        else if (!enabled && before) onDisable(new ChallengeEditEvent(null, null, null));
     }
 
     @Override
@@ -48,50 +56,32 @@ public abstract class Challenge extends GeneralChallenge {
         }
     }
 
-    /**
-     * @return returns if onTimeActivation() was executed
-     */
-    public boolean handleSecond() {
-
+    @Override
+    public final void handleTimerSecond() {
         nextActionInSeconds--;
-
-        if (!(nextActionInSeconds <= 0)) return false;
-
-        onTimeActivation();
-        return true;
-
+        if (nextActionInSeconds == 0) onTimeActivation();
     }
 
     @Override
     public ItemStack getActivationItem() {
-        return Challenges.getInstance().getItemManager().getActivationItem(enabled);
+        return ItemManager.getActivationItem(enabled);
     }
 
-    public boolean isEnabled() {
+    public final boolean isEnabled() {
         return enabled;
     }
 
-    public void setEnabled(boolean enabled) {
+    public final void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
 
-    public int getNextActionInSeconds() {
+    public final int getNextActionInSeconds() {
         return nextActionInSeconds;
     }
 
-    public void setNextActionInSeconds(int nextActionInSeconds) {
+    public final void setNextActionInSeconds(int nextActionInSeconds) {
         this.nextActionInSeconds = nextActionInSeconds;
     }
 
-    /**
-     * @return returns if onTimeActivation() was executed
-     */
-    public final boolean handleOnSecond() {
-
-        if (nextActionInSeconds == -1) return false;
-
-        return handleSecond();
-
-    }
 
 }

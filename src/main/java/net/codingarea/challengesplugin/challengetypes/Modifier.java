@@ -1,8 +1,9 @@
 package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
@@ -13,19 +14,38 @@ import org.bukkit.inventory.ItemStack;
  * https://github.com/KxmischesDomi
  */
 
-public abstract class Modifier extends GeneralChallenge {
+public abstract class Modifier extends AbstractChallenge {
 
     protected AnimationSound sound = AnimationSound.STANDARD_SOUND;
 
     protected int value = 1;
     protected int maxValue = 2;
-    protected int minValue = 1; // MinValue has to be 1 or higher!
+    protected int minValue = 1; // minValue should be 1 or higher!
+
+    public Modifier(MenuType menu) {
+        super(menu);
+    }
+
+    public Modifier(MenuType menu, int maxValue) {
+        super(menu);
+        this.maxValue = maxValue;
+    }
+
+    public Modifier(MenuType menu, int maxValue, int minValue) {
+        this(menu, maxValue);
+        this.minValue = minValue;
+    }
+    public Modifier(MenuType menu, int maxValue, int minValue, int defaultValue) {
+        this(menu, maxValue, minValue);
+        this.value = defaultValue;
+    }
 
     public abstract void onMenuClick(ChallengeEditEvent event);
 
     @Override
     public void setValues(int value) {
         this.value = value;
+        onMenuClick(new ChallengeEditEvent(null, null, null));
     }
 
     @Override

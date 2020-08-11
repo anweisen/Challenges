@@ -2,7 +2,8 @@ package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuClickHandler;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.manager.menu.MenuType;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.inventory.ItemStack;
 
 /**
@@ -21,6 +22,25 @@ public abstract class AdvancedChallenge extends Challenge {
 	protected int countUp = 1;
 
 	protected AnimationSound sound = AnimationSound.STANDARD_SOUND;
+
+	public AdvancedChallenge(MenuType menu) {
+		super(menu);
+	}
+
+	public AdvancedChallenge(MenuType menu, int maxValue) {
+		super(menu);
+		this.maxValue = maxValue;
+	}
+
+	public AdvancedChallenge(MenuType menu, int maxValue, int minValue) {
+		this(menu, maxValue);
+		this.minValue = minValue;
+	}
+
+	public AdvancedChallenge(MenuType menu, int maxValue, int minValue, int countUp) {
+		this(menu, maxValue, minValue);
+		this.countUp = countUp;
+	}
 
 	public abstract void onValueChange(ChallengeEditEvent event);
 
