@@ -1,13 +1,11 @@
 package net.codingarea.challengesplugin.manager.menu;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimatedInventory;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
-import net.codingarea.challengesplugin.utils.AnimationUtil.InventoryAnimation.AnimationFrame;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
+import net.codingarea.challengesplugin.manager.ItemManager;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
-import lombok.Getter;
+import net.codingarea.challengesplugin.utils.animation.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
@@ -24,7 +22,7 @@ import java.util.List;
 
 public class MenuManager {
 
-    @Getter private Challenges plugin;
+    private final Challenges plugin;
 
     /*
      * 22 Settings
@@ -35,12 +33,12 @@ public class MenuManager {
      * 15 Difficulty
      * 30 Timer
      */
-    @Getter private final byte[] mainMenuSlots = { 22, 11, 32, 25, 19, 15, 30 };
+    private final byte[] mainMenuSlots = { 22, 11, 32, 25, 19, 15, 30 };
     private final byte[] slots = { 10, 11, 12, 13, 14, 15, 16, 17 };
-    @Getter protected AnimatedInventory mainMenu;
-    @Getter protected List<List<Inventory>> menus;
+    private final List<List<Inventory>> menus;
+    private AnimatedInventory mainMenu;
 
-    @Getter private MenuClickHandler clickHandler;
+    private final MenuClickHandler clickHandler;
 
     public MenuManager(Challenges plugin) {
         this.plugin = plugin;
@@ -53,9 +51,9 @@ public class MenuManager {
         loadMenus();
     }
 
-    private void loadMenus() {
+    public void loadMenus() {
 
-        List<List<GeneralChallenge>> challengesOnMenus = new ArrayList<>();
+        List<List<AbstractChallenge>> challengesOnMenus = new ArrayList<>();
 
         // This is creating a inventory list and a challenge list for every menu
         for (MenuType ignored : MenuType.values()) {
@@ -64,7 +62,7 @@ public class MenuManager {
         }
 
         // This is going through all challenges and is adding them to the right menu's list
-        for (GeneralChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
+        for (AbstractChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
 
             if (currentChallenge == null) continue;
             if (currentChallenge.getMenu() == null) continue;
@@ -83,7 +81,7 @@ public class MenuManager {
 
             List<Inventory> currentMenu = this.menus.get(currentMenuType.getPageID());
 
-            for (GeneralChallenge currentChallenge : challengesOnMenus.get(currentMenuType.getPageID())) {
+            for (AbstractChallenge currentChallenge : challengesOnMenus.get(currentMenuType.getPageID())) {
 
                 Inventory currentPageInventory;
 
@@ -117,9 +115,7 @@ public class MenuManager {
                     Utils.fillInventory(ItemBuilder.FILL_ITEM, currentPageInventory);
 
                 } else {
-
                     currentPageInventory = currentMenu.get(currentPage);
-
                 }
 
                 currentChallenge.updateItem(currentPageInventory, slots[challengesOnThisPageLoaded]);
@@ -139,10 +135,10 @@ public class MenuManager {
 
                 Inventory currentInventory = currentMenu.get(i);
 
-                currentInventory.setItem(27, i != 0 ? plugin.getItemManager().getBackPageItem() : plugin.getItemManager().getBackMainMenuItem());
+                currentInventory.setItem(27, i != 0 ? ItemManager.getBackPageItem() : ItemManager.getBackMainMenuItem());
 
                 if (i < (currentMenu.size() - 1)) {
-                    currentInventory.setItem(35, plugin.getItemManager().getNextPageItem());
+                    currentInventory.setItem(35, ItemManager.getNextPageItem());
                 }
 
             }
@@ -184,4 +180,27 @@ public class MenuManager {
 
     }
 
+    public AnimatedInventory getMainMenu() {
+        return mainMenu;
+    }
+
+    public byte[] getMainMenuSlots() {
+        return mainMenuSlots;
+    }
+
+    public byte[] getSlots() {
+        return slots;
+    }
+
+    public Challenges getPlugin() {
+        return plugin;
+    }
+
+    public List<List<Inventory>> getMenus() {
+        return menus;
+    }
+
+    public MenuClickHandler getClickHandler() {
+        return clickHandler;
+    }
 }

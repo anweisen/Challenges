@@ -1,8 +1,9 @@
 package net.codingarea.challengesplugin.manager.menu;
 
 import net.codingarea.challengesplugin.challengetypes.AdvancedGoal;
-import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
+import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
 import net.codingarea.challengesplugin.challengetypes.Goal;
+import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
@@ -27,17 +28,17 @@ public class MenuClickHandler {
 
 		public static final ClickResult NOTHING_FOUND_RESULT = new ClickResult(null, -1, -1);
 
-		private GeneralChallenge challenge;
-		private int challengeSlot;
-		private int clickedSlot;
+		private final AbstractChallenge challenge;
+		private final int challengeSlot;
+		private final int clickedSlot;
 
-		public ClickResult(GeneralChallenge challenge, int challengeSlot, int clickedSlot) {
+		public ClickResult(AbstractChallenge challenge, int challengeSlot, int clickedSlot) {
 			this.challengeSlot = challengeSlot;
 			this.clickedSlot = clickedSlot;
 			this.challenge = challenge;
 		}
 
-		public GeneralChallenge getChallenge() {
+		public AbstractChallenge getChallenge() {
 			return challenge;
 		}
 
@@ -51,7 +52,7 @@ public class MenuClickHandler {
 	}
 
 
-	private MenuManager manager;
+	private final MenuManager manager;
 
 	public MenuClickHandler(MenuManager manager) {
 		this.manager = manager;
@@ -70,7 +71,7 @@ public class MenuClickHandler {
 		ItemStack item = clickEvent.getCurrentItem().clone();
 		item.setAmount(1);
 
-		GeneralChallenge challenge = manager.getPlugin().getChallengeManager().getChallengeByItem(item);
+		AbstractChallenge challenge = manager.getPlugin().getChallengeManager().getChallengeByItem(item);
 
 		if (challenge != null) return new ClickResult(challenge, clickEvent.getSlot(), clickEvent.getSlot());
 
@@ -96,8 +97,8 @@ public class MenuClickHandler {
 		if (clickEvent.getCurrentItem() == null) return false;
 		Player player = (Player) clickEvent.getWhoClicked();
 
-		byte v = 0;
-		if (clickEvent.getCurrentItem().getType() == manager.getPlugin().getChallengeManager().getPlugin().getItemManager().getBackMainMenuItem().getType()) {
+		byte pageNavigation = 0;
+		if (clickEvent.getCurrentItem().getType() == ItemManager.getBackMainMenuItem().getType()) {
 			manager.getMainMenu().openLastFrame(player, true);
 			return false;
 		} else {
@@ -105,21 +106,21 @@ public class MenuClickHandler {
 				SkullMeta meta = (SkullMeta) clickEvent.getCurrentItem().getItemMeta();
 				if (meta != null && meta.getOwner() != null ) {
 					if (meta.getOwner().equals("MHF_ArrowRight")) {
-						v = 1;
-					} else {
-						v = 2;
+						pageNavigation = 1;
+					} else if (meta.getOwner().equals("MHF_ArrowLeft")) {
+						pageNavigation = 2;
 					}
 				}
 			}
 		}
 
-		if (v != 0) {
-			player.openInventory(manager.getMenus().get(menuType.getPageID()).get(v == 1 ? menuPage + 1 : menuPage - 1));
+		if (pageNavigation != 0) {
+			player.openInventory(manager.getMenus().get(menuType.getPageID()).get(pageNavigation == 1 ? menuPage + 1 : menuPage - 1));
 			return false;
 		}
 
 		ClickResult result = getClickResult(clickEvent, menuPage);
-		GeneralChallenge challenge = result.getChallenge();
+		AbstractChallenge challenge = result.getChallenge();
 
 		if (challenge == null) return false;
 
@@ -139,19 +140,16 @@ public class MenuClickHandler {
 	}
 
 	public int getPageByInventoryTitle(String title) {
-
 		try {
 			String[] array = Utils.getStringWithoutColorCodes(title).split(" ");
 			return Integer.parseInt(array[array.length - 1]);
-		} catch (NumberFormatException ex) {
+		} catch (NumberFormatException ignored) {
 			return -1;
 		}
-
 	}
 
 	public static boolean shouldChangeGoalValue(ClickResult result) {
-		if (result == null) return false;
-		return result.getClickedSlot() == result.getChallengeSlot();
+		return result != null && result.getClickedSlot() == result.getChallengeSlot();
 	}
 
 }
