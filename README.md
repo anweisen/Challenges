@@ -13,43 +13,58 @@ Note: The plugin was first mainly developed for minecraft v1.15. <br>
 So please inform us about issues or bugs on our [discord](https://discord.gg/74Ay5zF) in the *#challenges-support* channel <br>
 <br>
 **Updates** <br>
-You will be informed about new updates on our [discord](https://discord.gg/74Ay5zF) in the *#challenges-update* or a bit earlier in the *#github-log* channel <br>
+You will be informed about new updates on our [discord](https://discord.gg/74Ay5zF) in the *#challenges-updates* or a bit earlier in the *#github-log* channel <br>
 <br>
 **Download** <br>
-You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/resources/challenges-plugin-wie-bei-bastighg.80548/)
+You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/resources/80548/)
 
 ### Ingame
 **Challenges** <br>
-» The Floor is Lava <br>
-» Anvilrain <br>
-» Forceblock <br>
-» Forceheight <br>
+» Snake <br>
+» Corona <br>
+» JumpAndRun <br>
+» Damage per block <br>
+» Food once <br>
+» TheFloorIsLava <br>
 » Floorhole <br>
-» Bedrockpath <br>
 » Bedrockwalls <br>
+» Bedrockpath <br>
 » WaterMLG <br>
-» NoXP <br>
+» Reversed damage <br>
 » Hydra <br>
-» Only dirt <br>
-» Damage inventory clear <br>
-» One durabilty tools <br>
-» Block randomizer <br>
-» Crafting randomizer <br>
-» Mob randomizer <br>
-» No sneak <br>
-» No jump <br>
-» NoTrade <br>
-» Chunk deconstruction <br>
+» Double spawning <br>
+» Anvilrain <br>
+» NoXP <br>
+» NoTrading <br>
+» AchievmentDamage <br>
+» BlockBreakDamage <br>
+» OnlyDirt <br>
+» HightJumps <br>
+» DamageInventoryClear <br>
+» OneDurability <br>
+» BlockRandomizer <br>
+» CraftingRandomizer <br>
+» MobRandomizer <br>
+» NoSneak <br>
+» NoJump <br>
+» ForceHeight <br>
+» ForceBlock <br>
+» ChunkDeconstruction <br>
 <br>
 **Settings** <br>
-» Damage display <br>
+» DamageDisplay <br>
+» PreGameMovement <br>
+» DeathMessages <br>
+» PlayerGlow <br>
 » Soups <br>
-» Unbreakable items <br>
-» Keep inventory <br>
+» No ItemDamage <br>
+» No hunger <br>
+» KeepInventory <br>
 » Backpack <br>
-» Timber <br>
+» Timer <br>
 » PvP <br>
-» Top command <br>
+» NoHitDelay <br>
+» UpCommand <br>
 <br>
 **Diffuclty** <br>
 » Game difficulty <br>
@@ -59,7 +74,6 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » Damage multiplier <br>
 » Respawn <br>
 » One team life <br>
-» No hunger <br>
 <br>
 **Damage** <br>
 » Allows you toggle every single type of damage <br>
@@ -81,7 +95,6 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » /position <name> <br>
 » /top <br>
 » /gamemode <gm> [player] • challenges.gamemode <br>
-» /setmaster <player> • challenges.setmaster <br>
 » /start • challenges.start <br>
 » /pause • challenges.pause <br>
 » /reset • challenges.reset <br>
@@ -89,5 +102,6 @@ You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/reso
 » /timer • challenges.timer <br>
 » /challenges • challenges.gui <br>
 » /config • challenges.config <br>
+» /stats <br>
 <br>
-• list updated on 06-25-2020 •
+• list updated on 08-24-2020 •
