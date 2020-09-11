@@ -20,13 +20,10 @@ public class ChallengesCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
 
-        if (!(sender instanceof Player)) {
-            return true;
-        }
+        if (!(sender instanceof Player)) return true;
 
-        Player player = (Player) sender;
-        Challenges.getInstance().getMenuManager().getMainMenu().trigger(player, Challenges.getInstance());
-
+        Challenges.getInstance().getMenuManager().getMainMenu().trigger((Player) sender, Challenges.getInstance());
         return true;
+
     }
 }

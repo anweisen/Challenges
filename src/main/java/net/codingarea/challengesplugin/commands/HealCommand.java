@@ -1,6 +1,6 @@
 package net.codingarea.challengesplugin.commands;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
@@ -22,7 +22,6 @@ import java.util.List;
  */
 public class HealCommand  implements CommandExecutor, TabCompleter {
 
-
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
@@ -36,7 +35,7 @@ public class HealCommand  implements CommandExecutor, TabCompleter {
             } else {
                 player = Bukkit.getPlayer(args[0]);
                 if (player == null) {
-                    sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.PLAYER_NOT_FOUND.get().replace("%player%", args[0]));
+                    sender.sendMessage(Prefix.CHALLENGES + Translation.PLAYER_NOT_FOUND.get().replace("%player%", args[0]));
                     return true;
                 }
                 players.add(player);
@@ -46,14 +45,15 @@ public class HealCommand  implements CommandExecutor, TabCompleter {
         }
 
         for (Player currentPlayer : players) {
-            currentPlayer.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.HEALED.get());
+            currentPlayer.sendMessage(Prefix.CHALLENGES + Translation.HEALED.get());
             currentPlayer.setHealth(currentPlayer.getMaxHealth());
             currentPlayer.setFoodLevel(20);
             currentPlayer.setFireTicks(0);
+            player.setRemainingAir(player.getMaximumAir());
         }
 
-        if (!players.contains(player)) {
-            player.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.HEALED_OTHERS.get().replace("%players%", players.size()+""));
+        if (!(players.size() == 1 && players.contains(sender))) {
+            sender.sendMessage(Prefix.CHALLENGES + Translation.HEALED_OTHERS.get().replace("%players%", players.size() + ""));
         }
 
         return true;
@@ -73,4 +73,5 @@ public class HealCommand  implements CommandExecutor, TabCompleter {
             return new ArrayList<>();
         }
     }
+
 }

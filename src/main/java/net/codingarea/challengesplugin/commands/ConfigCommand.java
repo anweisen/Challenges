@@ -2,6 +2,7 @@ package net.codingarea.challengesplugin.commands;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.command.Command;
@@ -13,9 +14,6 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,8 +37,8 @@ public class ConfigCommand implements CommandExecutor, TabCompleter {
 
 		Player player = (Player) sender;
 
-		if (!plugin.getPlayerSettingsManager().isEnabled()) {
-			player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.FEATURE_DISABLED.get());
+		if (!plugin.getPlayerSettingsManager().savePlayerConfigs()) {
+			player.sendMessage(Prefix.CHALLENGES + Translation.FEATURE_DISABLED.get());
 			return true;
 		}
 
@@ -53,7 +51,7 @@ public class ConfigCommand implements CommandExecutor, TabCompleter {
 		}
 
 		if (args.length != 1) {
-			player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + LanguageManager.syntax("/config <save/load>"));
+			player.sendMessage(Prefix.CHALLENGES + LanguageManager.syntax("/config <save/load>"));
 			return true;
 		}
 
@@ -62,9 +60,9 @@ public class ConfigCommand implements CommandExecutor, TabCompleter {
 			case "save":
 				try {
 					plugin.getPlayerSettingsManager().save(player.getName());
-					player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.SAVE_CONFIG_SUCCESS.get());
+					player.sendMessage(Prefix.CHALLENGES + Translation.SAVE_CONFIG_SUCCESS.get());
 				} catch (SQLException ex) {
-					player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.MYSQL_ERROR.get().replace("%error%", ex.getMessage()));
+					player.sendMessage(Prefix.CHALLENGES+ Translation.MYSQL_ERROR.get().replace("%error%", ex.getMessage()));
 				}
 				break;
 
@@ -72,17 +70,17 @@ public class ConfigCommand implements CommandExecutor, TabCompleter {
 				try {
 					if (plugin.getPlayerSettingsManager().load(player.getName())) {
 						plugin.getMenuManager().loadMenus();
-						player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.LOAD_CONFIG_SUCCESS.get());
+						player.sendMessage(Prefix.CHALLENGES + Translation.LOAD_CONFIG_SUCCESS.get());
 					} else {
-						player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.NO_CONFIG_FOUND.get());
+						player.sendMessage(Prefix.CHALLENGES + Translation.NO_CONFIG_FOUND.get());
 					}
 				} catch (SQLException ex) {
-					player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.MYSQL_ERROR.get().replace("%error%", ex.getMessage()));
+					player.sendMessage(Prefix.CHALLENGES + Translation.MYSQL_ERROR.get().replace("%error%", ex.getMessage()));
 				}
 				break;
 
 			default:
-				player.sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + LanguageManager.syntax("/config <save/load>"));
+				player.sendMessage(Prefix.CHALLENGES + LanguageManager.syntax("/config <save/load>"));
 				break;
 
 		}

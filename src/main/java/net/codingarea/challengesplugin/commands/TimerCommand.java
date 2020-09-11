@@ -2,10 +2,11 @@ package net.codingarea.challengesplugin.commands;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
 import net.codingarea.challengesplugin.timer.ChallengeTimer.TimerMode;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -44,7 +45,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
 		if (command.getName().equals("start")) {
 			if (!plugin.getChallengeTimer().isPaused()) {
-				player.sendMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_ALREADY_STARTED.get());
+				player.sendMessage(Prefix.TIMER + Translation.TIMER_ALREADY_STARTED.get());
 			} else {
 				plugin.getChallengeTimer().resume(player);
 			}
@@ -66,7 +67,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 			case "resume": case "start":
 
 				if (!plugin.getChallengeTimer().isPaused()) {
-					player.sendMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_ALREADY_STARTED.get());
+					player.sendMessage(Prefix.TIMER + Translation.TIMER_ALREADY_STARTED.get());
 					return true;
 				}
 
@@ -79,13 +80,36 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 
 			case "reset":
 				plugin.getChallengeTimer().resetTimer(player);
-				Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_RESET.get().replace("%player%", player.getName()));
+				Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_RESET.get().replace("%player%", player.getName()));
+				break;
+
+			case "show":
+
+				if (!plugin.getChallengeTimer().isHided()) {
+					player.sendMessage(Prefix.TIMER.get() + Translation.TIMER_ALREADY_SHOW);
+					return true;
+				}
+
+				plugin.getChallengeTimer().setHided(false);
+				Bukkit.broadcastMessage(Prefix.TIMER.get() + Translation.TIMER_SHOW);
+				break;
+
+			case "hide":
+
+				if (plugin.getChallengeTimer().isHided()) {
+					player.sendMessage(Prefix.TIMER + Translation.TIMER_ALREADY_HIDE.get());
+					return true;
+				}
+
+				plugin.getChallengeTimer().setHided(true);
+				Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_HIDE.get());
+
 				break;
 
 			case "set":
 
 				if (!(args.length > 1)) {
-					player.sendMessage(plugin.getStringManager().TIMER_PREFIX + LanguageManager.syntax("/timer set <time s/m/h/d>"));
+					player.sendMessage(Prefix.TIMER + LanguageManager.syntax("/timer set <time s/m/h/d>"));
 					return true;
 				}
 
@@ -98,13 +122,13 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 				}
 
 				plugin.getChallengeTimer().setMaxSeconds(seconds);
-				Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_SET_TIME.get().replace("%time%", ChallengeTimer.getTimeDisplay(seconds)).replace("%player%", player.getName()));
+				Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_SET_TIME.get().replace("%time%", ChallengeTimer.getTimeDisplay(seconds)).replace("%player%", player.getName()));
 				break;
 
 			case "mode":
 
 				if (args.length != 2) {
-					player.sendMessage(plugin.getStringManager().TIMER_PREFIX + LanguageManager.syntax("/timer mode <up / down>"));
+					player.sendMessage(Prefix.TIMER + LanguageManager.syntax("/timer mode <up / down>"));
 					return true;
 				}
 
@@ -115,7 +139,7 @@ public class TimerCommand implements CommandExecutor, TabCompleter {
 				} else if (mode.equalsIgnoreCase("down")) {
 					plugin.getChallengeTimer().setMode(TimerMode.DOWN, player);
 				} else {
-					player.sendMessage(plugin.getStringManager().TIMER_PREFIX + LanguageManager.syntax("/timer mode <up / down>"));
+					player.sendMessage(Prefix.TIMER + LanguageManager.syntax("/timer mode <up / down>"));
 					return true;
 				}
 

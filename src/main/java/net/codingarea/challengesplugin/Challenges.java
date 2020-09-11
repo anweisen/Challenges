@@ -135,6 +135,7 @@ public final class Challenges extends JavaPlugin {
     }
 
     private void enable() {
+        worldManager.loadWorld();
         new PluginChallengeLoader(this).loadChallenges();
         ChallengeLoader.load(challengeManager);
         playerSettingsManager = new PlayerSettingsManager(this);

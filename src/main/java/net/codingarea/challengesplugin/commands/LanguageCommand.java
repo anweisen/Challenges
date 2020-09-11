@@ -1,8 +1,8 @@
 package net.codingarea.challengesplugin.commands;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -28,7 +28,7 @@ public class LanguageCommand implements CommandExecutor, TabCompleter {
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
 		if (args.length != 1 || Language.getLanguage(args[0]) == null) {
-			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + LanguageManager.syntax("/language <de/en>"));
+			sender.sendMessage(Prefix.CHALLENGES + LanguageManager.syntax("/language <de/en>"));
 			return true;
 		}
 
@@ -38,7 +38,7 @@ public class LanguageCommand implements CommandExecutor, TabCompleter {
 		} catch (IOException ignored) { }
 		LanguageManager.setLanguage(language);
 		LanguageManager.onLanguageChange();
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + "§7Language templates loaded: §e" + Utils.getEnumName(language.name()));
+		Bukkit.broadcastMessage(Prefix.CHALLENGES + "§7Language templates loaded: §e" + Utils.getEnumName(language.name()));
 		return true;
 
 	}

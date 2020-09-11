@@ -1,8 +1,6 @@
 package net.codingarea.challengesplugin.commands;
 
-import com.mysql.fabric.xmlrpc.base.Array;
-import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.manager.lang.LanguageManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
@@ -15,7 +13,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -40,7 +37,7 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 			} else {
 				player = Bukkit.getPlayer(args[1]);
 				if (player == null) {
-					sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.PLAYER_NOT_FOUND.get().replace("%player%", args[0]));
+					sender.sendMessage(Prefix.CHALLENGES + Translation.PLAYER_NOT_FOUND.get().replace("%player%", args[1]));
 					return true;
 				}
 				players.add(player);
@@ -64,12 +61,12 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 		String mode = Utils.getEnumName(gamemode.name());
 
 		for (Player currentPlayer : players) {
-			currentPlayer.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GAMEMODE_CHANGED.get().replace("%mode%", mode));
+			currentPlayer.sendMessage(Prefix.CHALLENGES + Translation.GAMEMODE_CHANGED.get().replace("%mode%", mode));
 			currentPlayer.setGameMode(gamemode);
 		}
 
-		if (!players.contains(sender)) {
-			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GAMEMODE_CHANGED_OTHERS.get().replace("%players%", players.size()+""));
+		if (!(players.size() == 1 && players.contains(sender))) {
+			sender.sendMessage(Prefix.CHALLENGES + Translation.GAMEMODE_CHANGED_OTHERS.get().replace("%players%", players.size() + ""));
 		}
 
 		return true;

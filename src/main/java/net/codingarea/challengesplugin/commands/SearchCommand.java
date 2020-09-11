@@ -1,8 +1,8 @@
 package net.codingarea.challengesplugin.commands;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challenges.challenges.randomizer.BlockRandomizerChallenge;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
@@ -26,7 +26,7 @@ public class SearchCommand implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 
         if (args.length != 1) {
-            sender.sendMessage(Challenges.getInstance().getStringManager().MASTER_PREFIX + LanguageManager.syntax("/search <Search>"));
+            sender.sendMessage(Prefix.CHALLENGES + LanguageManager.syntax("/search <Search>"));
             return true;
         }
 
@@ -42,18 +42,17 @@ public class SearchCommand implements CommandExecutor {
 
         try {
             material = Material.valueOf(search);
-        } catch (IllegalStateException ignored) {
-            sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + "§7No block found matching this name");
+        } catch (Exception ignored) {
+            sender.sendMessage(Prefix.CHALLENGES + "§7No block found matching this name");
             return true;
         }
 
         for (Entry<Material, List<Material>> entry : BlockRandomizerChallenge.getMaterials().entrySet()) {
             try {
                 if (entry.getValue().contains(material)) {
-                    sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + "§7Blockrandomizer: §a" + Utils.getEnumName(entry.getKey().name()));
+                    sender.sendMessage(Prefix.CHALLENGES + "§7Blockrandomizer: §a" + Utils.getEnumName(entry.getKey().name()));
                 }
-            } catch (Exception ignored) {
-            }
+            } catch (Exception ignored) { }
         }
 
         return true;
