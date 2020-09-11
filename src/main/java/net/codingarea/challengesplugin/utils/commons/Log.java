@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class Log {
 
-	public static class StaticLogger extends Logger {
+	private static class StaticLogger extends Logger {
 		public StaticLogger(String name) {
 			super(name, null);
 		}

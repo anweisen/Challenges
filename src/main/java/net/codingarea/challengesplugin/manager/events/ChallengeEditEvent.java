@@ -13,9 +13,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 
 public class ChallengeEditEvent {
 
-	private Player player;
-	private ClickResult clickResult;
-	private InventoryClickEvent clickEvent;
+	private final Player player;
+	private final ClickResult clickResult;
+	private final InventoryClickEvent clickEvent;
 
 	public ChallengeEditEvent(Player player, ClickResult result, InventoryClickEvent clickEvent) {
 		this.player = player;
@@ -25,10 +25,6 @@ public class ChallengeEditEvent {
 
 	public Player getPlayer() {
 		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 
 	public ClickResult getClickResult() {
@@ -50,4 +46,5 @@ public class ChallengeEditEvent {
 	public InventoryClickEvent getClickEvent() {
 		return clickEvent;
 	}
+
 }

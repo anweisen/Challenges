@@ -1,7 +1,7 @@
 package net.codingarea.discordstatsbot.commandmanager.commands;
 
-import net.codingarea.discordstatsbot.commandmanager.CommandEvent;
-import net.codingarea.discordstatsbot.commandmanager.commands.Command.CommandType;
+import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
+import net.codingarea.discordstatsbot.commandmanager.CommandType;
 
 /**
  * @author anweisen

@@ -5,12 +5,14 @@ import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
 import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
+import net.codingarea.challengesplugin.manager.CloudNetManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
-import net.codingarea.challengesplugin.challengetypes.Challenge;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.manager.players.stats.StatsAttribute;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.YamlConfig;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.*;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Entity;
@@ -59,18 +61,11 @@ public class ChallengeTimer {
 
 		menu = new TimerMenu(this);
 
-		loadSettingsDataFromSessionConfig();
-
 	}
 
 	public void start() {
 
 		if (taskID != null) return;
-
-		if ((seconds % 10) == 0) {
-			saveTimerDataToSessionConfig();
-			if (plugin.getPlayerSettingsManager().saveLocally()) saveSettingsDataToSessionConfig();
-		}
 
 		for (World currentWold : Bukkit.getWorlds()) {
 			currentWold.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
@@ -80,18 +75,22 @@ public class ChallengeTimer {
 
 			menu.updateTime();
 
+			if (seconds != 0 && (seconds % 10) == 0) {
+				saveTimerDataToSessionConfig();
+				plugin.getChallengeManager().saveChallengeConfigurations();
+				if (plugin.getStatsManager().isEnabled()) {
+					plugin.getStatsManager().storeAll();
+				}
+			}
+
 			for (AbstractChallenge currentGeneralChallenge : plugin.getChallengeManager().getChallenges()) {
+				if (!isPaused) {
+					currentGeneralChallenge.handleTimerSecond();
+				}
 				if (currentGeneralChallenge instanceof ISecondExecutor) {
 					((ISecondExecutor) currentGeneralChallenge).onSecond();
 					if (Challenges.timerIsStarted()) {
 						((ISecondExecutor) currentGeneralChallenge).onTimerSecond();
-					}
-				}
-				if (Challenges.timerIsStarted()) {
-					if (currentGeneralChallenge instanceof Challenge) {
-						Challenge currentChallenge = (Challenge) currentGeneralChallenge;
-						if (!currentChallenge.isEnabled()) continue;
-						currentChallenge.handleOnSecond();
 					}
 				}
 			}
@@ -111,6 +110,9 @@ public class ChallengeTimer {
 					}
 				}
 
+				if (plugin.getStatsManager().isEnabled()) {
+					Utils.forEachPlayerOnline(currentPlayer -> plugin.getStatsManager().onSecond(currentPlayer));
+				}
 
 			} else {
 				for (Player currentOnlinePlayer : Bukkit.getOnlinePlayers()) {
@@ -144,8 +146,11 @@ public class ChallengeTimer {
 
 		if (!isPaused) return;
 
-		Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_STARTED.get().replace("%player%", player.getName()));
+		Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_STARTED.get().replace("%player%", player.getName()));
 
+		if (!CloudNetManager.wasAlreadyIngame()) {
+			plugin.getStatsManager().forEveryPlayerStats(stats -> stats.add(StatsAttribute.PLAYED, 1));
+		}
 		plugin.getCloudnetManager().setIngame();
 
 		for (AbstractChallenge currentChallenge : plugin.getChallengeManager().getChallenges()) {
@@ -179,7 +184,7 @@ public class ChallengeTimer {
 		if (isPaused) return;
 
 		if (message) {
-			Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_PAUSED.get().replace("%player%", player != null ? player.getName() : "Console"));
+			Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_PAUSED.get().replace("%player%", player != null ? player.getName() : "Console"));
 		}
 
 		plugin.getCloudnetManager().setLobby();
@@ -195,8 +200,6 @@ public class ChallengeTimer {
 		}
 
 		isPaused = true;
-		seconds = maxSeconds;
-
 		sendActionbar();
 
 	}
@@ -257,7 +260,7 @@ public class ChallengeTimer {
 		if (mode == null) throw new NullPointerException("TimerMode cannot be null!");
 		saveTimerDataToSessionConfig();
 
-		Bukkit.broadcastMessage(plugin.getStringManager().TIMER_PREFIX + Translation.TIMER_SET_MODE.get().replace("%mode%", mode.name().toLowerCase()).replace("%player%", player != null ? player.getName() : "Console"));
+		Bukkit.broadcastMessage(Prefix.TIMER + Translation.TIMER_SET_MODE.get().replace("%mode%", mode.name().toLowerCase()).replace("%player%", player != null ? player.getName() : "Console"));
 		AnimationSound.PLOP_SOUND.play(player);
 
 		this.mode = mode;
@@ -358,28 +361,6 @@ public class ChallengeTimer {
 		config.set("timer.hide", isHided);
 
 		sessionConfig.save();
-
-	}
-
-	public void saveSettingsDataToSessionConfig() {
-
-		YamlConfig sessionConfig = plugin.getConfigManager().getInternalConfig();
-		FileConfiguration config = sessionConfig.toFileConfig();
-
-		config.set("settings", plugin.getPlayerSettingsManager().settingsToString());
-
-		sessionConfig.save();
-
-	}
-
-	private void loadSettingsDataFromSessionConfig() {
-
-		FileConfiguration config = plugin.getConfigManager().getInternalConfig().toFileConfig();
-		String settings = config.getString("settings");
-
-		if (settings == null) return;
-
-		plugin.getPlayerSettingsManager().loadSettings(settings);
 
 	}
 

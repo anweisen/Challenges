@@ -1,6 +1,7 @@
 package net.codingarea.discordstatsbot.commandmanager.commands;
 
-import net.codingarea.discordstatsbot.commandmanager.CommandEvent;
+import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
+import net.codingarea.discordstatsbot.commandmanager.CommandType;
 
 /**
  * @author anweisen
@@ -9,12 +10,6 @@ import net.codingarea.discordstatsbot.commandmanager.CommandEvent;
  */
 
 public abstract class Command implements ICommand {
-
-	public enum CommandType {
-		GENERAL,
-		PRIVATE,
-		GUILD;
-	}
 
 	public static boolean REACT_TO_MENTION_PREFIX_DEFAULT = true;
 

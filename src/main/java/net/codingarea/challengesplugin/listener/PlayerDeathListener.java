@@ -20,11 +20,19 @@ public class PlayerDeathListener implements Listener {
 
 	@EventHandler
 	public void onPlayerDeath(PlayerDeathEvent event) {
+
+		event.setDeathMessage(null);
+
 		if (!Challenges.timerIsStarted()) return;
-		Utils.spawnUpgoingParticleCircle(event.getEntity().getLocation(), Particle.SPELL_WITCH, Challenges.getInstance(), 2, 17, 1);
-		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			Challenges.getInstance().getPlayerManager().handlePlayerDeath(event.getEntity(), ChallengeEndCause.PLAYER_DEATH);
-		}, 1);
+
+		if (!Challenges.getInstance().getPlayerManager().isPlayerRespawn() || Challenges.getInstance().getPlayerManager().isEndOnPlayerDeath()) {
+			event.getEntity().setHealth(event.getEntity().getMaxHealth());
+			event.getEntity().teleport(event.getEntity().getLocation());
+		}
+
+		Utils.spawnUpGoingParticleCircle(event.getEntity().getLocation(), Particle.SPELL_WITCH, Challenges.getInstance(), 2, 17, 1);
+		Challenges.getInstance().getPlayerManager().handlePlayerDeath(event.getEntity(), ChallengeEndCause.PLAYER_DEATH, event);
+
 	}
 
 }

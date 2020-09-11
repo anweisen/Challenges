@@ -2,7 +2,7 @@ package net.codingarea.challengesplugin.listener;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;

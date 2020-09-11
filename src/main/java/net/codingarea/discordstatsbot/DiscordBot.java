@@ -94,7 +94,6 @@ public final class DiscordBot {
 		try {
 
 			shardManager = DefaultShardManagerBuilder.createDefault(token).setStatus(OnlineStatus.ONLINE).build();
-
 			shardManager.addEventListener(new MessageListener(commandHandler));
 
 		} catch (Exception ex) {

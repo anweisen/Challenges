@@ -1,6 +1,5 @@
 package net.codingarea.challengesplugin.utils;
 
-import net.codingarea.challengesplugin.Challenges;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -28,7 +27,7 @@ public class YamlConfig {
 			name += ".yml";
 		}
 
-		configFile = new File(Challenges.getInstance().getDataFolder() + "/" + name);
+		configFile = new File(name);
 
 		if (!configFile.exists()) {
 
@@ -63,12 +62,11 @@ public class YamlConfig {
 	}
 
 	public void clear() {
-		clear(new String[0]);
+		clear(false);
 	}
 
 	public void clear(boolean save) {
-		clear();
-		if (save) save();
+		clear(save, null);
 	}
 
 	public void clear(boolean save, String... doNotClear) {
@@ -77,9 +75,9 @@ public class YamlConfig {
 	}
 
 	public void clear(String... doNotClear) {
-		List<String> leave = Arrays.asList(doNotClear);
+		List<String> leave = doNotClear != null ? Arrays.asList(doNotClear) : null;
 		for (String currentKey : fileConfiguration.getKeys(false)) {
-			if (leave.contains(currentKey)) continue;
+			if (leave != null && leave.contains(currentKey)) continue;
 			fileConfiguration.set(currentKey, null);
 		}
 	}

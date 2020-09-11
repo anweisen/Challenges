@@ -39,7 +39,7 @@ public class IOUtils {
 
 	public static int copy(Reader input, Writer output) throws IOException {
 		long count = copyLarge(input, output);
-		return count > 2147483647L ? -1 : (int)count;
+		return count > 2147483647L ? -1 : (int) count;
 	}
 
 	public static long copyLarge(Reader input, Writer output) throws IOException {

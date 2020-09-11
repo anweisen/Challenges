@@ -14,16 +14,16 @@
 # * KxmischesDomi | Dominik - https://github.com/KxmischesDomi  #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
-config-version: 1.1.3
-# Most recent config changes: (v1.1.3)
+config-version: 1.2
+# Most recent config changes: (v1.2)
 # - Moved prefix settings to messages/prefix.properties
 # - drop-inventory-on-end setting added
 
 # This language will only be used for messages which are not set in the messages.properties
 # and for the descriptions of the challenges in the menu
 # Available languages:
-# en (english)
-# de (german)
+# - en (english)
+# - de (german)
 language: 'en'
 
 # Timer design above the hotbar

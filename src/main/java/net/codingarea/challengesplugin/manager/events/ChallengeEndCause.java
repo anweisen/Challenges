@@ -15,4 +15,5 @@ public enum ChallengeEndCause {
 	LAST_MAN_STANDING,
 	TIMER_END,
 	KILL_ALL;
+
 }

@@ -57,7 +57,6 @@ public class StringBuilderWriter extends Writer implements Serializable {
 		if (value != null) {
 			this.builder.append(value, offset, length);
 		}
-
 	}
 
 	public StringBuilder getBuilder() {

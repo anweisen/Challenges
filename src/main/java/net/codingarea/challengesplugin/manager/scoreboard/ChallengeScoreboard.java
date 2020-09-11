@@ -23,9 +23,8 @@ public class ChallengeScoreboard {
 	private Objective objective;
 	private Objective update;
 
-	private BossBar bar;
-
 	private String name;
+	private String displayName = STANDARD_DISPLAYNAME;
 
 	private String[] lines;
 
@@ -37,8 +36,6 @@ public class ChallengeScoreboard {
 		this.name = objective.getName();
 
 		lines = new String[15];
-
-		bar = Bukkit.createBossBar(name, BarColor.BLUE, BarStyle.SOLID);
 
 	}
 
@@ -67,7 +64,7 @@ public class ChallengeScoreboard {
 	}
 
 	public ChallengeScoreboard setDisplayName(String name) {
-		objective.setDisplayName(name);
+		displayName = name;
 		return this;
 	}
 
@@ -85,7 +82,9 @@ public class ChallengeScoreboard {
 			}
 		}
 
+		update.setDisplayName(displayName);
 		update.setDisplaySlot(DisplaySlot.SIDEBAR);
+
 		objective.unregister();
 		objective = update;
 		update = null;
@@ -94,13 +93,9 @@ public class ChallengeScoreboard {
 	}
 
 	public ChallengeScoreboard setLine(int line, String text) {
-
 		if (objective == null) throw new NullPointerException("Objective is null!");
-
 		lines[line] = text;
-
 		return this;
-
 	}
 
 	public void checkUpdate() {
@@ -126,7 +121,7 @@ public class ChallengeScoreboard {
 			update = objective.getScoreboard().registerNewObjective(name, name, name);
 		}
 
-		update.setDisplayName(objective.getDisplayName());
+		update.setDisplayName(displayName);
 
 	}
 
@@ -139,18 +134,14 @@ public class ChallengeScoreboard {
 	}
 
 	public Score getScore(String player) {
-
 		checkUpdate();
 		return update.getScore(player);
-
 	}
 
 	public void setObjective(Objective objective) {
-
 		if (objective == null) return;
-
+		if (this.objective != null) this.objective.unregister();
 		this.objective = objective;
-
 	}
 
 	public void destroyScoreboard() {
@@ -164,9 +155,5 @@ public class ChallengeScoreboard {
 			update = null;
 		}
 
-	}
-
-	public BossBar getBar() {
-		return bar;
 	}
 }

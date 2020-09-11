@@ -1,0 +1,9 @@
+
+/out
+/target
+/.idea
+/Depends
+
+Challenges.iml
+.floo
+.flooignore

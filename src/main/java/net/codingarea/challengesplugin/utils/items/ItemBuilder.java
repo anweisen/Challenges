@@ -1,7 +1,9 @@
-package net.codingarea.challengesplugin.utils;
+package net.codingarea.challengesplugin.utils.items;
 
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import org.bukkit.*;
+import net.codingarea.challengesplugin.utils.Replacement;
+import org.bukkit.Color;
+import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -16,6 +18,8 @@ import org.bukkit.potion.PotionType;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 /**
  * @author anweisen & Dominik
@@ -46,12 +50,26 @@ public class ItemBuilder {
         public int getLevel() {
             return level;
         }
+
+        public static ArrayList<SimpleEnchantment> enchantmentsOf(ItemBuilder item) {
+            return enchantmentsOf(item.build());
+        }
+
+        public static ArrayList<SimpleEnchantment> enchantmentsOf(ItemStack item) {
+            ArrayList<SimpleEnchantment> enchantments = new ArrayList<>();
+            for (Entry<Enchantment, Integer> currentEnchantment : item.getEnchantments().entrySet()) {
+                enchantments.add(new SimpleEnchantment(currentEnchantment.getKey(), currentEnchantment.getValue()));
+            }
+            return enchantments;
+        }
+
     }
 
     public static class SkullBuilder extends ItemBuilder {
 
         public SkullBuilder(String skullOwner, String name) {
             super(Material.PLAYER_HEAD, name);
+            setOwner(skullOwner);
         }
 
         @SuppressWarnings("depraction")
@@ -163,16 +181,17 @@ public class ItemBuilder {
         meta = item.getItemMeta();
         setDisplayName(name);
         String color = name.substring(0, 2);
-        setLore(ItemTranslation.formatLore(translation.getLore(), color, new Replacement<>("%info%", name.toLowerCase())));
+        setLore(markdownLore(translation.getLore(), color, new Replacement<>("%info%", name.toLowerCase())));
         hideAttributes();
     }
 
-    public ItemBuilder(Material material, ItemTranslation translation, Replacement<?>... replacements) {
+    @SafeVarargs
+    public ItemBuilder(Material material, ItemTranslation translation, Replacement<String>... replacements) {
         item = new ItemStack(material);
         meta = item.getItemMeta();
         setDisplayName(translation.getName());
         String color = translation.getName().substring(0, 2);
-        setLore(ItemTranslation.formatLore(translation.getLore(), color, replacements));
+        setLore(markdownLore(translation.getLore(), color, replacements));
         hideAttributes();
     }
 
@@ -218,7 +237,6 @@ public class ItemBuilder {
     public ItemBuilder addEnchant(SimpleEnchantment... enchantment) {
         for (SimpleEnchantment currentEnchantment : enchantment) {
             item.addUnsafeEnchantment(currentEnchantment.getEnchantment(), currentEnchantment.getLevel());
-            meta.addEnchant(currentEnchantment.getEnchantment(), currentEnchantment.getLevel(), true);
         }
         return this;
     }
@@ -245,6 +263,7 @@ public class ItemBuilder {
         return this;
     }
 
+    @SuppressWarnings("depraction")
     public ItemBuilder setDamage(short damage) {
         item.setDurability(damage);
         return this;
@@ -259,9 +278,24 @@ public class ItemBuilder {
         return meta.getDisplayName();
     }
 
+    public int getAmount() {
+        return item.getAmount();
+    }
+
+    public Map<Enchantment, Integer> getEnchantments() {
+        return item.getEnchantments();
+    }
+
+    public ArrayList<SimpleEnchantment> getSimpleEnchantments() {
+        return SimpleEnchantment.enchantmentsOf(item);
+    }
+
+    public ItemMeta getItemMeta() {
+        return meta;
+    }
+
     public ItemStack getItem() {
-        item.setItemMeta(meta);
-        return item;
+        return build();
     }
 
     public ItemStack build() {
@@ -269,5 +303,54 @@ public class ItemBuilder {
         return item;
     }
 
+    @SafeVarargs
+    public static List<String> markdownLore(String[] loreLines, String color, Replacement<String>... replacements) {
+
+        if (loreLines == null) return new ArrayList<>();
+        if (loreLines.length == 0) return new ArrayList<>();
+
+        String[] lore = loreLines.clone();
+
+        List<String> format = new ArrayList<>();
+
+        for (int i = 0; i < lore.length; i++) {
+            lore[i] = Replacement.replace(loreLines[i], replacements);
+        }
+
+        format.add(" ");
+        boolean colored = false;
+        boolean nextIsColorCode = false;
+        String lastColor = "7";
+        for (String currentLore : lore) {
+            StringBuilder builder = new StringBuilder();
+            builder.append("§7");
+            for (String currentChar : currentLore.split("")) {
+
+                if (currentChar.equals("§")) {
+                    nextIsColorCode = true;
+                }
+                if (nextIsColorCode) {
+                    nextIsColorCode = false;
+                    lastColor = currentChar;
+                }
+
+                if (currentChar.equals("*")) {
+                    if (colored) {
+                        colored = false;
+                        builder.append("§").append(lastColor);
+                    } else {
+                        colored = true;
+                        builder.append(color);
+                    }
+                } else {
+                    builder.append(currentChar);
+                }
+            }
+            format.add(builder.toString());
+        }
+        format.add(" ");
+
+        return format;
+    }
 
 }

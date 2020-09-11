@@ -22,19 +22,33 @@ public class AnimationSound {
 	public static final AnimationSound ON_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 1);
 	public static final AnimationSound OFF_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 1);
 	public static final AnimationSound PLING_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
-	public static final AnimationSound OPEN_SOUND = new AnimationSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 2F).addSound(Sound.ENTITY_CHICKEN_EGG, 1F, 2F);
+	public static final AnimationSound KLING_SOUND = new AnimationSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 2F);
+	public static final AnimationSound PLOP_SOUND = new AnimationSound(Sound.ENTITY_CHICKEN_EGG, 1F, 2F);
 	public static final AnimationSound DEATH_SOUND = new AnimationSound(Sound.ENTITY_BAT_DEATH, 0.7F, 1F);
 	public static final AnimationSound TELEPORT_SOUND = new AnimationSound(Sound.ITEM_CHORUS_FRUIT_TELEPORT, 0.9F, 1F);
-	public static final AnimationSound PLOP_SOUND = new AnimationSound(Sound.ENTITY_CHICKEN_EGG, 1F, 2F);
+	public static final AnimationSound OPEN_SOUND = new AnimationSound(KLING_SOUND).addSound(PLOP_SOUND);
 
-	private final List<Sound> sound;
-	private final List<Float> pitch;
-	private final List<Float> volume;
+	private final List<Sound> sound = new ArrayList<>();
+	private final List<Float> pitch = new ArrayList<>();
+	private final List<Float> volume = new ArrayList<>();
 
 	public AnimationSound(Sound sound, float volume, float pitch) {
-		this.sound = new ArrayList<>(); this.sound.add(sound);
-		this.volume = new ArrayList<>(); this.volume.add(volume);
-		this.pitch = new ArrayList<>(); this.pitch.add(pitch);
+		addSound(sound, volume, pitch);
+	}
+
+	public AnimationSound addSound(AnimationSound sound) {
+		for (int i = 0; i < sound.size(); i++) {
+			addSound(sound.sound.get(i), sound.volume.get(i), sound.pitch.get(i));
+		}
+		return this;
+	}
+
+	private AnimationSound() { }
+
+	public AnimationSound(AnimationSound... sounds) {
+		for (AnimationSound currentSound : sounds) {
+			addSound(currentSound);
+		}
 	}
 
 	public AnimationSound addSound(Sound sound, float volume, float pitch) {
@@ -58,9 +72,13 @@ public class AnimationSound {
 		Utils.forEachPlayerOnline(this::play);
 	}
 
+	public int size() {
+		return sound.size();
+	}
+
 	public void play(Player player, Location location) {
 		if (player == null) return;
-		for (int i = 0; i < sound.size() && i < volume.size() && i < pitch.size(); i++) {
+		for (int i = 0; i < size(); i++) {
 			player.playSound(location, sound.get(i), volume.get(i), pitch.get(i));
 		}
 	}

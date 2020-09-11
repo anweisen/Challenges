@@ -3,20 +3,16 @@ package net.codingarea.challengesplugin.listener;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.CloudNetManager;
 import net.codingarea.challengesplugin.manager.WorldManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.players.stats.StatsWrapper;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
-import org.bukkit.boss.BossBar;
-import org.bukkit.boss.KeyedBossBar;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.Iterator;
 
 /**
  * @author anweisen & Dominik
@@ -47,7 +43,7 @@ public class PlayerConnectionListener implements Listener {
 	public void handleJoin(PlayerJoinEvent event) {
 
 		if (!plugin.isNewestVersion() && event.getPlayer().hasPermission("challenges.gui")) {
-			event.getPlayer().sendMessage(plugin.getStringManager().CHALLENGE_PREFIX + Translation.CONFIG_OLD_VERSION.get());
+			event.getPlayer().sendMessage(Prefix.CHALLENGES + Translation.CONFIG_OLD_VERSION.get());
 		}
 
 		if (plugin.getStatsManager().isEnabled()) {
@@ -62,7 +58,7 @@ public class PlayerConnectionListener implements Listener {
 		// Setting the join message to null, so it wont be sent twice
 		if (message) event.setJoinMessage(null);
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			if (message && joinMessage != null) Bukkit.broadcastMessage(joinMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
+			if (message && joinMessage != null) Bukkit.broadcastMessage(joinMessage.replace("%player%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
 		}, 1);
 
 	}
@@ -91,7 +87,7 @@ public class PlayerConnectionListener implements Listener {
 		}
 
 		if (!message || quitMessage == null) return;
-		event.setQuitMessage(quitMessage.replace("%name%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
+		event.setQuitMessage(quitMessage.replace("%player%", event.getPlayer().getName()).replace("%display%", event.getPlayer().getDisplayName()));
 
 	}
 

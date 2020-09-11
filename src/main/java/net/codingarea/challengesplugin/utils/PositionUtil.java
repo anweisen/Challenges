@@ -2,7 +2,6 @@ package net.codingarea.challengesplugin.utils;
 
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-import lombok.Getter;
 
 /**
  * @author anweisen & Dominik
@@ -15,9 +14,9 @@ public class PositionUtil {
 
 	public static class ChallengePosition {
 
-		@Getter private String setter;
-		@Getter private Location location;
-		@Getter private String name;
+		private final String setter;
+		private final Location location;
+		private final String name;
 
 		public ChallengePosition(Location location, String name, String setter) {
 			this.location = location;
@@ -29,6 +28,17 @@ public class PositionUtil {
 			return "§7" + Utils.getWorldName(location.getWorld().getName()) + ": §eX: §7" + location.getBlockX() + " §eY: §7" + location.getBlockY() + " §eZ: §7" + location.getBlockZ();
 		}
 
+		public Location getLocation() {
+			return location;
+		}
+
+		public String getName() {
+			return name;
+		}
+
+		public String getSetter() {
+			return setter;
+		}
 	}
 
 	public static void savePosition(FileConfiguration config, ChallengePosition position) {

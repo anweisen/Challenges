@@ -48,12 +48,12 @@ public class StringUtils {
 
 	}
 
-	private static boolean charEquals(char origin, char comparision, boolean ignoreCase) {
+	private static boolean charEquals(char origin, char comparison, boolean ignoreCase) {
 
 		String originChar = String.valueOf(origin);
-		String comparisionChar = String.valueOf(comparision);
+		String comparisonChar = String.valueOf(comparison);
 
-		return ignoreCase ? originChar.equalsIgnoreCase(comparisionChar) : originChar.equals(comparisionChar);
+		return ignoreCase ? originChar.equalsIgnoreCase(comparisonChar) : originChar.equals(comparisonChar);
 
 	}
 

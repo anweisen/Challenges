@@ -1,18 +1,13 @@
 package net.codingarea.challengesplugin.utils;
 
-import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.utils.commons.ChatColor;
+import net.codingarea.challengesplugin.utils.commons.IOUtils;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.nms.Utils13;
 import net.codingarea.challengesplugin.utils.nms.Utils14;
 import net.codingarea.challengesplugin.utils.nms.Utils15;
 import net.codingarea.challengesplugin.utils.nms.Utils16;
-import org.bukkit.Effect;
-import org.bukkit.Particle;
-import org.bukkit.FireworkEffect;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.Color;
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Firework;
@@ -27,15 +22,19 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.Vector;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.*;
 import java.net.URL;
-import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
-import java.util.logging.Level;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen & Dominik
@@ -118,7 +117,7 @@ public class Utils {
     }
 
     public static List<Material> getRandomizerBlocks() {
-        List<Material> list = new ArrayList<Material>(Arrays.asList(Material.values()));
+        List<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
         list.remove(Material.COMMAND_BLOCK);
         list.remove(Material.CHAIN_COMMAND_BLOCK);
         list.remove(Material.REPEATING_COMMAND_BLOCK);
@@ -140,6 +139,37 @@ public class Utils {
         list.remove(Material.NETHER_PORTAL);
         list.remove(Material.END_PORTAL);
         return list;
+    }
+
+    public static String getRomanNumbers(int number) {
+        switch (number) {
+            case 1:
+                return "I";
+            case 2:
+                return "II";
+            case 3:
+                return "III";
+            case 4:
+                return "IV";
+            case 5:
+                return "V";
+            case 6:
+                return "VI";
+            case 7:
+                return "VII";
+            case 8:
+                return "VIII";
+            case 9:
+                return "IX";
+            case 10:
+                return "X";
+            default:
+                return "?";
+        }
+    }
+
+    public static String getEnumName(Enum<?> enun) {
+        return getEnumName(enun.name());
     }
 
     public static String getEnumName(String enumName) {
@@ -164,14 +194,19 @@ public class Utils {
             }
         }
 
-        return builder.toString().replace("And", "and");
-
+        return builder.toString()
+                .replace(" And ", " and ")
+                .replace(" The ", " the ")
+                .replace(" Or ", " or ")
+                .replace(" Of " , " of")
+                .replace(" In ", " in ")
+                .replace(" On " , " on ")
+                .replace(" Off ", " off ");
     }
 
     public static String getPlayerListAsString(List<Player> list) {
 
-        if (list == null) return "";
-        if (list.isEmpty()) return "";
+        if (list == null || list.isEmpty()) return "";
 
         StringBuilder builder = new StringBuilder();
 
@@ -200,9 +235,9 @@ public class Utils {
 
         if (string == null) return "";
 
-        String[] strings = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "o", "k", "l", "m", "f", "e", "d", "b", "a", "c" };
+        String[] colorCodes = ChatColor.ALL_CODES.split("");
 
-        for (String currentString : strings) {
+        for (String currentString : colorCodes) {
             string = string.replace("§" + currentString, "");
         }
 
@@ -273,23 +308,27 @@ public class Utils {
     }
 
     public static void spawnFireworks(Location location, int amount) {
-        Location loc = location.clone();
-        Firework firework = (Firework) loc.getWorld().spawnEntity(loc, EntityType.FIREWORK);
-        FireworkMeta fireworkMeta = firework.getFireworkMeta();
+        try {
 
-        fireworkMeta.setPower(1);
-        fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.LIME, Color.AQUA, Color.RED, Color.YELLOW, Color.PURPLE, Color.BLUE).flicker(true).withTrail().build());
+            Location loc = location.clone();
+            Firework firework = loc.getWorld().spawn(loc, Firework.class);
+            FireworkMeta fireworkMeta = firework.getFireworkMeta();
 
-        firework.setFireworkMeta(fireworkMeta);
-        firework.detonate();
+            fireworkMeta.setPower(1);
+            fireworkMeta.addEffect(FireworkEffect.builder().withColor(Color.LIME, Color.AQUA, Color.RED, Color.YELLOW, Color.PURPLE, Color.BLUE).flicker(true).withTrail().build());
 
-        Random random = new Random();
-        for(int i = 0; i < amount; i++) {
-            double x = 0.1 + (0.9 - 0.1) * random.nextDouble();
-            double z = 0.1 + (0.9 - 0.1) * random.nextDouble();
-            Firework fireworkSpawned = (Firework) loc.getWorld().spawnEntity(loc.subtract(0.5, 0, 0.5).add(x, 0, z), EntityType.FIREWORK);
-            fireworkSpawned.setFireworkMeta(fireworkMeta);
-        }
+            firework.setFireworkMeta(fireworkMeta);
+            firework.detonate();
+
+            Random random = new Random();
+            for(int i = 0; i < amount; i++) {
+                double x = 0.1 + (0.9 - 0.1) * random.nextDouble();
+                double z = 0.1 + (0.9 - 0.1) * random.nextDouble();
+                Firework fireworkSpawned = (Firework) loc.getWorld().spawnEntity(loc.subtract(0.5, 0, 0.5).add(x, 0, z), EntityType.FIREWORK);
+                fireworkSpawned.setFireworkMeta(fireworkMeta);
+            }
+
+        } catch (IllegalArgumentException ignored) { };
     }
 
     public static void boostAway(Player player) {
@@ -424,6 +463,7 @@ public class Utils {
             Bukkit.getScheduler().runTaskLater(plugin, () -> {
                 double angle = 2 * Math.PI * I / points;
                 Location point = location.clone().add(radius * Math.sin(angle), 0.0d, radius * Math.cos(angle)).add(0D, Y, 0D);
+                point.getWorld().playEffect(point, particle, 1);
             }, delay);
             delay++;
             y -= startOfY / (double) points;
@@ -435,7 +475,7 @@ public class Utils {
         spawnAroundAndUpGoingParticleCircle(location, particle, 0.0D, 2.0D, plugin);
     }
 
-    public static void spawnUpgoingParticleCircle(Location location, Effect particle, JavaPlugin plugin, double height, double points, double radius) {
+    public static void spawnUpGoingParticleCircle(Location location, Effect particle, JavaPlugin plugin, double height, double points, double radius) {
         int delay = 0;
 
         for (double d = 0.0D; d < height; d += 0.25) {
@@ -449,7 +489,7 @@ public class Utils {
         }
     }
 
-    public static void spawnUpgoingParticleCircle(Location location, Particle particle, JavaPlugin plugin, double height, double points, double radius) {
+    public static void spawnUpGoingParticleCircle(Location location, Particle particle, JavaPlugin plugin, double height, double points, double radius) {
         int delay = 0;
 
         for (double d = 0.0D; d < height; d += 0.25) {
@@ -463,7 +503,7 @@ public class Utils {
         }
     }
 
-    public static List<Integer> getRandomDiffrentNumbers(int max, int numbers) {
+    public static List<Integer> getRandomDifferentNumbers(int max, int numbers) {
         if (numbers > max) return null;
 
         List<Integer> numbersGenerated = new ArrayList<>();
@@ -564,8 +604,7 @@ public class Utils {
             return;
         }
 
-        Integer[] array = dontClear;
-        List<Integer> dontClearList = Arrays.asList(array);
+        List<Integer> dontClearList = Arrays.asList(dontClear);
 
         for (int i = 0; i < inventory.getSize(); i++) {
             if (dontClearList.contains(i)) continue;
@@ -638,9 +677,9 @@ public class Utils {
         if (worldName.toLowerCase().endsWith("_nether")) {
             return "Nether";
         } else if (worldName.toLowerCase().endsWith("_the_end")) {
-            return "End";
+            return "The End";
         } else {
-            return getEnumName(worldName);
+            return "Overworld";
         }
 
     }
@@ -661,24 +700,102 @@ public class Utils {
 
     }
 
-    public interface Runnable<ObjectType> {
-        void run(ObjectType object);
+    public static void replaceItems(Inventory inventory, Material material, ItemStack item) {
+        for (int i = 0; i < inventory.getSize(); i++) {
+            if (inventory.getItem(i) == null || inventory.getItem(i).getType() == material) {
+                inventory.setItem(i, item);
+            }
+        }
     }
 
-    public static void forEachPlayerOnline(Runnable<Player> runnable) {
-        Bukkit.getOnlinePlayers().forEach(runnable::run);
+    public static void forEachPlayerOnline(Consumer<Player> consumer) {
+        Bukkit.getOnlinePlayers().forEach(consumer);
     }
 
     public static ArrayList<String> getMatchingSuggestions(String argument, String... suggestions) {
-        ArrayList<String> list = new ArrayList<>(Arrays.asList(suggestions));
-        list.removeIf(currentSuggestion -> !currentSuggestion.toLowerCase().startsWith(argument));
-        Collections.sort(list);
-        return list;
+        return getMatchingSuggestions(argument, new ArrayList<>(Arrays.asList(suggestions)));
     }
 
-    @SuppressWarnings("depraction")
+    public static ArrayList<String> getMatchingSuggestions(String argument, ArrayList<String> suggestions) {
+        suggestions.removeIf(currentSuggestion -> !currentSuggestion.toLowerCase().startsWith(argument));
+        Collections.sort(suggestions);
+        return suggestions;
+    }
+
+    public static Material getWool(org.bukkit.ChatColor color) {
+        switch (color) {
+            case DARK_GREEN:
+                return Material.GREEN_WOOL;
+            case BLUE:
+                return Material.CYAN_WOOL;
+            case DARK_RED:
+                return Material.RED_WOOL;
+            case GREEN:
+                return Material.LIME_WOOL;
+            case LIGHT_PURPLE:
+                return Material.PINK_WOOL;
+            case YELLOW:
+                return Material.YELLOW_WOOL;
+            case GRAY:
+                return Material.LIGHT_GRAY_WOOL;
+            case DARK_GRAY:
+                return Material.GRAY_WOOL;
+            case DARK_PURPLE:
+                return Material.PURPLE_WOOL;
+            case GOLD:
+                return Material.ORANGE_WOOL;
+            case DARK_BLUE:
+                return Material.BLUE_WOOL;
+            case BLACK:
+                return Material.BLACK_WOOL;
+            case RED:
+                return Material.MAGENTA_WOOL;
+            case AQUA:
+                return Material.LIGHT_BLUE_WOOL;
+            default:
+                return Material.WHITE_WOOL;
+        }
+    }
+
+    public static Material getTerracotta(int subid) {
+        switch (subid) {
+            case 2:
+                return Material.ORANGE_TERRACOTTA;
+            case 3:
+                return Material.MAGENTA_TERRACOTTA;
+            case 4:
+                return Material.LIGHT_BLUE_TERRACOTTA;
+            case 5:
+                return Material.YELLOW_TERRACOTTA;
+            case 6:
+                return Material.LIME_TERRACOTTA;
+            case 7:
+                return Material.PINK_TERRACOTTA;
+            case 8:
+                return Material.GRAY_TERRACOTTA;
+            case 9:
+                return Material.LIGHT_GRAY_TERRACOTTA;
+            case 10:
+                return Material.CYAN_TERRACOTTA;
+            case 11:
+                return Material.PURPLE_TERRACOTTA;
+            case 12:
+                return Material.BLUE_TERRACOTTA;
+            case 13:
+                return Material.BROWN_TERRACOTTA;
+            case 14:
+                return Material.GREEN_TERRACOTTA;
+            case 15:
+                return Material.RED_TERRACOTTA;
+            case 16:
+                return Material.BLACK_TERRACOTTA;
+            default:
+                return Material.WHITE_TERRACOTTA;
+        }
+    }
+
     public static Properties readProperties(File file) throws IOException {
-        return readProperties(file.toURL());
+        return readProperties(file.toURI().toURL());
     }
 
     public static Properties readProperties(URL url) throws IOException {
@@ -689,24 +806,115 @@ public class Utils {
     }
 
     public static void copyProperties(Properties source, Properties destination, File destinationFile) throws IOException {
-
         for (String currentKey : source.stringPropertyNames()) {
             String currentValue = source.getProperty(currentKey);
             destination.setProperty(currentKey, currentValue);
         }
-
-        Writer writer = new PrintWriter(new FileOutputStream(destinationFile));
-        destination.store(writer, null);
-        writer.flush();
-        writer.close();
+        saveProperties(destination, destinationFile);
     }
 
     public static void saveProperties(Properties properties, File file) throws IOException {
         file.createNewFile();
-        Writer writer = new PrintWriter(new FileOutputStream(file));
+        Writer writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8);
         properties.store(writer, null);
         writer.flush();
         writer.close();
+    }
+
+    public static void saveJSON(File file, JSONObject jsonObject) throws IOException {
+        Writer writer = Files.newBufferedWriter(file.toPath(), StandardCharsets.UTF_8);
+        jsonObject.writeJSONString(writer);
+        writer.flush();
+        writer.close();
+    }
+
+    public static JSONObject getJSONObject(File file) throws IOException, ParseException {
+        return (JSONObject) new JSONParser().parse(new FileReader(file));
+    }
+
+    private final static ConcurrentHashMap<String, String> playerUUIDs = new ConcurrentHashMap<>();
+
+    public static String getUUID(String playerName) {
+
+        String uuid = playerUUIDs.get(playerName);
+        if (uuid != null) {
+            return uuid;
+        }
+
+        uuid = fetchUUID(playerName);
+        playerUUIDs.put(playerName, uuid);
+        return uuid;
+
+    }
+
+    @SuppressWarnings("depraction")
+    public static String fetchUUID(String playerName) {
+        String url = "https://api.mojang.com/users/profiles/minecraft/" + playerName;
+        try {
+            String UUIDJson = IOUtils.toString(new URL(url), Charset.defaultCharset());
+            if (UUIDJson.isEmpty()) return "error";
+            JSONObject UUIDObject = (JSONObject) JSONValue.parseWithException(UUIDJson);
+            return UUIDObject.get("id").toString();
+        } catch (IOException | ParseException ex) {
+            Log.severe("Could not fetch player uuid :: " + ex.getMessage());
+            return "error";
+        }
+    }
+
+    public static JSONObject fetch(String playerName) throws IOException, ParseException {
+        String url = "https://api.mojang.com/users/profiles/minecraft/" + playerName;
+        String UUIDJson = IOUtils.toString(new URL(url), Charset.defaultCharset());
+        if (UUIDJson.isEmpty()) return null;
+        return (JSONObject) JSONValue.parseWithException(UUIDJson);
+    }
+
+    public static int getInt(JSONObject jsonObject, String property) {
+        try {
+            return Math.toIntExact((Long) jsonObject.get(property));
+        } catch (Exception ignored) {
+            return 0;
+        }
+    }
+
+    public static int getIntOrDefault(JSONObject jsonObject, String property, int defaultValue) {
+        try {
+            return Math.toIntExact((Long) jsonObject.getOrDefault(property, defaultValue));
+        } catch (Exception ignored) {
+            return defaultValue;
+        }
+    }
+
+    public static boolean listContainsStringIgnoreCase(List<String> list, String searched) {
+        for (String current : list) {
+            if (current.equalsIgnoreCase(searched)) return true;
+        }
+        return false;
+    }
+
+    public static boolean nameIsValid(String name) {
+        return name != null && name.length() > 1 && name.length() < 17;
+    }
+
+    public static int decimals(double number, int amount) {
+        String string = String.valueOf(number).split("\\.")[1];
+        while (amount > string.length()) {
+            string += "0";
+        }
+        return Integer.parseInt(string);
+    }
+
+    public static void lookAt(Location edit, Location point, boolean lookUp, boolean lookDown) {
+        Vector target = point.toVector();
+        Location direction = edit.clone();
+        direction.setDirection(target.subtract(edit.toVector()));
+        float yaw = direction.getYaw();
+        float pitch = direction.getPitch();
+        edit.setYaw(yaw);
+        if (lookDown && pitch > 0) {
+            edit.setPitch(pitch);
+        } else if (lookUp && pitch < 0) {
+            edit.setPitch(pitch);
+        }
     }
 
 }

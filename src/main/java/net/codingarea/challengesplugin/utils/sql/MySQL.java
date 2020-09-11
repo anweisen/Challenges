@@ -1,7 +1,6 @@
 package net.codingarea.challengesplugin.utils.sql;
 
-import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.utils.Log;
+import net.codingarea.challengesplugin.utils.commons.Log;
 
 import java.sql.*;
 
@@ -25,21 +24,35 @@ public class MySQL {
 
 	private static Connection connection;
 
+	public static void connectWithException(String host, String database, String user, String password) throws SQLException {
+
+		String url = URL_TEMPLATE
+				.replace("%host", host)
+				.replace("%database", database);
+
+		connection = DriverManager.getConnection(url, user, password);
+		Log.info("Database connection created!");
+
+	}
+
 	public static void connect(String host, String database, String user, String password) {
-
 		try {
-
-			String url = URL_TEMPLATE
-					.replace("%host", host)
-					.replace("%database", database);
-
-			connection = DriverManager.getConnection(url, user, password);
-			Log.info("Database connection created!");
-
+			connectWithException(host, database, user, password);
 		} catch (Exception ex) {
 			Log.severe("Could not connect to MySQL server :: " + ex.getMessage());
 		}
+	}
 
+	public static void disconnectWithException() throws SQLException {
+		connection.close();
+	}
+
+	public static void disconnect() {
+		try {
+			disconnectWithException();
+		} catch (SQLException ex) {
+			Log.severe("Could not disconnect from MySQL server :: " + ex.getMessage());
+		}
 	}
 
 	public static void set(String query) throws SQLException {

@@ -1,6 +1,8 @@
 package net.codingarea.challengesplugin.utils;
 
-import net.codingarea.challengesplugin.utils.commons.ChatColor;
+//import net.codingarea.challengesplugin.utils.commons.ChatColor;
+import net.md_5.bungee.api.ChatColor;
+import org.jetbrains.annotations.NotNull;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -33,7 +35,8 @@ public class ImageUtils {
 		for (int x = 0; x < resizedImage.getWidth(); x++) {
 			for (int y = 0; y < resizedImage.getHeight(); y++) {
 				int rgb = resizedImage.getRGB(x, y);
-				ChatColor closest = ChatColor.of(new Color(rgb));
+				//ChatColor closest = ChatColor.of(new Color(rgb));
+				ChatColor closest = getClosestChatColor(new Color(rgb));
 				chatImage[x][y] = closest;
 			}
 		}
@@ -55,7 +58,7 @@ public class ImageUtils {
 	}
 
 	public static String toFlagImageMessageLine(String messageLine) {
-		String line = messageLine.substring(4);
+		String line = messageLine.substring(3);
 		return line.substring(0, line.length() - 5);
 	}
 
@@ -68,6 +71,43 @@ public class ImageUtils {
 			flagMessage[i] = toFlagImageMessageLine(flagMessage[i]);
 		}
 		return flagMessage;
+	}
+
+	private static final Color[] colors = new Color[] {
+			new Color(0, 0, 0), new Color(0, 0, 168), new Color(0, 168, 0), new Color(0, 168, 168), new Color(168, 0, 0), new Color(168, 0, 168), new Color(251, 168, 0), new Color(168, 168, 168), new Color(84, 84, 84), new Color(84, 84, 251),
+			new Color(84, 251, 84), new Color(84, 251, 251), new Color(251, 84, 84), new Color(251, 84, 251), new Color(251, 251, 84), new Color(255, 255, 255) };
+
+	private static ChatColor getClosestChatColor(Color color) {
+		if (color.getAlpha() < 128) return null;
+		int index = 0;
+		double best = -1.0D;
+		int i;
+		for (i = 0; i < colors.length; i++) {
+			if (areIdentical(colors[i], color)) return ChatColor.values()[i];
+		}
+		for (i = 0; i < colors.length; i++) {
+			double distance = getDistance(color, colors[i]);
+			if (distance < best || best == -1.0D) {
+				best = distance;
+				index = i;
+			}
+		}
+		return ChatColor.values()[index];
+	}
+
+	private static double getDistance(Color color1, Color color2) {
+		double rmean = (color1.getRed() + color2.getRed()) / 2.0D;
+		double r = (color1.getRed() - color2.getRed());
+		double g = (color1.getGreen() - color2.getGreen());
+		int b = color1.getBlue() - color2.getBlue();
+		double weightR = 2.0D + rmean / 256.0D;
+		double weightG = 4.0D;
+		double weightB = 2.0D + (255.0D - rmean) / 256.0D;
+		return weightR * r * r + weightG * g * g + weightB * b * b;
+	}
+
+	private static boolean areIdentical(Color c1, Color c2) {
+		return (Math.abs(c1.getRed() - c2.getRed()) <= 5 && Math.abs(c1.getGreen() - c2.getGreen()) <= 5 && Math.abs(c1.getBlue() - c2.getBlue()) <= 5);
 	}
 
 	private static BufferedImage resizeImage(BufferedImage originalImage) {
@@ -119,8 +159,13 @@ public class ImageUtils {
 	}
 
 	public static BufferedImage getHeadByUUID(String uuid) {
-		if (uuid.equals("error")) uuid = "c06f89064c8a49119c29ea1dbd1aab82"; // uuid of MHF_Steve
-		return getImage(SKULL_URL.replace("%uuid%", uuid));
+		String url = getHeadURLByUUID(uuid);
+		return getImage(url);
+	}
+
+	public static String getHeadURLByUUID(String uuid) {
+		if (uuid == null || uuid.equals("error")) uuid = "c06f89064c8a49119c29ea1dbd1aab82"; // uuid of MHF_Steve
+		return SKULL_URL.replace("%uuid%", uuid);
 	}
 
 	public static String[] getImageLines(String url) {
@@ -175,6 +220,14 @@ public class ImageUtils {
 				+ (showMinutes ? (minutes > 1 ? minutes + " Minuten" : minutes + " Minute ") : "")
 				+ (showSeconds ? (seconds > 1  || seconds == 0 ? seconds + " Sekunden" : seconds + " Sekunde") : "");
 
+	}
+
+	public static void darkerImage(@NotNull BufferedImage image) {
+		for (int i = 0; i < image.getWidth(); i++) {
+			for (int j = 0; j < image.getHeight(); j++) {
+				image.setRGB(i, j, new Color(image.getRGB(i, j)).darker().getRGB());
+			}
+		}
 	}
 
 }

@@ -1,13 +1,11 @@
 package net.codingarea.discordstatsbot.commandmanager;
 
-import net.codingarea.discordstatsbot.commandmanager.commands.Command.CommandType;
 import net.codingarea.discordstatsbot.commandmanager.commands.ICommand;
+import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
 import java.lang.Thread.UncaughtExceptionHandler;
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 /**
  * @author anweisen
