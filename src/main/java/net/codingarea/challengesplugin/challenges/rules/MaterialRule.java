@@ -4,7 +4,7 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPickupItemEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 
@@ -49,12 +50,12 @@ public class MaterialRule extends Setting implements Listener {
     }
 
     @Override
-    public String getChallengeName() {
+    public @NotNull String getChallengeName() {
         return Utils.getStringWithoutColorCodes(name).toLowerCase().replace(" ", "");
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(itemMaterial, ItemTranslation.MATERIAL_RULE, name).hideAttributes().getItem();
     }
 

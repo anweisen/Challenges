@@ -5,8 +5,7 @@ import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.ItemBuilder.TippedArrowBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -33,7 +33,7 @@ public class RegenerationModifier extends Modifier implements Listener {
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         ItemStack item = new ItemBuilder(Material.POTION, ItemTranslation.REGENERATION).hideAttributes().build();
         PotionMeta meta = (PotionMeta) item.getItemMeta();
         meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
@@ -45,7 +45,7 @@ public class RegenerationModifier extends Modifier implements Listener {
     public void onMenuClick(ChallengeEditEvent event) { }
 
     @Override
-    public ItemStack getActivationItem() {
+    public @NotNull ItemStack getActivationItem() {
         if (this.value == 1) {
             return ItemManager.getNotActivatedItem();
         } else if (this.value == 2) {

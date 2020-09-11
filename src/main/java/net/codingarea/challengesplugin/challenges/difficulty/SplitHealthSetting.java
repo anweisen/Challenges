@@ -5,7 +5,7 @@ import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -20,6 +20,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionType;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -29,22 +30,20 @@ import org.bukkit.potion.PotionType;
  */
 public class SplitHealthSetting extends Setting implements Listener {
 
+    private static SplitHealthSetting instance;
+
     public SplitHealthSetting() {
         super(MenuType.DIFFICULTY);
+        instance = this;
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         ItemStack item = new ItemBuilder(Material.TIPPED_ARROW, ItemTranslation.SPLIT_HEALTH).hideAttributes().getItem();
         PotionMeta meta = (PotionMeta) item.getItemMeta();
         meta.setBasePotionData(new PotionData(PotionType.INSTANT_HEAL));
         item.setItemMeta(meta);
         return item;
-    }
-
-    @Override
-    public String getChallengeName() {
-        return "splithealth";
     }
 
     @Override
@@ -55,6 +54,7 @@ public class SplitHealthSetting extends Setting implements Listener {
 
     @EventHandler
     public void onDamage(EntityDamageEvent event) {
+
         if (!enabled || !Challenges.timerIsStarted()) return;
         if (!(event.getEntity() instanceof Player)) return;
         if (event.getCause() == DamageCause.CUSTOM) return;
@@ -67,6 +67,7 @@ public class SplitHealthSetting extends Setting implements Listener {
 
     @EventHandler
     public void onHeal(EntityRegainHealthEvent event) {
+
         if (!enabled || !Challenges.timerIsStarted()) return;
         if (!(event.getEntity() instanceof Player)) return;
         if (event.getRegainReason() == RegainReason.CUSTOM) return;
@@ -77,7 +78,10 @@ public class SplitHealthSetting extends Setting implements Listener {
 
     }
 
-
+    public static void sync(Player damaged) {
+        if (!instance.enabled) return;
+        instance.setHealth(damaged);
+    }
 
     private void setHealth(Player player) {
 

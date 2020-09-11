@@ -8,6 +8,7 @@ import net.codingarea.challengesplugin.manager.scoreboard.ChallengeScoreboard;
 import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -55,7 +56,7 @@ public abstract class Goal extends AbstractChallenge {
 	public void handleClick(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getActivationItem() {
+	public @NotNull ItemStack getActivationItem() {
 		return ItemManager.getActivationItem(isCurrentGoal);
 	}
 

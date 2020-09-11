@@ -5,6 +5,7 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -23,12 +24,16 @@ public abstract class AbstractChallenge {
 
 	public abstract void handleClick(ChallengeEditEvent event);
 
+	@NotNull
 	public abstract ItemStack getItem();
+
+	@NotNull
 	public abstract ItemStack getActivationItem();
 
 	public abstract void setValues(int value);
 	public abstract int toValue();
 
+	@NotNull
 	public String getChallengeName() {
 		return this.getClass().getSimpleName().toLowerCase().replace("setting", "").replace("challenge", "").replace("modifier", "");
 	}
@@ -66,11 +71,9 @@ public abstract class AbstractChallenge {
 	public final boolean equals(Object o) {
 		if (o == this) {
 			return true;
-		} else if (o == null) {
-			return false;
 		} else if (o instanceof AbstractChallenge) {
 			AbstractChallenge other = (AbstractChallenge) o;
-			return other.getClass() == this.getClass();
+			return other.getChallengeName().equals(this.getChallengeName());
 		} else {
 			return false;
 		}

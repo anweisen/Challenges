@@ -1,13 +1,13 @@
 package net.codingarea.challengesplugin.challenges.goal;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
-import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
 import net.codingarea.challengesplugin.challengetypes.CountingGoal;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
@@ -15,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -30,7 +31,7 @@ public class MineDiamondsGoal extends CountingGoal implements Listener {
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.DIAMOND_ORE, ItemTranslation.MINE_DIAMONDS).build();
 	}
 
@@ -49,8 +50,7 @@ public class MineDiamondsGoal extends CountingGoal implements Listener {
 
 		handleNewPoint(player);
 
-		player.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX
-				+ Translation.COLLECT_DIAMONDS_NEW_DIAMOND.get().replace("%count%", points.get(player) + ""));
+		player.sendMessage(Prefix.CHALLENGES	+ Translation.COLLECT_DIAMONDS_NEW_DIAMOND.get().replace("%count%", points.get(player) + ""));
 
 		AnimationSound.PLING_SOUND.play(player);
 

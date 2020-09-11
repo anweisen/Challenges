@@ -4,10 +4,11 @@ import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -33,7 +34,7 @@ public class UpCommand extends Setting implements CommandExecutor {
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA, ItemTranslation.UP_COMMAND).build();
 	}
 
@@ -51,7 +52,7 @@ public class UpCommand extends Setting implements CommandExecutor {
 		Player player = (Player) sender;
 
 		if (!enabled ||!Challenges.timerIsStarted()) {
-			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FEATURE_DISABLED.get());
+			sender.sendMessage(Prefix.CHALLENGES + Translation.FEATURE_DISABLED.get());
 			AnimationSound.OFF_SOUND.play(player);
 			return true;
 		}
@@ -62,7 +63,7 @@ public class UpCommand extends Setting implements CommandExecutor {
 			player.teleport(Utils.getHighestBlock(player.getLocation()));
 		}
 
-		player.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.UP_COMMAND_TELEPORT.get());
+		player.sendMessage(Prefix.CHALLENGES + Translation.UP_COMMAND_TELEPORT.get());
 		AnimationSound.TELEPORT_SOUND.play(player);
 
 		return true;

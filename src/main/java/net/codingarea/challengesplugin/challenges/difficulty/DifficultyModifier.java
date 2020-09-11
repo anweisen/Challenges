@@ -4,12 +4,13 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.challengetypes.Modifier;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -26,7 +27,7 @@ public class DifficultyModifier extends Modifier {
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.MELON_SLICE, ItemTranslation.DIFFICULTY).hideAttributes().getItem();
     }
 
@@ -45,7 +46,7 @@ public class DifficultyModifier extends Modifier {
     }
 
     @Override
-    public ItemStack getActivationItem() {
+    public @NotNull ItemStack getActivationItem() {
         if (this.value == 1) {
             return new ItemBuilder(Material.LIME_DYE, "§aPeaceful").getItem();
         } else if (this.value == 2) {

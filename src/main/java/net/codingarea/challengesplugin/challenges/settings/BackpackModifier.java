@@ -1,23 +1,22 @@
 package net.codingarea.challengesplugin.challenges.settings;
 
+import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challengetypes.Modifier;
 import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.Modifier;
-import net.codingarea.challengesplugin.manager.ChallengeManager;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
 import net.codingarea.challengesplugin.utils.BackpackUtil;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.YamlConfig;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -36,21 +35,19 @@ import org.jetbrains.annotations.NotNull;
 public class BackpackModifier extends Modifier implements Listener, CommandExecutor {
 
     private final YamlConfig config;
-    private final ChallengeManager manager;
     private final Inventory teamBackpack;
     private int size;
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.CHEST, ItemTranslation.BACKPACK).getItem();
     }
 
-    public BackpackModifier(int size, ChallengeManager manager) {
+    public BackpackModifier(int size) {
 
         super(MenuType.SETTINGS, 3);
         this.config = new YamlConfig(getDataFile("yml"));
 
-        this.manager = manager;
         this.size = size;
 
         if (this.size <= 0) this.size = 1;
@@ -72,7 +69,7 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
     }
 
     @Override
-    public String getChallengeName() {
+    public @NotNull String getChallengeName() {
         return "backpack";
     }
 
@@ -80,13 +77,13 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
     public void onMenuClick(ChallengeEditEvent event) {  }
 
     @Override
-    public ItemStack getActivationItem() {
+    public @NotNull ItemStack getActivationItem() {
         if (this.value == 1) {
             return ItemManager.getNotActivatedItem();
         } else if (this.value == 2) {
-            return new ItemBuilder(Material.PLAYER_HEAD, "§6Player").getItem();
+            return ItemManager.getPlayerItem();
         } else {
-            return new ItemBuilder(Material.ENDER_CHEST, "§5Team").getItem();
+            return ItemManager.getTeamItem();
         }
     }
 
@@ -112,7 +109,7 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
         Player player = (Player) sender;
 
         if (value == 1 || !Challenges.timerIsStarted()) {
-            player.sendMessage(Challenges.getInstance().getStringManager().BACKPACK_PREFIX + Translation.BACKBACKS_NOT_ACTIVE.get());
+            player.sendMessage(Prefix.BACKPACK + Translation.BACKBACKS_NOT_ACTIVE.get());
             AnimationSound.OFF_SOUND.play(player);
             return true;
         }
@@ -132,11 +129,11 @@ public class BackpackModifier extends Modifier implements Listener, CommandExecu
             } catch (NullPointerException ignored) { }
 
             player.openInventory(inventory);
-            player.sendMessage(Challenges.getInstance().getStringManager().BACKPACK_PREFIX + Translation.BACKBACKS_OPEN.get().replace("%backpack%", "§6Backpack"));
+            player.sendMessage(Prefix.BACKPACK + Translation.BACKBACKS_OPEN.get().replace("%backpack%", "§6Backpack"));
 
         } else if (value == 3) {
             player.openInventory(teamBackpack);
-            player.sendMessage(Challenges.getInstance().getStringManager().BACKPACK_PREFIX + Translation.BACKBACKS_OPEN.get().replace("%backpack%", "§5Team-Backpack"));
+            player.sendMessage(Prefix.BACKPACK + Translation.BACKBACKS_OPEN.get().replace("%backpack%", "§5Team-Backpack"));
         }
 
         AnimationSound.OPEN_SOUND.play(player);

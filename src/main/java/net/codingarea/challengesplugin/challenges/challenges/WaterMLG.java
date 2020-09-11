@@ -20,10 +20,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -156,9 +158,9 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (!inMLG.contains(event.getPlayer().getUniqueId())) return;
 		if (event.getTo() == null) return;
-		Block to = event.getTo().clone().add(0, -0.15, 0).getBlock();
-		if (to.getType() == Material.AIR || to.isLiquid()) return;
-		handleMLGComplete(event.getPlayer());
+		if (event.getTo().getBlock().isLiquid()) {
+			handleMLGComplete(event.getPlayer());
+		}
 	}
 
 	private void handleMLGComplete(Player player) {
@@ -171,6 +173,11 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 		if (inMLG.remove(event.getPlayer().getUniqueId())) {
 			checkEnd();
 		}
+	}
+
+	@EventHandler
+	public void onDeath(PlayerDeathEvent event) {
+		endMLG(false);
 	}
 
 	@EventHandler
@@ -206,7 +213,7 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.WATER_BUCKET, ItemTranslation.WATER_MLG).build();
 	}
 

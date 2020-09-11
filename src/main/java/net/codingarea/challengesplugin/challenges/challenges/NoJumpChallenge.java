@@ -2,12 +2,14 @@ package net.codingarea.challengesplugin.challenges.challenges;
 
 import com.google.common.collect.Sets;
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challenges.difficulty.SplitHealthSetting;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -17,9 +19,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.player.PlayerToggleSneakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Set;
 import java.util.UUID;
@@ -38,7 +40,7 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.GOLDEN_BOOTS, ItemTranslation.NO_JUMP).hideAttributes().build();
 	}
 
@@ -87,9 +89,9 @@ public class NoJumpChallenge extends AdvancedChallenge implements Listener {
 					&& prevPlayersOnGround.contains(player.getUniqueId())) {
 
 				if (!player.isOnGround() && Double.compare(player.getVelocity().getY(), jumpVelocity) == 0) {
-					Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.NO_JUMP_PLAYER_JUMPED.get()
-							.replace("%player%", player.getName()));
+					Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.NO_JUMP_PLAYER_JUMPED.get().replace("%player%", player.getName()));
 					player.damage(value);
+					SplitHealthSetting.sync(player);
 				}
 			}
 		}

@@ -2,19 +2,17 @@ package net.codingarea.challengesplugin.challenges.goal;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.CountingGoal;
-import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
-import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,7 +33,7 @@ public class BreakBlockGoal extends CountingGoal implements Listener, ITimerStat
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.WOODEN_PICKAXE, ItemTranslation.BREAK_BLOCKS).hideAttributes().build();
 	}
 

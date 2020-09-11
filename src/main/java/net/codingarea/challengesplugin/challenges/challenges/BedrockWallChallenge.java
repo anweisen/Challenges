@@ -2,9 +2,10 @@ package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -30,7 +32,7 @@ public class BedrockWallChallenge extends AdvancedChallenge implements Listener 
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.BEDROCK, ItemTranslation.BEDROCK_WALL).build();
     }
 
@@ -50,8 +52,10 @@ public class BedrockWallChallenge extends AdvancedChallenge implements Listener 
 
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
+
         if (!this.enabled || !Challenges.timerIsStarted()) return;
         if (event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+        if (WorldManager.isInExtraWorld(event.getPlayer())) return;
         if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
 
         Location location = event.getPlayer().getLocation();

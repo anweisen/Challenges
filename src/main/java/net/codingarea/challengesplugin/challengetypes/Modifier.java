@@ -2,10 +2,11 @@ package net.codingarea.challengesplugin.challengetypes;
 
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -44,6 +45,8 @@ public abstract class Modifier extends AbstractChallenge {
 
     @Override
     public void setValues(int value) {
+        if (value > maxValue) value = maxValue;
+        if (value < minValue) value = minValue;
         this.value = value;
         onMenuClick(new ChallengeEditEvent(null, null, null));
     }
@@ -81,7 +84,7 @@ public abstract class Modifier extends AbstractChallenge {
     }
 
     @Override
-    public ItemStack getActivationItem() {
+    public @NotNull ItemStack getActivationItem() {
         return new ItemBuilder(Material.STONE_BUTTON, "§8" + value).setAmount(value).build();
     }
 }

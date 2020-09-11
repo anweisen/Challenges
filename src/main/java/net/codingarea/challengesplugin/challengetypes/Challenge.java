@@ -5,6 +5,7 @@ import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -58,12 +59,13 @@ public abstract class Challenge extends AbstractChallenge {
 
     @Override
     public final void handleTimerSecond() {
+        if (!enabled) return;
         nextActionInSeconds--;
         if (nextActionInSeconds == 0) onTimeActivation();
     }
 
     @Override
-    public ItemStack getActivationItem() {
+    public @NotNull ItemStack getActivationItem() {
         return ItemManager.getActivationItem(enabled);
     }
 

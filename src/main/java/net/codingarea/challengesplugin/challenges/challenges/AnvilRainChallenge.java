@@ -3,12 +3,12 @@ package net.codingarea.challengesplugin.challenges.challenges;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
@@ -17,15 +17,13 @@ import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.*;
-import org.bukkit.event.entity.*;
+import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author anweisen & Dominik
@@ -109,7 +107,9 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 			int height = 0;
 
 			for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+
 				if (currentPlayer.getGameMode() == GameMode.SPECTATOR) continue;
+				if (WorldManager.isInExtraWorld(currentPlayer)) continue;
 
 				if ((currentPlayer.getLocation().getBlockY() + 20) > height) height = currentPlayer.getLocation().getBlockY() + 25;
 
@@ -159,7 +159,7 @@ public class AnvilRainChallenge extends AdvancedChallenge implements ITimerStatu
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.CHIPPED_ANVIL, ItemTranslation.ANVIL_RAIN).build();
 	}
 

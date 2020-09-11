@@ -1,16 +1,18 @@
 package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challenges.difficulty.SplitHealthSetting;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen
@@ -37,7 +39,7 @@ public class BlockBreakDamage extends AdvancedChallenge implements Listener {
 	public void onTimeActivation() { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.STONE, ItemTranslation.BLOCK_BREAK_DAMAGE).build();
 	}
 
@@ -46,6 +48,7 @@ public class BlockBreakDamage extends AdvancedChallenge implements Listener {
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		event.getPlayer().damage(value);
 		event.getPlayer().setNoDamageTicks(0);
+		SplitHealthSetting.sync(event.getPlayer());
 	}
 
 }

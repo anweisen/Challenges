@@ -3,12 +3,13 @@ package net.codingarea.challengesplugin.challenges.challenges;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.ItemBuilder.LeatherArmorBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder.LeatherArmorBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -18,6 +19,7 @@ import org.bukkit.entity.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -41,7 +43,7 @@ public class CoronaChallenge extends Setting implements ITimerStatusExecutor {
 	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.SLIME_BALL, ItemTranslation.CORONA_CHALLENGE).build();
 	}
 
@@ -53,6 +55,7 @@ public class CoronaChallenge extends Setting implements ITimerStatusExecutor {
 	private void onTick(Player player) {
 
 		if (player == null) return;
+		if (WorldManager.isInExtraWorld(player)) return;
 
 		List<Entity> nearbyEntities = player.getNearbyEntities(2, 2, 2);
 		nearbyEntities.remove(player);

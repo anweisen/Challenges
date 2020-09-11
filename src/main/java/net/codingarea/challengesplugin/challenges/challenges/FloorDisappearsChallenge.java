@@ -4,7 +4,7 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -30,12 +31,12 @@ public class FloorDisappearsChallenge extends AdvancedChallenge implements Liste
     }
 
     @Override
-    public String getChallengeName() {
+    public @NotNull String getChallengeName() {
         return "floorhole";
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.BARRIER, ItemTranslation.FLOOR_HOLE).hideAttributes().build();
     }
 

@@ -1,12 +1,13 @@
 package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.Challenges;
+import net.codingarea.challengesplugin.challenges.difficulty.SplitHealthSetting;
 import net.codingarea.challengesplugin.challenges.settings.DamageDisplay;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen
@@ -36,7 +38,7 @@ public class ReverseDamage extends Setting implements Listener {
 	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.GOLDEN_SWORD, ItemTranslation.REVERSE_DAMAGE).build();
 	}
 
@@ -62,6 +64,7 @@ public class ReverseDamage extends Setting implements Listener {
 			}
 
 			DamageDisplay.handleDamage(Utils.getEnumName("reverse_damage"), event.getDamage(), damager);
+			SplitHealthSetting.sync(damager);
 
 		} catch (NullPointerException ignored) { }
 	}

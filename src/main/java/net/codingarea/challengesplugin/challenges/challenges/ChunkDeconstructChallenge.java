@@ -1,14 +1,16 @@
 package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,9 +32,10 @@ public class ChunkDeconstructChallenge extends AdvancedChallenge {
         List<Chunk> chunks = new ArrayList<>();
         nextActionInSeconds = value;
 
-        for (Player player : Bukkit.getOnlinePlayers()) {
-            if (player.getGameMode() == GameMode.SPECTATOR) continue;
-            Chunk chunk = player.getLocation().getChunk();
+        for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+            if (currentPlayer.getGameMode() == GameMode.SPECTATOR) continue;
+            if (WorldManager.isInExtraWorld(currentPlayer)) continue;
+            Chunk chunk = currentPlayer.getLocation().getChunk();
             if (chunks.contains(chunk)) continue;
             chunks.add(chunk);
         }
@@ -50,7 +53,7 @@ public class ChunkDeconstructChallenge extends AdvancedChallenge {
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.DIAMOND_PICKAXE, ItemTranslation.CHUNK_DECONSTRUCT).hideAttributes().build();
     }
 

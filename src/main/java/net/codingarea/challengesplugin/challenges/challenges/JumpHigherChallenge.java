@@ -3,28 +3,21 @@ package net.codingarea.challengesplugin.challenges.challenges;
 import com.google.common.collect.Sets;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
-import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.Utils;
-import org.bukkit.Bukkit;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.potion.Potion;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,7 +47,7 @@ public class JumpHigherChallenge extends Setting implements Listener {
 	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.RABBIT_FOOT, ItemTranslation.JUMP_HIGHER).build();
 	}
 

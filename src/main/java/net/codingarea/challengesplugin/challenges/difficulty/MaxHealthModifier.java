@@ -1,18 +1,18 @@
 package net.codingarea.challengesplugin.challenges.difficulty;
 
-import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.challengetypes.Modifier;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -23,12 +23,12 @@ import org.bukkit.inventory.ItemStack;
 public class MaxHealthModifier extends Modifier implements Listener {
 
     public MaxHealthModifier() {
-        super(MenuType.DIFFICULTY, 100);
+        super(MenuType.DIFFICULTY, 100, 1);
         value = 20;
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Utils.getRedDye(), ItemTranslation.MAX_HEALTH).build();
     }
 
@@ -44,4 +44,5 @@ public class MaxHealthModifier extends Modifier implements Listener {
     public void onJoin(PlayerJoinEvent event) {
         event.getPlayer().setMaxHealth(value);
     }
+
 }

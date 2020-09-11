@@ -1,18 +1,19 @@
 package net.codingarea.challengesplugin.challenges.challenges.force;
 
-import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
-import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
-import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
+import net.codingarea.challengesplugin.challengetypes.extra.ISecondExecutor;
+import net.codingarea.challengesplugin.challengetypes.extra.ITimerStatusExecutor;
 import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.manager.scoreboard.ScoreboardManager;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -24,9 +25,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.Score;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * @author anweisen & Dominik
@@ -116,12 +119,12 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
             List<Player> playersOnTheFalseHeight = checkPlayersHeight(height);
 
             for (Player currentPlayer : playersOnTheFalseHeight) {
-                Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FORCE_HEIGHT_FAIL.get().replace("%player%", currentPlayer.getName()).replace("%height%", currentPlayer.getLocation().getBlockY() + ""));
+                Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.FORCE_HEIGHT_FAIL.get().replace("%player%", currentPlayer.getName()).replace("%height%", currentPlayer.getLocation().getBlockY() + ""));
             }
 
             timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
             if (playersOnTheFalseHeight.isEmpty()) {
-                Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FORCE_HEIGHT_COMPLETE);
+                Bukkit.broadcastMessage(Prefix.CHALLENGES.get() + Translation.FORCE_HEIGHT_COMPLETE);
             } else {
                 ServerManager.simulateChallengeEnd(playersOnTheFalseHeight.get(0), ChallengeEndCause.PLAYER_CHALLENGE_FAIL);
             }
@@ -159,7 +162,7 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.IRON_BOOTS, ItemTranslation.FORCE_HIGH).hideAttributes().build();
     }
 

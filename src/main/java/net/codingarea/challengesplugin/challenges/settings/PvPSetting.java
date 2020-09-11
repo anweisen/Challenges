@@ -4,7 +4,7 @@ import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen
@@ -20,9 +21,9 @@ import org.bukkit.inventory.ItemStack;
  * https://github.com/anweisen
  */
 
-public class NoPvPSetting extends Setting implements Listener {
+public class PvPSetting extends Setting implements Listener {
 
-	public NoPvPSetting() {
+	public PvPSetting() {
 		super(MenuType.SETTINGS);
 	}
 
@@ -33,14 +34,14 @@ public class NoPvPSetting extends Setting implements Listener {
 	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.STONE_SWORD, ItemTranslation.PVP).hideAttributes().build();
 	}
 
 	@EventHandler
 	public void onPlayerDamage(EntityDamageByEntityEvent event) {
 
-		if (!enabled) return;
+		if (enabled) return;
 		if (event.getEntityType() != EntityType.PLAYER) return;
 
 		if (event.getDamager().getType() == EntityType.PLAYER) {

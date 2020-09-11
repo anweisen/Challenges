@@ -2,10 +2,11 @@ package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -14,6 +15,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -28,7 +30,6 @@ import java.util.Random;
  */
 public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
 
-    private World flatWorld;
     private final ArrayList<Block> blocks = new ArrayList<>();
 
     public WaterMLGChallenge() {
@@ -40,15 +41,15 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
     public void onTimeActivation() {
 
         this.nextActionInSeconds = getRandomSeconds();
-        Location chunkLocation = new Location(flatWorld, 0.5, 100, 0.5);
+        Location chunkLocation = new Location(WorldManager.getInstance().getChallengesWorld(), 0.5, 100, 0.5);
 
         for (Player player : Bukkit.getOnlinePlayers()) {
-            chunkLocation.add(0,50,0).getChunk().load(true);
+            chunkLocation.add(50,0,0).getChunk().load(true);
         }
 
         Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 
-            Location location = new Location(flatWorld, 0.5, 100, 0.5);
+            Location location = new Location(WorldManager.getInstance().getChallengesWorld(), 0.5, 100, 0.5);
             HashMap<Player, ItemStack[]> playerInventories = new HashMap<>();
             HashMap<Player, Location> playerLocations = new HashMap<>();
             HashMap<Player, Integer> playerSlots = new HashMap<>();
@@ -79,7 +80,7 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
                         entry.getKey().getInventory().setContents(entry.getValue());
                         entry.getKey().teleport(playerLocations.get(entry.getKey()));
                         entry.getKey().getInventory().setHeldItemSlot(playerSlots.get(entry.getKey()));
-                    } catch (Exception ignored) {   }
+                    } catch (Exception ignored) { }
                 }
 
                 for (Block block : blocks) {
@@ -95,22 +96,20 @@ public class WaterMLGChallenge extends AdvancedChallenge implements Listener {
     @EventHandler
     public void onPlace(PlayerBucketEmptyEvent event) {
         if (!this.enabled) return;
-        if (event.getBlock().getLocation().getWorld() == flatWorld) blocks.add(event.getBlock());
+        if (event.getBlock().getLocation().getWorld() == WorldManager.getInstance().getChallengesWorld()) blocks.add(event.getBlock());
     }
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
-        this.value = 5;
-        this.nextActionInSeconds = getRandomSeconds();
-        this.flatWorld = Bukkit.createWorld(new WorldCreator("watermlg").type(WorldType.FLAT));
-        this.flatWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+        value = 5;
+        nextActionInSeconds = getRandomSeconds();
     }
 
     @Override
     public void onDisable(ChallengeEditEvent event) { }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new ItemBuilder(Material.WATER_BUCKET, ItemTranslation.WATER_MLG).build();
     }
 

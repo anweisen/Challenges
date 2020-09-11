@@ -1,12 +1,13 @@
 package net.codingarea.challengesplugin.challenges.settings;
 
-import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
-import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
+import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
+import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -21,6 +22,7 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.projectiles.ProjectileSource;
+import org.jetbrains.annotations.NotNull;
 
 import java.text.DecimalFormat;
 
@@ -48,7 +50,7 @@ public class DamageDisplay extends Setting implements Listener {
 	public void onDisable(ChallengeEditEvent event) { }
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.COMMAND_BLOCK, ItemTranslation.DAMAGE_DISPLAY).build();
 	}
 
@@ -57,54 +59,53 @@ public class DamageDisplay extends Setting implements Listener {
 
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (event.getEntityType() != EntityType.PLAYER) return;
-		if (event.getCause() == DamageCause.CUSTOM || event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.PROJECTILE) return;
+		if (event.getCause() == DamageCause.CUSTOM) return;
 
 		Player player = (Player) event.getEntity();
+		if (player.isBlocking()) return;
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (event.isCancelled()) return;
-			handleDamage(Utils.getEnumName(event.getCause().name()), event.getFinalDamage(), player);
+			handleDamage(getCause(event), event.getFinalDamage(), player);
 		}, 1);
 	}
 
-	@EventHandler
-	public void onPlayerDamage(EntityDamageByEntityEvent event) {
+	public static String getCause(EntityDamageEvent event) {
 
-		if (!enabled || !Challenges.timerIsStarted()) return;
-		if (event.getEntityType() != EntityType.PLAYER) return;
-		if (event.getCause() == DamageCause.CUSTOM) return;
-		if (event.getCause() != DamageCause.ENTITY_ATTACK && event.getCause() != DamageCause.PROJECTILE) return;
+		if (event.getCause() == DamageCause.CUSTOM) return Translation.UNDEFINED.get();
 
-		Player player = (Player) event.getEntity();
+		String cause = Utils.getEnumName(event.getCause());
 
-		String cause = Utils.getEnumName(event.getCause().name());
+		if (event instanceof EntityDamageByEntityEvent) {
 
-		if (event.getDamager() instanceof Player) {
-			Player damager = (Player) event.getDamager();
-			cause += " §8(§7" + damager.getName() + "§8)";
-		} else if (event.getDamager() instanceof Projectile) {
-			Projectile projectile = (Projectile) event.getDamager();
-			String damager = "";
-			ProjectileSource shooter = projectile.getShooter();
-			if (shooter instanceof Entity) {
-				Entity entity = (Entity) shooter;
-				if (entity instanceof Player) {
-					Player playerDamager = (Player) entity;
-					damager = playerDamager.getName();
-				} else {
-					damager = Utils.getEnumName(entity.getType().name());
+			EntityDamageByEntityEvent damageEvent = (EntityDamageByEntityEvent) event;
+
+			if (damageEvent.getDamager() instanceof Player) {
+				Player damager = (Player) damageEvent.getDamager();
+				cause += " §8(§7" + damager.getName() + "§8)";
+			} else if (damageEvent.getDamager() instanceof Projectile) {
+				Projectile projectile = (Projectile) damageEvent.getDamager();
+				cause = Utils.getEnumName(projectile.getType().name());
+				String damager = "";
+				ProjectileSource shooter = projectile.getShooter();
+				if (shooter instanceof Entity) {
+					Entity entity = (Entity) shooter;
+					if (entity instanceof Player) {
+						Player playerDamager = (Player) entity;
+						damager = playerDamager.getName();
+					} else {
+						damager = Utils.getEnumName(entity.getType().name());
+					}
 				}
+				cause += " §8(§7" + damager + "§8)";
+			} else {
+				cause += " §8(§7" + Utils.getEnumName(damageEvent.getDamager().getType().name()) + "§8)";
 			}
-			cause += " §8(§7" + damager + "§8)";
-		} else {
-			cause += " §8(§7" + Utils.getEnumName(event.getDamager().getType().name()) + "§8)";
+
 		}
 
-		String finalCause = cause;
-		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			if (event.isCancelled()) return;
-			handleDamage(finalCause, event.getFinalDamage(), player);
-		}, 1);
+		return cause;
+
 	}
 
 	public static void handleDamage(String cause, double damage, Player player) {
@@ -120,7 +121,7 @@ public class DamageDisplay extends Setting implements Listener {
 				.replace("%cause%", cause)
 				.replace("%damage%", damageString);
 
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().DAMAGE_PREFIX + message);
+		Bukkit.broadcastMessage(Prefix.DAMAGE + message);
 
 	}
 

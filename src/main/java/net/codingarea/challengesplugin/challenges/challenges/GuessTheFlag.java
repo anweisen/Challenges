@@ -7,11 +7,12 @@ import net.codingarea.challengesplugin.manager.ServerManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
+import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import net.codingarea.challengesplugin.utils.ImageUtils;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.StringUtils;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
@@ -91,7 +92,7 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 		}
 
 		String time = nextActionInSeconds + " " + Translation.SECONDS.get();
-		Bukkit.broadcastMessage(" \n" + Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_NEW.get().replace("%time%", time));
+		Bukkit.broadcastMessage(" \n" + Prefix.CHALLENGES + Translation.GUESS_THE_FLAG_NEW.get().replace("%time%", time));
 
 		new AnimationSound(Sound.ENTITY_PLAYER_LEVELUP, 1, 1.2F).broadcast();
 
@@ -110,17 +111,17 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 	}
 
 	private void onCorrect(AsyncPlayerChatEvent chatEvent) {
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_RIGHT.get()
+		Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.GUESS_THE_FLAG_RIGHT.get()
 				.replace("%flag%", currentFlag.getName())
 				.replace("%player%", chatEvent.getPlayer().getName()));
 		setNextSeconds();
 	}
 
 	private void onWrong(AsyncPlayerChatEvent chatEvent) {
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_WRONG.get()
+		Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.GUESS_THE_FLAG_WRONG.get()
 				.replace("%player%", chatEvent.getPlayer().getName())
 				.replace("%flag%", chatEvent.getMessage()));
-		chatEvent.getPlayer().sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_FLAG_WAS.get().replace("%flag%", currentFlag.getName()));
+		chatEvent.getPlayer().sendMessage(Prefix.CHALLENGES + Translation.GUESS_THE_FLAG_FLAG_WAS.get().replace("%flag%", currentFlag.getName()));
 
 		// Running the player damage synced because this is called async
 		Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
@@ -129,14 +130,14 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 	}
 
 	private void onTimeIsUp() {
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_TIME_IS_UP);
-		Bukkit.broadcastMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_FLAG_WAS.get().replace("%flag%", currentFlag.getName()));
+		Bukkit.broadcastMessage(Prefix.CHALLENGES.get() + Translation.GUESS_THE_FLAG_TIME_IS_UP);
+		Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.GUESS_THE_FLAG_FLAG_WAS.get().replace("%flag%", currentFlag.getName()));
 		currentFlag = null;
 		ServerManager.simulateChallengeEnd(null, ChallengeEndCause.PLAYER_CHALLENGE_FAIL);
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.BLUE_BANNER, ItemTranslation.GUESS_THE_FLAG).build();
 	}
 
@@ -151,15 +152,15 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
 
 		if (!enabled) {
-			sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.FEATURE_DISABLED);
+			sender.sendMessage(Prefix.CHALLENGES.get() + Translation.FEATURE_DISABLED);
 			return true;
 		}
 
 		if (label.equalsIgnoreCase("currentflag")) {
 			if (currentFlag == null) {
-				sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_NOT_STARTED);
+				sender.sendMessage(Prefix.CHALLENGES.get() + Translation.GUESS_THE_FLAG_NOT_STARTED);
 			} else {
-				sender.sendMessage(Challenges.getInstance().getStringManager().CHALLENGE_PREFIX + Translation.GUESS_THE_FLAG_CURRENTFLAG.get().replace("%flag%", Utils.getEnumName(currentFlag.name())));
+				sender.sendMessage(Prefix.CHALLENGES.get() + Translation.GUESS_THE_FLAG_CURRENTFLAG.get().replace("%flag%", Utils.getEnumName(currentFlag.name())));
 			}
 			return true;
 		}
@@ -368,11 +369,11 @@ public class GuessTheFlag extends Challenge implements Listener, CommandExecutor
 			return Utils.getEnumName(this.name());
 		}
 
-		public boolean isOK(String comparision) {
+		public boolean isOK(String comparison) {
 
 			double best = 0;
 			for (String currentName : names) {
-				double percentage = StringUtils.compare(currentName, comparision, false, false);
+				double percentage = StringUtils.compare(currentName, comparison, false, false);
 				if (percentage > best) best = percentage;
 			}
 

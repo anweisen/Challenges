@@ -6,7 +6,7 @@ import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
-import net.codingarea.challengesplugin.utils.ItemBuilder.LeatherArmorBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder.LeatherArmorBuilder;
 import org.bukkit.Color;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -14,6 +14,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -49,7 +50,7 @@ public class DamagePerBlockChallenge extends Setting implements Listener {
     }
 
     @Override
-    public ItemStack getItem() {
+    public @NotNull ItemStack getItem() {
         return new LeatherArmorBuilder(Material.LEATHER_BOOTS, ItemTranslation.DAMAGE_PER_BLOCK, Color.RED).hideAttributes().build();
     }
 }

@@ -2,9 +2,10 @@ package net.codingarea.challengesplugin.challenges.challenges;
 
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AdvancedChallenge;
+import net.codingarea.challengesplugin.manager.WorldManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -12,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen & Dominik
@@ -28,7 +30,7 @@ public class TheFloorIsLavaChallenge extends AdvancedChallenge implements Listen
 	}
 
 	@Override
-	public ItemStack getItem() {
+	public @NotNull ItemStack getItem() {
 		return new ItemBuilder(Material.MAGMA_BLOCK, ItemTranslation.THE_FLOOR_IS_LAVA).build();
 	}
 
@@ -59,11 +61,8 @@ public class TheFloorIsLavaChallenge extends AdvancedChallenge implements Listen
 		if (block.getType() == Material.END_PORTAL || block.getType() == Material.NETHER_PORTAL) return;
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-
 			if (block.getType() == Material.LAVA) return;
-
 			block.setType(Material.MAGMA_BLOCK);
-
 		}, 20 * value);
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
@@ -77,6 +76,7 @@ public class TheFloorIsLavaChallenge extends AdvancedChallenge implements Listen
 
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (WorldManager.isInExtraWorld(event.getPlayer())) return;
 		if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
 
 		addBlock(event.getTo().clone());
