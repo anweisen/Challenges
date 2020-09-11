@@ -90,12 +90,16 @@ public class ScoreboardManager {
 	}
 
 	public void activateBossBar(BossBar bossBar) {
+		if (bossBar == null) return;
 		activeBossBars.add(bossBar);
+		bossBar.setVisible(true);
 		Utils.forEachPlayerOnline(bossBar::addPlayer);
 	}
 
 	public void deactivateBossBar(BossBar bossBar) {
+		if (bossBar == null) return;
 		activeBossBars.remove(bossBar);
+		bossBar.setVisible(false);
 		bossBar.removeAll();
 	}
 

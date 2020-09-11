@@ -1,15 +1,14 @@
 package net.codingarea.challengesplugin.manager;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.Challenge;
 import net.codingarea.challengesplugin.manager.events.ChallengeEndCause;
 import net.codingarea.challengesplugin.manager.lang.Translation;
+import net.codingarea.challengesplugin.manager.players.stats.StatsAttribute;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.inventory.ItemStack;
@@ -32,9 +31,13 @@ public class ServerManager {
 
 	private final Challenges plugin;
 
+	private final boolean clearInventoryOnEnd;
+	private boolean won;
+
 	public ServerManager(Challenges plugin) {
 		instance = this;
 		this.plugin = plugin;
+		clearInventoryOnEnd = plugin.getConfig().getBoolean("drop-inventory-on-end");
 	}
 
 	public static void simulateChallengeEnd(Player player, ChallengeEndCause cause) {
@@ -55,13 +58,24 @@ public class ServerManager {
 		if (cause == ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED || cause == ChallengeEndCause.LAST_MAN_STANDING) {
 			winners.add(player);
 		} else {
-			try {
-				winners.addAll(plugin.getChallengeManager().getGoalManager().getCurrentGoal().getWinners());
-			} catch (NullPointerException ignored) { }
+			if (plugin.getChallengeManager().getGoalManager().getCurrentGoal() != null) {
+				List<Player> goalWinner = plugin.getChallengeManager().getGoalManager().getCurrentGoal().getWinners();
+				if (goalWinner == null) {
+					goalWinner = new ArrayList<>(Bukkit.getOnlinePlayers());
+				}
+				winners.addAll(goalWinner);
+			}
+		}
+
+		if (!won) {
+			won = true;
+			for (Player currentWinner : winners) {
+				plugin.getStatsManager().getPlayerStats(currentWinner).add(StatsAttribute.WON, 1);
+			}
+			plugin.getStatsManager().storeAll();
 		}
 
 		String players = Utils.getPlayerListAsString(winners);
-		boolean setAllToSpectator = true;
 
 		String message = "";
 		if (cause == ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED || cause == ChallengeEndCause.LAST_MAN_STANDING) {
@@ -75,13 +89,12 @@ public class ServerManager {
 
 		plugin.getChallengeTimer().stopTimer(null, false);
 
-		if (setAllToSpectator) {
-			for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-				dropInventory(currentPlayer.getInventory(), currentPlayer.getLocation());
-				currentPlayer.setGameMode(GameMode.SPECTATOR);
-				currentPlayer.updateInventory();
-			}
+		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
+			dropInventory(currentPlayer.getInventory(), currentPlayer.getLocation());
+			currentPlayer.setGameMode(GameMode.SPECTATOR);
+			currentPlayer.updateInventory();
 		}
+
 
 		playEndEffect();
 
@@ -91,6 +104,9 @@ public class ServerManager {
 	}
 
 	private void dropInventory(PlayerInventory inventory, Location location) {
+
+		if (!clearInventoryOnEnd) return;
+		if (location == null || location.getWorld() == null) return;
 
 		List<ItemStack> items = new ArrayList<>(Arrays.asList(inventory.getContents()));
 		inventory.clear();

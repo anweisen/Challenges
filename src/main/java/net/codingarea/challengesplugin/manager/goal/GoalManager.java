@@ -1,10 +1,8 @@
 package net.codingarea.challengesplugin.manager.goal;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.utils.Utils;
-import lombok.Getter;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -21,35 +19,27 @@ import java.util.List;
 
 public class GoalManager {
 
-
-	private final List<Goal> registeredGoals;
-
-	@Getter private Goal currentGoal;
-
-	public GoalManager() {
-		registeredGoals = new ArrayList<>();
-	}
+	private final List<Goal> registeredGoals = new ArrayList<>();
+	private Goal currentGoal;
 
 	public void setCurrentGoalTo(Goal goal, ChallengeEditEvent event) {
 
-		if (goal == null) throw new NullPointerException("Goal cannot be null!");
-
+		if (goal.getSound() != null) goal.getSound().play(event.getPlayer());
 		if (goal.isCurrentGoal()) {
 			goal.setIsCurrentGoal(false, event);
 			return;
 		}
 
 		for (Goal currentGoal : registeredGoals) {
-
 			currentGoal.setIsCurrentGoal(currentGoal.equals(goal), event);
 			updateItem(event.getClickEvent().getClickedInventory(), currentGoal);
-
 		}
 
 		currentGoal = goal;
 
 	}
 
+	// FIXME: 29.07.2020 makes not sense at all?
 	private void updateItem(Inventory inventory, Goal goal) {
 
 		if (goal == null) return;
@@ -69,23 +59,15 @@ public class GoalManager {
 	}
 
 	public void addGoal(Goal goal) {
-
-		if (goal == null) throw new NullPointerException("Goal cannot be null!");
-
 		registeredGoals.add(goal);
-
-	}
-
-	public boolean isActiveGoal(Goal goal) {
-		if (goal == null) return false;
-		if (!Challenges.timerIsStarted()) return false;
-		if (currentGoal == null) return false;
-		return currentGoal.equals(goal);
-
 	}
 
 	public List<Goal> getRegisteredGoals() {
 		return registeredGoals;
+	}
+
+	public Goal getCurrentGoal() {
+		return currentGoal;
 	}
 
 }

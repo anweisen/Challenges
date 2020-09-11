@@ -1,11 +1,19 @@
 package net.codingarea.challengesplugin.manager;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.GeneralChallenge;
+import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
+import net.codingarea.challengesplugin.challengetypes.Goal;
 import net.codingarea.challengesplugin.manager.goal.GoalManager;
-import net.codingarea.challengesplugin.manager.loader.ChallengeLoader;
+import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.commons.Log;
+import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.ParseException;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,20 +26,25 @@ import java.util.List;
 
 public class ChallengeManager {
 
-    private Challenges plugin;
-    private final List<GeneralChallenge> challenges;
-    private final ChallengeLoader loader;
+    private final Challenges plugin;
+    private final List<AbstractChallenge> challenges;
     private final GoalManager goalManager;
 
     public ChallengeManager(Challenges plugin) {
+
         this.plugin = plugin;
         challenges = new ArrayList<>();
+
+        // Creates settings folder if not exists
+        File folder = new File(getSettingsFolder());
+        if (!folder.exists()) folder.mkdirs();
+
         goalManager = new GoalManager();
-        loader = new ChallengeLoader(this);
+
     }
 
-    public void init() {
-        loader.loadChallenges();
+    public void loadConfigAndMenu() {
+        loadChallengeConfigurations();
         generateInventories();
     }
 
@@ -39,42 +52,93 @@ public class ChallengeManager {
         plugin.getMenuManager().load();
     }
 
-    public GeneralChallenge getChallengeByClass(Class<?> clazz) {
+    public AbstractChallenge getChallengeByName(String name) {
 
-        for (GeneralChallenge currentChallenge : challenges) {
-            if (challenges.getClass().getName().equals(clazz.getName())) return currentChallenge;
+        for (AbstractChallenge currentChallenge : challenges) {
+            if (currentChallenge.getChallengeName().equals(name)) return currentChallenge;
         }
 
         return null;
-
     }
 
-    public GeneralChallenge getChallengeByItem(ItemStack item) {
+    public AbstractChallenge getChallengeByItem(ItemStack item) {
 
-        for (GeneralChallenge currentChallenge : challenges) {
-
+        for (AbstractChallenge currentChallenge : challenges) {
             if (currentChallenge == null) continue;
             if (currentChallenge.getItem() == null) continue;
             if (currentChallenge.getItem().equals(item)) return currentChallenge;
-
         }
 
         return null;
+    }
+
+    private void loadChallengeConfigurations() {
+        try {
+
+            JSONObject jsonObject = Utils.getJSONObject(new File(getInternalFolder() + "settings.json"));
+            for (AbstractChallenge currentChallenge : challenges) {
+                try {
+                    int value = (int) jsonObject.getOrDefault(currentChallenge.getChallengeName(), 0);
+                    currentChallenge.setValues(value);
+                } catch (Exception ignored) { }
+            }
+
+        } catch (ParseException | IOException ignored) { }
+    }
+
+    public void saveChallengeConfigurations() {
+        try {
+
+            File file = new File(getInternalFolder() + "settings.json");
+            if (!file.exists()) file.createNewFile();
+            JSONObject jsonObject = new JSONObject();
+
+            for (AbstractChallenge currentChallenge : challenges) {
+                jsonObject.put(currentChallenge.getChallengeName(), currentChallenge.toValue());
+            }
+
+            Utils.saveJSON(file, jsonObject);
+
+        } catch (IOException ex) {
+            Log.severe("Could not save challenge settings :: " + ex.getMessage());
+        }
+    }
+
+    public String getSettingsFolder() {
+        return getInternalFolder() + "challenges/";
+    }
+
+    public String getInternalFolder() {
+        return plugin.getDataFolder() + "/internal/";
     }
 
     public Challenges getPlugin() {
         return plugin;
     }
 
-    public ChallengeLoader getLoader() {
-        return loader;
-    }
-
     public GoalManager getGoalManager() {
         return goalManager;
     }
 
-    public List<GeneralChallenge> getChallenges() {
+    public List<AbstractChallenge> getChallenges() {
         return challenges;
     }
+
+    public void load(List<AbstractChallenge> queue) {
+
+        for (AbstractChallenge currentChallenge : queue) {
+
+            challenges.add(currentChallenge);
+
+            if (currentChallenge instanceof Goal) {
+                goalManager.addGoal((Goal) currentChallenge);
+            }
+            if (currentChallenge instanceof Listener) {
+                Bukkit.getPluginManager().registerEvents((Listener) currentChallenge, plugin);
+            }
+
+        }
+
+    }
+
 }

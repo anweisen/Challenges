@@ -1,9 +1,10 @@
 package net.codingarea.challengesplugin.timer;
 
-import net.codingarea.challengesplugin.utils.ItemBuilder;
+import net.codingarea.challengesplugin.manager.ItemManager;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.timer.ChallengeTimer.TimerMode;
-import net.codingarea.challengesplugin.utils.AnimationUtil.AnimationSound;
+import net.codingarea.challengesplugin.utils.animation.*;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,16 +23,16 @@ import org.bukkit.inventory.meta.SkullMeta;
 
 public class TimerMenu {
 
-	private ChallengeTimer timer;
+	private final ChallengeTimer timer;
 
 	private Inventory mainPage,
 					  timePage;
 
-	private byte startSlot = 21;
-	private byte modeSlot = 23;
-	private byte[] hours = { 11, 20, 29 };
-	private byte[] minutes = { 13, 22, 31 };
-	private byte[] seconds = { 15, 24, 33 };
+	private final byte startSlot = 21;
+	private final byte modeSlot = 23;
+	private final byte[] hours = { 11, 20, 29 };
+	private final byte[] minutes = { 13, 22, 31 };
+	private final byte[] seconds = { 15, 24, 33 };
 
 	public TimerMenu(ChallengeTimer timer) {
 
@@ -51,11 +52,11 @@ public class TimerMenu {
 	public void generateInventory() {
 
 		setDefaults(mainPage);
-		mainPage.setItem(36, timer.getPlugin().getItemManager().getBackMainMenuItem());
-		mainPage.setItem(44, timer.getPlugin().getItemManager().getNextPageItem());
+		mainPage.setItem(36, ItemManager.getBackMainMenuItem());
+		mainPage.setItem(44, ItemManager.getNextPageItem());
 
 		setDefaults(timePage);
-		timePage.setItem(36, timer.getPlugin().getItemManager().getBackPageItem());
+		timePage.setItem(36, ItemManager.getBackPageItem());
 
 	}
 
@@ -65,8 +66,8 @@ public class TimerMenu {
 	}
 
 	private void updateMainMenu() {
-		mainPage.setItem(startSlot, timer.isPaused() ? timer.getPlugin().getItemManager().getTimerStoppedItem() : timer.getPlugin().getItemManager().getTimerStartedItem());
-		mainPage.setItem(modeSlot, timer.getMode() == TimerMode.UP ? timer.getPlugin().getItemManager().getTimerModeUpItem() : timer.getPlugin().getItemManager().getTimerModeDownItem());
+		mainPage.setItem(startSlot, timer.isPaused() ? ItemManager.getTimerStoppedItem() : ItemManager.getTimerStartedItem());
+		mainPage.setItem(modeSlot, timer.getMode() == TimerMode.UP ? ItemManager.getTimerModeUpItem() : ItemManager.getTimerModeDownItem());
 	}
 
 	private void updateTimeMenu() {
@@ -159,7 +160,7 @@ public class TimerMenu {
 				AnimationSound.STANDARD_SOUND.play(player);
 				return;
 			} catch (Exception ignored) { }
-		} else if (event.getCurrentItem().getType() == timer.getPlugin().getItemManager().getBackMainMenuItem().getType()) {
+		} else if (event.getCurrentItem().getType() == ItemManager.getBackMainMenuItem().getType()) {
 			timer.getPlugin().getMenuManager().getMainMenu().openLastFrame(player, true);
 			return;
 		}
@@ -224,9 +225,7 @@ public class TimerMenu {
 			" "
 		};
 
-		return new ItemBuilder(Material.CLOCK,
-				"§7" + Utils.getEnumName(translation.get().substring(2)) + ": §e" + value,
-				lore).hideAttributes().setAmount(amount).build();
+		return new ItemBuilder(Material.CLOCK, "§7" + Utils.getEnumName(translation) + ": §e" + value, lore).hideAttributes().setAmount(amount).build();
 
 	}
 

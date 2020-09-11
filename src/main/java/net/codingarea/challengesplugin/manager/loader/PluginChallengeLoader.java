@@ -51,7 +51,9 @@ public class PluginChallengeLoader {
 
 		// CHALLENGES
 		//registerChallengeWithCommands(new GuessTheFlag(), "skipflag", "currentflag");
+		registerChallenge(new DropChanceChallenge());
 		registerChallenge(new SnakeChallenge());
+		registerChallenge(new JumpAndRun());
 		registerChallenge(new CoronaChallenge());
 		registerChallenge(new DamagePerBlockChallenge());
 		registerChallenge(new FoodOnce());
@@ -59,7 +61,7 @@ public class PluginChallengeLoader {
 		registerChallenge(new FloorDisappearsChallenge());
 		registerChallenge(new BedrockWallChallenge());
 		registerChallenge(new BedrockPathChallenge());
-		registerChallenge(new WaterMLGChallenge());
+		registerChallenge(new WaterMLG());
 		registerChallenge(new ReverseDamage());
 		registerChallenge(new HydraChallenge());
 		registerChallenge(new DupedSpawnChallenge());
@@ -122,6 +124,7 @@ public class PluginChallengeLoader {
 		registerChallenge(new DamageRule(Material.IRON_SWORD, "§dAttack Damage", DamageCause.PROJECTILE, DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK));
 		registerChallenge(new DamageRule(Material.FERMENTED_SPIDER_EYE, "§5Magic Damage", DamageCause.MAGIC, DamageCause.WITHER, DamageCause.POISON, DamageCause.DRAGON_BREATH, DamageCause.LIGHTNING));
 		registerChallenge(new DamageRule(Material.GRAVEL, "§cBlock Damage", DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.FLY_INTO_WALL, DamageCause.CONTACT));
+
 	}
 
 	private void registerChallenge(AbstractChallenge challenge, String... commands) {

@@ -2,9 +2,7 @@ package net.codingarea.challengesplugin.manager.loader;
 
 import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
 import net.codingarea.challengesplugin.manager.ChallengeManager;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.ArrayList;
@@ -21,13 +19,11 @@ public class ChallengeLoader {
 	private static final ArrayList<AbstractChallenge> queue = new ArrayList<>();
 
 	public static void register(AbstractChallenge challenge, JavaPlugin plugin, String... commands) {
-		if (!isRegistered(challenge.getClass())) {
+
+		if (!isRegistered(challenge)) {
 
 			queue.add(challenge);
 
-			if (challenge instanceof Listener) {
-				Bukkit.getPluginManager().registerEvents((Listener) challenge, plugin);
-			}
 			if (challenge instanceof CommandExecutor) {
 				for (String currentCommand : commands) {
 					plugin.getCommand(currentCommand).setExecutor((CommandExecutor) challenge);
@@ -35,11 +31,12 @@ public class ChallengeLoader {
 			}
 
 		}
+
 	}
 
-	public static boolean isRegistered(Class<?> challengeClass) {
+	public static boolean isRegistered(AbstractChallenge challenge) {
 		for (AbstractChallenge currentChallenge : queue) {
-			if (currentChallenge.getClass() == challengeClass) return true;
+			if (currentChallenge.equals(challenge)) return true;
 		}
 		return false;
 	}

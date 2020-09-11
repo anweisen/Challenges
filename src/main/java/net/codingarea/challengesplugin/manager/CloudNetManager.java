@@ -3,7 +3,6 @@ package net.codingarea.challengesplugin.manager;
 import de.dytanic.cloudnet.ext.bridge.BridgeHelper;
 import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.utils.YamlConfig;
 
 /**
  * @author anweisen & Dominik
@@ -34,9 +33,7 @@ public class CloudNetManager {
 				setWasIngame(true);
 				BridgeHelper.updateServiceInfo();
 			}
-		} catch (NoClassDefFoundError ex) {
-			ex.printStackTrace();
-		}
+		} catch (NoClassDefFoundError ignored) { }
 
 	}
 
@@ -47,9 +44,7 @@ public class CloudNetManager {
 				BukkitCloudNetHelper.setState("LOBBY");
 				BridgeHelper.updateServiceInfo();
 			}
-		} catch (NoClassDefFoundError ex) {
-			ex.printStackTrace();
-		}
+		} catch (NoClassDefFoundError ignored) { }
 
 	}
 

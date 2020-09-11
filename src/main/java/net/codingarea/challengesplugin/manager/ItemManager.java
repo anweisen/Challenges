@@ -3,9 +3,9 @@ package net.codingarea.challengesplugin.manager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Translation;
-import net.codingarea.challengesplugin.utils.ItemBuilder;
-import net.codingarea.challengesplugin.utils.ItemBuilder.SkullBuilder;
-import net.codingarea.challengesplugin.utils.ItemBuilder.TippedArrowBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder.SkullBuilder;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder.TippedArrowBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -68,5 +68,14 @@ public class ItemManager {
     public static ItemStack getTimerModeUpItem() {
         return new TippedArrowBuilder(Material.TIPPED_ARROW, PotionType.JUMP, Translation.TIMER_MODE_UP_ITEM.get()).hideAttributes().build();
     }
+
+    public static ItemStack getTeamItem() {
+        return new ItemBuilder(Material.ENDER_CHEST, "§5Team").getItem();
+    }
+
+    public static ItemStack getPlayerItem() {
+        return new ItemBuilder(Material.PLAYER_HEAD, "§6Player").getItem();
+    }
+
 
 }

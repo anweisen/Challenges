@@ -5,14 +5,12 @@ import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.commons.Log;
 import org.apache.commons.io.FileUtils;
-import org.bukkit.Bukkit;
+import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.FileUtil;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.logging.Level;
 
 /**
@@ -34,9 +32,21 @@ public class WorldManager {
 	private String levelName;
 	private boolean reset;
 
+	private World challengesWorld;
+	private boolean worldIsInUse;
+
 	public WorldManager(Challenges plugin) {
 		instance = this;
 		this.plugin = plugin;
+	}
+
+	public void loadWorld() {
+		challengesWorld = Bukkit.createWorld(new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false));
+		challengesWorld.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+	}
+
+	public World getChallengesWorld() {
+		return challengesWorld;
 	}
 
 	public void loadSettings() {
@@ -98,7 +108,6 @@ public class WorldManager {
 		String kickMessage = Translation.SERVER_RESET_KICK.get().replace("%player%", (sender instanceof Player ? ((Player) sender).getDisplayName() : "Console"));
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-			Challenges.getInstance().getPermissionsSystem().setPermissions(currentPlayer, false);
 			currentPlayer.kickPlayer(kickMessage);
 		}
 
@@ -121,7 +130,28 @@ public class WorldManager {
 		return reseted;
 	}
 
+	public boolean worldIsInUse() {
+		return worldIsInUse;
+	}
+
+	public void setWorldIsInUse(boolean worldIsInUse) {
+		this.worldIsInUse = worldIsInUse;
+	}
+
 	public static WorldManager getInstance() {
 		return instance;
 	}
+
+	public static boolean isInExtraWorld(Player player) {
+		return isInExtraWorld(player.getLocation());
+	}
+
+	public static boolean isInExtraWorld(Location location) {
+		return isInExtraWorld(location.getWorld());
+	}
+
+	public static boolean isInExtraWorld(World world) {
+		return world.getName().equals(getInstance().getChallengesWorld().getName());
+	}
+
 }

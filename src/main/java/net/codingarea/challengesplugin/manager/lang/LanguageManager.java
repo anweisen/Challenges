@@ -20,7 +20,6 @@ import java.util.Properties;
 public class LanguageManager {
 
 	private static Language language = Language.ENGLISH;
-	private static File folder = new File(Challenges.getInstance().getDataFolder().getPath() + "/messages");;
 
 	public enum Language {
 
@@ -66,11 +65,8 @@ public class LanguageManager {
 	}
 
 	public static void setLanguage(Language language) {
-
 		if (language == null) return;
-
 		LanguageManager.language = language;
-
 	}
 
 	public static Language getLanguage() {
@@ -84,6 +80,7 @@ public class LanguageManager {
 	public static void loadLanguageMessages() {
 		try {
 
+			File folder = new File(folder());
 			if (!folder.exists()) folder.mkdir();
 
 			File file = new File(folder + "/messages.properties");
@@ -106,16 +103,22 @@ public class LanguageManager {
 
 	public static void loadTemplate(Language language) throws IOException {
 
-		File destination = new File(folder + "/messages.properties");
+		File destination = new File(folder() + "/messages.properties");
 		destination.createNewFile();
 		Properties properties = Utils.readProperties(destination);
 
 		for (Translation translation : Translation.values()) {
-			properties.setProperty(translation.name(), translation.getTemplateMessage(language));
+			String message = translation.getTemplateMessage(language);
+			properties.setProperty(translation.name(), message);
+			translation.setCurrentMessage(message);
 		}
 
 		Utils.saveProperties(properties, destination);
 
+	}
+
+	public static String folder() {
+		return Challenges.getInstance().getDataFolder() + "/messages";
 	}
 
 }
