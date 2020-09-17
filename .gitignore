@@ -5,5 +5,6 @@
 /Depends
 
 Challenges.iml
+config.properties
 .floo
 .flooignore
