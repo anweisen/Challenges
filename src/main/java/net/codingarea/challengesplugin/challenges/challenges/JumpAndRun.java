@@ -10,14 +10,16 @@ import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.timer.ChallengeTimer;
-import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.animation.AnimationSound;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -81,6 +83,8 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 		waiting = false;
 		WorldManager.getInstance().setWorldIsInUse(true);
 		current = getNextPlayer().getUniqueId();
+		last.add(current);
+
 		buildFirstJump();
 
 		Location teleport = start.getLocation().clone().add(0.5, 1,0.5);
@@ -216,6 +220,7 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 
 		if (event.getTo().getBlock().getLocation().equals(target.getRelative(0, 1, 0).getLocation())) {
 			handleReachTarget();
+			return;
 		}
 
 		if (target != null) {
@@ -240,6 +245,20 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 		}
 	}
 
+	@EventHandler
+	public void onBlockPlace(BlockPlaceEvent event) {
+		if (current == null) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onDropItem(PlayerDropItemEvent event) {
+		if (current == null) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		event.setCancelled(true);
+	}
+
 	private void handleReachTarget() {
 		AnimationSound.PLOP_SOUND.play(Bukkit.getPlayer(current));
 		jumpsDone++;
@@ -247,6 +266,7 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 			Player player = Bukkit.getPlayer(current);
 			Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.JUMP_AND_RUN_COMPLETE.get().replace("%player%", player.getName()));
 			handleJNREnd();
+			Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> Utils.forEachPlayerOnline(current -> current.setGameMode(GameMode.SURVIVAL)), 1);
 		} else {
 			buildNextJump(false);
 		}
@@ -311,8 +331,9 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 		}
 	}
 
+	@NotNull
 	@Override
-	public @NotNull ItemStack getItem() {
+	public ItemStack getItem() {
 		return new ItemBuilder(Material.ACACIA_STAIRS, ItemTranslation.JUMP_AND_RUN).build();
 	}
 }

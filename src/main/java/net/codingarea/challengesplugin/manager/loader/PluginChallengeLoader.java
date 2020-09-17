@@ -51,7 +51,7 @@ public class PluginChallengeLoader {
 
 		// CHALLENGES
 		//registerChallengeWithCommands(new GuessTheFlag(), "skipflag", "currentflag");
-		registerChallenge(new DropChanceChallenge());
+		//registerChallenge(new DropChanceChallenge());
 		registerChallenge(new SnakeChallenge());
 		registerChallenge(new JumpAndRun());
 		registerChallenge(new CoronaChallenge());

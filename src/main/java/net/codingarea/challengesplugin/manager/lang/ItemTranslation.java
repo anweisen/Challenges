@@ -73,7 +73,6 @@ public enum ItemTranslation {
 	WATER_MLG(a("§9Water MLG"), b(a("Every few *minutes* you have to", "do a *WaterMLG*. If you *die*, you *lose*"), a("Du musst alle *paar Minuten* einen *Wasser-MLG* machen.", "Wenn diesen nicht schaffst, *stirbst* du"))),
 	FOOD_ONE(a("§cFood once"), b(a("You can eat every kind", "of food only *once*"), a("Du kannst jedes Essen nur *einmal essen*"))),
 	JUMP_AND_RUN(a("§eJumpAndRun"), b(a("You have to do a *JumpAndRun* every", "few minutes. If you *fail* you *lose*"), a("Du musst alle paar Minuten ein *JumpAndRun*", "machen. Wenn du *failst* hast du *verloren*"))),
-
 	;
 
 	private final String[] name;

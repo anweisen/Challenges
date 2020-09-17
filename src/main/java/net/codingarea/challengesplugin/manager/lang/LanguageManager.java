@@ -1,13 +1,10 @@
 package net.codingarea.challengesplugin.manager.lang;
 
 import net.codingarea.challengesplugin.Challenges;
-import net.codingarea.challengesplugin.challengetypes.Challenge;
 import net.codingarea.challengesplugin.utils.Utils;
-import org.apache.commons.codec.language.bm.Lang;
-import org.bukkit.Bukkit;
 
-import java.io.*;
-import java.net.URL;
+import java.io.File;
+import java.io.IOException;
 import java.util.Properties;
 
 /**

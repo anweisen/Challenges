@@ -42,12 +42,7 @@ public class PositionUtil {
 	}
 
 	public static void savePosition(FileConfiguration config, ChallengePosition position) {
-
-		if (config == null) throw new NullPointerException("Config cannot be null!");
-		if (position == null) throw new NullPointerException("Position cannot be null!");
-
 		savePosition(config, position.getSetter(), position.getLocation(), position.getName());
-
 	}
 
 	public static ChallengePosition loadPosition(FileConfiguration config, String name) {
@@ -64,15 +59,9 @@ public class PositionUtil {
 	}
 
 	private static void savePosition(FileConfiguration config, String setter, Location location, String locationName) {
-
-		if (config == null) throw new NullPointerException("Config cannot be null!");
-		if (location == null) throw new NullPointerException("Location cannot be null!");
-		if (locationName == null) throw new NullPointerException("Location name cannot be null!");
-
 		config.set("position." + locationName.toLowerCase() + ".location", location);
 		config.set("position." + locationName.toLowerCase() + ".name", locationName);
 		config.set("position." + locationName.toLowerCase() + ".setter", setter);
-
 	}
 
 }

@@ -135,6 +135,7 @@ public final class Challenges extends JavaPlugin {
     }
 
     private void enable() {
+        loadPositions();
         worldManager.loadWorld();
         new PluginChallengeLoader(this).loadChallenges();
         ChallengeLoader.load(challengeManager);
@@ -153,8 +154,11 @@ public final class Challenges extends JavaPlugin {
     private void loadConfigs() {
         configManager = new ConfigManager();
         configManager.setInternalConfig(new YamlConfig(getDataFolder() + "/internal/session"));
-        configManager.setPositionConfig(new YamlConfig(getDataFolder() + "/internal/positions"));
         CloudNetManager.loadIngameFromConfig();
+    }
+
+    private void loadPositions() {
+        configManager.setPositionConfig(new YamlConfig(getDataFolder() + "/internal/positions"));
     }
 
     private void loadWorlds() {
