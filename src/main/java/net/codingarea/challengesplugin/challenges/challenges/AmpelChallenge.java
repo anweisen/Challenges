@@ -39,6 +39,7 @@ public class AmpelChallenge extends AdvancedChallenge implements Listener, ISeco
 
     public AmpelChallenge() {
         super(MenuType.CHALLENGES, 10);
+        this.value = 5;
         setNextSeconds();
     }
 
@@ -128,7 +129,7 @@ public class AmpelChallenge extends AdvancedChallenge implements Listener, ISeco
     @EventHandler
     public void onMove(PlayerMoveEvent event) {
         if (!isEnabled() || !Challenges.timerIsStarted() || ampel != 2) return;
-        if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getY() == event.getTo().getY() && event.getFrom().getZ() == event.getTo().getZ()) return;
+        if (Utils.onlyMovedView(event.getFrom(), event.getTo())) return;
         setNextSeconds();
         event.getPlayer().damage(event.getPlayer().getMaxHealth());
     }

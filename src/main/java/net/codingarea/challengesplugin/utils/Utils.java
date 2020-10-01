@@ -55,6 +55,20 @@ public class Utils {
         return Material.valueOf(version == 13 ? "CACTUS_GREEN" : "GREEN_DYE");
     }
 
+    public static boolean onlyMovedView(Location from, Location to) {
+
+        from = from.clone();
+        to = to.clone();
+
+        from.setYaw(0);
+        from.setPitch(0);
+
+        to.setYaw(0);
+        to.setPitch(0);
+
+        return from.equals(to);
+    }
+
     public static void setFakeArmor(Player viewer, int entityID, Color color) {
         if (version == 16) Utils16.setFakeArmor(viewer, entityID, color);
         if (version == 15) Utils15.setFakeArmor(viewer, entityID, color);
