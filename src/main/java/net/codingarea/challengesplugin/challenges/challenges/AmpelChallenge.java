@@ -146,7 +146,7 @@ public class AmpelChallenge extends AdvancedChallenge implements Listener, ISeco
 
     @Override
     public @NotNull ItemStack getItem() {
-        return new ItemBuilder(Material.RED_CONCRETE, ItemTranslation.TRAFFIC_LIGHT).build();
+        return new ItemBuilder(Material.LIME_STAINED_GLASS, ItemTranslation.TRAFFIC_LIGHT).build();
     }
 
     private void setNextSeconds() {
