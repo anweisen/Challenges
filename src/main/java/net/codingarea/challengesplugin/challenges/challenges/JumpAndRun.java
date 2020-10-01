@@ -18,6 +18,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -67,7 +68,7 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 
 	@Override
 	public void onValueChange(ChallengeEditEvent event) {
-		if (nextActionInSeconds > (value*60)) {
+		if (nextActionInSeconds > (value*60) || nextActionInSeconds < ((value-1)*60)) {
 			setNextSeconds();
 		}
 	}
@@ -120,7 +121,8 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 		}
 
 		int x = random.nextInt(3)+2;
-		int y = random.nextInt(2);
+		int y = random.nextInt(3);
+		if (y > 1) y = 1;
 		int z = random.nextInt(4)+1;
 
 		if (random.nextBoolean()) {
@@ -172,10 +174,21 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 
 		target = start.getRelative(x, y, z);
 
+		Material type = Material.CYAN_TERRACOTTA;
+		if (random.nextBoolean()) {
+			if (x < 4 && z < 4) {
+				if (y < 1 && random.nextBoolean()) {
+					type = Material.COBBLESTONE_WALL;
+				} else {
+					type = Material.END_ROD;
+				}
+			}
+		}
+
 		if ((jumpsDone+1) >= jumps) {
 			target.setType(Material.EMERALD_BLOCK);
 		} else {
-			target.setType(Material.CYAN_TERRACOTTA);
+			target.setType(type);
 		}
 
 		start.setType(Material.GOLD_BLOCK);
@@ -185,14 +198,14 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 	private Player getNextPlayer() {
 
 		List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-		players.removeIf(player -> player.getGameMode() == GameMode.SPECTATOR);
-		if (players.isEmpty()) return null;
 
+		players.removeIf(player -> player.getGameMode() == GameMode.SPECTATOR);
 		players.removeIf(player -> last.contains(player.getUniqueId()));
 
 		if (players.isEmpty()) {
-			for (UUID currentUUID : last) {
-				players.add(Bukkit.getPlayer(currentUUID));
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (player.getGameMode() == GameMode.SPECTATOR) continue;
+				players.add(player);
 			}
 			last.clear();
 		}
@@ -247,6 +260,13 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 
 	@EventHandler
 	public void onBlockPlace(BlockPlaceEvent event) {
+		if (current == null) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		event.setCancelled(true);
+	}
+
+	@EventHandler
+	public void onBlockBreak(BlockBreakEvent event) {
 		if (current == null) return;
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		event.setCancelled(true);
