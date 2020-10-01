@@ -50,34 +50,28 @@ public class ForceBlockChallenge extends Setting implements ISecondExecutor, Com
     private int time;
     private Material material;
 
-    private Random maxRandom,
-                   materialRandom,
-                   newRandom;
+    private Random random;
 
     public ForceBlockChallenge() {
         super(MenuType.CHALLENGES);
         time = 0;
         count = 0;
         material = Material.AIR;
-        newRandom = new Random();
-        timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
-        newRandom = null;
+        random = new Random();
+        timeUntilNew = random.nextInt(7*60 - 5*60) + 5*60;
+        random = null;
     }
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
-        maxRandom = new Random();
-        materialRandom = new Random();
-        newRandom = new Random();
+        random = new Random();
         bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
         ScoreboardManager.getInstance().activateBossBar(bossBar);
     }
 
     @Override
     public void onDisable(ChallengeEditEvent event) {
-        maxRandom = null;
-        materialRandom = null;
-        newRandom = null;
+        random = null;
         ScoreboardManager.getInstance().deactivateBossBar(bossBar);
     }
 
@@ -123,7 +117,7 @@ public class ForceBlockChallenge extends Setting implements ISecondExecutor, Com
                 setNewMaterial();
             }
 
-            timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
+            timeUntilNew = random.nextInt(7*60 - 5*60) + 5*60;
 
         }
 
@@ -135,9 +129,9 @@ public class ForceBlockChallenge extends Setting implements ISecondExecutor, Com
 
     private void setNewMaterial() {
         timeUntilNew = -1;
-        time = maxRandom.nextInt(5*60 - 2*60) + 2*60;
+        time = random.nextInt(5*60 - 2*60) + 2*60;
         List<Material> materials = RandomizerUtil.getForceBlockBlocks();
-        material = materials.get(materialRandom.nextInt(materials.size()));
+        material = materials.get(random.nextInt(materials.size()));
         count = 0;
     }
 

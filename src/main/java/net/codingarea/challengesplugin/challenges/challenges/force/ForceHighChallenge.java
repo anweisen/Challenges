@@ -46,19 +46,16 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
     private int time;
     private int height;
 
-    private Random maxRandom,
-                   highRandom,
-                   newRandom,
-                   playerRandom;
+    private Random random;
 
     public ForceHighChallenge() {
         super(MenuType.CHALLENGES);
         time = 0;
         count = 0;
         height = -1;
-        newRandom = new Random();
-        timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
-        newRandom = null;
+        random = new Random();
+        timeUntilNew = random.nextInt(7*60 - 5*60) + 5*60;
+        random = null;
     }
 
     @Override
@@ -68,10 +65,7 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
 
     @Override
     public void onEnable(ChallengeEditEvent event) {
-        maxRandom = new Random();
-        highRandom = new Random();
-        playerRandom = new Random();
-        newRandom = new Random();
+        random = new Random();
 
         bossBar = Bukkit.createBossBar("§7Waiting...", BarColor.WHITE, BarStyle.SOLID);
         ScoreboardManager.getInstance().activateBossBar(bossBar);
@@ -79,10 +73,7 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
 
     @Override
     public void onDisable(ChallengeEditEvent event) {
-        maxRandom = null;
-        highRandom = null;
-        newRandom = null;
-        playerRandom = null;
+        random = null;
         ScoreboardManager.getInstance().deactivateBossBar(bossBar);
     }
 
@@ -102,9 +93,9 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
 
             if (timeUntilNew <= 0) {
                 timeUntilNew = -1;
-                time = maxRandom.nextInt(5*60 - 2*60) + 2*60;
+                time = random.nextInt(5*60 - 2*60) + 2*60;
                 List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-                height = highRandom.nextInt((players.get(playerRandom.nextInt(players.size())).getWorld().getMaxHeight() -1)) + 1;
+                height = random.nextInt((players.get(random.nextInt(players.size())).getWorld().getMaxHeight() -1)) + 1;
                 count = 0;
             }
 
@@ -122,7 +113,7 @@ public class ForceHighChallenge extends Setting implements Listener, ISecondExec
                 Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.FORCE_HEIGHT_FAIL.get().replace("%player%", currentPlayer.getName()).replace("%height%", currentPlayer.getLocation().getBlockY() + ""));
             }
 
-            timeUntilNew = newRandom.nextInt(7*60 - 5*60) + 5*60;
+            timeUntilNew = random.nextInt(7*60 - 5*60) + 5*60;
             if (playersOnTheFalseHeight.isEmpty()) {
                 Bukkit.broadcastMessage(Prefix.CHALLENGES.get() + Translation.FORCE_HEIGHT_COMPLETE);
             } else {
