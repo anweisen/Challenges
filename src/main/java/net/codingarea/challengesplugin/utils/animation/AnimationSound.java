@@ -19,6 +19,7 @@ import java.util.List;
 public class AnimationSound {
 
 	public static final AnimationSound STANDARD_SOUND = new AnimationSound(Sound.BLOCK_WOODEN_BUTTON_CLICK_ON, 0.5F, 1);
+	public static final AnimationSound BASS_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 1);
 	public static final AnimationSound ON_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F, 1);
 	public static final AnimationSound OFF_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, 1);
 	public static final AnimationSound PLING_SOUND = new AnimationSound(Sound.BLOCK_NOTE_BLOCK_BELL, 1, 1);
