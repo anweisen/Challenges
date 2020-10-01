@@ -52,9 +52,11 @@ public class PluginChallengeLoader {
 		// CHALLENGES
 		//registerChallengeWithCommands(new GuessTheFlag(), "skipflag", "currentflag");
 		//registerChallenge(new DropChanceChallenge());
+		registerChallenge(new AmpelChallenge());
 		registerChallenge(new SnakeChallenge());
 		registerChallenge(new JumpAndRun());
 		registerChallenge(new CoronaChallenge());
+		registerChallenge(new RandomizedHP());
 		registerChallenge(new DamagePerBlockChallenge());
 		registerChallenge(new FoodOnce());
 		registerChallenge(new TheFloorIsLavaChallenge());
