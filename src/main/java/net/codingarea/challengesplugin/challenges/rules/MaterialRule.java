@@ -4,10 +4,12 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.Setting;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.lang.ItemTranslation;
-import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.animation.AnimationSound;
+import net.codingarea.challengesplugin.utils.items.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -67,9 +69,13 @@ public class MaterialRule extends Setting implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent event) {
+        if (!(event.getWhoClicked() instanceof Player)) return;
         if (enabled || !Challenges.timerIsStarted()) return;
         if (event.getCurrentItem() == null) return;
-        if (Arrays.asList(material).contains(event.getCurrentItem().getType())) event.setCancelled(true);
+        if (Arrays.asList(material).contains(event.getCurrentItem().getType())) {
+            event.setCancelled(true);
+            AnimationSound.OFF_SOUND.play((Player) event.getWhoClicked());
+        }
     }
 
     @EventHandler
@@ -81,8 +87,14 @@ public class MaterialRule extends Setting implements Listener {
     @EventHandler
     public void onInteract(PlayerInteractEvent event) {
         if (enabled || !Challenges.timerIsStarted()) return;
-        if (event.getItem() != null && Arrays.asList(material).contains(event.getMaterial())) event.setCancelled(true);
-        if (event.getClickedBlock() != null && Arrays.asList(material).contains(event.getClickedBlock().getType())) event.setCancelled(true);
+        if (event.getItem() != null && Arrays.asList(material).contains(event.getMaterial())) {
+            event.setCancelled(true);
+            AnimationSound.OFF_SOUND.play(event.getPlayer());
+        }
+        if (event.getClickedBlock() != null && Arrays.asList(material).contains(event.getClickedBlock().getType())) {
+            event.setCancelled(true);
+            AnimationSound.OFF_SOUND.play(event.getPlayer());
+        }
     }
 
 }

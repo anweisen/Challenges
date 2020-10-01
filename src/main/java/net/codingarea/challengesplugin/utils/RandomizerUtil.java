@@ -49,12 +49,12 @@ public class RandomizerUtil {
         try {
             list.remove(Material.JIGSAW);
         } catch (NoSuchFieldError ignored) { }
-        list.removeIf(material -> isAir(material) || material.isLegacy() || !material.isItem());
+        list.removeIf(material -> isAir(material) || material.isLegacy() || !material.isBlock());
         return list;
     }
 
     public static List<EntityType> getRandomizerEntities() {
-        final List<EntityType> list = new ArrayList<>();
+        List<EntityType> list = new ArrayList<>();
         for (final EntityType entity : EntityType.values()) {
             if (entity.isAlive()) {
                 list.add(entity);
@@ -68,7 +68,7 @@ public class RandomizerUtil {
     }
 
     public static List<Material> getRandomizerDrops() {
-        final List<Material> list = new ArrayList<Material>(Arrays.asList(Material.values()));
+        List<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
         list.remove(Material.COMMAND_BLOCK);
         list.remove(Material.BARRIER);
         list.remove(Material.CHAIN_COMMAND_BLOCK);

@@ -143,7 +143,7 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 			restore(currentPlayer);
 			before.remove(currentPlayer.getUniqueId());
-			AnimationSound.KLING_SOUND.playDelayed(Challenges.getInstance(), currentPlayer, 1);
+			if (!reset) AnimationSound.KLING_SOUND.playDelayed(Challenges.getInstance(), currentPlayer, 1);
 		}
 		if (!reset) Bukkit.broadcastMessage(Prefix.CHALLENGES + Translation.WATER_MLG_SUCCESS.get());
 		for (Block currentBlock : placedBlocks) {
@@ -158,7 +158,8 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (!inMLG.contains(event.getPlayer().getUniqueId())) return;
 		if (event.getTo() == null) return;
-		if (event.getTo().getBlock().isLiquid()) {
+		Block to = event.getTo().clone().add(0, 0.7, 0).getBlock();
+		if (to.isLiquid()) {
 			handleMLGComplete(event.getPlayer());
 		}
 	}
@@ -177,7 +178,9 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 
 	@EventHandler
 	public void onDeath(PlayerDeathEvent event) {
-		endMLG(false);
+		if (inMLG.remove(event.getEntity().getUniqueId())) {
+			endMLG(false);
+		}
 	}
 
 	@EventHandler
