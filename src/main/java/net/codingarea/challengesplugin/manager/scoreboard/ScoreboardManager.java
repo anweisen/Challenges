@@ -1,11 +1,9 @@
 package net.codingarea.challengesplugin.manager.scoreboard;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.utils.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BossBar;
 import org.bukkit.boss.KeyedBossBar;
-import org.bukkit.entity.Boss;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;

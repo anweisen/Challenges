@@ -3,10 +3,10 @@ package net.codingarea.discordstatsbot;
 import net.codingarea.challengesplugin.utils.ImageUtils;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.commons.Log;
-import net.codingarea.challengesplugin.utils.sql.MySQL;
 import net.codingarea.discordstatsbot.commandmanager.CommandHandler;
 import net.codingarea.discordstatsbot.commands.*;
 import net.codingarea.discordstatsbot.listener.MessageListener;
+import net.codingarea.engine.sql.constant.ConstSQL;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
@@ -75,10 +75,9 @@ public final class DiscordBot {
 
 	private void connectToMySQL() {
 		try {
-			MySQL.connectWithException(host, database, user, password);
-			MySQL.createDatabases();
+			ConstSQL.connect(host, database, user, password);
 		} catch (SQLException ex) {
-			Log.severe("Could not connect to MySQL server :: " + ex.getMessage());
+			Log.severe("Could not connect to MySQL server: " + ex.getMessage());
 			System.exit(4);
 		}
 	}

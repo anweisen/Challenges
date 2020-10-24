@@ -3,6 +3,7 @@ package net.codingarea.challengesplugin.listener;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.CloudNetManager;
 import net.codingarea.challengesplugin.manager.WorldManager;
+import net.codingarea.challengesplugin.manager.checker.UpdateChecker;
 import net.codingarea.challengesplugin.manager.lang.Prefix;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.manager.players.stats.StatsWrapper;
@@ -42,7 +43,10 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler
 	public void handleJoin(PlayerJoinEvent event) {
 
-		if (!plugin.isNewestVersion() && event.getPlayer().hasPermission("challenges.gui")) {
+		if (!UpdateChecker.pluginIsNewestVersion()) {
+
+		}
+		if (!UpdateChecker.configIsNewestVersion() && event.getPlayer().hasPermission("challenges.gui")) {
 			event.getPlayer().sendMessage(Prefix.CHALLENGES + Translation.CONFIG_OLD_VERSION.get());
 		}
 

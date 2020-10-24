@@ -3,6 +3,8 @@ package net.codingarea.challengesplugin;
 import net.codingarea.challengesplugin.commands.*;
 import net.codingarea.challengesplugin.listener.*;
 import net.codingarea.challengesplugin.manager.*;
+import net.codingarea.challengesplugin.manager.checker.BlacklistChecker;
+import net.codingarea.challengesplugin.manager.checker.UpdateChecker;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Prefix;
@@ -18,10 +20,12 @@ import net.codingarea.challengesplugin.utils.StringManager;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.YamlConfig;
 import net.codingarea.challengesplugin.utils.commons.Log;
-import net.codingarea.challengesplugin.utils.sql.MySQL;
+import net.codingarea.engine.sql.constant.ConstSQL;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.sql.SQLException;
 
 /**
  * @author anweisen & Dominik
@@ -34,8 +38,6 @@ public final class Challenges extends JavaPlugin {
 
     private static Challenges instance;
     private static final int version = Utils.getServerVersion();
-
-    private boolean isNewestVersion = true;
 
     private StringManager stringManager;
     private ChallengeManager challengeManager;
@@ -56,7 +58,11 @@ public final class Challenges extends JavaPlugin {
         instance = this;
         Log.setLogger(getLogger());
 
-        loadConfigVersion();
+        BlacklistChecker.updateStatus();
+        if (BlacklistChecker.isBlocked()) return;
+
+        UpdateChecker.updateStatus();
+
         loadCloudNet();
         loadConfigs();
         loadWorlds();
@@ -67,6 +73,8 @@ public final class Challenges extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        if (!BlacklistChecker.validate()) return;
 
         saveDefaultConfig();
         reloadConfig();
@@ -95,7 +103,7 @@ public final class Challenges extends JavaPlugin {
             challengeManager.saveChallengeConfigurations();
         }
         try {
-            MySQL.disconnectWithException();
+            ConstSQL.disconnect();
         } catch (Exception ignored) { }
     }
 
@@ -121,7 +129,7 @@ public final class Challenges extends JavaPlugin {
         Bukkit.getPluginManager().registerEvents(new PlayerConnectionListener(this), this);
         Bukkit.getPluginManager().registerEvents(new TimerNotStartedListener(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeathListener(), this);
-        Bukkit.getPluginManager().registerEvents(new StatsListener(this), this);
+        Bukkit.getPluginManager().registerEvents(new StatsListener(statsManager), this);
         Bukkit.getPluginManager().registerEvents((Listener) getCommand("stats").getExecutor(), this);
     }
 
@@ -185,16 +193,16 @@ public final class Challenges extends JavaPlugin {
 
         if (host == null || database == null || user == null || password == null) return;
 
-        MySQL.connect(host, database, user, password);
-        MySQL.createDatabases();
+        ConstSQL.connectWithoutException(host, database, user, password);
+        createDatabases();
 
     }
 
-    private void loadConfigVersion() {
-        String version = getConfig().getString("config-version");
-        if (version == null || !version.equals(getDescription().getVersion())) {
-            getLogger().warning("This plugin had an update. Please delete your config and restart the server to see whats new in the config");
-            isNewestVersion = false;
+    private void createDatabases() {
+        try {
+            ConstSQL.update("CREATE TABLE IF NOT EXISTS user (user VARCHAR(150), player VARCHAR(16), settings VARCHAR(10000), stats VARCHAR(3000))");
+        } catch (SQLException ex) {
+            Log.severe("Could not create default tables: " + ex.getMessage());
         }
     }
 
@@ -256,10 +264,6 @@ public final class Challenges extends JavaPlugin {
 
     public StatsManager getStatsManager() {
         return statsManager;
-    }
-
-    public boolean isNewestVersion() {
-        return isNewestVersion;
     }
 
 }

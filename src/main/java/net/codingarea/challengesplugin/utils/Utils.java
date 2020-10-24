@@ -3,10 +3,9 @@ package net.codingarea.challengesplugin.utils;
 import net.codingarea.challengesplugin.utils.commons.ChatColor;
 import net.codingarea.challengesplugin.utils.commons.IOUtils;
 import net.codingarea.challengesplugin.utils.commons.Log;
-import net.codingarea.challengesplugin.utils.nms.Utils13;
-import net.codingarea.challengesplugin.utils.nms.Utils14;
-import net.codingarea.challengesplugin.utils.nms.Utils15;
-import net.codingarea.challengesplugin.utils.nms.Utils16;
+import net.codingarea.challengesplugin.utils.commons.StringBuilderPrintWriter;
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
@@ -27,6 +26,7 @@ import org.json.simple.JSONValue;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import javax.annotation.Nonnull;
 import java.io.*;
 import java.net.URL;
 import java.nio.charset.Charset;
@@ -69,18 +69,8 @@ public class Utils {
         return from.equals(to);
     }
 
-    public static void setFakeArmor(Player viewer, int entityID, Color color) {
-        if (version == 16) Utils16.setFakeArmor(viewer, entityID, color);
-        if (version == 15) Utils15.setFakeArmor(viewer, entityID, color);
-        if (version == 14) Utils15.setFakeArmor(viewer, entityID, color);
-        if (version == 13) Utils13.setFakeArmor(viewer, entityID, color);
-    }
-
     public static void sendActionbar(Player player, String message) {
-        if (version == 16) Utils16.sendActionbar(player, message);
-        if (version == 15) Utils15.sendActionbar(player, message);
-        if (version == 14) Utils14.sendActionbar(player, message);
-        if (version == 13) Utils13.sendActionbar(player, message);
+        player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message));
     }
 
     public static int getRandomSecondsDistance(int seconds) {
@@ -929,6 +919,12 @@ public class Utils {
         } else if (lookUp && pitch < 0) {
             edit.setPitch(pitch);
         }
+    }
+
+    public static String exceptionToString(@Nonnull Throwable ex) {
+        StringBuilderPrintWriter writer = new StringBuilderPrintWriter();
+        ex.printStackTrace(writer);
+        return writer.toString();
     }
 
 }

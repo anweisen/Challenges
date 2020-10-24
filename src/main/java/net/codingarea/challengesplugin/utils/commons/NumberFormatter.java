@@ -41,10 +41,14 @@ public interface NumberFormatter {
 				} else if (value < 1000000000) {
 					divide = 1000000;
 					ending = "m";
-				// Billion
-				} else {
+				// Billion (Milliarde)
+				} else if (value < 1000000000000D) {
 					divide = 1000000000;
 					ending = "b";
+				// Trillion (Billion)
+				} else {
+					divide = 1000000000000D;
+					ending = "t";
 				}
 
 				value /= divide;

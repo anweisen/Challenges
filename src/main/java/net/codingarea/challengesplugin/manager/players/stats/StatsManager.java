@@ -2,11 +2,12 @@ package net.codingarea.challengesplugin.manager.players.stats;
 
 import net.codingarea.challengesplugin.manager.players.PlayerSettingsManager;
 import net.codingarea.challengesplugin.utils.Utils;
+import net.codingarea.challengesplugin.utils.commons.Log;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nonnull;
 import java.util.Map.Entry;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 
@@ -26,13 +27,14 @@ public class StatsManager {
 	}
 
 	public void load() {
+		storedStats.clear();
 		if (enabled) {
-			storedStats.clear();
 			Utils.forEachPlayerOnline(this::loadForPlayer);
 		}
 	}
 
 	public void storeAll() {
+		Log.info("Saving all stats..");
 		for (Entry<Player, PlayerStats> currentEntry : storedStats.entrySet()) {
 			String uuid = Utils.getUUID(currentEntry.getKey().getName());
 			StatsWrapper.storeStats(uuid, currentEntry.getValue());
@@ -46,9 +48,14 @@ public class StatsManager {
 		return loadForPlayer(player);
 	}
 
+	public void add(@Nonnull Player player, @Nonnull StatsAttribute attribute, double value) {
+		getPlayerStats(player).add(attribute, value);
+		Log.info("Updated PlayerStats for player " + player.getName() + " | " + getPlayerStats(player));
+	}
+
 	public void onSecond(Player player) {
 		if (!player.isSneaking()) return;
-		getPlayerStats(player).add(StatsAttribute.TIME_SNEAKED, 1);
+		add(player, StatsAttribute.TIME_SNEAKED, 1);
 	}
 
 	public PlayerStats loadForPlayer(Player player) {

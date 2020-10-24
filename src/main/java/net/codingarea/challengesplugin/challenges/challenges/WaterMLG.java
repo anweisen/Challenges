@@ -21,7 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -172,7 +171,7 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 
 	@EventHandler
 	public void onLeave(PlayerQuitEvent event) {
-		if (inMLG.remove(event.getPlayer().getUniqueId())) {
+		if (inMLG.remove(event.getPlayer().getUniqueId()) && !inMLG.isEmpty()) {
 			checkEnd();
 		}
 	}
@@ -194,13 +193,6 @@ public class WaterMLG extends AdvancedChallenge implements Listener {
 
 	@EventHandler
 	public void onPlaceBlock(BlockPlaceEvent event) {
-		if (!enabled || !Challenges.timerIsStarted()) return;
-		if (!event.getBlock().getWorld().equals(WorldManager.getInstance().getChallengesWorld())) return;
-		placedBlocks.add(event.getBlock());
-	}
-
-	@EventHandler
-	public void onPlaceWater(PlayerBucketEmptyEvent event) {
 		if (!enabled || !Challenges.timerIsStarted()) return;
 		if (!event.getBlock().getWorld().equals(WorldManager.getInstance().getChallengesWorld())) return;
 		placedBlocks.add(event.getBlock());

@@ -1,16 +1,17 @@
 name: Challenges
-version: 1.2
+version: 1.3
 api-version: 1.13
-author: anweisen & Dominik
+author: CodingArea
 authors:
   - anweisen
   - Dominik
 main: net.codingarea.challengesplugin.Challenges
-website: coding-area.net
+website: https://coding-area.net
 database: true
 description: |
   A simple-to-use plugin for challenges for beating minecraft in different ways
   or to compete with friend in "First to ... wins" challenges
+  Join our discord for support: https://coding-area.net/go/discord
 
 commands:
   challenges:

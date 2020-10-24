@@ -2,10 +2,10 @@ package net.codingarea.discordstatsbot.commands;
 
 import net.codingarea.challengesplugin.manager.players.stats.PlayerStats;
 import net.codingarea.challengesplugin.manager.players.stats.StatsAttribute;
-import net.codingarea.challengesplugin.utils.sql.MySQL;
-import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
 import net.codingarea.discordstatsbot.commandmanager.commands.Command;
+import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
 import net.codingarea.discordstatsbot.enitites.Embeds;
+import net.codingarea.engine.sql.constant.ConstSQL;
 import net.dv8tion.jda.api.EmbedBuilder;
 
 import java.sql.ResultSet;
@@ -45,7 +45,7 @@ public class TopCommand extends Command {
 
 		try {
 
-			ResultSet result = MySQL.get("SELECT * FROM user");
+			ResultSet result = ConstSQL.query("SELECT * FROM user");
 
 			if (result == null) {
 				event.queueReply("Es wurden keine Spieler gefunden");

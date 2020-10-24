@@ -3,6 +3,7 @@ package net.codingarea.challengesplugin.listener;
 import com.google.common.collect.Sets;
 import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.players.stats.StatsAttribute;
+import net.codingarea.challengesplugin.manager.players.stats.StatsManager;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -30,10 +31,10 @@ import java.util.UUID;
 
 public class StatsListener implements Listener {
 
-	private final Challenges plugin;
+	private final StatsManager manager;
 
-	public StatsListener(Challenges plugin) {
-		this.plugin = plugin;
+	public StatsListener(StatsManager manager) {
+		this.manager = manager;
 	}
 
 	@EventHandler
@@ -46,7 +47,7 @@ public class StatsListener implements Listener {
 		if (event.getDamager() instanceof Player) {
 
 			Player player = (Player) event.getDamager();
-			Bukkit.getScheduler().runTaskLater(plugin, () -> {
+			Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 				if (!event.isCancelled()) {
 					handlePlayerDoesDamage(player, event.getFinalDamage());
 					if (entity.getHealth() <= 0) handlePlayerDoesKill(player);
@@ -59,7 +60,7 @@ public class StatsListener implements Listener {
 			if (projectile.getShooter() instanceof Player) {
 
 				Player player = (Player) projectile.getShooter();
-				Bukkit.getScheduler().runTaskLater(plugin, () -> {
+				Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 					if (!event.isCancelled()) {
 						handlePlayerDoesDamage(player, event.getFinalDamage());
 						if (entity.getHealth() <= 0) handlePlayerDoesKill(player);
@@ -79,7 +80,7 @@ public class StatsListener implements Listener {
 		if (!(event.getEntity() instanceof Player)) return;
 
 		Player player = (Player) event.getEntity();
-		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (!event.isCancelled()) {
 				handlePlayerGetsDamaged(player, event.getFinalDamage());
 			}
@@ -91,7 +92,7 @@ public class StatsListener implements Listener {
 	public void onBlockBreak(BlockBreakEvent event) {
 
 		if (!Challenges.timerIsStarted()) return;
-		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (!event.isCancelled()) {
 				handlePlayerBreakBlock(event.getPlayer());
 			}
@@ -104,7 +105,7 @@ public class StatsListener implements Listener {
 	public void onPlayerCollectItem(PlayerPickupItemEvent event) {
 
 		if (!Challenges.timerIsStarted()) return;
-		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 			if (!event.isCancelled()) {
 				handlePlayerCollectItem(event.getPlayer(), event.getItem().getItemStack().getAmount());
 			}
@@ -155,27 +156,27 @@ public class StatsListener implements Listener {
 	}
 
 	private void handlePlayerJump(Player player) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.JUMPS, 1);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.JUMPS, 1);
 	}
 
 	private void handlePlayerCollectItem(Player player, int items) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.ITEMS_COLLECTED, items);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.ITEMS_COLLECTED, items);
 	}
 
 	private void handlePlayerBreakBlock(Player player) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.BLOCKS_BROKEN, 1);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.BLOCKS_BROKEN, 1);
 	}
 
 	private void handlePlayerDoesDamage(Player player, double damage) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.DAMAGE_DEALT, damage);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.DAMAGE_DEALT, damage);
 	}
 
 	private void handlePlayerGetsDamaged(Player player, double damage) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.DAMAGE_TAKEN, damage);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.DAMAGE_TAKEN, damage);
 	}
 
 	private void handlePlayerDoesKill(Player player) {
-		plugin.getStatsManager().getPlayerStats(player).add(StatsAttribute.ENTITIES_KILLED, 1);
+		Challenges.getInstance().getStatsManager().add(player, StatsAttribute.ENTITIES_KILLED, 1);
 	}
 
 }

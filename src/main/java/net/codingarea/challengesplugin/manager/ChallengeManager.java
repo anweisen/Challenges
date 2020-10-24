@@ -65,7 +65,6 @@ public class ChallengeManager {
 
         for (AbstractChallenge currentChallenge : challenges) {
             if (currentChallenge == null) continue;
-            if (currentChallenge.getItem() == null) continue;
             if (currentChallenge.getItem().equals(item)) return currentChallenge;
         }
 
