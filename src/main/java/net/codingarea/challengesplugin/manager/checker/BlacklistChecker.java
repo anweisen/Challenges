@@ -20,7 +20,7 @@ public class BlacklistChecker {
 	private static boolean blocked = false;
 
 	private static String getURL(@Nonnull String address) {
-		return "https://coding-area.net/api/challenges/blacklist?ip=" + address;
+		return "http://api.coding-area.net/challenges/blacklist?ip=" + address;
 	}
 
 	public static void updateStatus() {
@@ -41,7 +41,6 @@ public class BlacklistChecker {
 	public static boolean validate() {
 
 		if (!blocked) return true;
-
 
 		Log.severe(" ");
 		Log.severe("██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░");
