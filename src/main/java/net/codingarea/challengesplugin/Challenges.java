@@ -8,8 +8,8 @@ import net.codingarea.challengesplugin.manager.checker.UpdateChecker;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Prefix;
-import net.codingarea.challengesplugin.manager.loader.PluginChallengeLoader;
 import net.codingarea.challengesplugin.manager.loader.ChallengeLoader;
+import net.codingarea.challengesplugin.manager.loader.PluginChallengeLoader;
 import net.codingarea.challengesplugin.manager.menu.MenuManager;
 import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
 import net.codingarea.challengesplugin.manager.players.PlayerSettingsManager;
@@ -58,6 +58,8 @@ public final class Challenges extends JavaPlugin {
         instance = this;
         Log.setLogger(getLogger());
 
+        if (!Utils.isSpigot()) return;
+
         BlacklistChecker.updateStatus();
         if (BlacklistChecker.isBlocked()) return;
 
@@ -74,6 +76,12 @@ public final class Challenges extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        if (!Utils.isSpigot()) {
+            Log.severe("You are not running an instance of spigot (probably craftbukkit)");
+            Log.severe("Please switch to spigot/papermc to be able to start the plugin");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
         if (!BlacklistChecker.validate()) return;
 
         saveDefaultConfig();

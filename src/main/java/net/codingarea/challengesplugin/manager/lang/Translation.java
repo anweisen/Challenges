@@ -106,6 +106,7 @@ public enum Translation {
 	HOUR("hour", "Stunde"),
 
 	CONFIG_OLD_VERSION("§7There was a §enew update §7which is now available to your server. You have to delete the §econfig.yml §7and restart the server after that. There will be new content available in the config", "§7Es gab ein §eneues Update§7 welches jetzt verfügbar ist. Lösche die §econfig.yml §7und restarte den Server um den neuen Inhalt in der Config zu sehen."),
+	PLUGIN_OLD_VERSION("§7There is a new update §eavailable §8(§ev%version%§8) §7You can get it at §ehttps://www.spigotmc.org/resources/80548", "§7Es ist eine neuere Version des Plugins §everfügbar §8(§ev%version%§8)§7. Lade es hier herunter §ehttps://www.spigotmc.org/resources/80548"),
 
 	BACKBACKS_NOT_ACTIVE("§7Backpacks are currently disabled", "§7Rucksäcke sind derzeit ausgeschaltet"),
 	BACKBACKS_OPEN("§7You opened the %backpack%", "§7Du hast den %backpack% §7geöffnet"),

@@ -653,12 +653,12 @@ public class Utils {
 
     }
 
-    public static boolean deleteWorld(File path) {
+    public static void deleteWorld(File path) {
 
         if (path.exists()) {
 
             File[] files = path.listFiles();
-            if (files == null) return false;
+            if (files == null) return;
 
             for (File currentFile : files) {
                 if (currentFile.isDirectory()) {
@@ -670,13 +670,12 @@ public class Utils {
             }
         }
 
-        return(path.delete());
-
     }
 
     public static String getWorldName(String worldName) {
 
-        if (worldName == null) return "";
+        if (worldName == null)
+            return "";
 
         if (worldName.toLowerCase().endsWith("_nether")) {
             return "Nether";
@@ -925,6 +924,15 @@ public class Utils {
         StringBuilderPrintWriter writer = new StringBuilderPrintWriter();
         ex.printStackTrace(writer);
         return writer.toString();
+    }
+
+    public static boolean isSpigot() {
+        try {
+            Bukkit.spigot();
+            return true;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
 }

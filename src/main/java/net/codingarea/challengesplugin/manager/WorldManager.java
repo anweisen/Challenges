@@ -4,7 +4,6 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.lang.Translation;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.commons.Log;
-import org.apache.commons.io.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -65,29 +64,25 @@ public class WorldManager {
 		if (!reset) return;
 
 		long millis = System.currentTimeMillis();
-		plugin.getLogger().log(Level.INFO, "Resetting worlds..");
+		Log.log(Level.INFO, "Resetting worlds..");
 
-		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end", "watermlg" };
+		String[] worlds = {levelName, levelName + "_nether", levelName + "_the_end", "challenges-extra"};
 
 		for (String currentWorld : worlds) {
 			File worldFolder = new File(currentWorld);
 			Utils.deleteWorld(worldFolder);
 		}
 
-		try {
-			FileUtils.cleanDirectory(new File(Challenges.getInstance().getChallengeManager().getSettingsFolder()));
-		} catch (Exception ignored) { }
-
 		plugin.getConfigManager().getInternalConfig().toFileConfig().set("reset", false);
 		plugin.getConfigManager().getInternalConfig().save();
 
-		plugin.getLogger().log(Level.INFO, "World resetting completed in " + (System.currentTimeMillis() - millis) + "ms!");
+		Log.log(Level.INFO, "World resetting completed in " + (System.currentTimeMillis() - millis) + "ms!");
 
 	}
 
 	public static void prepareReset(@Nullable CommandSender sender) {
 
-		Challenges.getInstance().getLogger().log(Level.INFO, "Preparing server reset..");
+		Log.log(Level.INFO, "Preparing server reset..");
 		instance.reseted = true;
 
 		Challenges.getInstance().getChallengeTimer().stopTimer(sender instanceof Player ? (Player) sender : null, false);

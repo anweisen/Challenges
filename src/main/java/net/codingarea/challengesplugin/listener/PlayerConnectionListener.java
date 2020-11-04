@@ -44,7 +44,7 @@ public class PlayerConnectionListener implements Listener {
 	public void handleJoin(PlayerJoinEvent event) {
 
 		if (!UpdateChecker.pluginIsNewestVersion()) {
-
+			event.getPlayer().sendMessage(Prefix.CHALLENGES + Translation.PLUGIN_OLD_VERSION.get().replace("%version%", UpdateChecker.getLatestVersion() + ""));
 		}
 		if (!UpdateChecker.configIsNewestVersion() && event.getPlayer().hasPermission("challenges.gui")) {
 			event.getPlayer().sendMessage(Prefix.CHALLENGES + Translation.CONFIG_OLD_VERSION.get());

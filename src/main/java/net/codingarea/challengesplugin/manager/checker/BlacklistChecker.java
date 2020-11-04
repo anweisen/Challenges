@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import java.io.InputStream;
 import java.net.Inet4Address;
 import java.net.URL;
+import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 
 /**
@@ -26,11 +27,14 @@ public class BlacklistChecker {
 	public static void updateStatus() {
 		try {
 			URL url = new URL(getURL(Inet4Address.getLocalHost().getHostAddress()));
-			InputStream input = url.openStream();
+			URLConnection connection = url.openConnection();
+			connection.setConnectTimeout(1000);
+			connection.setReadTimeout(1000);
+			InputStream input = connection.getInputStream();
 			String response = IOUtils.toString(input, StandardCharsets.UTF_8);
 			blocked = Boolean.parseBoolean(response);
 		} catch (Exception ex) {
-			Log.severe("Could not send GET request to coding-area api servers.");
+			Log.severe("Could connect with coding-area api servers.");
 		}
 	}
 

@@ -17,6 +17,7 @@ public class UpdateChecker {
 
 	private static boolean configIsNewestVersion,
 						   pluginIsNewestVersion;
+	private static double latestVersion, pluginVersion, configVersion;
 
 	public static void updateStatus() {
 		try {
@@ -25,9 +26,9 @@ public class UpdateChecker {
 			InputStream input = url.openStream();
 			String response = IOUtils.toString(input, StandardCharsets.UTF_8);
 
-			double latestVersion = NumberConversions.toDouble(response);
-			double pluginVersion = NumberConversions.toDouble(Challenges.getInstance().getDescription().getVersion());
-			double configVersion = NumberConversions.toDouble(Challenges.getInstance().getConfig().getString("config-version"));
+			latestVersion = NumberConversions.toDouble(response);
+			pluginVersion = NumberConversions.toDouble(Challenges.getInstance().getDescription().getVersion());
+			configVersion = NumberConversions.toDouble(Challenges.getInstance().getConfig().getString("config-version"));
 
 			pluginIsNewestVersion = pluginVersion >= latestVersion;
 			configIsNewestVersion = configVersion >= pluginVersion;
@@ -53,5 +54,17 @@ public class UpdateChecker {
 
 	public static boolean pluginIsNewestVersion() {
 		return pluginIsNewestVersion;
+	}
+
+	public static double getConfigVersion() {
+		return configVersion;
+	}
+
+	public static double getLatestVersion() {
+		return latestVersion;
+	}
+
+	public static double getPluginVersion() {
+		return pluginVersion;
 	}
 }
