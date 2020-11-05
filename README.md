@@ -1,107 +1,122 @@
 # Challenges
-## Free minecraft challenges plugin to play with friends
+Free minecraft challenges plugin to play with friends
 
-### Information <br>
-**Versions** <br>
-The following minecraft versions are compatible <br>
-» 1.13.x <br>
-» 1.14.x <br>
-» 1.15.x <br>
-» 1.16.x <br>
+## Information
+For more information you can visit our [SpigotMC-Site](https://www.spigotmc.org/resources/80548/), our [Website](https://coding-area.net) or our [Discord-Server](https://discord.gg/74Ay5zF)
 
-Note: The plugin was first mainly developed for minecraft v1.15. <br>
-So please inform us about issues or bugs on our [discord](https://discord.gg/74Ay5zF) in the *#challenges-support* channel <br>
-<br>
-**Updates** <br>
-You will be informed about new updates on our [discord](https://discord.gg/74Ay5zF) in the *#challenges-updates* or a bit earlier in the *#github-log* channel <br>
-<br>
-**Download** <br>
-You can downlaod the plugin on our [SpigotMC-Site](https://www.spigotmc.org/resources/80548/)
+## Own challenges
+You can simply add your own challenges into our plugins on your own server following these steps:
 
-### Ingame
-**Challenges** <br>
-» Snake <br>
-» Corona <br>
-» JumpAndRun <br>
-» Damage per block <br>
-» Food once <br>
-» TheFloorIsLava <br>
-» Floorhole <br>
-» Bedrockwalls <br>
-» Bedrockpath <br>
-» WaterMLG <br>
-» Reversed damage <br>
-» Hydra <br>
-» Double spawning <br>
-» Anvilrain <br>
-» NoXP <br>
-» NoTrading <br>
-» AchievmentDamage <br>
-» BlockBreakDamage <br>
-» OnlyDirt <br>
-» HightJumps <br>
-» DamageInventoryClear <br>
-» OneDurability <br>
-» BlockRandomizer <br>
-» CraftingRandomizer <br>
-» MobRandomizer <br>
-» NoSneak <br>
-» NoJump <br>
-» ForceHeight <br>
-» ForceBlock <br>
-» ChunkDeconstruction <br>
-<br>
-**Settings** <br>
-» DamageDisplay <br>
-» PreGameMovement <br>
-» DeathMessages <br>
-» PlayerGlow <br>
-» Soups <br>
-» No ItemDamage <br>
-» No hunger <br>
-» KeepInventory <br>
-» Backpack <br>
-» Timer <br>
-» PvP <br>
-» NoHitDelay <br>
-» UpCommand <br>
-<br>
-**Diffuclty** <br>
-» Game difficulty <br>
-» Regeneration <br>
-» Split health <br>
-» Max health <br>
-» Damage multiplier <br>
-» Respawn <br>
-» One team life <br>
-<br>
-**Damage** <br>
-» Allows you toggle every single type of damage <br>
-<br>
-**Items and blocks** <br>
-» Allows you to disable the most important items and blocks <br>
-<br>
-**Goal** <br>
-» Kill the enderdragon <br>
-» Kill the wither <br>
-» Collect deaths <br>
-» Collect items <br>
-» Collect wood types <br>
-» Break blocks <br>
-» Mine diamonds <br>
-<br>
-**Commands** <br>
-» /backpack <br> 
-» /position <name> <br>
-» /top <br>
-» /gamemode <gm> [player] • challenges.gamemode <br>
-» /start • challenges.start <br>
-» /pause • challenges.pause <br>
-» /reset • challenges.reset <br>
-» /village • challenges.village <br>
-» /timer • challenges.timer <br>
-» /challenges • challenges.gui <br>
-» /config • challenges.config <br>
-» /stats <br>
-<br>
-• list updated on 08-24-2020 •
+### Setup
+Download the newest version of our plugin from our [SpigotMC-Site](https://www.spigotmc.org/resources/80548/) and add the plugin as library to your project.
+You don't want to export the library with your plugin afterwards, because you have the challenge plugin already on you server.
+
+### Development
+#### General
+A challenge always has to implement [AbstractChallenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/AbstractChallenge.java). <br>
+Each [AbstractChallenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/AbstractChallenge.java) has
+- <code>handleClick(ChallengeEditEvent)</code>, this will be called when the challenge was clicked in the menu
+- <code>getItem()</code>, the returned <code>ItemStack</code> will be used to display the challenge in the menu
+- <code>getActivationItem()</code> the returned <code>ItemStack</code> will be displayed unter the challenge item in the menu to display the current state, updated on every click
+- <code>setValues(int)</code>, this will be called to set the challenge values when a player loads its settings
+- <code>toValue()</code>, the returned value will be saved into the database when a player save's its settings
+- <code>getMenu()</code>, the challenge will be displayed in the menu of the returned <code>MenuType</code>
+
+You can call <code>Challenges.timerIsStarted()</code>, which returns a <code>boolean</code>, to check if the challenge timer is started,
+
+#### Creating challenges
+##### Challenge types
+There are a few preset types of challenges you may use:
+- [Setting](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Setting.java)
+  - This type can either be activated or disabled <br>
+    This can be checked using the *protected boolean* <code>enabled</code>
+- [Modifier](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Modifier.java)
+  - This type has an *integer value* <br>
+    This can be checked using the *protected int* <code>value</code>
+  - It also has a *protected int* <code>minValue</code> and <code>maxValue</code> <br>
+    The user can only set the value using the menu between the given values
+- [Challenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Challenge.java)
+  - This type can either be activated or disabled <br>
+    This can be checked using the *protected boolean* <code>enabled</code>
+  - This type also has an *protected int* <code>nextActivationSeconds</code> <br>
+    When this value hits <code>0</code> the method <code>onTimeActivation</code> will be called <br>
+    You have to manually set this value
+- [AdvancedChallenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/AdvancedChallenge.java)
+  - This is a sub class of [Challenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Challenge.java) <br>
+    This type has an *integer value* <code>value</code> like [Modifier](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Modifier.java) <br>
+    <code>enabled</code> will be <code>false</code> if <code>value</code> is <code>0</code>
+  - It also has a *protected int* <code>countUp</code> (default is <code>1</code>) <br>
+    This value will be added or removed to/from the <code>value</code> integer
+- [Goal](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Goal.java)
+  - This type has a *protected boolean* <code>isCurrentGoal</code> <br>
+  - The result of the *abstract* method <code>getWinners</code>, which is a List with Players, will be displayed in the chat when the challenge ends <br>
+    You can manually end the challenge calling <code>ServerManager.simulateChallengeEnd(null, ChallengeEndCause.PLAYER_CHALLENGE_GOAL_REACHED)</code> when somebody finishes the current goal.
+  - This type has a *protected ChallengeScoreboard* <code>scoreboard</code> which may be used to display the progress of each user  
+- [AdvancedGoal](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/AdvancedGoal.java)
+  - This is as sub class if [Goal](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Goal.java) which is similar to [AdvancedChallenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/AdvancedChallenge.java) is with [Challenge](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Challenge.java) <br>
+    This type has an *integer value* <code>value</code> like [Modifier](https://github.com/anweisen/Challenges/blob/master/src/main/java/net/codingarea/challengesplugin/challengetypes/Modifier.java) <br>
+    <code>enabled</code> will be <code>false</code> if <code>value</code> is <code>0</code>
+  - It also has a *protected int* <code>countUp</code> (default is <code>1</code>) <br>
+    This value will be added or removed to/from the <code>value</code> integer
+
+##### Registering challenges
+###### Main class
+```java
+public class ExamplePlugin extends JavaPlugin {
+
+    @Override
+    public void onLoad() {
+        ChallengeLoader.register(new ExampleChallenge(), this);
+    }
+
+}
+```
+###### Plugin yml
+```yaml
+depends:
+- Challenges
+```
+
+
+##### Challenge examples
+
+```java
+public class ExampleSetting extends Setting implements Listener {
+            
+    public ExampleSetting() {
+        // The setting will be displayed in the menu called 'Challenges'
+        super(MenuType.CHALLENGES); 
+    }
+
+    @Override
+    public void onEnabled(final @NotNull ChallengeEditEvent event) {
+        Bukkit.broadcastMessage("The test setting was enabled");
+    }
+
+    @Override    
+    public void onDisable(final @NotNull ChallengeEditEvent event) {
+        Bukkit.broadcastMessage("The test setting was disabled");
+    }
+
+    @NotNull
+    @Override
+    public ItemStack getItem() {
+        return new ItemBuilder(Material.PAPER, "§fPaper").build();
+    }
+
+    @EventHandler
+    public void onDamage(final @NotNull EntityDamageEvent event) {
+
+        // Do nothing if the setting is not enabled or the timer is not started
+        if (!enabled || !Challenges.timerIsStarted()) return;
+
+        if (!(event.getEntity() instanceof Player)) return;
+    
+        Player player = (Player) event.getEntity();
+        player.damage(player.getHealth());
+
+    }
+
+}
+```
+
