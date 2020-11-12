@@ -1,10 +1,11 @@
 package net.codingarea.challengesplugin.manager.players.stats;
 
-import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.commons.Log;
+import net.codingarea.challengesplugin.utils.Utils;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.util.List;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -44,8 +45,7 @@ public class PlayerStats {
 	public void add(StatsAttribute attribute, double value) {
 		double stat = get(attribute) + value;
 		stats.put(attribute, stat);
-		if (attribute == StatsAttribute.WON || attribute == StatsAttribute.PLAYED)
-			calculateWinRate();
+		if (attribute == StatsAttribute.WON || attribute == StatsAttribute.PLAYED) calculateWinRate();
 	}
 
 	private void set(StatsAttribute attribute, double value) {
@@ -55,6 +55,12 @@ public class PlayerStats {
 	public double get(StatsAttribute attribute) {
 		return stats.getOrDefault(attribute, 0D);
 	}
+
+	/*public double get(String string) {
+		StatsAttribute attribute = StatsAttribute.byName(string);
+		if (attribute == null) throw new IllegalArgumentException("No such attribute");
+		return get(attribute);
+	}*/
 
 	@Override
 	public String toString() {

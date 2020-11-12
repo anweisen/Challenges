@@ -4,7 +4,8 @@ import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.challengetypes.AbstractChallenge;
 import net.codingarea.challengesplugin.utils.Utils;
 import net.codingarea.challengesplugin.utils.commons.Log;
-import net.codingarea.engine.sql.constant.ConstSQL;
+import net.codingarea.challengesplugin.utils.sql.MySQL;
+import org.bukkit.Bukkit;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -75,7 +76,7 @@ public class PlayerSettingsManager {
 
 		String uuid = Utils.getUUID(playerName);
 		updatePlayerName(uuid, playerName);
-		ResultSet result = ConstSQL.query("SELECT settings FROM user WHERE user = ?", uuid);
+		ResultSet result = MySQL.get("SELECT settings FROM user WHERE user = '" + uuid +  "'");
 
 		if (!result.next()) return false;
 
@@ -87,19 +88,21 @@ public class PlayerSettingsManager {
 	}
 
 	public void saveSettings(String playerName, String settings) throws SQLException {
+
 		String uuid = Utils.getUUID(playerName);
-		if (ConstSQL.isSet("SELECT * FROM user WHERE user = '" + uuid + "'")) {
-			ConstSQL.update("UPDATE user SET settings = '" + settings + "', player = '" + playerName + "' WHERE user = '" + uuid + "'");
+		if (MySQL.isSet("SELECT * FROM user WHERE user = '" + uuid + "'")) {
+			MySQL.set("UPDATE user SET settings = '" + settings + "', player = '" + playerName + "' WHERE user = '" + uuid + "'");
 		} else {
-			ConstSQL.update("INSERT INTO user (user, player, settings) VALUES (?, ?, ?)", uuid, playerName, settings);
+			MySQL.set("INSERT INTO user (user, player, settings) VALUES ('" + uuid + "', '" + playerName + "', '" + settings + "')");
 		}
+
 	}
 
 	public static void updatePlayerName(String uuid, String playerName) {
 		try {
-			ConstSQL.update("UPDATE user SET player = ? WHERE user = ?", playerName, uuid);
+			MySQL.set("UPDATE user SET player = '" + playerName + "' WHERE user = '" + uuid + "'");
 		} catch (SQLException ex) {
-			Log.severe("Could not update playername: " + ex.getMessage());
+			Log.severe("Could not update playername :: " + ex.getMessage());
 		}
 	}
 

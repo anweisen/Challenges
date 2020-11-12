@@ -2,10 +2,9 @@ package net.codingarea.challengesplugin.manager.players.stats;
 
 import net.codingarea.challengesplugin.utils.commons.Log;
 import net.codingarea.challengesplugin.utils.Utils;
-import net.codingarea.engine.sql.constant.ConstSQL;
+import net.codingarea.challengesplugin.utils.sql.MySQL;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -33,9 +32,9 @@ public class StatsWrapper {
 	}
 
 	@NotNull
-	public static PlayerStats getStatsByUUIDWithException(@Nonnull String uuid) throws SQLException {
+	public static PlayerStats getStatsByUUIDWithException(String uuid) throws SQLException {
 
-		ResultSet result = ConstSQL.query("SELECT stats, player FROM user WHERE user = ? LIMIT 1", uuid);
+		ResultSet result = MySQL.get("SELECT stats, player FROM user WHERE user = '" + uuid + "' LIMIT 1");
 		if (result == null || !result.next()) return PlayerStats.empty();
 
 		String statsJSON = result.getString("stats");
@@ -47,15 +46,16 @@ public class StatsWrapper {
 
 	}
 
-	public static void storeStats(@Nonnull String uuid, @Nonnull PlayerStats stats) {
+	public static void storeStats(String uuid, PlayerStats stats) {
 		try {
 
+			if (uuid.equals("error")) throw new IllegalArgumentException("UUID cannot be equal to error");
 			String statsJSON = stats.toJSON().toString();
 
-			if (ConstSQL.isSet("SELECT stats FROM user WHERE user = ?", uuid)) {
-				ConstSQL.update("UPDATE user SET stats = ? WHERE user = ?", statsJSON, uuid);
+			if (MySQL.isSet("SELECT stats FROM user WHERE user = '" + uuid + "'")) {
+				MySQL.set("UPDATE user SET stats = '" + statsJSON + "' WHERE user = '" + uuid + "'");
 			} else {
-				ConstSQL.update("INSERT INTO user (user, stats) VALUES (?, ?')", uuid, statsJSON);
+				MySQL.set("INSERT INTO user (user, stats) VALUES ('" + uuid + "', '" + statsJSON + "')");
 			}
 
 		} catch (Exception ex) {
