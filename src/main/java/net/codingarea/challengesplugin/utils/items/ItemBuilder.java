@@ -113,7 +113,12 @@ public class ItemBuilder {
             setDisplayName(name);
         }
 
-        public TippedArrowBuilder setEffect(PotionType effect) {
+	    public TippedArrowBuilder(Material potion, PotionType type, ItemTranslation translation) {
+            super(potion, translation);
+            setEffect(type);
+	    }
+
+	    public TippedArrowBuilder setEffect(PotionType effect) {
             ((PotionMeta)meta).setBasePotionData(new PotionData(effect));
             return this;
         }
