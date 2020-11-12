@@ -3,10 +3,10 @@ package net.codingarea.discordstatsbot.commands.old;
 import net.codingarea.challengesplugin.manager.players.stats.PlayerStats;
 import net.codingarea.challengesplugin.manager.players.stats.StatsAttribute;
 import net.codingarea.challengesplugin.utils.commons.Log;
+import net.codingarea.challengesplugin.utils.sql.MySQL;
 import net.codingarea.discordstatsbot.DiscordBot;
-import net.codingarea.discordstatsbot.commandmanager.commands.Command;
 import net.codingarea.discordstatsbot.commandmanager.events.CommandEvent;
-import net.codingarea.engine.sql.constant.ConstSQL;
+import net.codingarea.discordstatsbot.commandmanager.commands.Command;
 import net.dv8tion.jda.api.entities.User;
 
 import javax.imageio.ImageIO;
@@ -17,12 +17,11 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.DecimalFormat;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 import java.util.Map.Entry;
 
-import static net.codingarea.challengesplugin.utils.ImageUtils.addAttribute;
-import static net.codingarea.challengesplugin.utils.ImageUtils.addCenteredText;
+import static net.codingarea.challengesplugin.utils.ImageUtils.*;
 
 /**
  * @author anweisen
@@ -74,7 +73,7 @@ public class OldTopCommand extends Command {
 
 		try {
 
-			ResultSet result = ConstSQL.query("SELECT * FROM user");
+			ResultSet result = MySQL.get("SELECT * FROM user");
 
 			if (result == null || !result.next()) {
 				event.queueReply("Keine Spieler gefunden");
