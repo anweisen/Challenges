@@ -29,7 +29,6 @@ public class BackpackUtil {
     }
 
     public static List<ItemStack> getListFromConfig(FileConfiguration config, String path, int size) {
-
         ConfigurationSection section = config.getConfigurationSection(path);
         if (section == null) return null;
 
@@ -42,13 +41,10 @@ public class BackpackUtil {
             } catch (NullPointerException ignored) { }
 
         }
-
         return list;
-
     }
 
     public static ItemStack[] listToArray(List<ItemStack> list) {
-
         if (list == null) return null;
 
         int size = list.size();
@@ -59,15 +55,11 @@ public class BackpackUtil {
             array[i] = list.get(i);
 
         }
-
         return array;
-
     }
 
     public static ItemStack[] getContent(FileConfiguration config, String path, int size) {
-
         return listToArray(getListFromConfig(config, path, size));
-
     }
 
 }
