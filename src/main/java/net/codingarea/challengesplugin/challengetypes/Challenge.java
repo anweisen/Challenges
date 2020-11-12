@@ -1,5 +1,6 @@
 package net.codingarea.challengesplugin.challengetypes;
 
+import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.ItemManager;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
@@ -60,6 +61,7 @@ public abstract class Challenge extends AbstractChallenge {
     @Override
     public final void handleTimerSecond() {
         if (!enabled) return;
+        if (nextActionInSeconds < 0) return;
         nextActionInSeconds--;
         if (nextActionInSeconds == 0) onTimeActivation();
     }
