@@ -75,7 +75,7 @@ public class ChallengeTimer {
 
 			menu.updateTime();
 
-			if (!isPaused && seconds % 10 == 0) {
+			if (seconds != 0 && (seconds % 10) == 0) {
 				saveTimerDataToSessionConfig();
 				plugin.getChallengeManager().saveChallengeConfigurations();
 				if (plugin.getStatsManager().isEnabled()) {
