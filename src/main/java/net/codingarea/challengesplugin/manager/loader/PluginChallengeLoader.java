@@ -38,6 +38,7 @@ public class PluginChallengeLoader {
 		registerChallenge(new DamageDisplay());
 		registerChallenge(new PreGameMovement());
 		registerChallenge(new DeathMessages());
+		registerChallenge(new TablistHearts());
 		registerChallenge(new PlayerGlowing());
 		registerChallenge(new SoupSetting());
 		registerChallenge(new UnbreakableSetting());
@@ -57,6 +58,7 @@ public class PluginChallengeLoader {
 		registerChallenge(new JumpAndRun());
 		registerChallenge(new CoronaChallenge());
 		registerChallenge(new RandomizedHP());
+		registerChallenge(new RandomEffectChallenge());
 		registerChallenge(new DamagePerBlockChallenge());
 		registerChallenge(new FoodOnce());
 		registerChallenge(new TheFloorIsLavaChallenge());
