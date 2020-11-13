@@ -51,7 +51,7 @@ public class JumpAndRun extends AdvancedChallenge implements Listener, ISecondEx
 
 	private boolean waiting;
 
-	private HashMap<UUID, Location> beforeTeleport = new HashMap<>();
+	private final HashMap<UUID, Location> beforeTeleport = new HashMap<>();
 
 	public JumpAndRun() {
 		super(MenuType.CHALLENGES, 10);
