@@ -16,7 +16,7 @@ public class StringBuilderPrintWriter extends PrintWriter {
 	}
 
 	public StringBuilder getBuilder() {
-		return writer.builder;
+		return writer.getBuilder();
 	}
 
 	@Override
