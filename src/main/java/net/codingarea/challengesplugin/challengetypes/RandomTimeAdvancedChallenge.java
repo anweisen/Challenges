@@ -41,7 +41,7 @@ public abstract class RandomTimeAdvancedChallenge extends AdvancedChallenge {
 		setNextSeconds();
 	}
 
-	
+
 
 	@Override
 	public void onValueChange(final @Nonnull ChallengeEditEvent event) {
