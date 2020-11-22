@@ -23,6 +23,11 @@
 
     <repositories>
 
+        <repository>
+            <id>minebench-repo</id>
+            <url>https://repo.minebench.de/</url>
+        </repository>
+
         <!--  New Maven repository for releases -->
         <repository>
             <id>releases</id>
@@ -35,9 +40,17 @@
             <url>https://jcenter.bintray.com</url>
         </repository>
 
+
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>de.themoep.showitem</groupId>
+            <artifactId>api</artifactId>
+            <version>1.5.22</version>
+            <scope>compile</scope>
+        </dependency>
 
         <!-- wrapper for discord -->
         <dependency>

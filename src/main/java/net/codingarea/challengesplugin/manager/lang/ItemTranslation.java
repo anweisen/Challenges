@@ -75,6 +75,8 @@ public enum ItemTranslation {
 	JUMP_AND_RUN(a("§eJumpAndRun"), b(a("You have to do a *JumpAndRun* every", "few minutes. If you *fail* you *lose*"), a("Du musst alle paar Minuten ein *JumpAndRun*", "machen. Wenn du *failst* hast du *verloren*"))),
 	RANDOMIZED_HP(a("§cRandomized HP"), b(a("Entities will have from *0.1%* to *10x*", "of their normal *health*"), a("Entites haben *0.1%* bis *10x* von", "ihren normalen *Herzen*"))),
 	TRAFFIC_LIGHT(a("§cTraffic Light Challenge", "§cAmpel Challenge"), b(a("Every few *minutes* the ", "*traffic lights* in the bossbar will turn *yellow*", "and then *red* as long it is red you may not move"), a("Du darfst dich *nur bewegen*", "wenn die *Ampel* in der Bossbar nicht *rot* zeigt"))),
+	TABLIST_HEARTS(a("§cTablist Hearts"), b(a("Shows the *hearts+ in the Tablist", "Might not work with Tablist Plugins "), a("Zeigt die Herzen in der Tablist an", "Könnte mit Tablist Plugins nicht funktionieren"))),
+	RANDOM_EFFECTS(a("§cRandom Effects"), b(a("You will get a *random effect* every *chosen seconds x10*", "for *30 seconds*"), a("Du bekommst alle *ausgewählen Sekunden x10* einen", "*Random Effekt* für *30* Sekunden")))
 	;
 
 	private final String[] name;
