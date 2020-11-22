@@ -11,7 +11,7 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 1.0
+ * @since 1.3
  */
 public class UpdateChecker {
 

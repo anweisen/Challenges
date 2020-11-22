@@ -6,7 +6,6 @@ import net.codingarea.challengesplugin.challenges.challenges.force.ForceBlockCha
 import net.codingarea.challengesplugin.challenges.challenges.force.ForceHighChallenge;
 import net.codingarea.challengesplugin.challenges.challenges.randomizer.BlockRandomizerChallenge;
 import net.codingarea.challengesplugin.challenges.challenges.randomizer.CraftingRandomizerChallenge;
-import net.codingarea.challengesplugin.challenges.challenges.randomizer.EntitySpawnRandomizerChallenge;
 import net.codingarea.challengesplugin.challenges.difficulty.*;
 import net.codingarea.challengesplugin.challenges.goal.*;
 import net.codingarea.challengesplugin.challenges.rules.DamageRule;
@@ -80,7 +79,7 @@ public class PluginChallengeLoader {
 		registerChallenge(new OneDurabilityTools());
 		registerChallenge(new BlockRandomizerChallenge());
 		registerChallenge(new CraftingRandomizerChallenge());
-		registerChallenge(new EntitySpawnRandomizerChallenge());
+		//registerChallenge(new EntitySpawnRandomizerChallenge());
 		registerChallenge(new NoSneakChallenge());
 		if (Challenges.getVersion() != 16) registerChallenge(new NoJumpChallenge());
 		registerChallenge(new ForceHighChallenge());

@@ -59,8 +59,9 @@ public abstract class Setting extends AbstractChallenge {
 		}
 	}
 
+	@NotNull
 	@Override
-	public @NotNull ItemStack getActivationItem() {
+	public ItemStack getActivationItem() {
 		return ItemManager.getActivationItem(enabled);
 	}
 

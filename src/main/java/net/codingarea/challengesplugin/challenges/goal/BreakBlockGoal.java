@@ -50,19 +50,15 @@ public class BreakBlockGoal extends CountingGoal implements Listener, ITimerStat
 		int best = 0;
 
 		for (Entry<Player, Integer> entry : points.entrySet()) {
-
-			if (entry.getValue() > best) best = entry.getValue();
-
+			if (entry.getValue() > best)
+				best = entry.getValue();
 		}
 
 		List<Player> winners = new ArrayList<>();
-
 		for (Entry<Player, Integer> entry : points.entrySet()) {
-
 			if (entry.getValue() == best) {
 				winners.add(entry.getKey());
 			}
-
 		}
 
 		return winners;

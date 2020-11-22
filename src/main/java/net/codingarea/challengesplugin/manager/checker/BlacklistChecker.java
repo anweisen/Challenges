@@ -14,14 +14,14 @@ import java.nio.charset.StandardCharsets;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 1.0
+ * @since 1.3
  */
 public class BlacklistChecker {
 
 	private static boolean blocked = false;
 
 	private static String getURL(@Nonnull String address) {
-		return "http://api.coding-area.net/challenges/blacklist?ip=" + address;
+		return "https://api.coding-area.net/challenges/blacklist?ip=" + address;
 	}
 
 	public static void updateStatus() {
@@ -34,7 +34,7 @@ public class BlacklistChecker {
 			String response = IOUtils.toString(input, StandardCharsets.UTF_8);
 			blocked = Boolean.parseBoolean(response);
 		} catch (Exception ex) {
-			Log.severe("Could connect with coding-area api servers.");
+			Log.severe("Could not connect with coding-area api servers");
 		}
 	}
 

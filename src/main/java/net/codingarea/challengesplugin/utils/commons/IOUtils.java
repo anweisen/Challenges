@@ -1,6 +1,7 @@
 package net.codingarea.challengesplugin.utils.commons;
 
 import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
 
@@ -54,6 +55,10 @@ public class IOUtils {
 		}
 
 		return count;
+	}
+
+	public static HttpURLConnection createConnection(final String url) throws IOException {
+		return (HttpURLConnection) new URL(url).openConnection();
 	}
 
 }

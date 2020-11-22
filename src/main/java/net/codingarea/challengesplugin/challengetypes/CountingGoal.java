@@ -1,6 +1,5 @@
 package net.codingarea.challengesplugin.challengetypes;
 
-import net.codingarea.challengesplugin.Challenges;
 import net.codingarea.challengesplugin.manager.events.ChallengeEditEvent;
 import net.codingarea.challengesplugin.manager.menu.MenuType;
 import org.bukkit.Bukkit;
@@ -48,7 +47,6 @@ public abstract class CountingGoal extends Goal {
 	public List<Player> getWinners() {
 
 		int best = 0;
-
 		for (Entry<Player, Integer> entry : points.entrySet()) {
 			if (entry.getValue() > best) best = entry.getValue();
 		}
@@ -71,11 +69,9 @@ public abstract class CountingGoal extends Goal {
 		scoreboard.checkUpdate();
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
-
 			if (!points.containsKey(currentPlayer)) {
 				points.put(currentPlayer, 0);
 			}
-
 		}
 
 		for (Entry<Player, Integer> entry : points.entrySet()) {

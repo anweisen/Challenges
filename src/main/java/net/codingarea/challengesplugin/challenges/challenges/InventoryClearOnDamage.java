@@ -33,7 +33,7 @@ public class InventoryClearOnDamage extends Setting implements Listener {
         if (!this.enabled || !Challenges.timerIsStarted()) return;
 
         if (!(event.getEntity() instanceof Player)) return;
-        Player player =(Player) event.getEntity();
+        Player player = (Player) event.getEntity();
 
         if (player.getGameMode() == GameMode.SPECTATOR) return;
 
@@ -43,8 +43,8 @@ public class InventoryClearOnDamage extends Setting implements Listener {
                 for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
                     if (currentPlayer.getGameMode() == GameMode.SPECTATOR) continue;
                     currentPlayer.getInventory().clear();
+                    currentPlayer.getEnderChest().clear();
                     currentPlayer.getInventory().setArmorContents(null);
-
                 }
             }
         }, 1);
