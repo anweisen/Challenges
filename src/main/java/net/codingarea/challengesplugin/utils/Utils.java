@@ -47,6 +47,15 @@ public class Utils {
 
     private static final int version = getServerVersion();
 
+    public static boolean isSpigot() {
+        try {
+            Bukkit.spigot();
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
     public static Material getRedDye() {
         return Material.valueOf(version == 13 ? "ROSE_RED" : "RED_DYE");
     }

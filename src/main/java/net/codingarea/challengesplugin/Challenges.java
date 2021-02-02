@@ -3,17 +3,14 @@ package net.codingarea.challengesplugin;
 import net.codingarea.challengesplugin.commands.*;
 import net.codingarea.challengesplugin.listener.*;
 import net.codingarea.challengesplugin.manager.*;
-<<<<<<< Updated upstream
-=======
 import net.codingarea.challengesplugin.manager.checker.APIConnector;
 import net.codingarea.challengesplugin.manager.checker.BlacklistChecker;
 import net.codingarea.challengesplugin.manager.checker.UpdateChecker;
->>>>>>> Stashed changes
 import net.codingarea.challengesplugin.manager.lang.LanguageManager;
 import net.codingarea.challengesplugin.manager.lang.LanguageManager.Language;
 import net.codingarea.challengesplugin.manager.lang.Prefix;
-import net.codingarea.challengesplugin.manager.loader.PluginChallengeLoader;
 import net.codingarea.challengesplugin.manager.loader.ChallengeLoader;
+import net.codingarea.challengesplugin.manager.loader.PluginChallengeLoader;
 import net.codingarea.challengesplugin.manager.menu.MenuManager;
 import net.codingarea.challengesplugin.manager.players.ChallengePlayerManager;
 import net.codingarea.challengesplugin.manager.players.PlayerSettingsManager;
@@ -62,9 +59,8 @@ public final class Challenges extends JavaPlugin {
         instance = this;
         Log.setLogger(getLogger());
 
-<<<<<<< Updated upstream
         loadConfigVersion();
-=======
+
         if (!Utils.isSpigot()) return;
 
         BlacklistChecker.updateStatus();
@@ -72,8 +68,6 @@ public final class Challenges extends JavaPlugin {
         APIConnector.startup();
         if (BlacklistChecker.isBlocked()) return;
 
-
->>>>>>> Stashed changes
         loadCloudNet();
         loadConfigs();
         loadWorlds();
@@ -84,6 +78,8 @@ public final class Challenges extends JavaPlugin {
 
     @Override
     public void onEnable() {
+
+        if (BlacklistChecker.validate()) return;
 
         saveDefaultConfig();
         reloadConfig();
@@ -203,17 +199,12 @@ public final class Challenges extends JavaPlugin {
         if (host == null || database == null || user == null || password == null)
             return;
 
-<<<<<<< Updated upstream
-        MySQL.connect(host, database, user, password);
-        MySQL.createDatabases();
-=======
         try {
-            ConstSQL.connect(host, database, user, password);
-            createDatabases();
+            MySQL.connect(host, database, user, password);
+            MySQL.createDatabases();
         } catch (Exception ex) {
             Log.severe("Could not connect to database: " + ex.getMessage());
         }
->>>>>>> Stashed changes
 
     }
 

@@ -4,6 +4,7 @@ import net.codingarea.challengesplugin.utils.commons.IOUtils;
 import net.codingarea.challengesplugin.utils.commons.Log;
 import org.bukkit.Bukkit;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.Inet4Address;
