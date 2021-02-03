@@ -195,10 +195,12 @@ public final class Challenges extends JavaPlugin {
         String database = getConfig().getString("mysql.database");
         String user = getConfig().getString("mysql.user");
         String password = getConfig().getString("mysql.password");
-
+		
         if (host == null || database == null || user == null || password == null)
             return;
-
+			
+        MySQL.connect(host, database, user, password);
+        MySQL.createDatabases();
         try {
             MySQL.connect(host, database, user, password);
             MySQL.createDatabases();
