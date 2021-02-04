@@ -1,9 +1,15 @@
 
-/out
-/target
+# IDE Files
 /.idea
-/Depends
+/depends
 
+# Compiled files
+/ChallengesPlugin/out
+/ChallengesPlugin/target
+*.class
+*.jar
+
+# Config files
 Challenges.iml
 config.properties
 .floo
