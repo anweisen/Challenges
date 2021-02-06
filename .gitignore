@@ -4,13 +4,13 @@
 /depends
 
 # Compiled files
-/ChallengesPlugin/out
-/ChallengesPlugin/target
+/plugin/out
+/plugin/target
 *.class
 *.jar
 
 # Config files
-Challenges.iml
+/plugin/ChallengesPlugin.iml
 config.properties
 .floo
 .flooignore

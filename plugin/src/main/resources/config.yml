@@ -1,0 +1,38 @@
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#     _____ _           _ _                                     #
+#    / ____| |         | | |                                    #
+#   | |    | |__   __ _| | | ___ _ __   __ _  ___  ___          #
+#   | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \/ __|         #
+#   | |____| | | | (_| | | |  __/ | | | (_| |  __/\__ \         #
+#    \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___||___/         #
+#                                       __/ |                   #
+#                                      |___/                    #
+#                                                               #
+# This plugin was made by the CodingArea team                   #
+# - anweisen | Angelo - https://github.com/anweisen             #
+# - KxmischesDomi | Dominik - https://github.com/kxmischesdomi  #
+#                                                               #
+# Visit our website (coding-area.net) or                        #
+# discord server (https://discord.gg/74Ay5zF)                   #
+# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+
+# The config-version is even with the version of the plugin.
+# You will be notified, when this version is older than the of the plugin.
+# We recommend regenerating the config to get access to new features / settings.
+config-version: 2.0
+
+# Currently supported
+# - en (English)
+# - de (German / Deutsch)
+language: "en"
+
+timer:
+  stopped-message: "§8• §7Timer §c§lstopped §8•"
+  count-up-message: "§8• §7Time: §a§l{time} §8•"
+  count-down-message: "§8• §7Time: §c§l{time} §8•"
+  format:
+    days: "{d} days {hh}:{mm}:{ss}"
+    day: "{d} day {hh}:{mm}:{ss}"
+    hours: "{hh}:{mm}:{ss}"
+    minutes: "{mm}:{ss}"
+    seconds: "{mm}:{ss}"
