@@ -1,0 +1,14 @@
+{
+  "SYNTAX": "Bitte nutze §e{0}",
+  "PLAYER_COMMAND": "Dazu musst du ein Spieler sein!",
+  "NAVIGATE_BACK": "§8« §7Back",
+  "NAVIGATE_NEXT": "§8» §7Next",
+  "SECONDS": "Sekunden",
+  "SECOND": "Sekunde",
+  "MINUTES": "Minuten",
+  "MINUTE": "Minute",
+  "HOURS": "Stunden",
+  "HOUR": "Stunde",
+  "TIMER_COUNTING_UP": "Timer zählt §ahoch",
+  "TIMER_COUNTING_DOWN": "Timer zählt §crunter"
+}
