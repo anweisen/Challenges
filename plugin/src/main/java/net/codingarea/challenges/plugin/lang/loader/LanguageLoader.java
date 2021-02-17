@@ -1,10 +1,11 @@
-package net.codingarea.challenges.plugin.lang;
+package net.codingarea.challenges.plugin.lang.loader;
 
 import com.google.gson.*;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
-import net.codingarea.challenges.plugin.utils.net.IOUtils;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -17,21 +18,20 @@ import java.util.logging.Level;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class LanguageLoader {
+public final class LanguageLoader extends ContentLoader {
 
 	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/development/language/";
 
 	private final JsonParser parser = new JsonParser();
 
-	private File getFile(String name) {
-		return new File(Challenges.getInstance().getDataFolder(), "messages/" + name + ".json");
+	@Override
+	public void load() {
+		download();
+		read();
 	}
 
-	public void download() {
+	private void download() {
 		try {
-
-			// Create folder
-			getFile("Singing Challenge").getParentFile().mkdirs();
 
 			JsonArray languages = parser.parse(IOUtils.toString(BASE_URL + "languages.json")).getAsJsonArray();
 			for (JsonElement element : languages) {
@@ -40,7 +40,7 @@ public final class LanguageLoader {
 				String url = BASE_URL + "files/" + name + ".json";
 
 				JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
-				File file = getFile(name);
+				File file = getFile(name, "json");
 
 				verifyLanguage(language, file);
 
@@ -68,25 +68,38 @@ public final class LanguageLoader {
 
 	}
 
-	public void read() {
+	private void read() {
 		try {
 
 			String language = Challenges.getInstance().getConfig().getString("language", "en");
-			File file = getFile(language);
+			File file = getFile(language, "json");
 
 			if (!file.exists()) {
 				ConsolePrint.unknownLanguage(language);
 				language = "en";
-				file = getFile(language);
+				file = getFile(language, "json");
 			}
 
 			JsonObject read = new JsonParser().parse(new FileReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
 
+
 				try {
+
 					Message message = Message.valueOf(entry.getKey());
-					message.setValue(asString(entry.getValue()));
-				} catch (IllegalArgumentException ex) {
+
+					JsonElement element = entry.getValue();
+					if (element.isJsonPrimitive()) {
+						message.setValue(element.getAsString());
+					} else if (element.isJsonArray()) {
+						JsonArray array = element.getAsJsonArray();
+						String[] value = new String[array.size()];
+						for (int i = 0; i < value.length; i++) {
+							value[i] = array.get(i).getAsString();
+						}
+						message.setValue(value);
+					}
+				} catch (IllegalArgumentException | IllegalStateException ex) {
 				}
 
 			}
@@ -96,19 +109,6 @@ public final class LanguageLoader {
 		} catch (Exception ex) {
 			Challenges.getInstance().getLogger().log(Level.SEVERE, "Could not read languages", ex);
 		}
-	}
-
-	private String asString(@Nonnull JsonElement element) {
-		if (element.isJsonPrimitive() && element.getAsJsonPrimitive().isString())
-			return element.getAsString();
-		if (element.isJsonArray()) {
-			String value = "";
-			for (JsonElement current : element.getAsJsonArray()) {
-				value += "\n" + asString(current);
-			}
-			return value;
-		}
-		return "N/A";
 	}
 
 }
