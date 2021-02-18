@@ -1,0 +1,32 @@
+name: Challenges
+version: 2.0
+author: CodingArea
+authors:
+  - anweisen
+  - KxmischesDomi
+database: true
+website: "coding-area.net"
+api-version: 1.13
+main: net.codingarea.challenges.plugin.Challenges
+
+commands:
+  challenges:
+    aliases:
+      - c
+      - settings
+      - challenge
+    permission: challenges.gui
+    description: "Opens the Settings GUI"
+  timer:
+    aliases:
+      - t
+    permission: challenges.timer
+    description: "Start/Stops/Sets the timer"
+  start:
+    aliases:
+      - resume
+    permission: challenges.timer
+    description: "Start the timer"
+  pause:
+    permission: challenges.timer
+    description: "Pauses the timer"
