@@ -55,6 +55,7 @@ public final class LanguageLoader extends ContentLoader {
 
 		if (!file.exists()) {
 			file.createNewFile();
+			System.out.println("created file " + file.getName());
 			new GsonDocument(download).save(file);
 			return;
 		}

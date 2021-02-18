@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.lang;
 
+import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 
 /**
@@ -20,54 +23,45 @@ public enum Message {
 	HOUR,
 	TIMER_COUNTING_UP,
 	TIMER_COUNTING_DOWN,
+	CHALLENGES_END_TIMER_HIT_ZERO,
+	CHALLENGES_END_TIMER_HIT_ZERO_WINNER,
+	CHALLENGES_END_GOAL_REACHED,
+	CHALLENGES_END_GOAL_REACHED_WINNER,
+	CHALLENGES_END_GOAL_FAILED,
 	;
 
-	private String value;
-
-	Message() {
-	}
+	private Object value;
 
 	public void setValue(@Nonnull String value) {
 		this.value = value.startsWith("§") ? value : "§7" + value;
 	}
 
+	public void setValue(@Nonnull String[] value) {
+		this.value = value;
+	}
+
 	@Nonnull
-	public String toString(@Nonnull String... args) {
+	@CheckReturnValue
+	public String asString(@Nonnull String... args) {
+		if (value == null) return "§rN/A";
+		if (value instanceof String) return StringUtils.format((String) value, args);
+		if (value instanceof String[]) return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args));
+		throw new IllegalStateException();
+	}
 
-		char start = '{', end = '}';
-
-		boolean in = false;
-		StringBuilder argument = new StringBuilder();
-		StringBuilder builder = new StringBuilder();
-		for (char c : toString().toCharArray()) {
-
-			if (c == end && in) {
-				in = false;
-				int arg = Integer.parseInt(argument.toString());
-				builder.append(args[arg]);
-				continue;
-			}
-			if (c == start && !in) {
-				in = true;
-				continue;
-			}
-			if (in) {
-				argument.append(c);
-				continue;
-			}
-
-			builder.append(c);
-
-		}
-
-		return builder.toString();
-
+	@Nonnull
+	@CheckReturnValue
+	public String[] asArray(@Nonnull String... args) {
+		if (value == null) return new String[] { "§rN/A" };
+		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
+		if (value instanceof String) return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
+		throw new IllegalStateException();
 	}
 
 	@Nonnull
 	@Override
 	public String toString() {
-		return value == null ? "N/A" : value;
+		return asString();
 	}
 
 }
