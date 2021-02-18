@@ -1,6 +1,9 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import com.mojang.datafixers.types.Func;
+
 import javax.annotation.Nonnull;
+import java.util.function.Function;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -58,6 +61,17 @@ public final class StringUtils {
 	@Nonnull
 	public static String[] getStringAsArray(@Nonnull String string) {
 		return string.split("\n");
+	}
+
+	@Nonnull
+	public static <T> String getIterableAsString(@Nonnull Iterable<T> iterable, @Nonnull Function<T, String> mapper) {
+		StringBuilder builder = new StringBuilder();
+		for (T t : iterable) {
+			if (builder.length() > 0) builder.append(", ");
+			String string = mapper.apply(t);
+			builder.append(string);
+		}
+		return builder.toString();
 	}
 
 }
