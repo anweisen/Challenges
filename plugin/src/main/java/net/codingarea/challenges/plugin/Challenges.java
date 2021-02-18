@@ -1,21 +1,21 @@
 package net.codingarea.challenges.plugin;
 
-import net.codingarea.challenges.plugin.lang.LanguageLoader;
+import net.codingarea.challenges.plugin.core.BukkitModule;
+import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeRegistry;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
-import net.codingarea.challenges.plugin.management.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
+import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.spigot.command.ChallengesCommand;
 import net.codingarea.challenges.plugin.spigot.command.PauseCommand;
 import net.codingarea.challenges.plugin.spigot.command.StartCommand;
 import net.codingarea.challenges.plugin.spigot.command.TimerCommand;
 import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
-import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
+import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.PluginCommand;
-import org.bukkit.event.Listener;
-import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 
@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public final class Challenges extends JavaPlugin {
+public final class Challenges extends BukkitModule {
 
 	private static Challenges instance;
 
@@ -36,22 +36,26 @@ public final class Challenges extends JavaPlugin {
 	private ChallengeManager challengeManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
+	private ScheduleManager scheduler;
+	private ServerManager serverManager;
 
 	private boolean validationFailed = false;
 
 	@Override
 	public void onLoad() {
-
 		instance = this;
+		super.onLoad();
+
 		if (validationFailed = validate()) return; // Handle in enable
 
 		saveDefaultConfig();
-		loadManagers();
+		createManagers();
 
 	}
 
 	@Override
 	public void onEnable() {
+		super.onEnable();;
 
 		if (validationFailed) {
 			Utils.disablePlugin();
@@ -65,18 +69,12 @@ public final class Challenges extends JavaPlugin {
 
 	}
 
-	@Override
-	public void onDisable() {
-		if (timer != null) timer.stopScheduler();
-		if (menuManager != null) menuManager.close();
-	}
+	private void createManagers() {
 
-	private void loadManagers() {
+		new LanguageLoader().load();
 
-		LanguageLoader languageLoader = new LanguageLoader();
-		languageLoader.download();
-		languageLoader.read();
-
+		serverManager = new ServerManager();
+		scheduler = new ScheduleManager();
 		timer = new ChallengeTimer();
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
@@ -88,7 +86,7 @@ public final class Challenges extends JavaPlugin {
 	private void enableManagers() {
 
 		menuManager.generateMenus();
-		timer.startScheduler();
+		scheduler.start();
 
 	}
 
@@ -100,29 +98,19 @@ public final class Challenges extends JavaPlugin {
 	}
 
 	private void registerListeners() {
-		registerListener(new InventoryListener());
+		registerListener(
+				new InventoryListener(),
+				new PlayerConnectionListener()
+		);
 	}
 
-	private void registerCommand(@Nonnull CommandExecutor executor, @Nonnull String... names) {
-		for (String name : names) {
-			PluginCommand command = getCommand(name);
-			if (command != null)
-				command.setExecutor(executor);
-		}
-	}
+	@Override
+	public void onDisable() {
+		super.onDisable();
 
-	private void registerListener(@Nonnull Listener... listeners) {
-		for (Listener listener : listeners) {
-			getServer().getPluginManager().registerEvents(listener, this);
-		}
-	}
-
-	private boolean validate() {
-		if (!Utils.isSpigot()) {
-			ConsolePrint.notSpigot();
-			return true;
-		}
-		return false;
+		if (scheduler != null) scheduler.stop();
+		if (menuManager != null) menuManager.close();
+		if (challengeManager != null) challengeManager.clear();
 	}
 
 	@Nonnull
@@ -140,4 +128,13 @@ public final class Challenges extends JavaPlugin {
 		return timer;
 	}
 
+	@Nonnull
+	public ServerManager getServerManager() {
+		return serverManager;
+	}
+
+	@Nonnull
+	public ScheduleManager getScheduler() {
+		return scheduler;
+	}
 }
