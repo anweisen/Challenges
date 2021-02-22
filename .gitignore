@@ -1,7 +1,12 @@
 
 # IDE Files
 /.idea
-/depends
+/plugin/ChallengesPlugin.iml
+/language/Language.iml
+
+# Test Sources
+/plugin/src/test
+/language/src/test
 
 # Compiled files
 /plugin/out
@@ -10,7 +15,6 @@
 *.jar
 
 # Config files
-/plugin/ChallengesPlugin.iml
 config.properties
 .floo
 .flooignore
