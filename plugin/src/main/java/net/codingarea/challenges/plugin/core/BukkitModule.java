@@ -12,6 +12,8 @@ import javax.annotation.Nonnull;
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
+ *
+ * @see net.codingarea.challenges.plugin.Challenges
  */
 public abstract class BukkitModule extends JavaPlugin {
 
