@@ -13,7 +13,8 @@ import java.util.List;
  */
 public final class ReflectionUtils {
 
-	private ReflectionUtils() { }
+	private ReflectionUtils() {
+	}
 
 	@Nonnull
 	public static Collection<Method> getDeclaredMethodsAnnotatedWith(@Nonnull Class<?> clazz, @Nonnull Class<? extends Annotation> annotation) {
@@ -23,6 +24,16 @@ public final class ReflectionUtils {
 			methods.add(method);
 		}
 		return methods;
+	}
+
+	@Nonnull
+	public static <E extends Enum<E>> E getEnumByNames(@Nonnull Class<E> clazz, @Nonnull String... names) {
+		for (String name : names) {
+			try {
+				return Enum.valueOf(clazz, name);
+			} catch (IllegalArgumentException | NoSuchFieldError ex) { }
+		}
+		return null; // exit, should never happen with correct inputs
 	}
 
 }
