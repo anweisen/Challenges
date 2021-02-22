@@ -2,10 +2,20 @@ package net.codingarea.challenges.plugin.utils.config.document;
 
 import com.google.gson.*;
 import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.config.document.gson.ConfigurationSerializableTypeAdapter;
+import net.codingarea.challenges.plugin.utils.config.document.gson.GsonDocumentTypeAdapter;
+import net.codingarea.challenges.plugin.utils.config.document.gson.GsonTypeAdapter;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
+import net.codingarea.challenges.plugin.utils.misc.GsonUtils;
+import org.bukkit.Location;
+import org.bukkit.configuration.serialization.ConfigurationSerializable;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.io.File;
 import java.io.IOException;
+import java.io.Reader;
 import java.io.Writer;
 import java.util.*;
 import java.util.Map.Entry;
@@ -20,13 +30,22 @@ public class GsonDocument implements Document {
 			.serializeNulls()
 			.disableHtmlEscaping()
 			.setPrettyPrinting()
-//			.registerTypeAdapterFactory(TypeAdapters.newTypeHierarchyFactory(JsonDocument.class, new JsonDocumentTypeAdapter()))
+			.registerTypeAdapterFactory(GsonTypeAdapter.newTypeHierarchyFactory(GsonDocument.class, new GsonDocumentTypeAdapter()))
+			.registerTypeAdapterFactory(GsonTypeAdapter.newTypeHierarchyFactory(ConfigurationSerializable.class, new ConfigurationSerializableTypeAdapter()))
 			.create();
 
-	protected final JsonObject jsonObject;
+	protected JsonObject jsonObject;
 
-	public GsonDocument(@Nonnull String value) {
-		this(new JsonParser().parse(value).getAsJsonObject());
+	public GsonDocument(@Nonnull File file) throws IOException {
+		this(FileUtils.createReader(file));
+	}
+
+	public GsonDocument(@Nonnull Reader reader) throws IOException {
+		this(GSON.fromJson(reader, JsonObject.class));
+	}
+
+	public GsonDocument(@Nonnull String json) {
+		this(GSON.fromJson(json, JsonObject.class));
 	}
 
 	public GsonDocument(@Nonnull JsonObject jsonObject) {
@@ -41,7 +60,7 @@ public class GsonDocument implements Document {
 	@Override
 	public String getString(@Nonnull String path) {
 		JsonElement element = getElement(path).orElse(null);
-		return toString(element);
+		return GsonUtils.convertToString(element);
 	}
 
 	@Nonnull
@@ -55,22 +74,19 @@ public class GsonDocument implements Document {
 	@Override
 	public Object getObject(@Nonnull String path) {
 		JsonElement element = getElement(path).orElse(null);
-		if (element == null || element.isJsonNull()) return null;
-		if (element.isJsonPrimitive()) {
-			JsonPrimitive primitive = element.getAsJsonPrimitive();
-			if (primitive.isNumber()) {
-				return primitive.getAsNumber();
-			} else if (primitive.isBoolean()) {
-				return primitive.getAsBoolean();
-			} else if (primitive.isString()) {
-				return primitive.getAsString();
-			}
-		} else if (element.isJsonObject()) {
-			return element.getAsJsonObject();
-		} else if (element.isJsonArray()) {
-			return element.getAsJsonArray();
-		}
-		return element;
+		return GsonUtils.unpack(element);
+	}
+
+	@Nullable
+	public <T> T get(@Nonnull String path, @Nonnull Class<T> classOfType) {
+		JsonElement element = getElement(path).orElse(null);
+		return GSON.fromJson(element, classOfType);
+	}
+
+	@Nonnull
+	public <T> T get(@Nonnull String path, @Nonnull T def, @Nonnull Class<T> classOfType) {
+		T value = get(path, classOfType);
+		return value == null ? def : value;
 	}
 
 	@Nonnull
@@ -126,11 +142,31 @@ public class GsonDocument implements Document {
 	@Override
 	public List<String> getList(@Nonnull String path) {
 		JsonArray array = jsonObject.getAsJsonArray(path);
-		List<String> list = new ArrayList<>(array.size());
-		for (JsonElement element : array) {
-			list.add(toString(element));
-		}
-		return list;
+		return GsonUtils.convertToList(array);
+	}
+
+	@Nullable
+	@Override
+	public Location getLocation(@Nonnull String path) {
+		return get(path, Location.class);
+	}
+
+	@Nonnull
+	@Override
+	public Location getLocation(@Nonnull String path, @Nonnull Location def) {
+		return get(path, def, Location.class);
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getItemStack(@Nonnull String path) {
+		return get(path, ItemStack.class);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
+		return get(path, def, ItemStack.class);
 	}
 
 	@Override
@@ -147,10 +183,21 @@ public class GsonDocument implements Document {
 
 	@Nonnull
 	@Override
+	public Document clear() {
+		jsonObject = new JsonObject();
+		return this;
+	}
+
+	@Nonnull
+	@Override
+	public Document remove(@Nonnull String path) {
+		return this;
+	}
+
+	@Nonnull
+	@Override
 	public Map<String, Object> values() {
-		Map<String, Object> map = new LinkedHashMap<>();
-		jsonObject.entrySet().forEach(entry -> map.put(entry.getKey(), entry.getValue()));
-		return map;
+		return GsonUtils.convertToMap(jsonObject);
 	}
 
 	@Nonnull
@@ -195,6 +242,7 @@ public class GsonDocument implements Document {
 		for (int i = 0; i < paths.size() - 1; i++) {
 
 			String current = paths.get(i);
+			System.out.println(current);
 			JsonElement element = object.get(current);
 			if (element == null || element.isJsonNull()) {
 				if (value == null) return; // There's noting to remove
@@ -208,6 +256,8 @@ public class GsonDocument implements Document {
 
 		String lastPath = paths.getLast();
 		object.add(lastPath, GSON.toJsonTree(value));
+
+		System.out.println(object);
 
 	}
 
@@ -226,26 +276,6 @@ public class GsonDocument implements Document {
 
 		return paths;
 
-	}
-
-	@Nullable
-	private String toString(@Nullable JsonElement element) {
-		if (element == null || element.isJsonNull()) {
-			return null;
-		} else if (element.isJsonPrimitive()) {
-			JsonPrimitive primitive = element.getAsJsonPrimitive();
-			if (primitive.isString()) {
-				return primitive.getAsString();
-			} else if (primitive.isNumber()) {
-				return primitive.getAsNumber().toString();
-			} else if (primitive.isBoolean()) {
-				return primitive.getAsBoolean() + "";
-			} else {
-				return primitive.toString();
-			}
-		} else {
-			return element.toString();
-		}
 	}
 
 	@Override
@@ -269,6 +299,11 @@ public class GsonDocument implements Document {
 	@Override
 	public void write(@Nonnull Writer writer) throws IOException {
 		GSON.toJson(jsonObject, writer);
+	}
+
+	@Nonnull
+	public JsonObject getJsonObject() {
+		return jsonObject;
 	}
 
 }
