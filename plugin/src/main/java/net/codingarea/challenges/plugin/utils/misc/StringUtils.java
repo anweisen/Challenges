@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import com.mojang.datafixers.types.Func;
-
 import javax.annotation.Nonnull;
 import java.util.function.Function;
 
@@ -11,7 +9,8 @@ import java.util.function.Function;
  */
 public final class StringUtils {
 
-	private StringUtils() { }
+	private StringUtils() {
+	}
 
 	@Nonnull
 	public static String format(@Nonnull String sequence, @Nonnull String... args) {
