@@ -1,12 +1,14 @@
 package net.codingarea.challenges.plugin;
 
 import net.codingarea.challenges.plugin.core.BukkitModule;
+import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeRegistry;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
-import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
+import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.spigot.command.ChallengesCommand;
 import net.codingarea.challenges.plugin.spigot.command.PauseCommand;
@@ -15,7 +17,6 @@ import net.codingarea.challenges.plugin.spigot.command.TimerCommand;
 import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
 import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 
@@ -55,7 +56,7 @@ public final class Challenges extends BukkitModule {
 
 	@Override
 	public void onEnable() {
-		super.onEnable();;
+		super.onEnable();
 
 		if (validationFailed) {
 			Utils.disablePlugin();
@@ -71,7 +72,7 @@ public final class Challenges extends BukkitModule {
 
 	private void createManagers() {
 
-		new LanguageLoader().load();
+		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader());
 
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();

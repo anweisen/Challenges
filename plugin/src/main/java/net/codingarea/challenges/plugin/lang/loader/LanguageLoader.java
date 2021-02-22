@@ -3,13 +3,13 @@ package net.codingarea.challenges.plugin.lang.loader;
 import com.google.gson.*;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
 import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
-import net.codingarea.challenges.plugin.utils.common.IOUtils;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 
 import javax.annotation.Nonnull;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Map.Entry;
 import java.util.logging.Level;
@@ -25,7 +25,7 @@ public final class LanguageLoader extends ContentLoader {
 	private final JsonParser parser = new JsonParser();
 
 	@Override
-	public void load() {
+	protected void load() {
 		download();
 		read();
 	}
@@ -55,12 +55,11 @@ public final class LanguageLoader extends ContentLoader {
 
 		if (!file.exists()) {
 			file.createNewFile();
-			System.out.println("created file " + file.getName());
 			new GsonDocument(download).save(file);
 			return;
 		}
 
-		JsonObject existing = parser.parse(new FileReader(file)).getAsJsonObject();
+		JsonObject existing = parser.parse(FileUtils.createReader(file)).getAsJsonObject();
 		for (Entry<String, JsonElement> entry : download.entrySet()) {
 			if (!existing.has(entry.getKey()))
 				existing.add(entry.getKey(), entry.getValue());
@@ -81,9 +80,8 @@ public final class LanguageLoader extends ContentLoader {
 				file = getFile(language, "json");
 			}
 
-			JsonObject read = new JsonParser().parse(new FileReader(file)).getAsJsonObject();
+			JsonObject read = new JsonParser().parse(FileUtils.createReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
-
 
 				try {
 
@@ -101,6 +99,7 @@ public final class LanguageLoader extends ContentLoader {
 						message.setValue(value);
 					}
 				} catch (IllegalArgumentException | IllegalStateException ex) {
+					// Unknown Message
 				}
 
 			}

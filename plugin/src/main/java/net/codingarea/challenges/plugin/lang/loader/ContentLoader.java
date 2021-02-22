@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -10,6 +11,8 @@ import java.io.File;
  * @since 2.0
  */
 public abstract class ContentLoader {
+
+	private static volatile int loads = 0;
 
 	@Nonnull
 	protected final File getFolder() {
@@ -24,6 +27,37 @@ public abstract class ContentLoader {
 		return new File(getFolder(), name + "." + extension);
 	}
 
-	public abstract void load();
+	private void execute() {
+		Thread thread = new Thread(() -> {
+			startLoading();
+			load();
+			finishLoading();
+		});
+		thread.start();
+	}
+
+	protected abstract void load();
+
+	private static synchronized void startLoading() {
+		loads++;
+	}
+
+	private static synchronized void finishLoading() {
+		loads--;
+	}
+
+	public static boolean isLoading() {
+		return loads > 0;
+	}
+
+	public static void executeLoaders(@Nonnull ContentLoader... loaders) {
+		if (isLoading()) {
+			ConsolePrint.alreadyExecutingContentLoader();
+			return;
+		}
+		for (ContentLoader loader : loaders) {
+			loader.execute();
+		}
+	}
 
 }

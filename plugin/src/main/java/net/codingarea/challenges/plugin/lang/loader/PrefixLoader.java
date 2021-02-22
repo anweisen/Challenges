@@ -12,13 +12,15 @@ import java.util.logging.Level;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class PrefixLoader extends ContentLoader {
+public final class PrefixLoader extends ContentLoader {
 
 	@Override
-	public void load() {
+	protected void load() {
 		try {
 
 			File file = getFile("prefix", "properties");
+			if (!file.exists()) file.createNewFile();
+
 			Document document = new PropertiesDocument(file);
 
 			for (Prefix prefix : Prefix.values()) {
