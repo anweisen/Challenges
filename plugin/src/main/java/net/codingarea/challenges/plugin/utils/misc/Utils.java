@@ -14,6 +14,9 @@ import java.util.List;
  */
 public final class Utils {
 
+	private Utils() {
+	}
+
 	public static boolean isSpigot() {
 		try {
 			Bukkit.spigot();
