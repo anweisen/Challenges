@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.utils.config;
 
+import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
+
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
@@ -40,6 +43,18 @@ public interface Propertyable {
 	@Nonnull
 	List<String> getList(@Nonnull String path);
 
+	@Nullable
+	Location getLocation(@Nonnull String path);
+
+	@Nonnull
+	Location getLocation(@Nonnull String path, @Nonnull Location def);
+
+	@Nullable
+	ItemStack getItemStack(@Nonnull String path);
+
+	@Nonnull
+	ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def);
+
 	boolean contains(@Nonnull String path);
 
 	@Nonnull
@@ -50,5 +65,11 @@ public interface Propertyable {
 
 	@Nonnull
 	Propertyable set(@Nonnull String path, @Nullable Object value);
+
+	@Nonnull
+	Propertyable clear();
+
+	@Nonnull
+	Propertyable remove(@Nonnull String path);
 
 }

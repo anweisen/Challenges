@@ -21,6 +21,14 @@ public interface Document extends Propertyable {
 	@Override
 	Document set(@Nonnull String path, @Nullable Object value);
 
+	@Nonnull
+	@Override
+	Document clear();
+
+	@Nonnull
+	@Override
+	Document remove(@Nonnull String path);
+
 	void write(@Nonnull Writer writer) throws IOException;
 
 	default void save(@Nonnull File file) throws IOException {
