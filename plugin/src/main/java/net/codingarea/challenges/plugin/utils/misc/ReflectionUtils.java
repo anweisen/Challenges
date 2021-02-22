@@ -33,7 +33,7 @@ public final class ReflectionUtils {
 				return Enum.valueOf(clazz, name);
 			} catch (IllegalArgumentException | NoSuchFieldError ex) { }
 		}
-		return null; // exit, should never happen with correct inputs
+		throw new IllegalArgumentException("No enum found in " + clazz.getName() + " for " + Arrays.toString(names));
 	}
 
 }
