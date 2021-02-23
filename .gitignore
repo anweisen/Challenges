@@ -3,10 +3,12 @@
 /.idea
 /plugin/ChallengesPlugin.iml
 /language/Language.iml
+/mongo-connector/MongoConnector.iml
 
 # Test Sources
 /plugin/src/test
 /language/src/test
+/mongo-connector/src/test
 
 # Compiled files
 /plugin/out
@@ -18,3 +20,4 @@
 config.properties
 .floo
 .flooignore
+*.iml
