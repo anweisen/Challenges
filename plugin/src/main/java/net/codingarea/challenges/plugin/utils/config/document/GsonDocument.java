@@ -191,6 +191,7 @@ public class GsonDocument implements Document {
 	@Nonnull
 	@Override
 	public Document remove(@Nonnull String path) {
+		setElement(path, null);
 		return this;
 	}
 
@@ -256,8 +257,6 @@ public class GsonDocument implements Document {
 
 		String lastPath = paths.getLast();
 		object.add(lastPath, GSON.toJsonTree(value));
-
-		System.out.println(object);
 
 	}
 
