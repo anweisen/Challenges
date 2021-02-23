@@ -72,6 +72,15 @@ public final class GsonUtils {
 		return list;
 	}
 
+	@Nonnull
+	public static String[] convertToArray(@Nonnull JsonArray array) {
+		String[] list = new String[array.size()];
+		for (int i = 0; i < array.size(); i++) {
+			list[i] = convertToString(array.get(i));
+		}
+		return list;
+	}
+
 	public static void setValues(@Nonnull Gson gson, @Nonnull JsonObject object, @Nonnull Map<String, Object> values) {
 		for (Entry<String, Object> entry : values.entrySet()) {
 			Object value = entry.getValue();
