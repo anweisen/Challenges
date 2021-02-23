@@ -13,6 +13,8 @@
 # Compiled files
 /plugin/out
 /plugin/target
+/mongo-connector/out
+/mongo-connector/target
 *.class
 *.jar
 
