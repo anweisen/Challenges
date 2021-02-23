@@ -1,9 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.event.MenuClickEvent;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.config.document.Document;
+import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -13,6 +12,8 @@ import javax.annotation.Nonnull;
  * @since 2.0
  */
 public interface IChallenge {
+
+	boolean isEnabled();
 
 	@Nonnull
 	String getName();
@@ -33,9 +34,5 @@ public interface IChallenge {
 
 	void writeSettings(@Nonnull Document document);
 	void loadSettings(@Nonnull Document document);
-
-	default void updateItems() {
-		Challenges.getInstance().getMenuManager().getMenu(getType()).updateItem(this);
-	}
 
 }
