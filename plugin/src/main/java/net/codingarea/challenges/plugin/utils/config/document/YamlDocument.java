@@ -1,10 +1,12 @@
 package net.codingarea.challenges.plugin.utils.config.document;
 
 import net.codingarea.challenges.plugin.utils.config.Document;
+import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.configuration.file.YamlConstructor;
 import org.bukkit.configuration.file.YamlRepresenter;
+import org.bukkit.inventory.ItemStack;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.DumperOptions.FlowStyle;
 import org.yaml.snakeyaml.LoaderOptions;
@@ -111,6 +113,33 @@ public class YamlDocument implements Document {
 		return config.getStringList(path);
 	}
 
+	@Nullable
+	@Override
+	public Location getLocation(@Nonnull String path) {
+		return config.getSerializable(path, Location.class);
+	}
+
+	@Nonnull
+	@Override
+	public Location getLocation(@Nonnull String path, @Nonnull Location def) {
+		if (!contains(path)) return def;
+		return config.getSerializable(path, Location.class, def);
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getItemStack(@Nonnull String path) {
+		if (!contains(path)) return null;
+		return config.getSerializable(path, ItemStack.class);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
+		if (!contains(path)) return def;
+		return config.getSerializable(path, ItemStack.class, def);
+	}
+
 	@Override
 	public boolean contains(@Nonnull String path) {
 		return config.contains(path, true);
@@ -120,6 +149,22 @@ public class YamlDocument implements Document {
 	@Override
 	public Document set(@Nonnull String path, @Nullable Object value) {
 		config.set(path, value);
+		return this;
+	}
+
+	@Nonnull
+	@Override
+	public Document remove(@Nonnull String path) {
+		config.set(path, null);
+		return this;
+	}
+
+	@Nonnull
+	@Override
+	public Document clear() {
+		for (String key : config.getKeys(true)) {
+			config.set(key, null);
+		}
 		return this;
 	}
 

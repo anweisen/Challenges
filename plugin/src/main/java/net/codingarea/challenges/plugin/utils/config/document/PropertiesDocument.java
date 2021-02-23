@@ -1,31 +1,37 @@
 package net.codingarea.challenges.plugin.utils.config.document;
 
 import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
+import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.util.*;
 import java.util.Map.Entry;
 
 /**
+ * This document only supports basic objects like {@link Number numbers}, {@link String strings}, {@link Character characters} and {@link Boolean booleans}.
+ * You may use more advanced documents which are fully supported like {@link YamlDocument} or {@link GsonDocument}
+ *
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 public class PropertiesDocument implements Document {
 
-	private final Properties properties;
+	protected final Properties properties;
 
 	public PropertiesDocument(@Nonnull Properties properties) {
 		this.properties = properties;
 	}
 
 	public PropertiesDocument(@Nonnull File file) throws IOException {
-		this.properties = new Properties();
-		InputStream input = file.toURI().toURL().openStream();
-		properties.load(new InputStreamReader(input, StandardCharsets.UTF_8));
+		properties = new Properties();
+		properties.load(FileUtils.createReader(file));
 	}
 
 	@Nonnull
@@ -102,6 +108,30 @@ public class PropertiesDocument implements Document {
 		return Boolean.getBoolean(getString(path));
 	}
 
+	@Nullable
+	@Override
+	public Location getLocation(@Nonnull String path) {
+		throw new UnsupportedOperationException("PropertiesDocument.getLocation(String)");
+	}
+
+	@Nonnull
+	@Override
+	public Location getLocation(@Nonnull String path, @Nonnull Location def) {
+		throw new UnsupportedOperationException("PropertiesDocument.getLocation(String, Location)");
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getItemStack(@Nonnull String path) {
+		throw new UnsupportedOperationException("PropertiesDocument.getItemStack(String)");
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
+		throw new UnsupportedOperationException("PropertiesDocument.getItemStack(String, ItemStack)");
+	}
+
 	@Override
 	public boolean contains(@Nonnull String path) {
 		return properties.containsKey(path);
@@ -130,9 +160,28 @@ public class PropertiesDocument implements Document {
 		return this;
 	}
 
+	@Nonnull
+	@Override
+	public Document clear() {
+		properties.clear();
+		return this;
+	}
+
+	@Nonnull
+	@Override
+	public Document remove(@Nonnull String path) {
+		properties.remove(path);
+		return this;
+	}
+
 	@Override
 	public void write(@Nonnull Writer writer) throws IOException {
 		properties.store(writer, null);
+	}
+
+	@Nonnull
+	public Properties getProperties() {
+		return properties;
 	}
 
 }
