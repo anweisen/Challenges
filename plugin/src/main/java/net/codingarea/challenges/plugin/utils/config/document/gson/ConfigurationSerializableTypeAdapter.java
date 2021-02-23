@@ -6,22 +6,22 @@ import com.google.gson.JsonObject;
 import com.google.gson.internal.bind.TypeAdapters;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.GsonUtils;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-import java.util.logging.Level;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapter<ConfigurationSerializable> {
+
+	public static final String KEY = "classOfType";
 
 	@Override
 	public void write(@Nonnull Gson gson, @Nonnull JsonWriter writer, @Nonnull ConfigurationSerializable object) throws IOException {
@@ -30,7 +30,7 @@ public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapt
 
 		JsonObject json = new JsonObject();
 		GsonUtils.setValues(gson, json, object.serialize());
-		json.addProperty("classOfType", clazz.getName());
+		json.addProperty(KEY, clazz.getName());
 		TypeAdapters.JSON_ELEMENT.write(writer, json);
 
 	}
@@ -42,7 +42,7 @@ public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapt
 		if (element == null || !element.isJsonObject()) return null;
 
 		JsonObject json = element.getAsJsonObject();
-		String classOfType = json.get("classOfType").getAsString();
+		String classOfType = json.get(KEY).getAsString();
 
 		Map<String, Object> map = GsonUtils.convertToMap(json);
 
@@ -56,7 +56,7 @@ public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapt
 			return (ConfigurationSerializable) deserialization;
 
 		} catch (Throwable ex) {
-			Challenges.getInstance().getLogger().log(Level.SEVERE, "Could not deserialize '" + classOfType + "': ", ex);
+			Logger.severe("Could not deserialize '" + classOfType + "': ");
 			return null;
 		}
 
