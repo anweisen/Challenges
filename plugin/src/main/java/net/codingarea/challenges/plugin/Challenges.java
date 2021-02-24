@@ -87,6 +87,7 @@ public final class Challenges extends BukkitModule {
 	private void enableManagers() {
 
 		menuManager.generateMenus();
+		challengeManager.enable();
 		scheduler.start();
 
 	}
