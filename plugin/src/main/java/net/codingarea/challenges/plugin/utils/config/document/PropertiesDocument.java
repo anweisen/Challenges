@@ -9,8 +9,6 @@ import org.bukkit.util.NumberConversions;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -31,7 +29,7 @@ public class PropertiesDocument implements Document {
 
 	public PropertiesDocument(@Nonnull File file) throws IOException {
 		properties = new Properties();
-		properties.load(FileUtils.createReader(file));
+		properties.load(FileUtils.newBufferedReader(file));
 	}
 
 	@Nonnull
@@ -130,6 +128,25 @@ public class PropertiesDocument implements Document {
 	@Override
 	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
 		throw new UnsupportedOperationException("PropertiesDocument.getItemStack(String, ItemStack)");
+	}
+
+	@Nullable
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull Class<E> classOfEnum) {
+		try {
+			String name = getString(path);
+			if (name == null) return null;
+			return Enum.valueOf(classOfEnum, name);
+		} catch (Throwable ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull E def) {
+		E value = getEnum(path, (Class<E>) def.getClass());
+		return value == null ? def : value;
 	}
 
 	@Override

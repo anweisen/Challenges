@@ -37,7 +37,7 @@ public class GsonDocument implements Document {
 	protected JsonObject jsonObject;
 
 	public GsonDocument(@Nonnull File file) throws IOException {
-		this(FileUtils.createReader(file));
+		this(FileUtils.newBufferedReader(file));
 	}
 
 	public GsonDocument(@Nonnull Reader reader) throws IOException {
@@ -167,6 +167,18 @@ public class GsonDocument implements Document {
 	@Override
 	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
 		return get(path, def, ItemStack.class);
+	}
+
+	@Nullable
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull Class<E> classOfEnum) {
+		return get(path, classOfEnum);
+	}
+
+	@Nonnull
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull E def) {
+		return get(path, def, (Class<E>) def.getClass());
 	}
 
 	@Override

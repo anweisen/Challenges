@@ -55,6 +55,12 @@ public interface Propertyable {
 	@Nonnull
 	ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def);
 
+	@Nullable
+	<E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull Class<E> classOfEnum);
+
+	@Nonnull
+	<E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull E def);
+
 	boolean contains(@Nonnull String path);
 
 	@Nonnull

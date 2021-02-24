@@ -28,6 +28,10 @@ public class YamlDocument implements Document {
 
 	protected final ConfigurationSection config;
 
+	public YamlDocument() {
+		this.config = new YamlConfiguration();
+	}
+
 	public YamlDocument(@Nonnull ConfigurationSection config) {
 		this.config = config;
 	}
@@ -140,6 +144,25 @@ public class YamlDocument implements Document {
 		return config.getSerializable(path, ItemStack.class, def);
 	}
 
+	@Nullable
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull Class<E> classOfEnum) {
+		try {
+			String name = getString(path);
+			if (name == null) return null;
+			return Enum.valueOf(classOfEnum, name);
+		} catch (Throwable ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public <E extends Enum<E>> E getEnum(@Nonnull String path, @Nonnull E def) {
+		E value = getEnum(path, (Class<E>) def.getClass());
+		return value == null ? def : value;
+	}
+
 	@Override
 	public boolean contains(@Nonnull String path) {
 		return config.contains(path, true);
@@ -148,6 +171,10 @@ public class YamlDocument implements Document {
 	@Nonnull
 	@Override
 	public Document set(@Nonnull String path, @Nullable Object value) {
+		if (value instanceof Enum<?>) {
+			Enum<?> enun = (Enum<?>) value;
+			value = enun.name();
+		}
 		config.set(path, value);
 		return this;
 	}
