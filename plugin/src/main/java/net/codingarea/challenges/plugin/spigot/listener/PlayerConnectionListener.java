@@ -27,4 +27,9 @@ public class PlayerConnectionListener implements Listener {
 
 	}
 
+	@EventHandler
+	public void onQuit(@Nonnull PlayerQuitEvent event) {
+
+	}
+
 }
