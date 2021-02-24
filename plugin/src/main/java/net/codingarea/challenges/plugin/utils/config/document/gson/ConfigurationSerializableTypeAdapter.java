@@ -18,6 +18,8 @@ import java.util.Map;
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
+ *
+ * @see ConfigurationSerializable
  */
 public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapter<ConfigurationSerializable> {
 
