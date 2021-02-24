@@ -40,7 +40,7 @@ public class GsonDocument implements Document {
 		this(FileUtils.newBufferedReader(file));
 	}
 
-	public GsonDocument(@Nonnull Reader reader) throws IOException {
+	public GsonDocument(@Nonnull Reader reader) {
 		this(GSON.fromJson(reader, JsonObject.class));
 	}
 
