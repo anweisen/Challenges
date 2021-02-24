@@ -21,6 +21,7 @@ import java.util.logging.Level;
 public final class LanguageLoader extends ContentLoader {
 
 	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/development/language/";
+	public static final String DEFAULT_LANGUAGE = "en";
 
 	private final JsonParser parser = new JsonParser();
 
@@ -71,12 +72,12 @@ public final class LanguageLoader extends ContentLoader {
 	private void read() {
 		try {
 
-			String language = Challenges.getInstance().getConfig().getString("language", "en");
+			String language = Challenges.getInstance().getConfig().getString("language", DEFAULT_LANGUAGE);
 			File file = getFile(language, "json");
 
 			if (!file.exists()) {
 				ConsolePrint.unknownLanguage(language);
-				language = "en";
+				language = DEFAULT_LANGUAGE;
 				file = getFile(language, "json");
 			}
 
