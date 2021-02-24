@@ -48,7 +48,7 @@ public final class LanguageLoader extends ContentLoader {
 			}
 
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().log(Level.SEVERE, "Could not download languages", ex);
+			Logger.severe("Could not download languages", ex);
 		}
 	}
 
@@ -60,7 +60,7 @@ public final class LanguageLoader extends ContentLoader {
 			return;
 		}
 
-		JsonObject existing = parser.parse(FileUtils.createReader(file)).getAsJsonObject();
+		JsonObject existing = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 		for (Entry<String, JsonElement> entry : download.entrySet()) {
 			if (!existing.has(entry.getKey()))
 				existing.add(entry.getKey(), entry.getValue());
@@ -81,9 +81,8 @@ public final class LanguageLoader extends ContentLoader {
 				file = getFile(language, "json");
 			}
 
-			JsonObject read = new JsonParser().parse(FileUtils.createReader(file)).getAsJsonObject();
+			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
-
 				try {
 
 					Message message = Message.valueOf(entry.getKey());
@@ -92,23 +91,17 @@ public final class LanguageLoader extends ContentLoader {
 					if (element.isJsonPrimitive()) {
 						message.setValue(element.getAsString());
 					} else if (element.isJsonArray()) {
-						JsonArray array = element.getAsJsonArray();
-						String[] value = new String[array.size()];
-						for (int i = 0; i < value.length; i++) {
-							value[i] = array.get(i).getAsString();
-						}
-						message.setValue(value);
+						message.setValue(GsonUtils.convertToArray(element.getAsJsonArray()));
 					}
 				} catch (IllegalArgumentException | IllegalStateException ex) {
 					// Unknown Message
 				}
-
 			}
 
-		} catch (JsonParseException | IllegalStateException ex) {
-			Challenges.getInstance().getLogger().severe("Could not read languages");
+			Logger.info("Successfully loaded language '" + language + "' from config file");
+
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().log(Level.SEVERE, "Could not read languages", ex);
+			Logger.severe("Could not read languages", ex);
 		}
 	}
 
