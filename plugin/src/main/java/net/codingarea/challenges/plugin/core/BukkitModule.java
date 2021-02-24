@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.core;
 
-import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -35,8 +35,11 @@ public abstract class BukkitModule extends JavaPlugin {
 	public final void registerCommand(@Nonnull CommandExecutor executor, @Nonnull String... names) {
 		for (String name : names) {
 			PluginCommand command = getCommand(name);
-			if (command != null)
+			if (command == null) {
+				getLogger().warning("Tried to register invalid command '" + name + "'");
+			} else {
 				command.setExecutor(executor);
+			}
 		}
 	}
 
