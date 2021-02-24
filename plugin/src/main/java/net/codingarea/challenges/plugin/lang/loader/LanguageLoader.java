@@ -98,6 +98,7 @@ public final class LanguageLoader extends ContentLoader {
 				}
 			}
 
+			Challenges.getInstance().getMenuManager().generateMenus();
 			Logger.info("Successfully loaded language '" + language + "' from config file");
 
 		} catch (Exception ex) {
