@@ -5,14 +5,15 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.utils.common.IOUtils;
 import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
-import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.misc.FileUtils;
+import net.codingarea.challenges.plugin.utils.misc.GsonUtils;
 
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
 import java.util.Map.Entry;
-import java.util.logging.Level;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -76,6 +77,10 @@ public final class LanguageLoader extends ContentLoader {
 			File file = getFile(language, "json");
 
 			if (!file.exists()) {
+				if (language.equalsIgnoreCase(DEFAULT_LANGUAGE)) {
+					ConsolePrint.unableToGetLanguages();
+					return;
+				}
 				ConsolePrint.unknownLanguage(language);
 				language = DEFAULT_LANGUAGE;
 				file = getFile(language, "json");
