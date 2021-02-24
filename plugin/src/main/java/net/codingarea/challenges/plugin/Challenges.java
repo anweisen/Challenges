@@ -101,7 +101,8 @@ public final class Challenges extends BukkitModule {
 	private void registerListeners() {
 		registerListener(
 				new InventoryListener(),
-				new PlayerConnectionListener()
+				new PlayerConnectionListener(),
+				new RestrictionListener()
 		);
 	}
 
