@@ -80,7 +80,7 @@ public final class Challenges extends BukkitModule {
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
 
-		new ChallengeRegistry().load(); // Register challenges, replace with better way later
+		new ChallengeLoader().load(); // Register challenges, replace with better way later
 
 	}
 
