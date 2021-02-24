@@ -186,6 +186,11 @@ public class GsonDocument implements Document {
 		return getElement(path).isPresent();
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return jsonObject.size() == 0;
+	}
+
 	@Nonnull
 	@Override
 	public Document set(@Nonnull String path, @Nullable Object value) {

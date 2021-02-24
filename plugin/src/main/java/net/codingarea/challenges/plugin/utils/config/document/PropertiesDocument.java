@@ -154,6 +154,11 @@ public class PropertiesDocument implements Document {
 		return properties.containsKey(path);
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return properties.isEmpty();
+	}
+
 	@Nonnull
 	@Override
 	public Map<String, Object> values() {

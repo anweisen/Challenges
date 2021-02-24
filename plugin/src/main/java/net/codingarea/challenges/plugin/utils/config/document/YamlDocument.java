@@ -168,6 +168,11 @@ public class YamlDocument implements Document {
 		return config.contains(path, true);
 	}
 
+	@Override
+	public boolean isEmpty() {
+		return config.getValues(false).isEmpty();
+	}
+
 	@Nonnull
 	@Override
 	public Document set(@Nonnull String path, @Nullable Object value) {

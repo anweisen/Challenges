@@ -63,6 +63,8 @@ public interface Propertyable {
 
 	boolean contains(@Nonnull String path);
 
+	boolean isEmpty();
+
 	@Nonnull
 	Map<String, Object> values();
 
