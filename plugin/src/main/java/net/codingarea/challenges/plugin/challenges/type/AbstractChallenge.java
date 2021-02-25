@@ -29,4 +29,30 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		ChallengeHelper.updateItems(this);
 	}
 
+	@Nonnull
+	@Override
+	public String getName() {
+		return getClass().getSimpleName().toLowerCase()
+				.replace("setting", "")
+				.replace("challenge", "")
+				.replace("modifier", "")
+				.replace("goal", "");
+	}
+
+	@Override
+	public void writeGameState(@Nonnull Document document) {
+	}
+
+	@Override
+	public void loadGameState(@Nonnull Document document) {
+	}
+
+	@Override
+	public void writeSettings(@Nonnull Document document) {
+	}
+
+	@Override
+	public void loadSettings(@Nonnull Document document) {
+	}
+
 }
