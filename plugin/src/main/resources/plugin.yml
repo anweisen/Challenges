@@ -8,6 +8,8 @@ database: true
 website: "coding-area.net"
 api-version: 1.13
 main: net.codingarea.challenges.plugin.Challenges
+softdepend:
+  - Challenges-MongoConnector
 
 commands:
   challenges:

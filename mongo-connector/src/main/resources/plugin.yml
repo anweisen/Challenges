@@ -1,0 +1,9 @@
+name: Challenges-MongoConnector
+version: 2.0
+api-version: 1.13
+author: CodingArea
+authors:
+  - anweisen
+main: net.codingarea.challenges.mongoconnector.MongoConnector
+description: |
+  Provides the needed depedencies to the ChallengesPlugin to conntent to a MongoDB database
