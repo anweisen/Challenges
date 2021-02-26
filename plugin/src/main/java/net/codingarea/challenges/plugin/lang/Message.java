@@ -74,6 +74,17 @@ public enum Message {
 		return new String[] { NULL_MESSAGE };
 	}
 
+	@Nonnull
+	@CheckReturnValue
+	public ItemDescription asItemDescription() {
+		if (value == null)                      return ItemDescription.empty();
+		if (value instanceof ItemDescription)   return (ItemDescription) value;
+		if (value instanceof String[])          return setIfWanted(new ItemDescription((String[]) value));
+		if (value instanceof String)            return setIfWanted(new ItemDescription(asArray()));
+		Logger.severe("Message." + name() + " has an illegal value " + value.getClass().getName());
+		return ItemDescription.empty();
+	}
+
 	private <T> T setIfWanted(@Nonnull T t) {
 		if (target.isAssignableFrom(t.getClass()))
 			value = t;
