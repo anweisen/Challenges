@@ -4,7 +4,6 @@ import com.google.gson.*;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -81,12 +80,14 @@ public final class GsonUtils {
 		return list;
 	}
 
-	public static void setValues(@Nonnull Gson gson, @Nonnull JsonObject object, @Nonnull Map<String, Object> values) {
+	public static void setDocumentProperties(@Nonnull Gson gson, @Nonnull JsonObject object, @Nonnull Map<String, Object> values) {
 		for (Entry<String, Object> entry : values.entrySet()) {
 			Object value = entry.getValue();
 
 			if (value == null) {
 				object.add(entry.getKey(), null);
+			} else if (value instanceof JsonElement) {
+				object.add(entry.getKey(), (JsonElement) value);
 			} else if (value instanceof Iterable) {
 				Iterable<?> iterable = (Iterable<?>) value;
 				JsonArray array = new JsonArray();
@@ -100,7 +101,7 @@ public final class GsonUtils {
 				Map<String, Object> map = (Map<String, Object>) value;
 				JsonObject newObject = new JsonObject();
 				object.add(entry.getKey(), newObject);
-				setValues(gson, newObject, map);
+				setDocumentProperties(gson, newObject, map);
 			} else {
 				object.add(entry.getKey(), gson.toJsonTree(value));
 			}
