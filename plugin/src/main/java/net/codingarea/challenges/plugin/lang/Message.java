@@ -55,19 +55,24 @@ public enum Message {
 	@Nonnull
 	@CheckReturnValue
 	public String asString(@Nonnull String... args) {
-		if (value == null) return "§rN/A";
-		if (value instanceof String) return StringUtils.format((String) value, args);
-		if (value instanceof String[]) return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args));
-		throw new IllegalStateException();
+		if (value == null)                      return NULL_MESSAGE;
+		if (value instanceof String)            return StringUtils.format((String) value, args);
+		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args));
+		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
+		Logger.severe("Message." + name() + " has an illegal value " + value.getClass().getName());
+		return NULL_MESSAGE;
 	}
 
 	@Nonnull
 	@CheckReturnValue
 	public String[] asArray(@Nonnull String... args) {
-		if (value == null) return new String[] { "§rN/A" };
-		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
-		if (value instanceof String) return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
-		throw new IllegalStateException();
+		if (value == null)                      return new String[] { NULL_MESSAGE };
+		if (value instanceof String[])          return StringUtils.format((String[]) value, args);
+		if (value instanceof String)            return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
+		if (value instanceof ItemDescription)   return ((ItemDescription)value).getLore();
+		Logger.severe("Message." + name() + " has an illegal value " + value.getClass().getName());
+		return new String[] { NULL_MESSAGE };
+	}
 
 	private <T> T setIfWanted(@Nonnull T t) {
 		if (target.isAssignableFrom(t.getClass()))
