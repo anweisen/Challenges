@@ -3,17 +3,13 @@ package net.codingarea.challenges.plugin.management.challenges;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeRegistry;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import javax.naming.Name;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -33,7 +29,6 @@ public final class ChallengeManager {
 	public void register(@Nonnull IChallenge challenge) {
 		if (!challenge.getType().isUsable()) throw new IllegalArgumentException("Invalid MenuType");
 		Challenges.getInstance().getScheduler().register(challenge);
-		ChallengeRegistry.registerInstance(challenge);
 		challenges.add(challenge);
 	}
 
