@@ -30,6 +30,7 @@ public enum Message {
 	CHALLENGES_END_GOAL_FAILED,
 	;
 
+	public static final String NULL_MESSAGE = "§r§fN/A";
 	private Object value;
 
 	public void setValue(@Nonnull String value) {
