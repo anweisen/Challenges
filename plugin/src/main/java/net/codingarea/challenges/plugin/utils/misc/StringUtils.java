@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import org.bukkit.ChatColor;
+
 import javax.annotation.Nonnull;
 import java.util.function.Function;
 
@@ -71,6 +73,19 @@ public final class StringUtils {
 			builder.append(string);
 		}
 		return builder.toString();
+	}
+
+	public static boolean isValidColorCode(char code) {
+		for (ChatColor color : ChatColor.values()) {
+			if (color.isColor() && color.getChar() == code)
+				return true;
+		}
+		return false;
+	}
+
+	public static boolean isValidColorCode(@Nonnull String code) {
+		if (code.length() != 1) return false;
+		return isValidColorCode(code.toCharArray()[0]);
 	}
 
 }
