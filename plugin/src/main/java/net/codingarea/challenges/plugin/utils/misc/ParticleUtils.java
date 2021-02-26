@@ -40,7 +40,7 @@ public final class ParticleUtils {
 	private static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, int points, double radius, double height, @Nonnull BiConsumer<World, Location> player) {
 		for (double y = 0, i = 0; y < height; y += .25, i++) {
 			final double Y = y; // Make final copy
-			Bukkit.getScheduler().runTaskLater(plugin, () -> {
+			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
 				spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, player);
 			}, (long) i);
 		}
