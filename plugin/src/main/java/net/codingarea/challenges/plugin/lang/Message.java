@@ -23,14 +23,25 @@ public enum Message {
 	HOUR,
 	TIMER_COUNTING_UP,
 	TIMER_COUNTING_DOWN,
-	CHALLENGES_END_TIMER_HIT_ZERO,
-	CHALLENGES_END_TIMER_HIT_ZERO_WINNER,
-	CHALLENGES_END_GOAL_REACHED,
-	CHALLENGES_END_GOAL_REACHED_WINNER,
-	CHALLENGES_END_GOAL_FAILED,
+	CHALLENGES_END_TIMER_HIT_ZERO           (String[].class),
+	CHALLENGES_END_TIMER_HIT_ZERO_WINNER    (String[].class),
+	CHALLENGES_END_GOAL_REACHED             (String[].class),
+	CHALLENGES_END_GOAL_REACHED_WINNER      (String[].class),
+	CHALLENGES_END_GOAL_FAILED              (String[].class),
 	;
 
 	public static final String NULL_MESSAGE = "§r§fN/A";
+
+	private final Class<?> target;
+
+	Message() {
+		this(String.class);
+	}
+
+	Message(@Nonnull Class<?> target) {
+		this.target = target;
+	}
+
 	private Object value;
 
 	public void setValue(@Nonnull String value) {
@@ -57,6 +68,11 @@ public enum Message {
 		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
 		if (value instanceof String) return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
 		throw new IllegalStateException();
+
+	private <T> T setIfWanted(@Nonnull T t) {
+		if (target.isAssignableFrom(t.getClass()))
+			value = t;
+		return t;
 	}
 
 	@Nonnull
