@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -31,24 +32,13 @@ public final class MenuManager {
 	private TimerMenu timerMenu;
 	private AnimatedInventory gui;
 
-	{
+	private boolean generated = false;
+
+	public MenuManager() {
 		for (MenuType type : MenuType.values()) {
 			if (!type.isUsable()) continue;
 			menus.put(type, new Menu(type));
 		}
-	}
-
-	public void generateMenus() {
-		menus.values().forEach(Menu::resetChallengesCache);
-		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
-			MenuType type = challenge.getType();
-			Menu menu = menus.get(type);
-			if (menu == null) continue; // This should only happen if !type.isUsable()
-			menu.addChallengeCache(challenge);
-		}
-		menus.values().forEach(Menu::generateInventories);
-
-		timerMenu = new TimerMenu();
 
 		gui = new AnimatedInventory(TitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
 				.setFrameSound(SoundSample.CLICK).setEndSound(SoundSample.OPEN);
@@ -72,6 +62,26 @@ public final class MenuManager {
 				.setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()], new ItemBuilder(Material.COMPARATOR).setName("§eSettings").hideAttributes());
 	}
 
+	public void generateMenus() {
+		menus.values().forEach(Menu::resetChallengesCache);
+		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
+			MenuType type = challenge.getType();
+			Menu menu = menus.get(type);
+			if (menu == null) continue; // This should only happen if !type.isUsable()
+			menu.addChallengeCache(challenge);
+		}
+		menus.values().forEach(Menu::generateInventories);
+
+		timerMenu = new TimerMenu();
+
+		generated = true;
+	}
+
+	public void updateTimerMenu() {
+		if (timerMenu != null)
+			timerMenu.updateInventories();
+	}
+
 	public void openGUI(@Nonnull Player player) {
 		SoundSample.PLOP.play(player);
 		setPostion(player, new MainMenuPosition());
@@ -83,12 +93,24 @@ public final class MenuManager {
 		gui.openNotAnimated(player, true);
 	}
 
-	public void openMenu(@Nonnull Player player, @Nonnull MenuType type, int page) {
+	/**
+	 * @return if the menu could be opened. The menu may not be opened, when there are no challenges registered to that menu or the languages are not loaded
+	 */
+	public boolean openMenu(@Nonnull Player player, @Nonnull MenuType type, int page) {
+		if (!generated) {
+			SoundSample.BASS_OFF.play(player);
+			player.sendMessage(Prefix.CHALLENGES + "§cCould not open gui, languages are not loaded! (Is it set up correctly?!)");
+			return false;
+		}
+
 		if (type == MenuType.TIMER) {
 			timerMenu.open(player, page);
 		} else {
-			getMenu(type).open(player, page);
+			Menu menu = getMenu(type);
+			if (menu.getInventories().isEmpty()) return false;
+			menu.open(player, page);
 		}
+		return true;
 	}
 
 	public void close() {
@@ -99,11 +121,6 @@ public final class MenuManager {
 	@Nonnull
 	public Menu getMenu(@Nonnull MenuType type) {
 		return menus.get(type);
-	}
-
-	@Nonnull
-	public TimerMenu getTimerMenu() {
-		return timerMenu;
 	}
 
 	@Nullable
@@ -121,16 +138,17 @@ public final class MenuManager {
 		@Override
 		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
 
-			SoundSample.CLICK.play(player);
-
 			for (int i = 0; i < GUI_SLOTS.length; i++) {
 				int current = GUI_SLOTS[i];
 				if (current == slot) {
 					MenuType type = MenuType.values()[i];
-					openMenu(player, type, 0);
+					if (openMenu(player, type, 0))
+						SoundSample.CLICK.play(player);
 					return;
 				}
 			}
+
+			SoundSample.CLICK.play(player);
 
 		}
 
