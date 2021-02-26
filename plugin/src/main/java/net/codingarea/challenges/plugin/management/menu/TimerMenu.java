@@ -36,7 +36,7 @@ public final class TimerMenu {
 
 	private final List<Inventory> inventories = new ArrayList<>();
 
-	{
+	public TimerMenu() {
 		createNewInventory(0);
 		createNewInventory(1);
 		setNavigation();
