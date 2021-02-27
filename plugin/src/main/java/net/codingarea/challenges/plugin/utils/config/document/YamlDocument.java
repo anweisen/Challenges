@@ -19,6 +19,7 @@ import java.io.*;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -115,6 +116,23 @@ public class YamlDocument implements Document {
 	@Override
 	public List<String> getList(@Nonnull String path) {
 		return config.getStringList(path);
+	}
+
+	@Nullable
+	@Override
+	public UUID getUUID(@Nonnull String path) {
+		try {
+			return UUID.fromString(getString(path));
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public UUID getUUID(@Nonnull String path, @Nonnull UUID def) {
+		UUID value = getUUID(path);
+		return value == null ? def : value;
 	}
 
 	@Nullable
@@ -236,4 +254,16 @@ public class YamlDocument implements Document {
 	public void write(@Nonnull Writer writer) throws IOException {
 		writer.write(toString());
 	}
+
+	@Nonnull
+	@Override
+	public String toJson() {
+		return new GsonDocument(values()).toJson();
+	}
+
+	@Override
+	public boolean isReadonly() {
+		return false;
+	}
+
 }

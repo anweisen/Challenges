@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.utils.config.document;
 
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.misc.FileUtils;
+import net.codingarea.challenges.plugin.utils.misc.PropertiesUtils;
 import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.NumberConversions;
@@ -108,6 +109,23 @@ public class PropertiesDocument implements Document {
 
 	@Nullable
 	@Override
+	public UUID getUUID(@Nonnull String path) {
+		try {
+			return UUID.fromString(getString(path));
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public UUID getUUID(@Nonnull String path, @Nonnull UUID def) {
+		UUID value = getUUID(path);
+		return value == null ? def : value;
+	}
+
+	@Nullable
+	@Override
 	public Location getLocation(@Nonnull String path) {
 		throw new UnsupportedOperationException("PropertiesDocument.getLocation(String)");
 	}
@@ -206,4 +224,16 @@ public class PropertiesDocument implements Document {
 		return properties;
 	}
 
+	@Nonnull
+	@Override
+	public String toJson() {
+		Map<String, Object> map = new HashMap<>();
+		PropertiesUtils.setProperties(properties, map);
+		return new GsonDocument(map).toJson();
+	}
+
+	@Override
+	public boolean isReadonly() {
+		return false;
+	}
 }

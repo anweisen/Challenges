@@ -52,6 +52,10 @@ public class GsonDocument implements Document {
 		this.jsonObject = jsonObject;
 	}
 
+	public GsonDocument(@Nonnull Map<String, Object> values) {
+		GsonUtils.setDocumentProperties(GSON, jsonObject = new JsonObject(), values);
+	}
+
 	public GsonDocument() {
 		this(new JsonObject());
 	}
@@ -143,6 +147,18 @@ public class GsonDocument implements Document {
 	public List<String> getList(@Nonnull String path) {
 		JsonArray array = jsonObject.getAsJsonArray(path);
 		return GsonUtils.convertToList(array);
+	}
+
+	@Nullable
+	@Override
+	public UUID getUUID(@Nonnull String path) {
+		return get(path, UUID.class);
+	}
+
+	@Nonnull
+	@Override
+	public UUID getUUID(@Nonnull String path, @Nonnull UUID def) {
+		return get(path, def, UUID.class);
 	}
 
 	@Nullable
@@ -294,9 +310,15 @@ public class GsonDocument implements Document {
 
 	}
 
+	@Nonnull
+	@Override
+	public String toJson() {
+		return jsonObject.toString();
+	}
+
 	@Override
 	public String toString() {
-		return jsonObject.toString();
+		return toJson();
 	}
 
 	@Override
@@ -320,6 +342,11 @@ public class GsonDocument implements Document {
 	@Nonnull
 	public JsonObject getJsonObject() {
 		return jsonObject;
+	}
+
+	@Override
+	public boolean isReadonly() {
+		return false;
 	}
 
 }
