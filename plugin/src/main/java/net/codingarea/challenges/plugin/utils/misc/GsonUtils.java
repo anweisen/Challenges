@@ -72,12 +72,26 @@ public final class GsonUtils {
 	}
 
 	@Nonnull
-	public static String[] convertToArray(@Nonnull JsonArray array) {
+	public static String[] convertToStringArray(@Nonnull JsonArray array) {
 		String[] list = new String[array.size()];
 		for (int i = 0; i < array.size(); i++) {
 			list[i] = convertToString(array.get(i));
 		}
 		return list;
+	}
+
+	@Nonnull
+	public static JsonArray convertIterableToJsonArray(@Nonnull Gson gson, @Nonnull Iterable<?> iterable) {
+		JsonArray array = new JsonArray();
+		iterable.forEach(object -> array.add(gson.toJsonTree(object)));
+		return array;
+	}
+
+	@Nonnull
+	public static JsonArray convertArrayToJsonArray(@Nonnull Gson gson, @Nonnull Object array) {
+		JsonArray jsonArray = new JsonArray();
+		ReflectionUtils.forEachInArray(array, object -> jsonArray.add(gson.toJsonTree(object)));
+		return jsonArray;
 	}
 
 	public static void setDocumentProperties(@Nonnull Gson gson, @Nonnull JsonObject object, @Nonnull Map<String, Object> values) {
@@ -90,13 +104,9 @@ public final class GsonUtils {
 				object.add(entry.getKey(), (JsonElement) value);
 			} else if (value instanceof Iterable) {
 				Iterable<?> iterable = (Iterable<?>) value;
-				JsonArray array = new JsonArray();
-				iterable.forEach(o -> array.add(gson.toJsonTree(o)));
-				object.add(entry.getKey(), array);
+				object.add(entry.getKey(), convertIterableToJsonArray(gson, iterable));
 			} else if (value.getClass().isArray()) {
-				JsonArray array = new JsonArray();
-				ReflectionUtils.forEachInArray(value, o -> array.add(gson.toJsonTree(o)));
-				object.add(entry.getKey(), array);
+				object.add(entry.getKey(), convertArrayToJsonArray(gson, value));
 			} else if (value instanceof Map) {
 				Map<String, Object> map = (Map<String, Object>) value;
 				JsonObject newObject = new JsonObject();
@@ -106,7 +116,6 @@ public final class GsonUtils {
 				object.add(entry.getKey(), gson.toJsonTree(value));
 			}
 		}
-
 	}
 
 }

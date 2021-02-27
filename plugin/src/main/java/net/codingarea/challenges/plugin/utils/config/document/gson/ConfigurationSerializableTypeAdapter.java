@@ -31,7 +31,7 @@ public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapt
 		Class<? extends ConfigurationSerializable> clazz = object.getClass();
 
 		JsonObject json = new JsonObject();
-		GsonUtils.setValues(gson, json, object.serialize());
+		GsonUtils.setDocumentProperties(gson, json, object.serialize());
 		json.addProperty(KEY, clazz.getName());
 		TypeAdapters.JSON_ELEMENT.write(writer, json);
 
