@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.item;
 
+import net.codingarea.challenges.plugin.lang.ItemDescription;
 import net.codingarea.challenges.plugin.lang.Message;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -37,22 +38,27 @@ public class ItemBuilder {
 		this(new ItemStack(material));
 	}
 
+	public ItemBuilder(@Nonnull Material material, @Nonnull Message message) {
+		this(material);
+		applyFormat(message.asItemDescription());
+	}
+
 	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name) {
-		this(new ItemStack(material));
+		this(material);
 		setName(name);
 	}
 
 	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
-		this(new ItemStack(material));
+		this(material);
 		setName(name);
 		setLore(lore);
 	}
 
 	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
-		this(new ItemStack(material));
+		this(material);
 		setName(name);
 		setAmount(amount);
 	}
@@ -182,6 +188,13 @@ public class ItemBuilder {
 	@Nonnull
 	public ItemBuilder damage(int damage) {
 		return setDamage(damage);
+	}
+
+	@Nonnull
+	public ItemBuilder applyFormat(@Nonnull ItemDescription description) {
+		setName(description.getName());
+		setLore(description.getLore());
+		return this;
 	}
 
 	@Nonnull
