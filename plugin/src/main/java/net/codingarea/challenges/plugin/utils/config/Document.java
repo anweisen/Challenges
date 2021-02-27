@@ -10,7 +10,7 @@ import java.io.*;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public interface Document extends Propertyable {
+public interface Document extends Config, Json {
 
 	@Nonnull
 	Document getDocument(@Nonnull String path);
