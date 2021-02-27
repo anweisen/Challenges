@@ -8,6 +8,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -42,6 +43,12 @@ public interface Propertyable {
 
 	@Nonnull
 	List<String> getList(@Nonnull String path);
+
+	@Nullable
+	UUID getUUID(@Nonnull String path);
+
+	@Nonnull
+	UUID getUUID(@Nonnull String path, @Nonnull UUID def);
 
 	@Nullable
 	Location getLocation(@Nonnull String path);
