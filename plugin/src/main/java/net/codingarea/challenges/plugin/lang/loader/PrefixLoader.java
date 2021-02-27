@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
-import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.config.document.PropertiesDocument;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import java.io.File;
-import java.util.logging.Level;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -33,8 +32,10 @@ public final class PrefixLoader extends ContentLoader {
 			}
 
 			document.save(file);
+			Logger.info("Successfully loaded prefixes from config file");
+
 		} catch (Exception ex) {
-			Challenges.getInstance().getLogger().log(Level.SEVERE, "Could not load prefix", ex);
+			Logger.severe("Could not load prefix", ex);
 		}
 	}
 

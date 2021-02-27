@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.misc.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 
 import javax.annotation.Nonnull;
 import java.io.File;

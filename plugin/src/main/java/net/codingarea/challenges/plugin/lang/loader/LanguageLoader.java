@@ -96,7 +96,7 @@ public final class LanguageLoader extends ContentLoader {
 					if (element.isJsonPrimitive()) {
 						message.setValue(element.getAsString());
 					} else if (element.isJsonArray()) {
-						message.setValue(GsonUtils.convertToArray(element.getAsJsonArray()));
+						message.setValue(GsonUtils.convertToStringArray(element.getAsJsonArray()));
 					}
 				} catch (IllegalArgumentException | IllegalStateException ex) {
 					// Unknown Message
