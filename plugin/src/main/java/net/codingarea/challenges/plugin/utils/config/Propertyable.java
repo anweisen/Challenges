@@ -78,13 +78,4 @@ public interface Propertyable {
 	@Nonnull
 	Collection<String> keys();
 
-	@Nonnull
-	Propertyable set(@Nonnull String path, @Nullable Object value);
-
-	@Nonnull
-	Propertyable clear();
-
-	@Nonnull
-	Propertyable remove(@Nonnull String path);
-
 }
