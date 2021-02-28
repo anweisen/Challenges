@@ -45,73 +45,113 @@ public final class SQLResult implements Result {
 
 	@Override
 	public char getChar(@Nonnull String path) {
+		return getChar(path, (char) 0);
+	}
+
+	@Override
+	public char getChar(@Nonnull String path, char def) {
 		try {
 			return getString(path).charAt(0);
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public long getLong(@Nonnull String path) {
+		return getLong(path, 0);
+	}
+
+	@Override
+	public long getLong(@Nonnull String path, long def) {
 		try {
 			return Long.parseLong(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public int getInt(@Nonnull String path) {
+		return getInt(path, 0);
+	}
+
+	@Override
+	public int getInt(@Nonnull String path, int def) {
 		try {
 			return Integer.parseInt(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public short getShort(@Nonnull String path) {
+		return getShort(path, (short) 0);
+	}
+
+	@Override
+	public short getShort(@Nonnull String path, short def) {
 		try {
 			return Short.parseShort(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public byte getByte(@Nonnull String path) {
+		return getByte(path, (byte) 0);
+	}
+
+	@Override
+	public byte getByte(@Nonnull String path, byte def) {
 		try {
 			return Byte.parseByte(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public float getFloat(@Nonnull String path) {
+		return getFloat(path, 0);
+	}
+
+	@Override
+	public float getFloat(@Nonnull String path, float def) {
 		try {
 			return Float.parseFloat(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public double getDouble(@Nonnull String path) {
+		return getDouble(path, 0);
+	}
+
+	@Override
+	public double getDouble(@Nonnull String path, double def) {
 		try {
 			return Double.parseDouble(getString(path));
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public boolean getBoolean(@Nonnull String path) {
+		return getBoolean(path, false);
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
 		try {
 			return Boolean.getBoolean(getString(path));
 		} catch (Exception ex) {
-			return false;
+			return def;
 		}
 	}
 

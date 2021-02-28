@@ -47,10 +47,15 @@ public class PropertiesDocument implements Document {
 
 	@Override
 	public char getChar(@Nonnull String path) {
+		return getChar(path, (char) 0);
+	}
+
+	@Override
+	public char getChar(@Nonnull String path, char def) {
 		try {
 			return getString(path).charAt(0);
 		} catch (NullPointerException | StringIndexOutOfBoundsException ex) {
-			return 0;
+			return def;
 		}
 	}
 
@@ -74,37 +79,97 @@ public class PropertiesDocument implements Document {
 
 	@Override
 	public long getLong(@Nonnull String path) {
-		return NumberConversions.toLong(getString(path));
+		return getLong(path, 0);
+	}
+
+	@Override
+	public long getLong(@Nonnull String path, long def) {
+		try {
+			return Long.parseLong(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public int getInt(@Nonnull String path) {
-		return NumberConversions.toInt(getString(path));
+		return getInt(path, 0);
+	}
+
+	@Override
+	public int getInt(@Nonnull String path, int def) {
+		try {
+			return Integer.parseInt(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public short getShort(@Nonnull String path) {
-		return NumberConversions.toShort(getString(path));
+		return getShort(path, (short) 0);
+	}
+
+	@Override
+	public short getShort(@Nonnull String path, short def) {
+		try {
+			return Short.parseShort(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public byte getByte(@Nonnull String path) {
-		return NumberConversions.toByte(getString(path));
+		return getByte(path, (byte) 0);
+	}
+
+	@Override
+	public byte getByte(@Nonnull String path, byte def) {
+		try {
+			return Byte.parseByte(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public float getFloat(@Nonnull String path) {
-		return NumberConversions.toFloat(getString(path));
+		return getFloat(path, 0);
+	}
+
+	@Override
+	public float getFloat(@Nonnull String path, float def) {
+		try {
+			return Float.parseFloat(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public double getDouble(@Nonnull String path) {
-		return NumberConversions.toDouble(getString(path));
+		return getDouble(path, 0);
+	}
+
+	@Override
+	public double getDouble(@Nonnull String path, double def) {
+		try {
+			return Double.parseDouble(getString(path));
+		} catch (Exception ex) {
+			return def;
+		}
 	}
 
 	@Override
 	public boolean getBoolean(@Nonnull String path) {
 		return Boolean.getBoolean(getString(path));
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
+		if (!contains(path)) return def;
+		return Boolean.parseBoolean(getString(path));
 	}
 
 	@Nullable

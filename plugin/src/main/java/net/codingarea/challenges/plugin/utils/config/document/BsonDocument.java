@@ -59,46 +59,98 @@ public class BsonDocument implements Document {
 
 	@Override
 	public long getLong(@Nonnull String path) {
-		return NumberConversions.toLong(bsonDocument.getLong(path));
+		return getLong(path, 0);
+	}
+
+	@Override
+	public long getLong(@Nonnull String path, long def) {
+		Long value = bsonDocument.getLong(path);
+		if (value == null) return def;
+		return value;
 	}
 
 	@Override
 	public int getInt(@Nonnull String path) {
-		return NumberConversions.toInt(bsonDocument.getInteger(path));
+		return getInt(path, 0);
+	}
+
+	@Override
+	public int getInt(@Nonnull String path, int def) {
+		Integer value = bsonDocument.getInteger(path);
+		if (value == null) return def;
+		return value;
 	}
 
 	@Override
 	public short getShort(@Nonnull String path) {
-		return NumberConversions.toShort(bsonDocument.getInteger(path));
+		return getShort(path, (short) 0);
+	}
+
+	@Override
+	public short getShort(@Nonnull String path, short def) {
+		Number value = bsonDocument.getInteger(path);
+		if (value == null) return def;
+		return value.shortValue();
 	}
 
 	@Override
 	public byte getByte(@Nonnull String path) {
-		return NumberConversions.toByte(bsonDocument.getInteger(path));
+		return getByte(path, (byte) 0);
+	}
+
+	@Override
+	public byte getByte(@Nonnull String path, byte def) {
+		Number value = bsonDocument.getInteger(path);
+		if (value == null) return def;
+		return value.byteValue();
 	}
 
 	@Override
 	public double getDouble(@Nonnull String path) {
-		return NumberConversions.toDouble(bsonDocument.getDouble(path));
+		return getDouble(path, 0);
+	}
+
+	@Override
+	public double getDouble(@Nonnull String path, double def) {
+		Double value = bsonDocument.getDouble(path);
+		if (value == null) return def;
+		return value;
 	}
 
 	@Override
 	public float getFloat(@Nonnull String path) {
-		return NumberConversions.toFloat(bsonDocument.getDouble(path));
+		return getFloat(path, 0);
+	}
+
+	@Override
+	public float getFloat(@Nonnull String path, float def) {
+		Double value = bsonDocument.getDouble(path);
+		if (value == null) return def;
+		return (float) (double) value;
 	}
 
 	@Override
 	public char getChar(@Nonnull String path) {
+		return getChar(path, (char) 0);
+	}
+
+	@Override
+	public char getChar(@Nonnull String path, char def) {
 		try {
 			return getString(path).charAt(0);
 		} catch (Exception ex) {
-			return 0;
+			return def;
 		}
 	}
 
 	@Override
 	public boolean getBoolean(@Nonnull String path) {
-		return bsonDocument.getBoolean(path, false);
+		return getBoolean(path, false);
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
+		return bsonDocument.getBoolean(path, def);
 	}
 
 	@Nullable

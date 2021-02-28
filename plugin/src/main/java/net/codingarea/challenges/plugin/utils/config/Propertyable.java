@@ -27,19 +27,35 @@ public interface Propertyable {
 
 	char getChar(@Nonnull String path);
 
+	char getChar(@Nonnull String path, char def);
+
 	long getLong(@Nonnull String path);
+
+	long getLong(@Nonnull String path, long def);
 
 	int getInt(@Nonnull String path);
 
+	int getInt(@Nonnull String path, int def);
+
 	short getShort(@Nonnull String path);
+
+	short getShort(@Nonnull String path, short def);
 
 	byte getByte(@Nonnull String path);
 
+	byte getByte(@Nonnull String path, byte def);
+
 	float getFloat(@Nonnull String path);
+
+	float getFloat(@Nonnull String path, float def);
 
 	double getDouble(@Nonnull String path);
 
+	double getDouble(@Nonnull String path, double def);
+
 	boolean getBoolean(@Nonnull String path);
+
+	boolean getBoolean(@Nonnull String path, boolean def);
 
 	@Nonnull
 	List<String> getList(@Nonnull String path);

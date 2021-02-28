@@ -74,8 +74,18 @@ public class YamlDocument implements Document {
 	}
 
 	@Override
+	public long getLong(@Nonnull String path, long def) {
+		return config.getLong(path, def);
+	}
+
+	@Override
 	public int getInt(@Nonnull String path) {
 		return config.getInt(path);
+	}
+
+	@Override
+	public int getInt(@Nonnull String path, int def) {
+		return config.getInt(path, def);
 	}
 
 	@Override
@@ -84,16 +94,31 @@ public class YamlDocument implements Document {
 	}
 
 	@Override
+	public short getShort(@Nonnull String path, short def) {
+		return (short) config.getInt(path, def);
+	}
+
+	@Override
 	public byte getByte(@Nonnull String path) {
 		return (byte) config.getInt(path);
 	}
 
 	@Override
+	public byte getByte(@Nonnull String path, byte def) {
+		return (byte) config.getInt(path, def);
+	}
+
+	@Override
 	public char getChar(@Nonnull String path) {
+		return getChar(path, (char) 0);
+	}
+
+	@Override
+	public char getChar(@Nonnull String path, char def) {
 		try {
 			return getString(path).charAt(0);
 		} catch (NullPointerException | StringIndexOutOfBoundsException ex) {
-			return 0;
+			return def;
 		}
 	}
 
@@ -103,13 +128,28 @@ public class YamlDocument implements Document {
 	}
 
 	@Override
+	public double getDouble(@Nonnull String path, double def) {
+		return config.getDouble(path, def);
+	}
+
+	@Override
 	public float getFloat(@Nonnull String path) {
 		return (float) config.getDouble(path);
 	}
 
 	@Override
+	public float getFloat(@Nonnull String path, float def) {
+		return (float) config.getDouble(path, def);
+	}
+
+	@Override
 	public boolean getBoolean(@Nonnull String path) {
 		return config.getBoolean(path);
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
+		return config.getBoolean(path, def);
 	}
 
 	@Nonnull

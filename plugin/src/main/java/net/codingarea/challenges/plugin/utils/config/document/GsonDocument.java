@@ -49,11 +49,12 @@ public class GsonDocument implements Document {
 	}
 
 	public GsonDocument(@Nonnull JsonObject jsonObject) {
-		this.jsonObject = jsonObject;
+		this.jsonObject = jsonObject == null ? new JsonObject() : jsonObject;
 	}
 
 	public GsonDocument(@Nonnull Map<String, Object> values) {
-		GsonUtils.setDocumentProperties(GSON, jsonObject = new JsonObject(), values);
+		this();
+		GsonUtils.setDocumentProperties(GSON, jsonObject, values);
 	}
 
 	public GsonDocument() {
@@ -64,7 +65,7 @@ public class GsonDocument implements Document {
 	@Override
 	public String getString(@Nonnull String path) {
 		JsonElement element = getElement(path).orElse(null);
-		return GsonUtils.convertToString(element);
+		return GsonUtils.convertJsonElementToString(element);
 	}
 
 	@Nonnull
@@ -78,7 +79,7 @@ public class GsonDocument implements Document {
 	@Override
 	public Object getObject(@Nonnull String path) {
 		JsonElement element = getElement(path).orElse(null);
-		return GsonUtils.unpack(element);
+		return GsonUtils.unpackJsonElement(element);
 	}
 
 	@Nullable
@@ -103,50 +104,90 @@ public class GsonDocument implements Document {
 	}
 
 	@Override
+	public char getChar(@Nonnull String path) {
+		return getChar(path, (char) 0);
+	}
+
+	@Override
+	public char getChar(@Nonnull String path, char def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsCharacter();
+	}
+
+	@Override
 	public long getLong(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsLong();
+		return getLong(path, 0);
+	}
+
+	@Override
+	public long getLong(@Nonnull String path, long def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsLong();
 	}
 
 	@Override
 	public int getInt(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsInt();
+		return getInt(path, 0);
+	}
+
+	@Override
+	public int getInt(@Nonnull String path, int def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsInt();
 	}
 
 	@Override
 	public short getShort(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsShort();
+		return getShort(path, (short) 0);
+	}
+
+	@Override
+	public short getShort(@Nonnull String path, short def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsShort();
 	}
 
 	@Override
 	public byte getByte(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsByte();
+		return getByte(path, (byte) 0);
 	}
 
 	@Override
-	public char getChar(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsCharacter();
+	public byte getByte(@Nonnull String path, byte def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsByte();
 	}
 
 	@Override
 	public double getDouble(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsDouble();
+		return getDouble(path, 0);
+	}
+
+	@Override
+	public double getDouble(@Nonnull String path, double def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsDouble();
 	}
 
 	@Override
 	public float getFloat(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(0)).getAsFloat();
+		return getFloat(path, 0);
+	}
+
+	@Override
+	public float getFloat(@Nonnull String path, float def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsFloat();
 	}
 
 	@Override
 	public boolean getBoolean(@Nonnull String path) {
-		return getElement(path).orElse(new JsonPrimitive(false)).getAsBoolean();
+		return getBoolean(path, false);
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
+		return getElement(path).orElse(new JsonPrimitive(def)).getAsBoolean();
 	}
 
 	@Nonnull
 	@Override
 	public List<String> getList(@Nonnull String path) {
 		JsonArray array = jsonObject.getAsJsonArray(path);
-		return GsonUtils.convertToList(array);
+		return GsonUtils.convertJsonArrayToStringList(array);
 	}
 
 	@Nullable
@@ -231,7 +272,7 @@ public class GsonDocument implements Document {
 	@Nonnull
 	@Override
 	public Map<String, Object> values() {
-		return GsonUtils.convertToMap(jsonObject);
+		return GsonUtils.convertJsonObjectToMap(jsonObject);
 	}
 
 	@Nonnull
@@ -276,7 +317,6 @@ public class GsonDocument implements Document {
 		for (int i = 0; i < paths.size() - 1; i++) {
 
 			String current = paths.get(i);
-			System.out.println(current);
 			JsonElement element = object.get(current);
 			if (element == null || element.isJsonNull()) {
 				if (value == null) return; // There's noting to remove

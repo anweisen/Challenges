@@ -69,8 +69,18 @@ public class EmptyDocument implements Document {
 	}
 
 	@Override
+	public char getChar(@Nonnull String path, char def) {
+		return def;
+	}
+
+	@Override
 	public long getLong(@Nonnull String path) {
 		return 0;
+	}
+
+	@Override
+	public long getLong(@Nonnull String path, long def) {
+		return def;
 	}
 
 	@Override
@@ -79,8 +89,18 @@ public class EmptyDocument implements Document {
 	}
 
 	@Override
+	public int getInt(@Nonnull String path, int def) {
+		return def;
+	}
+
+	@Override
 	public short getShort(@Nonnull String path) {
 		return 0;
+	}
+
+	@Override
+	public short getShort(@Nonnull String path, short def) {
+		return def;
 	}
 
 	@Override
@@ -89,8 +109,18 @@ public class EmptyDocument implements Document {
 	}
 
 	@Override
+	public byte getByte(@Nonnull String path, byte def) {
+		return def;
+	}
+
+	@Override
 	public float getFloat(@Nonnull String path) {
 		return 0;
+	}
+
+	@Override
+	public float getFloat(@Nonnull String path, float def) {
+		return def;
 	}
 
 	@Override
@@ -99,8 +129,18 @@ public class EmptyDocument implements Document {
 	}
 
 	@Override
+	public double getDouble(@Nonnull String path, double def) {
+		return def;
+	}
+
+	@Override
 	public boolean getBoolean(@Nonnull String path) {
 		return false;
+	}
+
+	@Override
+	public boolean getBoolean(@Nonnull String path, boolean def) {
+		return def;
 	}
 
 	@Nonnull
