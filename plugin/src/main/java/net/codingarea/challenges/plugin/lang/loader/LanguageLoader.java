@@ -84,6 +84,10 @@ public final class LanguageLoader extends ContentLoader {
 				ConsolePrint.unknownLanguage(language);
 				language = DEFAULT_LANGUAGE;
 				file = getFile(language, "json");
+				if (!file.exists()) {
+					ConsolePrint.unableToGetLanguages();
+					return;
+				}
 			}
 
 			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
