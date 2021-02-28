@@ -24,7 +24,7 @@ public final class LanguageLoader extends ContentLoader {
 	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/development/language/";
 	public static final String DEFAULT_LANGUAGE = "en";
 
-	private final JsonParser parser = new JsonParser();
+	private static final JsonParser parser = new JsonParser();
 
 	@Override
 	protected void load() {
