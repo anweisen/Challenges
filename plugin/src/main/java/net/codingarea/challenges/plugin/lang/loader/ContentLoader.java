@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
-import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.files.FileManager;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 
 import javax.annotation.Nonnull;
@@ -16,10 +16,7 @@ public abstract class ContentLoader {
 
 	@Nonnull
 	protected final File getFolder() {
-		File folder = new File(Challenges.getInstance().getDataFolder(), "messages");
-		if (!folder.exists())
-			folder.mkdirs();
-		return folder;
+		return FileManager.getFile("messages");
 	}
 
 	@Nonnull
