@@ -43,20 +43,17 @@ public class ItemBuilder {
 		applyFormat(message.asItemDescription());
 	}
 
-	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name) {
 		this(material);
 		setName(name);
 	}
 
-	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
 		this(material);
 		setName(name);
 		setLore(lore);
 	}
 
-	@Deprecated
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
 		this(material);
 		setName(name);
@@ -115,6 +112,12 @@ public class ItemBuilder {
 	}
 
 	@Nonnull
+	public ItemBuilder appendName(@Nullable Object sequence) {
+		String name = getMeta().getDisplayName();
+		return setName(name  + sequence);
+	}
+
+	@Nonnull
 	public ItemBuilder name(@Nullable Object name) {
 		return setName(name);
 	}
@@ -170,7 +173,7 @@ public class ItemBuilder {
 
 	@Nonnull
 	public ItemBuilder setAmount(int amount) {
-		item.setAmount(amount);
+		item.setAmount(Math.min(Math.max(amount, 0), 64));
 		return this;
 	}
 
