@@ -3,6 +3,8 @@ package net.codingarea.challenges.plugin.management.challenges;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
@@ -32,16 +34,47 @@ public final class ChallengeManager {
 		challenges.add(challenge);
 	}
 
-	public void clear() {
+	public void clearChallengeCache() {
 		challenges.clear();
 		currentGoal = null;
 	}
 
 	public void enable() {
+		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		FileDocumentWrapper settingConfig = Challenges.getInstance().getConfigManager().getSettingsConfig();
 		for (IChallenge challenge : challenges) {
+			String name = challenge.getName();
+
+			if (gamestateConfig.contains(name)) {
+				Document document = gamestateConfig.getDocument(name);
+				challenge.loadGameState(document);
+			}
+			if (settingConfig.contains(name)) {
+				Document document = settingConfig.getDocument(name);
+				challenge.loadSettings(document);
+			}
+
 			if (challenge instanceof Listener)
 				Challenges.getInstance().registerListener((Listener) challenge);
 		}
+	}
+
+	public synchronized void saveGamestate(boolean async) {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		for (IChallenge challenge : challenges) {
+			Document document = config.getDocument(challenge.getName());
+			challenge.writeGameState(document);
+		}
+		config.save(async);
+	}
+
+	public synchronized void saveLocalSettings(boolean async) {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSettingsConfig();
+		for (IChallenge challenge : challenges) {
+			Document document = config.getDocument(challenge.getName());
+			challenge.writeSettings(document);
+		}
+		config.save(async);
 	}
 
 	@Nullable
