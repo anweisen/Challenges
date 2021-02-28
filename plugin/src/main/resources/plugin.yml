@@ -12,6 +12,10 @@ softdepend:
   - Challenges-MongoConnector
 
 commands:
+  reset:
+    permission: challenges.reset
+    description: "Resets the world and stops/restarts the server"
+    usage: /reset [confirm]
   challenges:
     aliases:
       - c
