@@ -20,13 +20,13 @@ public final class GsonUtils {
 	}
 
 	@Nullable
-	public static Object unpack(@Nullable JsonElement element) {
+	public static Object unpackJsonElement(@Nullable JsonElement element) {
 		if (element == null || element.isJsonNull())
 			return null;
 		if (element.isJsonObject())
-			return convertToMap(element.getAsJsonObject());
+			return convertJsonObjectToMap(element.getAsJsonObject());
 		if (element.isJsonArray())
-			return convertToList(element.getAsJsonArray());
+			return convertJsonArrayToStringList(element.getAsJsonArray());
 		if (element.isJsonPrimitive()) {
 			JsonPrimitive primitive = element.getAsJsonPrimitive();
 			if (primitive.isNumber()) return primitive.getAsNumber();
@@ -37,7 +37,7 @@ public final class GsonUtils {
 	}
 
 	@Nullable
-	public static String convertToString(@Nullable JsonElement element) {
+	public static String convertJsonElementToString(@Nullable JsonElement element) {
 		if (element == null || element.isJsonNull())
 			return null;
 		if (element.isJsonPrimitive()) {
@@ -50,32 +50,32 @@ public final class GsonUtils {
 	}
 
 	@Nonnull
-	public static Map<String, Object> convertToMap(@Nonnull JsonObject object) {
+	public static Map<String, Object> convertJsonObjectToMap(@Nonnull JsonObject object) {
 		Map<String, Object> map = new LinkedHashMap<>();
-		convertToMap(object, map);
+		convertJsonObjectToMap(object, map);
 		return map;
 	}
 
-	public static void convertToMap(@Nonnull JsonObject object, @Nonnull Map<String, Object> map) {
+	public static void convertJsonObjectToMap(@Nonnull JsonObject object, @Nonnull Map<String, Object> map) {
 		for (Entry<String, JsonElement> entry : object.entrySet()) {
-			map.put(entry.getKey(), unpack(entry.getValue()));
+			map.put(entry.getKey(), unpackJsonElement(entry.getValue()));
 		}
 	}
 
 	@Nonnull
-	public static List<String> convertToList(@Nonnull JsonArray array) {
+	public static List<String> convertJsonArrayToStringList(@Nonnull JsonArray array) {
 		List<String> list = new ArrayList<>(array.size());
 		for (JsonElement element : array) {
-			list.add(convertToString(element));
+			list.add(convertJsonElementToString(element));
 		}
 		return list;
 	}
 
 	@Nonnull
-	public static String[] convertToStringArray(@Nonnull JsonArray array) {
+	public static String[] convertJsonArrayToStringArray(@Nonnull JsonArray array) {
 		String[] list = new String[array.size()];
 		for (int i = 0; i < array.size(); i++) {
-			list[i] = convertToString(array.get(i));
+			list[i] = convertJsonElementToString(array.get(i));
 		}
 		return list;
 	}
