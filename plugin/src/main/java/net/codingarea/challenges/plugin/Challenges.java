@@ -124,9 +124,16 @@ public final class Challenges extends BukkitModule {
 	public void onDisable() {
 		super.onDisable();
 
+		if (timer != null && worldManager != null && !worldManager.isShutdownBecauseOfReset()) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
 		if (menuManager != null) menuManager.close();
-		if (challengeManager != null) challengeManager.clear();
+
+		if (challengeManager != null) {
+			challengeManager.saveLocalSettings(false);
+			if (worldManager != null && !worldManager.isShutdownBecauseOfReset())
+				challengeManager.saveGamestate(false);
+			challengeManager.clearChallengeCache();
+		}
 	}
 
 	@Nonnull
