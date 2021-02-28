@@ -46,7 +46,7 @@ public abstract class Setting extends AbstractChallenge {
 	@Nonnull
 	@Override
 	public ItemStack getSettingsItem() {
-		return DefaultItem.status(enabled);
+		return DefaultItem.status(enabled).build();
 	}
 
 	protected void onEnable() {

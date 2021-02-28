@@ -165,7 +165,7 @@ public abstract class MenuSetting extends AbstractChallenge {
 	@Nonnull
 	@Override
 	public final ItemStack getSettingsItem() {
-		return enabled ? DefaultItem.customize() : DefaultItem.disabled();
+		return enabled ? DefaultItem.customize().build() : DefaultItem.disabled().build();
 	}
 
 	@Override
@@ -245,7 +245,7 @@ public abstract class MenuSetting extends AbstractChallenge {
 		@Nonnull
 		@Override
 		public ItemStack getSettingsItem() {
-			return DefaultItem.status(enabled);
+			return DefaultItem.status(enabled).build();
 		}
 
 		@Override
@@ -333,7 +333,7 @@ public abstract class MenuSetting extends AbstractChallenge {
 		@Nonnull
 		@Override
 		public ItemStack getSettingsItem() {
-			return DefaultItem.value(value);
+			return DefaultItem.value(value).build();
 		}
 
 		@Nonnull

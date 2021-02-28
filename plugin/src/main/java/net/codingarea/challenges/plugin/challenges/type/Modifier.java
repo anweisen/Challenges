@@ -44,7 +44,7 @@ public abstract class Modifier extends AbstractChallenge {
 	@Nonnull
 	@Override
 	public ItemStack getSettingsItem() {
-		return DefaultItem.value(value);
+		return DefaultItem.value(value).build();
 	}
 
 	@Nonnull
