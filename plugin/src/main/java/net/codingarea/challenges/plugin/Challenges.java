@@ -43,7 +43,7 @@ public final class Challenges extends BukkitModule {
 		instance = this;
 		super.onLoad();
 
-		if (validationFailed = validate()) return; // Handle in enable
+		if (validationFailed = (validate() || validationFailed)) return; // Handle in enable
 
 		saveDefaultConfig();
 		createManagers();
