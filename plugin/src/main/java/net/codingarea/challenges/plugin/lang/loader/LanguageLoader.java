@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 import net.codingarea.challenges.plugin.utils.misc.GsonUtils;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -56,7 +57,7 @@ public final class LanguageLoader extends ContentLoader {
 	private void verifyLanguage(@Nonnull JsonObject download, @Nonnull File file) throws IOException {
 
 		if (!file.exists()) {
-			file.createNewFile();
+			FileUtils.createFilesIfNecessary(file);
 			new GsonDocument(download).save(file);
 			return;
 		}
@@ -73,7 +74,7 @@ public final class LanguageLoader extends ContentLoader {
 	private void read() {
 		try {
 
-			String language = Challenges.getInstance().getConfig().getString("language", DEFAULT_LANGUAGE);
+			String language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
 			File file = getFile(language, "json");
 
 			if (!file.exists()) {
@@ -100,7 +101,7 @@ public final class LanguageLoader extends ContentLoader {
 					if (element.isJsonPrimitive()) {
 						message.setValue(element.getAsString());
 					} else if (element.isJsonArray()) {
-						message.setValue(GsonUtils.convertToStringArray(element.getAsJsonArray()));
+						message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
 					}
 				} catch (IllegalArgumentException | IllegalStateException ex) {
 					// Unknown Message
@@ -108,6 +109,8 @@ public final class LanguageLoader extends ContentLoader {
 			}
 
 			Challenges.getInstance().getMenuManager().generateMenus();
+			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
+
 			Logger.info("Successfully loaded language '" + language + "' from config file");
 
 		} catch (Exception ex) {

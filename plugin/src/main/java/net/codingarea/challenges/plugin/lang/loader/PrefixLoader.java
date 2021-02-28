@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.config.document.PropertiesDocument;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 
 import java.io.File;
 
@@ -18,7 +19,7 @@ public final class PrefixLoader extends ContentLoader {
 		try {
 
 			File file = getFile("prefix", "properties");
-			if (!file.exists()) file.createNewFile();
+			FileUtils.createFilesIfNecessary(file);
 
 			Document document = new PropertiesDocument(file);
 
