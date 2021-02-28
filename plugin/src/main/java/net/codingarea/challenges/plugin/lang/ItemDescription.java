@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -30,8 +31,8 @@ public final class ItemDescription {
 	public ItemDescription(@Nonnull String[] description) {
 		if (description.length == 0) throw new IllegalArgumentException("Invalid item description: Cannot be empty");
 
-		name = description[0];
-		colors = determineColors(name);
+		name = "§8» " + description[0];
+		colors = determineColors(description[0]);
 		lore = new String[description.length - 1];
 		fillLore(description);
 	}
@@ -53,12 +54,38 @@ public final class ItemDescription {
 
 	private void fillLore(@Nonnull String[] origin) {
 
-
+		String colorBefore = "§7";
+		boolean inColor = false;
+		boolean nextIsColor = false;
+		int themeIndex = 0;
 
 		// Start at 1, first entry is not content of lore
 		for (int i = 1; i < origin.length; i++) {
-			String line = lore[i];
-
+			StringBuilder line = new StringBuilder();
+			for (char c : origin[i].toCharArray()) {
+				if (c == '*') {
+					if (inColor) {
+						line.append(colorBefore);
+						inColor = false;
+					} else {
+						line.append(colors[themeIndex]);
+						themeIndex++;
+						if (themeIndex >= colors.length)
+							themeIndex = 0;
+						inColor = true;
+					}
+				} else {
+					line.append(c);
+					if (c == '§') {
+						nextIsColor = true;
+					} else if (nextIsColor) {
+						if (StringUtils.isValidColorCode(c))
+							colorBefore = "";
+						colorBefore += "§" + c;
+					}
+				}
+			}
+			lore[i - 1] = line.toString();
 		}
 
 	}
@@ -86,6 +113,8 @@ public final class ItemDescription {
 				colorIndex++;
 		}
 
+		if (colors.isEmpty())
+			colors.add("§e");
 		return colors.toArray(new String[0]);
 	}
 
