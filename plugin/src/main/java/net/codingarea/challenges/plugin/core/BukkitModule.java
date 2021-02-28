@@ -1,9 +1,14 @@
 package net.codingarea.challenges.plugin.core;
 
+import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
+import net.codingarea.challenges.plugin.utils.config.document.YamlDocument;
+import net.codingarea.challenges.plugin.utils.config.document.readonly.ReadOnlyYamlDocument;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +21,8 @@ import javax.annotation.Nonnull;
  * @see net.codingarea.challenges.plugin.Challenges
  */
 public abstract class BukkitModule extends JavaPlugin {
+
+	private Document config;
 
 	@Override
 	public void onLoad() {
@@ -30,6 +37,24 @@ public abstract class BukkitModule extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
+	}
+
+	@Nonnull
+	public final Document getConfigDocument() {
+		return config != null ? config : (config = new ReadOnlyYamlDocument(super.getConfig()));
+	}
+
+	@Nonnull
+	@Override
+	@Deprecated
+	public FileConfiguration getConfig() {
+		return super.getConfig();
+	}
+
+	@Override
+	@Deprecated
+	public void saveConfig() {
+		super.saveConfig();
 	}
 
 	public final void registerCommand(@Nonnull CommandExecutor executor, @Nonnull String... names) {
