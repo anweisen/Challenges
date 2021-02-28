@@ -38,12 +38,14 @@ public class ReadOnlyGsonDocument extends GsonDocument {
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document set(@Nonnull String path, @Nullable Object value) {
 		throw new UnsupportedOperationException("ReadOnlyGsonDocument.set(String, Object)");
 	}
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document clear() {
 		throw new UnsupportedOperationException("ReadOnlyGsonDocument.clear()");
 	}
@@ -57,6 +59,7 @@ public class ReadOnlyGsonDocument extends GsonDocument {
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document getDocument(@Nonnull String path) {
 		return new ReadOnlyDocumentWrapper(super.getDocument(path));
 	}
