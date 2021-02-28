@@ -6,12 +6,18 @@ import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.database.DatabaseManager;
+import net.codingarea.challenges.plugin.management.files.ConfigManager;
+import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryManager;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
+import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
-import net.codingarea.challenges.plugin.spigot.listener.*;
+import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
+import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
+import net.codingarea.challenges.plugin.spigot.listener.RestrictionListener;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 
 import javax.annotation.Nonnull;
@@ -30,11 +36,15 @@ public final class Challenges extends BukkitModule {
 		return instance;
 	}
 
+	private PlayerInventoryManager playerInventoryManager;
 	private ChallengeManager challengeManager;
+	private DatabaseManager databaseManager;
+	private ServerManager serverManager;
+	private ConfigManager configManager;
+	private ScheduleManager scheduler;
+	private WorldManager worldManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
-	private ScheduleManager scheduler;
-	private ServerManager serverManager;
 
 	private boolean validationFailed = false;
 
@@ -70,11 +80,15 @@ public final class Challenges extends BukkitModule {
 
 		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader());
 
+		configManager = new ConfigManager();
+		databaseManager = new DatabaseManager();
+		worldManager = new WorldManager();
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();
 		timer = new ChallengeTimer();
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
+		playerInventoryManager = new PlayerInventoryManager();
 
 		new ChallengeLoader().load(); // Register challenges, replace with better way later
 
@@ -82,6 +96,10 @@ public final class Challenges extends BukkitModule {
 
 	private void enableManagers() {
 
+		configManager.loadConfigs();
+		worldManager.executeWorldResetIfNecessary();
+		databaseManager.connectIfCreated();
+		timer.loadSession();
 		challengeManager.enable();
 		scheduler.start();
 
@@ -135,4 +153,20 @@ public final class Challenges extends BukkitModule {
 	public ScheduleManager getScheduler() {
 		return scheduler;
 	}
+
+	@Nonnull
+	public ConfigManager getConfigManager() {
+		return configManager;
+	}
+
+	@Nonnull
+	public PlayerInventoryManager getPlayerInventoryManager() {
+		return playerInventoryManager;
+	}
+
+	@Nonnull
+	public WorldManager getWorldManager() {
+		return worldManager;
+	}
+
 }
