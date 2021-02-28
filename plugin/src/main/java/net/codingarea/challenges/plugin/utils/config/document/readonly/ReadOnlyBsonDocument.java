@@ -33,18 +33,21 @@ public class ReadOnlyBsonDocument extends BsonDocument {
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document set(@Nonnull String path, @Nullable Object value) {
 		throw new UnsupportedOperationException("ReadOnlyGsonDocument.set(String, Object)");
 	}
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document remove(@Nonnull String path) {
 		throw new UnsupportedOperationException("ReadOnlyGsonDocument.remove(String)");
 	}
 
 	@Nonnull
 	@Override
+	@Deprecated
 	public Document clear() {
 		throw new UnsupportedOperationException("ReadOnlyGsonDocument.clear()");
 	}
