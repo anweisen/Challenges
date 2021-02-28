@@ -26,6 +26,7 @@ public final class LanguageLoader extends ContentLoader {
 	public static final String DEFAULT_LANGUAGE = "en";
 
 	private static final JsonParser parser = new JsonParser();
+	private static volatile boolean loaded = false;
 
 	@Override
 	protected void load() {
@@ -108,6 +109,7 @@ public final class LanguageLoader extends ContentLoader {
 				}
 			}
 
+			loaded = true;
 			Challenges.getInstance().getMenuManager().generateMenus();
 			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 
@@ -116,6 +118,10 @@ public final class LanguageLoader extends ContentLoader {
 		} catch (Exception ex) {
 			Logger.severe("Could not read languages", ex);
 		}
+	}
+
+	public static boolean isLoaded() {
+		return loaded;
 	}
 
 }
