@@ -30,6 +30,7 @@ public abstract class ContentLoader {
 			load();
 			finishLoading();
 		});
+		thread.setName(getClass().getName());
 		thread.start();
 	}
 
