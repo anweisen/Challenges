@@ -24,8 +24,9 @@ public abstract class AbstractDatabase implements Database {
 	public void disconnectSafely() {
 		try {
 			disconnect();
+			Logger.info("Successfully closed connection to database of type " + this.getClass().getSimpleName());
 		} catch (DatabaseException ex) {
-			Logger.severe("Could not disconnect from database", ex);
+			Logger.severe("Could not disconnect from database (" + this.getClass().getSimpleName() + ")", ex);
 		}
 	}
 
@@ -33,8 +34,9 @@ public abstract class AbstractDatabase implements Database {
 	public void connectSafely() {
 		try {
 			connect();
+			Logger.info("Successfully created connection to database of type " + this.getClass().getSimpleName());
 		} catch (DatabaseException ex) {
-			Logger.severe("Could not connect to database", ex);
+			Logger.severe("Could not connect to database (" + this.getClass().getSimpleName() + ")", ex);
 		}
 	}
 
