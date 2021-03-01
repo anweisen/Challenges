@@ -11,7 +11,6 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 /**
  * @author anweisen | https://github.com/anweisen
