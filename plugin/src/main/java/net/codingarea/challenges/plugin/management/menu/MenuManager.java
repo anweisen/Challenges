@@ -116,7 +116,8 @@ public final class MenuManager {
 
 	public void close() {
 		menus.values().forEach(menu -> InventoryUtils.close(menu.getInventories()));
-		InventoryUtils.close(timerMenu.getInventories());
+		if (timerMenu != null)
+			InventoryUtils.close(timerMenu.getInventories());
 	}
 
 	@Nonnull
