@@ -2,14 +2,19 @@ package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import net.codingarea.challenges.plugin.utils.version.Version;
+import net.codingarea.challenges.plugin.utils.version.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -36,7 +41,11 @@ public final class Menu {
 	}
 
 	void addChallengeCache(@Nonnull IChallenge challenge) {
-		challenges.add(challenge);
+		if (isNew(challenge) && Challenges.getInstance().getMenuManager().isDisplayNewInFront()) {
+			challenges.add(0, challenge);
+		} else {
+			challenges.add(challenge);
+		}
 	}
 	void resetChallengesCache() {
 		challenges.clear();
@@ -65,7 +74,7 @@ public final class Menu {
 			int displaySlot = SLOTS[index];
 			int settingsSlot = displaySlot + 9;
 
-			inventory.setItem(displaySlot, challenge.getDisplayItem());
+			inventory.setItem(displaySlot, getDisplayItem(challenge));
 			inventory.setItem(settingsSlot, challenge.getSettingsItem());
 
 			index++;
@@ -78,7 +87,7 @@ public final class Menu {
 	public void updateItem(@Nonnull IChallenge challenge) {
 
 		int index = challenges.indexOf(challenge);
-		if (index == -1) return;
+		if (index == -1) return; // Challenge not registered or menus not loaded
 
 		int page = index / SLOTS.length;
 		if (page >= inventories.size()) return; // This should never happen
@@ -86,9 +95,24 @@ public final class Menu {
 		int slot = index - SLOTS.length * page;
 
 		Inventory inventory = inventories.get(page);
-		inventory.setItem(SLOTS[slot], challenge.getDisplayItem());
+		inventory.setItem(SLOTS[slot], getDisplayItem(challenge));
 		inventory.setItem(SLOTS[slot] + 9, challenge.getSettingsItem());
 
+	}
+
+	private ItemStack getDisplayItem(@Nonnull IChallenge challenge) {
+		ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
+		if (isNew(challenge)) {
+			return item.appendName(" " + Message.NEW_CHALLENGE).build();
+		} else {
+			return item.build();
+		}
+	}
+
+	private boolean isNew(@Nonnull IChallenge challenge) {
+		Version version = Challenges.getInstance().getVersion();
+		Version since   = VersionUtils.getSince(challenge);
+		return since.isNewerOrEqualThan(version);
 	}
 
 	@Nonnull
