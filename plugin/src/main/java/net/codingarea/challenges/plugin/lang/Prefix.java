@@ -19,7 +19,7 @@ public enum Prefix {
 	}
 
 	public void setValue(@Nullable String value) {
-		this.value = value;
+		this.value = value == null ? null : value.endsWith(" ") ? value : value + " ";
 	}
 
 	@Nonnull
