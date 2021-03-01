@@ -99,7 +99,8 @@ public final class MenuManager {
 	public boolean openMenu(@Nonnull Player player, @Nonnull MenuType type, int page) {
 		if (!generated) {
 			SoundSample.BASS_OFF.play(player);
-			player.sendMessage(Prefix.CHALLENGES + "§cCould not open gui, languages are not loaded! (Is it set up correctly?!)");
+			player.sendMessage(Prefix.CHALLENGES + "§cCould not open gui, languages are not loaded");
+			player.sendMessage(Prefix.CHALLENGES + "§cIs the plugin set up correctly?");
 			return false;
 		}
 
