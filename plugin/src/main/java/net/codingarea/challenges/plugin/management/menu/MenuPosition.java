@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -27,6 +28,15 @@ public interface MenuPosition {
 	@Nullable
 	static MenuPosition get(@Nonnull Player player) {
 		return Challenges.getInstance().getMenuManager().getPosition(player);
+	}
+
+	class EmptyMenuPosition implements MenuPosition {
+
+		@Override
+		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
+			SoundSample.CLICK.play(player);
+		}
+
 	}
 
 }
