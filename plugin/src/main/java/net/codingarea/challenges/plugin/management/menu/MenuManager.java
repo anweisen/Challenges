@@ -94,7 +94,8 @@ public final class MenuManager {
 	}
 
 	/**
-	 * @return if the menu could be opened. The menu may not be opened, when there are no challenges registered to that menu or the languages are not loaded
+	 * @return If the specified menu page could be opened.
+	 *         The menu may not be opened, when there are no challenges registered to that menu or the languages are not loaded
 	 */
 	public boolean openMenu(@Nonnull Player player, @Nonnull MenuType type, int page) {
 		if (!generated) {
