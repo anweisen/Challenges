@@ -169,7 +169,12 @@ public final class Menu {
 			}
 
 			IChallenge challenge = challenges.get(index);
-			challenge.handleClick(new MenuClickEvent(player, inventory, event.isRightClick(), event.isShiftClick(), upperItem));
+
+			try {
+				challenge.handleClick(new MenuClickEvent(player, inventory, event.isRightClick(), event.isShiftClick(), upperItem));
+			} catch (Exception ex) {
+				Logger.severe("An exception occurred while handling click on " + challenge.getClass().getName(), ex);
+			}
 
 		}
 
