@@ -25,4 +25,9 @@ public final class TitleManager {
 		return "§8» §9" + menu.getName() + " §8┃ §9" + name + (showPages && false /* temporarily disabled */ ? " §8• §9" + (page + 1) : "");
 	}
 
+	@Nonnull
+	public static String getStatsTitle(@Nonnull String playerName) {
+		return "§8» §2Stats §8┃ §2" + playerName;
+	}
+
 }
