@@ -28,6 +28,7 @@ public final class MenuManager {
 
 	private final Map<MenuType, Menu> menus = new HashMap<>();
 	private final Map<Player, MenuPosition> positions = new HashMap<>();
+	private final boolean displayNewInFront;
 
 	private TimerMenu timerMenu;
 	private AnimatedInventory gui;
@@ -35,6 +36,8 @@ public final class MenuManager {
 	private boolean generated = false;
 
 	public MenuManager() {
+		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
+
 		for (MenuType type : MenuType.values()) {
 			if (!type.isUsable()) continue;
 			menus.put(type, new Menu(type));
@@ -134,6 +137,10 @@ public final class MenuManager {
 	public void setPostion(@Nonnull Player player, @Nullable MenuPosition position) {
 		if (position == null) positions.remove(player);
 		else positions.put(player, position);
+	}
+
+	public boolean isDisplayNewInFront() {
+		return displayNewInFront;
 	}
 
 	private class MainMenuPosition implements MenuPosition {
