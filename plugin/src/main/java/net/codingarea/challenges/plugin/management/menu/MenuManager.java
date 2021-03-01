@@ -46,23 +46,23 @@ public final class MenuManager {
 		gui = new AnimatedInventory(TitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
 				.setFrameSound(SoundSample.CLICK).setEndSound(SoundSample.OPEN);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
-		gui.cloneAndAdd(0).setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(1).setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(2).setItem(37, ItemBuilder.FILL_ITEM_2).setItem(43, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(3).setItem(28, ItemBuilder.FILL_ITEM_2).setItem(34, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(4).setItem(27, ItemBuilder.FILL_ITEM_2).setItem(35, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(5).setItem(18, ItemBuilder.FILL_ITEM_2).setItem(26, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(6).setItem(9, ItemBuilder.FILL_ITEM_2).setItem(17, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(7).setItem(10, ItemBuilder.FILL_ITEM_2).setItem(16, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(8).setItem(1, ItemBuilder.FILL_ITEM_2).setItem(7, ItemBuilder.FILL_ITEM_2);
-		gui.cloneAndAdd(9).setItem(2, ItemBuilder.FILL_ITEM_2).setItem(6, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(37, ItemBuilder.FILL_ITEM_2).setItem(43, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(28, ItemBuilder.FILL_ITEM_2).setItem(34, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(27, ItemBuilder.FILL_ITEM_2).setItem(35, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(18, ItemBuilder.FILL_ITEM_2).setItem(26, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(9, ItemBuilder.FILL_ITEM_2).setItem(17, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(10, ItemBuilder.FILL_ITEM_2).setItem(16, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(1, ItemBuilder.FILL_ITEM_2).setItem(7, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setItem(2, ItemBuilder.FILL_ITEM_2).setItem(6, ItemBuilder.FILL_ITEM_2);
 
-		gui.cloneAndAdd(10).setItem(GUI_SLOTS[MenuType.TIMER.ordinal()], new ItemBuilder(Material.CLOCK).setName("§6Timer").hideAttributes())
-				.setItem(GUI_SLOTS[MenuType.GOAL.ordinal()], new ItemBuilder(Material.COMPASS).setName("§5Goal").hideAttributes());
-		gui.cloneAndAdd(11).setItem(GUI_SLOTS[MenuType.DAMAGE.ordinal()], new ItemBuilder(Material.IRON_SWORD).setName("§7Damage").hideAttributes())
-				.setItem(GUI_SLOTS[MenuType.ITEMS_BLOCKS.ordinal()], new ItemBuilder(Material.STICK).setName("§4Blocks & Items").hideAttributes());
-		gui.cloneAndAdd(12).setItem(GUI_SLOTS[MenuType.CHALLENGES.ordinal()], new ItemBuilder(Material.BOOK).setName("§cChallenges").hideAttributes())
-				.setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()], new ItemBuilder(Material.COMPARATOR).setName("§eSettings").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.TIMER.ordinal()], new ItemBuilder(Material.CLOCK).setName("§8» §6Timer").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.GOAL.ordinal()], new ItemBuilder(Material.COMPASS).setName("§8» §5Goal").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.DAMAGE.ordinal()], new ItemBuilder(Material.IRON_SWORD).setName("§8» §7Damage").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.ITEMS_BLOCKS.ordinal()], new ItemBuilder(Material.STICK).setName("§8» §4Blocks & Items").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.CHALLENGES.ordinal()], new ItemBuilder(Material.BOOK).setName("§8» §cChallenges").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()], new ItemBuilder(Material.COMPARATOR).setName("§8» §eSettings").hideAttributes());
 	}
 
 	public void generateMenus() {
