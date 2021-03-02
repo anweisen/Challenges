@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.ReflectionUtils;
 
 import javax.annotation.Nonnull;
@@ -16,10 +17,15 @@ public final class ScheduleManager {
 	private final Map<SchedulerConfig, Scheduler> schedulerByConfig = new ConcurrentHashMap<>();
 	private boolean started = false;
 
-	public void register(@Nonnull Object object) {
-		for (Method method : ReflectionUtils.getDeclaredMethodsAnnotatedWith(object.getClass(), Scheduled.class)) {
+	public void register(@Nonnull Object scheduler) {
+		for (Method method : ReflectionUtils.getDeclaredMethodsAnnotatedWith(scheduler.getClass(), Scheduled.class)) {
+			if (method.getParameterCount() != 0) {
+				Logger.warn("Could not register scheduler " + method);
+				continue;
+			}
+
 			Scheduled annotation = method.getAnnotation(Scheduled.class);
-			ScheduledFunction function = new ScheduledFunction(object, method, annotation);
+			ScheduledFunction function = new ScheduledFunction(scheduler, method, annotation);
 
 			register(function, annotation);
 		}
