@@ -23,10 +23,16 @@ import javax.annotation.Nonnull;
 public abstract class BukkitModule extends JavaPlugin {
 
 	private Document config;
+	private boolean devMode;
 
 	@Override
 	public void onLoad() {
-		super.onLoad();
+		if (devMode = getConfigDocument().getBoolean("dev-mode")) {
+			getLogger().setLevel(Level.ALL);
+			getLogger().log(LogLevel.DEBUG, "Devmode is enabled: Showing debug messages. This can be disabled in the plugin.yml ('dev-mode')");
+		} else {
+			getLogger().setLevel(Level.INFO);
+		}
 	}
 
 	@Override
@@ -37,6 +43,10 @@ public abstract class BukkitModule extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
+	public boolean isDevMode() {
+		return devMode;
+	}
+
 	}
 
 	@Nonnull
