@@ -43,10 +43,16 @@ public abstract class BukkitModule extends JavaPlugin {
 	@Override
 	public void onDisable() {
 		super.onDisable();
+	}
+
 	public boolean isDevMode() {
 		return devMode;
 	}
 
+	@Nonnull
+	@Override
+	public Logger getLogger() {
+		return new BukkitLoggerWrapper(super.getLogger());
 	}
 
 	@Nonnull
