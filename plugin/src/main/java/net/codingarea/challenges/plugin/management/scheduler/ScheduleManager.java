@@ -14,6 +14,7 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class ScheduleManager {
 
 	private final Map<SchedulerConfig, Scheduler> schedulerByConfig = new ConcurrentHashMap<>();
+	private boolean started = false;
 
 	public void register(@Nonnull Object object) {
 		for (Method method : ReflectionUtils.getDeclaredMethodsAnnotatedWith(object.getClass(), Scheduled.class)) {
@@ -45,16 +46,19 @@ public final class ScheduleManager {
 
 		// Create new task
 		scheduler = new Scheduler(config);
+		if (started) scheduler.start();
 		schedulerByConfig.put(config, scheduler);
 		return scheduler;
 	}
 
 	public void stop() {
+		started = false;
 		schedulerByConfig.values().forEach(Scheduler::stop);
 		schedulerByConfig.clear();
 	}
 
 	public void start() {
+		started = true;
 		schedulerByConfig.values().forEach(Scheduler::start);
 	}
 
