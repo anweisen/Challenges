@@ -66,4 +66,9 @@ public final class ScheduledFunction {
 		return holder;
 	}
 
+	@Override
+	public String toString() {
+		return "ScheduledFunction{" + holder.getClass().getName() + "." + method.getName() + "}";
+	}
+
 }
