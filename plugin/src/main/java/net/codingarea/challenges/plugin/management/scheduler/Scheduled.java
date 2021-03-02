@@ -31,7 +31,7 @@ public @interface Scheduled {
 	}
 
 	@Nonnegative
-	byte ticks();
+	int ticks();
 
 	boolean async() default true;
 
