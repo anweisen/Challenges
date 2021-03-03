@@ -80,6 +80,7 @@ public final class ChallengeTimer {
 	}
 
 	public void resume() {
+		if (!paused) return;
 
 		Challenges.getInstance().getServerManager().setNotFresh();
 		paused = false;
@@ -100,12 +101,14 @@ public final class ChallengeTimer {
 	}
 
 	public void pause() {
+		if (paused) return;
 		paused = true;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
 	}
 
 	public void reset() {
+		pause();
 		time = 0;
 		countingUp = true;
 		updateActionbar();
