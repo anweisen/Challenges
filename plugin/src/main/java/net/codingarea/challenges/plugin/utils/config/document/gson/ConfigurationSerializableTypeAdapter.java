@@ -46,7 +46,7 @@ public final class ConfigurationSerializableTypeAdapter implements GsonTypeAdapt
 		JsonObject json = element.getAsJsonObject();
 		String classOfType = json.get(KEY).getAsString();
 
-		Map<String, Object> map = GsonUtils.convertToMap(json);
+		Map<String, Object> map = GsonUtils.convertJsonObjectToMap(json);
 
 		try {
 			Class<?> clazz = Class.forName(classOfType);
