@@ -60,7 +60,7 @@ public abstract class BukkitModule extends JavaPlugin {
 	}
 
 	@Nonnull
-	public final Document getConfigDocument() {
+	public Document getConfigDocument() {
 		return config != null ? config : (config = new ReadOnlyYamlDocument(super.getConfig()));
 	}
 
