@@ -1,12 +1,20 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
+import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import org.bukkit.Bukkit;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONValue;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import javax.annotation.Nullable;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.nio.charset.Charset;
+import java.util.*;
+import java.util.regex.Pattern;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -40,6 +48,21 @@ public final class Utils {
 		}
 		Collections.sort(list);
 		return list;
+	}
+
+	@Nonnull
+	public static UUID fetchUUID(@Nonnull String name) throws IOException {
+		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
+		String content = IOUtils.toString(new URL(url));
+		GsonDocument document = new GsonDocument(content);
+		return Optional.ofNullable(matchUUID(document.getString("id"))).orElseThrow(() -> new IOException());
+	}
+
+	@Nullable
+	private static UUID matchUUID(@Nullable String uuid) {
+		if (uuid == null) return null;
+		Pattern pattern = Pattern.compile("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})");
+		return UUID.fromString(pattern.matcher(uuid).replaceAll("$1-$2-$3-$4-$5"));
 	}
 
 }
