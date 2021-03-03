@@ -1,11 +1,13 @@
 package net.codingarea.challenges.plugin.core;
 
 import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
-import net.codingarea.challenges.plugin.utils.config.document.YamlDocument;
 import net.codingarea.challenges.plugin.utils.config.document.readonly.ReadOnlyYamlDocument;
+import net.codingarea.challenges.plugin.utils.logging.BukkitLoggerWrapper;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.logging.LogLevel;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
+import net.codingarea.challenges.plugin.utils.version.Version;
+import net.codingarea.challenges.plugin.utils.version.VersionInfo;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -13,6 +15,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author anweisen | https://github.com/anweisen
