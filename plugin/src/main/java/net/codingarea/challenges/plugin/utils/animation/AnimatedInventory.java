@@ -82,6 +82,13 @@ public class AnimatedInventory {
 	}
 
 	@Nonnull
+	public AnimationFrame createAndAdd() {
+		AnimationFrame frame = new AnimationFrame(size);
+		addFrame(frame);
+		return frame;
+	}
+
+	@Nonnull
 	public AnimationFrame getFrame(int index) {
 		return frames.get(index);
 	}
@@ -89,6 +96,13 @@ public class AnimatedInventory {
 	@Nonnull
 	public AnimationFrame cloneAndAdd(int index) {
 		AnimationFrame frame = getFrame(index).clone();
+		addFrame(frame);
+		return frame;
+	}
+
+	@Nonnull
+	public AnimationFrame cloneLastAndAdd() {
+		AnimationFrame frame = getFrame(frames.size() - 1).clone();
 		addFrame(frame);
 		return frame;
 	}
