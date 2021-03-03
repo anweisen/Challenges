@@ -91,6 +91,12 @@ public final class ChallengeTimer {
 			currentGoal.getStartSound().broadcast();
 		else SoundSample.DRAGON_BREATH.broadcast();
 
+		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
+			}
+		}
+
 	}
 
 	public void pause() {

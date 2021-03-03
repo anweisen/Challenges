@@ -14,6 +14,7 @@ import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.management.server.WorldManager;
+import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
 import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
@@ -42,6 +43,7 @@ public final class Challenges extends BukkitModule {
 	private ServerManager serverManager;
 	private ConfigManager configManager;
 	private ScheduleManager scheduler;
+	private StatsManager statsManager;
 	private WorldManager worldManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
@@ -101,6 +103,7 @@ public final class Challenges extends BukkitModule {
 		databaseManager.connectIfCreated();
 		timer.loadSession();
 		challengeManager.enable();
+		statsManager.register();
 		scheduler.start();
 
 	}
@@ -175,6 +178,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public WorldManager getWorldManager() {
 		return worldManager;
+	}
+
+	@Nonnull
+	public StatsManager getStatsManager() {
+		return statsManager;
 	}
 
 }
