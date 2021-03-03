@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.utils.database.internal.abstractation;
 
 import net.codingarea.challenges.plugin.utils.database.Database;
 import net.codingarea.challenges.plugin.utils.database.DatabaseConfig;
+import net.codingarea.challenges.plugin.utils.database.SQLColumn;
 import net.codingarea.challenges.plugin.utils.database.exceptions.DatabaseConnectionClosedException;
 import net.codingarea.challenges.plugin.utils.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -37,6 +38,15 @@ public abstract class AbstractDatabase implements Database {
 			Logger.info("Successfully created connection to database of type " + this.getClass().getSimpleName());
 		} catch (DatabaseException ex) {
 			Logger.severe("Could not connect to database (" + this.getClass().getSimpleName() + ")", ex);
+		}
+	}
+
+	@Override
+	public void createTableIfNotExistsSafely(@Nonnull String name, @Nonnull SQLColumn... columns) {
+		try {
+			createTableIfNotExists(name, columns);
+		} catch (DatabaseException ex) {
+			Logger.severe("Could not create table (" + this.getClass().getSimpleName() + ")", ex);
 		}
 	}
 

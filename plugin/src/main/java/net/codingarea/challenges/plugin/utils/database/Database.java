@@ -21,6 +21,7 @@ public interface Database {
 	void disconnectSafely();
 
 	void createTableIfNotExists(@Nonnull String name, @Nonnull SQLColumn... columns) throws DatabaseException;
+	void createTableIfNotExistsSafely(@Nonnull String name, @Nonnull SQLColumn... columns);
 
 	@Nonnull
 	@CheckReturnValue
