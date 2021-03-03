@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
+import net.codingarea.challenges.plugin.spigot.listener.CheatListener;
 import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
 import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
 import net.codingarea.challenges.plugin.spigot.listener.RestrictionListener;
@@ -121,6 +122,7 @@ public final class Challenges extends BukkitModule {
 				new InventoryListener(),
 				new PlayerConnectionListener(),
 				new RestrictionListener()
+				new CheatListener()
 		);
 	}
 
