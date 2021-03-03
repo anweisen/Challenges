@@ -19,7 +19,7 @@ public final class SQLResult implements Result {
 
 	private final Map<String, Object> values;
 
-	public SQLResult(@Nonnull Map<String, Object> values) throws SQLException {
+	public SQLResult(@Nonnull Map<String, Object> values) {
 		this.values = values;
 	}
 
@@ -228,6 +228,11 @@ public final class SQLResult implements Result {
 	@Override
 	public String toJson() {
 		return new GsonDocument(values).toJson();
+	}
+
+	@Override
+	public String toString() {
+		return toJson();
 	}
 
 }
