@@ -124,7 +124,7 @@ public final class ChallengeTimer {
 
 	@Nonnull
 	private String getActionbar() {
-		String message = paused ? stoppedMessage : (countingUp ? upMessage : downMessage);
+		String message = !paused || (!countingUp && time > 0) ? (countingUp ? upMessage : downMessage) : stoppedMessage;
 		String time = getFormattedTime();
 		return message.replace("{time}", time);
 	}
