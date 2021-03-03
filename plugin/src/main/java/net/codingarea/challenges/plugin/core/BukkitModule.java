@@ -43,12 +43,10 @@ public abstract class BukkitModule extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		super.onEnable();
 	}
 
 	@Override
 	public void onDisable() {
-		super.onDisable();
 	}
 
 	public boolean isDevMode() {
