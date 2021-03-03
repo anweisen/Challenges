@@ -38,4 +38,26 @@ public final class FileUtils {
 				.orElse("");
 	}
 
+	public static void createFilesIfNecessary(@Nonnull File file) throws IOException {
+		if (file.exists()) return;
+		(file.isDirectory() ? file : file.getParentFile()).mkdirs();
+		file.createNewFile();
+	}
+
+	public static void deleteWorld(@Nonnull File path) {
+		if (path.exists()) {
+			File[] files = path.listFiles();
+			if (files == null) return;
+			for (File currentFile : files) {
+				if (currentFile.isDirectory()) {
+					// Don't delete directories or we'Ll minecraft won't create them again
+					deleteWorld(currentFile);
+				} else {
+					if (currentFile.getName().equals("session.lock")) continue; // Don't delete or we'll get lots of exceptions
+					currentFile.delete();
+				}
+			}
+		}
+	}
+
 }
