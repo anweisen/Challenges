@@ -84,6 +84,8 @@ public final class Challenges extends BukkitModule {
 		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader());
 
 		configManager = new ConfigManager();
+		configManager.loadConfigs();
+
 		databaseManager = new DatabaseManager();
 		worldManager = new WorldManager();
 		serverManager = new ServerManager();
@@ -99,7 +101,6 @@ public final class Challenges extends BukkitModule {
 
 	private void enableManagers() {
 
-		configManager.loadConfigs();
 		worldManager.executeWorldResetIfNecessary();
 		databaseManager.connectIfCreated();
 		timer.loadSession();
