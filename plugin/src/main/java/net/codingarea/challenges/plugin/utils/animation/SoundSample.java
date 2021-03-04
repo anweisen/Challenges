@@ -26,7 +26,9 @@ public final class SoundSample {
 			DEATH           = new SoundSample().addSound(Sound.ENTITY_BAT_DEATH, 0.7F),
 			TELEPORT        = new SoundSample().addSound(Sound.ITEM_CHORUS_FRUIT_TELEPORT, 0.9F),
 			OPEN            = new SoundSample().addSound(KLING).addSound(PLOP),
-			DRAGON_BREATH   = new SoundSample().addSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 0.8F);
+			EAT             = new SoundSample().addSound(Sound.ENTITY_PLAYER_BURP, 1),
+			BLAST           = new SoundSample().addSound(Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 1),
+			DRAGON_BREATH   = new SoundSample().addSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5F);
 
 	public static void playEnablingSound(@Nonnull Player player, boolean enabled) {
 		(enabled ? BASS_ON : BASS_OFF).play(player);
