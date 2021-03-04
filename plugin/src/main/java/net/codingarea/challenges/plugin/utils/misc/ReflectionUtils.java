@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.utils.logging.Logger;
+
 import javax.annotation.Nonnull;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Array;
@@ -20,13 +22,23 @@ public final class ReflectionUtils {
 	}
 
 	@Nonnull
-	public static Collection<Method> getDeclaredMethodsAnnotatedWith(@Nonnull Class<?> clazz, @Nonnull Class<? extends Annotation> annotation) {
-		List<Method> methods = new LinkedList<>();
-		for (Method method : clazz.getDeclaredMethods()) {
-			if (!method.isAnnotationPresent(annotation)) continue;
-			methods.add(method);
+	public static Collection<Method> getDeclaredMethodsAnnotatedWith(@Nonnull Class<?> clazz, @Nonnull Class<? extends Annotation> classOfAnnotation) {
+		return filterMethodsAnnotatedWith(clazz.getDeclaredMethods(), classOfAnnotation);
+	}
+
+	@Nonnull
+	public static Collection<Method> getMethodsAnnotatedWith(@Nonnull Class<?> clazz, @Nonnull Class<? extends Annotation> classOfAnnotation) {
+		return filterMethodsAnnotatedWith(clazz.getMethods(), classOfAnnotation);
+	}
+
+	@Nonnull
+	private static Collection<Method> filterMethodsAnnotatedWith(@Nonnull Method[] methods, @Nonnull Class<? extends Annotation> classOfAnnotation) {
+		List<Method> annotatedMethods = new LinkedList<>();
+		for (Method method : methods) {
+			if (!method.isAnnotationPresent(classOfAnnotation)) continue;
+			annotatedMethods.add(method);
 		}
-		return methods;
+		return annotatedMethods;
 	}
 
 	@Nonnull
