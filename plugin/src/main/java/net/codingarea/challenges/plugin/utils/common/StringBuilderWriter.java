@@ -1,19 +1,18 @@
 package net.codingarea.challenges.plugin.utils.common;
 
-import com.sun.istack.internal.NotNull;
-
-import java.io.Serializable;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.Writer;
 
 /**
- * @author anweisen
- * Challenges developed on 07-13-2020
- * https://github.com/anweisen
+ * Because this class is not implemented in versions of bukkit before 1.14, we just make our own.
+ *
+ * @author org.apache.commons.io
+ * @since 1.3
  */
 
-public class StringBuilderWriter extends Writer implements Serializable {
+public class StringBuilderWriter extends Writer {
 
-	private static final long serialVersionUID = -146927496096066153L;
 	private final StringBuilder builder;
 
 	public StringBuilderWriter() {
@@ -24,22 +23,22 @@ public class StringBuilderWriter extends Writer implements Serializable {
 		this.builder = new StringBuilder(capacity);
 	}
 
-	public StringBuilderWriter(StringBuilder builder) {
+	public StringBuilderWriter(@Nullable StringBuilder builder) {
 		this.builder = builder != null ? builder : new StringBuilder();
 	}
 
 	public Writer append(char value) {
-		this.builder.append(value);
+		builder.append(value);
 		return this;
 	}
 
-	public Writer append(CharSequence value) {
-		this.builder.append(value);
+	public Writer append(@Nullable CharSequence value) {
+		builder.append(value);
 		return this;
 	}
 
-	public Writer append(CharSequence value, int start, int end) {
-		this.builder.append(value, start, end);
+	public Writer append(@Nullable CharSequence value, int start, int end) {
+		builder.append(value, start, end);
 		return this;
 	}
 
@@ -49,16 +48,17 @@ public class StringBuilderWriter extends Writer implements Serializable {
 	public void flush() {
 	}
 
-	public void write(@NotNull String value) {
+	public void write(@Nonnull String value) {
 		builder.append(value);
 	}
 
-	public void write(char[] value, int offset, int length) {
+	public void write(@Nullable char[] value, int offset, int length) {
 		if (value != null) {
 			this.builder.append(value, offset, length);
 		}
 	}
 
+	@Nonnull
 	public StringBuilder getBuilder() {
 		return this.builder;
 	}

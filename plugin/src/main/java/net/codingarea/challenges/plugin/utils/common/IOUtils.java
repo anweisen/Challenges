@@ -6,7 +6,9 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 
 /**
- * @author anweisen | https://github.com/anweisen
+ * Because this class is not implemented in versions of bukkit before 1.14, we just make our own.
+ *
+ * @author org.apache.commons.io
  * @since 1.2
  */
 
