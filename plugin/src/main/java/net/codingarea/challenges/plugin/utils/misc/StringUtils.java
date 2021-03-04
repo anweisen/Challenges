@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
@@ -12,6 +13,31 @@ import java.util.function.Function;
 public final class StringUtils {
 
 	private StringUtils() {
+	}
+
+	@Nonnull
+	public static String getEnumName(@Nonnull Enum<?> enun) {
+		StringBuilder builder = new StringBuilder();
+		boolean lastWasSpace = true;
+		for (char letter : enun.name().toCharArray()) {
+			// Replace _ with space
+			if (letter == '_') {
+				builder.append(' ');
+				lastWasSpace = true;
+				continue;
+			}
+			builder.append(lastWasSpace ? Character.toUpperCase(letter) : Character.toLowerCase(letter));
+			lastWasSpace = false;
+		}
+
+		String name = builder.toString();
+		String[] lowerCase = {"And", "Or", "If", "But", "It", "He", "She", "It", "We", "Are", "Is"};
+		for (String sequence : lowerCase) {
+			name = name.replace(sequence + " ", sequence.toLowerCase() + " ")
+					.replace(" " + sequence, " " + sequence.toLowerCase());
+		}
+
+		return name;
 	}
 
 	@Nonnull
