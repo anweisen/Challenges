@@ -28,6 +28,10 @@ public final class SoundSample {
 			OPEN            = new SoundSample().addSound(KLING).addSound(PLOP),
 			DRAGON_BREATH   = new SoundSample().addSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 0.8F);
 
+	public static void playEnablingSound(@Nonnull Player player, boolean enabled) {
+		(enabled ? BASS_ON : BASS_OFF).play(player);
+	}
+
 	private final class SoundFrame {
 
 		private final float pitch, volume;
