@@ -23,8 +23,14 @@ public final class StringUtils {
 		for (char c : sequence.toCharArray()) {
 			if (c == end && inArgument) {
 				inArgument = false;
-				int arg = Integer.parseInt(argument.toString());
-				builder.append(args[arg]);
+				try {
+					int arg = Integer.parseInt(argument.toString());
+					builder.append(args[arg]);
+				} catch (NumberFormatException | IndexOutOfBoundsException ex) {
+					Logger.warn("Invalid argument index '" + argument + "'");
+					builder.append(start).append(argument).append(end);
+				}
+				argument = new StringBuilder();
 				continue;
 			}
 			if (c == start && !inArgument) {
