@@ -51,8 +51,8 @@ public final class TimerMenu {
 	private void updateFirstPage() {
 		Inventory inventory = inventories.get(0);
 		inventory.setItem(START_SLOT, Challenges.getInstance().getChallengeTimer().isStarted() ?
-				new ItemBuilder(Material.LIME_DYE).setName("§7Timer is §astarted").build() :
-				new ItemBuilder(MaterialWrapper.RED_DYE).setName("§7Timer is §cpaused").build());
+				new ItemBuilder(Material.LIME_DYE).setName(Message.TIMER_IS_RUNNING).build() :
+				new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.TIMER_IS_PAUSED).build());
 		inventory.setItem(MODE_SLOT, Challenges.getInstance().getChallengeTimer().isCountingUp() ?
 				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).setName(Message.TIMER_COUNTING_UP).hideAttributes().build() :
 				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).setName(Message.TIMER_COUNTING_DOWN).hideAttributes().build());
