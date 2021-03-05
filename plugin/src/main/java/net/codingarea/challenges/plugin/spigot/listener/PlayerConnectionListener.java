@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -24,11 +25,15 @@ public class PlayerConnectionListener implements Listener {
 
 		player.getLocation().getChunk().load(true);
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_MOB, 17, 1, 2);
+		Challenges.getInstance().getScoreboardManager().handleJoin(player);
 
 	}
 
 	@EventHandler
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
+
+		Player player = event.getPlayer();
+		Challenges.getInstance().getScoreboardManager().handleQuit(player);
 
 	}
 
