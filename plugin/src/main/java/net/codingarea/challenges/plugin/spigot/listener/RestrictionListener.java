@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -14,7 +15,13 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerExpChangeEvent;
+import org.bukkit.event.player.PlayerInteractAtEntityEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.vehicle.VehicleDamageEvent;
+import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.util.BoundingBox;
 
@@ -79,6 +86,38 @@ public class RestrictionListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
+	public void onInteract(@Nonnull PlayerInteractAtEntityEvent event) {
+		if (ChallengeAPI.isPaused() && event.getPlayer().getGameMode() != GameMode.CREATIVE)
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onInteract(@Nonnull PlayerInteractEntityEvent event) {
+		if (ChallengeAPI.isPaused() && event.getPlayer().getGameMode() != GameMode.CREATIVE)
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onDamage(@Nonnull VehicleDamageEvent event) {
+		if (ChallengeAPI.isStarted()) return;
+		Entity entity = event.getVehicle();
+		event.setCancelled(true);
+		if (event.getAttacker() instanceof Player) {
+			if (((Player) event.getAttacker()).getGameMode() == GameMode.CREATIVE)
+				event.setCancelled(true);
+
+			BoundingBox box = entity.getBoundingBox();
+			ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), entity.getLocation(), Particle.SPELL_INSTANT, 17, box.getWidthX(), 0.25);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onDamage(@Nonnull VehicleDestroyEvent event) {
+		if (ChallengeAPI.isPaused() && !(event.getAttacker() instanceof Player && ((Player)event.getAttacker()).getGameMode() == GameMode.CREATIVE))
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
 	public void onWeatherChange(@Nonnull WeatherChangeEvent event) {
 		if (ChallengeAPI.isPaused() && event.toWeatherState())
 			event.setCancelled(true);
@@ -87,6 +126,14 @@ public class RestrictionListener implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onTarget(@Nonnull EntityTargetEvent event) {
 		if (ChallengeAPI.isPaused() && event.getTarget() != null)
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onClick(@Nonnull InventoryClickEvent event) {
+		if (!(event.getWhoClicked() instanceof Player)) return;
+		Player player = (Player) event.getWhoClicked();
+		if (ChallengeAPI.isPaused() && player.getGameMode() != GameMode.CREATIVE)
 			event.setCancelled(true);
 	}
 
