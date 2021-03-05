@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
  */
 public class PlayerConnectionListener implements Listener {
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 
 		Player player = event.getPlayer();
