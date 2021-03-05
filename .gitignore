@@ -1,25 +1,38 @@
 
-# IDE Files
-/.idea
-/plugin/ChallengesPlugin.iml
-/language/Language.iml
-/mongo-connector/MongoConnector.iml
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/discord.xml
+.idea/artifacts
+.idea/inspectionProfiles/Project_Default.xml
+
+# Generated files
+.idea/**/contentModel.xml
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
 
 # Test Sources
-/plugin/src/test
-/language/src/test
-/mongo-connector/src/test
+plugin/src/test
+language/src/test
+mongo-connector/src/test
 
 # Compiled files
-/plugin/out
-/plugin/target
-/mongo-connector/out
-/mongo-connector/target
+plugin/out
+plugin/target
+mongo-connector/out
+mongo-connector/target
 *.class
 *.jar
-
-# Config files
-config.properties
-.floo
-.flooignore
-*.iml
