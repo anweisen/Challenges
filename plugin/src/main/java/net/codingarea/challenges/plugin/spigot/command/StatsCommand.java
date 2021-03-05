@@ -94,9 +94,24 @@ public class StatsCommand implements PlayerCommand {
 			String format = statistic.formatChat(value);
 
 			Message message = Message.valueOf("STAT_" + statistic.name());
-			inventory.cloneLastAndAdd().setItem(slots[i], new ItemBuilder(Material.PAPER, message.asString()).setLore("§8» §7" + format).build());
+			inventory.cloneLastAndAdd().setItem(slots[i], new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore("§8» §7" + format).hideAttributes().build());
 
 			i++;
+		}
+	}
+
+	private Material getMaterialForStatistic(@Nonnull Statistic statistic) {
+		switch (statistic) {
+			default:                return Material.PAPER;
+			case DEATHS:            return Material.STONE_SHOVEL;
+			case BLOCKS_MINED:      return Material.GOLDEN_PICKAXE;
+			case BLOCKS_PLACED:     return Material.DIRT;
+			case DAMAGE_DEALT:      return Material.STONE_SWORD;
+			case DAMAGE_TAKEN:      return Material.LEATHER_CHESTPLATE;
+			case ENTITY_KILLS:      return Material.IRON_SWORD;
+			case DRAGON_KILLED:     return Material.DRAGON_EGG;
+			case BLOCKS_TRAVELED:   return Material.MINECART;
+			case CHALLENGES_PLAYED: return Material.GOLD_INGOT;
 		}
 	}
 
