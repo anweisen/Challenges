@@ -32,6 +32,7 @@ public final class TimerFormat {
 
 	@Nonnull
 	public String format(@Nonnegative long time) {
+		if (time < 0) time = 0;
 
 		long seconds = time;
 		long minutes = seconds / 60;
