@@ -23,6 +23,11 @@ public abstract class Goal extends AbstractChallenge {
 		super(MenuType.GOAL);
 	}
 
+	public Goal(boolean enabled) {
+		super(MenuType.GOAL);
+		setEnabled(enabled);
+	}
+
 	@Nonnull
 	public SoundSample getStartSound() {
 		return SoundSample.DRAGON_BREATH;
