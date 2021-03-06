@@ -107,9 +107,11 @@ public final class ChallengeTimer {
 
 	public void pause() {
 		if (paused) return;
+
 		paused = true;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void reset() {
@@ -118,6 +120,7 @@ public final class ChallengeTimer {
 		countingUp = true;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void updateActionbar() {
