@@ -12,6 +12,7 @@ import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryMana
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
@@ -39,6 +40,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private PlayerInventoryManager playerInventoryManager;
+	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
 	private DatabaseManager databaseManager;
 	private ServerManager serverManager;
@@ -90,6 +92,7 @@ public final class Challenges extends BukkitModule {
 		worldManager = new WorldManager();
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();
+		scoreboardManager = new ScoreboardManager();
 		timer = new ChallengeTimer();
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
@@ -134,6 +137,7 @@ public final class Challenges extends BukkitModule {
 		if (timer != null && worldManager != null && !worldManager.isShutdownBecauseOfReset()) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
 		if (menuManager != null) menuManager.close();
+		if (scoreboardManager != null) scoreboardManager.disable();
 
 		if (challengeManager != null) {
 			challengeManager.saveLocalSettings(false);
@@ -186,6 +190,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public StatsManager getStatsManager() {
 		return statsManager;
+	}
+
+	@Nonnull
+	public ScoreboardManager getScoreboardManager() {
+		return scoreboardManager;
 	}
 
 }
