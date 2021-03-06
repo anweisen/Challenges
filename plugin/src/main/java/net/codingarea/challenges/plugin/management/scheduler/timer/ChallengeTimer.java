@@ -53,6 +53,7 @@ public final class ChallengeTimer {
 			else time--;
 
 			if (time <= 0) {
+				time = 0;
 				handleHitZero();
 			}
 		}
