@@ -134,6 +134,19 @@ public final class ChallengeTimer {
 		return message.replace("{time}", time);
 	}
 
+	public synchronized void loadSession() {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
+		time = config.getInt("timer.seconds");
+		countingUp = config.getBoolean("timer.countingUp", true);
+	}
+
+	public synchronized void saveSession(boolean async) {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
+		config.set("timer.seconds", time);
+		config.set("timer.countingUp", countingUp);
+		config.save(async);
+	}
+
 	public void addSeconds(int amount) {
 		time += amount;
 		if (time < 0)
