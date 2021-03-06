@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
@@ -81,6 +82,12 @@ public final class ChallengeTimer {
 	public void resume() {
 		if (!paused) return;
 
+
+		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
+			}
+		}
 		Challenges.getInstance().getServerManager().setNotFresh();
 		paused = false;
 		updateActionbar();
@@ -90,12 +97,6 @@ public final class ChallengeTimer {
 		if (currentGoal != null)
 			currentGoal.getStartSound().broadcast();
 		else SoundSample.DRAGON_BREATH.broadcast();
-
-		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
-			}
-		}
 
 	}
 
