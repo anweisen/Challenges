@@ -7,7 +7,7 @@ import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPoli
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.YamlDocument;
+import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -34,9 +34,7 @@ public final class ChallengeTimer {
 	public ChallengeTimer() {
 
 		// Load format + messages
-		Document pluginConfig = new YamlDocument(Challenges.getInstance().getConfig());
-
-		Document timerConfig = pluginConfig.getDocument("timer");
+		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
 		stoppedMessage = timerConfig.getString("stopped-message", "");
 		upMessage = timerConfig.getString("count-up-message", "");
 		downMessage = timerConfig.getString("count-down-message", "");
