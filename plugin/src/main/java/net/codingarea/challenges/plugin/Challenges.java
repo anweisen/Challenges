@@ -110,6 +110,7 @@ public final class Challenges extends BukkitModule {
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
+		playerInventoryManager.enable();
 
 	}
 
