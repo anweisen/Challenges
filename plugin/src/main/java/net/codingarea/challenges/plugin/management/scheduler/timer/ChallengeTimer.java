@@ -92,6 +92,11 @@ public final class ChallengeTimer {
 		paused = false;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Challenges.getInstance().getPlayerInventoryManager().updateInventoryAuto(player);
+			if (player.getGameMode() != GameMode.CREATIVE)
+				player.setGameMode(GameMode.SURVIVAL);
+		}
 
 		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 		if (currentGoal != null)
