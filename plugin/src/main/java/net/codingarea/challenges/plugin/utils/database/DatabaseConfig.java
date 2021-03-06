@@ -16,24 +16,29 @@ public final class DatabaseConfig {
 	private final String authDatabase;
 	private final String password;
 	private final String user;
+	private final String file;
 	private final int port;
 	private final boolean portIsSet;
 
 	public DatabaseConfig(String host, String database, String password, String user, int port) {
-		this(host, database, null, password, user, port, true);
+		this(host, database, null, password, user, port, true, null);
 	}
 	public DatabaseConfig(String host, String database, String password, String user) {
-		this(host, database, null, password, user, 0, false);
+		this(host, database, null, password, user, 0, false, null);
 	}
 
 	public DatabaseConfig(String host, String database, String authDatabase, String password, String user, int port) {
-		this(host, database, authDatabase, password, user, port, true);
+		this(host, database, authDatabase, password, user, port, true, null);
 	}
 	public DatabaseConfig(String host, String database, String authDatabase, String password, String user) {
-		this(host, database, authDatabase, password, user, 0, false);
+		this(host, database, authDatabase, password, user, 0, false, null);
 	}
 
-	public DatabaseConfig(String host, String database, String authDatabase, String password, String user, int port, boolean portIsSet) {
+	public DatabaseConfig(String database, String file) {
+		this(null, database, null, null, null, 0, false, file);
+	}
+
+	public DatabaseConfig(String host, String database, String authDatabase, String password, String user, int port, boolean portIsSet, String file) {
 		this.host = host;
 		this.database = database;
 		this.authDatabase = authDatabase;
@@ -41,6 +46,7 @@ public final class DatabaseConfig {
 		this.user = user;
 		this.port = port;
 		this.portIsSet = portIsSet;
+		this.file = file;
 	}
 
 	public DatabaseConfig(@Nonnull Propertyable config) {
@@ -51,7 +57,8 @@ public final class DatabaseConfig {
 				config.getString("password"),
 				config.getString("user"),
 				config.getInt("port"),
-				config.contains("port")
+				config.contains("port"),
+				config.getString("file")
 		);
 	}
 
@@ -81,6 +88,10 @@ public final class DatabaseConfig {
 
 	public boolean isPortSet() {
 		return portIsSet;
+	}
+
+	public String getFile() {
+		return file;
 	}
 
 }

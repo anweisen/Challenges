@@ -62,6 +62,8 @@ public final class DatabaseManager {
 				return MongoDBDatabase.class;
 			case "mysql":
 				return MySQLDatabase.class;
+			case "sqlite":
+				return SQLiteDatabase.class;
 			default:
 				return null;
 		}
