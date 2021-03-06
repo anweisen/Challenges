@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.core.BukkitModule;
 import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
+import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
@@ -83,7 +84,7 @@ public final class Challenges extends BukkitModule {
 
 	private void createManagers() {
 
-		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader());
+		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader(), new UpdateLoader());
 
 		configManager = new ConfigManager();
 		configManager.loadConfigs();

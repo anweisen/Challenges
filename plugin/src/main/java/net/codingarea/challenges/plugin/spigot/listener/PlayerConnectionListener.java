@@ -1,6 +1,9 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
@@ -26,6 +29,15 @@ public class PlayerConnectionListener implements Listener {
 		player.getLocation().getChunk().load(true);
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_MOB, 17, 1, 2);
 		Challenges.getInstance().getScoreboardManager().handleJoin(player);
+
+		if (player.hasPermission("challenges.gui")) {
+			if (!UpdateLoader.isNewestPluginVersion()) {
+				Message.DEPRECATED_PLUGIN_VERSION.send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
+			}
+			if (!UpdateLoader.isNewestConfigVersion()) {
+				Message.DEPRECATED_CONFIG_VERSION.send(player, Prefix.CHALLENGES);
+			}
+		}
 
 	}
 
