@@ -35,7 +35,7 @@ public abstract class Goal extends AbstractChallenge {
 	}
 
 	@Override
-	public final void handleClick(@Nonnull MenuClickEvent event) {
+	public void handleClick(@Nonnull MenuClickEvent event) {
 		setEnabled(!enabled);
 		SoundSample.playEnablingSound(event.getPlayer(), enabled);
 	}
