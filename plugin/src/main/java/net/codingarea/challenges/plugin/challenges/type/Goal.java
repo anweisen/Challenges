@@ -57,6 +57,16 @@ public abstract class Goal extends AbstractChallenge {
 	}
 
 	@Override
+	public void loadSettings(@Nonnull Document document) {
+		setEnabled(document.getBoolean("enabled", enabled));
+	}
+
+	@Override
+	public void writeSettings(@Nonnull Document document) {
+		document.set("enabled", enabled);
+	}
+
+	@Override
 	public final boolean isEnabled() {
 		return enabled;
 	}
