@@ -39,15 +39,17 @@ public final class LanguageLoader extends ContentLoader {
 
 			JsonArray languages = parser.parse(IOUtils.toString(BASE_URL + "languages.json")).getAsJsonArray();
 			for (JsonElement element : languages) {
+				try {
+					String name = element.getAsString();
+					String url = BASE_URL + "files/" + name + ".json";
 
-				String name = element.getAsString();
-				String url = BASE_URL + "files/" + name + ".json";
+					JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
+					File file = getFile(name, "json");
 
-				JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
-				File file = getFile(name, "json");
-
-				verifyLanguage(language, file);
-
+					verifyLanguage(language, file);
+				} catch (Exception ex) {
+					Logger.severe("Could not download language for " + element + ". " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+				}
 			}
 
 		} catch (Exception ex) {
