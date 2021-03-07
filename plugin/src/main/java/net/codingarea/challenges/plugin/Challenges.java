@@ -192,6 +192,11 @@ public final class Challenges extends BukkitModule {
 	}
 
 	@Nonnull
+	public DatabaseManager getDatabaseManager() {
+		return databaseManager;
+	}
+
+	@Nonnull
 	public StatsManager getStatsManager() {
 		return statsManager;
 	}
