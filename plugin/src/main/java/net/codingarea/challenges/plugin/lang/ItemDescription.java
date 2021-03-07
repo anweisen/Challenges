@@ -79,6 +79,7 @@ public final class ItemDescription {
 					if (c == '§') {
 						nextIsColor = true;
 					} else if (nextIsColor) {
+						nextIsColor = false;
 						if (StringUtils.isValidColorCode(c))
 							colorBefore = "";
 						colorBefore += "§" + c;
