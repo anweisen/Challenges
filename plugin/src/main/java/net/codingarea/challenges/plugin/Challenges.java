@@ -98,6 +98,7 @@ public final class Challenges extends BukkitModule {
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
+		statsManager = new StatsManager();
 
 		new ChallengeLoader().load(); // Register challenges, replace with better way later
 
