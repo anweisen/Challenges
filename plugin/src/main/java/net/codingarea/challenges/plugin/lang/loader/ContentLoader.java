@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.files.FileManager;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 
@@ -25,13 +26,11 @@ public abstract class ContentLoader {
 	}
 
 	private void execute() {
-		Thread thread = new Thread(() -> {
+		Challenges.getInstance().runAsync(() -> {
 			startLoading();
 			load();
 			finishLoading();
 		});
-		thread.setName(getClass().getName());
-		thread.start();
 	}
 
 	protected abstract void load();
