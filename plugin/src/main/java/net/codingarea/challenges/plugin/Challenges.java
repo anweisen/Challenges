@@ -140,6 +140,7 @@ public final class Challenges extends BukkitModule {
 		if (timer != null && worldManager != null && !worldManager.isShutdownBecauseOfReset()) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
 		if (menuManager != null) menuManager.close();
+		if (databaseManager != null) databaseManager.disconnectIfConnected();
 		if (scoreboardManager != null) scoreboardManager.disable();
 
 		if (challengeManager != null) {
