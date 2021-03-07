@@ -4,15 +4,11 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.common.IOUtils;
 import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import org.bukkit.Bukkit;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
-import java.nio.charset.Charset;
 import java.util.*;
 import java.util.regex.Pattern;
 
