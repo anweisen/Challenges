@@ -17,7 +17,7 @@ public enum Prefix {
 	private String value;
 
 	Prefix(@Nonnull String defaultValue) {
-		this.defaultValue = "§8§l┃ " + defaultValue + " §8┃ §7";
+		this.defaultValue = "§8§l┃ " + defaultValue + " §8┃";
 	}
 
 	public void setValue(@Nullable String value) {
