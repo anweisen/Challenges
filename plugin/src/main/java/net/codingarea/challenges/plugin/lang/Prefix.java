@@ -9,7 +9,9 @@ import javax.annotation.Nullable;
  */
 public enum Prefix {
 
-	CHALLENGES("§6Challenges");
+	CHALLENGES("§6Challenges"),
+	DAMAGE("§cDamage"),
+	TIMER("§5Timer");
 
 	private final String defaultValue;
 	private String value;
