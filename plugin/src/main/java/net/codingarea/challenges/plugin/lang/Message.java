@@ -97,4 +97,18 @@ public enum Message {
 		return asString();
 	}
 
+	public void broadcast(@Nonnull Prefix prefix, @Nonnull String... args) {
+		for (String line : asArray(args)) {
+			if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
+			else                       Bukkit.broadcastMessage(prefix + line);
+		}
+	}
+
+	public void send(@Nonnull Player player, @Nonnull Prefix prefix, @Nonnull String... args) {
+		for (String line : asArray(args)) {
+			if (line.trim().isEmpty()) player.sendMessage(line);
+			else                       player.sendMessage(prefix + line);
+		}
+	}
+
 }
