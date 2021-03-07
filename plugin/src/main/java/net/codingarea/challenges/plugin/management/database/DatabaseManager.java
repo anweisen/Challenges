@@ -49,9 +49,7 @@ public final class DatabaseManager {
 
 	public void disconnectIfConnected() {
 		if (database != null) {
-			Thread thread = new Thread(database::disconnectSafely);
-			thread.setName("DatabaseDisconnector");
-			thread.start();
+			Challenges.getInstance().runAsync(database::disconnectSafely);
 		}
 	}
 
