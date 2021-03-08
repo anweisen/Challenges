@@ -31,6 +31,24 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	@Override
+	public ItemStack getDisplayItem() {
+		return createDisplayItem().build();
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getSettingsItem() {
+		return createSettingsItem().build();
+	}
+
+	@Nonnull
+	protected abstract ItemBuilder createDisplayItem();
+
+	@Nonnull
+	protected abstract ItemBuilder createSettingsItem();
+
+	@Nonnull
+	@Override
 	public String getName() {
 		return getClass().getSimpleName().toLowerCase()
 				.replace("setting", "")

@@ -75,7 +75,7 @@ public final class Menu {
 			int settingsSlot = displaySlot + 9;
 
 			inventory.setItem(displaySlot, getDisplayItem(challenge));
-			inventory.setItem(settingsSlot, challenge.getSettingsItem());
+			inventory.setItem(settingsSlot, getSettingsItem(challenge));
 
 			index++;
 		}
@@ -96,7 +96,7 @@ public final class Menu {
 
 		Inventory inventory = inventories.get(page);
 		inventory.setItem(SLOTS[slot], getDisplayItem(challenge));
-		inventory.setItem(SLOTS[slot] + 9, challenge.getSettingsItem());
+		inventory.setItem(SLOTS[slot] + 9, getSettingsItem(challenge));
 
 	}
 
@@ -107,6 +107,11 @@ public final class Menu {
 		} else {
 			return item.build();
 		}
+	}
+
+	private ItemStack getSettingsItem(@Nonnull IChallenge challenge) {
+		ItemBuilder item = new ItemBuilder(challenge.getSettingsItem()).hideAttributes();
+		return item.build();
 	}
 
 	private boolean isNew(@Nonnull IChallenge challenge) {
