@@ -2,7 +2,9 @@ package net.codingarea.challenges.plugin.utils.database;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -23,9 +25,16 @@ public interface ExecutedQuery {
 	@CheckReturnValue
 	Stream<Result> all();
 
+	@Nonnull
+	<C extends Collection<? super Result>> C into(@Nonnull C collection);
+
+	void iterate(@Nonnull Consumer<? super Result> action);
+
 	boolean isEmpty();
 
 	boolean isSet();
+
+	int size();
 
 	void print();
 

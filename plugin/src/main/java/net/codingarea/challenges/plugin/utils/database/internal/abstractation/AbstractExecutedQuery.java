@@ -4,9 +4,11 @@ import net.codingarea.challenges.plugin.utils.database.ExecutedQuery;
 import net.codingarea.challenges.plugin.utils.database.Result;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.stream.Stream;
 
 /**
@@ -41,6 +43,18 @@ public abstract class AbstractExecutedQuery implements ExecutedQuery {
 		return results.stream();
 	}
 
+	@Nonnull
+	@Override
+	public <C extends Collection<? super Result>> C into(@Nonnull C collection) {
+		collection.addAll(results);
+		return collection;
+	}
+
+	@Override
+	public void iterate(@Nonnull Consumer<? super Result> action) {
+		results.forEach(action);
+	}
+
 	@Override
 	public boolean isEmpty() {
 		return results.isEmpty();
@@ -49,6 +63,11 @@ public abstract class AbstractExecutedQuery implements ExecutedQuery {
 	@Override
 	public boolean isSet() {
 		return !results.isEmpty();
+	}
+
+	@Override
+	public int size() {
+		return results.size();
 	}
 
 	@Override
