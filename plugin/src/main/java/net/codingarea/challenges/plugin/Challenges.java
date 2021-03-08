@@ -103,8 +103,6 @@ public final class Challenges extends BukkitModule {
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
 
-		new ChallengeLoader().load(); // Register challenges, replace with better way later
-
 	}
 
 	private void enableManagers() {
@@ -116,6 +114,8 @@ public final class Challenges extends BukkitModule {
 		statsManager.register();
 		scheduler.start();
 		playerInventoryManager.enable();
+
+		new ChallengeLoader().load();
 
 	}
 
