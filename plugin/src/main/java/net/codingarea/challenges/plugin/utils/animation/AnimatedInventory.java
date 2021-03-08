@@ -101,8 +101,14 @@ public class AnimatedInventory {
 	}
 
 	@Nonnull
+	public AnimationFrame getLastFrame() {
+		if (frames.isEmpty()) throw new IllegalStateException("Frames are empty");
+		return getFrame(frames.size() - 1);
+	}
+
+	@Nonnull
 	public AnimationFrame cloneLastAndAdd() {
-		AnimationFrame frame = getFrame(frames.size() - 1).clone();
+		AnimationFrame frame = getLastFrame().clone();
 		addFrame(frame);
 		return frame;
 	}
