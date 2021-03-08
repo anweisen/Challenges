@@ -39,3 +39,7 @@ timer:
     hours: "{hh}:{mm}:{ss}"
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+# We only support cloudnet version 3
+cloudnet-support:
+  name-rank-colors: false
+  start-new-service: false

@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
 import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.cloudnet.CloudNetHelper;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
 import net.codingarea.challenges.plugin.management.files.ConfigManager;
 import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryManager;
@@ -94,6 +95,7 @@ public final class Challenges extends BukkitModule {
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();
 		scoreboardManager = new ScoreboardManager();
+		cloudNetHelper = new CloudNetHelper();
 		timer = new ChallengeTimer();
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
@@ -205,6 +207,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public ScoreboardManager getScoreboardManager() {
 		return scoreboardManager;
+	}
+
+	@Nonnull
+	public CloudNetHelper getCloudNetHelper() {
+		return cloudNetHelper;
 	}
 
 }
