@@ -45,6 +45,7 @@ public final class Challenges extends BukkitModule {
 	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
 	private DatabaseManager databaseManager;
+	private CloudNetHelper cloudNetHelper;
 	private ServerManager serverManager;
 	private ConfigManager configManager;
 	private ScheduleManager scheduler;
