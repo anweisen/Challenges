@@ -5,6 +5,8 @@ import net.codingarea.challenges.plugin.utils.config.document.EmptyDocument;
 import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.config.document.readonly.ReadOnlyGsonDocument;
 import net.codingarea.challenges.plugin.utils.database.Result;
+import org.bukkit.Location;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -210,6 +212,42 @@ public final class SQLResult implements Result {
 		} catch (Exception ex) {
 			return new EmptyDocument();
 		}
+	}
+
+	@Nullable
+	@Override
+	public ItemStack getItemStack(@Nonnull String path) {
+		if (!contains(path)) return null;
+		try {
+			return ItemStack.deserialize(getDocument(path).values());
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getItemStack(@Nonnull String path, @Nonnull ItemStack def) {
+		ItemStack value = getItemStack(path);
+		return value == null ? def : value;
+	}
+
+	@Nullable
+	@Override
+	public Location getLocation(@Nonnull String path) {
+		if (!contains(path)) return null;
+		try {
+			return Location.deserialize(getDocument(path).values());
+		} catch (Exception ex) {
+			return null;
+		}
+	}
+
+	@Nonnull
+	@Override
+	public Location getLocation(@Nonnull String path, @Nonnull Location def) {
+		Location value = getLocation(path);
+		return value == null ? def : value;
 	}
 
 	@Nonnull
