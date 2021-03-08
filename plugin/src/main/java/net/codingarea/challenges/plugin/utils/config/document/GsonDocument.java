@@ -48,7 +48,7 @@ public class GsonDocument implements Document {
 		this(GSON.fromJson(json, JsonObject.class));
 	}
 
-	public GsonDocument(@Nonnull JsonObject jsonObject) {
+	public GsonDocument(@Nullable JsonObject jsonObject) {
 		this.jsonObject = jsonObject == null ? new JsonObject() : jsonObject;
 	}
 
