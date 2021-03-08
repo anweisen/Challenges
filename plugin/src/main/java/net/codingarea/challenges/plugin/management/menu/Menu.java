@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
+import net.codingarea.challenges.plugin.management.menu.event.ChallengeMenuClickEvent;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -195,7 +195,7 @@ public final class Menu {
 			IChallenge challenge = challenges.get(index);
 
 			try {
-				challenge.handleClick(new MenuClickEvent(player, inventory, event.isRightClick(), event.isShiftClick(), upperItem));
+				challenge.handleClick(new ChallengeMenuClickEvent(player, inventory, event.isRightClick(), event.isShiftClick(), upperItem));
 			} catch (Exception ex) {
 				Logger.severe("An exception occurred while handling click on " + challenge.getClass().getName(), ex);
 			}

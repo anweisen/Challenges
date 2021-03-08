@@ -9,13 +9,13 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class MenuClickEvent {
+public class ChallengeMenuClickEvent {
 
 	private final Player player;
 	private final boolean rightClick, shiftClick, upperItem;
 	private final Inventory inventory;
 
-	public MenuClickEvent(@Nonnull Player player, @Nonnull Inventory inventory, boolean rightClick, boolean shiftClick, boolean upperItem) {
+	public ChallengeMenuClickEvent(@Nonnull Player player, @Nonnull Inventory inventory, boolean rightClick, boolean shiftClick, boolean upperItem) {
 		this.player = player;
 		this.inventory = inventory;
 		this.rightClick = rightClick;
