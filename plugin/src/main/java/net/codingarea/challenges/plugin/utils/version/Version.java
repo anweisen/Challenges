@@ -57,7 +57,7 @@ public interface Version {
 	default String format() {
 		int revision = getRevision();
 		return revision > 0 ? String.format("%s.%s.%s", getMajor(), getMinor(), revision)
-				: String.format("%s.%s", getMajor(), getMinor());
+							: String.format("%s.%s",    getMajor(), getMinor());
 	}
 
 }
