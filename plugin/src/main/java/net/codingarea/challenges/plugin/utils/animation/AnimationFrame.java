@@ -30,6 +30,14 @@ public class AnimationFrame implements Cloneable {
 	}
 
 	@Nonnull
+	public AnimationFrame setAccent(int... slots) {
+		for (int slot : slots) {
+			content[slot] = ItemBuilder.FILL_ITEM_2;
+		}
+		return this;
+	}
+
+	@Nonnull
 	public AnimationFrame setItem(int slot, @Nonnull ItemBuilder item) {
 		return setItem(slot, item.build());
 	}
