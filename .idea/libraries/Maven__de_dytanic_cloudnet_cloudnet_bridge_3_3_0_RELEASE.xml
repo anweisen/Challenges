@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE">
+    <CLASSES>
+      <root url="jar://$MAVEN_REPOSITORY$/de/dytanic/cloudnet/cloudnet-bridge/3.3.0-RELEASE/cloudnet-bridge-3.3.0-RELEASE.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$MAVEN_REPOSITORY$/de/dytanic/cloudnet/cloudnet-bridge/3.3.0-RELEASE/cloudnet-bridge-3.3.0-RELEASE-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$MAVEN_REPOSITORY$/de/dytanic/cloudnet/cloudnet-bridge/3.3.0-RELEASE/cloudnet-bridge-3.3.0-RELEASE-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
