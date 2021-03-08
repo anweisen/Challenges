@@ -411,6 +411,10 @@ public class YamlConfig implements Configuration {
 		return config.getSerializable(path, Location.class, def);
 	}
 
+	public boolean isLocation(@Nonnull String path) {
+		return config.isLocation(path);
+	}
+
 	@Nullable
 	@Override
 	public ConfigurationSection getConfigurationSection(@Nonnull String path) {
