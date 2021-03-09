@@ -14,6 +14,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -58,6 +59,8 @@ public final class MongoUtils {
 			BsonDocument bson = new BsonDocument();
 			BsonUtils.setDocumentProperties(bson, values);
 			return bson;
+		} else if (value instanceof UUID) {
+			return ((UUID) value).toString();
 		} else {
 			return value;
 		}

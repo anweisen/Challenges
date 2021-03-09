@@ -82,7 +82,7 @@ public class MongoDBUpdate implements DatabaseUpdate {
 	@Nonnull
 	@Override
 	public DatabaseUpdate set(@Nonnull String field, @Nullable Object value) {
-		values.put(field, value);
+		values.put(field, MongoUtils.packObject(value));
 		return this;
 	}
 
