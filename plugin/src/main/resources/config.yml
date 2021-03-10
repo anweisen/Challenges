@@ -39,6 +39,9 @@ timer:
     hours: "{hh}:{mm}:{ss}"
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+# New challenges will be displayed first in the setting menu.
+display-new-in-front: true
+
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false
