@@ -43,3 +43,28 @@ timer:
 cloudnet-support:
   name-rank-colors: false
   start-new-service: false
+
+database:
+  # Available database types:
+  # - mysql
+  # - mongodb
+  # - sqlite
+  # Enter "none" to disable
+  # Fill in the credentials below for the desired database
+  type: none
+
+  mysql:
+    host: "localhost"
+    port: 3306
+    user: "root"
+    password: "secret"
+    database: "challenges"
+  mongodb:
+    host: "localhost"
+    port: 27017
+    user: "root"
+    password: "secret"
+    database: "challenges"
+    auth-database: "admin"
+  sqlite:
+    file: "plugins/Challenges/database/sqlite.db"
