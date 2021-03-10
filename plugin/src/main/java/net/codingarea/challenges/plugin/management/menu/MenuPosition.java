@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -19,7 +20,7 @@ public interface MenuPosition {
 
 	InventoryHolder HOLDER = () -> null;
 
-	void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event);
+	void handleClick(@Nonnull MenuClickInfo info);
 
 	static void set(@Nonnull Player player, @Nullable MenuPosition position) {
 		Challenges.getInstance().getMenuManager().setPostion(player, position);
@@ -33,8 +34,8 @@ public interface MenuPosition {
 	class EmptyMenuPosition implements MenuPosition {
 
 		@Override
-		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
-			SoundSample.CLICK.play(player);
+		public void handleClick(@Nonnull MenuClickInfo info) {
+			SoundSample.CLICK.play(info.getPlayer());
 		}
 
 	}
