@@ -44,6 +44,10 @@ cloudnet-support:
   name-rank-colors: false
   start-new-service: false
 
+# Debug messages will be shown in the console.
+# You should enable this setting when reporting an issue.
+dev-mode: false
+
 database:
   # Available database types:
   # - mysql
