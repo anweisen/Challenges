@@ -36,4 +36,6 @@ commands:
     description: "Start the timer"
   pause:
     permission: challenges.timer
-    description: "Pauses the timer"
+    description: "Pauses the timer"  stats:
+    usage: /stats [player]
+    description: "Allows you see statistics of you/other players"
