@@ -10,6 +10,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -269,6 +270,11 @@ public class BsonDocument implements Document {
 	@Override
 	public Collection<String> keys() {
 		return bsonDocument.keySet();
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		bsonDocument.forEach(action);
 	}
 
 	@Nonnull

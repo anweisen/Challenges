@@ -9,6 +9,7 @@ import javax.annotation.Nullable;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -219,6 +220,10 @@ public class EmptyDocument implements Document {
 		return Collections.emptyList();
 	}
 
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+	}
+
 	@Nonnull
 	@Override
 	public String toJson() {
@@ -229,4 +234,5 @@ public class EmptyDocument implements Document {
 	public boolean isReadonly() {
 		return true;
 	}
+
 }

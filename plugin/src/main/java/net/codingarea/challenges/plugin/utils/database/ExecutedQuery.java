@@ -28,7 +28,7 @@ public interface ExecutedQuery {
 	@Nonnull
 	<C extends Collection<? super Result>> C into(@Nonnull C collection);
 
-	void iterate(@Nonnull Consumer<? super Result> action);
+	void forEach(@Nonnull Consumer<? super Result> action);
 
 	boolean isEmpty();
 

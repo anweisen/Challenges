@@ -12,6 +12,7 @@ import javax.annotation.Nullable;
 import java.io.*;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 
 /**
  * This document only supports basic objects like {@link Number numbers}, {@link String strings}, {@link Character characters} and {@link Boolean booleans}.
@@ -256,6 +257,11 @@ public class PropertiesDocument implements Document {
 	@Override
 	public Collection<String> keys() {
 		return properties.stringPropertyNames();
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		values().forEach(action);
 	}
 
 	@Nonnull

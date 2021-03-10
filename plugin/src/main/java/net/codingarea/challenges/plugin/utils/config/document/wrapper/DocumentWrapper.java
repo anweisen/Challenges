@@ -12,6 +12,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -240,6 +241,11 @@ public abstract class DocumentWrapper implements Document {
 	@Override
 	public Collection<String> keys() {
 		return document.keys();
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		document.forEach(action);
 	}
 
 }

@@ -51,7 +51,7 @@ public abstract class AbstractExecutedQuery implements ExecutedQuery {
 	}
 
 	@Override
-	public void iterate(@Nonnull Consumer<? super Result> action) {
+	public void forEach(@Nonnull Consumer<? super Result> action) {
 		results.forEach(action);
 	}
 

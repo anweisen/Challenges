@@ -12,6 +12,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.sql.SQLException;
 import java.util.*;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -260,6 +261,11 @@ public final class SQLResult implements Result {
 	@Override
 	public Collection<String> keys() {
 		return values.keySet();
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		values.forEach(action);
 	}
 
 	@Nonnull

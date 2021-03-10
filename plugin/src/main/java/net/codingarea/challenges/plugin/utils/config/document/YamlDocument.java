@@ -20,6 +20,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -268,6 +269,11 @@ public class YamlDocument implements Document {
 	@Override
 	public Collection<String> keys() {
 		return config.getKeys(false);
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		values().forEach(action);
 	}
 
 	@Override

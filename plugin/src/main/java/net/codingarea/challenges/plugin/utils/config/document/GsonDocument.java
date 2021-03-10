@@ -19,6 +19,7 @@ import java.io.Reader;
 import java.io.Writer;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -273,6 +274,11 @@ public class GsonDocument implements Document {
 	@Override
 	public Map<String, Object> values() {
 		return GsonUtils.convertJsonObjectToMap(jsonObject);
+	}
+
+	@Override
+	public void forEach(@Nonnull BiConsumer<? super String, ? super Object> action) {
+		values().forEach(action);
 	}
 
 	@Nonnull
