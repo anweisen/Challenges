@@ -24,18 +24,28 @@ commands:
       - challenge
     permission: challenges.gui
     description: "Opens the Settings GUI"
+    usage: /c
   timer:
     aliases:
       - t
-    permission: challenges.timer
+    permission: challenges.gui
     description: "Start/Stops/Sets the timer"
+    usage: /timer <set/stop/set>
   start:
     aliases:
       - resume
-    permission: challenges.timer
+    permission: challenges.gui
     description: "Start the timer"
+    usage: /start
   pause:
-    permission: challenges.timer
-    description: "Pauses the timer"  stats:
+    permission: challenges.gui
+    description: "Pauses the timer"
+    usage: /pause
+  stats:
     usage: /stats [player]
     description: "Allows you see statistics of you/other players"
+  position:
+    usage: /pos [player]
+    aliases:
+      - pos
+    description: "Allows you to save locations"
