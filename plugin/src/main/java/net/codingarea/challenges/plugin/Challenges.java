@@ -63,7 +63,6 @@ public final class Challenges extends BukkitModule {
 
 		if (validationFailed = (validate() || validationFailed)) return; // Handle in enable
 
-		saveDefaultConfig();
 		createManagers();
 
 	}

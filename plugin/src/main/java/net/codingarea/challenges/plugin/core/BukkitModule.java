@@ -29,16 +29,21 @@ public abstract class BukkitModule extends JavaPlugin {
 	private Version version;
 	private Document config;
 	private boolean devMode;
+	private boolean firstInstall;
 
 	@Override
 	public void onLoad() {
 		version = VersionInfo.parse(this.getDescription().getVersion());
+		if (firstInstall = !getDataFolder().exists()) {
+			getLogger().info("Detected first install!");
+		}
 		if (devMode = getConfigDocument().getBoolean("dev-mode")) {
 			getLogger().setLevel(Level.ALL);
 			getLogger().log(LogLevel.DEBUG, "Devmode is enabled: Showing debug messages. This can be disabled in the plugin.yml ('dev-mode')");
 		} else {
 			getLogger().setLevel(Level.INFO);
 		}
+		saveDefaultConfig();
 	}
 
 	@Override
@@ -51,6 +56,10 @@ public abstract class BukkitModule extends JavaPlugin {
 
 	public boolean isDevMode() {
 		return devMode;
+	}
+
+	public boolean isFirstInstall() {
+		return firstInstall;
 	}
 
 	@Nonnull
