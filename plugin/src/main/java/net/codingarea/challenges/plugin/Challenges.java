@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
 import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
+import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.cloudnet.CloudNetHelper;
@@ -44,6 +45,7 @@ public final class Challenges extends BukkitModule {
 	private PlayerInventoryManager playerInventoryManager;
 	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
+	private BlockDropManager blockDropManager;
 	private DatabaseManager databaseManager;
 	private CloudNetHelper cloudNetHelper;
 	private ServerManager serverManager;
@@ -97,6 +99,7 @@ public final class Challenges extends BukkitModule {
 		scoreboardManager = new ScoreboardManager();
 		cloudNetHelper = new CloudNetHelper();
 		timer = new ChallengeTimer();
+		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
@@ -131,8 +134,9 @@ public final class Challenges extends BukkitModule {
 		registerListener(
 				new InventoryListener(),
 				new PlayerConnectionListener(),
-				new RestrictionListener()
-				new CheatListener()
+				new RestrictionListener(),
+				new CheatListener(),
+				new BlockDropListener()
 		);
 	}
 
@@ -212,6 +216,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public CloudNetHelper getCloudNetHelper() {
 		return cloudNetHelper;
+	}
+
+	@Nonnull
+	public BlockDropManager getBlockDropManager() {
+		return blockDropManager;
 	}
 
 }
