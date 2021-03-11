@@ -23,7 +23,7 @@ public abstract class Setting extends AbstractChallenge {
 
 	public Setting(@Nonnull MenuType menu, boolean enabledByDefault) {
 		super(menu);
-		this.enabled = enabledByDefault;
+		setEnabled(enabledByDefault);
 	}
 
 	@Override
@@ -61,13 +61,13 @@ public abstract class Setting extends AbstractChallenge {
 	}
 
 	@Override
-	public void writeSettings(@Nonnull Document document) {
-		document.set("enabled", enabled);
+	public void loadSettings(@Nonnull Document document) {
+		setEnabled(document.getBoolean("enabled", enabled));
 	}
 
 	@Override
-	public void loadSettings(@Nonnull Document document) {
-		enabled = document.getBoolean("enabled");
+	public void writeSettings(@Nonnull Document document) {
+		document.set("enabled", enabled);
 	}
 
 }
