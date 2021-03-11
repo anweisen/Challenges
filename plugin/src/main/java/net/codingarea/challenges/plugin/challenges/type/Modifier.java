@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -68,27 +69,13 @@ public abstract class Modifier extends AbstractChallenge {
 	}
 
 	@Override
-	public final void handleClick(@Nonnull MenuClickEvent event) {
 
-		int amount = event.isShiftClick() ? 10 : 1;
-		if (event.isRightClick()) {
-			value -= amount;
-		} else {
-			value += amount;
-		}
 
-		if (value > max)
-			value = min;
-		if (value < min)
-			value = max;
-
-		onValueChange();
-		SoundSample.CLICK.play(event.getPlayer());
-		updateItems();
+	protected void onValueChange() {
+	}
 
 	}
 
-	protected void onValueChange() {
 	}
 
 }
