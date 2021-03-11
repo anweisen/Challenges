@@ -19,4 +19,13 @@ public final class ChallengeHelper {
 		Challenges.getInstance().getMenuManager().getMenu(challenge.getType()).updateItem(challenge);
 	}
 
+	@Nonnull
+	public static String getColoredChallengeName(@Nonnull AbstractChallenge challenge) {
+		ItemBuilder item = challenge.createDisplayItem();
+		if (item == null) return Message.NULL_MESSAGE;
+		ItemDescription description = item.getBuiltByItemDescription();
+		if (description == null) return Message.NULL_MESSAGE;
+		return description.getOriginalName();
+	}
+
 }
