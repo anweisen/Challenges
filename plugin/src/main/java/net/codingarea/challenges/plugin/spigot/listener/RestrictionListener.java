@@ -98,6 +98,12 @@ public class RestrictionListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
+	public void onOffHandItemSwitch(@Nonnull PlayerSwapHandItemsEvent event) {
+		if (ChallengeAPI.isPaused() && event.getPlayer().getGameMode() != GameMode.CREATIVE)
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
 	public void onDamage(@Nonnull VehicleDamageEvent event) {
 		if (ChallengeAPI.isStarted()) return;
 		Entity entity = event.getVehicle();
