@@ -6,9 +6,9 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class TitleManager {
+public final class InventoryTitleManager {
 
-	private TitleManager() { }
+	private InventoryTitleManager() { }
 
 	@Nonnull
 	public static String getMainMenuTitle() {

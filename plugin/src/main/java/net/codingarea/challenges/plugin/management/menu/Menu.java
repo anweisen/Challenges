@@ -122,7 +122,7 @@ public final class Menu {
 
 	@Nonnull
 	private Inventory createNewInventory(int page) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, TitleManager.getTitle(menu, page));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, InventoryTitleManager.getTitle(menu, page));
 		inventory.setMaxStackSize(1000);
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);

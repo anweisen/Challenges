@@ -43,7 +43,7 @@ public final class MenuManager {
 			menus.put(type, new Menu(type));
 		}
 
-		gui = new AnimatedInventory(TitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
+		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
 				.setFrameSound(SoundSample.CLICK).setEndSound(SoundSample.OPEN);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
 		gui.cloneLastAndAdd().setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
