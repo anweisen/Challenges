@@ -16,10 +16,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.player.PlayerExpChangeEvent;
-import org.bukkit.event.player.PlayerInteractAtEntityEvent;
-import org.bukkit.event.player.PlayerInteractEntityEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
@@ -40,8 +37,7 @@ public class RestrictionListener implements Listener {
 		if (event.getCause() != DamageCause.VOID && (entity instanceof Player || event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.PROJECTILE)) {
 			entity.setFireTicks(entity instanceof Player ? 0 : entity.getFireTicks());
 			event.setCancelled(true);
-			BoundingBox box = entity.getBoundingBox();
-			ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), entity.getLocation(), Particle.SPELL_INSTANT, 17, box.getWidthX(), 0.25);
+			ParticleUtils.spawnParticleCircleAroundEntity(Challenges.getInstance(), entity);
 		}
 	}
 
@@ -110,10 +106,8 @@ public class RestrictionListener implements Listener {
 		event.setCancelled(true);
 		if (event.getAttacker() instanceof Player) {
 			if (((Player) event.getAttacker()).getGameMode() == GameMode.CREATIVE)
-				event.setCancelled(true);
-
-			BoundingBox box = entity.getBoundingBox();
-			ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), entity.getLocation(), Particle.SPELL_INSTANT, 17, box.getWidthX(), 0.25);
+				event.setCancelled(false);
+			ParticleUtils.spawnParticleCircleAroundEntity(Challenges.getInstance(), entity);
 		}
 	}
 

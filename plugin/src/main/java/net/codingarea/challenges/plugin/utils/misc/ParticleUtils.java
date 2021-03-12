@@ -1,7 +1,10 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.*;
+import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.util.BoundingBox;
 
 import javax.annotation.Nonnull;
 import java.util.function.BiConsumer;
@@ -52,6 +55,12 @@ public final class ParticleUtils {
 
 	public static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Particle particle, int points, double radius, double height) {
 		spawnUpGoingParticleCircle(plugin, location, points, radius, height, (world, point) -> world.spawnParticle(particle, point, 1));
+	}
+
+	public static void spawnParticleCircleAroundEntity(@Nonnull JavaPlugin plugin, @Nonnull Entity entity) {
+		BoundingBox box = entity.getBoundingBox();
+		double radius = box.getWidthX();
+		spawnUpGoingParticleCircle(plugin, entity.getLocation(), Particle.SPELL_INSTANT, (int) (radius * 15), radius, 0.25);
 	}
 
 }
