@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.Function;
 
 /**
@@ -104,6 +105,13 @@ public final class StringUtils {
 			String string = mapper.apply(t);
 			builder.append(string);
 		}
+		return builder.toString();
+	}
+
+	@Nonnull
+	public static String repeat(@Nullable Object sequence, int amount) {
+		StringBuilder builder = new StringBuilder();
+		for (int i = 0; i < amount; i++) builder.append(sequence);
 		return builder.toString();
 	}
 
