@@ -41,7 +41,7 @@ public final class StringUtils {
 	}
 
 	@Nonnull
-	public static String format(@Nonnull String sequence, @Nonnull String... args) {
+	public static String format(@Nonnull String sequence, @Nonnull Object... args) {
 		char start = '{', end = '}';
 		boolean inArgument = false;
 		StringBuilder argument = new StringBuilder();
@@ -73,7 +73,7 @@ public final class StringUtils {
 	}
 
 	@Nonnull
-	public static String[] format(@Nonnull String[] array, @Nonnull String... args) {
+	public static String[] format(@Nonnull String[] array, @Nonnull Object... args) {
 		String[] result = new String[array.length];
 		for (int i = 0; i < array.length; i++) {
 			result[i] = format(array[i], args);
