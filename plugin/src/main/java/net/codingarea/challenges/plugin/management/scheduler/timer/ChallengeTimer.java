@@ -105,7 +105,7 @@ public final class ChallengeTimer {
 
 	}
 
-	public void pause() {
+	public void pause(boolean byPlayer) {
 		if (paused) return;
 
 		paused = true;
@@ -115,7 +115,7 @@ public final class ChallengeTimer {
 	}
 
 	public void reset() {
-		pause();
+		pause(true);
 		time = 0;
 		countingUp = true;
 		updateActionbar();

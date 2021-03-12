@@ -22,7 +22,11 @@ public final class ChallengeAPI {
 	}
 
 	public static void pauseTimer() {
-		Challenges.getInstance().getChallengeTimer().pause();
+		Challenges.getInstance().getChallengeTimer().pause(false);
+	}
+
+	public static void pauseTimer(boolean byPlayer) {
+		Challenges.getInstance().getChallengeTimer().pause(byPlayer);
 	}
 
 	public static void resumeTimer() {

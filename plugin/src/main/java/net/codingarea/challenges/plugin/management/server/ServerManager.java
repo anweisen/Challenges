@@ -55,7 +55,7 @@ public final class ServerManager {
 			return;
 		}
 
-		Challenges.getInstance().getChallengeTimer().pause();
+		Challenges.getInstance().getChallengeTimer().pause(false);
 
 		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 		List<Player> winners = new LinkedList<>();
