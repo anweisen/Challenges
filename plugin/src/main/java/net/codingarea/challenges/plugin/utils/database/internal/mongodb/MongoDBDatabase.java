@@ -16,9 +16,6 @@ import net.codingarea.challenges.plugin.utils.database.internal.mongodb.insertor
 import net.codingarea.challenges.plugin.utils.database.internal.mongodb.query.MongoDBQuery;
 import net.codingarea.challenges.plugin.utils.database.internal.mongodb.update.MongoDBUpdate;
 import net.codingarea.challenges.plugin.utils.database.internal.mongodb.where.MongoDBWhere;
-import net.codingarea.challenges.plugin.utils.database.internal.sql.abstraction.query.SQLQuery;
-import net.codingarea.challenges.plugin.utils.database.internal.sql.abstraction.update.SQLUpdate;
-import net.codingarea.challenges.plugin.utils.database.internal.sql.abstraction.where.SQLWhere;
 import org.bson.Document;
 
 import javax.annotation.Nonnull;
