@@ -39,6 +39,10 @@ timer:
     hours: "{hh}:{mm}:{ss}"
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+# Toggles join and quit messages
+# These can be edited in the corresponding language file
+join-quit-messages: true
+
 # New challenges will be displayed first in the setting menu.
 display-new-in-front: true
 
