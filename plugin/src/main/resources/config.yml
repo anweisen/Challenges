@@ -39,6 +39,10 @@ timer:
     hours: "{hh}:{mm}:{ss}"
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+
+# Players with the permission 'challenges.gui' will have items in their hotbar
+# while the timer is paused, for controlling some settings.
+inventory-menu: true
 # Toggles join and quit messages
 # These can be edited in the corresponding language file
 join-quit-messages: true
