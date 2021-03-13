@@ -47,6 +47,9 @@ inventory-menu: true
 # These can be edited in the corresponding language file
 join-quit-messages: true
 
+# Players with the 'challenges.gui' will get a message if the timer is paused when they join
+timer-is-paused-info: true
+
 # New challenges will be displayed first in the setting menu.
 display-new-in-front: true
 
