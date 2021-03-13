@@ -8,9 +8,11 @@ import net.codingarea.challenges.plugin.utils.logging.LogLevel;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import net.codingarea.challenges.plugin.utils.version.Version;
 import net.codingarea.challenges.plugin.utils.version.VersionInfo;
+import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -52,6 +54,9 @@ public abstract class BukkitModule extends JavaPlugin {
 
 	@Override
 	public void onDisable() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.getOpenInventory().close();
+		}
 	}
 
 	public boolean isDevMode() {
