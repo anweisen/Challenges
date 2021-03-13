@@ -64,6 +64,10 @@ cloudnet-support:
   name-rank-colors: false
   start-new-service: false
 
+# This will require a database connection
+save-player-stats: false
+no-stats-after-cheating: true
+
 # Debug messages will be shown in the console.
 # You should enable this setting when reporting an issue.
 dev-mode: false
