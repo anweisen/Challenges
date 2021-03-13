@@ -53,6 +53,12 @@ timer-is-paused-info: true
 # New challenges will be displayed first in the setting menu.
 display-new-in-front: true
 
+# A title will be shown to all players when the timer is paused/started/reset,
+# set to another time or the mode is toggled or a challenges is enabled/disabled
+titles:
+  timer-status: true
+  challenge-status: false
+
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false
