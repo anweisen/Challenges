@@ -96,18 +96,14 @@ public final class LanguageLoader extends ContentLoader {
 
 			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
-				try {
-
-					Message message = Message.valueOf(entry.getKey());
-
-					JsonElement element = entry.getValue();
-					if (element.isJsonPrimitive()) {
-						message.setValue(element.getAsString());
-					} else if (element.isJsonArray()) {
-						message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
-					}
-				} catch (IllegalArgumentException | IllegalStateException ex) {
-					// Unknown Message
+				Message message = Message.forName(entry.getKey());
+				JsonElement element = entry.getValue();
+				if (element.isJsonPrimitive()) {
+					message.setValue(element.getAsString());
+				} else if (element.isJsonArray()) {
+					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
+				} else {
+					Logger.warn("Illegal type '" + element.getClass().getName() + "' for " + message.getName());
 				}
 			}
 

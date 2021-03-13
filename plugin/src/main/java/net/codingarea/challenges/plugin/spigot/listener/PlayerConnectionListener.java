@@ -36,15 +36,15 @@ public class PlayerConnectionListener implements Listener {
 
 		if (messages) {
 			event.setJoinMessage(null);
-			Message.JOIN_MESSAGE.broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			Message.forName("join-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 		}
 
 		if (player.hasPermission("challenges.gui")) {
 			if (!UpdateLoader.isNewestPluginVersion()) {
-				Message.DEPRECATED_PLUGIN_VERSION.send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
+				Message.forName("deprecated-plugin-version").send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
 			}
 			if (!UpdateLoader.isNewestConfigVersion()) {
-				Message.DEPRECATED_CONFIG_VERSION.send(player, Prefix.CHALLENGES);
+				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
 		}
 

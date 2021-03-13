@@ -15,17 +15,17 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder navigateBack() {
-		return new SkullBuilder("MHF_ArrowLeft").setName(Message.NAVIGATE_BACK).hideAttributes();
+		return new SkullBuilder("MHF_ArrowLeft").setName(Message.forName("navigate-back")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder navigateNext() {
-		return new SkullBuilder("MHF_ArrowRight").setName(Message.NAVIGATE_NEXT).hideAttributes();
+		return new SkullBuilder("MHF_ArrowRight").setName(Message.forName("navigate-next")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder navigateBackMainMenu() {
-		return new ItemBuilder(Material.DARK_OAK_DOOR).setName(Message.NAVIGATE_BACK).hideAttributes();
+		return new ItemBuilder(Material.DARK_OAK_DOOR).setName(Message.forName("navigate-back")).hideAttributes();
 	}
 
 	@Nonnull

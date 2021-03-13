@@ -24,7 +24,7 @@ public interface PlayerCommand extends CommandExecutor {
 				sender.sendMessage(Prefix.CHALLENGES + "§cSomething went wrong while executing the command");
 			}
 		} else {
-			sender.sendMessage("" + Prefix.CHALLENGES + Message.PLAYER_COMMAND);
+			sender.sendMessage("" + Prefix.CHALLENGES + Message.forName("player-command"));
 		}
 		return true;
 	}

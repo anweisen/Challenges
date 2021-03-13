@@ -49,7 +49,7 @@ public final class WorldManager {
 		sessionConfig.save();
 
 		String requester = requestedBy instanceof Player ? ((Player)requestedBy).getDisplayName() : "§4§lConsole";
-		String kickMessage = Message.SERVER_RESET.asString(requester);
+		String kickMessage = Message.forName("server-reset").asString(requester);
 		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
 
 		stopServer();

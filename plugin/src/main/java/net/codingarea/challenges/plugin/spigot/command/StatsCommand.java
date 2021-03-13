@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
-import net.codingarea.challenges.plugin.management.menu.TitleManager;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
@@ -31,21 +31,22 @@ public class StatsCommand implements PlayerCommand {
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) {
 		if (!Challenges.getInstance().getStatsManager().isEnabled()) {
-			player.sendMessage(Prefix.CHALLENGES + Message.FEATURE_DISABLED.asString());
+			player.sendMessage(Prefix.CHALLENGES + Message.forName("feature-disabled").asString());
+			SoundSample.BASS_OFF.play(player);
 			return;
 		}
 
 		switch (args.length) {
 			case 0:
-				player.sendMessage(Prefix.CHALLENGES + Message.FETCHING_DATA.asString());
+				Message.forName("fetching-data").send(player, Prefix.CHALLENGES);
 				handleCommand(player);
 				break;
 			case 1:
-				player.sendMessage(Prefix.CHALLENGES + Message.FETCHING_DATA.asString());
+				Message.forName("fetching-data").send(player, Prefix.CHALLENGES);
 				handleCommand(player, args[0]);
 				break;
 			default:
-				player.sendMessage(Prefix.CHALLENGES + Message.SYNTAX.asString("stats [player]"));
+				Message.forName("syntax").send(player, Prefix.CHALLENGES, "stats [player]");
 		}
 	}
 
@@ -67,15 +68,15 @@ public class StatsCommand implements PlayerCommand {
 
 	private void open(@Nonnull Player player, @Nonnull UUID uuid, @Nonnull String name) {
 
-		AnimatedInventory inventory = new AnimatedInventory(TitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER)
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER)
 				.setEndSound(SoundSample.OPEN).setFrameSound(SoundSample.CLICK);
 		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
-		inventory.cloneLastAndAdd().setAkzent(39, 41);
-		inventory.cloneLastAndAdd().setAkzent(38, 42);
-		inventory.cloneLastAndAdd().setAkzent(37, 43);
-		inventory.cloneLastAndAdd().setAkzent(28, 34);
-		inventory.cloneLastAndAdd().setAkzent(27, 35);
-		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(name, Message.STATS_OF.asString(name)).build());
+		inventory.cloneLastAndAdd().setAccent(39, 41);
+		inventory.cloneLastAndAdd().setAccent(38, 42);
+		inventory.cloneLastAndAdd().setAccent(37, 43);
+		inventory.cloneLastAndAdd().setAccent(28, 34);
+		inventory.cloneLastAndAdd().setAccent(27, 35);
+		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(name, Message.forName("stats-of").asString(name)).build());
 
 		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid);
 		createInventory(stats, inventory, 19, 20, 21, 22, 23, 24, 25, 29, 30, 31, 32, 33);
@@ -93,7 +94,7 @@ public class StatsCommand implements PlayerCommand {
 			double value = stats.getStatisticValue(statistic);
 			String format = statistic.formatChat(value);
 
-			Message message = Message.valueOf("STAT_" + statistic.name());
+			Message message = Message.forName("stat-" + statistic.name().toLowerCase());
 			inventory.cloneLastAndAdd().setItem(slots[i], new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore("§8» §7" + format).hideAttributes().build());
 
 			i++;

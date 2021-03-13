@@ -29,7 +29,7 @@ public class ResetCommand implements SenderCommand, Completer {
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
 		if (confirmReset && (args.length != 1 || !args[0].equalsIgnoreCase("confirm"))) {
-			sender.sendMessage(Prefix.CHALLENGES + Message.CONFIRM_RESET.asString());
+			sender.sendMessage(Prefix.CHALLENGES + Message.forName("confirm-reset").asString("reset confirm"));
 			return;
 		}
 
