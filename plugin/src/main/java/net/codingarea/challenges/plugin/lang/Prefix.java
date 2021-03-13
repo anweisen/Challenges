@@ -11,6 +11,8 @@ public enum Prefix {
 
 	CHALLENGES("§6Challenges"),
 	DAMAGE("§cDamage"),
+	POSITION("§9Position"),
+	BACKPACK("§aBackpack"),
 	TIMER("§5Timer");
 
 	private final String defaultValue;
