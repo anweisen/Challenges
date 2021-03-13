@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
@@ -46,12 +47,20 @@ public final class ChallengeManager {
 			String name = challenge.getName();
 
 			if (gamestateConfig.contains(name)) {
-				Document document = gamestateConfig.getDocument(name);
-				challenge.loadGameState(document);
+				try {
+					Document document = gamestateConfig.getDocument(name);
+					challenge.loadGameState(document);
+				} catch (Exception ex) {
+					Logger.severe("Could not load gamestate for " + challenge.getClass().getSimpleName(), ex);
+				}
 			}
 			if (settingConfig.contains(name)) {
-				Document document = settingConfig.getDocument(name);
-				challenge.loadSettings(document);
+				try {
+					Document document = settingConfig.getDocument(name);
+					challenge.loadSettings(document);
+				} catch (Exception ex) {
+					Logger.severe("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
+				}
 			}
 
 			if (challenge instanceof Listener)
@@ -62,8 +71,12 @@ public final class ChallengeManager {
 	public synchronized void saveGamestate(boolean async) {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
 		for (IChallenge challenge : challenges) {
-			Document document = config.getDocument(challenge.getName());
-			challenge.writeGameState(document);
+			try {
+				Document document = config.getDocument(challenge.getName());
+				challenge.writeGameState(document);
+			} catch (Exception ex) {
+				Logger.severe("Could not write gamestate of " + challenge.getClass().getSimpleName(), ex);
+			}
 		}
 		config.save(async);
 	}
@@ -71,8 +84,12 @@ public final class ChallengeManager {
 	public synchronized void saveLocalSettings(boolean async) {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSettingsConfig();
 		for (IChallenge challenge : challenges) {
-			Document document = config.getDocument(challenge.getName());
-			challenge.writeSettings(document);
+			try {
+				Document document = config.getDocument(challenge.getName());
+				challenge.writeSettings(document);
+			} catch (Exception ex) {
+				Logger.severe("Could not write settings of " + challenge.getClass().getSimpleName(), ex);
+			}
 		}
 		config.save(async);
 	}
