@@ -4,7 +4,6 @@ import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -18,13 +17,16 @@ public final class ItemDescription {
 	private final String name;
 	private final String[] lore;
 
+	private final String originalName;
+
 	public static ItemDescription empty() {
-		return new ItemDescription(new String[] {"§r§f"}, Message.NULL_MESSAGE, new String[0]);
+		return new ItemDescription(new String[0], Message.NULL, new String[0]);
 	}
 
-	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String formattedName, @Nonnull String[] formattedLore) {
+	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String name, @Nonnull String[] formattedLore) {
 		this.colors = themeColors;
-		this.name = formattedName;
+		this.name = "§8» " + name;
+		this.originalName = name;
 		this.lore = formattedLore;
 	}
 
@@ -32,6 +34,7 @@ public final class ItemDescription {
 		if (description.length == 0) throw new IllegalArgumentException("Invalid item description: Cannot be empty");
 
 		name = "§8» " + description[0];
+		originalName = description[0];
 		colors = determineColors(description[0]);
 		lore = new String[description.length - 1];
 		fillLore(description);
@@ -40,6 +43,11 @@ public final class ItemDescription {
 	@Nonnull
 	public String getName() {
 		return name;
+	}
+
+	@Nonnull
+	public String getOriginalName() {
+		return originalName;
 	}
 
 	@Nonnull
