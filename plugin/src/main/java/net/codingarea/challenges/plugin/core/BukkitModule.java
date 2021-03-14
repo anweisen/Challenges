@@ -17,6 +17,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -27,6 +28,9 @@ import java.util.logging.Logger;
  * @see net.codingarea.challenges.plugin.Challenges
  */
 public abstract class BukkitModule extends JavaPlugin {
+
+	private final Map<String, CommandExecutor> commands = new HashMap<>();
+	private final List<Listener> listeners = new ArrayList<>();
 
 	private Version version;
 	private Document config;
@@ -50,10 +54,15 @@ public abstract class BukkitModule extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		commands.forEach((name, executor) -> registerCommand0(executor, name));
+		listeners.forEach(listener -> registerListener(listener));
 	}
 
 	@Override
 	public void onDisable() {
+		commands.clear();
+		listeners.clear();
+
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.getOpenInventory().close();
 		}
@@ -98,18 +107,30 @@ public abstract class BukkitModule extends JavaPlugin {
 
 	public final void registerCommand(@Nonnull CommandExecutor executor, @Nonnull String... names) {
 		for (String name : names) {
-			PluginCommand command = getCommand(name);
-			if (command == null) {
-				getLogger().warning("Tried to register invalid command '" + name + "'");
+			if (isEnabled()) {
+				registerCommand0(executor, name);
 			} else {
-				command.setExecutor(executor);
+				commands.put(name, executor);
 			}
 		}
 	}
 
+	private void registerCommand0(@Nonnull CommandExecutor executor, @Nonnull String name) {
+		PluginCommand command = getCommand(name);
+		if (command == null) {
+			getLogger().warning("Tried to register invalid command '" + name + "'");
+		} else {
+			command.setExecutor(executor);
+		}
+	}
+
 	public final void registerListener(@Nonnull Listener... listeners) {
-		for (Listener listener : listeners) {
-			getServer().getPluginManager().registerEvents(listener, this);
+		if (isEnabled()) {
+			for (Listener listener : listeners) {
+				getServer().getPluginManager().registerEvents(listener, this);
+			}
+		} else {
+			this.listeners.addAll(Arrays.asList(listeners));
 		}
 	}
 
