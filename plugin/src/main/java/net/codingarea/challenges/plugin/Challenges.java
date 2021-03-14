@@ -66,6 +66,7 @@ public final class Challenges extends BukkitModule {
 		if (validationFailed = (validate() || validationFailed)) return; // Handle in enable
 
 		createManagers();
+		loadManagers();
 
 	}
 
@@ -105,6 +106,9 @@ public final class Challenges extends BukkitModule {
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
 
+	}
+
+	private void loadManagers() {
 	}
 
 	private void enableManagers() {
