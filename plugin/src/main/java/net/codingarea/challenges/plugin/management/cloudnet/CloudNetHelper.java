@@ -33,6 +33,15 @@ public final class CloudNetHelper {
 		}
 	}
 
+	public void handleTimerPause() {
+		try {
+			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.setState("LOBBY");
+			de.dytanic.cloudnet.ext.bridge.BridgeHelper.updateServiceInfo();
+		} catch (NoClassDefFoundError ex) {
+			Logger.severe("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
+		}
+	}
+
 	@Nonnull
 	public String getColoredName(@Nonnull Player player) {
 		try {

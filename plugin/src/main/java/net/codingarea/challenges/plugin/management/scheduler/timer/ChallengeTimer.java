@@ -111,6 +111,7 @@ public final class ChallengeTimer {
 		paused = true;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
