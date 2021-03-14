@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
 import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
+import net.codingarea.challenges.plugin.management.server.TitleManager;
 import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
@@ -54,6 +55,7 @@ public final class Challenges extends BukkitModule {
 	private ScheduleManager scheduler;
 	private StatsManager statsManager;
 	private WorldManager worldManager;
+	private TitleManager titleManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
 
@@ -100,6 +102,7 @@ public final class Challenges extends BukkitModule {
 		scheduler = new ScheduleManager();
 		scoreboardManager = new ScoreboardManager();
 		cloudNetHelper = new CloudNetHelper();
+		titleManager = new TitleManager();
 		timer = new ChallengeTimer();
 		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
@@ -228,6 +231,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public BlockDropManager getBlockDropManager() {
 		return blockDropManager;
+	}
+
+	@Nonnull
+	public TitleManager getTitleManager() {
+		return titleManager;
 	}
 
 }
