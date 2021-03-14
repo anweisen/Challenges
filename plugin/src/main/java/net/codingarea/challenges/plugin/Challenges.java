@@ -46,6 +46,7 @@ public final class Challenges extends BukkitModule {
 	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
 	private BlockDropManager blockDropManager;
+	private ChallengeLoader challengeLoader;
 	private DatabaseManager databaseManager;
 	private CloudNetHelper cloudNetHelper;
 	private ServerManager serverManager;
@@ -102,6 +103,7 @@ public final class Challenges extends BukkitModule {
 		timer = new ChallengeTimer();
 		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
+		challengeLoader = new ChallengeLoader();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
@@ -109,6 +111,9 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void loadManagers() {
+
+		challengeLoader.load();
+
 	}
 
 	private void enableManagers() {
@@ -120,8 +125,6 @@ public final class Challenges extends BukkitModule {
 		statsManager.register();
 		scheduler.start();
 		playerInventoryManager.enable();
-
-		new ChallengeLoader().load();
 
 	}
 
