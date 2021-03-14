@@ -30,10 +30,6 @@ public final class Utils {
 		}
 	}
 
-	public static void disablePlugin() {
-		Bukkit.getPluginManager().disablePlugin(Challenges.getInstance());
-	}
-
 	@Nonnull
 	public static List<String> filterRecommendations(@Nonnull String argument, @Nonnull String... recommendations) {
 		argument = argument.toLowerCase();

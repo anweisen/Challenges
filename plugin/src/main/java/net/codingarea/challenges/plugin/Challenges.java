@@ -74,7 +74,7 @@ public final class Challenges extends BukkitModule {
 		super.onEnable();
 
 		if (validationFailed) {
-			Utils.disablePlugin();
+			disable();
 			return;
 		}
 

@@ -134,6 +134,10 @@ public abstract class BukkitModule extends JavaPlugin {
 		}
 	}
 
+	public final void disable() {
+		getServer().getPluginManager().disablePlugin(this);
+	}
+
 	protected final boolean validate() {
 		if (!Utils.isSpigot()) {
 			ConsolePrint.notSpigot();
