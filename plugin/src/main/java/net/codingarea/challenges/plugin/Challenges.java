@@ -71,12 +71,12 @@ public final class Challenges extends BukkitModule {
 
 	@Override
 	public void onEnable() {
-		super.onEnable();
-
 		if (validationFailed) {
 			disable();
 			return;
 		}
+
+		super.onEnable();
 
 		enableManagers();
 
