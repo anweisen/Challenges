@@ -28,7 +28,6 @@ import java.util.function.BiConsumer;
 public class GsonDocument implements Document {
 
 	public static final Gson GSON = new GsonBuilder()
-			.serializeNulls()
 			.disableHtmlEscaping()
 			.setPrettyPrinting()
 			.registerTypeAdapterFactory(GsonTypeAdapter.newTypeHierarchyFactory(GsonDocument.class, new GsonDocumentTypeAdapter()))
