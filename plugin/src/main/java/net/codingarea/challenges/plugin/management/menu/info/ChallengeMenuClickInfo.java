@@ -15,11 +15,11 @@ public class ChallengeMenuClickInfo extends MenuClickInfo {
 	protected final boolean upperItem;
 
 	public ChallengeMenuClickInfo(@Nonnull MenuClickInfo parent, boolean upperItem) {
-		this(parent.getPlayer(), parent.getInventory(), parent.isRightClick(), parent.isShiftClick(), parent.getSlot(), upperItem);
+		this(parent.getPlayer(), parent.getInventory(), parent.isShiftClick(), parent.isRightClick(), parent.getSlot(), upperItem);
 	}
 
-	public ChallengeMenuClickInfo(@Nonnull Player player, @Nonnull Inventory inventory, boolean rightClick, boolean shiftClick, @Nonnegative int slot, boolean upperItem) {
-		super(player, inventory, rightClick, shiftClick, slot);
+	public ChallengeMenuClickInfo(@Nonnull Player player, @Nonnull Inventory inventory, boolean shiftClick, boolean rightClick, @Nonnegative int slot, boolean upperItem) {
+		super(player, inventory, shiftClick, rightClick, slot);
 		this.upperItem = upperItem;
 	}
 
@@ -43,10 +43,13 @@ public class ChallengeMenuClickInfo extends MenuClickInfo {
 
 	@Override
 	public String toString() {
-		return "MenuClickEvent{" +
-				"rightClick=" + rightClick +
+		return "ChallengeMenuClickInfo{" +
+				"upperItem=" + upperItem +
+				", player=" + player +
+				", inventory=" + inventory +
 				", shiftClick=" + shiftClick +
-				", upperItem=" + upperItem +
+				", rightClick=" + rightClick +
+				", slot=" + slot +
 				'}';
 	}
 

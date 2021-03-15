@@ -54,7 +54,7 @@ public class StringBuilderWriter extends Writer {
 
 	public void write(@Nullable char[] value, int offset, int length) {
 		if (value != null) {
-			this.builder.append(value, offset, length);
+			builder.append(value, offset, length);
 		}
 	}
 

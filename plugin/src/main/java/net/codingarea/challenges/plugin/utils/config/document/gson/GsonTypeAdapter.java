@@ -22,8 +22,8 @@ public interface GsonTypeAdapter<T> {
 
 	static <T> TypeAdapterFactory newTypeHierarchyFactory(@Nonnull Class<T> clazz, @Nonnull GsonTypeAdapter<T> adapter) {
 		return new TypeAdapterFactory() {
-			@SuppressWarnings("unchecked")
 			@Override
+			@SuppressWarnings("unchecked")
 			public <R> TypeAdapter<R> create(Gson gson, TypeToken<R> token) {
 				Class<? super R> requestedType = token.getRawType();
 				if (!clazz.isAssignableFrom(requestedType)) return null;

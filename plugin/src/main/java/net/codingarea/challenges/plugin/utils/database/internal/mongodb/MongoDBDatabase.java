@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Map;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -41,11 +42,14 @@ public class MongoDBDatabase extends AbstractDatabase {
 			"org.mongodb.driver.protocol.update"
 		};
 
+		LogManager manager = LogManager.getLogManager();
 		for (String name : loggerNames) {
-			Logger logger = Logger.getLogger(name);
+			Logger logger = manager.getLogger(name);
 			if (logger == null) continue;
 			logger.setLevel(Level.OFF);
+			logger.setFilter(record -> false);
 		}
+
 	}
 
 	protected MongoClient client;

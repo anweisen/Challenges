@@ -3,15 +3,13 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -57,12 +55,12 @@ public final class MenuManager {
 		gui.cloneLastAndAdd().setItem(1, ItemBuilder.FILL_ITEM_2).setItem(7, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(2, ItemBuilder.FILL_ITEM_2).setItem(6, ItemBuilder.FILL_ITEM_2);
 
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.TIMER.ordinal()], new ItemBuilder(Material.CLOCK).setName("§8» §6Timer").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.GOAL.ordinal()], new ItemBuilder(Material.COMPASS).setName("§8» §5Goal").hideAttributes());
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.DAMAGE.ordinal()], new ItemBuilder(Material.IRON_SWORD).setName("§8» §7Damage").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.ITEMS_BLOCKS.ordinal()], new ItemBuilder(Material.STICK).setName("§8» §4Blocks & Items").hideAttributes());
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.CHALLENGES.ordinal()], new ItemBuilder(Material.BOOK).setName("§8» §cChallenges").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()], new ItemBuilder(Material.COMPARATOR).setName("§8» §eSettings").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.TIMER.ordinal()],          new ItemBuilder(Material.CLOCK).name("§8» §6Timer").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.GOAL.ordinal()],           new ItemBuilder(Material.COMPASS).name("§8» §5Goal").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.DAMAGE.ordinal()],         new ItemBuilder(Material.IRON_SWORD).name("§8» §7Damage").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.ITEMS_BLOCKS.ordinal()],   new ItemBuilder(Material.STICK).name("§8» §4Blocks & Items").hideAttributes());
+		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.CHALLENGES.ordinal()],     new ItemBuilder(Material.BOOK).name("§8» §cChallenges").hideAttributes())
+							 .setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()],       new ItemBuilder(Material.COMPARATOR).name("§8» §eSettings").hideAttributes());
 	}
 
 	public void generateMenus() {
@@ -70,7 +68,7 @@ public final class MenuManager {
 		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
 			MenuType type = challenge.getType();
 			Menu menu = menus.get(type);
-			if (menu == null) continue; // This should only happen if !type.isUsable()
+			if (menu == null) continue; // Menu is disabled
 			menu.addChallengeCache(challenge);
 		}
 		menus.values().forEach(Menu::generateInventories);
