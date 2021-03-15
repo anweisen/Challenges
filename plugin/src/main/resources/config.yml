@@ -79,7 +79,7 @@ database:
   # - sqlite
   # Enter "none" to disable
   # Fill in the credentials below for the desired database
-  type: none
+  type: sqlite
 
   mysql:
     host: "localhost"
