@@ -20,7 +20,7 @@ public final class MessageManager {
 
 	@Nonnull
 	@CheckReturnValue
-	public static Message forName(@Nonnull String name) {
+	public static Message getOrCreateMessage(@Nonnull String name) {
 		return cache.computeIfAbsent(name, key -> new MessageImpl(key));
 	}
 

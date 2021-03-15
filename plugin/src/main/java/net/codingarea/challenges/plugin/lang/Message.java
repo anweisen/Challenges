@@ -38,7 +38,7 @@ public interface Message {
 	@Nonnull
 	@CheckReturnValue
 	static Message forName(@Nonnull String name) {
-		return MessageManager.forName(name);
+		return MessageManager.getOrCreateMessage(name);
 	}
 
 }
