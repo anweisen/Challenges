@@ -59,6 +59,9 @@ titles:
   timer-status: true
   challenge-status: false
 
+# The /reset command can be executed when the server is fresh, what means the timer was never started before
+enable-fresh-reset: true
+
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false

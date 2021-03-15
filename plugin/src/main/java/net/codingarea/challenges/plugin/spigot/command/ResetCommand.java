@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
-import com.sun.istack.internal.NotNull;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
-import net.codingarea.challenges.plugin.utils.bukkit.Completer;
-import net.codingarea.challenges.plugin.utils.bukkit.SenderCommand;
-import org.bukkit.command.Command;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;
@@ -28,8 +27,14 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
+		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && Challenges.getInstance().getServerManager().isFresh()) {
+			Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
+			SoundSample.BASS_OFF.playIfPlayer(sender);
+			return;
+		}
+
 		if (confirmReset && (args.length != 1 || !args[0].equalsIgnoreCase("confirm"))) {
-			sender.sendMessage(Prefix.CHALLENGES + Message.forName("confirm-reset").asString("reset confirm"));
+			Message.forName("confirm-reset").send(sender, Prefix.CHALLENGES, "reset confirm");
 			return;
 		}
 
@@ -39,10 +44,8 @@ public class ResetCommand implements SenderCommand, Completer {
 
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		if (confirmReset) {
-			if (args.length == 1) {
-				return Collections.singletonList("confirm");
-			}
+		if (confirmReset && args.length == 1) {
+			return Collections.singletonList("confirm");
 		}
 		return null;
 	}
