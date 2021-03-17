@@ -21,10 +21,7 @@ import net.codingarea.challenges.plugin.management.server.TitleManager;
 import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
-import net.codingarea.challenges.plugin.spigot.listener.CheatListener;
-import net.codingarea.challenges.plugin.spigot.listener.InventoryListener;
-import net.codingarea.challenges.plugin.spigot.listener.PlayerConnectionListener;
-import net.codingarea.challenges.plugin.spigot.listener.RestrictionListener;
+import net.codingarea.challenges.plugin.spigot.listener.*;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 
 import javax.annotation.Nonnull;
@@ -121,8 +118,8 @@ public final class Challenges extends BukkitModule {
 
 	private void enableManagers() {
 
-		worldManager.executeWorldResetIfNecessary();
 		databaseManager.connectIfCreated();
+		worldManager.enable();
 		timer.loadSession();
 		challengeManager.enable();
 		statsManager.register();
@@ -145,6 +142,7 @@ public final class Challenges extends BukkitModule {
 				new InventoryListener(),
 				new PlayerConnectionListener(),
 				new RestrictionListener(),
+				new ExtraWorldRestrictionListener(),
 				new CheatListener(),
 				new BlockDropListener()
 		);
@@ -154,15 +152,16 @@ public final class Challenges extends BukkitModule {
 	public void onDisable() {
 		super.onDisable();
 
-		if (timer != null && worldManager != null && !worldManager.isShutdownBecauseOfReset()) timer.saveSession(false);
+		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
+
+		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
-		if (menuManager != null) menuManager.close();
 		if (databaseManager != null) databaseManager.disconnectIfConnected();
 		if (scoreboardManager != null) scoreboardManager.disable();
 
 		if (challengeManager != null) {
 			challengeManager.saveLocalSettings(false);
-			if (worldManager != null && !worldManager.isShutdownBecauseOfReset())
+			if (!shutdownBecauseOfReset)
 				challengeManager.saveGamestate(false);
 			challengeManager.clearChallengeCache();
 		}
