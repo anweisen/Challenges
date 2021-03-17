@@ -4,12 +4,15 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.database.Database;
 import net.codingarea.challenges.plugin.utils.database.DatabaseConfig;
+import net.codingarea.challenges.plugin.utils.database.SQLColumn;
 import net.codingarea.challenges.plugin.utils.database.internal.mongodb.MongoDBDatabase;
 import net.codingarea.challenges.plugin.utils.database.internal.sql.mysql.MySQLDatabase;
+import net.codingarea.challenges.plugin.utils.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.lang.reflect.Constructor;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -22,8 +25,18 @@ public final class DatabaseManager {
 	public DatabaseManager() {
 		Document document = Challenges.getInstance().getConfigDocument().getDocument("database");
 
-		String type = document.getString("type", "none");
-		if (("none").equals(type)) return;
+		String type = document.getString("type", "none").toLowerCase();
+		if ("none".equals(type)) return;
+
+		// Check dependencies
+		if ("mongodb".equals(type)) {
+			try {
+				Class.forName("net.codingarea.challenges.mongoconnector.MongoConnector");
+			} catch (ClassNotFoundException | NoClassDefFoundError ex) {
+				Logger.severe("Cannot use mongodb database without Challenges-MongoConnector");
+				return;
+			}
+		}
 
 		try {
 			Class<? extends Database> classOfDatabase = getDatabaseForName(type);
@@ -33,18 +46,22 @@ public final class DatabaseManager {
 			}
 
 			DatabaseConfig config = new DatabaseConfig(document.getDocument(type));
-			database = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class).newInstance(config);
+			Constructor<? extends Database> constructor = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class);
+			database = constructor.newInstance(config);
 		} catch (Throwable ex) {
 			Logger.severe("Could not create database", ex);
 		}
 	}
 
 	public void connectIfCreated() {
-		if (database != null) {
-			Thread thread = new Thread(database::connectSafely);
-			thread.setName("DatabaseConnector");
-			thread.start();
-		}
+		if (database == null) return;
+		
+		Challenges.getInstance().runAsync(() -> {
+			database.connectSafely();
+			database.createTableIfNotExistsSafely("challenges",
+					new SQLColumn("uuid", "varchar", 36),
+					new SQLColumn("stats", "varchar", 1500));
+		});
 	}
 
 	public void disconnectIfConnected() {
@@ -56,14 +73,10 @@ public final class DatabaseManager {
 	@Nullable
 	private Class<? extends Database> getDatabaseForName(@Nonnull String type) {
 		switch (type) {
-			case "mongodb":
-				return MongoDBDatabase.class;
-			case "mysql":
-				return MySQLDatabase.class;
-			case "sqlite":
-				return SQLiteDatabase.class;
-			default:
-				return null;
+			case "mongodb": return MongoDBDatabase.class;
+			case "mysql":   return MySQLDatabase.class;
+			case "sqlite":  return SQLiteDatabase.class;
+			default:        return null;
 		}
 	}
 
