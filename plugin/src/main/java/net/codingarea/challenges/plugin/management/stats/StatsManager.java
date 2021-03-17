@@ -25,10 +25,13 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class StatsManager implements Listener {
 
 	private final boolean enabled;
+	private final boolean noStatsAfterCheating;
+
 	private final Map<UUID, PlayerStats> cache = new ConcurrentHashMap<>();
 
 	public StatsManager() {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats") && Challenges.getInstance().getDatabaseManager().getDatabase() != null;
+		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
 	public void register() {
@@ -100,6 +103,10 @@ public final class StatsManager implements Listener {
 
 	public boolean isEnabled() {
 		return enabled && Challenges.getInstance().getDatabaseManager().isConnected();
+	}
+
+	public boolean isNoStatsAfterCheating() {
+		return noStatsAfterCheating;
 	}
 
 }

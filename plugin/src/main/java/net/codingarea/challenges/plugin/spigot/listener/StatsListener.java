@@ -30,12 +30,6 @@ import javax.annotation.Nonnull;
  */
 public class StatsListener implements Listener {
 
-	private final boolean noStatsAfterCheating;
-
-	public StatsListener() {
-		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
-	}
-
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (countNoStats()) return;
@@ -106,7 +100,7 @@ public class StatsListener implements Listener {
 	}
 
 	private boolean countNoStats() {
-		return Challenges.getInstance().getServerManager().hasCheated() && noStatsAfterCheating;
+		return Challenges.getInstance().getServerManager().hasCheated() && Challenges.getInstance().getStatsManager().isNoStatsAfterCheating();
 	}
 
 }
