@@ -20,8 +20,22 @@ public final class ChallengeLoader {
 		register(new OneLifeSetting());
 	}
 
-	private void register(@Nonnull IChallenge challenge) {
-		Challenges.getInstance().getChallengeManager().register(challenge);
+	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
+		try {
+			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor();
+			IChallenge challenge = constructor.newInstance();
+			Challenges.getInstance().getChallengeManager().register(challenge);
+
+			if (challenge instanceof CommandExecutor) {
+				Challenges.getInstance().registerCommand((CommandExecutor) challenge, commandNames);
+			}
+			if (challenge instanceof Listener) {
+				Challenges.getInstance().registerListener((Listener) challenge);
+			}
+
+		} catch (Throwable ex) {
+			Logger.severe("Could not register challenge " + classOfChallenge.getSimpleName(), ex);
+		}
 	}
 
 }
