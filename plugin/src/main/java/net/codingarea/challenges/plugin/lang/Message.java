@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.lang;
 
 import net.codingarea.challenges.plugin.lang.management.MessageManager;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
@@ -24,10 +25,10 @@ public interface Message {
 	ItemDescription asItemDescription(@Nonnull Object... args);
 
 	void send(@Nonnull CommandSender player, @Nonnull Prefix prefix, @Nonnull Object... args);
-
 	void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcastTitle(@Nonnull Object... args);
+	void sendTitle(@Nonnull Player player, @Nonnull Object... args);
 
 	void setValue(@Nonnull String value);
 	void setValue(@Nonnull String[] value);

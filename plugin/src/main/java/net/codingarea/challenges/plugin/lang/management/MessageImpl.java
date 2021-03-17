@@ -80,7 +80,13 @@ public class MessageImpl implements Message {
 		Bukkit.getOnlinePlayers().forEach(player -> sendTitle(player, title));
 	}
 
-	public void sendTitle(@Nonnull Player player, @Nonnull String[] title) {
+	@Override
+	public void sendTitle(@Nonnull Player player, @Nonnull Object... args) {
+		String[] title = asArray(args);
+		sendTitle(player, title);
+	}
+
+	protected void sendTitle(@Nonnull Player player, @Nonnull String[] title) {
 		if (title.length == 0)      Challenges.getInstance().getTitleManager().sendTitle(player, "", "");
 		else if (title.length == 1) Challenges.getInstance().getTitleManager().sendTitle(player, title[0], "");
 		else                        Challenges.getInstance().getTitleManager().sendTitle(player, title[0], title[1]);
