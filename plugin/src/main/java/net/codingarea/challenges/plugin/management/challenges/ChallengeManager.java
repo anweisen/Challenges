@@ -62,9 +62,6 @@ public final class ChallengeManager {
 					Logger.severe("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
 				}
 			}
-
-			if (challenge instanceof Listener)
-				Challenges.getInstance().registerListener((Listener) challenge);
 		}
 	}
 
