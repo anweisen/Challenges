@@ -18,7 +18,7 @@ public final class ScheduleManager {
 	private boolean started = false;
 
 	public void register(@Nonnull Object scheduler) {
-		for (Method method : ReflectionUtils.getDeclaredMethodsAnnotatedWith(scheduler.getClass(), Scheduled.class)) {
+		for (Method method : ReflectionUtils.getMethodsAnnotatedWith(scheduler.getClass(), Scheduled.class)) {
 			if (method.getParameterCount() != 0) {
 				Logger.warn("Could not register scheduler " + method);
 				continue;
@@ -28,6 +28,7 @@ public final class ScheduleManager {
 			ScheduledFunction function = new ScheduledFunction(scheduler, method, annotation);
 
 			register(function, annotation);
+			Logger.debug("Registered scheduler " + function);
 		}
 	}
 
