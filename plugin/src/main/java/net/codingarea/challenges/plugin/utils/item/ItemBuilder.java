@@ -29,9 +29,15 @@ public class ItemBuilder {
 	protected ItemStack item;
 	protected ItemMeta meta;
 
+	protected ItemDescription builtByItemDescription;
+
 	public ItemBuilder(@Nonnull ItemStack item) {
 		this.item = item;
 		this.meta = item.getItemMeta();
+	}
+
+	public ItemBuilder() {
+		this(Material.BARRIER, ItemDescription.empty());
 	}
 
 	public ItemBuilder(@Nonnull Material material) {
@@ -39,8 +45,12 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull Message message) {
+		this(material, message.asItemDescription());
+	}
+
+	public ItemBuilder(@Nonnull Material material, @Nonnull ItemDescription description) {
 		this(material);
-		applyFormat(message.asItemDescription());
+		applyFormat(builtByItemDescription = description);
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name) {
@@ -206,6 +216,11 @@ public class ItemBuilder {
 		return item;
 	}
 
+	@Nullable
+	public ItemDescription getBuiltByItemDescription() {
+		return builtByItemDescription;
+	}
+
 	@Nonnull
 	public ItemStack toItem() {
 		return build();
@@ -215,6 +230,33 @@ public class ItemBuilder {
 
 		public BannerBuilder(@Nonnull Material material) {
 			super(material);
+		}
+
+		public BannerBuilder(@Nonnull Material material, @Nonnull Message message) {
+			super(material, message);
+		}
+
+		public BannerBuilder(@Nonnull Material material, @Nonnull ItemDescription description) {
+			super(material, description);
+		}
+
+		public BannerBuilder(@Nonnull Material material, @Nonnull String name) {
+			super(material, name);
+		}
+
+		public BannerBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
+			super(material, name, lore);
+		}
+
+		public BannerBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
+			super(material, name, amount);
+		}
+
+		public BannerBuilder(@Nonnull ItemStack item) {
+			super(item);
+		}
+
+		public BannerBuilder() {
 		}
 
 		@Nonnull
@@ -268,6 +310,26 @@ public class ItemBuilder {
 			super(material);
 		}
 
+		public PotionBuilder(@Nonnull Material material, @Nonnull Message message) {
+			super(material, message);
+		}
+
+		public PotionBuilder(@Nonnull Material material, @Nonnull String name) {
+			super(material, name);
+		}
+
+		public PotionBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
+			super(material, name, lore);
+		}
+
+		public PotionBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
+			super(material, name, amount);
+		}
+
+		public PotionBuilder(@Nonnull ItemStack item) {
+			super(item);
+		}
+
 		@Nonnull
 		public PotionBuilder addEffect(@Nonnull PotionEffect effect) {
 			getMeta().addCustomEffect(effect, true);
@@ -292,6 +354,26 @@ public class ItemBuilder {
 
 		public LeatherArmorBuilder(@Nonnull Material material) {
 			super(material);
+		}
+
+		public LeatherArmorBuilder(@Nonnull Material material, @Nonnull Message message) {
+			super(material, message);
+		}
+
+		public LeatherArmorBuilder(@Nonnull Material material, @Nonnull String name) {
+			super(material, name);
+		}
+
+		public LeatherArmorBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
+			super(material, name, lore);
+		}
+
+		public LeatherArmorBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
+			super(material, name, amount);
+		}
+
+		public LeatherArmorBuilder(@Nonnull ItemStack item) {
+			super(item);
 		}
 
 		@Nonnull
