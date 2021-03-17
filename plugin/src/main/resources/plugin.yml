@@ -11,41 +11,48 @@ main: net.codingarea.challenges.plugin.Challenges
 softdepend:
   - Challenges-MongoConnector
   - CloudNet-Bridge
+load: POSTWORLD
 
 commands:
   reset:
-    permission: challenges.reset
+    usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
-    usage: /reset [confirm]
+    permission: "challenges.reset"
   challenges:
+    usage: "/c"
+    permission: "challenges.gui"
+    description: "Opens the Settings GUI"
     aliases:
       - c
       - settings
       - challenge
-    permission: challenges.gui
-    description: "Opens the Settings GUI"
-    usage: /c
   timer:
+    usage: "/timer <set/stop/set>"
+    description: "Start/Stops/Sets the timer"
+    permission: "challenges.gui"
     aliases:
       - t
-    permission: challenges.gui
-    description: "Start/Stops/Sets the timer"
-    usage: /timer <set/stop/set>
   start:
+    usage: "/start"
+    description: "Start the timer"
+    permission: "challenges.gui"
     aliases:
       - resume
-    permission: challenges.gui
-    description: "Start the timer"
-    usage: /start
   pause:
-    permission: challenges.gui
+    usage: "/pause"
     description: "Pauses the timer"
-    usage: /pause
+    permission: "challenges.gui"
   stats:
-    usage: /stats [player]
-    description: "Allows you see statistics of you/other players"
+    usage: "/stats [player]"
+    description: "Allows you to see statistics of you/other players"
   position:
-    usage: /pos [player]
+    usage: "/pos [player]"
+    description: "Allows you to save locations"
     aliases:
       - pos
-    description: "Allows you to save locations"
+      - coords
+  backpack:
+    usage: "/bp"
+    description: "Opens the player's or the shared backpack"
+    aliases:
+      - bp
