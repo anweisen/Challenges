@@ -7,9 +7,10 @@ import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocume
 import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
-import org.bukkit.craftbukkit.libs.jline.internal.Nullable;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 
 /**
@@ -18,18 +19,46 @@ import java.io.File;
  */
 public final class WorldManager {
 
+	public static class WorldSettings {
+
+		private boolean placeBlocks = false;
+		private boolean destroyBlocks = false;
+
+		public void setDestroyBlocks(boolean destroyBlocks) {
+			this.destroyBlocks = destroyBlocks;
+		}
+
+		public void setPlaceBlocks(boolean placeBlocks) {
+			this.placeBlocks = placeBlocks;
+		}
+
+		public boolean isDestroyBlocks() {
+			return destroyBlocks;
+		}
+
+		public boolean isPlaceBlocks() {
+			return placeBlocks;
+		}
+
+	}
+
 	private boolean shutdownBecauseOfReset = false;
 
 	private final boolean restartOnReset;
+	private final boolean enableFreshReset;
 	private final String levelName;
 
+	private WorldSettings settings = new WorldSettings();
 	private World world;
 	private boolean worldIsInUse;
 
 	public WorldManager() {
-		Document config = Challenges.getInstance().getConfigDocument();
-		restartOnReset = config.getBoolean("restart-on-reset");
-		levelName = config.getString("level-name", "world");
+		Document pluginConfig = Challenges.getInstance().getConfigDocument();
+		restartOnReset = pluginConfig.getBoolean("restart-on-reset");
+		enableFreshReset = pluginConfig.getBoolean("enable-fresh-reset");
+
+		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
+		levelName = sessionConfig.getString("level-name", "world");
 	}
 
 	public void prepareWorldReset(@Nullable CommandSender requestedBy) {
@@ -38,6 +67,18 @@ public final class WorldManager {
 
 		// Stop all tasks to prevent them from overwriting configs
 		Challenges.getInstance().getScheduler().stop();
+
+		resetConfigs();
+
+		String requester = requestedBy instanceof Player ? ((Player)requestedBy).getDisplayName() : "§4§lConsole";
+		String kickMessage = Message.forName("server-reset").asString(requester);
+		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
+
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), this::stopServerNow, 3);
+
+	}
+
+	private void resetConfigs() {
 
 		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		sessionConfig.clear();
@@ -48,22 +89,27 @@ public final class WorldManager {
 		}
 		sessionConfig.save();
 
-		String requester = requestedBy instanceof Player ? ((Player)requestedBy).getDisplayName() : "§4§lConsole";
-		String kickMessage = Message.forName("server-reset").asString(requester);
-		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
-
-		stopServer();
+		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		gamestateConfig.clear();
+		gamestateConfig.save();
 
 	}
 
 	public void enable()  {
-		loadWorld();
 		executeWorldResetIfNecessary();
+		loadExtraWorld();
 	}
 
-	private void loadWorld() {
-		world = Bukkit.createWorld(new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false));
+	private void loadExtraWorld() {
+		world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
+		if (world == null) return;
+		world.setSpawnFlags(false, false);
 		world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+		world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
+		world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
+		world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
+		world.setGameRule(GameRule.DISABLE_RAIDS, true);
+		world.setGameRule(GameRule.MOB_GRIEFING, false);
 	}
 
 	private void executeWorldResetIfNecessary() {
@@ -85,7 +131,7 @@ public final class WorldManager {
 
 	}
 
-	private void stopServer() {
+	private void stopServerNow() {
 		if (!restartOnReset) {
 			Bukkit.shutdown();
 			return;
@@ -98,6 +144,10 @@ public final class WorldManager {
 		}
 	}
 
+	public boolean isEnableFreshReset() {
+		return enableFreshReset;
+	}
+
 	public boolean isShutdownBecauseOfReset() {
 		return shutdownBecauseOfReset;
 	}
@@ -107,10 +157,18 @@ public final class WorldManager {
 	}
 
 	public void setWorldIsInUse(boolean worldIsInUse) {
+		if (!worldIsInUse) settings = new WorldSettings();
 		this.worldIsInUse = worldIsInUse;
 	}
 
+	@Nonnull
 	public World getExtraWorld() {
 		return world;
 	}
+
+	@Nonnull
+	public WorldSettings getSettings() {
+		return settings;
+	}
+
 }
