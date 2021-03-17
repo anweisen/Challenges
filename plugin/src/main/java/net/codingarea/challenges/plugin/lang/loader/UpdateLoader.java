@@ -25,8 +25,7 @@ public final class UpdateLoader extends ContentLoader {
 			URL url = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID);
 			String response = IOUtils.toString(url);
 			Version plugin = Challenges.getInstance().getVersion();
-//			Version latest = VersionInfo.parse(response);
-			Version latest = VersionInfo.parse("3.0");
+			Version latest = VersionInfo.parse(response);
 			Version config = VersionInfo.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
 
 			if (latest.isNewerThan(plugin)) {
