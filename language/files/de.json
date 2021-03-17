@@ -1,14 +1,258 @@
 {
-  "SYNTAX": "Bitte nutze §e{0}",
-  "PLAYER_COMMAND": "Dazu musst du ein Spieler sein!",
-  "NAVIGATE_BACK": "§8« §7Back",
-  "NAVIGATE_NEXT": "§8» §7Next",
-  "SECONDS": "Sekunden",
-  "SECOND": "Sekunde",
-  "MINUTES": "Minuten",
-  "MINUTE": "Minute",
-  "HOURS": "Stunden",
-  "HOUR": "Stunde",
-  "TIMER_COUNTING_UP": "Timer zählt §ahoch",
-  "TIMER_COUNTING_DOWN": "Timer zählt §crunter"
+  "syntax": "Bitte nutze §e/{0}",
+  "player-command": "Dazu musst du ein Spieler sein!",
+  "navigate-back": "§8« §7Zurück",
+  "navigate-next": "§8» §7Weiter",
+  "seconds": "Sekunden",
+  "second": "Sekunde",
+  "minutes": "Minuten",
+  "minute": "Minute",
+  "hours": "Stunden",
+  "hour": "Stunde",
+  "timer-counting-up": "§8» §7Timer zählt §ahoch",
+  "timer-counting-down": "§8» §7Timer zählt §crunter",
+  "timer-is-paused": "§8» §7Timer ist §cpausiert",
+  "timer-is-running": "§8» §7Timer ist §agestartet",
+  "confirm-reset": "Bestätige den Reset mit §e/{0}",
+  "no-fresh-reset": [
+    "Der Server kann §cnicht resetet §7werden",
+    "Die Challenge §cnoch nicht §7gespielt wurde"
+  ],
+  "new-challenge": "§a§lNeu!",
+  "feature-disabled": "Diese Funktion ist derzeit §cdeaktiviert",
+  "timer-not-started": "Der wurde noch §cnicht gestartet",
+  "timer-was-started": "Der Timer wurde §agestartet",
+  "timer-was-paused": "Der Timer wurde §cpausiert",
+  "fetching-data": "Daten werden abgerufen..",
+  "stats-of": "§8» §7Stats von §e{0}",
+  "undefined": "undefiniert",
+  "deprecated-plugin-version": [
+    "Eine neue Version von §e§lChallenges §7ist verfügbar",
+    "Download: §e{0}"
+  ],
+  "deprecated-config-version": "Eine neue Version der §eChallengesconfig §7ist verfügbar",
+  "join-message": "§e{0} §7hat den Server §abetreten",
+  "quit-message": "§e{0} §7hat den Server §cverlassen",
+  "timer-paused-message": [
+    "Der Timer ist noch §cpausiert",
+    "Nutze §e/timer resume §7um ihn zu starten"
+  ],
+  "cheats-detected": [
+    "§e{0} §7hat §cgecheated",
+    "Es können §ckeine weiteren §7Statistiken gesammelt werden"
+  ],
+  "cheats-already-detected": [
+    "Auf diesem Server wurde §cgecheated",
+    "Es können §ckeine weiteren §7Statistiken gesammelt werden"
+  ],
+
+  "stat-dragon-killed": "Drachen getötet",
+  "stat-deaths": "Tode",
+  "stat-entity-kills": "Kills",
+  "stat-damage-dealt": "Schaden ausgeteilt",
+  "stat-damage-taken": "Schaden genommen",
+  "stat-blocks-mined": "Blöcke abgebaut",
+  "stat-blocks-placed": "Blöcke platziert",
+  "stat-blocks-traveled": "Blöcke gereist",
+  "stat-challenges-played": "Challenges gespielt",
+
+  "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
+  "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
+  "death-message": "§e{0} §7ist gestorben",
+  "death-message-cause": "§e{0} §7ist durch §e{1} §7gestorben",
+  "health-inverted": "Deine Herzen wurden §cinvertiert",
+  "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
+  "no-positions": [
+    "Es sind keine §ePositionen §7in dieser Welt gesetzt",
+    "Erstelle eine mit §e/{0}"
+  ],
+  "positions-disabled": "Positionen sind §cdeaktiviert",
+  "positions-other-world": "Diese Position befindet sich in einer anderen Welt §8(§e{0}§8)",
+  "position-set": "§e{5} §7hat §e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §7erstellt",
+  "death-collected": "Todesgrund §e{0} §7wurde registriert",
+  "item-collected": "Item §e{0} §7wurde registriert",
+  "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
+  "backpack-opened": "Du hast den {0} §7geöffnet",
+
+  "scoreboard-title": "§8» §f§lChallenge",
+  "your-place": "§7Dein Platz §8» §e{0}",
+
+  "server-reset": [
+    "§8————————————————————",
+    "",
+    "§8» §cServerreset",
+    "",
+    "§7Reset durch §4§l{0}",
+    "§7Der Server startet nun §cneu",
+    "",
+    "§8————————————————————"
+  ],
+  "challenge-end-timer-hit-zero": [
+    "",
+    "§cDie Challenge ist vorbei!",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-timer-hit-zero-winner": [
+    "",
+    "§cDie Challenge ist vorbei!",
+    "§7Gewinner: §e§l{1}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-reached": [
+    "",
+    "§7Die Challenge wurde beendet!",
+    "§7Gewinner: §e§l{1}",
+    "§7Zeit benötigt: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-reached-winner": [
+    "",
+    "§7Die Challenge wurde beendet!",
+    "§7Zeit benötigt: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-failed": [
+    "",
+    "§cDie Challenge ist vorbei! §6#FeelsBadMan ✞",
+    "§7Zeit verschwendet: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+
+  "title-timer-started": [
+    "",
+    "Timer §afortgesetzt"
+  ],
+  "title-timer-paused": [
+    "",
+    "Timer §cpausiert"
+  ],
+  "title-challenge-enabled": [
+    "§e{0}",
+    "§2§l✔ §8┃ §aaktiviert"
+  ],
+  "title-challenge-disabled": [
+    "§e{0}",
+    "§4✖ §8┃ §cdeaktiviert"
+  ],
+  "title-challenge-value-changed": [
+    "§e{0}",
+    "§8» §e{1}"
+  ],
+
+  "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
+  "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
+  "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
+
+  "item-one-life-setting": [
+    "§cEin Teamleben",
+    "*Jeder* stirbt wenn *einer stirbt*"
+  ],
+  "item-respawn-setting": [
+    "§4Respawn",
+    "Wenn du *stirbst*, wirst du zu einem *Zuschauer*"
+  ],
+  "item-death-message-setting": [
+    "§6Todesnachrichten",
+    "Schaltet *Todesnachrichten* ein/aus"
+  ],
+  "item-pvp-setting": [
+    "§9PvP"
+  ],
+  "item-max-health": [
+    "§cMaximale Herzen"
+  ],
+  "item-dragon-goal": [
+    "§5Enderdrache",
+    "Töte den *Enderdrachen* um zu gewinnen"
+  ],
+  "item-wither-goal": [
+    "§dWither",
+    "Tote einen *Wither* um zu gewinnen"
+  ],
+  "item-most-deaths-goal": [
+    "§6Meiste Tode",
+    "Wer die meisten *verschiedene Tode*",
+    "sammelt, *gewinnt*"
+  ],
+  "item-most-items-goal": [
+    "§cMeisten Items",
+    "Wer die meisten *verschiedenen Items*",
+    "findet, *gewinnt*"
+  ],
+  "item-last-man-standing-goal": [
+    "§cLast Man Standing",
+    "Wer *am Ende* noch *lebt*, gewinnt"
+  ],
+  "item-mine-most-blocks-goal": [
+    "§eMine Most Blocks",
+    "Wer die *meisten Blöcke* abbaut gewinnt"
+  ],
+  "item-soup-setting": [
+    "§cSuppen Heilung",
+    "Wenn du eine *Pilzsuppe Suppe* benutzt",
+    "wirst du um *4 Herzen* geheilt"
+  ],
+  "item-damage-multiplier": [
+    "§cDamage Multiplier",
+    "Schaden den du nimmst wird *multipliziert*"
+  ],
+  "item-traffic-light-challenge": [
+    "§cAmpelchallenge",
+    "Die *Ampel* schaltet alle paar Minuten um",
+    "Wenn du bei *rot* gehst stirbst du"
+  ],
+  "item-damage-display": [
+    "§eDamage Display",
+    "Es wird im Chat angezeigt",
+    "wenn jemand *Schaden* bekommt"
+  ],
+  "item-invert-health": [
+    "§cInvert Health",
+    "Alle paar Minuten werden deine *Herzen invertiert*",
+    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+  ],
+  "item-position-setting": [
+    "§9Positions",
+    "Erlaubt es dir *Positionen*",
+    "zu *markieren*"
+  ],
+  "item-backpack-setting": [
+    "§6Backpack",
+    "Erlaubt es dir *deinen Backpack* oder den *Team Backpack*",
+    "mit */backpack* zu öffnen"
+  ],
+  "item-cut-clean": [
+    "§9CutClean",
+    "Verschiedene *Einstellungen* die",
+    "das *Farmen* von Items *einfacher* machen"
+  ],
+  "item-cut-clean-iron": [
+    "§6Gold",
+    "*Golderz* wird direkt zu *Goldbarren*"
+  ],
+  "item-cut-clean-gold": [
+    "§7Iron",
+    "*Eisenerz* wird direkt zu *Eisenbarren*"
+  ],
+  "item-cut-clean-coal": [
+    "§eCoal",
+    "*Kohleerz* wird direkt zu *Fackeln*"
+  ],
+  "item-cut-clean-food": [
+    "§cGebratenes Essen",
+    "*Rohes Fleisch* wird direkt zu *gebratenem Fleisch*"
+  ],
+  "item-block-randomizer-challenge": [
+    "§6Block Randomizer",
+    "Jeder *Block* droppt ein *zufälliges Item*"
+  ],
+  "item-crafting-randomizer-challenge": [
+    "§6Crafting Randomizer",
+    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
+  ]
 }
