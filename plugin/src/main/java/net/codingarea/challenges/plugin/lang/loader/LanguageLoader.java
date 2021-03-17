@@ -108,10 +108,11 @@ public final class LanguageLoader extends ContentLoader {
 			}
 
 			loaded = true;
-			Challenges.getInstance().getMenuManager().generateMenus();
-			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
-
 			Logger.info("Successfully loaded language '" + language + "' from config file");
+
+			Challenges.getInstance().getMenuManager().generateMenus();
+			Challenges.getInstance().getScoreboardManager().handleLoadLanguages();
+			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 
 		} catch (Exception ex) {
 			Logger.severe("Could not read languages", ex);
