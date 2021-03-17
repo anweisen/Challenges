@@ -3,7 +3,8 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.management.menu.event.ChallengeMenuClickEvent;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
+import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -12,7 +13,6 @@ import net.codingarea.challenges.plugin.utils.version.Version;
 import net.codingarea.challenges.plugin.utils.version.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -53,7 +53,6 @@ public final class Menu {
 
 	public void generateInventories() {
 
-		InventoryUtils.close(inventories);
 		inventories.clear();
 
 		int page = 0;
@@ -101,17 +100,27 @@ public final class Menu {
 	}
 
 	private ItemStack getDisplayItem(@Nonnull IChallenge challenge) {
-		ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
-		if (isNew(challenge)) {
-			return item.appendName(" " + Message.NEW_CHALLENGE).build();
-		} else {
-			return item.build();
+		try {
+			ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
+			if (isNew(challenge)) {
+				return item.appendName(" " + Message.forName("new-challenge")).build();
+			} else {
+				return item.build();
+			}
+		} catch (Exception ex) {
+			Logger.severe("Error while generating challenge display item for challenge " + challenge.getClass().getSimpleName(), ex);
+			return new ItemBuilder().build();
 		}
 	}
 
 	private ItemStack getSettingsItem(@Nonnull IChallenge challenge) {
-		ItemBuilder item = new ItemBuilder(challenge.getSettingsItem()).hideAttributes();
-		return item.build();
+		try {
+			ItemBuilder item = new ItemBuilder(challenge.getSettingsItem()).hideAttributes();
+			return item.build();
+		} catch (Exception ex) {
+			Logger.severe("Error while generating challenge settings item for challenge " + challenge.getClass().getSimpleName(), ex);
+			return new ItemBuilder().build();
+		}
 	}
 
 	private boolean isNew(@Nonnull IChallenge challenge) {
@@ -123,7 +132,6 @@ public final class Menu {
 	@Nonnull
 	private Inventory createNewInventory(int page) {
 		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, InventoryTitleManager.getTitle(menu, page));
-		inventory.setMaxStackSize(1000);
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
@@ -156,28 +164,28 @@ public final class Menu {
 		}
 
 		@Override
-		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
+		public void handleClick(@Nonnull MenuClickInfo info) {
 
-			if (slot == NAVIGATION_SLOTS[0]) {
-				SoundSample.CLICK.play(player);
+			if (info.getSlot() == NAVIGATION_SLOTS[0]) {
+				SoundSample.CLICK.play(info.getPlayer());
 				if (page == 0) {
-					Challenges.getInstance().getMenuManager().openGUIInstantly(player);
+					Challenges.getInstance().getMenuManager().openGUIInstantly(info.getPlayer());
 				} else {
-					open(player, page - 1);
+					open(info.getPlayer(), page - 1);
 				}
 				return;
-			} else if (slot == NAVIGATION_SLOTS[1]) {
-				SoundSample.CLICK.play(player);
+			} else if (info.getSlot() == NAVIGATION_SLOTS[1]) {
+				SoundSample.CLICK.play(info.getPlayer());
 				if (page < (inventories.size() - 1))
-					open(player, page + 1);
+					open(info.getPlayer(), page + 1);
 				return;
 			}
 
 			boolean upperItem = true;
 			int index = 0;
 			for (int i : SLOTS) {
-				if (i == slot) break;
-				if ((i + 9 ) == slot) {
+				if (i == info.getSlot()) break;
+				if ((i + 9 ) == info.getSlot()) {
 					upperItem = false;
 					break;
 				}
@@ -185,7 +193,7 @@ public final class Menu {
 			}
 
 			if (index == SLOTS.length) { // No possible bound slot was clicked
-				SoundSample.CLICK.play(player);
+				SoundSample.CLICK.play(info.getPlayer());
 				return;
 			}
 
@@ -193,14 +201,14 @@ public final class Menu {
 			index += offset;
 
 			if (index >= challenges.size()) { // No bound slot was clicked
-				SoundSample.CLICK.play(player);
+				SoundSample.CLICK.play(info.getPlayer());
 				return;
 			}
 
 			IChallenge challenge = challenges.get(index);
 
 			try {
-				challenge.handleClick(new ChallengeMenuClickEvent(player, inventory, event.isRightClick(), event.isShiftClick(), upperItem));
+				challenge.handleClick(new ChallengeMenuClickInfo(info, upperItem));
 			} catch (Exception ex) {
 				Logger.severe("An exception occurred while handling click on " + challenge.getClass().getName(), ex);
 			}

@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
@@ -11,7 +12,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -51,17 +51,17 @@ public final class TimerMenu {
 	private void updateFirstPage() {
 		Inventory inventory = inventories.get(0);
 		inventory.setItem(START_SLOT, Challenges.getInstance().getChallengeTimer().isStarted() ?
-				new ItemBuilder(Material.LIME_DYE).setName(Message.TIMER_IS_RUNNING).build() :
-				new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.TIMER_IS_PAUSED).build());
+				new ItemBuilder(Material.LIME_DYE).setName(Message.forName("timer-is-running")).build() :
+				new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.forName("timer-is-paused")).build());
 		inventory.setItem(MODE_SLOT, Challenges.getInstance().getChallengeTimer().isCountingUp() ?
-				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).setName(Message.TIMER_COUNTING_UP).hideAttributes().build() :
-				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).setName(Message.TIMER_COUNTING_DOWN).hideAttributes().build());
+				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).setName(Message.forName("timer-counting-up")).hideAttributes().build() :
+				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).setName(Message.forName("timer-counting-down")).hideAttributes().build());
 	}
 
 	private void updateSecondPage() {
-		setTimeNavigation(HOUR_SLOTS, Message.HOUR, Message.HOURS);
-		setTimeNavigation(MINUTE_SLOTS, Message.MINUTE, Message.MINUTES);
-		setTimeNavigation(SECOND_SLOTS, Message.SECOND, Message.SECONDS);
+		setTimeNavigation(HOUR_SLOTS, Message.forName("hour"),Message.forName("hours"));
+		setTimeNavigation(MINUTE_SLOTS, Message.forName("minute"), Message.forName("minutes"));
+		setTimeNavigation(SECOND_SLOTS, Message.forName("second"), Message.forName("seconds"));
 
 		long seconds = Challenges.getInstance().getChallengeTimer().getTime();
 		long minutes = seconds / 60;
@@ -70,9 +70,9 @@ public final class TimerMenu {
 		minutes %= 60;
 
 		Inventory inventory = inventories.get(1);
-		inventory.setItem(HOUR_SLOTS[1], getTimeItem(hours, Message.HOUR, Message.HOURS));
-		inventory.setItem(MINUTE_SLOTS[1], getTimeItem(minutes, Message.MINUTE, Message.MINUTES));
-		inventory.setItem(SECOND_SLOTS[1], getTimeItem(seconds, Message.SECOND, Message.SECONDS));
+		inventory.setItem(HOUR_SLOTS[1], getTimeItem(hours, Message.forName("hour"),Message.forName("hours")));
+		inventory.setItem(MINUTE_SLOTS[1], getTimeItem(minutes, Message.forName("minute"), Message.forName("minutes")));
+		inventory.setItem(SECOND_SLOTS[1], getTimeItem(seconds, Message.forName("second"), Message.forName("seconds")));
 	}
 	private void setTimeNavigation(@Nonnull int[] slots, @Nonnull Message singular, @Nonnull Message plural) {
 		Inventory inventory = inventories.get(1);
@@ -95,15 +95,15 @@ public final class TimerMenu {
 		long amount = value < 1 ? 1 : Math.min(value, 64);
 		String[] lore = {
 			" ",
-			"§7§o[Click] §8» §cReset §7time",
+			"§7§o[Click] §8» §cReset §7timer",
 			" "
 		};
-		return new ItemBuilder(Material.CLOCK).setName((value == 1 ? singular : plural) + ": §e" + value).setLore(lore).hideAttributes().setAmount((int) amount).build();
+		return new ItemBuilder(Material.CLOCK).setName("§8» " + (value == 1 ? singular : plural) + ": §e" + value).setLore(lore).hideAttributes().setAmount((int) amount).build();
 	}
 
 	@Nonnull
 	private Inventory createNewInventory(int page) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, TitleManager.getTitle(MenuType.TIMER, page));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, InventoryTitleManager.getTitle(MenuType.TIMER, page));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		for (int i : new int[] { 1, 2, 6, 7, 9, 10, 16, 17, 27, 28, 34, 35, 37, 38, 39, 41, 42, 43 }) {
 			inventory.setItem(i, ItemBuilder.FILL_ITEM_2);
@@ -138,38 +138,38 @@ public final class TimerMenu {
 		}
 
 		@Override
-		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
+		public void handleClick(@Nonnull MenuClickInfo info) {
 
-			if (slot == NAVIGATION_SLOTS[0]) {
-				SoundSample.CLICK.play(player);
+			if (info.getSlot() == NAVIGATION_SLOTS[0]) {
+				SoundSample.CLICK.play(info.getPlayer());
 				if (page == 0) {
-					Challenges.getInstance().getMenuManager().openGUIInstantly(player);
+					Challenges.getInstance().getMenuManager().openGUIInstantly(info.getPlayer());
 				} else {
-					open(player, page - 1);
+					open(info.getPlayer(), page - 1);
 				}
 				return;
-			} else if (slot == NAVIGATION_SLOTS[1]) {
-				SoundSample.CLICK.play(player);
+			} else if (info.getSlot() == NAVIGATION_SLOTS[1]) {
+				SoundSample.CLICK.play(info.getPlayer());
 				if (page < (inventories.size() - 1))
-					open(player, page + 1);
+					open(info.getPlayer(), page + 1);
 				return;
 			}
 
 			if (page == 0) {
-				if (slot == START_SLOT) {
+				if (info.getSlot() == START_SLOT) {
 					if (Challenges.getInstance().getChallengeTimer().isStarted()) {
-						Challenges.getInstance().getChallengeTimer().pause();
+						Challenges.getInstance().getChallengeTimer().pause(true);
 					} else {
 						Challenges.getInstance().getChallengeTimer().resume();
 					}
 					return;
-				} else if (slot == MODE_SLOT) {
+				} else if (info.getSlot() == MODE_SLOT) {
 					if (Challenges.getInstance().getChallengeTimer().isCountingUp()) {
 						Challenges.getInstance().getChallengeTimer().setCountingUp(false);
-						SoundSample.BASS_OFF.play(player);
+						SoundSample.BASS_OFF.play(info.getPlayer());
 					} else {
 						Challenges.getInstance().getChallengeTimer().setCountingUp(true);
-						SoundSample.BASS_ON.play(player);
+						SoundSample.BASS_ON.play(info.getPlayer());
 					}
 					return;
 				}
@@ -177,18 +177,18 @@ public final class TimerMenu {
 				for (int[] slots : new int[][] {HOUR_SLOTS, MINUTE_SLOTS, SECOND_SLOTS}) {
 					for (int i = 0; i < 3; i++) {
 
-						if (slot != slots[i]) continue;
+						if (info.getSlot() != slots[i]) continue;
 
 						if (i == 1) {
-							Challenges.getInstance().getChallengeTimer().setSeconds(0);
-							SoundSample.BASS_OFF.play(player);
+							Challenges.getInstance().getChallengeTimer().reset();
+							SoundSample.BASS_OFF.play(info.getPlayer());
 							updateInventories();
 							Challenges.getInstance().getChallengeTimer().updateActionbar();
 							return;
 						}
 
 						int amount = (slots == HOUR_SLOTS ? 60*60 : (slots == MINUTE_SLOTS ? 60 : 1));
-						if (event.isShiftClick()) amount *= 10;
+						if (info.isShiftClick()) amount *= 10;
 
 						boolean plus = i == 0;
 
@@ -196,13 +196,13 @@ public final class TimerMenu {
 						updateInventories();
 						Challenges.getInstance().getChallengeTimer().updateActionbar();
 
-						SoundSample.PLOP.play(player);
+						SoundSample.PLOP.play(info.getPlayer());
 						return;
 					}
 				}
 			}
 
-			SoundSample.CLICK.play(player);
+			SoundSample.CLICK.play(info.getPlayer());
 
 		}
 

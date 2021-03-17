@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.management.inventory;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,6 +13,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -36,6 +37,15 @@ public final class PlayerInventoryManager implements Listener {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("inventory-menu");
 	}
 
+	public void enable() {
+		Challenges.getInstance().registerListener(this);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onCommandsUpdate(@Nonnull PlayerCommandSendEvent event) {
+		updateInventoryAuto(event.getPlayer());
+	}
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 		updateInventoryJoin(event.getPlayer(), true);
@@ -44,9 +54,11 @@ public final class PlayerInventoryManager implements Listener {
 	@EventHandler
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
 		if (items == null) return;
-		if (hasItems.contains(event.getPlayer()) && InventoryUtils.inventoryContainsSequence(event.getPlayer().getInventory(), items))
-			event.getPlayer().getInventory().clear();
-		hasItems.remove(event.getPlayer());
+		if (hasItems.contains(event.getPlayer()) && hasNoOtherItems(event.getPlayer().getInventory())) {
+			remove(event.getPlayer());
+		} else {
+			hasItems.remove(event.getPlayer());
+		}
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -111,14 +123,14 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void updateInventoryStarted(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (InventoryUtils.inventoryContainsSequence(player.getInventory(), items)) {
+		if (hasNoOtherItems(player.getInventory())) {
 			remove(player);
 		}
 	}
 
 	private void updateInventoryPaused(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (InventoryUtils.isEmpty(player.getInventory()) || InventoryUtils.inventoryContainsSequence(player.getInventory(), items)) {
-			if (gamemode == GameMode.CREATIVE || !player.hasPermission("challenges.gui") || !enabled) {
+		if (hasNoOtherItems(player.getInventory())) {
+			if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !player.hasPermission("challenges.gui") || !enabled) {
 				remove(player);
 				return;
 			}
@@ -133,19 +145,32 @@ public final class PlayerInventoryManager implements Listener {
 		}
 	}
 
+	private boolean hasNoOtherItems(@Nonnull Inventory inventory) {
+		for (int i = 0; i < items.length && i < inventory.getSize(); i++) {
+			ItemStack expected = items[i];
+			ItemStack found = inventory.getItem(i);
+			if (found == null)                          continue;
+			if (expected == null)                       return false;
+			if (expected.getType() != found.getType())  return false;
+		}
+		return true;
+	}
+
 	private void remove(@Nonnull Player player) {
-		player.getInventory().clear();
+		for (int i = 0; i < items.length; i++) {
+			player.getInventory().setItem(i, null);
+		}
 		hasItems.remove(player);
 	}
 
 	private void createItems() {
 		items       = new ItemStack[9];
 		actions     = new Consumer[9];
-		items[3]    = new ItemBuilder(Material.CLOCK, "§8• §5Timer §8┃ §e/timer §8•").build();
+		items[3]    = new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build();
 		actions[3]  = player -> player.performCommand("timer");
-		items[4]    = new ItemBuilder(Material.BOOK, "§8• §cChallenges §8┃ §e/challenge §8•").build();
+		items[4]    = new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build();
 		actions[4]  = player -> player.performCommand("challenge");
-		items[5]    = new ItemBuilder(Material.LIME_DYE, "§8• §aStart Challenge §8┃ §e/start §8•").build();
+		items[5]    = new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build();
 		actions[5]  = player -> player.performCommand("start");
 	}
 

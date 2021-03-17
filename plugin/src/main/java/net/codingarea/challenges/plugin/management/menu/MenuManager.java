@@ -116,12 +116,6 @@ public final class MenuManager {
 		return true;
 	}
 
-	public void close() {
-		menus.values().forEach(menu -> InventoryUtils.close(menu.getInventories()));
-		if (timerMenu != null)
-			InventoryUtils.close(timerMenu.getInventories());
-	}
-
 	@Nonnull
 	public Menu getMenu(@Nonnull MenuType type) {
 		return menus.get(type);
@@ -144,19 +138,19 @@ public final class MenuManager {
 	private class MainMenuPosition implements MenuPosition {
 
 		@Override
-		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
+		public void handleClick(@Nonnull MenuClickInfo info) {
 
 			for (int i = 0; i < GUI_SLOTS.length; i++) {
 				int current = GUI_SLOTS[i];
-				if (current == slot) {
+				if (current == info.getSlot()) {
 					MenuType type = MenuType.values()[i];
-					if (openMenu(player, type, 0))
-						SoundSample.CLICK.play(player);
+					if (openMenu(info.getPlayer(), type, 0))
+						SoundSample.CLICK.play(info.getPlayer());
 					return;
 				}
 			}
 
-			SoundSample.CLICK.play(player);
+			SoundSample.CLICK.play(info.getPlayer());
 
 		}
 

@@ -52,4 +52,15 @@ public class MenuClickInfo {
 		return slot;
 	}
 
+	@Override
+	public String toString() {
+		return "MenuClickInfo{" +
+				"player=" + player +
+				", inventory=" + inventory +
+				", shiftClick=" + shiftClick +
+				", rightClick=" + rightClick +
+				", slot=" + slot +
+				'}';
+	}
+
 }
