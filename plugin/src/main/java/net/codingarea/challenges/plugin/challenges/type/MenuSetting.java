@@ -1,11 +1,13 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.management.menu.Menu;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
-import net.codingarea.challenges.plugin.management.menu.TitleManager;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -13,6 +15,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -20,27 +23,25 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public abstract class MenuSetting extends AbstractChallenge {
+public abstract class MenuSetting extends Setting {
 
-	private final Map<String, SubSetting> settings = new HashMap<>();
+	private final Map<String, SubSetting> settings = new LinkedHashMap<>();
 	private final List<Inventory> inventories = new ArrayList<>();
-	private final String name;
+	private final String menuTitle;
 
-	private boolean enabled = false;
-
-	public MenuSetting(@Nonnull MenuType menu, @Nonnull String name) {
+	public MenuSetting(@Nonnull MenuType menu, @Nonnull String menuTitle) {
 		super(menu);
-		this.name = name;
+		this.menuTitle = menuTitle;
 	}
 
 	protected final void generateInventories() {
 
-		InventoryUtils.close(inventories);
 		inventories.clear();
 
 		int maxRowLength = 4;
@@ -84,7 +85,7 @@ public abstract class MenuSetting extends AbstractChallenge {
 
 	@Nonnull
 	private Inventory createNewInventory(int page, int pagesAmount) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, Menu.SIZE, TitleManager.getMenuSettingTitle(getType(), name, page, pagesAmount > 1));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, Menu.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
@@ -104,6 +105,7 @@ public abstract class MenuSetting extends AbstractChallenge {
 	protected final void registerSetting(@Nonnull String name, @Nonnull SubSetting setting) {
 		if (name.equals("enabled")) throw new IllegalArgumentException();
 		settings.put(name, setting);
+		Challenges.getInstance().registerListener(setting);
 	}
 
 	protected final SubSetting getSetting(@Nonnull String name) {
@@ -111,40 +113,19 @@ public abstract class MenuSetting extends AbstractChallenge {
 	}
 
 	@Override
-	public final void handleClick(@Nonnull MenuClickEvent event) {
+	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
 		if (event.isUpperItemClick()) {
-			setEnabled(!enabled);
-			updateItems();
-			SoundSample.playEnablingSound(event.getPlayer(), enabled);
-		} else if (enabled && !event.isRightClick()) {
+			super.handleClick(event);
+		} else if (isEnabled() && !event.isRightClick()) {
 			openMenu(event);
 		} else {
-			setEnabled(!enabled);
-			updateItems();
-			SoundSample.playEnablingSound(event.getPlayer(), enabled);
+			super.handleClick(event);
 		}
 	}
 
-	private void setEnabled(boolean enabled) {
-		if (this.enabled == enabled) return;
-		this.enabled = enabled;
-		if (enabled) onEnable();
-		else onDisable();
-	}
-
-	@Override
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	protected void onEnable() {
-	}
-
-	protected void onDisable() {
-	}
-
-	private void openMenu(@Nonnull MenuClickEvent event) {
+	private void openMenu(@Nonnull ChallengeMenuClickInfo event) {
 		MenuPosition position = Challenges.getInstance().getMenuManager().getPosition(event.getPlayer());
+		if (position == null) position = new EmptyMenuPosition();
 		Inventory inventory = event.getInventory();
 		SoundSample.CLICK.play(event.getPlayer());
 		open(event.getPlayer(), inventory, position, 0);
@@ -158,19 +139,19 @@ public abstract class MenuSetting extends AbstractChallenge {
 		}
 		if (page >= inventories.size()) page = inventories.size() - 1;
 		Inventory menu = inventories.get(page);
-		Challenges.getInstance().getMenuManager().setPostion(player, new SettingMenuPosition(position, inventory, page));
+		MenuPosition.set(player, new SettingMenuPosition(position, inventory, page));
 		player.openInventory(menu);
 	}
 
 	@Nonnull
 	@Override
-	public final ItemStack getSettingsItem() {
-		return enabled ? DefaultItem.customize().build() : DefaultItem.disabled().build();
+	public final ItemBuilder createSettingsItem() {
+		return isEnabled() ? DefaultItem.customize() : DefaultItem.disabled();
 	}
 
 	@Override
 	public void writeSettings(@Nonnull Document document) {
-		document.set("enabled", enabled);
+		document.set("enabled", isEnabled());
 		for (Entry<String, SubSetting> entry : settings.entrySet()) {
 			document.set(entry.getKey(), entry.getValue().getAsInt());
 		}
@@ -178,14 +159,14 @@ public abstract class MenuSetting extends AbstractChallenge {
 
 	@Override
 	public void loadSettings(@Nonnull Document document) {
-		enabled = document.getBoolean("enabled");
+		setEnabled(document.getBoolean("enabled"));
 		for (Entry<String, SubSetting> entry : settings.entrySet()) {
 			int value = document.getInt(entry.getKey());
 			entry.getValue().setValue(value);
 		}
 	}
 
-	public abstract class SubSetting {
+	public abstract class SubSetting implements Listener {
 
 		private int page = -1, slot = -1;
 
@@ -215,31 +196,36 @@ public abstract class MenuSetting extends AbstractChallenge {
 		@Nonnull
 		public abstract SubSetting setValue(int value);
 
+		public boolean isEnabled() {
+			return MenuSetting.this.isEnabled() && getAsBoolean();
+		}
+
 		public abstract int getAsInt();
 
 		public abstract boolean getAsBoolean();
 
-		public abstract void handleClick(@Nonnull Player player, boolean shiftClick, boolean rightClick, boolean upperItem);
+		public abstract void handleClick(@Nonnull ChallengeMenuClickInfo info);
 
 	}
 
 	public class BooleanSubSetting extends SubSetting {
 
-		private final ItemStack item;
+		private final Supplier<ItemBuilder> item;
 		private boolean enabled;
 
-		public BooleanSubSetting(@Nonnull ItemStack item) {
-			this.item = item;
+		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item) {
+			this(item, false);
 		}
 
-		public BooleanSubSetting(@Nonnull ItemBuilder item) {
-			this(item.build());
+		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, boolean enabledByDefault) {
+			this.item = item;
+			setEnabled(enabledByDefault);
 		}
 
 		@Nonnull
 		@Override
 		public ItemStack getDisplayItem() {
-			return item;
+			return item.get().build();
 		}
 
 		@Nonnull
@@ -261,73 +247,60 @@ public abstract class MenuSetting extends AbstractChallenge {
 		@Nonnull
 		@Override
 		public BooleanSubSetting setValue(int value) {
-			enabled = value > 0;
-			updateItems();
-			return this;
+			return setValue(value > 0);
 		}
 
 		@Nonnull
 		public BooleanSubSetting setValue(boolean enabled) {
+			if (this.enabled == enabled) return this;
 			this.enabled = enabled;
+			if (enabled) onEnable();
+			else onDisable();
 			updateItems();
 			return this;
 		}
 
 		@Override
-		public void handleClick(@Nonnull Player player, boolean shiftClick, boolean rightClick, boolean upperItem) {
+		public final void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+			setValue(!enabled);
+			SoundSample.playEnablingSound(info.getPlayer(), enabled);
+		}
 
-			enabled = !enabled;
-			if (enabled) {
-				SoundSample.BASS_ON.play(player);
-			} else {
-				SoundSample.BASS_OFF.play(player);
-			}
+		public void onEnable() {
+		}
 
-			updateItems();
-
+		public void onDisable() {
 		}
 
 	}
 
 	public class NumberSubSetting extends SubSetting {
 
-		private final ItemStack item;
+		private final Supplier<ItemBuilder> item;
 		private int max = 64, min = 1;
 		private int value;
 
-		public NumberSubSetting(@Nonnull ItemStack item) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item) {
 			this.item = item;
 		}
 
-		public NumberSubSetting(@Nonnull ItemStack item, int max) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
 			this.item = item;
 			this.max = max;
 		}
 
-		public NumberSubSetting(@Nonnull ItemStack item, int max, int min) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
 			this.max = max;
 			this.min = min;
 			this.item = item;
 		}
 
-		public NumberSubSetting(@Nonnull ItemBuilder item) {
-			this(item.build());
-		}
-
-		public NumberSubSetting(@Nonnull ItemBuilder item, int max) {
-			this(item.build(), max);
-		}
-
-		public NumberSubSetting(@Nonnull ItemBuilder item, int max, int min) {
-			this(item.build(), max, min);
-		}
-
 		@Nonnull
 		@Override
 		public ItemStack getDisplayItem() {
-			return item;
+			return item.get().build();
 		}
 
 		@Nonnull
@@ -355,23 +328,22 @@ public abstract class MenuSetting extends AbstractChallenge {
 		}
 
 		@Override
-		public void handleClick(@Nonnull Player player, boolean shiftClick, boolean rightClick, boolean upperItem) {
-
-			int amount = shiftClick ? 10 : 1;
-			if (rightClick) {
-				value -= amount;
+		public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+			int amount = info.isShiftClick() ? 10 : 1;
+			int newValue = value;
+			if (info.isRightClick()) {
+				newValue -= amount;
 			} else {
-				value += amount;
+				newValue += amount;
 			}
 
-			if (value > max)
-				value = min;
-			if (value < min)
-				value = max;
+			if (newValue > max)
+				newValue = min;
+			if (newValue < min)
+				newValue = max;
 
-			SoundSample.CLICK.play(player);
-			updateItems();
-
+			setValue(newValue);
+			SoundSample.CLICK.play(info.getPlayer());
 		}
 
 	}
@@ -389,34 +361,32 @@ public abstract class MenuSetting extends AbstractChallenge {
 		}
 
 		@Override
-		public void handleClick(@Nonnull Player player, int slot, @Nonnull Inventory inventory, @Nonnull InventoryClickEvent event) {
+		public void handleClick(@Nonnull MenuClickInfo info) {
 
-			if (slot == Menu.NAVIGATION_SLOTS[0]) {
+			if (info.getSlot() == Menu.NAVIGATION_SLOTS[0]) {
 				if (page == 0) {
-					Challenges.getInstance().getMenuManager().setPostion(player, before);
-					player.openInventory(inventoryBefore);
+					Challenges.getInstance().getMenuManager().setPostion(info.getPlayer(), before);
+					info.getPlayer().openInventory(inventoryBefore);
 				} else {
-					open(player, inventoryBefore, before, page - 1);
+					open(info.getPlayer(), inventoryBefore, before, page - 1);
 				}
-				SoundSample.CLICK.play(player);
+				SoundSample.CLICK.play(info.getPlayer());
 				return;
-			} else if (slot == Menu.NAVIGATION_SLOTS[1]) {
-				open(player, inventoryBefore, before, page + 1);
-				SoundSample.CLICK.play(player);
+			} else if (info.getSlot() == Menu.NAVIGATION_SLOTS[1]) {
+				open(info.getPlayer(), inventoryBefore, before, page + 1);
+				SoundSample.CLICK.play(info.getPlayer());
 				return;
 			}
 
 			for (SubSetting setting : settings.values()) {
-
 				if (setting.page != page) continue;
-				if (slot != setting.slot && slot != setting.slot + 9) continue;
+				if (info.getSlot() != setting.slot && info.getSlot() != setting.slot + 9) continue;
 
-				setting.handleClick(player, event.isShiftClick(), event.isRightClick(), slot == setting.slot);
+				setting.handleClick(new ChallengeMenuClickInfo(info, info.getSlot() == setting.slot));
 				return;
-
 			}
 
-			SoundSample.CLICK.play(player);
+			SoundSample.CLICK.play(info.getPlayer());
 
 		}
 

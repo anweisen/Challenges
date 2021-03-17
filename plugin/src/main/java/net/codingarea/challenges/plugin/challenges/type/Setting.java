@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
-import org.bukkit.inventory.ItemStack;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 
 import javax.annotation.Nonnull;
 
@@ -43,10 +44,14 @@ public abstract class Setting extends AbstractChallenge {
 		updateItems();
 	}
 
+	public void playStatusUpdateTitle() {
+		ChallengeHelper.playToggleChallengeTitle(this);
+	}
+
 	@Nonnull
 	@Override
-	public ItemStack getSettingsItem() {
-		return DefaultItem.status(enabled).build();
+	public ItemBuilder createSettingsItem() {
+		return DefaultItem.status(enabled);
 	}
 
 	protected void onEnable() {

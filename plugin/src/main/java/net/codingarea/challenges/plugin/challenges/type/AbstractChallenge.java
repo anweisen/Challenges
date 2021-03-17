@@ -1,9 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
+import net.codingarea.challenges.plugin.lang.ItemDescription;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
+import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.event.Listener;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -14,6 +20,10 @@ import javax.annotation.Nonnull;
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	protected final MenuType menu;
+	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
+	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+
+	private String name;
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
@@ -42,19 +52,19 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Nonnull
-	protected abstract ItemBuilder createDisplayItem();
+	public abstract ItemBuilder createDisplayItem();
 
 	@Nonnull
-	protected abstract ItemBuilder createSettingsItem();
+	public abstract ItemBuilder createSettingsItem();
 
 	@Nonnull
 	@Override
 	public String getName() {
-		return getClass().getSimpleName().toLowerCase()
+		return name != null ? name : (name = getClass().getSimpleName().toLowerCase()
 				.replace("setting", "")
 				.replace("challenge", "")
 				.replace("modifier", "")
-				.replace("goal", "");
+				.replace("goal", ""));
 	}
 
 	@Override

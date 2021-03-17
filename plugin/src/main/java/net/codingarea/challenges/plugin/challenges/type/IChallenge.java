@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import org.bukkit.inventory.ItemStack;
 
@@ -27,7 +27,7 @@ public interface IChallenge {
 	@Nonnull
 	ItemStack getSettingsItem();
 
-	void handleClick(@Nonnull MenuClickEvent event);
+	void handleClick(@Nonnull ChallengeMenuClickInfo event);
 
 	void writeGameState(@Nonnull Document document);
 	void loadGameState(@Nonnull Document document);

@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.event.MenuClickEvent;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
-import org.bukkit.inventory.ItemStack;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -44,23 +44,31 @@ public abstract class Modifier extends AbstractChallenge {
 
 	@Nonnull
 	@Override
-	public ItemStack getSettingsItem() {
-		return DefaultItem.value(value).build();
+	public ItemBuilder createSettingsItem() {
+		return DefaultItem.value(value);
 	}
 
-	@Nonnull
-	public final Modifier setValue(int value) {
+	public void setValue(int value) {
 		if (value > max) throw new IllegalArgumentException("value > max");
 		if (value < min) throw new IllegalArgumentException("value < min");
 		this.value = value;
-		updateItems();
 		onValueChange();
-		return this;
+		updateItems();
 	}
 
 	@Nonnegative
 	public final int getValue() {
 		return value;
+	}
+
+	@Nonnegative
+	public final int getMaxValue() {
+		return max;
+	}
+
+	@Nonnegative
+	public final int getMinValue() {
+		return min;
 	}
 
 	@Override
@@ -69,13 +77,25 @@ public abstract class Modifier extends AbstractChallenge {
 	}
 
 	@Override
+	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
+		ChallengeHelper.handleModifierClick(event, this);
+	}
 
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChangeChallengeValueTitle(this);
+	}
 
 	protected void onValueChange() {
 	}
 
+	@Override
+	public void loadSettings(@Nonnull Document document) {
+		setValue(document.getInt("value", value));
 	}
 
+	@Override
+	public void writeSettings(@Nonnull Document document) {
+		document.set("value", value);
 	}
 
 }
