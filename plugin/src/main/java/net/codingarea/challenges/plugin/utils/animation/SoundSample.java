@@ -106,8 +106,19 @@ public final class SoundSample {
 		}
 	}
 
+	public void playIfPlayer(@Nonnull Object target) {
+		if (target instanceof Player)
+			play((Player) target);
+		if (target instanceof ChallengePlayer)
+			play((ChallengePlayer) target);
+	}
+
 	public void broadcast() {
 		Bukkit.getOnlinePlayers().forEach(this::play);
+	}
+
+	public void broadcast(@Nonnull Location location) {
+		Bukkit.getOnlinePlayers().forEach(player -> play(player, location));
 	}
 
 }
