@@ -2,6 +2,8 @@ package net.codingarea.challenges.plugin.management.scheduler.timer;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
+import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
@@ -69,7 +71,6 @@ public final class ChallengeTimer {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SPECTATOR) continue;
 			Location location = player.getLocation();
-
 			if (location.getWorld() == null) continue;
 			location.getWorld().playEffect(location, Effect.ENDER_SIGNAL, 1);
 		}
@@ -81,17 +82,19 @@ public final class ChallengeTimer {
 
 	public void resume() {
 		if (!paused) return;
-
+		paused = false;
 
 		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
-			for (Player player : Bukkit.getOnlinePlayers()) {
+			for (Player player : Bukkit.getOnlinePlayers())
 				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
-			}
 		}
-		Challenges.getInstance().getServerManager().setNotFresh();
-		paused = false;
-		updateActionbar();
+		Challenges.getInstance().getCloudNetHelper().handleTimerStart();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
+		Challenges.getInstance().getServerManager().setNotFresh();
+		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
+		updateActionbar();
+
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Challenges.getInstance().getPlayerInventoryManager().updateInventoryAuto(player);
 			if (player.getGameMode() != GameMode.CREATIVE)
@@ -107,11 +110,15 @@ public final class ChallengeTimer {
 
 	public void pause(boolean byPlayer) {
 		if (paused) return;
-
 		paused = true;
+
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
+		if (byPlayer) {
+			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
+			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
+		}
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
