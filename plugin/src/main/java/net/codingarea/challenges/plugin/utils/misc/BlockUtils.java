@@ -24,4 +24,13 @@ public final class BlockUtils {
 			&& loc1.getBlockZ() == loc2.getBlockZ();
 	}
 
+	public static boolean isSameLocation(@Nonnull Location loc1, @Nonnull Location loc2) {
+		return loc1.distance(loc2) < 0.1;
+	}
+
+	public static boolean isSameLocationIgnoreHeight(@Nonnull Location loc1, @Nonnull Location loc2) {
+		return loc1.getX() == loc2.getX()
+			&& loc1.getZ() == loc2.getZ();
+	}
+
 }
