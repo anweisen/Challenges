@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.scheduler;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -30,6 +31,13 @@ public @interface Scheduled {
 		ENABLED
 	}
 
+	enum PlayerCountPolicy {
+		ALWAYS,
+		EMPTY,
+		SOME_ONE,
+		FULL
+	}
+
 	@Nonnegative
 	int ticks();
 
@@ -56,5 +64,13 @@ public @interface Scheduled {
 	 */
 	@Nonnull
 	ChallengeStatusPolicy challengePolicy() default ChallengeStatusPolicy.ENABLED;
+
+	/**
+	 * @see Bukkit#getMaxPlayers()
+	 * @see Bukkit#getOnlinePlayers()
+	 * @see PlayerCountPolicy
+	 */
+	@Nonnull
+	PlayerCountPolicy playerPolicy() default PlayerCountPolicy.SOME_ONE;
 
 }
