@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,6 +24,8 @@ public class BlockDropListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+
 		Material block = event.getBlock().getType();
 		List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(block);
 		if (drops == null) return;
