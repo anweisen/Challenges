@@ -22,7 +22,7 @@ import java.util.Map.Entry;
  */
 public final class LanguageLoader extends ContentLoader {
 
-	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/development/language/";
+	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() ? "development" : "master") + "/language/";
 	public static final String DEFAULT_LANGUAGE = "en";
 
 	private static final JsonParser parser = new JsonParser();
