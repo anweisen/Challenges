@@ -75,12 +75,15 @@ public final class BlockDropManager {
 	public void resetCustomDrops(byte priority) {
 		Logger.debug("Resetting block drops at priority " + priority);
 
+		List<Material> remove = new ArrayList<>();
 		for (Entry<Material, RegisteredDrops> entry : drops.entrySet()) {
 
 			RegisteredDrops drops = entry.getValue();
 			drops.dropsByPriority.remove(priority);
-			if (drops.dropsByPriority.isEmpty()) this.drops.remove(entry.getKey());
+			if (drops.dropsByPriority.isEmpty()) remove.add(entry.getKey());
 		}
+
+		remove.forEach(drops::remove);
 	}
 
 }
