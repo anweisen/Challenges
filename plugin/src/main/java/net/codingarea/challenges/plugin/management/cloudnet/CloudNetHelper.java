@@ -15,11 +15,13 @@ public final class CloudNetHelper {
 
 	private final boolean startNewService;
 	private final boolean nameSupport;
+	private final boolean resetToLobby;
 
 	public CloudNetHelper() {
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("cloudnet-support");
 		startNewService = config.getBoolean("start-new-service");
 		nameSupport = config.getBoolean("name-rank-colors");
+		resetToLobby = config.getBoolean("reset-to-lobby");
 	}
 
 	public void handleTimerStart() {
@@ -34,6 +36,9 @@ public final class CloudNetHelper {
 	}
 
 	public void handleTimerPause() {
+
+		if (!resetToLobby) return;
+
 		try {
 			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.setState("LOBBY");
 			de.dytanic.cloudnet.ext.bridge.BridgeHelper.updateServiceInfo();
