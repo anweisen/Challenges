@@ -30,18 +30,6 @@ public final class InventoryUtils {
 		}
 	}
 
-	public static void close(@Nonnull Inventory inventory) {
-		for (HumanEntity viewer : inventory.getViewers().toArray(new HumanEntity[0])) {
-			viewer.closeInventory();
-		}
-	}
-
-	public static void close(@Nonnull Iterable<Inventory> inventories) {
-		for (Inventory inventory : inventories) {
-			close(inventory);
-		}
-	}
-
 	public static void setNavigationItems(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots) {
 		setNavigationItems(inventories, navigationSlots, true);
 	}

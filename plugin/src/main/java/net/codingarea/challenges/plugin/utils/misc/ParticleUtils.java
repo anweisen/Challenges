@@ -58,9 +58,15 @@ public final class ParticleUtils {
 	}
 
 	public static void spawnParticleCircleAroundEntity(@Nonnull JavaPlugin plugin, @Nonnull Entity entity) {
-		BoundingBox box = entity.getBoundingBox();
-		double radius = box.getWidthX();
-		spawnUpGoingParticleCircle(plugin, entity.getLocation(), Particle.SPELL_INSTANT, (int) (radius * 15), radius, 0.25);
+		spawnParticleCircleAroundBoundingBox(plugin, entity.getLocation(), Particle.SPELL_INSTANT, entity.getBoundingBox(), 0.25);
+	}
+
+	public static void spawnParticleCircleAroundBoundingBox(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Particle particle, @Nonnull BoundingBox box, double height) {
+		spawnParticleCircleAroundRadius(plugin, location, particle, box.getWidthX(), height);
+	}
+
+	public static void spawnParticleCircleAroundRadius(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Particle particle, double radius, double height) {
+		spawnUpGoingParticleCircle(plugin, location, particle, (int) (radius * 15), radius, height);
 	}
 
 }

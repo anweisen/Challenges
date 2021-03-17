@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.utils.logging;
 import net.codingarea.challenges.plugin.Challenges;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.logging.Level;
 
 /**
@@ -27,8 +28,16 @@ public final class Logger {
 		getLogger().log(LogLevel.SEVERE, message, thrown);
 	}
 
+	public static void info(@Nullable Object message) {
+		info(String.valueOf(message));
+	}
+
 	public static void info(@Nonnull String message) {
 		getLogger().log(LogLevel.INFO, message);
+	}
+
+	public static void debug(@Nullable Object message) {
+		debug(String.valueOf(message));
 	}
 
 	public static void debug(@Nonnull String message) {
