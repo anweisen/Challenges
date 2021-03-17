@@ -24,7 +24,13 @@ import javax.annotation.Nonnull;
 public class PlayerConnectionListener implements Listener {
 
 	private final boolean messages;
+	private final boolean timerPausedInfo;
+
+	public PlayerConnectionListener() {
 		messages = Challenges.getInstance().getConfigDocument().getBoolean("join-quit-messages");
+		timerPausedInfo = Challenges.getInstance().getConfigDocument().getBoolean("timer-is-paused-info");
+	}
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 
@@ -40,12 +46,24 @@ public class PlayerConnectionListener implements Listener {
 		}
 
 		if (player.hasPermission("challenges.gui")) {
+			if (Challenges.getInstance().isFirstInstall()) {
+				player.sendMessage(Prefix.CHALLENGES + "§7Thanks for downloading §e§lChallenges§7!");
+				player.sendMessage(Prefix.CHALLENGES + "§7You can change the language in the §econfig.yml");
+				player.sendMessage(Prefix.CHALLENGES + "§7For more join our discord §ediscord.gg/74Ay5zF");
+			}
 			if (!UpdateLoader.isNewestPluginVersion()) {
 				Message.forName("deprecated-plugin-version").send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
 			}
 			if (!UpdateLoader.isNewestConfigVersion()) {
 				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
+			if (timerPausedInfo && ChallengeAPI.isPaused()) {
+				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
+			}
+		}
+
+		if (Challenges.getInstance().getStatsManager().isNoStatsAfterCheating() && Challenges.getInstance().getServerManager().hasCheated()) {
+			Message.forName("cheats-already-detected").send(player, Prefix.CHALLENGES);
 		}
 
 	}
@@ -60,7 +78,7 @@ public class PlayerConnectionListener implements Listener {
 			event.setQuitMessage(null);
 		} else if (messages) {
 			event.setQuitMessage(null);
-			Message.QUIT_MESSAGE.broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 		}
 
 	}
