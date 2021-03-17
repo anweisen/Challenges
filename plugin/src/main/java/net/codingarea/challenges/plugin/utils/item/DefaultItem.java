@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.utils.item;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import org.bukkit.Material;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -61,6 +60,10 @@ public final class DefaultItem {
 	@Nonnull
 	public static String name(@Nonnull String name) {
 		return "§8➟ " + name;
+	}
+
+	public static ItemBuilder create(@Nonnull Material material, @Nonnull String name) {
+		return new ItemBuilder(material, name(name));
 	}
 
 }
