@@ -1,10 +1,16 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.command.CommandExecutor;
+import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
+import java.lang.reflect.Constructor;
 
 /**
  * This class loads all challenges of this plugin.
@@ -17,7 +23,33 @@ import javax.annotation.Nonnull;
 public final class ChallengeLoader {
 
 	public void load() {
-		register(new OneLifeSetting());
+		// Settings
+		register(DamageDisplaySetting.class);
+		register(OneLifeSetting.class);
+		register(RespawnSetting.class);
+		register(DeathMessageModifier.class);
+		register(MaxHealthModifier.class);
+		register(DamageMultiplierModifier.class);
+		register(SoupSetting.class);
+		register(PositionSetting.class, "position");
+		register(BackpackSetting.class, "backpack");
+		register(PvPSetting.class);
+		register(CutCleanSetting.class);
+
+		// Challenges
+		register(InvertHealthChallenge.class);
+		register(TrafficLightChallenge.class);
+		register(JumpAndRunChallenge.class);
+		register(BlockRandomizerChallenge.class);
+		register(CraftingRandomizerChallenge.class);
+
+		// Goal
+		register(KillEnderDragonGoal.class);
+		register(KillWitherGoal.class);
+		register(LastManStandingGoal.class);
+		register(CollectMostDeathsGoal.class);
+		register(CollectMostItemsGoal.class);
+		register(MineMostBlocksGoal.class);
 	}
 
 	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
