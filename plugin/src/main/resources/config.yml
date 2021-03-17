@@ -40,9 +40,13 @@ timer:
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
 
+# The size stands for the amount of rows in the backpack inventory
+backpack-size: 3
+
 # Players with the permission 'challenges.gui' will have items in their hotbar
 # while the timer is paused, for controlling some settings.
 inventory-menu: true
+
 # Toggles join and quit messages
 # These can be edited in the corresponding language file
 join-quit-messages: true
@@ -62,13 +66,25 @@ titles:
 # You will have to type /reset confirm to reset your server/worlds
 confirm-reset: true
 
+# This will pause the timer / reset the world if the last one leaves the server and the timer was started before
+pause-on-last-leave: true
+reset-on-last-leave: false
+
 # The /reset command can be executed when the server is fresh, what means the timer was never started before
 enable-fresh-reset: true
+
+# If you enable this the start command defined in the spigot.yml will be executed,
+# otherwise the server will be stopped if the reset command was executed.
+# Please note: We are getting a lot of reports that the server is not restarting after the /reset command was executed.
+# So make sure that the server restarts when you perform the /restart command before reporting it to us!
+restart-on-reset: false
 
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false
   start-new-service: false
+  # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY
+  reset-to-lobby: false
 
 # This will require a database connection
 save-player-stats: false
