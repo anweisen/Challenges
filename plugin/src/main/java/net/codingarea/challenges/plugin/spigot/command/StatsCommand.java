@@ -94,7 +94,7 @@ public class StatsCommand implements PlayerCommand {
 			double value = stats.getStatisticValue(statistic);
 			String format = statistic.formatChat(value);
 
-			Message message = Message.forName("stat-" + statistic.name().toLowerCase());
+			Message message = Message.forName("stat-" + statistic.name().toLowerCase().replace('_', '-'));
 			inventory.cloneLastAndAdd().setItem(slots[i], new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore("§8» §7" + format).hideAttributes().build());
 
 			i++;
