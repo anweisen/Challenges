@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.utils.random.jumpgeneration;
+package net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration;
 
 import org.bukkit.block.Block;
 

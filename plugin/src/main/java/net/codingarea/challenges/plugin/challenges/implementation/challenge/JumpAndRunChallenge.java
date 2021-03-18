@@ -7,16 +7,14 @@ import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPoli
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import net.codingarea.challenges.plugin.utils.random.jumpgeneration.RandomJumpGenerator;
+import net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration.RandomJumpGenerator;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
