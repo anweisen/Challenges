@@ -13,6 +13,10 @@ public final class VersionInfo implements Version {
 
 	private final int major, minor, revision;
 
+	public VersionInfo() {
+		this(1, 0, 0);
+	}
+
 	public VersionInfo(int major, int minor, int revision) {
 		this.major = major;
 		this.minor = minor;
@@ -61,7 +65,7 @@ public final class VersionInfo implements Version {
 			return new VersionInfo(major, minor, revision);
 		} catch (Exception ex) {
 			Logger.severe("Could not parse version for input '" + input + "': " + ex.getMessage());
-			return new VersionInfo(1, 0, 0);
+			return new VersionInfo();
 		}
 	}
 

@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.utils.logging.LogLevel;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import net.codingarea.challenges.plugin.utils.version.Version;
 import net.codingarea.challenges.plugin.utils.version.VersionInfo;
+import net.codingarea.challenges.plugin.utils.version.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.PluginCommand;
@@ -33,6 +34,7 @@ public abstract class BukkitModule extends JavaPlugin {
 	private final List<Listener> listeners = new ArrayList<>();
 
 	private Version version;
+	private Version serverVersion;
 	private Document config;
 	private boolean devMode;
 	private boolean firstInstall;
@@ -40,6 +42,8 @@ public abstract class BukkitModule extends JavaPlugin {
 	@Override
 	public void onLoad() {
 		version = VersionInfo.parse(this.getDescription().getVersion());
+		serverVersion = VersionUtils.parseFromCraftBukkit(getServer().getClass());
+		getLogger().info("Detected server version " + serverVersion);
 		if (firstInstall = !getDataFolder().exists()) {
 			getLogger().info("Detected first install!");
 		}
@@ -90,6 +94,11 @@ public abstract class BukkitModule extends JavaPlugin {
 	@Nonnull
 	public Version getVersion() {
 		return version;
+	}
+
+	@Nonnull
+	public Version getServerVersion() {
+		return serverVersion;
 	}
 
 	@Nonnull

@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.utils.version;
 
 import net.codingarea.challenges.plugin.utils.annotations.Since;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -36,8 +37,34 @@ public final class VersionUtils {
 
 	@Nonnull
 	public static Version getSince(@Nonnull Object object) {
-		if (!object.getClass().isAnnotationPresent(Since.class)) return new VersionInfo(1, 0, 0);
+		if (!object.getClass().isAnnotationPresent(Since.class)) return new VersionInfo();
 		return VersionInfo.parse(object.getClass().getAnnotation(Since.class).value());
+	}
+
+	@Nonnull
+	public static Version parseFromCraftBukkit(@Nonnull Class<?> clazz) {
+
+		String prefix = "org.bukkit.craftbukkit.";
+		String name = clazz.getName();
+		if (!name.startsWith(prefix)) {
+			Logger.severe(clazz.getName() + " is not a craftbukkit class");
+			return new VersionInfo();
+		}
+
+		String version = name.substring(prefix.length()); // v{major}_{minor}_R{revision}
+		version = version.substring(0, version.indexOf("."));
+		String[] split = version.split("_");
+		if (split.length != 3) {
+			Logger.severe(version + " does not match pattern of v{major}_{minor}_R{revision}");
+			return new VersionInfo();
+		}
+
+		int major    = Integer.parseInt(split[0].substring(1));
+		int minor    = Integer.parseInt(split[1]);
+		int revision = Integer.parseInt(split[2].substring(1));
+
+		return new VersionInfo(major, minor, revision);
+
 	}
 
 }
