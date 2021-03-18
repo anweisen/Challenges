@@ -31,8 +31,8 @@ public final class ChallengeLoader {
 		register(MaxHealthModifier.class);
 		register(DamageMultiplierModifier.class);
 		register(SoupSetting.class);
-		register(PositionSetting.class, "position");
-		register(BackpackSetting.class, "backpack");
+		registerWithCommand(PositionSetting.class, new String[]{"position"});
+		registerWithCommand(BackpackSetting.class, new String[]{"backpack"});
 		register(PvPSetting.class);
 		register(CutCleanSetting.class);
 
@@ -52,10 +52,17 @@ public final class ChallengeLoader {
 		register(MineMostBlocksGoal.class);
 	}
 
-	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
+	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Object... arguments) {
 		try {
-			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor();
-			IChallenge challenge = constructor.newInstance();
+
+			Class[] classes = new Class[arguments.length];
+			for (int i = 0; i < arguments.length; i++) {
+				classes[i] = arguments.getClass();
+			}
+
+			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(classes);
+			IChallenge challenge = constructor.newInstance(arguments);
+
 			Challenges.getInstance().getChallengeManager().register(challenge);
 
 			if (challenge instanceof CommandExecutor) {
@@ -68,6 +75,10 @@ public final class ChallengeLoader {
 		} catch (Throwable ex) {
 			Logger.severe("Could not register challenge " + classOfChallenge.getSimpleName(), ex);
 		}
+	}
+
+	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Object... arguments) {
+		registerWithCommand(classOfChallenge, new String[0], arguments);
 	}
 
 }
