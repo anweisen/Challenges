@@ -31,8 +31,8 @@ public final class ChallengeLoader {
 		register(MaxHealthModifier.class);
 		register(DamageMultiplierModifier.class);
 		register(SoupSetting.class);
-		registerWithCommand(PositionSetting.class, new String[]{"position"});
-		registerWithCommand(BackpackSetting.class, new String[]{"backpack"});
+		registerWithCommand(PositionSetting.class, "position");
+		registerWithCommand(BackpackSetting.class, "backpack");
 		register(PvPSetting.class);
 		register(CutCleanSetting.class);
 
@@ -52,16 +52,16 @@ public final class ChallengeLoader {
 		register(MineMostBlocksGoal.class);
 	}
 
-	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Object... arguments) {
+	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Object... parameters) {
 		try {
 
-			Class[] classes = new Class[arguments.length];
-			for (int i = 0; i < arguments.length; i++) {
-				classes[i] = arguments.getClass();
+			Class[] parameterClasses = new Class[parameters.length];
+			for (int i = 0; i < parameters.length; i++) {
+				parameterClasses[i] = parameters.getClass();
 			}
 
-			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(classes);
-			IChallenge challenge = constructor.newInstance(arguments);
+			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(parameterClasses);
+			IChallenge challenge = constructor.newInstance(parameters);
 
 			Challenges.getInstance().getChallengeManager().register(challenge);
 
@@ -77,8 +77,12 @@ public final class ChallengeLoader {
 		}
 	}
 
-	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Object... arguments) {
-		registerWithCommand(classOfChallenge, new String[0], arguments);
+	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Object... parameters) {
+		registerWithCommand(classOfChallenge, new String[0], parameters);
+	}
+
+	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
+		registerWithCommand(classOfChallenge, commandNames, new Object[0]);
 	}
 
 }
