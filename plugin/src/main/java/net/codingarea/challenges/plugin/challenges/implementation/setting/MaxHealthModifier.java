@@ -27,7 +27,7 @@ public class MaxHealthModifier extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE, Message.forName("item-max-health"));
+		return new ItemBuilder(MaterialWrapper.RED_DYE, Message.forName("item-max-health-setting"));
 	}
 
 	@Nonnull

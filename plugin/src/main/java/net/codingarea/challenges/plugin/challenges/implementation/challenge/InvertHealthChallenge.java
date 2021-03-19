@@ -32,7 +32,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.POPPY, Message.forName("item-invert-health"));
+		return new ItemBuilder(Material.POPPY, Message.forName("item-invert-health-challenge"));
 	}
 
 	@Override

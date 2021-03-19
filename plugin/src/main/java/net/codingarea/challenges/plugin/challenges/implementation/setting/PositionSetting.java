@@ -35,7 +35,7 @@ public class PositionSetting extends Setting implements PlayerCommand {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new PotionBuilder(Material.POTION, Message.forName("item-position-setting")).setColor(Color.BLUE);
+		return new ItemBuilder(Material.BLUE_BANNER, Message.forName("item-position-setting"));
 	}
 
 	@Override

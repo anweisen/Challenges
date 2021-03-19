@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
@@ -28,7 +29,7 @@ import java.util.UUID;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class BackpackSetting extends Modifier implements PlayerCommand {
+public class BackpackSetting extends SettingModifier implements PlayerCommand {
 
 	public static final int SHARED = 2,
 							PLAYER = 3;

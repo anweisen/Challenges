@@ -24,24 +24,64 @@ public final class ChallengeLoader {
 
 	public void load() {
 		// Settings
-		register(DamageDisplaySetting.class);
+		register(DifficultySetting.class);
 		register(OneLifeSetting.class);
 		register(RespawnSetting.class);
-		register(DeathMessageModifier.class);
+		register(DamageDisplaySetting.class);
+		register(PregameMovementSetting.class);
+		register(DeathMessageSetting.class);
+		registerWithCommand(PositionSetting.class, "position");
+		register(PlayerGlowSetting.class);
+		register(SoupSetting.class);
+		register(NoHungerSetting.class);
+		register(NoItemDamageSetting.class);
+		register(KeepInventorySetting.class);
+		registerWithCommand(BackpackSetting.class, "backpack");
+		register(TimberSetting.class); // TODO: Handle break event
+		register(PvPSetting.class);
+		register(NoHitDelaySetting.class);
+		registerWithCommand(TopCommandSetting.class, "top");
 		register(MaxHealthModifier.class);
 		register(DamageMultiplierModifier.class);
-		register(SoupSetting.class);
-		registerWithCommand(PositionSetting.class, "position");
-		registerWithCommand(BackpackSetting.class, "backpack");
-		register(PvPSetting.class);
 		register(CutCleanSetting.class);
 
 		// Challenges
-		register(InvertHealthChallenge.class);
 		register(TrafficLightChallenge.class);
-		register(JumpAndRunChallenge.class);
+		// Snake
+		register(JumpAndRunChallenge.class); // TODO: Zurück teleportieren zur main welt
+		// Corona
+		// Randomized HP
+		register(DamagePerBlockChallenge.class);
+		// Food once
+		// Floor is Lava
+		//
+		register(SurfaceHoleChallenge.class);
+		register(BedrockWallChallenge.class);
+		register(BedrockPathChallenge.class);
+		// Water MLG
+		// Reversed Damage
+		// Hydra
+		// Doppeltes Spawning
+		// Anvil rain
+		register(NoExpChallenge.class);
+		register(NoTradingChallenge.class);
+		// Achievement damage
+		register(BlockBreakDamage.class);
+		register(BlockPlaceDamage.class);
+		// Only dirt
+		// High jumps
+		register(DamageInventoryClearChallenge.class);
+		// One durability
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
+		// Mob randomizer
+		// No Sneak
+		// No Jump
+		// Force height
+		// Force block
+		// Force mob kill
+		register(InvertHealthChallenge.class);
+		register(StoneSightChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

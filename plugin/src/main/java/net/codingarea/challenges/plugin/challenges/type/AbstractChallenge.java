@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.ItemDescription;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -7,17 +9,23 @@ import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBo
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {
+
+	protected final Challenges plugin = Challenges.getInstance();
 
 	protected final MenuType menu;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
@@ -81,6 +89,15 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Override
 	public void loadSettings(@Nonnull Document document) {
+	}
+
+	@CheckReturnValue
+	protected boolean shouldExecuteEffect() {
+		return isEnabled() && ChallengeAPI.isStarted();
+	}
+
+	public final void broadcast(@Nonnull Consumer<Player> action) {
+		Bukkit.getOnlinePlayers().forEach(action);
 	}
 
 }
