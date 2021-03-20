@@ -14,7 +14,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot-api:1.16.5-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:21.0" level="project" />
-    <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.gson:gson:2.8.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.16-R0.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.27" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.12.7" level="project" />
@@ -35,5 +35,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-transport-native-kqueue:osx-x86_64:4.1.36.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-mongodb:1.0" level="project" />
   </component>
 </module>

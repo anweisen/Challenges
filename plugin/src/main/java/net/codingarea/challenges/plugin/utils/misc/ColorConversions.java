@@ -16,8 +16,7 @@ import java.util.Map;
  */
 public final class ColorConversions {
 
-	private ColorConversions() {
-	}
+	private ColorConversions() {}
 
 	@Nonnull
 	public static ChatColor convertDyeColorToChatColor(@Nonnull DyeColor color) {

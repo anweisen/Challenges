@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
+import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
-import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;

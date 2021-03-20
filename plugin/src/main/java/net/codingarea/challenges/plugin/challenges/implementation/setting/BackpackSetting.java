@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
@@ -10,7 +11,6 @@ import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
-import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -110,7 +110,7 @@ public class BackpackSetting extends Modifier implements PlayerCommand {
 		for (String key : document.keys()) {
 			try {
 				int index = Integer.parseInt(key);
-				ItemStack item = document.getItemStack(key);
+				ItemStack item = document.getSerializable(key, ItemStack.class);
 				inventory.setItem(index, item);
 			} catch (Exception ex) {
 			}

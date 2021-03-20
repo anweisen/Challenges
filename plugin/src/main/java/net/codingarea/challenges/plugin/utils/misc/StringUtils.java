@@ -13,8 +13,7 @@ import java.util.function.Function;
  */
 public final class StringUtils {
 
-	private StringUtils() {
-	}
+	private StringUtils() {}
 
 	@Nonnull
 	public static String getEnumName(@Nonnull Enum<?> enun) {

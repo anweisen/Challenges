@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -9,8 +11,6 @@ import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPoli
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
