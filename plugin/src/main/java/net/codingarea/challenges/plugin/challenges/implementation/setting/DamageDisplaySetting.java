@@ -46,7 +46,7 @@ public class DamageDisplaySetting extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.COMMAND_BLOCK, Message.forName("item-damage-display"));
+		return new ItemBuilder(Material.COMMAND_BLOCK, Message.forName("item-damage-display-setting"));
 	}
 
 	public static String getCause(@Nonnull EntityDamageEvent event) {
