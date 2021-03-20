@@ -37,6 +37,11 @@
             <url>https://repo.cloudnetservice.eu/repository/releases/</url>
         </repository>
 
+        <repository>
+            <id>github</id>
+            <url>https://maven.pkg.github.com/anweisen/*</url>
+        </repository>
+
     </repositories>
 
     <dependencies>
