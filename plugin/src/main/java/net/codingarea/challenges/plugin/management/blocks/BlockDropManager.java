@@ -24,7 +24,7 @@ public final class BlockDropManager {
 
 	}
 
-	private static class RegisteredDrops {
+	private class RegisteredDrops {
 
 		private final SortedMap<Byte, List<Material>> dropsByPriority = new TreeMap<>(Collections.reverseOrder());
 
@@ -40,11 +40,11 @@ public final class BlockDropManager {
 
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 
-	@Nonnull
+	@Nullable
 	public List<Material> getCustomDrops(@Nonnull Material block) {
 		RegisteredDrops drops = this.drops.get(block);
-		if (drops == null) return new ArrayList<>();
-		return drops.dropsByPriority.values().stream().findFirst().orElse(new ArrayList<>());
+		if (drops == null) return null;
+		return drops.dropsByPriority.values().stream().findFirst().orElse(null);
 	}
 
 	public void setCustomDrops(@Nonnull Material block, @Nonnull Material item, byte priority) {

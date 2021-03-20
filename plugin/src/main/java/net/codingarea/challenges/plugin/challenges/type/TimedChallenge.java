@@ -86,4 +86,27 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	protected abstract void onTimeActivation();
 
+	@Nonnull
+	@Override
+	public ItemStack getSettingsItem() {
+		return DefaultItem.status(isEnabled()).build();
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getDisplayItem() {
+		return createDisplayItem().amount(getValue()).build();
+	}
+
+	@Override
+	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
+		if (event.isUpperItemClick() && isEnabled()) {
+			ChallengeHelper.handleModifierClick(event, this);
+		} else {
+			setEnabled(!isEnabled());
+			SoundSample.playEnablingSound(event.getPlayer(), isEnabled());
+			playStatusUpdateTitle();
+		}
+	}
+
 }

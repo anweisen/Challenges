@@ -56,8 +56,3 @@ commands:
     description: "Opens the player's or the shared backpack"
     aliases:
       - bp
-  top:
-    usage: "/top"
-    description: "Teleports you to the surface or to the overworld"
-    aliases:
-      - up

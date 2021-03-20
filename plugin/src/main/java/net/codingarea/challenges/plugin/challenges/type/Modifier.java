@@ -73,7 +73,7 @@ public abstract class Modifier extends AbstractChallenge {
 
 	@Override
 	public boolean isEnabled() {
-		return getValue() > 0;
+		return true;
 	}
 
 	@Override

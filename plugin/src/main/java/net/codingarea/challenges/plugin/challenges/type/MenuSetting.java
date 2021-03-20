@@ -167,8 +167,6 @@ public abstract class MenuSetting extends Setting {
 
 	public abstract class SubSetting implements Listener {
 
-		protected final Challenges plugin = Challenges.getInstance();
-
 		private int page = -1, slot = -1;
 
 		private void setPage(int page) {
@@ -184,15 +182,15 @@ public abstract class MenuSetting extends Setting {
 
 			Inventory inventory = inventories.get(page);
 
-			inventory.setItem(slot, getDisplayItem().build());
-			inventory.setItem(slot + 9, getSettingsItem().build());
+			inventory.setItem(slot, getDisplayItem());
+			inventory.setItem(slot + 9, getSettingsItem());
 		}
 
 		@Nonnull
-		public abstract ItemBuilder getDisplayItem();
+		public abstract ItemStack getDisplayItem();
 
 		@Nonnull
-		public abstract ItemBuilder getSettingsItem();
+		public abstract ItemStack getSettingsItem();
 
 		@Nonnull
 		public abstract SubSetting setValue(int value);
@@ -225,14 +223,14 @@ public abstract class MenuSetting extends Setting {
 
 		@Nonnull
 		@Override
-		public ItemBuilder getDisplayItem() {
-			return item.get();
+		public ItemStack getDisplayItem() {
+			return item.get().build();
 		}
 
 		@Nonnull
 		@Override
-		public ItemBuilder getSettingsItem() {
-			return DefaultItem.status(enabled);
+		public ItemStack getSettingsItem() {
+			return DefaultItem.status(enabled).build();
 		}
 
 		@Override
@@ -300,14 +298,14 @@ public abstract class MenuSetting extends Setting {
 
 		@Nonnull
 		@Override
-		public ItemBuilder getDisplayItem() {
-			return item.get();
+		public ItemStack getDisplayItem() {
+			return item.get().build();
 		}
 
 		@Nonnull
 		@Override
-		public ItemBuilder getSettingsItem() {
-			return DefaultItem.value(value);
+		public ItemStack getSettingsItem() {
+			return DefaultItem.value(value).build();
 		}
 
 		@Nonnull
@@ -318,15 +316,10 @@ public abstract class MenuSetting extends Setting {
 			return this;
 		}
 
-		public int getValue() {
-			return value;
-		}
-
 		@Override
 		public int getAsInt() {
 			return value;
 		}
-
 
 		@Override
 		public boolean getAsBoolean() {

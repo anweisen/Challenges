@@ -26,7 +26,7 @@ public class DamageMultiplierModifier extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.STONE_SWORD, Message.forName("item-damage-setting"));
+		return new ItemBuilder(Material.STONE_SWORD, Message.forName("item-damage-multiplier"));
 	}
 
 	@Nonnull

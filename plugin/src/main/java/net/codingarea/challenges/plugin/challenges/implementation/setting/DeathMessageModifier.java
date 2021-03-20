@@ -22,9 +22,9 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class DeathMessageSetting extends Modifier {
+public class DeathMessageModifier extends Modifier {
 
-	public DeathMessageSetting() {
+	public DeathMessageModifier() {
 		super(MenuType.SETTINGS, 1, 3, 2);
 	}
 
