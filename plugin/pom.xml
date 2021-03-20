@@ -74,6 +74,37 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- Common Utilities -->
+        <dependency>
+            <groupId>net.anweisen.utilities</groupId>
+            <artifactId>common-utils</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Minecraft Utilities -->
+        <dependency>
+            <groupId>net.anweisen.utilities</groupId>
+            <artifactId>bukkit-utils</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!-- Database API -->
+        <dependency>
+            <groupId>net.anweisen.utilities</groupId>
+            <artifactId>database-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anweisen.utilities</groupId>
+            <artifactId>database-sql</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>net.anweisen.utilities</groupId>
+            <artifactId>database-mongodb</artifactId>
+            <version>1.0</version>
+        </dependency>
+
     </dependencies>
 
 </project>

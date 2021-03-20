@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.management.stats;
 
+import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled.ChallengeStatusPolicy;
 import net.codingarea.challenges.plugin.spigot.listener.StatsListener;
-import net.codingarea.challenges.plugin.utils.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

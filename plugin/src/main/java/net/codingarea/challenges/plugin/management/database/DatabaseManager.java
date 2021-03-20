@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.database;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.database.Database;
+import net.anweisen.utilities.database.DatabaseConfig;
+import net.anweisen.utilities.database.SQLColumn;
+import net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase;
+import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
+import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.database.Database;
-import net.codingarea.challenges.plugin.utils.database.DatabaseConfig;
-import net.codingarea.challenges.plugin.utils.database.SQLColumn;
-import net.codingarea.challenges.plugin.utils.database.internal.mongodb.MongoDBDatabase;
-import net.codingarea.challenges.plugin.utils.database.internal.sql.mysql.MySQLDatabase;
-import net.codingarea.challenges.plugin.utils.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;

@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -18,8 +17,7 @@ import java.util.function.BiConsumer;
  */
 public final class ParticleUtils {
 
-	private ParticleUtils() {
-	}
+	private ParticleUtils() {}
 
 	private static void spawnParticleCircle(@Nonnull Location location, int points, double radius, @Nonnull BiConsumer<World, Location> player) {
 		World world = location.getWorld();

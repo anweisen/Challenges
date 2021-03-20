@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

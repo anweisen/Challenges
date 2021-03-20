@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.misc.SeededRandomWrapper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.misc.SeededRandomWrapper;
 
 import javax.annotation.Nonnull;
 
