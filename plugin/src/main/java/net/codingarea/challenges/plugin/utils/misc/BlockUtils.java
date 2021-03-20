@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
  */
 public final class BlockUtils {
 
-	private BlockUtils() {}
+	private BlockUtils() {
+	}
 
 	public static boolean isSameBlock(@Nonnull Location loc1, @Nonnull Location loc2) {
 		return loc1.getBlockX() == loc2.getBlockX()

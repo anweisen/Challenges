@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.management.files;
 
-import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
-import net.anweisen.utilities.commons.misc.FileUtils;
+import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

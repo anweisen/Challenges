@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.anweisen.utilities.commons.misc.ReflectionUtils;
+import net.codingarea.challenges.plugin.utils.misc.ReflectionUtils;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;

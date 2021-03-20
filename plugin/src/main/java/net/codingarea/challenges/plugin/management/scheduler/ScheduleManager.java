@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
-import net.anweisen.utilities.commons.misc.ReflectionUtils;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.misc.ReflectionUtils;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;

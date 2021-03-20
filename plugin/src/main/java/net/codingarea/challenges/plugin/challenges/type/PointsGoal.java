@@ -1,7 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
+import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
 

@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin;
 
-import net.anweisen.utilitites.bukkit.core.BukkitModule;
+import net.codingarea.challenges.plugin.core.BukkitModule;
 import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
@@ -22,7 +22,7 @@ import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
-import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 
 import javax.annotation.Nonnull;
 
@@ -63,7 +63,7 @@ public final class Challenges extends BukkitModule {
 		instance = this;
 		super.onLoad();
 
-		if (validationFailed = (ServerValidator.validate() || validationFailed)) return; // Handle in enable
+		if (validationFailed = (validate() || validationFailed)) return; // Handle in enable
 
 		createManagers();
 		loadManagers();

@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.version.Version;
-import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.version.Version;
+import net.codingarea.challenges.plugin.utils.version.VersionInfo;
 
 import java.net.URL;
 

@@ -1,14 +1,14 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
 import com.google.gson.*;
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
-import net.anweisen.utilities.commons.misc.FileUtils;
-import net.anweisen.utilities.commons.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
+import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.misc.FileUtils;
+import net.codingarea.challenges.plugin.utils.misc.GsonUtils;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;

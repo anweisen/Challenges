@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu;
 
-import net.anweisen.utilities.commons.version.Version;
-import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -11,6 +9,8 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import net.codingarea.challenges.plugin.utils.version.Version;
+import net.codingarea.challenges.plugin.utils.version.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -125,7 +125,7 @@ public final class Menu {
 
 	private boolean isNew(@Nonnull IChallenge challenge) {
 		Version version = Challenges.getInstance().getVersion();
-		Version since   = VersionInfo.getSince(challenge);
+		Version since   = VersionUtils.getSince(challenge);
 		return since.isNewerOrEqualThan(version);
 	}
 

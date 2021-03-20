@@ -1,20 +1,22 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
-import net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration.RandomJumpGenerator;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
+import net.codingarea.challenges.plugin.utils.random.jumpgeneration.RandomJumpGenerator;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
@@ -113,10 +115,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		players.removeIf(player -> player.getGameMode() == GameMode.SPECTATOR);
 		players.removeIf(player -> lastPlayers.contains(player.getUniqueId()));
 
-		if (players.isEmpty()) {
-			players = new ArrayList<>(Bukkit.getOnlinePlayers());
-			lastPlayers.clear();
-		}
+		if (players.isEmpty()) players = new ArrayList<>(Bukkit.getOnlinePlayers());
 		return choose(random, players);
 	}
 

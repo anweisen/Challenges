@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
  */
 public final class ItemUtils {
 
-	private ItemUtils() {}
+	private ItemUtils() {
+	}
 
 	@Nonnull
 	public static Material convertFoodToCookedFood(@Nonnull Material material) {

@@ -11,7 +11,8 @@ import javax.annotation.Nonnull;
  */
 public final class NameHelper {
 
-	private NameHelper() {}
+	private NameHelper() {
+	}
 
 	@Nonnull
 	public static String getName(@Nonnull Player player) {

@@ -1,21 +1,22 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
-import net.codingarea.challenges.plugin.management.menu.Menu;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
+import net.codingarea.challenges.plugin.management.menu.Menu;
+import net.codingarea.challenges.plugin.management.menu.MenuPosition;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 

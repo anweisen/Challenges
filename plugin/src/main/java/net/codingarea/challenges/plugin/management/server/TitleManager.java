@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.utils.config.Document;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;

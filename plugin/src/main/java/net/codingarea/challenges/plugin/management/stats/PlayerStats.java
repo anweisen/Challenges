@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.stats;
 
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
+import net.codingarea.challenges.plugin.utils.config.Document;
+import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;

@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
+import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.common.IOUtils;
+import net.codingarea.challenges.plugin.utils.config.document.GsonDocument;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
@@ -17,7 +18,8 @@ import java.util.regex.Pattern;
  */
 public final class Utils {
 
-	private Utils() {}
+	private Utils() {
+	}
 
 	public static boolean isSpigot() {
 		try {

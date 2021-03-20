@@ -15,7 +15,8 @@ import java.util.List;
  */
 public final class InventoryUtils {
 
-	private InventoryUtils() {}
+	private InventoryUtils() {
+	}
 
 	public static void fillInventory(@Nonnull Inventory inventory, @Nullable ItemStack item) {
 		for (int i = 0; i < inventory.getSize(); i++) {
