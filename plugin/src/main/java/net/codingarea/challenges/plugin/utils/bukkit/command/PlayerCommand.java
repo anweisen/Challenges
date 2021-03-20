@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.command;
 
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,7 @@ public interface PlayerCommand extends CommandExecutor {
 				onCommand((Player) sender, args);
 			} catch (Exception ex) {
 				sender.sendMessage(Prefix.CHALLENGES + "§cSomething went wrong while executing the command");
+				Logger.severe("Something went wrong while processing the command '/" + label + "'", ex);
 			}
 		} else {
 			sender.sendMessage("" + Prefix.CHALLENGES + Message.forName("player-command"));
@@ -29,6 +31,6 @@ public interface PlayerCommand extends CommandExecutor {
 		return true;
 	}
 
-	void onCommand(@Nonnull Player player, @Nonnull String[] args);
+	void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception;
 
 }

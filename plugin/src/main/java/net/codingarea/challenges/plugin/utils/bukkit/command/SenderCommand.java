@@ -1,9 +1,11 @@
 package net.codingarea.challenges.plugin.utils.bukkit.command;
 
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 
@@ -19,6 +21,7 @@ public interface SenderCommand extends CommandExecutor {
 			onCommand(sender, args);
 		} catch (Exception ex) {
 			sender.sendMessage(Prefix.CHALLENGES + "§cSomething went wrong while executing the command");
+			Logger.severe("Something went wrong while processing the command '/" + label + "'", ex);
 		}
 		return true;
 	}
