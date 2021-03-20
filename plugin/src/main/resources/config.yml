@@ -87,6 +87,7 @@ cloudnet-support:
   reset-to-lobby: false
 
 # This will require a database connection
+save-player-configs: false
 save-player-stats: false
 no-stats-after-cheating: true
 

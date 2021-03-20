@@ -135,6 +135,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new StartCommand(), "start");
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
+		registerCommand(new ConfigCommand(), "config");
 	}
 
 	private void registerListeners() {

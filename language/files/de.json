@@ -45,6 +45,8 @@
     "Auf diesem Server wurde §cgecheated",
     "Es können §ckeine weiteren §7Statistiken gesammelt werden"
   ],
+  "player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
+  "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
 
   "stat-dragon-killed": "Drachen getötet",
   "stat-deaths": "Tode",
