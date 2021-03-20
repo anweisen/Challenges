@@ -12,8 +12,7 @@ import java.util.logging.Level;
  */
 public final class Logger {
 
-	private Logger() {
-	}
+	private Logger() {}
 
 	@Nonnull
 	private static java.util.logging.Logger getLogger() {

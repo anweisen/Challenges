@@ -10,8 +10,7 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeAPI {
 
-	private ChallengeAPI() {
-	}
+	private ChallengeAPI() {}
 
 	public static boolean isStarted() {
 		return Challenges.getInstance().getChallengeTimer().isStarted();

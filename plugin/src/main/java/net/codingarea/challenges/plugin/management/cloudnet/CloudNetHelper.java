@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.cloudnet;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.config.Document;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
 
