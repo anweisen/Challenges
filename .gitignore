@@ -25,14 +25,10 @@
 .idea/**/mongoSettings.xml
 
 # Test Sources
-plugin/src/test
-language/src/test
-mongo-connector/src/test
+**/src/test
 
 # Compiled files
-plugin/out
-plugin/target
-mongo-connector/out
-mongo-connector/target
+**/out
+**/target
 *.class
 *.jar
