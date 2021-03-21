@@ -70,7 +70,7 @@
 
         <repository>
             <id>github</id>
-            <url>https://maven.pkg.github.com/anweisen/Utilities</url>
+            <url>https://maven.pkg.github.com/anweisen/*</url>
         </repository>
 
     </repositories>
