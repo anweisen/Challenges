@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>net.codingarea.challenges</groupId>
+	<artifactId>root</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+	<name>root</name>
+
+	<modules>
+		<module>plugin</module>
+		<module>mongo-connector</module>
+	</modules>
+
+	<build>
+
+		<plugins>
+
+			<!-- Compiler declaration -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub anweisen Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/anweisen/Utilities</url>
+		</repository>
+	</distributionManagement>
+
+</project>
