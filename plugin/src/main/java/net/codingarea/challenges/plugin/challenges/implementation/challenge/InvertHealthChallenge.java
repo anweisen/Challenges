@@ -1,12 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.anntations.Since;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
-import net.codingarea.challenges.plugin.utils.annotations.Since;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;

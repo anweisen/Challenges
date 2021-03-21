@@ -9,7 +9,9 @@ import java.util.Random;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class RandomizeUtils {
+public final class RandomizeUtils {
+
+	private RandomizeUtils() {}
 
 	public static int getAround(@Nonnull Random random, @Nonnegative int value, @Nonnegative int range) {
 		int min = value - range;

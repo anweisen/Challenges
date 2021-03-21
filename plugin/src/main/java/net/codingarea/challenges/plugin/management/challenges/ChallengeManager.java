@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.utils.config.Document;
-import net.codingarea.challenges.plugin.utils.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.event.Listener;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,22 +40,16 @@ public final class ChallengeManager {
 	}
 
 	public void enable() {
-		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
-		FileDocumentWrapper settingConfig = Challenges.getInstance().getConfigManager().getSettingsConfig();
+		loadGamestate(Challenges.getInstance().getConfigManager().getGamestateConfig());
+		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());
+	}
+
+	public synchronized void loadSettings(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
-
-			if (gamestateConfig.contains(name)) {
+			if (config.contains(name)) {
 				try {
-					Document document = gamestateConfig.getDocument(name);
-					challenge.loadGameState(document);
-				} catch (Exception ex) {
-					Logger.severe("Could not load gamestate for " + challenge.getClass().getSimpleName(), ex);
-				}
-			}
-			if (settingConfig.contains(name)) {
-				try {
-					Document document = settingConfig.getDocument(name);
+					Document document = config.getDocument(name);
 					challenge.loadSettings(document);
 				} catch (Exception ex) {
 					Logger.severe("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
@@ -65,8 +58,21 @@ public final class ChallengeManager {
 		}
 	}
 
-	public synchronized void saveGamestate(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
+	public synchronized void loadGamestate(@Nonnull Document config) {
+		for (IChallenge challenge : challenges) {
+			String name = challenge.getName();
+			if (config.contains(name)) {
+				try {
+					Document document = config.getDocument(name);
+					challenge.loadGameState(document);
+				} catch (Exception ex) {
+					Logger.severe("Could not load gamestate for " + challenge.getClass().getSimpleName(), ex);
+				}
+			}
+		}
+	}
+
+	public void saveGameStateInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			try {
 				Document document = config.getDocument(challenge.getName());
@@ -75,11 +81,15 @@ public final class ChallengeManager {
 				Logger.severe("Could not write gamestate of " + challenge.getClass().getSimpleName(), ex);
 			}
 		}
+	}
+
+	public synchronized void saveGamestate(boolean async) {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		saveGameStateInto(config);
 		config.save(async);
 	}
 
-	public synchronized void saveLocalSettings(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSettingsConfig();
+	public void saveSettingsInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			try {
 				Document document = config.getDocument(challenge.getName());
@@ -88,6 +98,11 @@ public final class ChallengeManager {
 				Logger.severe("Could not write settings of " + challenge.getClass().getSimpleName(), ex);
 			}
 		}
+	}
+
+	public synchronized void saveLocalSettings(boolean async) {
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSettingsConfig();
+		saveSettingsInto(config);
 		config.save(async);
 	}
 

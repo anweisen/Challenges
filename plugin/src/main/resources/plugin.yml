@@ -56,6 +56,11 @@ commands:
     description: "Opens the player's or the shared backpack"
     aliases:
       - bp
+  config:
+    usage: /config <save/load>
+    description: "Allows you to save/load your challenge setting over multiple servers using a database"
+    aliases:
+      - config
   top:
     usage: "/top"
     description: "Teleports you to the surface or to the overworld"

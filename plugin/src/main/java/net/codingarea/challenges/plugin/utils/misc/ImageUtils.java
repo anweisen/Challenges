@@ -17,6 +17,8 @@ import java.net.URL;
  */
 public class ImageUtils {
 
+	private ImageUtils() {}
+
 	public static final char IMAGE_CHAR = '█';
 
 	@Nullable
