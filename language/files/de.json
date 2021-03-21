@@ -63,6 +63,8 @@
   "death-message": "§e{0} §7ist gestorben",
   "death-message-cause": "§e{0} §7ist durch §e{1} §7gestorben",
   "health-inverted": "Deine Herzen wurden §cinvertiert",
+  "exp-picked-up": "§e{0} §7hat XP aufgesammelt",
+
   "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
   "no-positions": [
     "Es sind keine §ePositionen §7in dieser Welt gesetzt",
@@ -75,6 +77,8 @@
   "item-collected": "Item §e{0} §7wurde registriert",
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
   "backpack-opened": "Du hast den {0} §7geöffnet",
+  "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
+  "top-to-surface": "Du wurdest zur §eOverfläche §7teleportiert",
 
   "scoreboard-title": "§8» §f§lChallenge",
   "your-place": "§7Dein Platz §8» §e{0}",
@@ -145,11 +149,20 @@
     "§e{0}",
     "§8» §e{1}"
   ],
+  "title-pregame-movement-setting": [
+    "§cWarte...",
+    "§7Der Timer ist gestoppt..."
+  ],
 
   "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
   "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
   "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 
+
+  "item-difficulty-setting": [
+    "§aSchwierigkeit",
+    "Stellt die *Schwierigkeitsstufe* ein"
+  ],
   "item-one-life-setting": [
     "§cEin Teamleben",
     "*Jeder* stirbt wenn *einer stirbt*"
@@ -165,9 +178,167 @@
   "item-pvp-setting": [
     "§9PvP"
   ],
-  "item-max-health": [
+  "item-max-health-setting": [
     "§cMaximale Herzen"
   ],
+  "item-soup-setting": [
+    "§cSuppen Heilung",
+    "Wenn du eine *Pilzsuppe Suppe* benutzt",
+    "wirst du um *4 Herzen* geheilt"
+  ],
+  "item-damage-setting": [
+    "§cDamage Multiplier",
+    "Schaden den du nimmst wird *multipliziert*"
+  ],
+  "item-damage-display-setting": [
+    "§eDamage Display",
+    "Es wird im Chat angezeigt",
+    "wenn jemand *Schaden* bekommt"
+  ],
+  "item-position-setting": [
+    "§9Positions",
+    "Erlaubt es dir *Positionen*",
+    "zu *markieren*"
+  ],
+  "item-backpack-setting": [
+    "§6Backpack",
+    "Erlaubt es dir *deinen Backpack* oder den *Team Backpack*",
+    "mit */backpack* zu öffnen"
+  ],
+  "item-cut-clean-setting": [
+    "§9CutClean",
+    "Verschiedene *Einstellungen* die",
+    "das *Farmen* von Items *einfacher* machen"
+  ],
+  "item-cut-clean-gold-setting": [
+    "§6Gold",
+    "*Golderz* wird direkt zu *Goldbarren*"
+  ],
+  "item-cut-clean-iron-setting": [
+    "§7Iron",
+    "*Eisenerz* wird direkt zu *Eisenbarren*"
+  ],
+  "item-cut-clean-coal-setting": [
+    "§eCoal",
+    "*Kohleerz* wird direkt zu *Fackeln*"
+  ],
+  "item-cut-clean-vein-setting": [
+    "§bOre veins",
+    "*Erz Venen* werden direkt abgebaut"
+  ],
+  "item-cut-clean-food-setting": [
+    "§cGebratenes Essen",
+    "*Rohes Fleisch* wird direkt zu *gebratenem Fleisch*"
+  ],
+  "item-glow-setting": [
+    "§fPlayerglow",
+    "*Spieler* sind durch die *Wand* sichtbar"
+  ],
+  "no-hunger-setting": [
+    "§cKein Hunger",
+    "Du bekommst keinen *Hunger*"
+  ],
+  "pregame-movement-setting": [
+    "§6Pregame Movement",
+    "Du kannst dich *bewegen*, bevor",
+    "das Spiel *gestartet* hat"
+  ],
+  "item-no-hit-delay-setting": [
+    "§fNoHitDelay",
+    "Nachdem du *Schaden* genommen hast,",
+    "kannst du *sofort* wieder Schaden *bekommen*"
+  ],
+  "timber-setting": [
+    "§bTimber",
+    "Du kannst einen *Baum* zerstören,",
+    "indem du *einen Block* des Baumes abbaust"
+  ],
+  "item-keep-inventory-setting": [
+    "§5Keep Inventory",
+    "Du verlierst keine *Items*",
+    "Wenn du *stirbst*"
+  ],
+  "item-no-item-damage-setting": [
+    "§8Kein Itemschaden",
+    "*Items* sind *unzerstörbar*"
+  ],
+  "top-command-setting":[
+    "§dTop Command",
+    "Mit */top* kannst du dich",
+    "zur *Oberfläche* oder in",
+    "die *Overworld* teleportieren"
+  ],
+
+
+  "item-traffic-light-challenge": [
+    "§cAmpelchallenge",
+    "Die *Ampel* schaltet alle paar Minuten um",
+    "Wenn du bei *rot* gehst stirbst du"
+  ],
+  "item-block-randomizer-challenge": [
+    "§6Block Randomizer",
+    "Jeder *Block* droppt ein *zufälliges Item*"
+  ],
+  "item-crafting-randomizer-challenge": [
+    "§6Crafting Randomizer",
+    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
+  ],
+  "item-damage-block-challenge": [
+    "§4Schaden pro Block",
+    "Du bekommst *Schaden* durch",
+    "jeden *Block* den du gehst"
+  ],
+  "item-stone-sight-challenge": [
+    "§fStein Blick",
+    "*Mobs* die du *anschaust*",
+    "werden zu *Stein*"
+  ],
+  "item-bedrock-path-challenge": [
+    "§8Bedrock Path",
+    "*Unter dir* entsteht die",
+    "ganze Zeit *Bedrock*"
+  ],
+  "item-bedrock-walls-challenge": [
+    "§8Bedrock Walls",
+    "Hinter dir *spawnen* riesige",
+    "*Wände* aus *Bedrock*"
+  ],
+  "item-surface-hole-challenge": [
+    "§cSurface Hole",
+    "§7Hinter dir *verschwindet* der",
+    "*Boden* bis ins *Void*"
+  ],
+  "item-damage-inv-clear-challenge": [
+    "§cDamage Inventory Clear",
+    "Die *Inventare* werden *geleert*,",
+    "wenn ein *Spieler* schaden erleidet"
+  ],
+  "item-no-trading-challenge": [
+    "§2Kein Handeln",
+    "Du kannst *nicht* mit",
+    "Villagern *handeln*"
+  ],
+  "item-block-break-damage-challenge": [
+    "§6Block break damage",
+    "Wenn du einen *Block abbaust*,",
+    "*erleidest* du die gesetze Anzahl *schaden*"
+  ],
+  "item-block-place-damage-challenge": [
+    "§6Block place damage",
+    "Wenn du einen *Block plazierst*,",
+    "*erleidest* du die gesetze Anzahl *schaden*"
+  ],
+  "item-no-exp-challenge": [
+    "§aKeine XP",
+    "Wenn du *XP* aufsammelst, stirbst du"
+  ],
+  "item-invert-health-challenge": [
+    "§cInvert Health",
+    "Alle paar Minuten werden deine *Herzen invertiert*",
+    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+  ],
+
+
   "item-dragon-goal": [
     "§5Enderdrache",
     "Töte den *Enderdrachen* um zu gewinnen"
@@ -193,68 +364,6 @@
   "item-mine-most-blocks-goal": [
     "§eMine Most Blocks",
     "Wer die *meisten Blöcke* abbaut gewinnt"
-  ],
-  "item-soup-setting": [
-    "§cSuppen Heilung",
-    "Wenn du eine *Pilzsuppe Suppe* benutzt",
-    "wirst du um *4 Herzen* geheilt"
-  ],
-  "item-damage-multiplier": [
-    "§cDamage Multiplier",
-    "Schaden den du nimmst wird *multipliziert*"
-  ],
-  "item-traffic-light-challenge": [
-    "§cAmpelchallenge",
-    "Die *Ampel* schaltet alle paar Minuten um",
-    "Wenn du bei *rot* gehst stirbst du"
-  ],
-  "item-damage-display": [
-    "§eDamage Display",
-    "Es wird im Chat angezeigt",
-    "wenn jemand *Schaden* bekommt"
-  ],
-  "item-invert-health": [
-    "§cInvert Health",
-    "Alle paar Minuten werden deine *Herzen invertiert*",
-    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
-  ],
-  "item-position-setting": [
-    "§9Positions",
-    "Erlaubt es dir *Positionen*",
-    "zu *markieren*"
-  ],
-  "item-backpack-setting": [
-    "§6Backpack",
-    "Erlaubt es dir *deinen Backpack* oder den *Team Backpack*",
-    "mit */backpack* zu öffnen"
-  ],
-  "item-cut-clean": [
-    "§9CutClean",
-    "Verschiedene *Einstellungen* die",
-    "das *Farmen* von Items *einfacher* machen"
-  ],
-  "item-cut-clean-iron": [
-    "§6Gold",
-    "*Golderz* wird direkt zu *Goldbarren*"
-  ],
-  "item-cut-clean-gold": [
-    "§7Iron",
-    "*Eisenerz* wird direkt zu *Eisenbarren*"
-  ],
-  "item-cut-clean-coal": [
-    "§eCoal",
-    "*Kohleerz* wird direkt zu *Fackeln*"
-  ],
-  "item-cut-clean-food": [
-    "§cGebratenes Essen",
-    "*Rohes Fleisch* wird direkt zu *gebratenem Fleisch*"
-  ],
-  "item-block-randomizer-challenge": [
-    "§6Block Randomizer",
-    "Jeder *Block* droppt ein *zufälliges Item*"
-  ],
-  "item-crafting-randomizer-challenge": [
-    "§6Crafting Randomizer",
-    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
   ]
+
 }

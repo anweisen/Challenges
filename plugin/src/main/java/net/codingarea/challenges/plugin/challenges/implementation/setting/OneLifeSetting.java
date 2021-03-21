@@ -31,7 +31,7 @@ public class OneLifeSetting extends OneEnabledSetting {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
-		if (ChallengeAPI.isPaused() || !isEnabled()) return;
+		if (ChallengeAPI.isPaused() || !isEnabled()) return; // Warum hast du hierfür nicht schon längst eine methode gemacht die beides abfragt?
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_FAILED);
 	}
 

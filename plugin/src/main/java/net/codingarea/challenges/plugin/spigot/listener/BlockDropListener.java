@@ -28,7 +28,7 @@ public class BlockDropListener implements Listener {
 
 		Material block = event.getBlock().getType();
 		List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(block);
-		if (drops == null) return;
+		if (drops.isEmpty()) return;
 
 		Location location = event.getBlock().getLocation().clone().add(0.5, 0, 0.5);
 		if (!location.isWorldLoaded()) return;
@@ -47,7 +47,7 @@ public class BlockDropListener implements Listener {
 			if (material.isAir()) continue;
 
 			List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(material);
-			if (drops == null) return;
+			if (drops.isEmpty()) return;
 
 			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
 			if (!location.isWorldLoaded()) continue;
@@ -68,7 +68,7 @@ public class BlockDropListener implements Listener {
 			if (material.isAir()) continue;
 
 			List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(material);
-			if (drops == null) return;
+			if (drops.isEmpty()) return;
 
 			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
 			if (!location.isWorldLoaded()) continue;
