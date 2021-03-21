@@ -18,4 +18,6 @@ jobs:
         with:
           java-version: 1.8
       - name: Build with Maven
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
         run: mvn -B package --file pom.xml
