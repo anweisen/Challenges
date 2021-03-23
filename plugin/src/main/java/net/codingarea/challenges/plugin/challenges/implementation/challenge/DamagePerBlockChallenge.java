@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
