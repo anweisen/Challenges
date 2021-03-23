@@ -86,6 +86,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		player.setSaturation(20);
 		player.setNoDamageTicks(10);
 		player.setFallDistance(0);
+		player.setHealth(player.getMaxHealth());
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
 		}
