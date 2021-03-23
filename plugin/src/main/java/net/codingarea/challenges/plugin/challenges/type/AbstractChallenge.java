@@ -92,7 +92,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@CheckReturnValue
 	protected boolean shouldExecuteEffect() {
-		return isEnabled() && ChallengeAPI.isStarted();
+		return isEnabled() && ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse();
 	}
 
 	public final void broadcast(@Nonnull Consumer<Player> action) {
