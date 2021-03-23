@@ -4,12 +4,9 @@ import net.anweisen.utilities.commons.anntations.Since;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
@@ -28,7 +25,7 @@ public class StoneSightChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
-	@Scheduled(ticks = 1, async = false)
+	@ScheduledTask(ticks = 1, async = false)
 	public void schedule() {
 
 		for (Player player : Bukkit.getOnlinePlayers()) {

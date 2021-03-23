@@ -70,4 +70,8 @@ public final class ChallengeHelper {
 		Challenges.getInstance().getTitleManager().sendChallengeStatusTitle(Message.forName("title-challenge-value-changed"), getColoredChallengeName(modifier), value);
 	}
 
+	public static void playChallengeHeartsValueChangeTitle(@Nonnull Modifier modifier) {
+		playChangeChallengeValueTitle(modifier, (modifier.getValue() / 2f) + " §c❤");
+	}
+
 }

@@ -84,6 +84,7 @@
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
 
   "scoreboard-title": "§8» §f§lChallenge",
+  "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
   "your-place": "§7Dein Platz §8» §e{0}",
 
   "server-reset": [

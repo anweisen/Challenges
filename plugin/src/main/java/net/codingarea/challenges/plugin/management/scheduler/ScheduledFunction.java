@@ -1,12 +1,5 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
-import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.ChallengeStatusPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.PlayerCountPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
-import org.bukkit.Bukkit;
-
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -20,13 +13,12 @@ public final class ScheduledFunction {
 
 	private final Method method;
 	private final Object holder;
+	private final PoliciesContainer policies;
 
-	private final Scheduled annotation;
-
-	ScheduledFunction(@Nonnull Object holder, @Nonnull Method method, @Nonnull Scheduled annotation) {
+	ScheduledFunction(@Nonnull Object holder, @Nonnull Method method, @Nonnull PoliciesContainer policies) {
 		this.method = method;
 		this.holder = holder;
-		this.annotation = annotation;
+		this.policies = policies;
 	}
 
 	public void invoke() throws InvocationTargetException, IllegalAccessException {
@@ -40,17 +32,17 @@ public final class ScheduledFunction {
 	}
 
 	private boolean shouldInvoke() {
-		if (annotation.timerPolicy() == TimerPolicy.STARTED && ChallengeAPI.isPaused()) return false;
-		if (annotation.timerPolicy() == TimerPolicy.PAUSED  && ChallengeAPI.isStarted()) return false;
-		if (annotation.playerPolicy() == PlayerCountPolicy.EMPTY && !Bukkit.getOnlinePlayers().isEmpty()) return false;
-		if (annotation.playerPolicy() == PlayerCountPolicy.SOME_ONE && Bukkit.getOnlinePlayers().isEmpty()) return false;
-		if (annotation.playerPolicy() == PlayerCountPolicy.FULL && Bukkit.getOnlinePlayers().size() != Bukkit.getMaxPlayers()) return false;
-		if (holder instanceof IChallenge) {
-			IChallenge challenge = (IChallenge) holder;
-			if (annotation.challengePolicy() == ChallengeStatusPolicy.ENABLED  && !challenge.isEnabled()) return false;
-			if (annotation.challengePolicy() == ChallengeStatusPolicy.DISABLED &&  challenge.isEnabled()) return false;
-		}
-		return true;
+//		if (annotation.timerPolicy() == TimerPolicy.STARTED && ChallengeAPI.isPaused()) return false;
+//		if (annotation.timerPolicy() == TimerPolicy.PAUSED  && ChallengeAPI.isStarted()) return false;
+//		if (annotation.playerPolicy() == PlayerCountPolicy.EMPTY && !Bukkit.getOnlinePlayers().isEmpty()) return false;
+//		if (annotation.playerPolicy() == PlayerCountPolicy.SOME_ONE && Bukkit.getOnlinePlayers().isEmpty()) return false;
+//		if (annotation.playerPolicy() == PlayerCountPolicy.FULL && Bukkit.getOnlinePlayers().size() != Bukkit.getMaxPlayers()) return false;
+//		if (holder instanceof IChallenge) {
+//			IChallenge challenge = (IChallenge) holder;
+//			if (annotation.challengePolicy() == ChallengeStatusPolicy.ENABLED  && !challenge.isEnabled()) return false;
+//			if (annotation.challengePolicy() == ChallengeStatusPolicy.DISABLED &&  challenge.isEnabled()) return false;
+//		}
+		return policies.allPoliciesAreTrue(holder);
 	}
 
 	@Override

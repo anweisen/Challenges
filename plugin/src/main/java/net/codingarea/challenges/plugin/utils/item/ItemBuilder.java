@@ -32,8 +32,12 @@ public class ItemBuilder {
 	protected ItemDescription builtByItemDescription;
 
 	public ItemBuilder(@Nonnull ItemStack item) {
+		this(item, item.getItemMeta());
+	}
+
+	public ItemBuilder(@Nonnull ItemStack item, @Nullable ItemMeta meta) {
 		this.item = item;
-		this.meta = item.getItemMeta();
+		this.meta = meta;
 	}
 
 	public ItemBuilder() {
@@ -226,6 +230,13 @@ public class ItemBuilder {
 		return build();
 	}
 
+	@Override
+	public ItemBuilder clone() {
+		ItemBuilder builder = new ItemBuilder(item.clone(), getMeta().clone());
+		builder.builtByItemDescription = builtByItemDescription;
+		return builder;
+	}
+
 	public static class BannerBuilder extends ItemBuilder {
 
 		public BannerBuilder(@Nonnull Material material) {
@@ -254,9 +265,6 @@ public class ItemBuilder {
 
 		public BannerBuilder(@Nonnull ItemStack item) {
 			super(item);
-		}
-
-		public BannerBuilder() {
 		}
 
 		@Nonnull

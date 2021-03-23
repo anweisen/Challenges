@@ -24,6 +24,7 @@ public class PlayerGlowSetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {

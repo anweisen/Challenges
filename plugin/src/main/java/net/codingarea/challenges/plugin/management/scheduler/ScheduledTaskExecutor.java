@@ -17,25 +17,13 @@ import java.util.List;
  *
  * @see ScheduleManager
  */
-final class Scheduler implements Runnable {
+final class ScheduledTaskExecutor extends AbstractTaskExecutor {
 
-	private final List<ScheduledFunction> functions = new ArrayList<>(1);
-	private final SchedulerConfig config;
+	private final ScheduledTaskConfig config;
 	private BukkitTask task;
 
-	Scheduler(@Nonnull SchedulerConfig config) {
+	ScheduledTaskExecutor(@Nonnull ScheduledTaskConfig config) {
 		this.config = config;
-	}
-
-	@Override
-	public void run() {
-		for (ScheduledFunction function : functions) {
-			try {
-				function.invoke();
-			} catch (InvocationTargetException | IllegalAccessException ex) {
-				Logger.severe("An exception occurred while executing " + function, ex);
-			}
-		}
 	}
 
 	public void stop() {
@@ -52,12 +40,10 @@ final class Scheduler implements Runnable {
 								  scheduler.runTaskTimer(plugin, this, 0, config.getRate());
 	}
 
-	public void register(@Nonnull ScheduledFunction function) {
-		functions.add(function);
-	}
-
-	public void unregister(@Nonnull Object object) {
-		functions.removeIf(function -> function.getHolder() == object);
+	@Nonnull
+	@Override
+	public ScheduledTaskConfig getConfig() {
+		return config;
 	}
 
 }

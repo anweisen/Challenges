@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import net.anweisen.utilities.commons.misc.NumberFormatter;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -88,7 +89,7 @@ public final class GoalHelper {
 					for (Player current : players) {
 						displayed++;
 						if (displayed >= LEADERBOARD_SIZE) break;
-						scoreboard.addLine("§e#" + place + " §8┃ §7" + NameHelper.getName(current) + " §8» §e" + entry.getKey());
+						scoreboard.addLine(Message.forName("scoreboard-leaderboard").asString(place, NameHelper.getName(current), NumberFormatter.MIDDLE_NUMBER.format(entry.getKey())));
 					}
 					if (displayed >= LEADERBOARD_SIZE) break;
 					place++;
