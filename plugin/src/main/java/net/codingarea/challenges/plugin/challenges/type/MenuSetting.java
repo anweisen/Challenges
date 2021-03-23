@@ -184,8 +184,8 @@ public abstract class MenuSetting extends Setting {
 
 			Inventory inventory = inventories.get(page);
 
-			inventory.setItem(slot, getDisplayItem().build());
-			inventory.setItem(slot + 9, getSettingsItem().build());
+			inventory.setItem(slot, getDisplayItem().hideAttributes().build());
+			inventory.setItem(slot + 9, getSettingsItem().hideAttributes().build());
 		}
 
 		@Nonnull
