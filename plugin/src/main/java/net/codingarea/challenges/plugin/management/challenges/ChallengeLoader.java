@@ -30,6 +30,7 @@ public final class ChallengeLoader {
 		register(DamageDisplaySetting.class);
 		register(PregameMovementSetting.class);
 		register(DeathMessageSetting.class);
+		register(HealthDisplaySetting.class);
 		registerWithCommand(PositionSetting.class, "position");
 		register(PlayerGlowSetting.class);
 		register(SoupSetting.class);

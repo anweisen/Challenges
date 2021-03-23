@@ -198,6 +198,11 @@
     "Es wird im Chat angezeigt",
     "wenn jemand *Schaden* bekommt"
   ],
+  "item-health-display-setting": [
+    "§cHealth Display",
+    "Die *Herzen* aller Spieler",
+    "werden in der *Tablist* angezeigt"
+  ],
   "item-position-setting": [
     "§9Positions",
     "Erlaubt es dir *Positionen*",
