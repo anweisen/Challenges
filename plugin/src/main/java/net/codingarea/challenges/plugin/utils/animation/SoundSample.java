@@ -23,6 +23,7 @@ public final class SoundSample {
 			PLING           = new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BELL, 1),
 			KLING           = new SoundSample().addSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 2),
 			PLOP            = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 2),
+			LOW_PLOP        = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 1.3f),
 			DEATH           = new SoundSample().addSound(Sound.ENTITY_BAT_DEATH, 0.7F),
 			TELEPORT        = new SoundSample().addSound(Sound.ITEM_CHORUS_FRUIT_TELEPORT, 0.9F),
 			OPEN            = new SoundSample().addSound(KLING).addSound(PLOP),
