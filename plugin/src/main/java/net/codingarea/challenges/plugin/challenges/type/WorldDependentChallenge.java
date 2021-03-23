@@ -10,10 +10,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -54,9 +56,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 		teleportIndex = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.getInventory().clear();
-			before.put(player.getUniqueId(), new PlayerData(player));
-			action.accept(player, teleportIndex++);
+			teleport(player, action);
 		}
 	}
 
@@ -78,20 +78,32 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		remove.forEach(before::remove);
 	}
 
+	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
+		before.put(player.getUniqueId(), new PlayerData(player));
+		teleport.accept(player, teleportIndex++);
+		player.getInventory().clear();
+		player.setFoodLevel(20);
+		player.setSaturation(20);
+		player.setNoDamageTicks(10);
+		player.setFallDistance(0);
+		for (PotionEffect effect : player.getActivePotionEffects()) {
+			player.removePotionEffect(effect.getType());
+		}
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		if (!isInExtraWorld()) return;
-		if (lastTeleport == null) return;
-
 		UUID uuid = event.getPlayer().getUniqueId();
-		PlayerData data = before.get(uuid);
-		if (data != null) return;
-
-		data = new PlayerData(event.getPlayer());
-		before.put(uuid, data);
-
-		lastTeleport.accept(event.getPlayer(), teleportIndex++);
+		if (isInExtraWorld()) {
+			if (lastTeleport == null) return;
+			if (before.containsKey(uuid)) return;
+			teleport(event.getPlayer(), lastTeleport);
+		} else {
+			PlayerData data = before.get(uuid);
+			if (data == null) return;
+			data.apply(event.getPlayer());
+			before.remove(uuid);
+		}
 	}
 
 	@Nonnull
