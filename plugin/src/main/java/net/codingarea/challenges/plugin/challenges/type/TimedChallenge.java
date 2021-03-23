@@ -1,12 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
-import net.codingarea.challenges.plugin.utils.item.DefaultItem;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -63,6 +59,14 @@ public abstract class TimedChallenge extends SettingModifier {
 			}
 		}
 
+	}
+
+	public final boolean isTimerRunning() {
+		return timerStatus;
+	}
+
+	public final int getSecondsLeftUntilNextActivation() {
+		return secondsUntilActivation;
 	}
 
 	protected boolean getTimerCondition() {
