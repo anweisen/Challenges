@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin;
 
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 
 import javax.annotation.Nonnull;
@@ -20,6 +21,10 @@ public final class ChallengeAPI {
 		return Challenges.getInstance().getChallengeTimer().isPaused();
 	}
 
+	public static TimerStatus getTimerStatus() {
+		return Challenges.getInstance().getChallengeTimer().getStatus();
+	}
+
 	public static void pauseTimer() {
 		Challenges.getInstance().getChallengeTimer().pause(false);
 	}
@@ -38,6 +43,10 @@ public final class ChallengeAPI {
 
 	public static void endChallenge(@Nonnull ChallengeEndCause endCause) {
 		Challenges.getInstance().getServerManager().endChallenge(endCause);
+	}
+
+	public static boolean isWorldInUse() {
+		return Challenges.getInstance().getWorldManager().isWorldInUse();
 	}
 
 }

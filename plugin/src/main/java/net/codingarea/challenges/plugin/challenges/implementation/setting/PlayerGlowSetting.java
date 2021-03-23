@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -22,7 +22,7 @@ public class PlayerGlowSetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
-	@Scheduled(ticks = 20, async = false)
+	@ScheduledTask(ticks = 20, async = false)
 	public void onSecond() {
 		if (!shouldExecuteEffect()) return;
 

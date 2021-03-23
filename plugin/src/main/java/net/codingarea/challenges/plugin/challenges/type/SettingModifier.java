@@ -58,7 +58,7 @@ public abstract class SettingModifier extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createSettingsItem() {
-		return enabled ? super.createSettingsItem() : DefaultItem.disabled();
+		return enabled ? DefaultItem.enabled().amount(getValue()) : DefaultItem.disabled();
 	}
 
 	@Override

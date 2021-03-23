@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
@@ -38,7 +38,7 @@ public abstract class TimedChallenge extends SettingModifier {
 		restartTimer();
 	}
 
-	@Scheduled(ticks = 20)
+	@ScheduledTask(ticks = 20)
 	public void onSecond() {
 
 		if (!startedBefore) {
@@ -59,6 +59,14 @@ public abstract class TimedChallenge extends SettingModifier {
 			}
 		}
 
+	}
+
+	public final boolean isTimerRunning() {
+		return timerStatus;
+	}
+
+	public final int getSecondsLeftUntilNextActivation() {
+		return secondsUntilActivation;
 	}
 
 	protected boolean getTimerCondition() {

@@ -6,11 +6,13 @@
 .idea/**/dictionaries
 .idea/**/shelf
 .idea/discord.xml
+.idea/vcs.xml
 .idea/artifacts
 .idea/inspectionProfiles/Project_Default.xml
 
 # Generated files
 .idea/**/contentModel.xml
+.idea/libraries
 
 # Sensitive or high-churn files
 .idea/**/dataSources/
@@ -25,14 +27,10 @@
 .idea/**/mongoSettings.xml
 
 # Test Sources
-plugin/src/test
-language/src/test
-mongo-connector/src/test
+**/src/test
 
 # Compiled files
-plugin/out
-plugin/target
-mongo-connector/out
-mongo-connector/target
+**/out
+**/target
 *.class
 *.jar

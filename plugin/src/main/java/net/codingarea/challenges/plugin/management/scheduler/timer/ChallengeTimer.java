@@ -6,8 +6,8 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -48,7 +48,7 @@ public final class ChallengeTimer {
 		Challenges.getInstance().getScheduler().register(this);
 	}
 
-	@Scheduled(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void onTimerSecond() {
 
 		if (!paused) {
@@ -66,8 +66,8 @@ public final class ChallengeTimer {
 
 	}
 
-	@Scheduled(ticks = 20, timerPolicy = TimerPolicy.PAUSED)
-	public void onTimerPaused() {
+	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.PAUSED)
+	public void playPausedParticles() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SPECTATOR) continue;
 			Location location = player.getLocation();
@@ -88,6 +88,7 @@ public final class ChallengeTimer {
 			for (Player player : Bukkit.getOnlinePlayers())
 				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
 		}
+		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getCloudNetHelper().handleTimerStart();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
@@ -113,6 +114,7 @@ public final class ChallengeTimer {
 		paused = true;
 
 		updateActionbar();
+		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
 		if (byPlayer) {
@@ -188,6 +190,11 @@ public final class ChallengeTimer {
 		return time;
 	}
 
+	@Nonnull
+	public TimerStatus getStatus() {
+		return paused ? TimerStatus.PAUSED : TimerStatus.RUNNING;
+	}
+
 	public boolean isPaused() {
 		return paused;
 	}
@@ -199,4 +206,5 @@ public final class ChallengeTimer {
 	public boolean isCountingUp() {
 		return countingUp;
 	}
+
 }
