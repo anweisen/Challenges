@@ -79,6 +79,9 @@
   "backpack-opened": "Du hast den {0} §7geöffnet",
   "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
   "top-to-surface": "Du wurdest zur §eOverfläche §7teleportiert",
+  "jnr-countdown": "Nächstes §6JumpAndRun §7in §e{0} Sekunden",
+  "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
+  "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
 
   "scoreboard-title": "§8» §f§lChallenge",
   "your-place": "§7Dein Platz §8» §e{0}",
@@ -336,6 +339,11 @@
     "§cInvert Health",
     "Alle paar Minuten werden deine *Herzen invertiert*",
     "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+  ],
+  "item-jump-and-run-challenge": [
+    "§6Jump and Run",
+    "Alle *paar Minuten* musst du ein random *Jump and Run* machen,",
+    "welches jedes mal *schwerer* wird"
   ],
 
 
