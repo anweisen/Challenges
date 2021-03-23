@@ -2,8 +2,8 @@ package net.codingarea.challenges.plugin.management.stats;
 
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.ChallengeStatusPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
 import net.codingarea.challenges.plugin.spigot.listener.StatsListener;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.event.EventHandler;
@@ -55,7 +55,7 @@ public final class StatsManager implements Listener {
 		cache.put(event.getPlayer().getUniqueId(), stats);
 	}
 
-	@Scheduled(ticks = 30 * 20, challengePolicy = ChallengeStatusPolicy.ALWAYS)
+	@ScheduledTask(ticks = 30 * 20, challengePolicy = ChallengeStatusPolicy.ALWAYS)
 	public void storeCached() {
 		for (Entry<UUID, PlayerStats> entry : cache.entrySet()) {
 			store(entry.getKey(), entry.getValue());

@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.challenges.type;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -43,7 +42,7 @@ public abstract class TimedChallenge extends SettingModifier {
 		restartTimer();
 	}
 
-	@Scheduled(ticks = 20)
+	@ScheduledTask(ticks = 20)
 	public void onSecond() {
 
 		if (!startedBefore) {
