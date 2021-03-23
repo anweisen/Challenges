@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -15,6 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import javax.annotation.Nonnull;
 
 /**
+ * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
@@ -29,7 +31,13 @@ public class DamagePerBlockChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
 
+		event.getPlayer().setNoDamageTicks(0);
 		event.getPlayer().damage(getValue());
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeHeartsValueChangeTitle(this);
 	}
 
 	@Nonnull

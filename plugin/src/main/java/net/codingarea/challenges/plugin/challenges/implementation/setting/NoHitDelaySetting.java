@@ -10,13 +10,15 @@ import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since .
+ * @since 2.0
  */
 public class NoHitDelaySetting extends Setting {
 
@@ -24,12 +26,12 @@ public class NoHitDelaySetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
-	@EventHandler
-	public void onDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
-		if (!(event.getDamager() instanceof Player)) return;
+	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
+	public void onDamageByEntity(@Nonnull EntityDamageEvent event) {
+		if (!(event.getEntity() instanceof LivingEntity)) return;
 		if (!shouldExecuteEffect()) return;
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			((LivingEntity)event.getEntity()).setNoDamageTicks(-1);
+			((LivingEntity)event.getEntity()).setNoDamageTicks(0);
 		}, 1);
 	}
 

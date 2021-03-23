@@ -15,6 +15,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import javax.annotation.Nonnull;
 
 /**
+ * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
@@ -27,6 +28,8 @@ public class BedrockPathChallenge extends Setting {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+
 		Location location = event.getTo();
 		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), location)) return;
 		if (event.getTo() == null) return;

@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -13,6 +14,7 @@ import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import net.codingarea.challenges.plugin.utils.misc.TimeUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -38,7 +40,7 @@ public class CutCleanSetting extends MenuSetting {
 		registerSetting("iron->iron_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron")), true, Material.IRON_ORE, Material.IRON_INGOT));
 		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
 		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal")), false, Material.COAL_ORE, Material.TORCH));
-		registerSetting("ore->veins",       new BreakVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 1000, 0));
+		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 100, 0));
 		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food")), true));
 	}
 
@@ -70,17 +72,17 @@ public class CutCleanSetting extends MenuSetting {
 
 	}
 
-	private class BreakVeinsSubSetting extends NumberSubSetting {
+	private class BreakOreVeinsSubSetting extends NumberSubSetting {
 
-		public BreakVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item) {
+		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item) {
 			super(item);
 		}
 
-		public BreakVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
+		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
 			super(item, max);
 		}
 
-		public BreakVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
+		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
 			super(item, max, min);
 		}
 
@@ -90,11 +92,11 @@ public class CutCleanSetting extends MenuSetting {
 			ItemStack itemInMainHand = event.getPlayer().getInventory().getItemInMainHand();
 			if (!canBeBroken(event.getBlock(), itemInMainHand)) return;
 			if (!event.getBlock().getType().name().contains("ORE")) return;
-			breakBlockVein(event.getBlock(), itemInMainHand);
 
+			breakBlockVein(event.getPlayer(), event.getBlock(), itemInMainHand);
 		}
 
-		private void breakBlockVein(Block block, ItemStack itemInMainHand) {
+		private void breakBlockVein(@Nonnull Player player, @Nonnull Block block, @Nonnull ItemStack itemInMainHand) {
 			Material material = block.getType();
 
 			List<Block> allBlocks = new ArrayList<>();
@@ -103,17 +105,14 @@ public class CutCleanSetting extends MenuSetting {
 
 			for (int i = 0; i < getValue(); i++) {
 
-				if (nextBlocks.isEmpty()) {
-					break;
-				}
+				if (nextBlocks.isEmpty()) break;
 
 				List<Block> lastBlocks = new ArrayList<>(nextBlocks);
 				nextBlocks.clear();
 
 				for (Block currentMiddleBlock : lastBlocks) {
-
 					for (Block sideBlock : BlockUtils.getBlocksAroundBlock(currentMiddleBlock)) {
-						if (sideBlock.getType() == material && sideBlock != block && !allBlocks.contains(sideBlock)) {
+						if (sideBlock.getType() == material && sideBlock != block && !allBlocks.contains(sideBlock) && allBlocks.size() < getValue()) {
 							allBlocks.add(sideBlock);
 							nextBlocks.add(sideBlock);
 						}
@@ -124,6 +123,7 @@ public class CutCleanSetting extends MenuSetting {
 			AtomicInteger index = new AtomicInteger();
 			TimeUtils.createBukkitRunnable(timer -> {
 
+				SoundSample.LOW_PLOP.play(player);
 				for (int i = 0; i < 2; i++) {
 
 					if (index.get() >= allBlocks.size()) {
@@ -147,7 +147,7 @@ public class CutCleanSetting extends MenuSetting {
 
 					index.getAndIncrement();
 				}
-			}).runTaskTimer(plugin, 0, 1);
+			}).runTaskTimer(plugin, 0, 2);
 
 		}
 
@@ -158,10 +158,7 @@ public class CutCleanSetting extends MenuSetting {
 		@Nonnull
 		@Override
 		public ItemBuilder getSettingsItem() {
-			if (getValue() == 0) {
-				return DefaultItem.status(false);
-			}
-			return DefaultItem.value(getValue(), "§7Max Vein Size: §8");
+			return getAsBoolean() ? DefaultItem.value(getValue(), "§7Max Vein Size: §e") : DefaultItem.disabled();
 		}
 
 	}

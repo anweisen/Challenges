@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.PlayerDeathEvent;
 
 import javax.annotation.Nonnull;
@@ -23,6 +24,9 @@ import javax.annotation.Nonnull;
  * @since 2.0
  */
 public class DeathMessageSetting extends Modifier {
+
+	public static final int ENABLED = 2,
+							VANILLA = 3;
 
 	public DeathMessageSetting() {
 		super(MenuType.SETTINGS, 1, 3, 2);
@@ -38,9 +42,9 @@ public class DeathMessageSetting extends Modifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
-			default:    return DefaultItem.disabled();
-			case 2:     return DefaultItem.enabled();
-			case 3:     return new ItemBuilder(MaterialWrapper.SIGN, DefaultItem.name("§6Vanilla"));
+			default:        return DefaultItem.disabled();
+			case ENABLED:   return DefaultItem.enabled();
+			case VANILLA:   return new ItemBuilder(MaterialWrapper.SIGN, DefaultItem.name("§6Vanilla"));
 		}
 	}
 
@@ -52,15 +56,15 @@ public class DeathMessageSetting extends Modifier {
 		switch (getValue()) {
 			default:
 				return;
-			case 2:
+			case ENABLED:
 				EntityDamageEvent cause = entity.getLastDamageCause();
-				if (cause != null) {
+				if (cause != null && cause.getCause() != DamageCause.CUSTOM) {
 					Message.forName("death-message-cause").broadcast(Prefix.CHALLENGES, NameHelper.getName(entity), DamageDisplaySetting.getCause(cause));
 				} else {
 					Message.forName("death-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(entity));
 				}
 				return;
-			case 3:
+			case VANILLA:
 				if (original != null) {
 					Bukkit.broadcastMessage(Prefix.CHALLENGES + "§7" + original);
 				}

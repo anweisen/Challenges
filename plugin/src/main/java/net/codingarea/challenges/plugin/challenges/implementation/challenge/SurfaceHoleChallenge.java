@@ -5,10 +5,7 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -18,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
@@ -30,10 +28,14 @@ public class SurfaceHoleChallenge extends SettingModifier {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+
 		Location location = event.getFrom();
 		if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), location)) return;
 
 		Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
+			if (!shouldExecuteEffect()) return;
+
 			World world = event.getPlayer().getWorld();
 
 			List<Block> blocks = new ArrayList<>();
@@ -49,7 +51,7 @@ public class SurfaceHoleChallenge extends SettingModifier {
 				}
 			});
 
-		}, getValue() * 60L);
+		}, getValue() * 20L);
 
 	}
 

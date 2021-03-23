@@ -35,6 +35,7 @@ public class LastManStandingGoal extends SettingGoal {
 
 	@Override
 	public void getWinnersOnEnd(@Nonnull List<Player> winners) {
+		determineWinner();
 		if (winner != null)
 			winners.add(winner);
 	}
@@ -51,7 +52,7 @@ public class LastManStandingGoal extends SettingGoal {
 		checkEnd();
 	}
 
-	protected void checkEnd() {
+	protected void determineWinner() {
 		int playersLiving = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SPECTATOR) continue;
@@ -59,11 +60,13 @@ public class LastManStandingGoal extends SettingGoal {
 			winner = player;
 		}
 
-		if (playersLiving != 1) {
+		if (playersLiving != 1)
 			winner = null;
-			return;
-		}
+	}
 
+	protected void checkEnd() {
+		determineWinner();
+		if (winner == null) return;
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 	}
 

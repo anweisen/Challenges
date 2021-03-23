@@ -40,9 +40,10 @@ public class TopCommandSetting extends Setting implements PlayerCommand {
 		if (environment == Environment.NORMAL) {
 			Message.forName("top-to-surface").send(player, Prefix.CHALLENGES);
 
-			Location location = player.getWorld().getHighestBlockAt(playerLocation).getLocation().add(0, 1, 0);
+			Location location = player.getWorld().getHighestBlockAt(playerLocation).getLocation().add(0.5, 1, 0.5);
 			location.setYaw(playerLocation.getYaw());
 			location.setPitch(playerLocation.getPitch());
+			player.setFallDistance(0);
 			player.teleport(location);
 
 		} else {
@@ -53,12 +54,14 @@ public class TopCommandSetting extends Setting implements PlayerCommand {
 				world = Bukkit.getWorlds().get(0);
 				location.setWorld(world);
 				location.multiply(8);
-				location = world.getHighestBlockAt(location).getLocation().add(0, 1, 0);
+				location = world.getHighestBlockAt(location).getLocation().add(0.5, 1, 0.5);
+				player.setFallDistance(0);
 				player.teleport(location);
 			} else {
 				world = Bukkit.getWorlds().get(0);
 				Location location = player.getBedSpawnLocation();
 				if (location == null) location = world.getSpawnLocation();
+				player.setFallDistance(0);
 				player.teleport(location);
 			}
 

@@ -3,10 +3,12 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
+import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -22,17 +24,28 @@ public class PlayerGlowSetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
-	@Scheduled(ticks = 20, async = false)
-	public void onSecond() {
-		if (!shouldExecuteEffect()) return;
-
-		Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 40, 1, true, false, false)));
-	}
-
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.GLASS_BOTTLE, Message.forName("item-glow-setting"));
+	}
+
+	@Override
+	protected void onEnable() {
+		playEffects();
+	}
+
+	@Override
+	protected void onDisable() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			player.removePotionEffect(PotionEffectType.GLOWING);
+		}
+	}
+
+	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	public void playEffects() {
+		if (!shouldExecuteEffect()) return;
+		Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 40, 1, true, false, false)));
 	}
 
 }

@@ -47,6 +47,8 @@ public class RespawnSetting extends OneEnabledSetting {
 		} else {
 			player.setGameMode(GameMode.SPECTATOR);
 			player.teleport(player.getLocation());
+
+			// Reset bed spawn location or the player will spawn there but we want him to spawn at his death location
 			player.setBedSpawnLocation(null, true);
 
 			if (ChallengeAPI.isStarted())

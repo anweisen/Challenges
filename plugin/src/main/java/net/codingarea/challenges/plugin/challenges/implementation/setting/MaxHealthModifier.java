@@ -46,7 +46,7 @@ public class MaxHealthModifier extends Modifier {
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, (getValue() / 2f) + " §c❤");
+		ChallengeHelper.playChallengeHeartsValueChangeTitle(this);
 	}
 
 	@EventHandler
