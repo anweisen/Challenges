@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -112,13 +113,17 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	public void updateInventory(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (!LanguageLoader.isLoaded()) return;
-		if (items == null) createItems();
+		try {
+			if (!LanguageLoader.isLoaded()) return;
+			if (items == null) createItems();
 
-		if (ChallengeAPI.isPaused()) {
-			updateInventoryPaused(player, gamemode, join, alive);
-		} else {
-			updateInventoryStarted(player, gamemode, join, alive);
+			if (ChallengeAPI.isPaused()) {
+				updateInventoryPaused(player, gamemode, join, alive);
+			} else {
+				updateInventoryStarted(player, gamemode, join, alive);
+			}
+		} catch (Exception ex) {
+			Logger.severe("Failed to update inventory", ex);
 		}
 	}
 
