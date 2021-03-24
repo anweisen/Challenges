@@ -75,18 +75,24 @@ public class MessageImpl implements Message {
 	@Override
 	public void broadcastTitle(@Nonnull Object... args) {
 		String[] title = asArray(args);
-		Bukkit.getOnlinePlayers().forEach(player -> sendTitle(player, title));
+		Bukkit.getOnlinePlayers().forEach(player -> doSendTitle(player, title));
 	}
 
 	@Override
 	public void sendTitle(@Nonnull Player player, @Nonnull Object... args) {
-		String[] title = asArray(args);
-		sendTitle(title, (line1, line2) -> Challenges.getInstance().getTitleManager().sendTitle(player, line1, line2));
+		doSendTitle(player, asArray(args));
 	}
 
 	@Override
 	public void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args) {
-		String[] title = asArray(args);
+		doSendTitleInstant(player, asArray(args));
+	}
+
+	protected void doSendTitle(@Nonnull Player player, @Nonnull String[] title) {
+		sendTitle(title, (line1, line2) -> Challenges.getInstance().getTitleManager().sendTitle(player, line1, line2));
+	}
+
+	protected void doSendTitleInstant(@Nonnull Player player, @Nonnull String[] title) {
 		sendTitle(title, (line1, line2) -> Challenges.getInstance().getTitleManager().sendTitleInstant(player, line1, line2));
 	}
 
