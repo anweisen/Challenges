@@ -70,10 +70,10 @@ public abstract class SettingModifier extends Modifier {
 		ChallengeHelper.playToggleChallengeTitle(this);
 	}
 
-	public void onEnable() {
+	protected void onEnable() {
 	}
 
-	public void onDisable() {
+	protected void onDisable() {
 	}
 
 	@Override
