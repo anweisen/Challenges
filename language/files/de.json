@@ -378,6 +378,41 @@
   "item-mine-most-blocks-goal": [
     "§eMine Most Blocks",
     "Wer die *meisten Blöcke* abbaut gewinnt"
+  ],
+
+
+  "item-damage-rule-fire": [
+    "§6Feuer Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Lava* und *Feuer* bekommen kannst"
+  ],
+  "item-damage-rule-attack": [
+    "§3Attack Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Nahkampfangriffe von Entities* bekommen kannst"
+  ],
+  "item-damage-rule-projectile": [
+    "§6Projectile Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Projektile* bekommen kannst"
+  ],
+  "item-damage-rule-fall": [
+    "§fFall Damage",
+    "Stellt ein ob du *Fallschaden* bekommen kannst"
+  ],
+  "item-damage-rule-explosion": [
+    "§cExplosion Damage",
+    "Stellt ein ob du *Explosions* bekommen kannst"
+  ],
+  "item-damage-rule-drowning": [
+    "§9Drowning Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Ertrinken* bekommen kannst"
+  ],
+  "item-damage-rule-block": [
+    "§eBlock Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Fallende Blöcke* bekommen kannst"
   ]
 
 }
