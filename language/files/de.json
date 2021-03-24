@@ -154,14 +154,13 @@
     "§8» §e{1}"
   ],
   "title-pregame-movement-setting": [
-    "§cWarte...",
-    "§7Der Timer ist gestoppt..."
+    "§cWarte..",
+    "§8» §7Der Timer ist gestoppt.."
   ],
 
   "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
   "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
   "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
-
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -299,7 +298,7 @@
   ],
   "item-stone-sight-challenge": [
     "§7Stein Blick",
-    "*Mobs* die du *anschaust*",
+    "*Mobs* denen du in die Augen *schaust*",
     "werden zu *Stein*"
   ],
   "item-bedrock-path-challenge": [
