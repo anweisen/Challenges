@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -28,6 +29,7 @@ public class PregameMovementSetting extends Setting {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (ChallengeAPI.isStarted() || isEnabled()) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 
 		Location to = event.getTo();
 		if (to == null) return;
