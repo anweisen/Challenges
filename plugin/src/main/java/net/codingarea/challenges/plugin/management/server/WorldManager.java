@@ -101,6 +101,9 @@ public final class WorldManager {
 	}
 
 	private void loadExtraWorld() {
+		if (!Challenges.getInstance().isReload())
+			deleteWorld("challenges-extra");
+
 		world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
 		if (world == null) return;
 		world.setSpawnFlags(false, false);
@@ -119,16 +122,20 @@ public final class WorldManager {
 
 	public void executeWorldReset() {
 
-		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end", "challenges-extra" };
+		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end" };
 		for (String world : worlds) {
-			File folder = new File(world);
-			FileUtils.deleteWorldFolder(folder);
+			deleteWorld(world);
 		}
 
 		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		sessionConfig.set("reset", false);
 		sessionConfig.save();
 
+	}
+
+	private void deleteWorld(@Nonnull String name) {
+		File folder = new File(name);
+		FileUtils.deleteWorldFolder(folder);
 	}
 
 	private void stopServerNow() {
