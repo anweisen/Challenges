@@ -30,7 +30,7 @@ config-version: "2.0"
 language: "en"
 
 timer:
-  stopped-message: "§8• §7Timer §c§lstopped §8•"
+  stopped-message: "§8• §7Timer §c§lpaused §8•"
   count-up-message: "§8• §7Time: §a§l{time} §8•"
   count-down-message: "§8• §7Time: §c§l{time} §8•"
   format:
@@ -93,6 +93,7 @@ no-stats-after-cheating: true
 
 # Debug messages will be shown in the console.
 # You should enable this setting when reporting an issue.
+# This may also enable experimental settings which aren't stable yet.
 dev-mode: false
 
 database:
