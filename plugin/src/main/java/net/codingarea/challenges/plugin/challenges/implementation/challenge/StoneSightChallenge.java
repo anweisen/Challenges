@@ -5,14 +5,17 @@ import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.*;
+import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.RayTraceResult;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -36,7 +39,7 @@ public class StoneSightChallenge extends Setting {
 					player.getLocation().getDirection(),
 					30,
 					0.01,
-					entity -> !(entity instanceof Player) && entity instanceof LivingEntity
+					entity -> !(entity instanceof Player) && !(entity instanceof EnderDragon) && entity instanceof LivingEntity
 			);
 			if (result == null) continue;
 
@@ -51,12 +54,26 @@ public class StoneSightChallenge extends Setting {
 			if (distance > volume) continue;
 
 			Bukkit.getScheduler().runTask(plugin, () -> {
-				entity.getLocation().getBlock().setType(Material.STONE, false);
+				entity.getLocation().getBlock().setType(getRandomStone(), false);
+				SoundSample.BREAK.broadcast(entity.getLocation());
 				entity.remove();
 			});
 
 		}
 
+	}
+
+	@Nonnull
+	private Material getRandomStone() {
+		Material[] materials = {
+			Material.STONE,
+			Material.STONE,
+			Material.STONE,
+			Material.COBBLESTONE,
+			Material.COBBLESTONE,
+			Material.MOSSY_COBBLESTONE
+		};
+		return materials[new Random().nextInt(materials.length)];
 	}
 
 	@Nonnull
