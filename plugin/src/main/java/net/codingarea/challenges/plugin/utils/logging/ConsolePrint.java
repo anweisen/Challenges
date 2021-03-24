@@ -16,8 +16,10 @@ public final class ConsolePrint {
 
 	public static void notSpigot() {
 		log("=============================================================================================");
+		log("");
 		log("Your server does NOT run an instance of spigot (Your server: " + Bukkit.getVersion() + ")");
 		log("Please use an instance of spigot to support all features!");
+		log("");
 		log("=============================================================================================");
 	}
 
@@ -32,6 +34,15 @@ public final class ConsolePrint {
 
 	public static void alreadyExecutingContentLoader() {
 		log("Cannot load contents; Already loading contents");
+	}
+
+	public static void noMongoDependencies() {
+		log("=============================================================================================");
+		log("");
+		log("Cannot use MongoDB as database without the Challenges-MongoConnector dependency plugin.");
+		log("Please add this plugin in order to be able to access a mongodb database.");
+		log("");
+		log("=============================================================================================");
 	}
 
 	private static void log(@Nonnull String message) {
