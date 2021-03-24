@@ -58,7 +58,7 @@ public final class ChallengeLoader {
 		// Snake
 		register(JumpAndRunChallenge.class); // TODO: Zurück teleportieren zur main welt
 		// Corona
-		// Randomized HP
+		register(RandomizedHPChallenge.class);
 		register(DamagePerBlockChallenge.class);
 		// Food once
 		// Floor is Lava

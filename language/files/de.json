@@ -350,6 +350,14 @@
     "Alle *paar Minuten* musst du ein random *Jump and Run* machen,",
     "welches jedes mal *schwerer* wird"
   ],
+  "item-randomized-hp-challenge": [
+    "§4Randomized HP",
+    "Die *Leben* aller *Mobs*",
+    "sind *random*"
+  ],
+  "item-randomized-hp-challenge-description": [
+    "§8» §7Maximale Leben: §e{0} §c❤"
+  ],
 
 
   "item-dragon-goal": [
