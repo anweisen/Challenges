@@ -6,9 +6,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -41,6 +39,5 @@ public class BedrockPathChallenge extends Setting {
 	public ItemBuilder createDisplayItem() {
 		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-bedrock-path-challenge")).setColor(Color.GRAY);
 	}
-
 
 }
