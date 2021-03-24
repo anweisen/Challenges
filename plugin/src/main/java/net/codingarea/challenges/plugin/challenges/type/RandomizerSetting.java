@@ -44,6 +44,8 @@ public abstract class RandomizerSetting extends Setting {
 		if (seed == random.getSeed()) return;
 
 		random = new SeededRandomWrapper(seed);
+
+		if (!isEnabled()) return;
 		reloadRandomization();
 	}
 
