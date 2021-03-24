@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.files;
 
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
@@ -27,7 +28,7 @@ public final class ConfigManager {
 	@Nullable
 	private FileDocumentWrapper load(@Nonnull String filename) {
 		try {
-			File file = FileManager.getFile(filename);
+			File file = Challenges.getInstance().getDataFile(filename);
 			FileUtils.createFilesIfNecessary(file);
 			return FileDocumentWrapper.create(file);
 		} catch (Exception ex) {

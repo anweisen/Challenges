@@ -18,7 +18,7 @@ public final class PrefixLoader extends ContentLoader {
 	protected void load() {
 		try {
 
-			File file = getFile("prefix", "properties");
+			File file = getMessageFile("prefix", "properties");
 			FileUtils.createFilesIfNecessary(file);
 
 			Document document = new PropertiesDocument(file);

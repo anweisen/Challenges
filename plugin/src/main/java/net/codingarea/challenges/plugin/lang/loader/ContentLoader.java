@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.lang.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.files.FileManager;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 
 import javax.annotation.Nonnull;
@@ -16,13 +15,13 @@ public abstract class ContentLoader {
 	private static volatile int loads = 0;
 
 	@Nonnull
-	protected final File getFolder() {
-		return FileManager.getFile("messages");
+	protected final File getMessagesFolder() {
+		return Challenges.getInstance().getDataFile("messages");
 	}
 
 	@Nonnull
-	protected final File getFile(@Nonnull String name, @Nonnull String extension) {
-		return new File(getFolder(), name + "." + extension);
+	protected final File getMessageFile(@Nonnull String name, @Nonnull String extension) {
+		return new File(getMessagesFolder(), name + "." + extension);
 	}
 
 	private void execute() {
