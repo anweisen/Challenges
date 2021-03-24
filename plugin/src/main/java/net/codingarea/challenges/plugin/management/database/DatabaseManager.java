@@ -8,6 +8,7 @@ import net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase;
 import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
 import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
@@ -33,7 +34,7 @@ public final class DatabaseManager {
 			try {
 				Class.forName("net.codingarea.challenges.mongoconnector.MongoConnector");
 			} catch (ClassNotFoundException | NoClassDefFoundError ex) {
-				Logger.severe("Cannot use mongodb database without Challenges-MongoConnector");
+				ConsolePrint.noMongoDependencies();
 				return;
 			}
 		}
