@@ -28,10 +28,28 @@ public final class LanguageLoader extends ContentLoader {
 	private static final JsonParser parser = new JsonParser();
 	private static volatile boolean loaded = false;
 
+	private String language;
+
 	@Override
 	protected void load() {
+		init();
 		download();
 		read();
+	}
+
+	private void init() {
+
+		language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
+		File file = getMessageFile(language, "json");
+
+		if (!file.exists()) {
+			if (language.equalsIgnoreCase(DEFAULT_LANGUAGE)) return;
+			ConsolePrint.unknownLanguage(language);
+			language = DEFAULT_LANGUAGE;
+		}
+
+		Logger.debug("Language '" + language + "' is currently selected");
+
 	}
 
 	private void download() {
@@ -44,9 +62,11 @@ public final class LanguageLoader extends ContentLoader {
 					String url = BASE_URL + "files/" + name + ".json";
 
 					JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
-					File file = getFile(name, "json");
+					File file = getMessageFile(name, "json");
 
-					verifyLanguage(language, file);
+					if (name.equalsIgnoreCase(this.language))
+						verifyLanguage(language, file);
+
 				} catch (Exception ex) {
 					Logger.severe("Could not download language for " + element + ". " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
 				}
@@ -67,8 +87,10 @@ public final class LanguageLoader extends ContentLoader {
 
 		JsonObject existing = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 		for (Entry<String, JsonElement> entry : download.entrySet()) {
-			if (!existing.has(entry.getKey()))
+			if (!existing.has(entry.getKey())) {
+				Logger.debug("Overwriting message " + entry.getKey() + " with " + String.valueOf(entry.getValue()).replace("\"", "§r\""));
 				existing.add(entry.getKey(), entry.getValue());
+			}
 		}
 		new GsonDocument(existing).save(file);
 
@@ -77,21 +99,10 @@ public final class LanguageLoader extends ContentLoader {
 	private void read() {
 		try {
 
-			String language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
-			File file = getFile(language, "json");
-
+			File file = getMessageFile(language, "json");
 			if (!file.exists()) {
-				if (language.equalsIgnoreCase(DEFAULT_LANGUAGE)) {
-					ConsolePrint.unableToGetLanguages();
-					return;
-				}
-				ConsolePrint.unknownLanguage(language);
-				language = DEFAULT_LANGUAGE;
-				file = getFile(language, "json");
-				if (!file.exists()) {
-					ConsolePrint.unableToGetLanguages();
-					return;
-				}
+				ConsolePrint.unableToGetLanguages();
+				return;
 			}
 
 			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
@@ -108,7 +119,7 @@ public final class LanguageLoader extends ContentLoader {
 			}
 
 			loaded = true;
-			Logger.info("Successfully loaded language '" + language + "' from config file");
+			Logger.info("Successfully loaded language '" + language + "' from config file: " + read.size() + " message(s)");
 
 			Challenges.getInstance().getMenuManager().generateMenus();
 			Challenges.getInstance().getScoreboardManager().handleLoadLanguages();
