@@ -11,6 +11,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -52,10 +53,7 @@ public class MessageImpl implements Message {
 	public ItemDescription asItemDescription(@Nonnull Object... args) {
 		if (value == null)                      return ItemDescription.empty();
 		if (value instanceof ItemDescription)   return (ItemDescription) value;
-		if (value instanceof String[])          return new ItemDescription((String[]) value);
-		if (value instanceof String)            return new ItemDescription(asArray());
-		Logger.severe("Message '" + name + "' has an illegal value " + value.getClass().getName());
-		return ItemDescription.empty();
+		return new ItemDescription(asArray(args));
 	}
 
 	@Override
@@ -83,13 +81,19 @@ public class MessageImpl implements Message {
 	@Override
 	public void sendTitle(@Nonnull Player player, @Nonnull Object... args) {
 		String[] title = asArray(args);
-		sendTitle(player, title);
+		sendTitle(title, (line1, line2) -> Challenges.getInstance().getTitleManager().sendTitle(player, line1, line2));
 	}
 
-	protected void sendTitle(@Nonnull Player player, @Nonnull String[] title) {
-		if (title.length == 0)      Challenges.getInstance().getTitleManager().sendTitle(player, "", "");
-		else if (title.length == 1) Challenges.getInstance().getTitleManager().sendTitle(player, title[0], "");
-		else                        Challenges.getInstance().getTitleManager().sendTitle(player, title[0], title[1]);
+	@Override
+	public void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args) {
+		String[] title = asArray(args);
+		sendTitle(title, (line1, line2) -> Challenges.getInstance().getTitleManager().sendTitleInstant(player, line1, line2));
+	}
+
+	protected void sendTitle(@Nonnull String[] title, @Nonnull BiConsumer<String, String> send) {
+		if (title.length == 0)      send.accept("", "");
+		else if (title.length == 1) send.accept(title[0], "");
+		else                        send.accept(title[0], title[1]);
 	}
 
 	@Override

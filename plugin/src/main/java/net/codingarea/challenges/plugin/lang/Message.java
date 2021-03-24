@@ -29,6 +29,7 @@ public interface Message {
 
 	void broadcastTitle(@Nonnull Object... args);
 	void sendTitle(@Nonnull Player player, @Nonnull Object... args);
+	void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args);
 
 	void setValue(@Nonnull String value);
 	void setValue(@Nonnull String[] value);

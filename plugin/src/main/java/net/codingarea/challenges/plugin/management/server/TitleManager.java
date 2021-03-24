@@ -46,4 +46,8 @@ public final class TitleManager {
 		player.sendTitle(title, subtitle, fadein, duration, fadeout);
 	}
 
+	public void sendTitleInstant(@Nonnull Player player, @Nonnull String title, @Nonnull String subtitle) {
+		player.sendTitle(title, subtitle, 0, duration, fadeout);
+	}
+
 }
