@@ -8,12 +8,14 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
 
 /**
+ * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
@@ -27,13 +29,25 @@ public class PregameMovementSetting extends Setting {
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (ChallengeAPI.isStarted() || isEnabled()) return;
 
-		Location from = event.getFrom();
 		Location to = event.getTo();
 		if (to == null) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(from, to)) return;
+		if (BlockUtils.isSameLocationIgnoreHeight(event.getFrom(), to)) return;
 
-		event.setCancelled(true);
-		Message.forName("title-pregame-movement-setting").sendTitle(event.getPlayer());
+		Location target = event.getFrom().clone();
+		target.setY(target.getBlockY());
+		findNearestBlock(target);
+		target.add(0, 1, 0);
+
+		target.setPitch(to.getPitch());
+		target.setYaw(to.getYaw());
+		target.setDirection(to.getDirection());
+		event.setTo(target);
+
+		Message.forName("title-pregame-movement-setting").sendTitleInstant(event.getPlayer());
+	}
+
+	private void findNearestBlock(@Nonnull Location location) {
+		for (; location.getBlockY() > 0 && location.getBlock().isPassable(); location.subtract(0, 1, 0));
 	}
 
 	@Nonnull
