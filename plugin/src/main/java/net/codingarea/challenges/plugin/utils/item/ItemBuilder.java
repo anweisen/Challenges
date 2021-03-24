@@ -12,6 +12,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.*;
 import org.bukkit.potion.PotionEffect;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -54,7 +55,7 @@ public class ItemBuilder {
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull ItemDescription description) {
 		this(material);
-		applyFormat(builtByItemDescription = description);
+		applyFormat(description);
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name) {
@@ -209,6 +210,7 @@ public class ItemBuilder {
 
 	@Nonnull
 	public ItemBuilder applyFormat(@Nonnull ItemDescription description) {
+		builtByItemDescription = description;
 		setName(description.getName());
 		setLore(description.getLore());
 		return this;
@@ -313,6 +315,12 @@ public class ItemBuilder {
 	}
 
 	public static class PotionBuilder extends ItemBuilder {
+
+		@Nonnull
+		@CheckReturnValue
+		public static ItemBuilder createWaterBottle() {
+			return new PotionBuilder(Material.POTION).setColor(Color.BLUE).hideAttributes();
+		}
 
 		public PotionBuilder(@Nonnull Material material) {
 			super(material);
