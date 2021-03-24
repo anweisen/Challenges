@@ -17,6 +17,12 @@ description: |
   You can find more information on our discord: https://discord.gg/74Ay5zF.
 
 commands:
+  help:
+    usage: /help
+    description: "Provides with some information for this plugin"
+    aliases:
+      - hilfe
+      - h
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
