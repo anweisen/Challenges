@@ -15,13 +15,16 @@ public final class MessageManager {
 
 	private static final Map<String, Message> cache = new ConcurrentHashMap<>();
 
-	private MessageManager() {
-	}
+	private MessageManager() {}
 
 	@Nonnull
 	@CheckReturnValue
 	public static Message getOrCreateMessage(@Nonnull String name) {
 		return cache.computeIfAbsent(name, key -> new MessageImpl(key));
+	}
+
+	public static int getMessageCountCached() {
+		return cache.size();
 	}
 
 }
