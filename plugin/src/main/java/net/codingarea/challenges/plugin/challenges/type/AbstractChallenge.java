@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
 /**
@@ -54,7 +55,19 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	@Override
 	public ItemStack getSettingsItem() {
-		return createSettingsItem().build();
+		ItemBuilder item = createSettingsItem();
+		String[] description = getSettingsDescription();
+		if (description != null && isEnabled()) {
+			item.appendLore(" ");
+			item.appendLore(description);
+		}
+
+		return item.build();
+	}
+
+	@Nullable
+	protected String[] getSettingsDescription() {
+		return null;
 	}
 
 	@Nonnull
