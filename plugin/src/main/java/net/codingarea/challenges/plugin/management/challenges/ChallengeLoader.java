@@ -67,7 +67,7 @@ public final class ChallengeLoader {
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);
 		// Water MLG
-		// Reversed Damage
+		register(ReversedDamageChallenge.class);
 		// Hydra
 		// Doppeltes Spawning
 		// Anvil rain

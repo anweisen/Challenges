@@ -364,6 +364,11 @@
     "*Jeder Spieler* zieht eine",
     "tödliche Linie hinter sich her"
   ],
+  "item-reversed-damage-challenge": [
+    "§cReversed Damage",
+    "Beim *Schlagen* von *Mobs* bekommt",
+    "der Spieler den Schaden zurück"
+  ],
 
 
   "item-dragon-goal": [
