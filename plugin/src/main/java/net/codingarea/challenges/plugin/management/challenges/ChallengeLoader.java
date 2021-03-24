@@ -55,7 +55,7 @@ public final class ChallengeLoader {
 
 		// Challenges
 		register(TrafficLightChallenge.class);
-		// Snake
+		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class); // TODO: Zurück teleportieren zur main welt
 		// Corona
 		register(RandomizedHPChallenge.class);

@@ -59,4 +59,41 @@ public final class BlockUtils {
 		return list;
 	}
 
+	public static Material getTerracotta(int subid) {
+		switch (subid) {
+			case 2:
+				return Material.ORANGE_TERRACOTTA;
+			case 3:
+				return Material.MAGENTA_TERRACOTTA;
+			case 4:
+				return Material.LIGHT_BLUE_TERRACOTTA;
+			case 5:
+				return Material.YELLOW_TERRACOTTA;
+			case 6:
+				return Material.LIME_TERRACOTTA;
+			case 7:
+				return Material.PINK_TERRACOTTA;
+			case 8:
+				return Material.GRAY_TERRACOTTA;
+			case 9:
+				return Material.LIGHT_GRAY_TERRACOTTA;
+			case 10:
+				return Material.CYAN_TERRACOTTA;
+			case 11:
+				return Material.PURPLE_TERRACOTTA;
+			case 12:
+				return Material.BLUE_TERRACOTTA;
+			case 13:
+				return Material.BROWN_TERRACOTTA;
+			case 14:
+				return Material.GREEN_TERRACOTTA;
+			case 15:
+				return Material.RED_TERRACOTTA;
+			case 16:
+				return Material.BLACK_TERRACOTTA;
+			default:
+				return Material.WHITE_TERRACOTTA;
+		}
+	}
+
 }

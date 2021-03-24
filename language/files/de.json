@@ -82,6 +82,7 @@
   "jnr-countdown": "Nächstes §6JumpAndRun §7in §e{0} Sekunden",
   "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
+  "snake-failed": "§e{0} §7ist über die §9Linie §7getreten",
 
   "scoreboard-title": "§8» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -357,6 +358,11 @@
   ],
   "item-randomized-hp-challenge-description": [
     "§8» §7Maximale Leben: §e{0} §c❤"
+  ],
+  "item-snake-challenge": [
+    "§9Snake",
+    "*Jeder Spieler* zieht eine",
+    "tödliche Linie hinter sich her"
   ],
 
 
