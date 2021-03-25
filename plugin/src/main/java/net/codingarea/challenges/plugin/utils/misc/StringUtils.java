@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.ChatColor;
 
@@ -125,6 +126,44 @@ public final class StringUtils {
 	public static boolean isValidColorCode(@Nonnull String code) {
 		if (code.length() != 1) return false;
 		return isValidColorCode(code.toCharArray()[0]);
+	}
+
+	private static int getMultiplier(char c) {
+		switch (Character.toLowerCase(c)) {
+			default:    return 1;
+			case 'm':   return 60;
+			case 'h':   return 60*60;
+			case 'd':   return 24*60*60;
+			case 'w':   return 7*24*60*60;
+			case 'y':   return 365*24*60*60;
+		}
+	}
+
+	public static int parseSeconds(@Nonnull String input) {
+		int current = 0;
+		int seconds = 0;
+		for (char c : input.toCharArray()) {
+			try {
+				int i = Integer.parseInt(String.valueOf(c));
+				current *= 10;
+				current += i;
+			} catch (Exception ignored) {
+				int multiplier = getMultiplier(c);
+				seconds += current * multiplier;
+				current = 0;
+			}
+		}
+		seconds += current;
+		return seconds;
+	}
+
+	public static boolean isNumber(@Nonnull String sequence) {
+		try {
+			Long.parseLong(sequence);
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 
 }
