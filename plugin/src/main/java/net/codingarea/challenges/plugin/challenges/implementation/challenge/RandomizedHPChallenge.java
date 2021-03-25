@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -12,12 +11,13 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -31,6 +31,11 @@ public class RandomizedHPChallenge extends SettingModifier {
 
 	public RandomizedHPChallenge() {
 		super(MenuType.CHALLENGES, 5);
+	}
+
+	@Override
+	protected void onDisable() {
+		resetExistingEntityHealth();
 	}
 
 	@Override
@@ -64,7 +69,17 @@ public class RandomizedHPChallenge extends SettingModifier {
 				randomizeEntityHealth(entity);
 			}
 		}
+	}
 
+	private void resetExistingEntityHealth() {
+		for (World world : Bukkit.getWorlds()) {
+			for (LivingEntity entity : world.getLivingEntities()) {
+				if (entity instanceof Player) continue;
+				AttributeInstance attribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+				attribute.setBaseValue(attribute.getDefaultValue());
+				entity.setHealth(attribute.getDefaultValue());
+			}
+		}
 	}
 
 	@Nonnull
