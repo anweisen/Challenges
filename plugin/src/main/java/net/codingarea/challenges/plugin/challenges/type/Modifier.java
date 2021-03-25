@@ -52,7 +52,7 @@ public abstract class Modifier extends AbstractChallenge {
 		if (value > max) throw new IllegalArgumentException("value > max");
 		if (value < min) throw new IllegalArgumentException("value < min");
 		this.value = value;
-		onValueChange();
+		if (isEnabled()) onValueChange();
 		updateItems();
 	}
 
