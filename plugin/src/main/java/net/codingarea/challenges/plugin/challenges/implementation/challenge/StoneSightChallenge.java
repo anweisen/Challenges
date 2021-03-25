@@ -55,8 +55,8 @@ public class StoneSightChallenge extends Setting {
 
 			Bukkit.getScheduler().runTask(plugin, () -> {
 				entity.getLocation().getBlock().setType(getRandomStone(), false);
-				SoundSample.BREAK.broadcast(entity.getLocation());
 				entity.remove();
+				SoundSample.BREAK.play(player);
 			});
 
 		}
