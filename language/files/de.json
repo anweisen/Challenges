@@ -385,6 +385,11 @@
     "Wenn ein Monster *spawnt*,",
     "spawnt es *zweimal*"
   ],
+  "item-hydra-challenge": [
+    "§5Hydra",
+    "Wenn du einen *Mob* tötest",
+    "spawnen *zwei* neue"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
