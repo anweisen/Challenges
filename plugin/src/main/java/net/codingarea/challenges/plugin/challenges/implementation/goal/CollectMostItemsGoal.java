@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -50,13 +51,14 @@ public class CollectMostItemsGoal extends CollectionGoal {
 		Player player = (Player) event.getWhoClicked();
 		ItemStack item = event.getCurrentItem();
 		if (item == null) return;
+		if (!ItemUtils.isObtainableInSurvival(item.getType())) return;
 
 		handleNewItem(item.getType(), player);
 	}
 
 	protected void handleNewItem(@Nonnull Material material, @Nonnull Player player) {
 		collect(player, material, () -> {
-			Message.forName("death-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
 			SoundSample.PLING.play(player);
 		});
 	}
