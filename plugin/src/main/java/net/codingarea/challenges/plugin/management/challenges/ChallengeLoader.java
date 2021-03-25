@@ -70,7 +70,7 @@ public final class ChallengeLoader {
 		// Water MLG
 		register(ReversedDamageChallenge.class);
 		// Hydra
-		// Doppeltes Spawning
+		register(DupedSpawningChallenge.class);
 		// Anvil rain
 		register(NoExpChallenge.class);
 		register(NoTradingChallenge.class);
