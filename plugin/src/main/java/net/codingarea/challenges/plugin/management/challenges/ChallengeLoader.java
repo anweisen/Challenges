@@ -52,6 +52,7 @@ public final class ChallengeLoader {
 		register(MaxHealthModifier.class);
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
+		register(FortressSpawnSetting.class);
 
 		// Challenges
 		register(TrafficLightChallenge.class);

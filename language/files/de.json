@@ -73,6 +73,7 @@
   "positions-disabled": "Positionen sind §cdeaktiviert",
   "positions-other-world": "Diese Position befindet sich in einer anderen Welt §8(§e{0}§8)",
   "position-set": "§e{5} §7hat §e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §7erstellt",
+  "unable-to-find-fortress": "Es könnte §ckeine Festung §7gefunden werden",
   "death-collected": "Todesgrund §e{0} §7wurde registriert",
   "item-collected": "Item §e{0} §7wurde registriert",
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
@@ -276,6 +277,11 @@
     "Mit */top* kannst du dich",
     "zur *Oberfläche* oder in",
     "die *Overworld* teleportieren"
+  ],
+  "item-fortress-spawn-setting": [
+    "§cFestungs Spawn",
+    "Wenn du in den *Nether* gehst",
+    "spawnst du immer in einer *Festung*"
   ],
 
 
