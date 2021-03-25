@@ -113,6 +113,7 @@ public final class Challenges extends BukkitModule {
 	private void loadManagers() {
 
 		challengeLoader.load();
+		worldManager.load();
 
 	}
 

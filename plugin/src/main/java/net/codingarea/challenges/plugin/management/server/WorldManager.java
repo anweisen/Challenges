@@ -5,6 +5,7 @@ import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrappe
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -61,6 +62,14 @@ public final class WorldManager {
 		levelName = sessionConfig.getString("level-name", "world");
 	}
 
+	public void load()  {
+		executeWorldResetIfNecessary();
+	}
+
+	public void enable() {
+		loadExtraWorld();
+	}
+
 	public void prepareWorldReset(@Nullable CommandSender requestedBy) {
 
 		shutdownBecauseOfReset = true;
@@ -95,11 +104,6 @@ public final class WorldManager {
 
 	}
 
-	public void enable()  {
-		executeWorldResetIfNecessary();
-		loadExtraWorld();
-	}
-
 	private void loadExtraWorld() {
 		if (!Challenges.getInstance().isReload())
 			deleteWorld("challenges-extra");
@@ -122,6 +126,8 @@ public final class WorldManager {
 
 	public void executeWorldReset() {
 
+		Logger.info("Deleting worlds..");
+
 		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end" };
 		for (String world : worlds) {
 			deleteWorld(world);
@@ -136,6 +142,7 @@ public final class WorldManager {
 	private void deleteWorld(@Nonnull String name) {
 		File folder = new File(name);
 		FileUtils.deleteWorldFolder(folder);
+		Logger.info("Deleted world " + name);
 	}
 
 	private void stopServerNow() {
