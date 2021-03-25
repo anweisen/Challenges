@@ -274,10 +274,10 @@
     "Wenn du *stirbst*"
   ],
   "item-no-item-damage-setting": [
-    "§8Kein Itemschaden",
+    "§5Kein Itemschaden",
     "*Items* sind *unzerstörbar*"
   ],
-  "top-command-setting":[
+  "top-command-setting": [
     "§dTop Command",
     "Mit */top* kannst du dich",
     "zur *Oberfläche* oder in",
