@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.management.player;
 
 import net.anweisen.utilities.commons.config.Config;
-import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.AbstractConfig;
 import net.anweisen.utilities.commons.config.document.AbstractDocument;
 import org.bukkit.Location;
@@ -77,7 +76,7 @@ public final class ChallengePlayer extends AbstractConfig {
 
 	@Nonnull
 	@Override
-	public List<String> getList(@Nonnull String path) {
+	public List<String> getStringList(@Nonnull String path) {
 		return (List<String>) cache.getOrDefault(path, new ArrayList<>());
 	}
 
@@ -166,6 +165,12 @@ public final class ChallengePlayer extends AbstractConfig {
 	@Override
 	public Collection<String> keys() {
 		return cache.keySet();
+	}
+
+	@Nonnull
+	@Override
+	public Config readonly() {
+		throw new UnsupportedOperationException("ChallengePlayer.readonly()");
 	}
 
 	@Override
