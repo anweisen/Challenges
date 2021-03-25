@@ -51,6 +51,12 @@ public class HealthDisplaySetting extends Setting {
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 		if (isEnabled()) {
 			show(event.getPlayer());
+
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				Objective objective = player.getScoreboard().getObjective(OBJECTIVE_NAME);
+				if (objective == null) continue;
+				objective.getScore(event.getPlayer().getName()).setScore((int) event.getPlayer().getHealth());
+			}
 		} else {
 			hide(event.getPlayer());
 		}
