@@ -30,6 +30,8 @@ public final class ChallengeTimer {
 	private long time = 0;
 	private boolean countingUp = true;
 	private boolean paused = true;
+	private boolean hidden = false;
+	private boolean sentEmpty;
 
 	private final TimerFormat format;
 	private final String stoppedMessage, upMessage, downMessage;
@@ -57,6 +59,7 @@ public final class ChallengeTimer {
 
 			if (time <= 0) {
 				time = 0;
+				countingUp = true;
 				handleHitZero();
 			}
 		}
@@ -134,7 +137,10 @@ public final class ChallengeTimer {
 	}
 
 	public void updateActionbar() {
-		String actionbar = getActionbar();
+		if (sentEmpty && hidden) return;
+		if (hidden) sentEmpty = true;
+		String actionbar = hidden ? "":  getActionbar();
+
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionbar));
 		}
@@ -151,12 +157,14 @@ public final class ChallengeTimer {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		time = config.getInt("timer.seconds");
 		countingUp = config.getBoolean("timer.countingUp", true);
+		hidden = config.getBoolean("timer.hidden", false);
 	}
 
 	public synchronized void saveSession(boolean async) {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		config.set("timer.seconds", time);
 		config.set("timer.countingUp", countingUp);
+		config.set("timer.hidden", hidden);
 		config.save(async);
 	}
 
@@ -164,16 +172,28 @@ public final class ChallengeTimer {
 		time += amount;
 		if (time < 0)
 			time = 0;
+		updateActionbar();
 	}
 
 	public void setSeconds(int seconds) {
 		this.time = seconds;
+		updateActionbar();
 	}
 
 	public void setCountingUp(boolean countingUp) {
+		if (this.countingUp == countingUp) return;
+
 		this.countingUp = countingUp;
 		updateActionbar();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
+		SoundSample.BASS_ON.broadcast();
+	}
+
+	public void setHidden(boolean hide) {
+		this.sentEmpty = false;
+		this.hidden = hide;
+		updateActionbar();
 	}
 
 	@Nonnull

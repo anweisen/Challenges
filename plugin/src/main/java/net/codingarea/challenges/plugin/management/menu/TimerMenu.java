@@ -164,13 +164,7 @@ public final class TimerMenu {
 					}
 					return;
 				} else if (info.getSlot() == MODE_SLOT) {
-					if (Challenges.getInstance().getChallengeTimer().isCountingUp()) {
-						Challenges.getInstance().getChallengeTimer().setCountingUp(false);
-						SoundSample.BASS_OFF.play(info.getPlayer());
-					} else {
-						Challenges.getInstance().getChallengeTimer().setCountingUp(true);
-						SoundSample.BASS_ON.play(info.getPlayer());
-					}
+					Challenges.getInstance().getChallengeTimer().setCountingUp(!Challenges.getInstance().getChallengeTimer().isCountingUp());
 					return;
 				}
 			} else if (page == 1) {
@@ -194,7 +188,6 @@ public final class TimerMenu {
 
 						Challenges.getInstance().getChallengeTimer().addSeconds(plus ? +amount : -amount);
 						updateInventories();
-						Challenges.getInstance().getChallengeTimer().updateActionbar();
 
 						SoundSample.PLOP.play(info.getPlayer());
 						return;
