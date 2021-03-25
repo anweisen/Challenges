@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.files;
 
+import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
@@ -30,7 +31,7 @@ public final class ConfigManager {
 		try {
 			File file = Challenges.getInstance().getDataFile(filename);
 			FileUtils.createFilesIfNecessary(file);
-			return FileDocumentWrapper.create(file);
+			return new FileDocumentWrapper(file, new GsonDocument(file));
 		} catch (Exception ex) {
 			Logger.severe("Could not load config '" + filename + "': " + ex.getMessage());
 			return null;
