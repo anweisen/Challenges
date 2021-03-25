@@ -81,7 +81,7 @@ public abstract class CollectionGoal extends SettingGoal {
 		for (String key : scores.keys()) {
 			try {
 				UUID uuid = UUID.fromString(key);
-				List<String> collection = scores.getList(key);
+				List<String> collection = scores.getStringList(key);
 				collections.put(uuid, collection);
 			} catch (Exception ex) {
 				Logger.severe("Could not load scores for " + key);
