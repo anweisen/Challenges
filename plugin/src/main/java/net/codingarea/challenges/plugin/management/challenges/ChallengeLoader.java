@@ -62,8 +62,8 @@ public final class ChallengeLoader {
 		register(RandomizedHPChallenge.class);
 		register(DamagePerBlockChallenge.class);
 		// Food once
-		// Floor is Lava
 		//
+		register(FloorIsLavaChallenge.class);
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);

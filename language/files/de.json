@@ -390,6 +390,11 @@
     "Wenn du einen *Mob* tötest",
     "spawnen *zwei* neue"
   ],
+  "item-floor-lava-challenge": [
+    "§6Der Boden ist Lava",
+    "Alle *Blöcke* unter dir verwandeln sich",
+    "erst zu *Magma* und dann zu *Lava*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
