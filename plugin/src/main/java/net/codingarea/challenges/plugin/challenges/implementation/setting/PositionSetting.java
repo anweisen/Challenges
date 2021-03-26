@@ -9,20 +9,28 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class PositionSetting extends Setting implements PlayerCommand {
+public class PositionSetting extends Setting implements PlayerCommand, TabCompleter {
 
 	private final Map<String, Location> positions = new HashMap<>();
 
@@ -76,6 +84,13 @@ public class PositionSetting extends Setting implements PlayerCommand {
 		} else {
 			Message.forName("syntax").send(player, Prefix.POSITION, "position [name]");
 		}
+	}
+
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
+		if (args.length < 1) return new ArrayList<>();
+		return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
 	}
 
 	private String getWorldName(@Nonnull Location location) {

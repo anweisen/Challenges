@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBo
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
@@ -105,6 +106,11 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@CheckReturnValue
 	protected boolean shouldExecuteEffect() {
 		return isEnabled() && ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse();
+	}
+
+	@CheckReturnValue
+	protected boolean ignorePlayer(@Nonnull Player player) {
+		return player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE;
 	}
 
 	public final void broadcast(@Nonnull Consumer<Player> action) {

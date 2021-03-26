@@ -25,6 +25,12 @@ public class ReversedDamageChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.GOLDEN_SWORD, Message.forName("item-reversed-damage-challenge"));
+	}
+
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
 		if (!shouldExecuteEffect()) return;
@@ -44,12 +50,6 @@ public class ReversedDamageChallenge extends Setting {
 
 		double damage = event.getFinalDamage();
 		damager.damage(damage);
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.GOLDEN_SWORD, Message.forName("item-reversed-damage-challenge"));
 	}
 
 }

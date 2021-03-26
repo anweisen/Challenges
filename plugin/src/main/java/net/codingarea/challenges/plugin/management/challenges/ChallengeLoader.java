@@ -61,9 +61,9 @@ public final class ChallengeLoader {
 		// Corona
 		register(RandomizedHPChallenge.class);
 		register(DamagePerBlockChallenge.class);
-		// Food once
-		//
+		register(FoodOnceChallenge.class);
 		register(FloorIsLavaChallenge.class);
+		register(ChunkDeconstructionChallenge.class);
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);
@@ -77,10 +77,10 @@ public final class ChallengeLoader {
 		// Achievement damage
 		register(BlockBreakDamage.class);
 		register(BlockPlaceDamage.class);
-		// Only dirt
+		register(OnlyDirtChallenge.class);
 		// High jumps
 		register(DamageInventoryClearChallenge.class);
-		// One durability
+		register(OneDurabilityChallenge.class);
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		// Mob randomizer

@@ -31,6 +31,7 @@ public class RandomizedHPChallenge extends SettingModifier {
 
 	public RandomizedHPChallenge() {
 		super(MenuType.CHALLENGES, 5);
+		randomizeExistingEntityHealth();
 	}
 
 	@Override
@@ -58,6 +59,11 @@ public class RandomizedHPChallenge extends SettingModifier {
 
 	private void randomizeEntityHealth(@Nonnull LivingEntity entity) {
 		if (entity instanceof Player) return;
+		if (!isEnabled()) {
+			entity.resetMaxHealth();
+			entity.setHealth(entity.getMaxHealth());
+			return;
+		}
 		int health = new Random().nextInt(getValue() * 100) + 1;
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
 		entity.setHealth(health);

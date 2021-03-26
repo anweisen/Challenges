@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -33,6 +34,12 @@ public class InvertHealthChallenge extends TimedChallenge {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.POPPY, Message.forName("item-invert-health-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-min-max-time-seconds-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 
 	@Override

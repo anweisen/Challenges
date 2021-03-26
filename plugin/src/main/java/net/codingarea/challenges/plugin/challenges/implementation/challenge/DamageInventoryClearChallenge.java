@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -18,10 +19,10 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class DamageInventoryClearChallenge extends Modifier {
+public class DamageInventoryClearChallenge extends SettingModifier {
 
 	public DamageInventoryClearChallenge() {
-		super(MenuType.CHALLENGES, 0, 2);
+		super(MenuType.CHALLENGES, 1, 2);
 	}
 
 	@EventHandler
@@ -40,15 +41,11 @@ public class DamageInventoryClearChallenge extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createSettingsItem() {
-		if (isEnabled()) {
-			if (getValue() == 1) {
-				return new ItemBuilder(Material.ENDER_CHEST, DefaultItem.name("§5Everyone"));
-			} else {
-				return new ItemBuilder(Material.PLAYER_HEAD, DefaultItem.name("§6Player"));
-			}
+		if (getValue() == 1) {
+			return new ItemBuilder(Material.ENDER_CHEST, DefaultItem.name("§5Everyone"));
+		} else {
+			return new ItemBuilder(Material.PLAYER_HEAD, DefaultItem.name("§6Player"));
 		}
-
-		return DefaultItem.disabled();
 	}
 
 	@Override

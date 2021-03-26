@@ -26,6 +26,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 
 import static net.codingarea.challenges.plugin.utils.misc.RandomizeUtils.choose;
@@ -56,6 +57,12 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.ACACIA_STAIRS, Message.forName("item-jump-and-run-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-min-max-time-seconds-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 
 	@Override

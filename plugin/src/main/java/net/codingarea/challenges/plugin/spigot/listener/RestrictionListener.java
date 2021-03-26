@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -13,12 +14,14 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.BlockSpreadEvent;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
+import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
 import org.bukkit.util.BoundingBox;
 
@@ -124,6 +127,12 @@ public class RestrictionListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
+	public void onThunderChange(@Nonnull ThunderChangeEvent event) {
+		if (ChallengeAPI.isPaused() && event.toThunderState())
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
 	public void onTarget(@Nonnull EntityTargetEvent event) {
 		if (ChallengeAPI.isPaused() && event.getTarget() != null)
 			event.setCancelled(true);
@@ -135,6 +144,13 @@ public class RestrictionListener implements Listener {
 		Player player = (Player) event.getWhoClicked();
 		if (ChallengeAPI.isPaused() && player.getGameMode() != GameMode.CREATIVE)
 			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onBlockSpread(@Nonnull BlockSpreadEvent event) {
+		if (ChallengeAPI.isStarted()) return;
+		event.setCancelled(true);
+
 	}
 
 }

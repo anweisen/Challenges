@@ -22,6 +22,7 @@ import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
+import net.codingarea.challenges.plugin.utils.bukkit.command.ForwardingCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
 
 import javax.annotation.Nonnull;
@@ -133,11 +134,26 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
-		registerCommand(new PauseCommand(), "pause");
-		registerCommand(new StartCommand(), "start");
+		registerCommand(new ForwardingCommand("timer pause"), "pause");
+		registerCommand(new ForwardingCommand("timer pause"), "pause");
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
 		registerCommand(new ConfigCommand(), "config");
+		registerCommand(new VillageCommand(), "village");
+		registerCommand(new HealCommand(), "heal");
+		registerCommand(new GamemodeCommand(), "gamemode");
+		registerCommand(new ForwardingCommand("gamemode 0", false), "gms");
+		registerCommand(new ForwardingCommand("gamemode 1", false), "gmc");
+		registerCommand(new ForwardingCommand("gamemode 2", false), "gma");
+		registerCommand(new WeatherCommand(), "weather");
+		registerCommand(new ForwardingCommand("weather sun"), "sun");
+		registerCommand(new ForwardingCommand("weather rain"), "rain");
+		registerCommand(new ForwardingCommand("weather thunder"), "thunder");
+		registerCommand(new TimeCommand(), "time");
+		registerCommand(new ForwardingCommand("time set day"), "day");
+		registerCommand(new ForwardingCommand("time set night"), "night");
+		registerCommand(new ForwardingCommand("time set noon"), "noon");
+		registerCommand(new ForwardingCommand("time set midnight"), "midnight");
 	}
 
 	private void registerListeners() {

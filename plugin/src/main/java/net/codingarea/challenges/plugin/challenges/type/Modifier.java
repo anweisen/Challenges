@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -73,7 +74,7 @@ public abstract class Modifier extends AbstractChallenge {
 
 	@Override
 	public boolean isEnabled() {
-		return getValue() > 0;
+		return true;
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickI
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -57,8 +58,14 @@ public abstract class SettingModifier extends Modifier {
 
 	@Nonnull
 	@Override
+	public ItemStack getSettingsItem() {
+		return isEnabled() ? super.getSettingsItem() : DefaultItem.disabled().build();
+	}
+
+	@Nonnull
+	@Override
 	public ItemBuilder createSettingsItem() {
-		return enabled ? DefaultItem.enabled().amount(getValue()) : DefaultItem.disabled();
+		return DefaultItem.enabled().amount(getValue());
 	}
 
 	@Override

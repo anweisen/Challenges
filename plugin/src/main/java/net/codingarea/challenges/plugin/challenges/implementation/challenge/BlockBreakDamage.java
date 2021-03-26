@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockBreakEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -19,7 +20,7 @@ import javax.annotation.Nonnull;
 public class BlockBreakDamage extends SettingModifier {
 
 	public BlockBreakDamage() {
-		super(MenuType.CHALLENGES, 1, 40);
+		super(MenuType.CHALLENGES, 1, 60);
 	}
 
 	@EventHandler
@@ -38,6 +39,12 @@ public class BlockBreakDamage extends SettingModifier {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-block-break-damage-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
 	}
 
 }

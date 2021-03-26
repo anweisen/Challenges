@@ -11,6 +11,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.BlockPlaceEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -21,7 +22,7 @@ import javax.annotation.Nonnull;
 public class BlockPlaceDamage extends SettingModifier {
 
 	public BlockPlaceDamage() {
-		super(MenuType.CHALLENGES, 1, 40);
+		super(MenuType.CHALLENGES, 1, 60);
 	}
 
 	@EventHandler
@@ -40,6 +41,12 @@ public class BlockPlaceDamage extends SettingModifier {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.GOLD_BLOCK, Message.forName("item-block-place-damage-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
 	}
 
 }

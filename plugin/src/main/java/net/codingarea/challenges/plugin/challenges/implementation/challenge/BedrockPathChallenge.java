@@ -28,10 +28,7 @@ public class BedrockPathChallenge extends Setting {
 		if (!shouldExecuteEffect()) return;
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
 
-		Location location = event.getTo();
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), location)) return;
-		if (event.getTo() == null) return;
-		event.getTo().clone().subtract(0, 0.0626, 0).getBlock().setType(Material.BEDROCK);
+		BlockUtils.createBlockPath(event.getFrom(), event.getTo(), Material.BEDROCK);
 	}
 
 	@Nonnull

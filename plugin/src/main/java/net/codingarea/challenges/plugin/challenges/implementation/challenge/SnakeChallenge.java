@@ -34,6 +34,12 @@ public class SnakeChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.BLUE_TERRACOTTA, Message.forName("item-snake-challenge"));
+	}
+
 	@Override
 	protected void onEnable() {
 
@@ -66,7 +72,7 @@ public class SnakeChallenge extends Setting {
 		}
 
 		if (to.getType().isSolid()) {
-			to.setType(Material.BLACK_TERRACOTTA);
+			to.setType(Material.BLACK_TERRACOTTA, false);
 
 			Block block = event.getPlayer().getLocation().getBlock();
 			if (!block.getType().isSolid()) {
@@ -87,12 +93,6 @@ public class SnakeChallenge extends Setting {
 
 		return 0;
 
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.BLUE_TERRACOTTA, Message.forName("item-snake-challenge"));
 	}
 
 }

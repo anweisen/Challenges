@@ -18,11 +18,11 @@ description: |
 
 commands:
   help:
-    usage: /help
+    usage: "/help"
     description: "Provides with some information for this plugin"
     aliases:
-      - hilfe
-      - h
+      - "hilfe"
+      - "h"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
@@ -32,21 +32,21 @@ commands:
     permission: "challenges.gui"
     description: "Opens the Settings GUI"
     aliases:
-      - c
-      - settings
-      - challenge
+      - "c"
+      - "settings"
+      - "challenge"
   timer:
     usage: "/timer <set/stop/set>"
     description: "Start/Stops/Sets the timer"
     permission: "challenges.gui"
     aliases:
-      - t
+      - "t"
   start:
     usage: "/start"
     description: "Start the timer"
     permission: "challenges.gui"
     aliases:
-      - resume
+      - "resume"
   pause:
     usage: "/pause"
     description: "Pauses the timer"
@@ -58,20 +58,78 @@ commands:
     usage: "/pos [player]"
     description: "Allows you to save locations"
     aliases:
-      - pos
-      - coords
+      - "pos"
+      - "coords"
   backpack:
     usage: "/bp"
     description: "Opens the player's or the shared backpack"
     aliases:
-      - bp
+      - "bp"
   config:
-    usage: /config <save/load>
+    usage: "/config <save/load>"
     description: "Allows you to save/load your challenge setting over multiple servers using a database"
     aliases:
-      - config
+      - "config"
   top:
     usage: "/top"
     description: "Teleports you to the surface or to the overworld"
     aliases:
-      - up
+      - "up"
+  village:
+    usage: "/village"
+    description: "Teleports you to a not generated village"
+    permission: "challenges.village"
+  heal:
+    usage: "/heal <player | @a | @p | @s | @r>"
+    description: "Heals yourself or other players"
+    permission: "challenges.heal"
+  gamemode:
+    usage: "/gm <0 | 1 | 2 | 3> <player | @a | @p | @s | @r>"
+    aliases:
+      - "gm"
+    permission: "challenges.gamemode"
+  gmc:
+    usage: "/gmc <player | @a | @p | @s | @r>"
+    permission: "challenges.gamemode"
+  gms:
+    usage: "/gms <player | @a | @p | @s | @r>"
+    permission: "challenges.gamemode"
+  gma:
+    usage: "/gma <player | @a | @p | @s | @r>"
+    permission: "challenges.gamemode"
+  weather:
+    usage: "/weather <clear | sun | rain | thunder>"
+    description: "Changed the weather"
+    permission: "challenges.weather"
+  sun:
+    usage: "/sun"
+    description: "Makes the weather sunny"
+    permission: "challenges.weather"
+  rain:
+    usage: "/rain"
+    description: "Makes the weather rainy"
+    permission: "challenges.weather"
+  thunder:
+    usage: "/thunder"
+    description: "Makes the weather thundery"
+    permission: "challenges.weather"
+  time:
+    usage: "/time <day | night | noon | midnight | set | add | remove | query>"
+    description: "Sets the time"
+    permission: "challenges.time"
+  day:
+    usage: "/day"
+    description: "Makes the time to day"
+    permission: "challenges.time"
+  night:
+    usage: "/night"
+    description: "Makes the time to night"
+    permission: "challenges.time"
+  noon:
+    usage: "/noon"
+    description: "Makes the time to noon"
+    permission: "challenges.time"
+  midnight:
+    usage: "/midnight"
+    description: "Makes the time to midnight"
+    permission: "challenges.time"

@@ -63,18 +63,25 @@
   "stat-blocks-traveled": "Blöcke gereist",
   "stat-challenges-played": "Challenges gespielt",
 
+  "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
+  "no-positions": [
+    "Es sind keine §ePositionen §7in dieser Welt gesetzt",
+    "Erstelle eine mit §e/{0}"
+  ],
+
+  "command-heal-healed": "Du wurdest §ageheilt",
+  "command-heal-healed-others": "Du hast §e{0} Spieler §ageheilt",
+  "command-heal-no-target": "Es wurde §ckein §Spieler gefunden",
+  "command-gamemode-gamemode-changed": "Du wurdest in den Gamemode §e{0} §7gesetzt",
+  "command-gamemode-gamemode-changed-others": "Du hast §e{1} Spieler §7in den Gamemode §e{0} §7gesetzt",
+  "command-gamemode-no-target": "Es wurde §ckein §Spieler gefunden",
+
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
   "death-message": "§e{0} §7ist gestorben",
   "death-message-cause": "§e{0} §7ist durch §e{1} §7gestorben",
   "health-inverted": "Deine Herzen wurden §cinvertiert",
   "exp-picked-up": "§e{0} §7hat XP aufgesammelt",
-
-  "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
-  "no-positions": [
-    "Es sind keine §ePositionen §7in dieser Welt gesetzt",
-    "Erstelle eine mit §e/{0}"
-  ],
   "positions-disabled": "Positionen sind §cdeaktiviert",
   "positions-other-world": "Diese Position befindet sich in einer anderen Welt §8(§e{0}§8)",
   "position-set": "§e{5} §7hat §e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §7erstellt",
@@ -89,6 +96,7 @@
   "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
   "snake-failed": "§e{0} §7ist über die §9Linie §7getreten",
+  "only-dirt-failed": "§e{0} §7stand nicht auf Erde",
 
   "scoreboard-title": "§8» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -168,6 +176,16 @@
   "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
   "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
   "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
+
+  "item-time-seconds-description": [
+    "§8» §7Zeit: §e{0} §7Sekunden"
+  ],
+  "item-heart-damage-description": [
+    "§8» §7Schaden: §e{0} §c❤"
+  ],
+  "item-min-max-time-seconds-description": [
+    "§8» §7Zeit: §e{0}-{1} §7Sekunden"
+  ],
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -395,6 +413,26 @@
     "Alle *Blöcke* unter dir verwandeln sich",
     "erst zu *Magma* und dann zu *Lava*"
   ],
+  "item-only-dirt-challenge": [
+    "§cOnly Dirt",
+    "Wenn du nicht auf *Erde*",
+    "stehst, *stirbst* du"
+  ],
+  "item-food-once-challenge": [
+    "§cFood Once",
+    "Du kannst jeden *Essen*",
+    "nur einmal *essen*"
+  ],
+  "item-chunk-deconstruction-challenge": [
+    "§bChunk Deconstruction",
+    "*Chunks*, in denen sich Spieler befinden",
+    "*bauen* sich von *oben* aus ab"
+  ],
+  "item-one-durability-challenge": [
+    "§4Eine Haltbarkeit",
+    "*Items* gehen nach *einer* Benutzung *kaputt*"
+  ],
+
 
   "item-dragon-goal": [
     "§5Enderdrache",

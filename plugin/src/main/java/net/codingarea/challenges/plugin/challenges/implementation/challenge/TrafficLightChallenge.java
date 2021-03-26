@@ -17,8 +17,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -41,6 +43,12 @@ public class TrafficLightChallenge extends TimedChallenge {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.LIME_STAINED_GLASS, Message.forName("item-traffic-light-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-min-max-time-seconds-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 
 	@Override

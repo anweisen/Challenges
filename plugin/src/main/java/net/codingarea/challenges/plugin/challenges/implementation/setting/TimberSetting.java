@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -17,15 +18,15 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class TimberSetting extends Modifier {
+public class TimberSetting extends SettingModifier {
 
 	public TimberSetting() {
-		super(MenuType.SETTINGS, 3);
+		super(MenuType.SETTINGS, 2);
 	}
 
 	@EventHandler
 	public void onBreak(@Nonnull BlockBreakEvent event) {
-		if (getValue() == 1 || !ChallengeAPI.isStarted()) return;
+		if (!shouldExecuteEffect()) return;
 		if (!isLog(event.getBlock().getType())) return;
 
 		// TODO: HANDLE TIMBER BREAK
@@ -41,12 +42,9 @@ public class TimberSetting extends Modifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == 1) {
-			return DefaultItem.status(false);
-		} else if (getValue() == 2) {
 			return new ItemBuilder(Material.OAK_LOG, "§6Logs");
-		} else {
-			return new ItemBuilder(Material.OAK_LEAVES, "§2Logs & Leaves");
 		}
+		return new ItemBuilder(Material.OAK_LEAVES, "§2Logs & Leaves");
 	}
 
 	private boolean isLog(Material material) {

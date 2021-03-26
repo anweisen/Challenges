@@ -14,6 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -44,6 +45,12 @@ public class DamagePerBlockChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-damage-block-challenge")).setColor(Color.RED);
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
 	}
 
 }
