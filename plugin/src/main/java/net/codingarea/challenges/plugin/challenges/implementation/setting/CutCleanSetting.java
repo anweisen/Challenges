@@ -133,9 +133,12 @@ public class CutCleanSetting extends MenuSetting {
 
 					Block currentBlock = allBlocks.get(index.get());
 
-					if (currentBlock.getType() == material) {
-						List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(currentBlock.getType());
+					Material blockType = currentBlock.getType();
+					if (blockType == material) {
 
+						if (!Challenges.getInstance().getBlockDropManager().getDropChance(blockType).getAsBoolean()) return;
+
+						List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(blockType);
 						if (!customDrops.isEmpty()) {
 							customDrops.forEach(drop -> currentBlock.getWorld().dropItemNaturally(currentBlock.getLocation(), new ItemStack(drop)));
 							currentBlock.setType(Material.AIR);
