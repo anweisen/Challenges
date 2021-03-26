@@ -380,7 +380,21 @@
     "Beim *Schlagen* von *Mobs* bekommt",
     "der Spieler den Schaden zurück"
   ],
-
+  "item-duped-spawning-challenge": [
+    "§cDoppeltes Spawning",
+    "Wenn ein Monster *spawnt*,",
+    "spawnt es *zweimal*"
+  ],
+  "item-hydra-challenge": [
+    "§5Hydra",
+    "Wenn du einen *Mob* tötest",
+    "spawnen *zwei* neue"
+  ],
+  "item-floor-lava-challenge": [
+    "§6Der Boden ist Lava",
+    "Alle *Blöcke* unter dir verwandeln sich",
+    "erst zu *Magma* und dann zu *Lava*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
