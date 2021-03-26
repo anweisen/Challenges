@@ -432,6 +432,14 @@
     "§4Eine Haltbarkeit",
     "*Items* gehen nach *einer* Benutzung *kaputt*"
   ],
+  "item-low-drop-rate-challenge": [
+    "§6Low Drop Chance",
+    "Die *Dropchance* jedes *Blockes* wird auf die",
+    "angegebene *Prozentzahl* gesetzt"
+  ],
+  "item-low-drop-rate-challenge-description": [
+    "§8» §7Chance: §e{0}%"
+  ],
 
 
   "item-dragon-goal": [
