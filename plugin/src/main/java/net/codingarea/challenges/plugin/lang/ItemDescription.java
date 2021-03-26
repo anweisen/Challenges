@@ -20,7 +20,7 @@ public final class ItemDescription {
 	private final String originalName;
 
 	public static ItemDescription empty() {
-		return new ItemDescription(new String[0], Message.NULL, new String[0]);
+		return new ItemDescription(new String[] { "§e" }, Message.NULL, new String[0]);
 	}
 
 	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String name, @Nonnull String[] formattedLore) {
