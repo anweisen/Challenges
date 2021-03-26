@@ -2,8 +2,10 @@ package net.codingarea.challenges.plugin.utils.misc;
 
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
+import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,7 +20,8 @@ public final class BlockUtils {
 
 	private BlockUtils() {}
 
-	public static boolean isSameBlock(@Nonnull Location loc1, @Nonnull Location loc2) {
+	public static boolean isSameBlock(@Nullable Location loc1, @Nullable Location loc2) {
+		if (loc1 == null || loc2 == null) return false;
 		return loc1.getBlockX() == loc2.getBlockX()
 		 	&& loc1.getBlockY() == loc2.getBlockY()
 			&& loc1.getBlockZ() == loc2.getBlockZ();
@@ -49,7 +52,7 @@ public final class BlockUtils {
 	 * @param block middle block
 	 * @return returns the block above, under, in the front, behind, to the left and to the right of the middle block
 	 */
-	public static List<Block> getBlocksAroundBlock(Block block) {
+	public static List<Block> getBlocksAroundBlock(@Nonnull Block block) {
 		List<Block> list = new ArrayList<>();
 
 		for (BlockFace face : faces) {
@@ -94,6 +97,63 @@ public final class BlockUtils {
 			default:
 				return Material.WHITE_TERRACOTTA;
 		}
+	}
+
+	public static void createBlockPath(@Nullable Location from, @Nullable Location to, @Nonnull Material type) {
+		createBlockPath(from, to, type, true);
+	}
+
+	public static void createBlockPath(@Nullable Location from, @Nullable Location to, @Nonnull Material type, boolean playSound) {
+		if (from == null || to == null) return;
+		if (isSameBlockIgnoreHeight(from, to)) return;
+
+		setBlockNatural(getBlockBelow(to), type, playSound);
+	}
+
+	/**
+	 * Sets the material of the block and breaks snow or other not solid blocks on top of it
+	 *
+	 * @param block the block of block to replace
+	 * @param type the type to set as the block type
+	 */
+	public static void setBlockNatural(@Nullable Block block, @Nonnull Material type, boolean blockUpdate) {
+		setBlockNatural(block, type, blockUpdate, true);
+	}
+
+	/**
+	 * Sets the material of the block and breaks snow or other not solid blocks on top of it
+	 *
+	 * @param block the block of block to replace
+	 * @param type the type to set as the block type
+	 * @param playSound if a breaking sound for the block on top should be played
+	 */
+	public static void setBlockNatural(@Nullable Block block, @Nonnull Material type, boolean blockUpdate, boolean playSound) {
+		if (block == null || !block.getType().isSolid()) return;
+
+		Block upperBlock = block.getLocation().add(0, 1, 0).getBlock();
+
+		if (!upperBlock.getType().isSolid()) {
+			upperBlock.breakNaturally();
+			if (playSound) {
+				// TODO: PLAY THE RIGHT BREAKING SOUND FOR THE BLOCK
+			}
+
+		}
+
+		block.setType(type, blockUpdate);
+	}
+
+	/**
+	 * @param location the location to get the block below
+	 * @return the block below the location
+	 */
+	@Nullable
+	public static Block getBlockBelow(@Nonnull Location location) {
+		Block block = location.getBlock().getLocation().subtract(0, 0.1, 0).getBlock();
+		if (!block.getType().isSolid()) {
+			return null;
+		}
+		return block;
 	}
 
 }
