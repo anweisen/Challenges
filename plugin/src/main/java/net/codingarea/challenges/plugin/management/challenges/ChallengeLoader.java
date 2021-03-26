@@ -91,6 +91,7 @@ public final class ChallengeLoader {
 		// Force mob kill
 		register(InvertHealthChallenge.class);
 		register(StoneSightChallenge.class);
+		register(LowDropRateChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
