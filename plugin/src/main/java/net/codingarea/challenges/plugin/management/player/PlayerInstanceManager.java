@@ -16,12 +16,7 @@ public final class PlayerInstanceManager {
 
 	@Nonnull
 	public static ChallengePlayer getPlayer(@Nonnull Player player) {
-		ChallengePlayer challengePlayer = players.get(player);
-		if (challengePlayer != null) return challengePlayer;
-
-		challengePlayer = new ChallengePlayer(player);
-		players.put(player, challengePlayer);
-		return challengePlayer;
+		return players.computeIfAbsent(player, key -> new ChallengePlayer(player));
 	}
 
 }
