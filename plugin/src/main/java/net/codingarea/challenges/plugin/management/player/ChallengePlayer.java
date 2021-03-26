@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.management.player;
 
 import net.anweisen.utilities.commons.config.Config;
 import net.anweisen.utilities.commons.config.document.AbstractConfig;
-import net.anweisen.utilities.commons.config.document.AbstractDocument;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
