@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,60 +26,50 @@ public class BlockDropListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
-
-		Material block = event.getBlock().getType();
-		List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(block);
-		if (drops.isEmpty()) return;
-
-		Location location = event.getBlock().getLocation().clone().add(0.5, 0, 0.5);
-		if (!location.isWorldLoaded()) return;
-
-		event.setDropItems(false);
-		for (Material drop : drops) {
-			location.getWorld().dropItem(location, new ItemStack(drop));
-		}
+		dropCustomDrops(event.getBlock(), () -> event.setDropItems(false));
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockExplosion(@Nonnull BlockExplodeEvent event) {
-		for (Block block : event.blockList()) {
-
-			Material material = block.getType();
-			if (material.isAir()) continue;
-
-			List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(material);
-			if (drops.isEmpty()) return;
-
-			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
-			if (!location.isWorldLoaded()) continue;
-
-			event.setYield(0);
-			for (Material drop : drops) {
-				location.getWorld().dropItem(location, new ItemStack(drop));
-			}
-
-		}
+		handleExplosion(event.blockList(), () -> event.setYield(0));
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onEntityExplosion(@Nonnull EntityExplodeEvent event) {
-		for (Block block : event.blockList()) {
+		handleExplosion(event.blockList(), () -> event.setYield(0));
+	}
 
-			Material material = block.getType();
-			if (material.isAir()) continue;
-
-			List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(material);
-			if (drops.isEmpty()) return;
-
-			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
-			if (!location.isWorldLoaded()) continue;
-
-			event.setYield(0);
-			for (Material drop : drops) {
-				location.getWorld().dropItem(location, new ItemStack(drop));
-			}
-
+	protected void handleExplosion(@Nonnull Iterable<Block> blocklist, @Nonnull Runnable dropsExist) {
+		for (Block block : blocklist) {
+			dropCustomDrops(block, dropsExist);
 		}
+	}
+
+	protected void dropCustomDrops(@Nonnull Block block, @Nonnull Runnable dropsExist) {
+
+		Material material = block.getType();
+		if (material.isAir()) return;
+
+		if (!Challenges.getInstance().getBlockDropManager().getDropChance(material).getAsBoolean()) {
+			dropsExist.run();
+			return;
+		}
+
+		List<Material> drops = Challenges.getInstance().getBlockDropManager().getCustomDrops(material);
+		if (drops.isEmpty()) return;
+
+		Location location = block.getLocation().clone().add(0.5, 0, 0.5);
+		if (!location.isWorldLoaded()) return;
+
+		dropsExist.run();
+		for (Material drop : drops) {
+			try {
+				location.getWorld().dropItem(location, new ItemStack(drop));
+			} catch (Exception ex) {
+				Logger.severe("Unable to drop custom drop " + drop, ex);
+			}
+		}
+
 	}
 
 }
