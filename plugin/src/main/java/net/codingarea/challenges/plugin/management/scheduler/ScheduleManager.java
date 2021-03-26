@@ -97,6 +97,7 @@ public final class ScheduleManager {
 	}
 
 	public void fireTimerStatusChange() {
+		if (!started) return;
 		for (TimerTaskExecutor executor : timerTaskExecutorsByConfig.values()) {
 			if (executor.getConfig().getStatus() != ChallengeAPI.getTimerStatus()) continue;
 			executor.execute();
