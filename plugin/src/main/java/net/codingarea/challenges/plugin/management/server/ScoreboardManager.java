@@ -36,7 +36,7 @@ public final class ScoreboardManager {
 			bossbar.applyShow(player);
 		}
 		if (currentScoreboard != null) {
-			currentScoreboard.applyShow(player);
+			currentScoreboard.update();
 		}
 	}
 
