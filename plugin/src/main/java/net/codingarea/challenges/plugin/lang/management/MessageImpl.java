@@ -31,7 +31,7 @@ public class MessageImpl implements Message {
 	public String asString(@Nonnull Object... args) {
 		if (value == null)                      return Message.NULL;
 		if (value instanceof String)            return StringUtils.format((String) value, args);
-		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args));
+		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
 		Logger.severe("Message '" + name + "' has an illegal value " + value.getClass().getName());
 		return Message.NULL;

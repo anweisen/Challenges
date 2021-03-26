@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.ChatColor;
 
@@ -83,10 +82,10 @@ public final class StringUtils {
 	}
 
 	@Nonnull
-	public static String getArrayAsString(@Nonnull String[] array) {
+	public static String getArrayAsString(@Nonnull String[] array, @Nonnull String separator) {
 		StringBuilder builder = new StringBuilder();
 		for (String string : array) {
-			if (builder.length() != 0) builder.append('\n');
+			if (builder.length() != 0) builder.append(separator);
 			builder.append(string);
 		}
 		return builder.toString();
@@ -98,10 +97,10 @@ public final class StringUtils {
 	}
 
 	@Nonnull
-	public static <T> String getIterableAsString(@Nonnull Iterable<T> iterable, @Nonnull Function<T, String> mapper) {
+	public static <T> String getIterableAsString(@Nonnull Iterable<T> iterable, @Nonnull String separator, @Nonnull Function<T, String> mapper) {
 		StringBuilder builder = new StringBuilder();
 		for (T t : iterable) {
-			if (builder.length() > 0) builder.append(", ");
+			if (builder.length() > 0) builder.append(separator);
 			String string = mapper.apply(t);
 			builder.append(string);
 		}

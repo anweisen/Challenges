@@ -63,7 +63,7 @@ public class TimerCommand implements SenderCommand, Completer {
 				Challenges.getInstance().getChallengeTimer().reset();
 				break;
 			case "set":
-				int seconds = StringUtils.parseSeconds(StringUtils.getArrayAsString(args));
+				int seconds = StringUtils.parseSeconds(StringUtils.getArrayAsString(args, " "));
 				Challenges.getInstance().getChallengeTimer().setSeconds(seconds);
 				Message.forName("timer-was-set").send(sender, Prefix.TIMER, Challenges.getInstance().getChallengeTimer().getFormattedTime());
 				break;

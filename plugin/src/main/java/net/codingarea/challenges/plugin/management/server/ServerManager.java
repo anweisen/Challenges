@@ -62,7 +62,7 @@ public final class ServerManager {
 		if (currentGoal != null)
 			currentGoal.getWinnersOnEnd(winners);
 
-		String winnerString = StringUtils.getIterableAsString(winners, NameHelper::getName);
+		String winnerString = StringUtils.getIterableAsString(winners, ", ", NameHelper::getName);
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
 		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
