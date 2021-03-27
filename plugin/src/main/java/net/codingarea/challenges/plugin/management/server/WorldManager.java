@@ -6,6 +6,7 @@ import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -79,7 +80,7 @@ public final class WorldManager {
 
 		resetConfigs();
 
-		String requester = requestedBy instanceof Player ? ((Player)requestedBy).getDisplayName() : "§4§lConsole";
+		String requester = requestedBy instanceof Player ? NameHelper.getName((Player) requestedBy) : "§4§lConsole";
 		String kickMessage = Message.forName("server-reset").asString(requester);
 		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
 
