@@ -96,10 +96,12 @@ public final class ChallengeLoader {
 		// Goal
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
+		register(KillElderGuardianGoal.class);
 		register(LastManStandingGoal.class);
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
+		register(CollectMostExpGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
