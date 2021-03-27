@@ -32,16 +32,6 @@ public final class ScheduledFunction {
 	}
 
 	private boolean shouldInvoke() {
-//		if (annotation.timerPolicy() == TimerPolicy.STARTED && ChallengeAPI.isPaused()) return false;
-//		if (annotation.timerPolicy() == TimerPolicy.PAUSED  && ChallengeAPI.isStarted()) return false;
-//		if (annotation.playerPolicy() == PlayerCountPolicy.EMPTY && !Bukkit.getOnlinePlayers().isEmpty()) return false;
-//		if (annotation.playerPolicy() == PlayerCountPolicy.SOME_ONE && Bukkit.getOnlinePlayers().isEmpty()) return false;
-//		if (annotation.playerPolicy() == PlayerCountPolicy.FULL && Bukkit.getOnlinePlayers().size() != Bukkit.getMaxPlayers()) return false;
-//		if (holder instanceof IChallenge) {
-//			IChallenge challenge = (IChallenge) holder;
-//			if (annotation.challengePolicy() == ChallengeStatusPolicy.ENABLED  && !challenge.isEnabled()) return false;
-//			if (annotation.challengePolicy() == ChallengeStatusPolicy.DISABLED &&  challenge.isEnabled()) return false;
-//		}
 		return policies.allPoliciesAreTrue(holder);
 	}
 
