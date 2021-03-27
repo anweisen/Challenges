@@ -8,6 +8,8 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
 import org.bukkit.Bukkit;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -39,8 +41,11 @@ public class MaxHealthModifier extends Modifier {
 	@Override
 	public void onValueChange() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.setMaxHealth(getValue());
-			player.setHealth(getValue());
+			AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+			if (attribute.getBaseValue() != getValue()) {
+				attribute.setBaseValue(getValue());
+				player.setHealth(getValue());
+			}
 		}
 	}
 
@@ -51,7 +56,7 @@ public class MaxHealthModifier extends Modifier {
 
 	@EventHandler
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		event.getPlayer().setMaxHealth(getValue());
+		event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getValue());
 	}
 
 }
