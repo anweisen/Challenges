@@ -30,8 +30,7 @@ public final class ChallengeScoreboard {
 		private String title = Message.forName("scoreboard-title").asString();
 		private int linesIndex = 0;
 
-		private ScoreboardInstance() {
-		}
+		private ScoreboardInstance() {}
 
 		@Nonnull
 		public ScoreboardInstance setTitle(@Nonnull String title) {
@@ -74,10 +73,6 @@ public final class ChallengeScoreboard {
 
 	public void setContent(@Nonnull BiConsumer<ScoreboardInstance, Player> content) {
 		this.content = content;
-	}
-
-	public void applyShow(@Nonnull Player player) {
-		update(player);
 	}
 
 	public void applyHide(@Nonnull Player player) {

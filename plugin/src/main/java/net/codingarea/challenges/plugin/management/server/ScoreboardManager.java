@@ -33,7 +33,7 @@ public final class ScoreboardManager {
 
 	public void handleJoin(@Nonnull Player player) {
 		for (ChallengeBossBar bossbar : bossbars) {
-			bossbar.applyShow(player);
+			bossbar.update();
 		}
 		if (currentScoreboard != null) {
 			currentScoreboard.update();
@@ -43,7 +43,7 @@ public final class ScoreboardManager {
 	public void showBossBar(@Nonnull ChallengeBossBar bossbar) {
 		if (bossbars.contains(bossbar)) return;
 		bossbars.add(bossbar);
-		Bukkit.getOnlinePlayers().forEach(bossbar::applyShow);
+		bossbar.update();
 	}
 
 	public void hideBossBar(@Nonnull ChallengeBossBar bossbar) {
@@ -62,7 +62,7 @@ public final class ScoreboardManager {
 
 		// Add new scoreboard if available
 		if (scoreboard == null) return;
-		Bukkit.getOnlinePlayers().forEach(scoreboard::applyShow);
+		scoreboard.update();
 	}
 
 	@Nullable

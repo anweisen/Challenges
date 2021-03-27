@@ -53,8 +53,23 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	@Override
 	public void onEnable() {
-		updateBossBar();
-		bossbar.show();
+		bossbar.setContent((bossbar, player) -> {
+			switch (state) {
+				case GREEN:
+					bossbar.setColor(BarColor.GREEN);
+					bossbar.setTitle("§8{ §a§l■■■ §8} §8{ §7§l■■■ §8} §8{ §7§l■■■ §8}");
+					break;
+				case YELLOW:
+					bossbar.setColor(BarColor.YELLOW);
+					bossbar.setTitle("§8{ §7§l■■■ §8} §8{ §e§l■■■ §8} §8{ §7§l■■■ §8}");
+					break;
+				case RED:
+					bossbar.setColor(BarColor.RED);
+					bossbar.setTitle("§8{ §7§l■■■ §8} §8{ §7§l■■■ §8} §8{ §c§l■■■ §8}");
+					break;
+			}
+		});
+		this.bossbar.show();
 	}
 
 	@Override
@@ -74,36 +89,19 @@ public class TrafficLightChallenge extends TimedChallenge {
 				state = YELLOW;
 				restartTimer(2);
 				SoundSample.BASS_OFF.broadcast();
-				updateBossBar();
+				bossbar.update();
 				break;
 			case YELLOW:
 				state = RED;
 				restartTimer(3);
 				SoundSample.BASS_OFF.broadcast();
-				updateBossBar();
+				bossbar.update();
 				break;
 			case RED:
 				state = GREEN;
 				restartTimer();
 				SoundSample.BASS_ON.broadcast();
-				updateBossBar();
-				break;
-		}
-	}
-
-	private void updateBossBar() {
-		switch (state) {
-			case GREEN:
-				bossbar.setColor(BarColor.GREEN);
-				bossbar.setTitle("§8{ §a§l■■■ §8} §8{ §7§l■■■ §8} §8{ §7§l■■■ §8}");
-				break;
-			case YELLOW:
-				bossbar.setColor(BarColor.YELLOW);
-				bossbar.setTitle("§8{ §7§l■■■ §8} §8{ §e§l■■■ §8} §8{ §7§l■■■ §8}");
-				break;
-			case RED:
-				bossbar.setColor(BarColor.RED);
-				bossbar.setTitle("§8{ §7§l■■■ §8} §8{ §7§l■■■ §8} §8{ §c§l■■■ §8}");
+				bossbar.update();
 				break;
 		}
 	}
@@ -116,7 +114,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 		if (BlockUtils.isSameLocation(event.getFrom(), event.getTo())) return;
 
 		state = GREEN;
-		updateBossBar();
+		bossbar.update();
 		restartTimer();
 
 		Player player = event.getPlayer();
