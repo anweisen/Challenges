@@ -25,7 +25,7 @@ public final class ChallengeBossBar {
 		private double progress = 1;
 		private BarColor color = BarColor.WHITE;
 		private BarStyle style = BarStyle.SOLID;
-		private boolean visible;
+		private boolean visible = true;
 
 		private BossBarInstance() {}
 
