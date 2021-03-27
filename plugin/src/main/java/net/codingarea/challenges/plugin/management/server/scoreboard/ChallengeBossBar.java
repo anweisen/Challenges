@@ -25,6 +25,7 @@ public final class ChallengeBossBar {
 		private double progress = 1;
 		private BarColor color = BarColor.WHITE;
 		private BarStyle style = BarStyle.SOLID;
+		private boolean visible;
 
 		private BossBarInstance() {}
 
@@ -52,6 +53,11 @@ public final class ChallengeBossBar {
 			this.style = style;
 			return this;
 		}
+		@Nonnull
+		public BossBarInstance setVisible(boolean visible) {
+			this.visible = visible;
+			return this;
+		}
 
 	}
 
@@ -69,6 +75,7 @@ public final class ChallengeBossBar {
 		bossbar.setColor(instance.color);
 		bossbar.setStyle(instance.style);
 		bossbar.setProgress(instance.progress);
+		bossbar.setVisible(instance.visible);
 	}
 
 	public void setContent(@Nonnull BiConsumer<BossBarInstance, Player> content) {
