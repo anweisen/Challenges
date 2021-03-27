@@ -112,12 +112,19 @@ public final class WorldManager {
 		world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
 		if (world == null) return;
 		world.setSpawnFlags(false, false);
-		world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
-		world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
-		world.setGameRule(GameRule.DO_WEATHER_CYCLE, false);
-		world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, false);
-		world.setGameRule(GameRule.DISABLE_RAIDS, true);
-		world.setGameRule(GameRule.MOB_GRIEFING, false);
+		setGameRule("doMobSpawning", false);
+		setGameRule("doTraderSpawning", false);
+		setGameRule("doWeatherCycle", false);
+		setGameRule("doDaylightCycle", false);
+		setGameRule("disableRaids", false);
+		setGameRule("mobGriefing", false);
+	}
+
+	@SuppressWarnings("unchecked")
+	private <T> void setGameRule(@Nonnull String name, @Nonnull T value) {
+		GameRule<T> gamerule = (GameRule<T>) GameRule.getByName(name);
+		if (gamerule == null) return;
+		world.setGameRule(gamerule, value);
 	}
 
 	private void executeWorldResetIfNecessary() {
