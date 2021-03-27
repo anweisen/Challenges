@@ -454,6 +454,10 @@
     "§dWither",
     "Tote einen *Wither* um zu gewinnen"
   ],
+  "item-elder-guardian-goal": [
+    "§bElder Guardian",
+    "Töte einen *Elder Guardian* um zu gewinnen"
+  ],
   "item-most-deaths-goal": [
     "§6Meiste Tode",
     "Wer die meisten *verschiedene Tode*",
@@ -469,8 +473,12 @@
     "Wer *am Ende* noch *lebt*, gewinnt"
   ],
   "item-mine-most-blocks-goal": [
-    "§eMine Most Blocks",
+    "§eMeisten Blöcke",
     "Wer die *meisten Blöcke* abbaut gewinnt"
+  ],
+  "item-most-xp-goal": [
+    "§aMeiste XP",
+    "Wer die meiste *XP sammelt* gewinnt"
   ],
 
 
