@@ -16,7 +16,7 @@ import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
 public class TimeCommand implements PlayerCommand, TabCompleter {
 

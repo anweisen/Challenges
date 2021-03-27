@@ -6,7 +6,7 @@ import java.util.function.Predicate;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
 public final class ListBuilder <T> {
 
@@ -19,7 +19,7 @@ public final class ListBuilder <T> {
 
 	@SafeVarargs
 	public final ListBuilder<T> addAll(T... t) {
-		return addAll(t);
+		return addAll(Arrays.asList(t));
 	}
 
 	public final ListBuilder<T> addAll(Collection<T> collection) {
