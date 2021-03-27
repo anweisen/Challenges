@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.cloudnet;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public final class CloudNetHelper {
 
 	public void handleTimerStart() {
 
-		if (!startNewService || !Challenges.getInstance().getServerManager().isFresh()) return;
+		if (!startNewService || !ChallengeAPI.isFresh()) return;
 
 		try {
 			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.changeToIngame();

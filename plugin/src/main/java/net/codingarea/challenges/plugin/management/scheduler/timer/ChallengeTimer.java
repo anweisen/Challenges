@@ -92,7 +92,7 @@ public final class ChallengeTimer {
 		if (!paused) return;
 		paused = false;
 
-		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
+		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
 			for (Player player : Bukkit.getOnlinePlayers())
 				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
 		}

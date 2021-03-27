@@ -49,4 +49,8 @@ public final class ChallengeAPI {
 		return Challenges.getInstance().getWorldManager().isWorldInUse();
 	}
 
+	public static boolean isFresh() {
+		return Challenges.getInstance().getServerManager().isFresh();
+	}
+
 }
