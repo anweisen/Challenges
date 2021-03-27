@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.commons.anntations.Since;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -10,6 +11,9 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityPotionEffectEvent;
+import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
@@ -51,14 +55,44 @@ public class HealthDisplaySetting extends Setting {
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 		if (isEnabled()) {
 			show(event.getPlayer());
-
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				Objective objective = player.getScoreboard().getObjective(OBJECTIVE_NAME);
-				if (objective == null) continue;
-				objective.getScore(event.getPlayer().getName()).setScore((int) event.getPlayer().getHealth());
-			}
+			updatePlayerHealth(event.getPlayer());
 		} else {
 			hide(event.getPlayer());
+		}
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onDamage(@Nonnull EntityDamageEvent event) {
+		if (!(event.getEntity() instanceof Player)) return;
+
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			updatePlayerHealth((Player) event.getEntity());
+		}, 1);
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onRegain(@Nonnull EntityRegainHealthEvent event) {
+		if (!(event.getEntity() instanceof Player)) return;
+
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			updatePlayerHealth((Player) event.getEntity());
+		}, 1);
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onEffect(@Nonnull EntityPotionEffectEvent event) {
+		if (!(event.getEntity() instanceof Player)) return;
+
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			updatePlayerHealth((Player) event.getEntity());
+		}, 1);
+	}
+
+	private void updatePlayerHealth(@Nonnull Player player) {
+		for (Player current : Bukkit.getOnlinePlayers()) {
+			Objective objective = current.getScoreboard().getObjective(OBJECTIVE_NAME);
+			if (objective == null) continue;
+			objective.getScore(player.getName()).setScore((int) player.getHealth());
 		}
 	}
 
