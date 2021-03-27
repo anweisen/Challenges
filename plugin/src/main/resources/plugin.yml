@@ -80,56 +80,58 @@ commands:
     description: "Teleports you to a not generated village"
     permission: "challenges.village"
   heal:
-    usage: "/heal <player | @a | @p | @s | @r>"
+    usage: "/heal [player]"
     description: "Heals yourself or other players"
     permission: "challenges.heal"
   gamemode:
-    usage: "/gm <0 | 1 | 2 | 3> <player | @a | @p | @s | @r>"
+    usage: "/gm <gamemode> [player]"
     aliases:
       - "gm"
     permission: "challenges.gamemode"
   gmc:
-    usage: "/gmc <player | @a | @p | @s | @r>"
+    usage: "/gmc [player]"
+    description: "Sets your or other players' gamemode to creative, shortcut for /gamemode creative [player]"
     permission: "challenges.gamemode"
   gms:
-    usage: "/gms <player | @a | @p | @s | @r>"
+    usage: "/gms [player]"
+    description: "Sets your or other players' gamemode to survival, shortcut for /gamemode survival [player]"
     permission: "challenges.gamemode"
   gma:
-    usage: "/gma <player | @a | @p | @s | @r>"
+    usage: "/gma [player]"
     permission: "challenges.gamemode"
   weather:
-    usage: "/weather <clear | sun | rain | thunder>"
-    description: "Changed the weather"
+    usage: "/weather <clear/sun/rain/thunder>"
+    description: "Changes the weather"
     permission: "challenges.weather"
   sun:
     usage: "/sun"
-    description: "Makes the weather sunny"
+    description: "Makes the weather sunny, shortcut for /weather sun"
     permission: "challenges.weather"
   rain:
     usage: "/rain"
-    description: "Makes the weather rainy"
+    description: "Makes the weather rainy, shortcut for /weather rain"
     permission: "challenges.weather"
   thunder:
     usage: "/thunder"
-    description: "Makes the weather thundery"
+    description: "Makes the weather thundery, shortcut for /weather thunder"
     permission: "challenges.weather"
   time:
-    usage: "/time <day | night | noon | midnight | set | add | remove | query>"
+    usage: "/time <day/night/noon/midnight/set/add/remove/query>"
     description: "Sets the time"
     permission: "challenges.time"
   day:
     usage: "/day"
-    description: "Makes the time to day"
+    description: "Makes the time to day, shortcut for /time day"
     permission: "challenges.time"
   night:
     usage: "/night"
-    description: "Makes the time to night"
+    description: "Makes the time to night, shortcut for /time night"
     permission: "challenges.time"
   noon:
     usage: "/noon"
-    description: "Makes the time to noon"
+    description: "Makes the time to noon, shortcut for /time noon"
     permission: "challenges.time"
   midnight:
     usage: "/midnight"
-    description: "Makes the time to midnight"
+    description: "Makes the time to midnight, shortcut for /time midnight"
     permission: "challenges.time"

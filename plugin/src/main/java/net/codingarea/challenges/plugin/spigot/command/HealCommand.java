@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Bukkit;
@@ -19,10 +20,10 @@ import java.util.List;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class HealCommand implements CommandExecutor {
+public class HealCommand implements SenderCommand {
 
 	@Override
-	public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
 		List<Player> targets = new ArrayList<>();
 
@@ -30,28 +31,25 @@ public class HealCommand implements CommandExecutor {
 			targets.addAll(CommandHelper.getPlayers(sender, args[0]));
 
 		} else if (sender instanceof Player) {
-			targets.add(((Player) sender).getPlayer());
+			targets.add((Player) sender);
 		}
 
 		if (targets.isEmpty()) {
-			Message.forName("command-heal-no-target").send(sender, Prefix.CHALLENGES);
-			return true;
+			Message.forName("command-no-target").send(sender, Prefix.CHALLENGES);
+			return;
 		}
 
 		boolean otherPlayers = false;
 		for (Player player : targets) {
 			Message.forName("command-heal-healed").send(player, Prefix.CHALLENGES);
 			player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
-			if (player != sender) {
+
+			if (player != sender)
 				otherPlayers = true;
-			}
-
 		}
-		if (otherPlayers) {
+
+		if (otherPlayers)
 			Message.forName("command-heal-healed-others").send(sender, Prefix.CHALLENGES, targets.size());
-		}
-
-		return true;
 	}
 
 }

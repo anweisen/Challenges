@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
 public class VillageCommand implements PlayerCommand {
 
@@ -23,24 +23,23 @@ public class VillageCommand implements PlayerCommand {
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 		player.setNoDamageTicks(10);
 
-		Bukkit.getScheduler().runTaskAsynchronously(Challenges.getInstance(), () -> {
+		Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
 
-			Location village = player.getWorld().locateNearestStructure(player.getLocation(), StructureType.VILLAGE, 3000, true);
+			Location village = player.getWorld().locateNearestStructure(player.getLocation(), StructureType.VILLAGE, 5000, true);
 			if (village == null) {
 				Message.forName("command-village-not-found").send(player, Prefix.CHALLENGES);
 				return;
 			}
 
 			village = player.getWorld().getHighestBlockAt(village).getLocation().add(0.5, 1, 0.5);
+			village.getChunk().load(true);
 
 			Location finalVillage = village;
 			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
-				finalVillage.getChunk().load(true);
 				player.teleport(finalVillage);
+				SoundSample.TELEPORT.play(player);
 				Message.forName("command-village-teleport").send(player, Prefix.CHALLENGES);
 			});
-
-			SoundSample.TELEPORT.play(player);
 
 		});
 

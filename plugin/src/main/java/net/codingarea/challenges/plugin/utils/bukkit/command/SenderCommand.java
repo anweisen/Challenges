@@ -26,6 +26,6 @@ public interface SenderCommand extends CommandExecutor {
 		return true;
 	}
 
-	void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args);
+	void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception;
 
 }

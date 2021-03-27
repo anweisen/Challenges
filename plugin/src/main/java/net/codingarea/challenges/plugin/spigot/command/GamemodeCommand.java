@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
@@ -22,7 +23,7 @@ import java.util.List;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class GamemodeCommand implements CommandExecutor, TabCompleter {
+public class GamemodeCommand implements CommandExecutor, Completer {
 
 	@Override
 	public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
@@ -30,11 +31,11 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 		List<Player> targets = new ArrayList<>();
 
 		if (args.length <= 0) {
-			sender.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/gm <0 | 1 | 2| 3> <player | @p | @e | @a | @r>");
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "<gamemode> [player]");
 			return true;
 		}
 
-		GameMode gameMode = getGameMode(args[0]);
+		GameMode gamemode = getGameMode(args[0]);
 
 		if (args.length > 1) {
 			targets.addAll(CommandHelper.getPlayers(sender, args[1]));
@@ -44,23 +45,23 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 		}
 
 		if (targets.isEmpty()) {
-			Message.forName("command-gamemode-no-target").send(sender, Prefix.CHALLENGES);
+			Message.forName("command-no-target").send(sender, Prefix.CHALLENGES);
 			return true;
 		}
 
 		boolean otherPlayers = false;
-		String enumName = StringUtils.getEnumName(gameMode);
+		String gamemodeName = StringUtils.getEnumName(gamemode);
 
 		for (Player player : targets) {
-			Message.forName("command-gamemode-gamemode-changed").send(player, Prefix.CHALLENGES, enumName);
-			player.setGameMode(gameMode);
+			Message.forName("command-gamemode-gamemode-changed").send(player, Prefix.CHALLENGES, gamemodeName);
+			player.setGameMode(gamemode);
 			if (player != sender) {
 				otherPlayers = true;
 			}
 
 		}
 		if (otherPlayers) {
-			Message.forName("command-gamemode-gamemode-changed-others").send(sender, Prefix.CHALLENGES, enumName, targets.size());
+			Message.forName("command-gamemode-gamemode-changed-others").send(sender, Prefix.CHALLENGES, gamemodeName, targets.size());
 		}
 
 		return true;
@@ -68,28 +69,25 @@ public class GamemodeCommand implements CommandExecutor, TabCompleter {
 
 	@Nonnull
 	private GameMode getGameMode(String input) {
-
 		switch (input.toLowerCase()) {
 			case "survival":
-			case "0": return GameMode.SURVIVAL;
-
+			case "0":
+				return GameMode.SURVIVAL;
 			case "spectator":
-			case "3": return GameMode.SPECTATOR;
-
+			case "3":
+				return GameMode.SPECTATOR;
 			case "adventure":
-			case "2": return GameMode.ADVENTURE;
+			case "2":
+				return GameMode.ADVENTURE;
 		}
-
 		return GameMode.CREATIVE;
 	}
 
 	@Nullable
 	@Override
-	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
-		if (args.length > 1) {
-			return null;
-		}
-		return Utils.filterRecommendations(args[0], "0", "1", "2", "3");
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
+		if (args.length > 1) return null;
+		return Utils.filterRecommendations(args[0], "0", "1", "2", "3", "creative", "survival", "spectator", "adventure");
 	}
 
 }

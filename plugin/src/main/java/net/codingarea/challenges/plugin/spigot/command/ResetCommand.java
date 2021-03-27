@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
@@ -27,7 +28,7 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
-		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && Challenges.getInstance().getServerManager().isFresh()) {
+		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && ChallengeAPI.isFresh()) {
 			Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.playIfPlayer(sender);
 			return;

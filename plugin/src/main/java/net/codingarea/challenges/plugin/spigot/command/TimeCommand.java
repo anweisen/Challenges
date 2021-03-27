@@ -1,6 +1,8 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.World;
@@ -18,42 +20,38 @@ import java.util.List;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public class TimeCommand implements PlayerCommand, TabCompleter {
+public class TimeCommand implements PlayerCommand, Completer {
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 
 		if (args.length <= 0) {
-			player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time <day | night | noon | midnight | set | add | remove | query>");
+			Message.forName("syntax").send(player, Prefix.CHALLENGES, "<time <set/add/remove/query/day/night/noon/midnight>");
 			return;
 		}
 		World world = player.getWorld();
 
 		switch (args[0].toLowerCase()) {
-			case "day": {
+			case "day":
 				player.performCommand("time set day");
-				return;
-			}
-			case "night": {
+				break;
+			case "night":
 				player.performCommand("time set night");
-				return;
-			}
-			case "noon": {
+				break;
+			case "noon":
 				player.performCommand("time set noon");
-				return;
-			}
-			case "midnight": {
+				break;
+			case "midnight":
 				player.performCommand("time set midnight");
-				return;
-			}
+				break;
 			case "set": {
 				if (args.length <= 1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time set <ticks | day | night | noon | midnight>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time set <ticks/day/night/noon/midnight>");
 					break;
 				}
 				long time = getTime(args[1]);
 				if (time == -1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time set <ticks | day | night | noon | midnight>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time set <ticks/day/night/noon/midnight>");
 					break;
 				}
 				world.setTime(time);
@@ -62,12 +60,12 @@ public class TimeCommand implements PlayerCommand, TabCompleter {
 			}
 			case "add": {
 				if (args.length <= 1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time add <ticks>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time add <ticks>");
 					break;
 				}
 				long time = getLongFromString(args[1]);
 				if (time == -1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time add <ticks>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time add <ticks>");
 					break;
 				}
 				world.setTime(world.getTime() + time);
@@ -76,12 +74,12 @@ public class TimeCommand implements PlayerCommand, TabCompleter {
 			}
 			case "subtract": {
 				if (args.length <= 1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time subtract <ticks>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time subtract <ticks>");
 					break;
 				}
 				long time = getLongFromString(args[1]);
 				if (time == -1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time subtract <ticks>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time subtract <ticks>");
 					break;
 				}
 				world.setTime(world.getTime() - time);
@@ -90,12 +88,12 @@ public class TimeCommand implements PlayerCommand, TabCompleter {
 			}
 			case "query": {
 				if (args.length <= 1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time query <day | daytime | gametime>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time query <day/daytime/gametime>");
 					break;
 				}
 				long time = getQueryTime(world, args[1]);
 				if (time == -1) {
-					player.sendMessage(Prefix.CHALLENGES + "§7Syntax: §e/time query <day | daytime | gametime>");
+					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time query <day/daytime/gametime>");
 					break;
 				}
 				player.sendMessage(Prefix.CHALLENGES + "§7Query: §e" + time + (args[1].equalsIgnoreCase("day") ? " Days" : " Ticks"));
@@ -108,18 +106,18 @@ public class TimeCommand implements PlayerCommand, TabCompleter {
 
 	private long getTime(@Nonnull String input) {
 		switch (input.toLowerCase()) {
-			case "day": return 1000;
-			case "noon": return 6000;
-			case "night": return 13000;
-			case "midnight": return 18000;
+			case "day":         return 1000;
+			case "noon":        return 6000;
+			case "night":       return 13000;
+			case "midnight":    return 18000;
 		}
 		return getLongFromString(input);
 	}
 
 	private long getLongFromString(@Nonnull String input) {
 		try {
-			return Integer.parseInt(input);
-		} catch (NumberFormatException exception) { }
+			return Long.parseLong(input);
+		} catch (NumberFormatException ex) { }
 		return -1;
 	}
 
@@ -134,7 +132,7 @@ public class TimeCommand implements PlayerCommand, TabCompleter {
 
 	@Nullable
 	@Override
-	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		if (args.length <= 1) return Utils.filterRecommendations(args[0], "set", "subtract", "query", "day", "night", "noon", "midnight");
 		if (args[0].equalsIgnoreCase("set")) return Utils.filterRecommendations(args[1], "day", "night", "noon", "midnight");
 		if (args[0].equalsIgnoreCase("query")) return Utils.filterRecommendations(args[1], "day", "daytime", "gametime");

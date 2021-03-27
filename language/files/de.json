@@ -69,12 +69,16 @@
     "Erstelle eine mit §e/{0}"
   ],
 
+  "command-no-target": "Es wurde §ckein §Spieler gefunden",
   "command-heal-healed": "Du wurdest §ageheilt",
   "command-heal-healed-others": "Du hast §e{0} Spieler §ageheilt",
-  "command-heal-no-target": "Es wurde §ckein §Spieler gefunden",
   "command-gamemode-gamemode-changed": "Du wurdest in den Gamemode §e{0} §7gesetzt",
   "command-gamemode-gamemode-changed-others": "Du hast §e{1} Spieler §7in den Gamemode §e{0} §7gesetzt",
-  "command-gamemode-no-target": "Es wurde §ckein §Spieler gefunden",
+  "command-village-teleport": "Du wurdest in ein Dorf §ateleportiert",
+  "command-village-not-found": "Es wurde §ckein neues §7Dorf gefunden",
+  "command-weather-set-clear": "Wetter zu §eklar §7geändert",
+  "command-weather-set-rain": "Wetter zu §eregnerisch §7geändert",
+  "command-weather-set-thunder": "Wetter zu §estürmisch §7geändert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
