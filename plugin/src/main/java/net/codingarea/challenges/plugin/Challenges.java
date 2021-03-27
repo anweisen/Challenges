@@ -134,7 +134,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
-		registerCommand(new ForwardingCommand("timer pause"), "pause");
+		registerCommand(new ForwardingCommand("timer start"), "start");
 		registerCommand(new ForwardingCommand("timer pause"), "pause");
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
