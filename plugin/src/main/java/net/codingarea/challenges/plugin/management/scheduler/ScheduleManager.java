@@ -31,7 +31,7 @@ public final class ScheduleManager {
 			ScheduledTask annotation = method.getAnnotation(ScheduledTask.class);
 			ScheduledFunction function = new ScheduledFunction(scheduler, method, new PoliciesContainer(annotation));
 
-			Logger.debug("Registered scheduler " + function);
+			Logger.debug("Registered scheduled task " + function);
 			register(function, new ScheduledTaskConfig(annotation));
 		}
 		for (Method method : ReflectionUtils.getMethodsAnnotatedWith(scheduler.getClass(), TimerTask.class)) {
@@ -43,7 +43,7 @@ public final class ScheduleManager {
 			TimerTask annotation = method.getAnnotation(TimerTask.class);
 			ScheduledFunction function = new ScheduledFunction(scheduler, method, new PoliciesContainer(annotation));
 
-			Logger.debug("Registered scheduler " + function);
+			Logger.debug("Registered timer task " + function);
 			register(function, new TimerTaskConfig(annotation));
 		}
 	}
