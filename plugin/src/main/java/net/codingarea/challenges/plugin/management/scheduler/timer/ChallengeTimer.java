@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.scheduler.timer;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -36,7 +37,11 @@ public final class ChallengeTimer {
 	private final TimerFormat format;
 	private final String stoppedMessage, upMessage, downMessage;
 
+	private final boolean specificStartSounds;
+
 	public ChallengeTimer() {
+
+		specificStartSounds = Challenges.getInstance().getConfigDocument().getBoolean("enable-specific-start-sounds");
 
 		// Load format + messages
 		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
@@ -106,7 +111,7 @@ public final class ChallengeTimer {
 		}
 
 		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
-		if (currentGoal != null)
+		if (currentGoal != null && specificStartSounds)
 			currentGoal.getStartSound().broadcast();
 		else SoundSample.DRAGON_BREATH.broadcast();
 
