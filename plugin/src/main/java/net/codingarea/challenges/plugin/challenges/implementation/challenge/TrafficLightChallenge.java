@@ -69,7 +69,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 					break;
 			}
 		});
-		this.bossbar.show();
+		bossbar.show();
 	}
 
 	@Override
