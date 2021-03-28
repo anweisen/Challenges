@@ -145,6 +145,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ForwardingCommand("gamemode 0", false), "gms");
 		registerCommand(new ForwardingCommand("gamemode 1", false), "gmc");
 		registerCommand(new ForwardingCommand("gamemode 2", false), "gma");
+		registerCommand(new ForwardingCommand("gamemode 3", false), "gmsp");
 		registerCommand(new WeatherCommand(), "weather");
 		registerCommand(new ForwardingCommand("weather sun"), "sun");
 		registerCommand(new ForwardingCommand("weather rain"), "rain");
@@ -163,7 +164,8 @@ public final class Challenges extends BukkitModule {
 				new RestrictionListener(),
 				new ExtraWorldRestrictionListener(),
 				new CheatListener(),
-				new BlockDropListener()
+				new BlockDropListener(),
+				new PlayerJumpListener()
 		);
 	}
 
