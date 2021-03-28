@@ -40,6 +40,11 @@ timer:
     minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
 
+# When the worlds are reset using /reset, the given seed will be used, if enabled, to generate the new worlds
+custom-seed:
+  enabled: false
+  seed: 0
+
 # The size stands for the amount of rows in the backpack inventory
 backpack-size: 3
 

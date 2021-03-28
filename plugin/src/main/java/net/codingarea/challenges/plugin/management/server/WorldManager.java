@@ -13,7 +13,7 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.io.File;
+import java.io.*;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -44,11 +44,16 @@ public final class WorldManager {
 
 	}
 
+	private static final String customSeedWorldPrefix = "pregenerated_";
+
 	private boolean shutdownBecauseOfReset = false;
 
 	private final boolean restartOnReset;
 	private final boolean enableFreshReset;
 	private final String levelName;
+	private final long customSeed;
+	private final boolean useCustomSeed;
+	private final String[] worlds;
 
 	private WorldSettings settings = new WorldSettings();
 	private World world;
@@ -59,8 +64,17 @@ public final class WorldManager {
 		restartOnReset = pluginConfig.getBoolean("restart-on-reset");
 		enableFreshReset = pluginConfig.getBoolean("enable-fresh-reset");
 
+		Document seedConfig = pluginConfig.getDocument("custom-seed");
+		useCustomSeed = seedConfig.getBoolean("enabled");
+		customSeed = seedConfig.getLong("seed");
+
 		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		levelName = sessionConfig.getString("level-name", "world");
+		worlds = new String[] {
+			levelName,
+			levelName + "_nether",
+			levelName + "_the_end"
+		};
 	}
 
 	public void load()  {
@@ -84,7 +98,33 @@ public final class WorldManager {
 		String kickMessage = Message.forName("server-reset").asString(requester);
 		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
 
+		if (useCustomSeed) generateCustomSeedWorlds();
+
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), this::stopServerNow, 3);
+
+	}
+
+	private void generateCustomSeedWorlds() {
+
+		Logger.debug("Generating custom seed worlds with seed " + customSeed);
+		for (String name : worlds) {
+
+			World world = Bukkit.getWorld(name);
+			if (world == null) {
+				Logger.severe("Could not find world " + name);
+				continue;
+			}
+
+			String newWorldName = customSeedWorldPrefix + name;
+			File folder = new File(newWorldName);
+			if (folder.exists()) FileUtils.deleteWorldFolder(folder);
+
+			WorldCreator creator = new WorldCreator(newWorldName).seed(customSeed).environment(world.getEnvironment());
+			creator.createWorld();
+
+			Logger.debug("Created custom seed world " + newWorldName);
+
+		}
 
 	}
 
@@ -102,6 +142,10 @@ public final class WorldManager {
 		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
 		gamestateConfig.clear();
 		gamestateConfig.save();
+
+		FileDocumentWrapper playerConfig = Challenges.getInstance().getConfigManager().getPlayerConfig();
+		playerConfig.clear();
+		playerConfig.save();
 
 	}
 
@@ -136,9 +180,12 @@ public final class WorldManager {
 
 		Logger.info("Deleting worlds..");
 
-		String[] worlds = { levelName, levelName + "_nether", levelName + "_the_end" };
 		for (String world : worlds) {
-			deleteWorld(world);
+			if (useCustomSeed) {
+				copyPreGeneratedWorld(world);
+			} else {
+				deleteWorld(world);
+			}
 		}
 
 		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
@@ -151,6 +198,48 @@ public final class WorldManager {
 		File folder = new File(name);
 		FileUtils.deleteWorldFolder(folder);
 		Logger.info("Deleted world " + name);
+	}
+
+	private void copyPreGeneratedWorld(@Nonnull String name) {
+		File source = new File(customSeedWorldPrefix + name);
+		if (!source.exists() || !source.isDirectory()) {
+			Logger.warn("Custom seed world '" + name + "' does not exist!");
+			return;
+		}
+
+		File target = new File(name);
+		try {
+			copy(source, target);
+			Logger.debug("Copied pre generated custom seed world " + name);
+		} catch (IOException ex) {
+			Logger.severe("Unable to copy pre generated custom seed world " + name, ex);
+		}
+	}
+
+	public void copy(@Nonnull File source, @Nonnull File target) throws IOException {
+		if (source.isDirectory()) {
+			copyDirectory(source, target);
+		} else {
+			copyFile(source, target);
+		}
+	}
+
+	private void copyDirectory(@Nonnull File source, @Nonnull File target) throws IOException {
+		if (!target.exists())
+			target.mkdir();
+		for (String child : source.list()) {
+			if ("session.lock".equals(child)) continue;
+			copy(new File(source, child), new File(target, child));
+		}
+	}
+
+	private void copyFile(@Nonnull File source, @Nonnull File target) throws IOException {
+		try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
+			byte[] buf = new byte[1024];
+			int length;
+			while ((length = in.read(buf)) > 0)
+				out.write(buf, 0, length);
+		}
 	}
 
 	private void stopServerNow() {
