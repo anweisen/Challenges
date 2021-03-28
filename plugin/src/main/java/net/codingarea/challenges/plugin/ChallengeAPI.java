@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin;
 
+import net.codingarea.challenges.plugin.management.challenges.ModuleChallengeLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 
@@ -51,6 +52,10 @@ public final class ChallengeAPI {
 
 	public static boolean isFresh() {
 		return Challenges.getInstance().getServerManager().isFresh();
+	}
+
+	public static void registerScheduler(@Nonnull Object scheduler) {
+		Challenges.getInstance().getScheduler().register(scheduler);
 	}
 
 }
