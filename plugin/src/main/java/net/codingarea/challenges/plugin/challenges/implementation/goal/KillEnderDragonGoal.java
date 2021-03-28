@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.challenges.type.KillEntityGoal;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 
 import javax.annotation.Nonnull;
@@ -15,7 +16,7 @@ import javax.annotation.Nonnull;
 public class KillEnderDragonGoal extends KillEntityGoal {
 
 	public KillEnderDragonGoal() {
-		super(EntityType.ENDER_DRAGON, true);
+		super(EntityType.ENDER_DRAGON, Environment.THE_END, true);
 	}
 
 	@Nonnull
