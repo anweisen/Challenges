@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import org.bukkit.GameMode;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -36,6 +37,7 @@ public class StatsListener implements Listener {
 		if (!(event.getEntity() instanceof Player)) return;
 
 		Player player = (Player) event.getEntity();
+		if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 		incrementStatistic(player, Statistic.DAMAGE_TAKEN, event.getFinalDamage());
 	}
 
@@ -45,29 +47,34 @@ public class StatsListener implements Listener {
 
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
+			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 			incrementStatistic(player, Statistic.DAMAGE_DEALT, event.getFinalDamage());
 		} else if (event.getDamager() instanceof Projectile) {
 			Projectile projectile = (Projectile) event.getDamager();
 			if (!((projectile.getShooter()) instanceof Player)) return;
 			Player player = (Player) projectile.getShooter();
+			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 			incrementStatistic(player, Statistic.DAMAGE_DEALT, event.getFinalDamage());
 		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockPlace(@Nonnull BlockPlaceEvent event) {
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		if (countNoStats()) return;
 		incrementStatistic(event.getPlayer(), Statistic.BLOCKS_PLACED, 1);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		if (countNoStats()) return;
 		incrementStatistic(event.getPlayer(), Statistic.BLOCKS_MINED, 1);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
+		if (event.getEntity().getGameMode() == GameMode.SPECTATOR || event.getEntity().getGameMode() == GameMode.CREATIVE) return;
 		if (countNoStats()) return;
 		incrementStatistic(event.getEntity(), Statistic.DEATHS, 1);
 	}
@@ -78,6 +85,7 @@ public class StatsListener implements Listener {
 		LivingEntity entity = event.getEntity();
 		Player player = entity.getKiller();
 		if (player == null) return;
+		if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 
 		incrementStatistic(player, Statistic.ENTITY_KILLS, 1);
 		if (entity instanceof EnderDragon) {
@@ -87,6 +95,7 @@ public class StatsListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		if (ChallengeAPI.isPaused()) return;
 		if (countNoStats()) return;
 		if (event.getTo() == null) return;
