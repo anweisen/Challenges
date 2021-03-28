@@ -43,6 +43,8 @@ public class HealCommand implements SenderCommand {
 		for (Player player : targets) {
 			Message.forName("command-heal-healed").send(player, Prefix.CHALLENGES);
 			player.setHealth(player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue());
+			player.setFoodLevel(20);
+			player.getActivePotionEffects().stream().forEach(potionEffect -> player.removePotionEffect(potionEffect.getType()));
 
 			if (player != sender)
 				otherPlayers = true;
