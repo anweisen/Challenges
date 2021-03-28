@@ -121,7 +121,10 @@ public final class LanguageLoader extends ContentLoader {
 			loaded = true;
 			Logger.info("Successfully loaded language '" + language + "' from config file: " + read.size() + " message(s)");
 
-			Challenges.getInstance().getMenuManager().generateMenus();
+			if (Challenges.getInstance().isEnabled()) {
+				Challenges.getInstance().getMenuManager().generateMenus();
+			}
+
 			Challenges.getInstance().getScoreboardManager().handleLoadLanguages();
 			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 

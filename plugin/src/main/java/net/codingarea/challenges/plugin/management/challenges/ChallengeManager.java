@@ -30,7 +30,6 @@ public final class ChallengeManager {
 
 	public void register(@Nonnull IChallenge challenge) {
 		if (!challenge.getType().isUsable()) throw new IllegalArgumentException("Invalid MenuType");
-		Challenges.getInstance().getScheduler().register(challenge);
 		challenges.add(challenge);
 	}
 

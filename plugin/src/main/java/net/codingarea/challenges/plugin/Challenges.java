@@ -128,6 +128,9 @@ public final class Challenges extends BukkitModule {
 		scheduler.start();
 		playerInventoryManager.enable();
 
+		if (LanguageLoader.isLoaded())
+			menuManager.generateMenus();
+
 	}
 
 	private void registerCommands() {

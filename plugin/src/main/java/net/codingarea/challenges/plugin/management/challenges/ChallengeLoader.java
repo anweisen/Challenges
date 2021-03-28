@@ -2,22 +2,11 @@ package net.codingarea.challenges.plugin.management.challenges;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
-import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
-import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.Color;
 import org.bukkit.Material;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-
-import javax.annotation.Nonnull;
-import java.lang.reflect.Constructor;
-import java.util.Optional;
 
 /**
  * This class loads all challenges of this plugin.
@@ -27,7 +16,11 @@ import java.util.Optional;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public final class ChallengeLoader {
+public final class ChallengeLoader extends ModuleChallengeLoader {
+
+	public ChallengeLoader() {
+		super(Challenges.getInstance());
+	}
 
 	public void load() {
 		// Settings
@@ -111,54 +104,6 @@ public final class ChallengeLoader {
 		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
 		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
 		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION);
-	}
-
-	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Class<?>[] parameterClasses, @Nonnull Object... parameters) {
-		try {
-
-			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(parameterClasses);
-			IChallenge challenge = constructor.newInstance(parameters);
-
-			Challenges.getInstance().getChallengeManager().register(challenge);
-
-			if (challenge instanceof CommandExecutor) {
-				Challenges.getInstance().registerCommand((CommandExecutor) challenge, commandNames);
-			}
-			if (challenge instanceof Listener) {
-				Challenges.getInstance().registerListener((Listener) challenge);
-			}
-
-		} catch (Throwable ex) {
-			Logger.severe("Could not register challenge " + classOfChallenge.getSimpleName(), ex);
-		}
-	}
-
-	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Class<?>[] parameterClasses, @Nonnull Object... parameters) {
-		registerWithCommand(classOfChallenge, new String[0], parameterClasses, parameters);
-	}
-
-	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Object... parameters) {
-
-		Class<?>[] parameterClasses = new Class[parameters.length];
-		for (int i = 0; i < parameters.length; i++) {
-			parameterClasses[i] = Optional.ofNullable(parameters[i]).<Class<?>>map(Object::getClass).orElse(Object.class);
-		}
-
-		register(classOfChallenge, parameterClasses, parameters);
-
-	}
-
-	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
-		registerWithCommand(classOfChallenge, commandNames, new Class[0]);
-	}
-
-
-	private void registerDamageRule(@Nonnull String name, @Nonnull Material material, @Nonnull DamageCause... causes) {
-		registerDamageRule(name, new ItemBuilder(material), causes);
-	}
-
-	private void registerDamageRule(@Nonnull String name, @Nonnull ItemBuilder preset, @Nonnull DamageCause... causes) {
-		register(DamageRuleSetting.class, new Class[] { ItemBuilder.class, String.class, DamageCause[].class }, preset, name, causes);
 	}
 
 }
