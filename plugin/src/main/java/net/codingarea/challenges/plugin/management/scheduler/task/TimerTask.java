@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.scheduler.task;
 
 import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 
@@ -28,5 +29,8 @@ public @interface TimerTask {
 
 	@Nonnull
 	PlayerCountPolicy playerPolicy() default PlayerCountPolicy.SOME_ONE;
+
+	@Nonnull
+	ExtraWorldPolicy worldPolicy() default ExtraWorldPolicy.NOT_USED;
 
 }

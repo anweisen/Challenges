@@ -21,14 +21,16 @@ public class PoliciesContainer {
 		addPolicies(
 				annotation.challengePolicy(),
 				annotation.timerPolicy(),
-				annotation.playerPolicy()
+				annotation.playerPolicy(),
+				annotation.worldPolicy()
 		);
 	}
 
 	public PoliciesContainer(@Nonnull TimerTask annotation) {
 		addPolicies(
 				annotation.challengePolicy(),
-				annotation.playerPolicy()
+				annotation.playerPolicy(),
+				annotation.worldPolicy()
 		);
 	}
 
