@@ -12,20 +12,20 @@ import javax.annotation.Nonnull;
  */
 public class PlayerJumpEvent extends PlayerEvent {
 
-	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 
-	public PlayerJumpEvent(Player who) {
+	public PlayerJumpEvent(@Nonnull Player who) {
 		super(who);
 	}
 
-	@Override
 	@Nonnull
+	@Override
 	public HandlerList getHandlers() {
-		return HANDLERS_LIST;
+		return handlers;
 	}
 
 	public static HandlerList getHandlerList() {
-		return HANDLERS_LIST;
+		return handlers;
 	}
 
 }
