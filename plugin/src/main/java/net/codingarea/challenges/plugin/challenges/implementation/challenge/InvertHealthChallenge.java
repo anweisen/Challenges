@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -48,7 +49,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 	}
 
 	@Override
-	@ScheduledTask(ticks = 20, async = false)
+	@ScheduledTask(ticks = 20, async = false, worldPolicy = ExtraWorldPolicy.ALWAYS)
 	public void onSecond() {
 		super.onSecond();
 	}

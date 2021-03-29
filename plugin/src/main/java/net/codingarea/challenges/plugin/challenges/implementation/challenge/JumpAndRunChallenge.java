@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
@@ -72,7 +73,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	@ScheduledTask(ticks = 20, async = false)
+	@ScheduledTask(ticks = 20, async = false, worldPolicy = ExtraWorldPolicy.ALWAYS)
 	public void onSecond() {
 		super.onSecond();
 
@@ -201,7 +202,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		jumpsDone = document.getInt("jumpsDone", jumpsDone);
 	}
 
-	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.ALWAYS)
+	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.ALWAYS, worldPolicy = ExtraWorldPolicy.USED)
 	public void spawnParticles() {
 		if (!isEnabled()) return;
 		if (!isInExtraWorld()) return;
