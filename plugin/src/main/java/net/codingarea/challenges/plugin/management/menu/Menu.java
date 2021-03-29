@@ -42,13 +42,22 @@ public final class Menu {
 
 	void addChallengeCache(@Nonnull IChallenge challenge) {
 		if (isNew(challenge) && Challenges.getInstance().getMenuManager().isDisplayNewInFront()) {
-			challenges.add(0, challenge);
+			challenges.add(countNewChallenges(), challenge);
 		} else {
 			challenges.add(challenge);
 		}
 	}
 	void resetChallengesCache() {
 		challenges.clear();
+	}
+
+	private int countNewChallenges() {
+		int i = 0;
+		for (IChallenge challenge : challenges) {
+			if (!isNew(challenge)) return i;
+			i++;
+		}
+		return i;
 	}
 
 	public void generateInventories() {
