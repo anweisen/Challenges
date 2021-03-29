@@ -480,6 +480,10 @@
     "§aMeiste XP",
     "Wer die meiste *XP sammelt* gewinnt"
   ],
+  "item-first-one-to-die-goal": [
+    "§cErster Tod",
+    "Wer als *erstes stirbt* gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
