@@ -185,8 +185,10 @@ public final class Challenges extends BukkitModule {
 
 		if (challengeManager != null) {
 			challengeManager.saveLocalSettings(false);
-			if (!shutdownBecauseOfReset)
+			if (!shutdownBecauseOfReset) {
 				challengeManager.saveGamestate(false);
+				configManager.getPlayerConfig().save();
+			}
 			challengeManager.clearChallengeCache();
 		}
 	}
