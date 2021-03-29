@@ -35,10 +35,10 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-transport-native-kqueue:osx-x86_64:4.1.36.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.0" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.0" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.0" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.0" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-mongodb:1.0" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.1" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-mongodb:1.1" level="project" />
   </component>
 </module>
