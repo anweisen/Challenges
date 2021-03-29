@@ -56,7 +56,11 @@ public class MaxHealthModifier extends Modifier {
 
 	@EventHandler
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(getValue());
+		AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+		if (attribute.getBaseValue() != getValue()) {
+			attribute.setBaseValue(getValue());
+			event.getPlayer().setHealth(getValue());
+		}
 	}
 
 }
