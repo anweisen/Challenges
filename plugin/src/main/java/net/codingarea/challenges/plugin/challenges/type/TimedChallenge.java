@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
@@ -38,7 +39,7 @@ public abstract class TimedChallenge extends SettingModifier {
 		restartTimer();
 	}
 
-	@ScheduledTask(ticks = 20)
+	@ScheduledTask(ticks = 20, worldPolicy = ExtraWorldPolicy.ALWAYS)
 	public void onSecond() {
 
 		if (!startedBefore) {
