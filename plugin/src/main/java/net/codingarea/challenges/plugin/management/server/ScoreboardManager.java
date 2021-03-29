@@ -80,6 +80,9 @@ public final class ScoreboardManager {
 	public void handleLoadLanguages() {
 		if (currentScoreboard != null)
 			currentScoreboard.update();
+		for (ChallengeBossBar bossbar : bossbars) {
+			bossbar.update();
+		}
 	}
 
 }
