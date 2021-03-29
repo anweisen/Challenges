@@ -154,11 +154,11 @@
 
   "title-timer-started": [
     "",
-    "Timer §afortgesetzt"
+    "§8» §7Timer §afortgesetzt"
   ],
   "title-timer-paused": [
     "",
-    "Timer §cpausiert"
+    "§8» §7Timer §cpausiert"
   ],
   "title-challenge-enabled": [
     "§e{0}",
