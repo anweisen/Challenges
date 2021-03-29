@@ -168,7 +168,7 @@ public final class Challenges extends BukkitModule {
 				new ExtraWorldRestrictionListener(),
 				new CheatListener(),
 				new BlockDropListener(),
-				new PlayerJumpListener()
+				new CustomEventListener()
 		);
 	}
 

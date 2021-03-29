@@ -23,18 +23,18 @@ public class BedrockPathChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-bedrock-path-challenge")).setColor(Color.GRAY);
+	}
+
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
 
 		BlockUtils.createBlockPath(event.getFrom(), event.getTo(), Material.BEDROCK);
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-bedrock-path-challenge")).setColor(Color.GRAY);
 	}
 
 }

@@ -4,10 +4,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -23,12 +20,12 @@ import org.bukkit.event.vehicle.VehicleDamageEvent;
 import org.bukkit.event.vehicle.VehicleDestroyEvent;
 import org.bukkit.event.weather.ThunderChangeEvent;
 import org.bukkit.event.weather.WeatherChangeEvent;
-import org.bukkit.util.BoundingBox;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
 public class RestrictionListener implements Listener {

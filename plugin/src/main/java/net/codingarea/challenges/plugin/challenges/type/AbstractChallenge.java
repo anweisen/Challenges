@@ -22,6 +22,7 @@ import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {

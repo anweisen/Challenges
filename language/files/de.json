@@ -69,7 +69,7 @@
     "Erstelle eine mit §e/{0}"
   ],
 
-  "command-no-target": "Es wurde §ckein §Spieler gefunden",
+  "command-no-target": "Es wurde §ckein §7Spieler gefunden",
   "command-heal-healed": "Du wurdest §ageheilt",
   "command-heal-healed-others": "Du hast §e{0} Spieler §ageheilt",
   "command-gamemode-gamemode-changed": "Du wurdest in den Gamemode §e{0} §7gesetzt",
@@ -101,6 +101,10 @@
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
   "snake-failed": "§e{0} §7ist über die §9Linie §7getreten",
   "only-dirt-failed": "§e{0} §7stand nicht auf Erde",
+  "no-mouse-move-failed": "§e{0} §7hat seine Maus bewegt",
+  "no-duped-items-failed": "§e{0} §7und §e{1} §7hatten beide §e{2} §7im Inventar",
+
+  "bossbar-hit-mob-is-previous-challenge": "§8» §7Letzer Mob §8§l┃ §a{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -285,7 +289,7 @@
     "Nachdem du *Schaden* genommen hast,",
     "kannst du *sofort* wieder Schaden *bekommen*"
   ],
-  "timber-setting": [
+  "item-timber-setting": [
     "§bTimber",
     "Du kannst einen *Baum* zerstören,",
     "indem du *einen Block* des Baumes abbaust"
@@ -309,6 +313,15 @@
     "§cFestungs Spawn",
     "Wenn du in den *Nether* gehst",
     "spawnst du immer in einer *Festung*"
+  ],
+  "item-no-offhand-setting": [
+    "§cKeine Offhand",
+    "Die *zweite Hand* wird geblockt"
+  ],
+  "item-regeneration-setting": [
+    "§cRegeneration",
+    "Stellt ein *ob* und",
+    "*wie* man *regeneriert*"
   ],
 
 
@@ -444,7 +457,36 @@
   "item-low-drop-rate-challenge-description": [
     "§8» §7Chance: §e{0}%"
   ],
-
+  "item-invisible-mobs-challenge": [
+    "§fUnsichtbare Mobs",
+    "Alle *Mobs und Spieler* haben",
+    "einen *Unsichtbarkeits* Effekt"
+  ],
+  "item-hit-mob-is-previous-challenge": [
+    "§cMob Verwandlung",
+    "Wenn du einen Mob schlägst *verwandelt* sich",
+    "dieser in den *letzen Mob* den du *geschlagen* hast"
+  ],
+  "item-jump-entity-challenge": [
+    "§2Jump Entity",
+    "Wenn du *springst*, *spawnt* ein",
+    "zufälliges *Entity*"
+  ],
+  "item-no-mouse-move-challenge": [
+    "§cMausbewegung Schaden",
+    "Wenn du deinen *Blick bewegst*,",
+    "erleidest du den *gesetzen Schaden*"
+  ],
+  "item-no-duped-items-challenge": [
+    "§6Keine Doppelten Item",
+    "Wenn *2 Spieler* das gleiche *Item* im",
+    "Inventar haben, *sterben* beide"
+  ],
+  "item-corona-challenge": [
+    "§aCorona Challenge",
+    "Du musst *2 Blöcke* abstand von allen ",
+    "*Mobs* halten oder du wirst *krank*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

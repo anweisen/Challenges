@@ -32,7 +32,7 @@ public @interface ScheduledTask {
 	ChallengeStatusPolicy challengePolicy() default ChallengeStatusPolicy.ENABLED;
 
 	@Nonnull
-	PlayerCountPolicy playerPolicy() default PlayerCountPolicy.SOME_ONE;
+	PlayerCountPolicy playerPolicy() default PlayerCountPolicy.SOMEONE;
 
 	@Nonnull
 	ExtraWorldPolicy worldPolicy() default ExtraWorldPolicy.NOT_USED;

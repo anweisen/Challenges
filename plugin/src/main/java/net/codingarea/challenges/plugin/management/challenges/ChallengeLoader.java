@@ -25,6 +25,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 	public void load() {
 		// Settings
 		register(DifficultySetting.class);
+		register(RegenerationSetting.class);
 		register(OneLifeSetting.class);
 		register(RespawnSetting.class);
 		register(DamageDisplaySetting.class);
@@ -46,12 +47,15 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
 		register(FortressSpawnSetting.class);
+		register(NoOffhandSetting.class);
+		register(ImmediateRespawnSetting.class);
+		register(SlotLimitSetting.class);
 
 		// Challenges
 		register(TrafficLightChallenge.class);
 		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class);
-		// Corona
+		register(CoronaChallenge.class);
 		register(RandomizedHPChallenge.class);
 		register(DamagePerBlockChallenge.class);
 		register(FoodOnceChallenge.class);
@@ -85,6 +89,12 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(InvertHealthChallenge.class);
 		register(StoneSightChallenge.class);
 		register(LowDropRateChallenge.class);
+		//register(TsunamiChallenge.class);
+		register(InvisibleMobsChallenge.class);
+		register(HitMobIsPreviousChallenge.class);
+		register(NewEntityOnJumpChallenge.class);
+		register(NoMoveMouseChallenge.class);
+		register(NoDupedItemsChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

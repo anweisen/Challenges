@@ -6,13 +6,12 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.Material;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +20,8 @@ import org.bukkit.event.entity.EntitySpawnEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 /**
@@ -78,14 +79,25 @@ public class RandomizedHPChallenge extends SettingModifier {
 	}
 
 	private void resetExistingEntityHealth() {
+		Map<EntityType, Double> entityDefaultHealth = new HashMap<>();
 		for (World world : Bukkit.getWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				if (entity instanceof Player) continue;
-				AttributeInstance attribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-				attribute.setBaseValue(attribute.getDefaultValue());
-				entity.setHealth(attribute.getDefaultValue());
+				EntityType type = entity.getType();
+				double health = entityDefaultHealth.getOrDefault(type, getDefaultHealth(type));
+				entityDefaultHealth.put(type, health);
+				entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+				entity.setHealth(health);
 			}
 		}
+	}
+
+	private double getDefaultHealth(@Nonnull EntityType entityType) {
+		World world = Bukkit.getWorlds().get(0);
+		Entity entity = world.spawnEntity(new Location(world, 0, 0, 0), entityType);
+		entity.remove();
+		if (!(entity instanceof LivingEntity)) return 0;
+		return ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
 	}
 
 	@Nonnull

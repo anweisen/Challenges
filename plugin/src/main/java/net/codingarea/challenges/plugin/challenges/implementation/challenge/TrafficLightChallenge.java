@@ -109,6 +109,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (state != RED) return;
 		if (event.getTo() == null) return;
 		if (BlockUtils.isSameLocation(event.getFrom(), event.getTo())) return;

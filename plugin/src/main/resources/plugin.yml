@@ -99,6 +99,9 @@ commands:
   gma:
     usage: "/gma [player]"
     permission: "challenges.gamemode"
+  gmsp:
+    usage: "/gmsp <player | @a | @p | @s | @r>"
+    permission: "challenges.gamemode"
   weather:
     usage: "/weather <clear/sun/rain/thunder>"
     description: "Changes the weather"

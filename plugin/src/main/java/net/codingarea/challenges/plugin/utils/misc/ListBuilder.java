@@ -27,6 +27,18 @@ public final class ListBuilder <T> {
 		return this;
 	}
 
+	@SafeVarargs
+	public final ListBuilder<T> addAllIfNotContains(T... t) {
+		return addAllIfNotContains(Arrays.asList(t));
+	}
+
+	public final ListBuilder<T> addAllIfNotContains(Collection<T> collection) {
+		for (T t : collection) {
+			if (!list.contains(t)) list.add(t);
+		}
+		return this;
+	}
+
 	public ListBuilder<T> add(T t) {
 		list.add(t);
 		return this;

@@ -37,11 +37,11 @@ public class CutCleanSetting extends MenuSetting {
 
 	public CutCleanSetting() {
 		super(MenuType.SETTINGS, "CutClean");
-		registerSetting("iron->iron_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron")), true, Material.IRON_ORE, Material.IRON_INGOT));
-		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
-		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal")), false, Material.COAL_ORE, Material.TORCH));
-		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 100, 0));
-		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food")), true));
+		registerSetting("iron->iron_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron-setting")), true, Material.IRON_ORE, Material.IRON_INGOT));
+		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
+		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false, Material.COAL_ORE, Material.TORCH));
+		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 10, 0));
+		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food-setting")), true));
 	}
 
 	@Nonnull

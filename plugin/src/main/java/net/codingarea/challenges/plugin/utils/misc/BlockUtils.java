@@ -14,6 +14,7 @@ import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public final class BlockUtils {
