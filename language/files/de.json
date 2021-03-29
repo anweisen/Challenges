@@ -132,7 +132,6 @@
   "challenge-end-goal-reached": [
     "",
     "§7Die Challenge wurde beendet!",
-    "§7Gewinner: §e§l{1}",
     "§7Zeit benötigt: §a§l{0}",
     "§7Seed: §e§l{2}",
     ""
@@ -140,6 +139,7 @@
   "challenge-end-goal-reached-winner": [
     "",
     "§7Die Challenge wurde beendet!",
+    "§7Gewinner: §e§l{1}",
     "§7Zeit benötigt: §a§l{0}",
     "§7Seed: §e§l{2}",
     ""
