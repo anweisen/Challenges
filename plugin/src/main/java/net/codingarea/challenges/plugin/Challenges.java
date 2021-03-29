@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin;
 
-import net.anweisen.utilitites.bukkit.core.BukkitModule;
+import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
 import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
