@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -88,11 +89,17 @@ public class HealthDisplaySetting extends Setting {
 		}, 1);
 	}
 
-	private void updatePlayerHealth(@Nonnull Player player) {
+
+	@ScheduledTask(ticks = 10)
+	public void updateAllPlayersHealth() {
+		Bukkit.getOnlinePlayers().forEach(this::updatePlayerHealth);
+	}
+
+	protected void updatePlayerHealth(@Nonnull Player player) {
 		for (Player current : Bukkit.getOnlinePlayers()) {
 			Objective objective = current.getScoreboard().getObjective(OBJECTIVE_NAME);
 			if (objective == null) continue;
-			objective.getScore(player.getName()).setScore((int) player.getHealth());
+			objective.getScore(player.getName()).setScore((int) (player.getHealth() + player.getAbsorptionAmount()));
 		}
 	}
 
