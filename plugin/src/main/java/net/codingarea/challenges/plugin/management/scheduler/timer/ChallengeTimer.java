@@ -144,7 +144,7 @@ public final class ChallengeTimer {
 	public void updateActionbar() {
 		if (sentEmpty && hidden) return;
 		if (hidden) sentEmpty = true;
-		String actionbar = hidden ? "":  getActionbar();
+		String actionbar = hidden ? "" : getActionbar();
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionbar));
