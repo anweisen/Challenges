@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.animation;
 
-import net.codingarea.challenges.plugin.management.player.ChallengePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -90,14 +89,6 @@ public final class SoundSample {
 		return this;
 	}
 
-	public void play(@Nonnull ChallengePlayer player) {
-		play(player.getPlayer());
-	}
-
-	public void play(@Nonnull ChallengePlayer player, @Nonnull Location location) {
-		play(player.getPlayer(), location);
-	}
-
 	public void play(@Nonnull Player player) {
 		play(player, player.getLocation());
 	}
@@ -111,8 +102,6 @@ public final class SoundSample {
 	public void playIfPlayer(@Nonnull Object target) {
 		if (target instanceof Player)
 			play((Player) target);
-		if (target instanceof ChallengePlayer)
-			play((ChallengePlayer) target);
 	}
 
 	public void broadcast() {
