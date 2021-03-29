@@ -17,6 +17,7 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.UUID;
 import java.util.function.Consumer;
 
 /**
@@ -115,6 +116,16 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	public final void broadcast(@Nonnull Consumer<Player> action) {
 		Bukkit.getOnlinePlayers().forEach(action);
+	}
+
+	@Nonnull
+	protected final Document getPlayerData(@Nonnull UUID player) {
+		return plugin.getConfigManager().getPlayerConfig().getDocument(player.toString()).getDocument(getName());
+	}
+
+	@Nonnull
+	protected final Document getPlayerData(@Nonnull Player player) {
+		return getPlayerData(player.getUniqueId());
 	}
 
 }
