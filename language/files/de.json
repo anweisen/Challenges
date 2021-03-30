@@ -488,6 +488,11 @@
     "Du musst *2 Blöcke* abstand von allen ",
     "*Mobs* halten oder du wirst *krank*"
   ],
+  "item-all-blocks-disappear-challenge": [
+    "§cAlle Blöcke Verschwinden",
+    "Wenn du einen *Block abbaust*, werden",
+    "alle des *selben Types* im Chunk *zerstört*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

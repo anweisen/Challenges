@@ -2,12 +2,16 @@ package net.codingarea.challenges.plugin.management.blocks;
 
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -53,6 +57,30 @@ public final class BlockDropManager {
 
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 	private final Map<Material, RegisteredChance> chance = new HashMap<>();
+
+	@Nonnull
+	public Collection<ItemStack> getDrops(@Nonnull Block block) {
+		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
+		List<Material> customDrops = getCustomDrops(block.getType());
+		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
+		return block.getDrops();
+	}
+
+	@Nonnull
+	public Collection<ItemStack> getDrops(@Nonnull Block block, @Nonnull ItemStack tool) {
+		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
+		List<Material> customDrops = getCustomDrops(block.getType());
+		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
+		return block.getDrops(tool);
+	}
+
+	@Nonnull
+	public Collection<ItemStack> getDrops(@Nonnull Block block, @Nonnull ItemStack tool, @Nonnull Entity entity) {
+		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
+		List<Material> customDrops = getCustomDrops(block.getType());
+		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
+		return block.getDrops(tool, entity);
+	}
 
 	@Nonnull
 	public List<Material> getCustomDrops(@Nonnull Material block) {
