@@ -22,8 +22,7 @@ import javax.annotation.Nonnull;
 public class CustomEventListener implements Listener {
 
 	/**
-	 * Detecting jumps and calls {@link PlayerJumpEvent}
-	 * @param event the event which is called
+	 * Detecting jumps and calls a {@link PlayerJumpEvent}
 	 */
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerStatisticIncrement(@Nonnull PlayerStatisticIncrementEvent event) {
