@@ -34,11 +34,11 @@ timer:
   count-up-message: "§8• §7Time: §a§l{time} §8•"
   count-down-message: "§8• §7Time: §c§l{time} §8•"
   format:
-    days: "{d} days {hh}:{mm}:{ss}"
-    day: "{d} day {hh}:{mm}:{ss}"
-    hours: "{hh}:{mm}:{ss}"
-    minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+    minutes: "{mm}:{ss}"
+    hours: "{hh}:{mm}:{ss}"
+    day: "{d} day {hh}:{mm}:{ss}"
+    days: "{d} days {hh}:{mm}:{ss}"
 
 # When the worlds are reset using /reset, the given seed will be used, if enabled, to generate the new worlds
 custom-seed:
