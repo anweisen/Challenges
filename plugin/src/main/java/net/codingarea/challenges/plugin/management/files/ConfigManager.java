@@ -19,13 +19,11 @@ public final class ConfigManager {
 	private FileDocumentWrapper sessionConfig;
 	private FileDocumentWrapper gamestateConfig;
 	private FileDocumentWrapper settingsConfig;
-	private FileDocumentWrapper playerConfig;
 
 	public void loadConfigs() {
 		sessionConfig   = load("internal/session.json");
 		gamestateConfig = load("internal/gamestate.json");
 		settingsConfig  = load("internal/settings.json");
-		playerConfig    = load("internal/players.json");
 	}
 
 	@Nullable
@@ -53,11 +51,6 @@ public final class ConfigManager {
 	@Nonnull
 	public FileDocumentWrapper getSettingsConfig() {
 		return settingsConfig;
-	}
-
-	@Nonnull
-	public FileDocumentWrapper getPlayerConfig() {
-		return playerConfig;
 	}
 
 }

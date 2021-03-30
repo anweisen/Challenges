@@ -120,8 +120,13 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Nonnull
+	protected final Document getGamestateData() {
+		return plugin.getConfigManager().getGamestateConfig().getDocument(getName());
+	}
+
+	@Nonnull
 	protected final Document getPlayerData(@Nonnull UUID player) {
-		return plugin.getConfigManager().getPlayerConfig().getDocument(player.toString()).getDocument(getName());
+		return getGamestateData().getDocument("player").getDocument(player.toString());
 	}
 
 	@Nonnull
