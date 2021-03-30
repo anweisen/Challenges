@@ -143,10 +143,6 @@ public final class WorldManager {
 		gamestateConfig.clear();
 		gamestateConfig.save();
 
-		FileDocumentWrapper playerConfig = Challenges.getInstance().getConfigManager().getPlayerConfig();
-		playerConfig.clear();
-		playerConfig.save();
-
 	}
 
 	private void loadExtraWorld() {
