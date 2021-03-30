@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -59,17 +60,22 @@ public class TimberSetting extends SettingModifier {
 	private void breakBlock(@Nonnull Block block, @Nonnull ItemStack item) {
 
 		if (isLog(block.getType())) {
-			block.breakNaturally(item);
+			Challenges.getInstance().getBlockDropManager().getDrops(block, item);
 		} else if (isLeaves(block.getType())) {
 			block.breakNaturally(item);
-			int random = new Random().nextInt(5);
-			if (random == 0) {
+			int random = new Random().nextInt(100);
+			if (isBetween(random, 0, 15)) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK));
-			} else if (random == 1) {
+			} else if (isBetween(random, 30, 34)) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.APPLE));
 			}
+
 		}
 
+	}
+
+	private boolean isBetween(int value, int max, int min) {
+		return value >= min && value <= max;
 	}
 
 	@Nonnull
