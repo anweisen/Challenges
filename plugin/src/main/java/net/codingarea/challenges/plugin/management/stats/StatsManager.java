@@ -13,10 +13,12 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import javax.annotation.Nonnull;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -87,7 +89,7 @@ public final class StatsManager implements Listener {
 			return stats;
 		} catch (DatabaseException ex) {
 			Logger.severe("Could not get player stats for uuid " + uuid, ex);
-			return new PlayerStats();
+			return new PlayerStats(uuid);
 		}
 	}
 
@@ -95,10 +97,50 @@ public final class StatsManager implements Listener {
 	private PlayerStats getStatsFromDatabase(@Nonnull UUID uuid) throws DatabaseException {
 		return Challenges.getInstance().getDatabaseManager().getDatabase()
 				.query("challenges")
+				.select("stats")
 				.where("uuid", uuid)
 				.execute().first()
-				.map(result -> new PlayerStats(result.getDocument("stats")))
-				.orElse(new PlayerStats());
+				.map(result -> new PlayerStats(uuid, result.getDocument("stats")))
+				.orElse(new PlayerStats(uuid));
+	}
+
+	@Nonnull
+	private List<PlayerStats> getAllStats() throws DatabaseException {
+		return Challenges.getInstance().getDatabaseManager().getDatabase()
+				.query("challenges")
+				.select("uuid", "stats")
+				.execute().all()
+				.filter(result -> result.getUUID("uuid") != null)
+				.map(result -> new PlayerStats(result.getUUID("uuid"), result.getDocument("stats")))
+				.collect(Collectors.toList());
+	}
+
+	@Nonnull
+	public LeaderboardInfo getLeaderboardInfo(@Nonnull UUID uuid) {
+		try {
+			List<PlayerStats> stats = getAllStats();
+			LeaderboardInfo info = new LeaderboardInfo();
+			for (Statistic statistic : Statistic.values()) {
+				Stream<PlayerStats> stream = stats.stream().sorted(Comparator.comparingDouble(value -> value.getStatisticValue(statistic)));
+				int place = determineIndex(stream, PlayerStats::getPlayer, uuid) + 1;
+				info.setPlace(statistic, place);
+			}
+
+			return info;
+		} catch (DatabaseException ex) {
+			Logger.severe("Could not get player leaderboard information for uuid " + uuid, ex);
+			return new LeaderboardInfo();
+		}
+	}
+
+	private <T, U> int determineIndex(@Nonnull Stream<T> stream, @Nonnull Function<T, U> extractor, @Nonnull U target) {
+		int index = 0;
+		List<U> list = stream.map(extractor).collect(Collectors.toList());
+		for (U u : list) {
+			if (target.equals(u)) return index;
+			index++;
+		}
+		return index;
 	}
 
 	public boolean isEnabled() {
