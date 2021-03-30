@@ -96,7 +96,11 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NewEntityOnJumpChallenge.class);
 		register(NoMoveMouseChallenge.class);
 		register(NoDupedItemsChallenge.class);
+		register(OnlyDownChallenge.class);
+		register(WaterAllergyChallenge.class);
 		register(AllBlocksDisappearChallenge.class);
+		register(MaxBiomeTimeChallenge.class);
+		register(PermanentItemChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

@@ -104,8 +104,13 @@
   "only-dirt-failed": "§e{0} §7stand nicht auf Erde",
   "no-mouse-move-failed": "§e{0} §7hat seine Maus bewegt",
   "no-duped-items-failed": "§e{0} §7und §e{1} §7hatten beide §e{2} §7im Inventar",
+  "only-down-failed": "§e{0} §7ist einen Block nach oben gegangen",
 
   "bossbar-hit-mob-is-previous-challenge": "§8» §7Letzer Mob §8§l┃ §a{0}",
+  "bossbar-biome-time-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
+
+  "subtitle-time-seconds": "§e{0} §7Sekunden",
+  "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -189,11 +194,11 @@
   "item-time-seconds-description": [
     "§8» §7Zeit: §e{0} §7Sekunden"
   ],
+  "item-time-seconds-range-description": [
+    "§8» §7Zeit: §e{0}-{1} §7Sekunden"
+  ],
   "item-heart-damage-description": [
     "§8» §7Schaden: §e{0} §c❤"
-  ],
-  "item-min-max-time-seconds-description": [
-    "§8» §7Zeit: §e{0}-{1} §7Sekunden"
   ],
 
   "item-difficulty-setting": [
@@ -488,11 +493,32 @@
     "Du musst *2 Blöcke* abstand von allen ",
     "*Mobs* halten oder du wirst *krank*"
   ],
+  "item-only-down-challenge": [
+    "§cNur nach Unten",
+    "Wenn du *einen Block* nach",
+    "*oben* gehst *stirbst* du"
+  ],
   "item-all-blocks-disappear-challenge": [
     "§cAlle Blöcke Verschwinden",
     "Wenn du einen *Block abbaust*, werden",
     "alle des *selben Types* im Chunk *zerstört*"
   ],
+  "item-water-allergy-challenge": [
+    "§9Wasserallergie",
+    "Wenn du in *Wasser* bist,",
+    "*erleidest* du den gesetzen Schaden"
+  ],
+  "item-max-biome-time-challenge": [
+    "§2Maximale Biom Zeit",
+    "Die *Zeit* die du in jedem *Biom*",
+    "sein darfst, ist *begrenzt*"
+  ],
+  "item-permanent-item-challenge": [
+    "§cPermanente Items",
+    "*Items* können nicht gedroppt",
+    "oder *weggelegt* werden"
+  ],
+
 
   "item-dragon-goal": [
     "§5Enderdrache",
