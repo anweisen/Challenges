@@ -80,12 +80,13 @@ titles:
 # You will have to type /reset confirm to reset your server/worlds
 confirm-reset: true
 
+# The /reset command can be executed when the server is fresh, what means the timer was never started before
+enable-fresh-reset: true
+
 # This will pause the timer / reset the world if the last one leaves the server and the timer was started before
 pause-on-last-leave: true
 reset-on-last-leave: false
 
-# The /reset command can be executed when the server is fresh, what means the timer was never started before
-enable-fresh-reset: true
 # The timer will automatically be started when the first player joined the server
 start-on-first-join: false
 
