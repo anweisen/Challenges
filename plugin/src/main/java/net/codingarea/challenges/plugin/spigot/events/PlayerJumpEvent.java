@@ -24,6 +24,7 @@ public class PlayerJumpEvent extends PlayerEvent {
 		return handlers;
 	}
 
+	@Nonnull
 	public static HandlerList getHandlerList() {
 		return handlers;
 	}

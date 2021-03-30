@@ -8,13 +8,19 @@ import org.bukkit.event.player.PlayerEvent;
 
 import javax.annotation.Nonnull;
 
+/**
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
+ * @since 2.0
+ */
 public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
+
     private static final HandlerList handlers = new HandlerList();
+
     private final Item item;
     private boolean cancel = false;
     private final int remaining;
 
-    public PlayerPickupItemEvent(@Nonnull final Player player, @Nonnull final Item item, final int remaining) {
+    public PlayerPickupItemEvent(@Nonnull Player player, @Nonnull Item item, int remaining) {
         super(player);
         this.item = item;
         this.remaining = remaining;
