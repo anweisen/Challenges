@@ -64,8 +64,9 @@ public class CheatListener implements Listener {
 	private boolean hasPermission(@Nonnull Player player, @Nonnull String command) {
 		String[] prefixes = {
 			"challenges.",
-			"minecraft.command",
-			"essentials."
+			"minecraft.command.",
+			"essentials.",
+			"bukkit."
 		};
 
 		for (String prefix : prefixes) {
