@@ -33,6 +33,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DeathMessageSetting.class);
 		register(HealthDisplaySetting.class);
 		registerWithCommand(PositionSetting.class, "position");
+		register(DeathPositionSetting.class);
 		register(PlayerGlowSetting.class);
 		register(SoupSetting.class);
 		register(NoHungerSetting.class);
@@ -114,7 +115,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		registerDamageRule("fall",      Material.FEATHER,                   DamageCause.FALL);
 		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
 		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
-		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION);
+		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
 	}
 
 }
