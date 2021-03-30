@@ -1,9 +1,13 @@
 package net.codingarea.challenges.plugin.lang;
 
+import net.anweisen.utilities.commons.config.Document;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -12,6 +16,8 @@ import java.util.List;
  * @since 2.0
  */
 public final class ItemDescription {
+
+	private static final Document config = Challenges.getInstance().getConfigDocument().getDocument("design");
 
 	private final String[] colors;
 	private final String name;
@@ -36,8 +42,10 @@ public final class ItemDescription {
 		name = "§8» " + description[0];
 		originalName = description[0];
 		colors = determineColors(description[0]);
-		lore = new String[description.length - 1];
-		fillLore(description);
+
+		List<String> loreOutput = new ArrayList<>();
+		fillLore(description, loreOutput);
+		lore = loreOutput.toArray(new String[0]);
 	}
 
 	@Nonnull
@@ -60,7 +68,7 @@ public final class ItemDescription {
 		return lore;
 	}
 
-	private void fillLore(@Nonnull String[] origin) {
+	private void fillLore(@Nonnull String[] origin, @Nonnull List<String> output) {
 
 		String colorBefore = "§7";
 		boolean inColor = false;
@@ -94,8 +102,12 @@ public final class ItemDescription {
 					}
 				}
 			}
-			lore[i - 1] = line.toString();
+			output.add(line.toString());
 		}
+
+		if (output.isEmpty()) return;
+		if (config.getBoolean("empty-line-above")) output.add(0, " ");
+		if (config.getBoolean("empty-line-underneath")) output.add(" ");
 
 	}
 

@@ -11,34 +11,38 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
-public class InnerInventoryClickEvent extends Event {
-
-	private static final HandlerList HANDLERS_LIST = new HandlerList();
+public abstract class InventoryClickEventWrapper extends Event {
 
 	private final InventoryClickEvent event;
 
-	public InnerInventoryClickEvent(InventoryClickEvent event) {
+	public InventoryClickEventWrapper(@Nonnull InventoryClickEvent event) {
 		this.event = event;
 	}
 
+	@Nullable
 	public Inventory getClickedInventory() {
 		return event.getClickedInventory();
 	}
 
+	@Nonnull
 	public InventoryView getView() {
 		return event.getView();
 	}
 
+	@Nonnull
 	public ClickType getClick() {
 		return event.getClick();
 	}
 
+	@Nonnull
 	public HumanEntity getWhoClicked() {
 		return event.getWhoClicked();
 	}
@@ -51,10 +55,12 @@ public class InnerInventoryClickEvent extends Event {
 		return event.getRawSlot();
 	}
 
+	@Nonnull
 	public InventoryAction getAction() {
 		return event.getAction();
 	}
 
+	@Nullable
 	public ItemStack getCursor() {
 		return event.getCursor();
 	}
@@ -63,18 +69,22 @@ public class InnerInventoryClickEvent extends Event {
 		return event.getHotbarButton();
 	}
 
+	@Nonnull
 	public SlotType getSlotType() {
 		return event.getSlotType();
 	}
 
+	@Nonnull
 	public Result getResult() {
 		return event.getResult();
 	}
 
+	@Nullable
 	public ItemStack getCurrentItem() {
 		return event.getCurrentItem();
 	}
 
+	@Nonnull
 	public List<HumanEntity> getViewers() {
 		return event.getViewers();
 	}
@@ -83,14 +93,15 @@ public class InnerInventoryClickEvent extends Event {
 		event.setCancelled(cancel);
 	}
 
-	public void setResult(Result result) {
+	public void setResult(@Nonnull Result result) {
 		event.setResult(result);
 	}
 
-	public void setCurrentItem(ItemStack item) {
+	public void setCurrentItem(@Nullable ItemStack item) {
 		event.setCurrentItem(item);
 	}
 
+	@Nonnull
 	public InventoryClickEvent getEvent() {
 		return event;
 	}
@@ -106,17 +117,9 @@ public class InnerInventoryClickEvent extends Event {
 	public boolean isLeftClick() {
 		return event.isLeftClick();
 	}
+
 	public boolean isShiftClick() {
 		return event.isShiftClick();
-	}
-
-	public static HandlerList getHandlerList() {
-		return HANDLERS_LIST;
-	}
-
-	@Override
-	public HandlerList getHandlers() {
-		return getHandlerList();
 	}
 
 }

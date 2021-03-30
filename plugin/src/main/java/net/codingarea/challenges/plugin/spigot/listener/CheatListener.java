@@ -37,8 +37,6 @@ public class CheatListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onCommand(@Nonnull PlayerCommandPreprocessEvent event) {
 		String[] commands = {
-				"gamemode",
-				"gm",
 				"give",
 				"replaceitem",
 				"effect",
@@ -66,8 +64,9 @@ public class CheatListener implements Listener {
 	private boolean hasPermission(@Nonnull Player player, @Nonnull String command) {
 		String[] prefixes = {
 			"challenges.",
-			"minecraft.command",
-			"essentials."
+			"minecraft.command.",
+			"essentials.",
+			"bukkit."
 		};
 
 		for (String prefix : prefixes) {

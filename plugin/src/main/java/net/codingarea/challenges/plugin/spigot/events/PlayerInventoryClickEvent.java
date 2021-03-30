@@ -4,29 +4,34 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryClickEvent;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
-public class PlayerInventoryClickEvent extends InnerInventoryClickEvent {
+public class PlayerInventoryClickEvent extends InventoryClickEventWrapper {
 
-	private static final HandlerList HANDLERS_LIST = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 
 	private final Player player;
 
-	public PlayerInventoryClickEvent(InventoryClickEvent event) {
+	public PlayerInventoryClickEvent(@Nonnull InventoryClickEvent event) {
 		super(event);
 		player = ((Player) event.getWhoClicked());
 	}
 
+	@Nonnull
 	public Player getPlayer() {
 		return player;
 	}
 
+	@Nonnull
 	public static HandlerList getHandlerList() {
-		return HANDLERS_LIST;
+		return handlers;
 	}
 
+	@Nonnull
 	@Override
 	public HandlerList getHandlers() {
 		return getHandlerList();

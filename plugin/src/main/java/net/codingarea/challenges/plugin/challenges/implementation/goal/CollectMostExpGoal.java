@@ -27,11 +27,13 @@ public class CollectMostExpGoal extends PointsGoal {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onExpChange(@Nonnull PlayerExpChangeEvent event) {
+		if (!shouldExecuteEffect()) return;
 		collect(event.getPlayer(), event.getAmount());
 	}
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
+		if (!shouldExecuteEffect()) return;
 		event.setKeepLevel(true);
 	}
 

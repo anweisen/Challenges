@@ -1,10 +1,11 @@
 package net.codingarea.challenges.plugin;
 
-import net.codingarea.challenges.plugin.management.challenges.ModuleChallengeLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -56,6 +57,15 @@ public final class ChallengeAPI {
 
 	public static void registerScheduler(@Nonnull Object scheduler) {
 		Challenges.getInstance().getScheduler().register(scheduler);
+	}
+
+	@Nonnull
+	public static List<Material> getCustomDrops(@Nonnull Material block) {
+		return Challenges.getInstance().getBlockDropManager().getCustomDrops(block);
+	}
+
+	public static boolean getDropChance(@Nonnull Material block) {
+		return Challenges.getInstance().getBlockDropManager().getDropChance(block).getAsBoolean();
 	}
 
 }

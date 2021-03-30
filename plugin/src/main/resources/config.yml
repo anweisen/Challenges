@@ -45,6 +45,11 @@ custom-seed:
   enabled: false
   seed: 0
 
+# This will change the item design in the challenges menu
+design:
+  empty-line-above: false
+  empty-line-underneath: false
+
 # The size stands for the amount of rows in the backpack inventory
 backpack-size: 3
 
@@ -81,6 +86,8 @@ reset-on-last-leave: false
 
 # The /reset command can be executed when the server is fresh, what means the timer was never started before
 enable-fresh-reset: true
+# The timer will automatically be started when the first player joined the server
+start-on-first-join: false
 
 # If you enable this the start command defined in the spigot.yml will be executed,
 # otherwise the server will be stopped if the reset command was executed.

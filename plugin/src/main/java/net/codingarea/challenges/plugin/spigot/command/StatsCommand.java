@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.management.stats.LeaderboardInfo;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
@@ -17,6 +18,7 @@ import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
@@ -79,7 +81,8 @@ public class StatsCommand implements PlayerCommand {
 		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(name, Message.forName("stats-of").asString(name)).build());
 
 		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid);
-		createInventory(stats, inventory, 19, 20, 21, 22, 23, 24, 25, 29, 30, 31, 32, 33);
+		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
+		createInventory(stats, info, inventory, 19, 20, 21, 22, 23, 24, 25, 29, 30, 31, 32, 33);
 
 		Bukkit.getScheduler().callSyncMethod(Challenges.getInstance(), () -> {
 			MenuPosition.set(player, new EmptyMenuPosition());
@@ -88,14 +91,15 @@ public class StatsCommand implements PlayerCommand {
 		});
 	}
 
-	private void createInventory(@Nonnull PlayerStats stats, @Nonnull AnimatedInventory inventory, @Nonnull int... slots) {
+	private void createInventory(@Nonnull PlayerStats stats, @Nonnull LeaderboardInfo info, @Nonnull AnimatedInventory inventory, @Nonnull int... slots) {
 		int i = 0;
 		for (Statistic statistic : Statistic.values()) {
 			double value = stats.getStatisticValue(statistic);
 			String format = statistic.formatChat(value);
 
 			Message message = Message.forName("stat-" + statistic.name().toLowerCase().replace('_', '-'));
-			inventory.cloneLastAndAdd().setItem(slots[i], new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore("§8» §7" + format).hideAttributes().build());
+			ItemBuilder item = new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore(Message.forName("stats-display").asArray(format, info.getPlace(statistic))).hideAttributes();
+			inventory.cloneLastAndAdd().setItem(slots[i], item);
 
 			i++;
 		}
