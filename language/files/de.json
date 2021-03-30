@@ -324,6 +324,11 @@
     "Stellt ein *ob* und",
     "*wie* man *regeneriert*"
   ],
+  "item-death-position-setting": [
+    "§cDeath Position",
+    "Wenn du stirbst, wird mit */pos* ",
+    "eine *Position an deinem Todespunkt* erstellt"
+  ],
 
 
   "item-traffic-light-challenge": [
