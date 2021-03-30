@@ -11,7 +11,7 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
-import net.codingarea.challenges.plugin.utils.misc.TimeUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -121,7 +121,7 @@ public class CutCleanSetting extends MenuSetting {
 			}
 
 			AtomicInteger index = new AtomicInteger();
-			TimeUtils.createBukkitRunnable(timer -> {
+			Bukkit.getScheduler().runTaskTimer(plugin, timer -> {
 
 				SoundSample.LOW_PLOP.play(player);
 				for (int i = 0; i < 2; i++) {
@@ -150,7 +150,7 @@ public class CutCleanSetting extends MenuSetting {
 
 					index.getAndIncrement();
 				}
-			}).runTaskTimer(plugin, 0, 2);
+			},0, 2);
 
 		}
 

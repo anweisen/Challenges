@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
-import net.anweisen.utilitites.bukkit.core.BukkitModule;
+import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
@@ -87,7 +87,7 @@ public class ModuleChallengeLoader {
 	}
 
 	public final void registerDamageRule(@Nonnull String name, @Nonnull ItemBuilder preset, @Nonnull DamageCause... causes) {
-		register( DamageRuleSetting.class, new Class[] { ItemBuilder.class, String.class, DamageCause[].class }, preset, name, causes);
+		register(DamageRuleSetting.class, new Class[] { ItemBuilder.class, String.class, DamageCause[].class }, preset, name, causes);
 	}
 
 }

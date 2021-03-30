@@ -38,7 +38,7 @@ public final class CloudNetHelper {
 
 	public void handleTimerPause() {
 
-		if (!resetToLobby) return;
+		if (!resetToLobby || !startNewService) return;
 
 		try {
 			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.setState("LOBBY");

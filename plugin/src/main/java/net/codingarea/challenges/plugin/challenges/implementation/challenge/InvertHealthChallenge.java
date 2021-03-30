@@ -59,6 +59,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 		SoundSample.PLOP.broadcast();
 		Message.forName("health-inverted").broadcast(Prefix.CHALLENGES);
 		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
 			double health = player.getMaxHealth() - player.getHealth();
 			player.setHealth(health);
 		}

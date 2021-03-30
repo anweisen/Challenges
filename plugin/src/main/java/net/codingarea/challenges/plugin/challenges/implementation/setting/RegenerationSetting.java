@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
+import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -32,7 +33,7 @@ public class RegenerationSetting extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new PotionBuilder(Material.POTION, Message.forName("item-regeneration-setting")).setColor(Color.RED).addEnchantment(Enchantment.KNOCKBACK, 1);
+		return new PotionBuilder(Material.POTION, Message.forName("item-regeneration-setting")).setColor(Color.RED);
 	}
 
 	@Nonnull
@@ -41,9 +42,9 @@ public class RegenerationSetting extends Modifier {
 		if (getValue() == 1) {
 			return DefaultItem.disabled();
 		} else if (getValue() == 2) {
-			return new ItemBuilder(Material.LIME_DYE, "§aActivated");
+			return DefaultItem.enabled();
 		}
-		return new ItemBuilder(Material.ORANGE_DYE, "§6Not natural");
+		return DefaultItem.create(Material.ORANGE_DYE, "§6Not natural");
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class RegenerationSetting extends Modifier {
 			ChallengeHelper.playToggleChallengeTitle(this, false);
 			return;
 		}
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? "§aActivated" : "§6Not natural");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? "§aEnabled" : "§6Not natural");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

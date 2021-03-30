@@ -8,7 +8,9 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public class VersionHelper {
+public final class VersionHelper {
+
+	private VersionHelper() {}
 
 	public static int getMinBuildHeight(@Nonnull World world) {
 		return 0;
