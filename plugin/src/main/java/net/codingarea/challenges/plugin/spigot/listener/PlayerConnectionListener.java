@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.lang.Message;
@@ -25,10 +26,13 @@ public class PlayerConnectionListener implements Listener {
 
 	private final boolean messages;
 	private final boolean timerPausedInfo;
+	private final boolean startTimerOnJoin;
 
 	public PlayerConnectionListener() {
-		messages = Challenges.getInstance().getConfigDocument().getBoolean("join-quit-messages");
-		timerPausedInfo = Challenges.getInstance().getConfigDocument().getBoolean("timer-is-paused-info");
+		Document config = Challenges.getInstance().getConfigDocument();
+		messages = config.getBoolean("join-quit-messages");
+		timerPausedInfo = config.getBoolean("timer-is-paused-info");
+		startTimerOnJoin = config.getBoolean("start-on-first-join");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -64,6 +68,10 @@ public class PlayerConnectionListener implements Listener {
 
 		if (Challenges.getInstance().getStatsManager().isNoStatsAfterCheating() && Challenges.getInstance().getServerManager().hasCheated()) {
 			Message.forName("cheats-already-detected").send(player, Prefix.CHALLENGES);
+		}
+
+		if (startTimerOnJoin) {
+			ChallengeAPI.resumeTimer();
 		}
 
 	}
