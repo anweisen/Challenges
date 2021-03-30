@@ -37,8 +37,6 @@ public class CheatListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onCommand(@Nonnull PlayerCommandPreprocessEvent event) {
 		String[] commands = {
-				"gamemode",
-				"gm",
 				"give",
 				"replaceitem",
 				"effect",
