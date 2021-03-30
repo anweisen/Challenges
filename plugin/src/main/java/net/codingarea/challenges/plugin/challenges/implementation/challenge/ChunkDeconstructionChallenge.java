@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -33,6 +34,11 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 	@Override
 	protected String[] getSettingsDescription() {
 		return Message.forName("item-time-seconds-description").asArray(getValue());
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue() * 60);
 	}
 
 	@Override

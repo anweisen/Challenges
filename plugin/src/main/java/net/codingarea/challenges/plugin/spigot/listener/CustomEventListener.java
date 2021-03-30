@@ -31,18 +31,20 @@ public class CustomEventListener implements Listener {
 		}
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onInventoryClick(@Nonnull InventoryClickEvent event) {
 		if (!(event.getWhoClicked() instanceof Player)) return;
 		PlayerInventoryClickEvent eventCall = new PlayerInventoryClickEvent(event);
+		eventCall.setCancelled(eventCall.isCancelled());
 		Bukkit.getPluginManager().callEvent(eventCall);
 		event.setCancelled(eventCall.isCancelled());
 	}
 
-	@EventHandler(priority = EventPriority.HIGH)
+	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityPickupItem(@Nonnull EntityPickupItemEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		PlayerPickupItemEvent eventCall = new PlayerPickupItemEvent(((Player) event.getEntity()), event.getItem(), event.getRemaining());
+		eventCall.setCancelled(eventCall.isCancelled());
 		Bukkit.getPluginManager().callEvent(eventCall);
 		event.setCancelled(eventCall.isCancelled());
 	}

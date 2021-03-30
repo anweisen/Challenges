@@ -19,9 +19,9 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @Since("2.0")
-public class BlockPlaceDamage extends SettingModifier {
+public class BlockPlaceDamageChallenge extends SettingModifier {
 
-	public BlockPlaceDamage() {
+	public BlockPlaceDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 60);
 	}
 

@@ -43,12 +43,12 @@ public abstract class KillEntityGoal extends SettingGoal {
 
 	@Override
 	public void getWinnersOnEnd(@Nonnull List<Player> winners) {
-		if (winner != null)
-			winners.add(winner);
+		if (winner != null) winners.add(winner);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onKill(@Nonnull EntityDeathEvent event) {
+		if (!isEnabled() || !ChallengeAPI.isStarted()) return;
 		LivingEntity entity = event.getEntity();
 		if (entity.getType() != this.entity) return;
 		if (environment != null && event.getEntity().getWorld().getEnvironment() != environment) return;

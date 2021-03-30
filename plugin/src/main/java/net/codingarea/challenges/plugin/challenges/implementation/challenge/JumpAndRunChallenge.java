@@ -63,7 +63,13 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-min-max-time-seconds-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 20, getValue() * 60 + 20);
+		//ChallengeHelper.playChangeChallengeValueTitle(this, getValue() + " " + Message.forName(getValue() == 1 ? "minute" : "minutes").asString());
 	}
 
 	@Override
@@ -131,11 +137,6 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		targetBlock = new RandomJumpGenerator().next(random, lastBlock, type == Material.BLUE_TERRACOTTA, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
 		targetBlock.setType(type);
 
-	}
-
-	@Override
-	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() + " " + Message.forName(getValue() == 1 ? "minute" : "minutes").asString());
 	}
 
 	@Nonnull

@@ -22,6 +22,12 @@ public class NoTradingChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.EMERALD, Message.forName("item-no-trading-challenge"));
+	}
+
 	@EventHandler
 	public void onInteract(PlayerInteractEntityEvent event) {
 		if (!shouldExecuteEffect()) return;
@@ -29,12 +35,6 @@ public class NoTradingChallenge extends Setting {
 			event.getPlayer().playSound(event.getPlayer().getLocation(), Sound.ENTITY_VILLAGER_NO, 1F, 1F);
 			event.setCancelled(true);
 		}
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.EMERALD, Message.forName("item-no-trading-challenge"));
 	}
 
 }

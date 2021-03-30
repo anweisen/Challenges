@@ -59,9 +59,7 @@ public class NoOffhandSetting extends Setting {
 		Player player = (Player) event.getWhoClicked();
 		if (ignorePlayer(player)) return;
 		if (event.getClickedInventory() == null) return;
-		System.out.println(event.getClickedInventory().getType());
 		if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
-		System.out.println(event.getSlot());
 		if (event.getSlot() != 40) return;
 		event.setCancelled(true);
 	}

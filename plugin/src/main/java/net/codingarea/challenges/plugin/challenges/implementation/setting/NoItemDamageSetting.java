@@ -23,6 +23,7 @@ public class NoItemDamageSetting extends Setting {
 	@EventHandler
 	public void onItemDamage(PlayerItemDamageEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 
 		event.setCancelled(true);
 		event.getPlayer().updateInventory();

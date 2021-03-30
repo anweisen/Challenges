@@ -17,9 +17,9 @@ import javax.annotation.Nullable;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class BlockBreakDamage extends SettingModifier {
+public class BlockBreakDamageChallenge extends SettingModifier {
 
-	public BlockBreakDamage() {
+	public BlockBreakDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 60);
 	}
 

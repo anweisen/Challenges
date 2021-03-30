@@ -60,7 +60,6 @@ public class SlotLimitSetting extends Modifier {
 	private void updateSlots() {
 		for (int i = 0; i < 36; i++) {
 			if (isBlocked(i) && ChallengeAPI.isStarted()) {
-				Bukkit.broadcastMessage(Prefix.CHALLENGES + "§7Blocking Slot " + i);
 				blockSlot(i);
 			} else {
 				unBlockSlot(i);
@@ -70,6 +69,8 @@ public class SlotLimitSetting extends Modifier {
 	}
 
 	private boolean isBlocked(int slot) {
+		if (slot > 35) return false;
+
 		int value = getValue() - 1;
 
 		if (slot >= 9 && slot <= 17) {
@@ -111,9 +112,7 @@ public class SlotLimitSetting extends Modifier {
 	public void onPlayerInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
 		if (event.getClickedInventory() == null) return;
 		if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
-		System.out.println("b");
 		if (isBlocked(event.getSlot())) {
-			System.out.println("c");
 			event.setCancelled(true);
 		}
 	}

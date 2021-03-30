@@ -40,7 +40,7 @@ public class CoronaChallenge extends Setting {
 		Bukkit.getOnlinePlayers().forEach(this::removeEffects);
 	}
 
-	@ScheduledTask(ticks = 10, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	@ScheduledTask(ticks = 10, async = false)
 	public void onHalfSecond() {
 		if (!shouldExecuteEffect()) {
 			Bukkit.getOnlinePlayers().forEach(this::removeEffects);

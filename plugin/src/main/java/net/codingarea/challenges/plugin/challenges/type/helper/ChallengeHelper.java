@@ -87,16 +87,24 @@ public final class ChallengeHelper {
 		playChangeChallengeValueTitle(modifier, modifier.getValue());
 	}
 
-	public static void playChangeChallengeValueTitle(@Nonnull Modifier modifier, @Nullable Object value) {
+	public static void playChangeChallengeValueTitle(@Nonnull AbstractChallenge modifier, @Nullable Object value) {
 		Challenges.getInstance().getTitleManager().sendChallengeStatusTitle(Message.forName("title-challenge-value-changed"), getColoredChallengeName(modifier), value);
 	}
 
-	public static void playChallengeHeartsValueChangeTitle(@Nonnull Modifier modifier, int health) {
-		playChangeChallengeValueTitle(modifier, (health / 2f) + " §c❤");
+	public static void playChallengeHeartsValueChangeTitle(@Nonnull AbstractChallenge challenge, int health) {
+		playChangeChallengeValueTitle(challenge, (health / 2f) + " §c❤");
 	}
 
 	public static void playChallengeHeartsValueChangeTitle(@Nonnull Modifier modifier) {
 		playChallengeHeartsValueChangeTitle(modifier, modifier.getValue());
+	}
+
+	public static void playChallengeSecondsValueChangeTitle(@Nonnull AbstractChallenge challenge, int seconds) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-seconds").asString(seconds));
+	}
+
+	public static void playChallengeSecondsRangeValueChangeTitle(@Nonnull AbstractChallenge challenge, int min, int max) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-seconds-range").asString(min, max));
 	}
 
 }

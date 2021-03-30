@@ -26,6 +26,7 @@ public class NoExpChallenge extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onExp(PlayerExpChangeEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getAmount() <= 0) return;
 		Message.forName("exp-picked-up").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 		event.getPlayer().damage(event.getPlayer().getHealth());

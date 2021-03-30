@@ -1,26 +1,28 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
+import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -50,18 +52,33 @@ public class SnakeChallenge extends Setting {
 		blocks.clear();
 	}
 
+	@Override
+	public void writeGameState(@Nonnull Document document) {
+		super.writeGameState(document);
+
+		List<Location> locations = blocks.stream().map(Block::getLocation).collect(Collectors.toList());
+		document.set("blocks", locations);
+	}
+
+	@Override
+	public void loadGameState(@Nonnull Document document) {
+		super.loadGameState(document);
+
+		blocks.addAll(document.getSerializableList("blocks", Location.class).stream().map(Location::getBlock).collect(Collectors.toList()));
+	}
+
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (event.getTo() == null) return;
 		if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
 		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
-		if (ChallengeAPI.isWorldInUse()) return;
 
 		Block from = event.getFrom().clone().subtract(0, 0.15, 0).getBlock();
 		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
 
 		if (from.getType().isSolid()) {
-			from.setType(BlockUtils.getTerracotta(getPlayersWool(event.getPlayer())));
+			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())));
 			blocks.add(from);
 		}
 
@@ -82,17 +99,14 @@ public class SnakeChallenge extends Setting {
 
 	}
 
-	public int getPlayersWool(Player player) {
-
+	public int getPlayersWoolIndex(Player player) {
 		int i = 0;
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 			i++;
 			if (i > 17) i = 0;
 			if (currentPlayer == player) return i;
 		}
-
 		return 0;
-
 	}
 
 }

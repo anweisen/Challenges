@@ -33,6 +33,11 @@ public abstract class InventoryClickEventWrapper extends Event {
 	}
 
 	@Nonnull
+	public Inventory getInventory() {
+		return event.getInventory();
+	}
+
+	@Nonnull
 	public InventoryView getView() {
 		return event.getView();
 	}

@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -32,7 +33,7 @@ public class TimberSetting extends SettingModifier {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBreak(@Nonnull BlockBreakEvent event) {
-		//if (!shouldExecuteEffect()) return;
+		if (!shouldExecuteEffect()) return;
 		if (!isLog(event.getBlock().getType())) return;
 
 		List<Block> treeBlocks = getAllTreeBlocks(event.getBlock(), getValue() == 2);
@@ -60,9 +61,9 @@ public class TimberSetting extends SettingModifier {
 	private void breakBlock(@Nonnull Block block, @Nonnull ItemStack item) {
 
 		if (isLog(block.getType())) {
-			Challenges.getInstance().getBlockDropManager().getDrops(block, item);
+			ChallengeHelper.breakBlock(block, item);
 		} else if (isLeaves(block.getType())) {
-			block.breakNaturally(item);
+			ChallengeHelper.breakBlock(block, item);
 			int random = new Random().nextInt(100);
 			if (isBetween(random, 0, 15)) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK));

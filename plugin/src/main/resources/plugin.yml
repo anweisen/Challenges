@@ -83,6 +83,10 @@ commands:
     usage: "/heal [player]"
     description: "Heals yourself or other players"
     permission: "challenges.heal"
+  invsee:
+    usage: "/invsee <player>"
+    description: "Opens an inventory of another player"
+    permission: "challenges.invsee"
   gamemode:
     usage: "/gm <gamemode> [player]"
     aliases:
@@ -100,7 +104,7 @@ commands:
     usage: "/gma [player]"
     permission: "challenges.gamemode"
   gmsp:
-    usage: "/gmsp <player | @a | @p | @s | @r>"
+    usage: "/gmsp [player]"
     permission: "challenges.gamemode"
   weather:
     usage: "/weather <clear/sun/rain/thunder>"

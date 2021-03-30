@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.anntations.Since;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.lang.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -40,7 +41,12 @@ public class InvertHealthChallenge extends TimedChallenge {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-min-max-time-seconds-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 
 	@Override

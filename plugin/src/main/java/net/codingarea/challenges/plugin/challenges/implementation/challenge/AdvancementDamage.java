@@ -11,6 +11,7 @@ import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
@@ -20,17 +21,16 @@ import javax.annotation.Nullable;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class DamagePerBlockChallenge extends SettingModifier {
+public class AdvancementDamage extends SettingModifier {
 
-	public DamagePerBlockChallenge() {
+	public AdvancementDamage() {
 		super(MenuType.CHALLENGES, 1, 40);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onMove(@Nonnull PlayerMoveEvent event) {
+	public void onPlayerAdvancementDone(@Nonnull PlayerAdvancementDoneEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
 
 		event.getPlayer().setNoDamageTicks(0);
 		event.getPlayer().damage(getValue());
@@ -44,7 +44,7 @@ public class DamagePerBlockChallenge extends SettingModifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-damage-block-challenge")).setColor(Color.RED);
+		return new ItemBuilder(Material.BOOK, Message.forName("item-advancement-damage-challenge"));
 	}
 
 	@Nullable

@@ -9,6 +9,8 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
@@ -43,10 +45,15 @@ public class PlayerGlowSetting extends Setting {
 		}
 	}
 
-	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	@ScheduledTask(ticks = 20*60, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void playEffects() {
 		if (!shouldExecuteEffect()) return;
-		Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, 40, 1, true, false, false)));
+		Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 1, true, false, false)));
+	}
+
+	@EventHandler
+	public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
+		playEffects();
 	}
 
 }

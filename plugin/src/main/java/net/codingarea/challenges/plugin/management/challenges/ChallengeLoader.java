@@ -72,9 +72,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		// Anvil rain
 		register(NoExpChallenge.class);
 		register(NoTradingChallenge.class);
-		// Achievement damage
-		register(BlockBreakDamage.class);
-		register(BlockPlaceDamage.class);
+		register(AdvancementDamage.class);
+		register(BlockBreakDamageChallenge.class);
+		register(BlockPlaceDamageChallenge.class);
 		register(OnlyDirtChallenge.class);
 		// High jumps
 		register(DamageInventoryClearChallenge.class);
@@ -92,7 +92,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LowDropRateChallenge.class);
 		//register(TsunamiChallenge.class);
 		register(InvisibleMobsChallenge.class);
-		register(HitMobIsPreviousChallenge.class);
+		register(MobTransformationChallenge.class);
 		register(NewEntityOnJumpChallenge.class);
 		register(NoMoveMouseChallenge.class);
 		register(NoDupedItemsChallenge.class);

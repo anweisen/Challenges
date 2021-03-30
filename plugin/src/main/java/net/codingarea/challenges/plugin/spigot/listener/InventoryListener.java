@@ -4,12 +4,14 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
+import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nonnull;

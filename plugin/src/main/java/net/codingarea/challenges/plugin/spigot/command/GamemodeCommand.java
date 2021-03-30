@@ -31,7 +31,7 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 		List<Player> targets = new ArrayList<>();
 
 		if (args.length <= 0) {
-			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "<gamemode> [player]");
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "gm <gamemode> [player]");
 			return true;
 		}
 
