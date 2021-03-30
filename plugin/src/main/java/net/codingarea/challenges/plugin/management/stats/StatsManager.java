@@ -121,8 +121,7 @@ public final class StatsManager implements Listener {
 			List<PlayerStats> stats = getAllStats();
 			LeaderboardInfo info = new LeaderboardInfo();
 			for (Statistic statistic : Statistic.values()) {
-				Stream<PlayerStats> stream = stats.stream().sorted(Comparator.comparingDouble(value -> value.getStatisticValue(statistic)));
-				int place = determineIndex(stream, PlayerStats::getPlayer, uuid) + 1;
+				int place = determineIndex(new ArrayList<>(stats), PlayerStats::getPlayer, uuid, Comparator.<PlayerStats>comparingDouble(value -> value.getStatisticValue(statistic)).reversed()) + 1;
 				info.setPlace(statistic, place);
 			}
 
@@ -133,10 +132,11 @@ public final class StatsManager implements Listener {
 		}
 	}
 
-	private <T, U> int determineIndex(@Nonnull Stream<T> stream, @Nonnull Function<T, U> extractor, @Nonnull U target) {
+	private <T, U> int determineIndex(@Nonnull List<T> list, @Nonnull Function<T, U> extractor, @Nonnull U target, @Nonnull Comparator<T> sort) {
+		list.sort(sort);
 		int index = 0;
-		List<U> list = stream.map(extractor).collect(Collectors.toList());
-		for (U u : list) {
+		for (T t : list) {
+			U u = extractor.apply(t);
 			if (target.equals(u)) return index;
 			index++;
 		}
