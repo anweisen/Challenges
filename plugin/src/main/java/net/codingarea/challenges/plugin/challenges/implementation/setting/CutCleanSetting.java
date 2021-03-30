@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.anweisen.utilities.commons.anntations.Since;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -96,7 +97,7 @@ public class CutCleanSetting extends MenuSetting {
 			breakBlockVein(event.getPlayer(), event.getBlock(), itemInMainHand);
 		}
 
-		private void breakBlockVein(@Nonnull Player player, @Nonnull Block block, @Nonnull ItemStack itemInMainHand) {
+		private void breakBlockVein(@Nonnull Player player, @Nonnull Block block, @Nonnull ItemStack tool) {
 			Material material = block.getType();
 
 			List<Block> allBlocks = new ArrayList<>();
@@ -132,20 +133,8 @@ public class CutCleanSetting extends MenuSetting {
 					}
 
 					Block currentBlock = allBlocks.get(index.get());
-
-					Material blockType = currentBlock.getType();
-					if (blockType == material) {
-
-						if (!Challenges.getInstance().getBlockDropManager().getDropChance(blockType).getAsBoolean()) return;
-
-						List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(blockType);
-						if (!customDrops.isEmpty()) {
-							customDrops.forEach(drop -> currentBlock.getWorld().dropItemNaturally(currentBlock.getLocation(), new ItemStack(drop)));
-							currentBlock.setType(Material.AIR);
-							return;
-						}
-
-						currentBlock.breakNaturally(itemInMainHand);
+					if (currentBlock.getType() == material) {
+						ChallengeHelper.breakBlock(currentBlock, tool);
 					}
 
 					index.getAndIncrement();

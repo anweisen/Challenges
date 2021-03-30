@@ -9,9 +9,15 @@ import net.codingarea.challenges.plugin.lang.Message;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -19,8 +25,7 @@ import javax.annotation.Nullable;
  */
 public final class ChallengeHelper {
 
-	private ChallengeHelper() {
-	}
+	private ChallengeHelper() {}
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
 		Challenges.getInstance().getMenuManager().getMenu(challenge.getType()).updateItem(challenge);
@@ -52,6 +57,22 @@ public final class ChallengeHelper {
 		ItemDescription description = item.getBuiltByItemDescription();
 		if (description == null) return Message.NULL;
 		return description.getOriginalName();
+	}
+
+	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {
+
+		if (!Challenges.getInstance().getBlockDropManager().getDropChance(block.getType()).getAsBoolean()) return;
+
+		List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(block.getType());
+		if (!customDrops.isEmpty()) {
+			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
+			customDrops.forEach(drop -> block.getWorld().dropItem(location, new ItemStack(drop)));
+			block.setType(Material.AIR);
+			return;
+		}
+
+		block.breakNaturally(tool);
+
 	}
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge) {
