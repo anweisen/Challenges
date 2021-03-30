@@ -76,6 +76,13 @@ public class RestrictionListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
+	public void onDrop(@Nonnull PlayerDropItemEvent event) {
+		if (ChallengeAPI.isStarted()) return;
+		if (event.getPlayer().getGameMode() != GameMode.CREATIVE)
+			event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
 	public void onInteract(@Nonnull PlayerInteractEvent event) {
 		if (ChallengeAPI.isPaused() && event.getPlayer().getGameMode() != GameMode.CREATIVE)
 			event.setCancelled(true);
