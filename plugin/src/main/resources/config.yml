@@ -75,7 +75,7 @@ enable-specific-start-sounds: true
 # set to another time or the mode is toggled or a challenges is enabled/disabled
 titles:
   timer-status: true
-  challenge-status: false
+  challenge-status: true
 
 # You will have to type /reset confirm to reset your server/worlds
 confirm-reset: true
