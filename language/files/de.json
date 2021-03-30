@@ -344,6 +344,11 @@
     "Stellt ein wie viele *Inventar*",
     "*Slots* nutzbar sind"
   ],
+  "item-death-position-setting": [
+    "§cDeath Position",
+    "Wenn du stirbst, wird mit */pos* ",
+    "eine *Position an deinem Todespunkt* erstellt"
+  ],
 
 
   "item-traffic-light-challenge": [

@@ -31,14 +31,25 @@ public class InventoryListener implements Listener {
 
 		Inventory inventory = event.getClickedInventory();
 		if (inventory == null) return;
-		if (inventory != event.getView().getTopInventory()) return; // Player inventory was clicked
-		if (inventory.getHolder() != MenuPosition.HOLDER) return; // No accepted inventory
 
-		MenuPosition position = Challenges.getInstance().getMenuManager().getPosition(player);
-		if (position == null) return; // Currently in no menu
+		if (inventory == event.getView().getTopInventory()) {
 
-		event.setCancelled(true);
-		position.handleClick(new MenuClickInfo(player, inventory, event.isShiftClick(), event.isRightClick(), event.getSlot()));
+			if (inventory.getHolder() != MenuPosition.HOLDER) return; // No menu inventory
+
+			MenuPosition position = Challenges.getInstance().getMenuManager().getPosition(player);
+			if (position == null) return; // Currently in no menu
+
+			event.setCancelled(true);
+			position.handleClick(new MenuClickInfo(player, inventory, event.isShiftClick(), event.isRightClick(), event.getSlot()));
+
+		} else if (event.isShiftClick()) { // Player inventory was clicked
+
+			Inventory topInventory = event.getInventory();
+			if (topInventory.getHolder() != MenuPosition.HOLDER) return; // No menu inventory
+
+			event.setCancelled(true);
+
+		}
 
 	}
 

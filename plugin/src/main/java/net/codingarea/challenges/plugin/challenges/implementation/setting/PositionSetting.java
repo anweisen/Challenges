@@ -102,6 +102,10 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		}
 	}
 
+	public boolean containsPosition(@Nonnull String name) {
+		return positions.containsKey(name);
+	}
+
 	@Override
 	public void loadGameState(@Nonnull Document document) {
 		for (String name : document.keys()) {

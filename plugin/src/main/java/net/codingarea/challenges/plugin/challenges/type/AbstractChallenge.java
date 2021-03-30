@@ -17,6 +17,8 @@ import org.bukkit.inventory.ItemStack;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import java.util.function.Consumer;
 
@@ -26,6 +28,8 @@ import java.util.function.Consumer;
  * @since 2.0
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {
+
+	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstChallengeByClass = new HashMap<>();
 
 	protected final Challenges plugin = Challenges.getInstance();
 
@@ -37,6 +41,9 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
+
+		if (!firstChallengeByClass.containsKey(this.getClass()))
+			firstChallengeByClass.put(this.getClass(), this);
 	}
 
 	@Nonnull
@@ -132,6 +139,11 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	protected final Document getPlayerData(@Nonnull Player player) {
 		return getPlayerData(player.getUniqueId());
+	}
+
+	@Nonnull
+	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
+		return classOfChallenge.cast(firstChallengeByClass.get(classOfChallenge));
 	}
 
 }
