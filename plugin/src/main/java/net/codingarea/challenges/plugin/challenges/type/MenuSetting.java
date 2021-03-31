@@ -17,8 +17,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.function.Supplier;
@@ -184,7 +186,19 @@ public abstract class MenuSetting extends Setting {
 			Inventory inventory = inventories.get(page);
 
 			inventory.setItem(slot, getDisplayItem().hideAttributes().build());
-			inventory.setItem(slot + 9, getSettingsItem().hideAttributes().build());
+			inventory.setItem(slot + 9, buildSettingsItem());
+		}
+
+		@Nonnull
+		private ItemStack buildSettingsItem() {
+			ItemBuilder item = getSettingsItem();
+			String[] description = getSettingsDescription();
+			if (description != null && isEnabled()) {
+				item.appendLore(" ");
+				item.appendLore(description);
+			}
+
+			return item.build();
 		}
 
 		@Nonnull
@@ -195,6 +209,9 @@ public abstract class MenuSetting extends Setting {
 
 		@Nonnull
 		public abstract SubSetting setValue(int value);
+
+		@Nullable
+		protected abstract String[] getSettingsDescription();
 
 		public boolean isEnabled() {
 			return MenuSetting.this.isEnabled() && getAsBoolean();
@@ -211,14 +228,24 @@ public abstract class MenuSetting extends Setting {
 	public class BooleanSubSetting extends SubSetting {
 
 		private final Supplier<ItemBuilder> item;
+		private final Supplier<String[]> description;
 		private boolean enabled;
 
 		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item) {
-			this(item, false);
+			this(item, () -> null);
 		}
 
 		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, boolean enabledByDefault) {
+			this(item, () -> null, enabledByDefault);
+		}
+
+		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description) {
+			this(item, description, false);
+		}
+
+		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, boolean enabledByDefault) {
 			this.item = item;
+			this.description = description;
 			setEnabled(enabledByDefault);
 		}
 
@@ -232,6 +259,12 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public ItemBuilder getSettingsItem() {
 			return DefaultItem.status(enabled);
+		}
+
+		@Nullable
+		@Override
+		protected String[] getSettingsDescription() {
+			return description.get();
 		}
 
 		@Override
@@ -277,24 +310,40 @@ public abstract class MenuSetting extends Setting {
 	public class NumberSubSetting extends SubSetting {
 
 		private final Supplier<ItemBuilder> item;
+		private final Supplier<String[]> description;
 		private int max = 64, min = 1;
 		private int value;
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description) {
 			this.item = item;
+			this.description = description;
 		}
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
 			this.item = item;
 			this.max = max;
+			this.description = description;
 		}
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max, int min) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
 			this.max = max;
 			this.min = min;
 			this.item = item;
+			this.description = description;
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item) {
+			this(item, () -> null);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
+			this(item, () -> null, max);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
+			this(item, () -> null, max, min);
 		}
 
 		@Nonnull
@@ -307,6 +356,12 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public ItemBuilder getSettingsItem() {
 			return DefaultItem.value(value);
+		}
+
+		@Nullable
+		@Override
+		protected String[] getSettingsDescription() {
+			return description.get();
 		}
 
 		@Nonnull
