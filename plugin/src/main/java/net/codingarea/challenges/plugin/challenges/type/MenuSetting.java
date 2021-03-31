@@ -14,6 +14,7 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
@@ -23,6 +24,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
+import java.util.function.Function;
 import java.util.function.Supplier;
 
 /**
@@ -310,37 +312,61 @@ public abstract class MenuSetting extends Setting {
 	public class NumberSubSetting extends SubSetting {
 
 		private final Supplier<ItemBuilder> item;
-		private final Supplier<String[]> description;
+		private final Function<Integer, String[]> description;
+		private final Function<Integer, String> name;
 		private final int max, min;
 		private int value;
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description) {
-			this(item, description, 64, 1);
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name) {
+			this(item, description, name, 64, 1);
 		}
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max) {
-			this(item, description, max, 1);
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int max) {
+			this(item, description, name, max, 1);
 		}
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max, int min) {
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int min, int max) {
+			this(item, description, name, min, max, min);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int min, int max, int defaultValue) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
 			if (min < 0) throw new IllegalArgumentException("min < 0");
+			if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");
+			if (defaultValue < min) throw new IllegalArgumentException("defaultValue < min");
 			this.max = max;
 			this.min = min;
 			this.item = item;
 			this.description = description;
+			this.name = name;
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description) {
+			this(item, description, null, 64, 1);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int max) {
+			this(item, description, null, max, 1);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int min, int max) {
+			this(item, description, null, min, max, min);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int min, int max, int defaultValue) {
+			this(item, description, null, min, max, defaultValue);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item) {
-			this(item, () -> null);
+			this(item, value -> null);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
-			this(item, () -> null, max);
+			this(item, value -> null, max);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
-			this(item, () -> null, max, min);
+			this(item, value -> null, max, min);
 		}
 
 		@Nonnull
@@ -352,13 +378,16 @@ public abstract class MenuSetting extends Setting {
 		@Nonnull
 		@Override
 		public ItemBuilder getSettingsItem() {
+			if (name != null)
+				return DefaultItem.create(Material.STONE_BUTTON, name.apply(getValue()));
+
 			return DefaultItem.value(value);
 		}
 
 		@Nullable
 		@Override
 		protected String[] getSettingsDescription() {
-			return description.get();
+			return description.apply(getValue());
 		}
 
 		@Nonnull
@@ -407,6 +436,38 @@ public abstract class MenuSetting extends Setting {
 	public class NumberAndBooleanSubSetting extends NumberSubSetting {
 
 		private boolean enabled;
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name) {
+			super(item, description, name);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int max) {
+			super(item, description, name, max);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int min, int max) {
+			super(item, description, name, min, max);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int min, int max, int defaultValue) {
+			super(item, description, name, min, max, defaultValue);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description) {
+			super(item, description);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int max) {
+			super(item, description, max);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int min, int max) {
+			super(item, description, min, max);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, int min, int max, int defaultValue) {
+			super(item, description, min, max, defaultValue);
+		}
 
 		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item) {
 			super(item);
