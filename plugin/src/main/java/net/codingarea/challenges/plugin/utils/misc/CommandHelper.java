@@ -16,7 +16,9 @@ import java.util.Random;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class CommandHelper {
+public final class CommandHelper {
+
+	private CommandHelper() {}
 
 	public static List<Player> getPlayers(@Nonnull CommandSender sender, @Nonnull String input) {
 		ArrayList<Player> list = new ArrayList<>();
