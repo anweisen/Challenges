@@ -40,13 +40,7 @@ public class MaxHealthModifier extends Modifier {
 
 	@Override
 	public void onValueChange() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-			if (attribute.getBaseValue() != getValue()) {
-				attribute.setBaseValue(getValue());
-				player.setHealth(getValue());
-			}
-		}
+		Bukkit.getOnlinePlayers().forEach(this::updateHealth);
 	}
 
 	@Override
@@ -56,10 +50,15 @@ public class MaxHealthModifier extends Modifier {
 
 	@EventHandler
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		AttributeInstance attribute = event.getPlayer().getAttribute(Attribute.GENERIC_MAX_HEALTH);
+		updateHealth(event.getPlayer());
+	}
+
+
+	private void updateHealth(Player player) {
+		AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		if (attribute.getBaseValue() != getValue()) {
 			attribute.setBaseValue(getValue());
-			event.getPlayer().setHealth(getValue());
+			player.setHealth(getValue());
 		}
 	}
 

@@ -34,10 +34,10 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 	protected void onEnable() {
 		bossbar.setContent((bossbar, player) -> {
 			int currentTime = getCurrentTime(player);
-			int timePerBiome = (getValue() * 60);
-			bossbar.setTitle(Message.forName("bossbar-biome-time-time-left").asString(StringUtils.getEnumName(getBiome(player)), timePerBiome - currentTime));
+			int maxTime = (getValue() * 60);
+			bossbar.setTitle(Message.forName("bossbar-biome-time-time-left").asString(StringUtils.getEnumName(getBiome(player)), maxTime - currentTime));
 			bossbar.setColor(BarColor.GREEN);
-			bossbar.setProgress(1 - ((float) currentTime / timePerBiome));
+			bossbar.setProgress(1 - ((float) currentTime / maxTime));
 		});
 		bossbar.show();
 	}
@@ -45,6 +45,11 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 	@Override
 	protected void onDisable() {
 		bossbar.hide();
+	}
+
+	@Override
+	protected void onValueChange() {
+		bossbar.update();
 	}
 
 	@Nonnull

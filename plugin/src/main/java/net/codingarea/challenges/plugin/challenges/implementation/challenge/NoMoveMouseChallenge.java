@@ -4,6 +4,7 @@ import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -40,11 +41,15 @@ public class NoMoveMouseChallenge extends SettingModifier {
 		return new ItemBuilder(Material.COMPASS, Message.forName("item-no-mouse-move-challenge"));
 	}
 
-
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
 		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeHeartsValueChangeTitle(this, getValue() / 2);
 	}
 
 	@ScheduledTask(ticks = 1, timerPolicy = TimerPolicy.ALWAYS)
