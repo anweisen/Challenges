@@ -1,7 +1,13 @@
 package net.codingarea.challenges.plugin.utils.item;
 
+import net.anweisen.utilities.bukkit.utils.GameProfileUtils;
+import net.anweisen.utilities.commons.annotations.DeprecatedSince;
+import net.anweisen.utilities.commons.annotations.ReplaceWith;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.utils.misc.TexturesUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -289,20 +295,56 @@ public class ItemBuilder {
 			super(Material.PLAYER_HEAD);
 		}
 
+		/**
+		 * @deprecated Use uuid instead
+		 */
+		@Deprecated
+		@DeprecatedSince("2.0")
 		public SkullBuilder(@Nonnull String owner) {
 			super(Material.PLAYER_HEAD);
 			setOwner(owner);
 		}
 
+		/**
+		 * @deprecated Use uuid instead
+		 */
+		@Deprecated
+		@DeprecatedSince("2.0")
 		public SkullBuilder(@Nonnull String owner, @Nonnull String name, @Nonnull String... lore) {
 			super(Material.PLAYER_HEAD, name, lore);
 			setOwner(owner);
 		}
 
+		public SkullBuilder(@Nonnull UUID uuid) {
+			super(Material.PLAYER_HEAD);
+			setOwner(uuid);
+		}
+
+		public SkullBuilder(@Nonnull UUID uuid, @Nonnull String name, @Nonnull String... lore) {
+			super(Material.PLAYER_HEAD, name, lore);
+			setOwner(uuid);
+		}
+
 		@Nonnull
-		@SuppressWarnings("deprecation")
+		@Deprecated
+		@DeprecatedSince("2.0")
+		@ReplaceWith("setOwner(UUID)")
 		public SkullBuilder setOwner(@Nonnull String owner) {
 			getMeta().setOwner(owner);
+			return this;
+		}
+
+		@Nonnull
+		public SkullBuilder setOwner(@Nonnull UUID uuid) {
+			if (Challenges.getInstance().getDatabaseManager().isConnected()) {
+				String textures = TexturesUtils.getTextures(uuid);
+				if (textures != null) {
+					GameProfileUtils.applyTextures(getMeta(), textures);
+					return this;
+				}
+			}
+
+			getMeta().setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
 			return this;
 		}
 

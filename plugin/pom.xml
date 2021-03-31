@@ -38,6 +38,11 @@
         </repository>
 
         <repository>
+            <id>minecraft-repo</id>
+            <url>https://libraries.minecraft.net/</url>
+        </repository>
+
+        <repository>
             <id>github</id>
             <url>https://maven.pkg.github.com/anweisen/*</url>
         </repository>
@@ -45,6 +50,13 @@
     </repositories>
 
     <dependencies>
+
+        <dependency>
+            <groupId>com.mojang</groupId>
+            <artifactId>authlib</artifactId>
+            <version>1.5.21</version>
+            <scope>provided</scope>
+        </dependency>
 
         <dependency>
             <groupId>org.spigotmc</groupId>

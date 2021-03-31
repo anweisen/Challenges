@@ -77,7 +77,7 @@ public class StatsCommand implements PlayerCommand {
 		inventory.cloneLastAndAdd().setAccent(37, 43);
 		inventory.cloneLastAndAdd().setAccent(28, 34);
 		inventory.cloneLastAndAdd().setAccent(27, 35);
-		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(name, Message.forName("stats-of").asString(name)).build());
+		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, Message.forName("stats-of").asString(name)).build());
 
 		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid);
 		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
