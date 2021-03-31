@@ -126,15 +126,14 @@ public class InvseeCommand implements PlayerCommand, Listener {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onClose(@Nonnull InventoryCloseEvent event) {
 		if (event.getInventory().getHolder() != MenuPosition.HOLDER) return;
-		for (Entry<Player, Inventory> entry : inventories.entrySet()) {
-			Inventory inventory = entry.getValue();
-			System.out.println(inventory.getViewers().size());
-			if (inventory.getViewers().isEmpty()) {
-				inventories.remove(entry.getKey());
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
+			for (Entry<Player, Inventory> entry : inventories.entrySet()) {
+				Inventory inventory = entry.getValue();
+				if (inventory.getViewers().isEmpty()) {
+					inventories.remove(entry.getKey());
+				}
 			}
-
-		}
-
+		}, 1);
 	}
 
 }

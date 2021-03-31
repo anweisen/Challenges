@@ -57,8 +57,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class);
 		register(CoronaChallenge.class);
-		register(RandomizedHPChallenge.class);
 		register(DamagePerBlockChallenge.class);
+		register(SneakDamageChallenge.class);
+		register(JumpDamageChallenge.class);
+		register(RandomizedHPChallenge.class);
 		register(FoodOnceChallenge.class);
 		register(FloorIsLavaChallenge.class);
 		register(ChunkDeconstructionChallenge.class);
@@ -82,8 +84,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		// Mob randomizer
-		register(SneakDamageChallenge.class);
-		register(JumpDamageChallenge.class);
 		// Force height
 		// Force block
 		// Force mob kill
@@ -101,6 +101,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(AllBlocksDisappearChallenge.class);
 		register(MaxBiomeTimeChallenge.class);
 		register(PermanentItemChallenge.class);
+		register(RandomItemDroppingChallenge.class);
+		register(RandomItemSwappingChallenge.class);
+		register(RandomItemRemovingChallenge.class);
+		register(DeathOnFallChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

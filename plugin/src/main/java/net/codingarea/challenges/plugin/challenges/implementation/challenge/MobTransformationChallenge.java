@@ -36,7 +36,7 @@ public class MobTransformationChallenge extends Setting {
 			bossbar.setColor(BarColor.GREEN);
 			EntityType type = getPlayerData(player).getEnum("type", EntityType.class);
 			String typeName = type == null ? "None" : StringUtils.getEnumName(type);
-			bossbar.setTitle(Message.forName("bossbar-hit-mob-is-previous-challenge").asString(typeName));
+			bossbar.setTitle(Message.forName("bossbar-mob-transformation-challenge").asString(typeName));
 		});
 		bossbar.show();
 	}
@@ -49,7 +49,7 @@ public class MobTransformationChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.STONE_SWORD, Message.forName("item-hit-mob-is-previous-challenge"));
+		return new ItemBuilder(Material.STONE_SWORD, Message.forName("item-mob-transformation-challenge"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

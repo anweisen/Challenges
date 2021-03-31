@@ -112,8 +112,8 @@
   "sneak-damage-failed": "§e{0} §7ist geschlichen",
   "jump-damage-failed": "§e{0} §7ist gesprungen",
 
-  "bossbar-hit-mob-is-previous-challenge": "§8» §7Letzer Mob §8§l┃ §a{0}",
-  "bossbar-biome-time-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
+  "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
+  "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -490,7 +490,7 @@
     "Alle *Mobs und Spieler* haben",
     "einen *Unsichtbarkeits* Effekt"
   ],
-  "item-hit-mob-is-previous-challenge": [
+  "item-mob-transformation-challenge": [
     "§cMob Verwandlung",
     "Wenn du einen Mob schlägst *verwandelt* sich",
     "dieser in den *letzen Mob* den du *geschlagen* hast"
@@ -546,14 +546,34 @@
     "oder *weggelegt* werden"
   ],
   "item-sneak-damage-challenge": [
-    "§6Sneak Schaden",
+    "§6Schaden pro Schleichen",
     "Du *erleidest* den gesetzen",
     "*Schaden*, wenn du *schleichst*"
   ],
   "item-jump-damage-challenge": [
-    "§6Sprung Schaden",
+    "§6Schaden pro Sprung",
     "Du *erleidest* den gesetzen",
     "*Schaden*, wenn du *springst*"
+  ],
+  "item-random-dropping-challenge": [
+    "§cZufälliges Item Droppen",
+    "Alle paar Sekunden wird ein *zufälliges*",
+    "*Item* aus deinem Inventar *gedroppt*"
+  ],
+  "item-random-swapping-challenge": [
+    "§cZufälliges Item Mischen",
+    "Alle paar Sekunden wird ein *zufälliges*",
+    "*Item* aus deinem Inventar *gedroppt*"
+  ],
+  "item-random-removing-challenge": [
+    "§cZufälliges Item Löschen",
+    "Alle paar Sekunden wird ein *zufälliges*",
+    "*Item* aus deinem Inventar *gelöscht*"
+  ],
+  "item-death-on-fall-challenge": [
+    "§fTot bei Fallschaden",
+    "Wenn du *Fallschaden* erleidest",
+    "*stirbst* du sofort"
   ],
 
   "item-dragon-goal": [

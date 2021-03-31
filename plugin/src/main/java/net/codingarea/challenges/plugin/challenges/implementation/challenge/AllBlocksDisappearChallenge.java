@@ -36,7 +36,7 @@ public class AllBlocksDisappearChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-all-blocks-disappear-challenge"));
+		return new ItemBuilder(Material.TNT, Message.forName("item-all-blocks-disappear-challenge"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

@@ -4,10 +4,13 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -60,6 +63,39 @@ public final class InventoryUtils {
 			if (!expected.isSimilar(found))         return false;
 		}
 		return true;
+	}
+
+	public static int getRandomEmptySlot(@Nonnull Inventory inventory) {
+		List<Integer> emptySlots = new ArrayList<>();
+
+		for (int slot = 0; slot < inventory.getSize(); slot++) {
+			if (inventory.getItem(slot) == null) {
+				emptySlots.add(slot);
+			}
+
+		}
+
+		if (emptySlots.isEmpty()) return -1;
+		return emptySlots.get(new Random().nextInt(emptySlots.size()));
+	}
+
+	public static int getRandomFullSlot(@Nonnull Inventory inventory) {
+		List<Integer> fullSlots = new ArrayList<>();
+
+		for (int slot = 0; slot < inventory.getSize(); slot++) {
+			if (inventory.getItem(slot) != null) {
+				fullSlots.add(slot);
+			}
+
+		}
+
+		if (fullSlots.isEmpty()) return -1;
+
+		return fullSlots.get(new Random().nextInt(fullSlots.size()));
+	}
+
+	public static int getRandomSlot(@Nonnull Inventory inventory) {
+		return new Random().nextInt(inventory.getSize());
 	}
 
 }
