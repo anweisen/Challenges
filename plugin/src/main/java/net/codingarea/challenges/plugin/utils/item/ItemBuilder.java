@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.codingarea.challenges.plugin.lang.ItemDescription;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.ItemDescription;
+import net.codingarea.challenges.plugin.language.Message;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
