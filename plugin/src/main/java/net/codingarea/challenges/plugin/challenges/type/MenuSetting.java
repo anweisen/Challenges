@@ -311,23 +311,20 @@ public abstract class MenuSetting extends Setting {
 
 		private final Supplier<ItemBuilder> item;
 		private final Supplier<String[]> description;
-		private int max = 64, min = 1;
+		private final int max, min;
 		private int value;
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description) {
-			this.item = item;
-			this.description = description;
+			this(item, description, 64, 1);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max) {
-			if (max <= min) throw new IllegalArgumentException("max <= min");
-			this.item = item;
-			this.max = max;
-			this.description = description;
+			this(item, description, max, 1);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, int max, int min) {
 			if (max <= min) throw new IllegalArgumentException("max <= min");
+			if (min < 0) throw new IllegalArgumentException("min < 0");
 			this.max = max;
 			this.min = min;
 			this.item = item;
