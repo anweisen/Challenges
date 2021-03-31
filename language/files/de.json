@@ -109,6 +109,8 @@
   "food-once-failed": "§e{0} §7ist an §e{1} §7erstickt",
   "food-once-new-food-team": "§e{0} §7hat §e{1} §7gegessen",
   "food-once-new-food": "§eDu §7hast §e{1} §7gegessen",
+  "sneak-damage-failed": "§e{0} §7ist geschlichen",
+  "jump-damage-failed": "§e{0} §7ist gesprungen",
 
   "bossbar-hit-mob-is-previous-challenge": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
@@ -543,7 +545,16 @@
     "*Items* können nicht gedroppt",
     "oder *weggelegt* werden"
   ],
-
+  "item-sneak-damage-challenge": [
+    "§6Sneak Schaden",
+    "Du *erleidest* den gesetzen",
+    "*Schaden*, wenn du *schleichst*"
+  ],
+  "item-jump-damage-challenge": [
+    "§6Sprung Schaden",
+    "Du *erleidest* den gesetzen",
+    "*Schaden*, wenn du *springst*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

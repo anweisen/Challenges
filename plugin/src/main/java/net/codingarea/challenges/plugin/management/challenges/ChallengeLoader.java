@@ -82,8 +82,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		// Mob randomizer
-		// No Sneak
-		// No Jump
+		register(SneakDamageChallenge.class);
+		register(JumpDamageChallenge.class);
 		// Force height
 		// Force block
 		// Force mob kill

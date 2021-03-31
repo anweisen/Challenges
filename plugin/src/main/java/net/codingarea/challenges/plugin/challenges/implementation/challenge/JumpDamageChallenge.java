@@ -1,0 +1,58 @@
+package net.codingarea.challenges.plugin.challenges.implementation.challenge;
+
+import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
+import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
+import net.codingarea.challenges.plugin.utils.misc.NameHelper;
+import org.bukkit.Color;
+import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
+/**
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
+ * @since 1.0
+ */
+public class JumpDamageChallenge extends SettingModifier {
+
+	public JumpDamageChallenge() {
+		super(MenuType.CHALLENGES, 1, 40);
+	}
+
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new LeatherArmorBuilder(Material.LEATHER_BOOTS, Message.forName("item-jump-damage-challenge")).setColor(Color.ORANGE);
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeHeartsValueChangeTitle(this, getValue() / 2);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onSneak(@Nonnull PlayerJumpEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		Message.forName("jump-damage-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+		event.getPlayer().setNoDamageTicks(0);
+		event.getPlayer().damage(getValue());
+		event.getPlayer().setNoDamageTicks(0);
+	}
+
+}
