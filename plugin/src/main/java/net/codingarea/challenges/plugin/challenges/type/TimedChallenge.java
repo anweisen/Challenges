@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 
@@ -13,24 +14,45 @@ import javax.annotation.Nonnull;
  */
 public abstract class TimedChallenge extends SettingModifier {
 
+	private final boolean runAsync;
 	private int secondsUntilActivation;
 	private boolean timerStatus = false;
 	private boolean startedBefore = false;
 
 	public TimedChallenge(@Nonnull MenuType menu) {
-		super(menu);
+		this(menu, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int max) {
-		super(menu, max);
+		this(menu, max, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int min, int max) {
-		super(menu, min, max);
+		this(menu, min, max, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue) {
+		this(menu, min, max, defaultValue, true);
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, boolean runAsync) {
+		super(menu);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int max, boolean runAsync) {
+		super(menu, max);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int min, int max, boolean runAsync) {
+		super(menu, min, max);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue, boolean runAsync) {
 		super(menu, min, max, defaultValue);
+		this.runAsync = runAsync;
 	}
 
 	@Override
@@ -40,11 +62,10 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	@ScheduledTask(ticks = 20, worldPolicy = ExtraWorldPolicy.ALWAYS)
-	public void onSecond() {
+	public final void onSecond() {
 
-		if (!startedBefore) {
+		if (!startedBefore)
 			restartTimer();
-		}
 
 		if (timerStatus) {
 
@@ -53,7 +74,9 @@ public abstract class TimedChallenge extends SettingModifier {
 				if (secondsUntilActivation <= 0) {
 					secondsUntilActivation = 0;
 					timerStatus = false;
-					onTimeActivation();
+					executeTimeActivation();
+				} else {
+					handleCountdown();
 				}
 			} else {
 				Logger.debug("getTimerCondition returned false for " + this.getClass().getSimpleName());
@@ -62,12 +85,24 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	}
 
+	private void executeTimeActivation() {
+		if (runAsync) {
+			Bukkit.getScheduler().runTaskAsynchronously(plugin, this::onTimeActivation);
+		} else {
+			Bukkit.getScheduler().runTask(plugin, this::onTimeActivation);
+		}
+	}
+
 	public final boolean isTimerRunning() {
 		return timerStatus;
 	}
 
 	public final int getSecondsLeftUntilNextActivation() {
 		return secondsUntilActivation;
+	}
+
+	protected void handleCountdown() {
+
 	}
 
 	protected boolean getTimerCondition() {

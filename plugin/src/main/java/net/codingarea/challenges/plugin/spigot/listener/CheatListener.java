@@ -42,6 +42,8 @@ public class CheatListener implements Listener {
 				"effect",
 				"i",
 				"summon",
+				"enchant",
+				"heal",
 				"kill"
 		};
 		String message = event.getMessage().toLowerCase();

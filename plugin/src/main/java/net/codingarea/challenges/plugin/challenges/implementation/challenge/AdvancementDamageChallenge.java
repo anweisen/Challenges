@@ -2,17 +2,13 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
-import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerAdvancementDoneEvent;
-import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -21,9 +17,9 @@ import javax.annotation.Nullable;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class AdvancementDamage extends SettingModifier {
+public class AdvancementDamageChallenge extends SettingModifier {
 
-	public AdvancementDamage() {
+	public AdvancementDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 40);
 	}
 

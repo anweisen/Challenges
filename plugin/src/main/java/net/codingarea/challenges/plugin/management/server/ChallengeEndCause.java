@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

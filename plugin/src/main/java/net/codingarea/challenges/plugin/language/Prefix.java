@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.lang;
+package net.codingarea.challenges.plugin.language;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.lang;
+package net.codingarea.challenges.plugin.language;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
@@ -7,7 +7,6 @@ import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 

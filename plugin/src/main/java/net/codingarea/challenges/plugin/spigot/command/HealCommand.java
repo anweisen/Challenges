@@ -1,14 +1,10 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

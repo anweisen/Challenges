@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import org.bukkit.Material;
 

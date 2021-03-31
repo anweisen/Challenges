@@ -1,10 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.anntations.Since;
-import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -18,6 +17,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.AbstractMap.SimpleEntry;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
@@ -28,7 +28,7 @@ import java.util.UUID;
 @Since("2.0")
 public class NoMoveMouseChallenge extends SettingModifier {
 
-	private HashMap<UUID, Entry<Float, Float>> lastView = new HashMap<>();
+	private final Map<UUID, Entry<Float, Float>> lastView = new HashMap<>();
 
 	public NoMoveMouseChallenge() {
 		super(MenuType.CHALLENGES, 60);

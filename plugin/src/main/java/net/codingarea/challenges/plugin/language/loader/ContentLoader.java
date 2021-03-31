@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.lang.loader;
+package net.codingarea.challenges.plugin.language.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;

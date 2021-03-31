@@ -1,14 +1,13 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.StructureType;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;

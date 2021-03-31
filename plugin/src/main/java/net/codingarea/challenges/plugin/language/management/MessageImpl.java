@@ -1,9 +1,9 @@
-package net.codingarea.challenges.plugin.lang.management;
+package net.codingarea.challenges.plugin.language.management;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.ItemDescription;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.ItemDescription;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Bukkit;

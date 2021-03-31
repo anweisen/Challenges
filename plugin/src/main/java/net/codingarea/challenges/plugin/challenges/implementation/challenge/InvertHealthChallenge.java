@@ -1,13 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.anntations.Since;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
@@ -29,7 +27,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 	private final Random random = new Random();
 
 	public InvertHealthChallenge() {
-		super(MenuType.CHALLENGES, 1, 10, 5);
+		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
 
 	@Nonnull
@@ -52,12 +50,6 @@ public class InvertHealthChallenge extends TimedChallenge {
 	@Override
 	protected int getSecondsUntilNextActivation() {
 		return RandomizeUtils.getAround(random, getValue() * 60, 20);
-	}
-
-	@Override
-	@ScheduledTask(ticks = 20, async = false, worldPolicy = ExtraWorldPolicy.ALWAYS)
-	public void onSecond() {
-		super.onSecond();
 	}
 
 	@Override

@@ -40,12 +40,12 @@ public abstract class ModifierGoal extends SettingModifier implements Goal {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		if (event.isUpperItemClick() && isEnabled()) {
-			ChallengeHelper.handleModifierClick(event, this);
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		if (info.isUpperItemClick() && isEnabled()) {
+			ChallengeHelper.handleModifierClick(info, this);
 		} else {
 			setEnabled(!isEnabled());
-			SoundSample.playEnablingSound(event.getPlayer(), isEnabled());
+			SoundSample.playEnablingSound(info.getPlayer(), isEnabled());
 		}
 	}
 

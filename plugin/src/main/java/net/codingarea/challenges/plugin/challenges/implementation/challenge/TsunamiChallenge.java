@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.anntations.Since;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import net.codingarea.challenges.plugin.utils.misc.VersionHelper;
 import org.bukkit.*;
@@ -17,7 +16,6 @@ import org.bukkit.boss.BarStyle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
-import org.bukkit.event.world.ChunkLoadEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
 import javax.annotation.Nonnull;
@@ -32,8 +30,8 @@ import java.util.List;
 @Since("2.0")
 public class TsunamiChallenge extends TimedChallenge {
 
-	private int waterHeight = 0, lavaHeight = 0;
 	private final List<Chunk> loadedChunks = new ArrayList<>();
+	private int waterHeight = 0, lavaHeight = 0;
 
 	public TsunamiChallenge() {
 		super(MenuType.CHALLENGES, 6 * 3);

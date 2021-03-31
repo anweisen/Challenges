@@ -326,7 +326,6 @@ public abstract class MenuSetting extends Setting {
 			return value;
 		}
 
-
 		@Override
 		public boolean getAsBoolean() {
 			return value > 0;
@@ -353,7 +352,58 @@ public abstract class MenuSetting extends Setting {
 
 	}
 
-	private class SettingMenuPosition implements MenuPosition {
+	public class NumberAndBooleanSubSetting extends NumberSubSetting {
+
+		private boolean enabled;
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item) {
+			super(item);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
+			super(item, max);
+		}
+
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
+			super(item, max, min);
+		}
+
+		@Override
+		public boolean getAsBoolean() {
+			return enabled;
+		}
+
+		@Override
+		public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+			if (info.isUpperItemClick() || !enabled) {
+				setValue(!enabled);
+				SoundSample.playEnablingSound(info.getPlayer(), enabled);
+			} else {
+				super.handleClick(info);
+			}
+		}
+
+		@Nonnull
+		@Override
+		public NumberSubSetting setValue(int value) {
+			super.setValue(value);
+			if (!enabled && value > 0) setValue(true);
+			return this;
+		}
+
+		@Nonnull
+		public NumberSubSetting setValue(boolean enabled) {
+			if (this.enabled == enabled) return this;
+			this.enabled = enabled;
+			if (enabled) onEnable();
+			else onDisable();
+			updateItems();
+			return this;
+		}
+
+	}
+
+	private final class SettingMenuPosition implements MenuPosition {
 
 		private final MenuPosition before;
 		private final Inventory inventoryBefore;

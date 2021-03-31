@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.anntations.Since;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
@@ -17,7 +17,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
+import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -71,5 +71,10 @@ public class MobTransformationChallenge extends Setting {
 		bossbar.update(player);
 	}
 
+	private EntityType getType(@Nonnull Player player, @Nullable EntityType defaultType) {
+		EntityType type = getPlayerData(player).getEnum("type", EntityType.class);
+		if (type == null) return defaultType;
+		return type;
+	}
 
 }

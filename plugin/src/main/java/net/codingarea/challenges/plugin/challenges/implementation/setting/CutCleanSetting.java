@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import net.anweisen.utilities.commons.anntations.Since;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -41,7 +41,8 @@ public class CutCleanSetting extends MenuSetting {
 		registerSetting("iron->iron_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron-setting")), true, Material.IRON_ORE, Material.IRON_INGOT));
 		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
 		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false, Material.COAL_ORE, Material.TORCH));
-		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 10, 0));
+		registerSetting("gravel->flint",    new ConvertDropSubSetting(() -> new ItemBuilder(Material.FLINT, Message.forName("item-cut-clean-flint-setting")), false, Material.GRAVEL, Material.FLINT));
+		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 10, 1));
 		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food-setting")), true));
 	}
 
@@ -73,7 +74,7 @@ public class CutCleanSetting extends MenuSetting {
 
 	}
 
-	private class BreakOreVeinsSubSetting extends NumberSubSetting {
+	private class BreakOreVeinsSubSetting extends NumberAndBooleanSubSetting {
 
 		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item) {
 			super(item);

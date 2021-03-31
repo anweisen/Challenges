@@ -72,7 +72,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		// Anvil rain
 		register(NoExpChallenge.class);
 		register(NoTradingChallenge.class);
-		register(AdvancementDamage.class);
+		register(AdvancementDamageChallenge.class);
 		register(BlockBreakDamageChallenge.class);
 		register(BlockPlaceDamageChallenge.class);
 		register(OnlyDirtChallenge.class);

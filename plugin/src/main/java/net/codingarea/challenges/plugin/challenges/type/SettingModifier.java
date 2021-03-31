@@ -36,13 +36,13 @@ public abstract class SettingModifier extends Modifier {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		if (event.isUpperItemClick() || !enabled) {
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		if (info.isUpperItemClick() || !enabled) {
 			setEnabled(!enabled);
-			SoundSample.playEnablingSound(event.getPlayer(), enabled);
+			SoundSample.playEnablingSound(info.getPlayer(), enabled);
 			playStatusUpdateTitle();
 		} else {
-			super.handleClick(event);
+			super.handleClick(info);
 		}
 	}
 

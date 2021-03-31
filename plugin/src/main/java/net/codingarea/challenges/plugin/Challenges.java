@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
-import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
-import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
-import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
-import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
+import net.codingarea.challenges.plugin.language.loader.ContentLoader;
+import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.language.loader.PrefixLoader;
+import net.codingarea.challenges.plugin.language.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;

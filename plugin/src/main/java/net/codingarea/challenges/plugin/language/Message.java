@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.lang;
+package net.codingarea.challenges.plugin.language;
 
-import net.codingarea.challenges.plugin.lang.management.MessageManager;
+import net.codingarea.challenges.plugin.language.management.MessageManager;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

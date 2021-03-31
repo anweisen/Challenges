@@ -4,8 +4,8 @@ import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
@@ -79,11 +79,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	@ScheduledTask(ticks = 20, async = false, worldPolicy = ExtraWorldPolicy.ALWAYS)
-	public void onSecond() {
-		super.onSecond();
-
-		if (!isTimerRunning() || !getTimerCondition()) return;
+	protected void handleCountdown() {
 		switch (getSecondsLeftUntilNextActivation()) {
 			case 1:
 				Message.forName("jnr-countdown-one").broadcast(Prefix.CHALLENGES);
@@ -205,10 +201,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 
 	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.ALWAYS, worldPolicy = ExtraWorldPolicy.USED)
 	public void spawnParticles() {
-		if (!isEnabled()) return;
-		if (!isInExtraWorld()) return;
 		if (targetBlock == null) return;
-
 		ParticleUtils.spawnParticleCircle(targetBlock.getLocation().add(0.5, 1.05, 0.5), Particle.SPELL_INSTANT, 13, 0.45);
 	}
 
@@ -217,7 +210,6 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		if (!event.getPlayer().getUniqueId().equals(currentPlayer)) return;
 		if (targetBlock == null) return;
 		if (event.getTo() == null) return;
-
 
 		if (BlockUtils.isSameBlock(event.getTo(), targetBlock.getLocation().add(0, 1, 0))) {
 			if (++currentJump >= jumps) {

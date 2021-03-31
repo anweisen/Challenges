@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;

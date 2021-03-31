@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.management.menu;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;

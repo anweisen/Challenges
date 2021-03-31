@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.lang.loader;
+package net.codingarea.challenges.plugin.language.loader;
 
 import com.google.gson.*;
 import net.anweisen.utilities.commons.common.IOUtils;
@@ -6,7 +6,7 @@ import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.anweisen.utilities.commons.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import org.bukkit.Bukkit;
@@ -97,29 +97,35 @@ public final class LanguageLoader extends ContentLoader {
 	}
 
 	private void read() {
+		readLanguage(getMessageFile(language, "json"));
+	}
+
+	private void readLanguage(@Nonnull File file) {
 		try {
 
-			File file = getMessageFile(language, "json");
 			if (!file.exists()) {
 				ConsolePrint.unableToGetLanguages();
 				return;
 			}
 
+			int messages = 0;
 			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
 				Message message = Message.forName(entry.getKey());
 				JsonElement element = entry.getValue();
 				if (element.isJsonPrimitive()) {
 					message.setValue(element.getAsString());
+					messages++;
 				} else if (element.isJsonArray()) {
 					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
+					messages++;
 				} else {
 					Logger.warn("Illegal type '" + element.getClass().getName() + "' for " + message.getName());
 				}
 			}
 
 			loaded = true;
-			Logger.info("Successfully loaded language '" + language + "' from config file: " + read.size() + " message(s)");
+			Logger.info("Successfully loaded language '" + language + "' from config file: " + messages + " message(s)");
 
 			if (Challenges.getInstance().isEnabled()) {
 				Challenges.getInstance().getMenuManager().generateMenus();

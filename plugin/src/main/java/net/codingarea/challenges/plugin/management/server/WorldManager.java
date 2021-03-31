@@ -4,7 +4,7 @@ import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.*;
