@@ -365,8 +365,8 @@ public abstract class MenuSetting extends Setting {
 			this(item, value -> null, max);
 		}
 
-		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
-			this(item, value -> null, max, min);
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int min, int max) {
+			this(item, value -> null, min, max);
 		}
 
 		@Nonnull
@@ -477,8 +477,8 @@ public abstract class MenuSetting extends Setting {
 			super(item, max);
 		}
 
-		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
-			super(item, max, min);
+		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, int min, int max) {
+			super(item, min, max);
 		}
 
 		@Override

@@ -42,7 +42,7 @@ public class CutCleanSetting extends MenuSetting {
 		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
 		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false, Material.COAL_ORE, Material.TORCH));
 		registerSetting("gravel->flint",    new ConvertDropSubSetting(() -> new ItemBuilder(Material.FLINT, Message.forName("item-cut-clean-flint-setting")), false, Material.GRAVEL, Material.FLINT));
-		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 10, 1));
+		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 1, 10));
 		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food-setting")), true));
 	}
 
@@ -76,16 +76,8 @@ public class CutCleanSetting extends MenuSetting {
 
 	private class BreakOreVeinsSubSetting extends NumberAndBooleanSubSetting {
 
-		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item) {
-			super(item);
-		}
-
-		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max) {
-			super(item, max);
-		}
-
-		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int max, int min) {
-			super(item, max, min);
+		public BreakOreVeinsSubSetting(@Nonnull Supplier<ItemBuilder> item, int min, int max) {
+			super(item, min, max);
 		}
 
 		@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
