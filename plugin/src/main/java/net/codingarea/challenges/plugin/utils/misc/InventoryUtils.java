@@ -84,18 +84,6 @@ public final class InventoryUtils {
 		return true;
 	}
 
-	public static boolean inventoryContainsSequence(@Nonnull Inventory inventory, @Nonnull ItemStack[] sequence) {
-		for (int i = 0; i < sequence.length && i < inventory.getSize(); i++) {
-			ItemStack expected = sequence[i];
-			ItemStack found = inventory.getItem(i);
-			if (expected == null && found == null)  continue;
-			if (expected == null)                   return false;
-			if (found == null)                      return false;
-			if (!expected.isSimilar(found))         return false;
-		}
-		return true;
-	}
-
 	public static int getRandomEmptySlot(@Nonnull Inventory inventory) {
 		List<Integer> emptySlots = new ArrayList<>();
 
