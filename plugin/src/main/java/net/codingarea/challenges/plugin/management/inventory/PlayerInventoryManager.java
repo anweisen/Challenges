@@ -83,6 +83,7 @@ public final class PlayerInventoryManager implements Listener {
 		switch (event.getAction()) {
 			case LEFT_CLICK_AIR:
 			case LEFT_CLICK_BLOCK:
+			case PHYSICAL:
 				return;
 		}
 
