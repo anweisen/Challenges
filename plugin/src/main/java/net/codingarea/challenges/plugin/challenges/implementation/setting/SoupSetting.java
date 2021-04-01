@@ -44,7 +44,7 @@ public class SoupSetting extends Setting {
 		if (player.getHealth() == player.getMaxHealth()) return;
 
 		player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1));
-		player.setItemInHand(new ItemBuilder(Material.BOWL).build());
+		player.getInventory().setItemInMainHand(new ItemBuilder(Material.BOWL).build());
 		player.updateInventory();
 		SoundSample.EAT.play(player);
 

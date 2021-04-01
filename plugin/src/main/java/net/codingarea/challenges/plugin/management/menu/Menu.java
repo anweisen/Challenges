@@ -88,7 +88,7 @@ public final class Menu {
 			index++;
 		}
 
-		InventoryUtils.setNavigationItems(inventories, NAVIGATION_SLOTS);
+		InventoryUtils.setNavigationItemsToInventory(inventories, NAVIGATION_SLOTS);
 
 	}
 

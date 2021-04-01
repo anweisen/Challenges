@@ -15,8 +15,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -27,8 +29,6 @@ import javax.annotation.Nonnull;
  */
 @Since("2.0")
 public class SlotLimitSetting extends Modifier {
-
-	private final ItemStack blockedItem = new ItemBuilder(Material.BARRIER, "§cBlocked").build();
 
 	public SlotLimitSetting() {
 		super(MenuType.SETTINGS, 1, 36, 36);
@@ -57,11 +57,15 @@ public class SlotLimitSetting extends Modifier {
 	}
 
 	private void updateSlots() {
+		Bukkit.getOnlinePlayers().forEach(this::updateSlots);
+	}
+
+	private void updateSlots(@Nonnull Player player) {
 		for (int i = 0; i < 36; i++) {
 			if (isBlocked(i) && ChallengeAPI.isStarted()) {
-				blockSlot(i);
+				blockSlot(player, i);
 			} else {
-				unBlockSlot(i);
+				unBlockSlot(player, i);
 			}
 
 		}
@@ -81,28 +85,20 @@ public class SlotLimitSetting extends Modifier {
 		return slot > value;
 	}
 
-	private void blockSlot(int slot) {
-		Bukkit.getOnlinePlayers().forEach(player -> blockSlot(player, slot));
-	}
-
 	private void blockSlot(@Nonnull Player player, int slot) {
 		if (ignorePlayer(player)) return;
 
 		ItemStack item = player.getInventory().getItem(slot);
-		if (item != null && !item.isSimilar(blockedItem)) {
+		if (item != null && !item.isSimilar(ItemBuilder.BLOCKED_ITEM)) {
 			player.getWorld().dropItemNaturally(player.getLocation(), item);
 		}
-		player.getInventory().setItem(slot, blockedItem);
-	}
-
-	private void unBlockSlot(int slot) {
-		Bukkit.getOnlinePlayers().forEach(player -> unBlockSlot(player, slot));
+		player.getInventory().setItem(slot, ItemBuilder.BLOCKED_ITEM);
 	}
 
 	private void unBlockSlot(@Nonnull Player player, int slot) {
 
 		ItemStack item = player.getInventory().getItem(slot);
-		if (item != null && item.isSimilar(blockedItem)) {
+		if (item != null && item.isSimilar(ItemBuilder.BLOCKED_ITEM)) {
 			player.getInventory().setItem(slot, null);
 		}
 	}
@@ -119,15 +115,25 @@ public class SlotLimitSetting extends Modifier {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerDropItem(@Nonnull PlayerDropItemEvent event) {
 		if (ignorePlayer(event.getPlayer())) return;
-		if (!event.getItemDrop().getItemStack().isSimilar(blockedItem)) return;
+		if (!event.getItemDrop().getItemStack().isSimilar(ItemBuilder.BLOCKED_ITEM)) return;
 		event.setCancelled(true);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onClick(@Nonnull BlockPlaceEvent event) {
 		if (ignorePlayer(event.getPlayer())) return;
-		if (!event.getItemInHand().isSimilar(blockedItem)) return;
+		if (!event.getItemInHand().isSimilar(ItemBuilder.BLOCKED_ITEM)) return;
 		event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
+		event.getEntity().getInventory().remove(ItemBuilder.BLOCKED_ITEM);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onRespawn(PlayerRespawnEvent event) {
+		updateSlots(event.getPlayer());
 	}
 
 }

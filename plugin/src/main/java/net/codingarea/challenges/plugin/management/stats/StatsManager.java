@@ -18,7 +18,6 @@ import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -53,8 +52,8 @@ public final class StatsManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		PlayerStats stats = getStats(event.getPlayer().getUniqueId());
-		cache.put(event.getPlayer().getUniqueId(), stats);
+		// Cache stats
+		getStats(event.getPlayer().getUniqueId(), event.getPlayer().getName());
 	}
 
 	@ScheduledTask(ticks = 30 * 20, challengePolicy = ChallengeStatusPolicy.ALWAYS)
@@ -78,40 +77,40 @@ public final class StatsManager implements Listener {
 	}
 
 	@Nonnull
-	public PlayerStats getStats(@Nonnull UUID uuid) {
+	public PlayerStats getStats(@Nonnull UUID uuid, @Nonnull String name) {
 		PlayerStats cached = cache.get(uuid);
 		if (cached != null) return cached;
 
 		try {
-			PlayerStats stats = getStatsFromDatabase(uuid);
+			PlayerStats stats = getStatsFromDatabase(uuid, name);
 			cache.put(uuid, stats);
 			Logger.debug("Loaded stats for uuid '" + uuid + "': " + stats);
 			return stats;
 		} catch (DatabaseException ex) {
 			Logger.severe("Could not get player stats for uuid " + uuid, ex);
-			return new PlayerStats(uuid);
+			return new PlayerStats(uuid, name);
 		}
 	}
 
 	@Nonnull
-	private PlayerStats getStatsFromDatabase(@Nonnull UUID uuid) throws DatabaseException {
+	private PlayerStats getStatsFromDatabase(@Nonnull UUID uuid, @Nonnull String name) throws DatabaseException {
 		return Challenges.getInstance().getDatabaseManager().getDatabase()
 				.query("challenges")
-				.select("stats")
+				.select("stats", "name")
 				.where("uuid", uuid)
 				.execute().first()
-				.map(result -> new PlayerStats(uuid, result.getDocument("stats")))
-				.orElse(new PlayerStats(uuid));
+				.map(result -> new PlayerStats(uuid, result.getString("name"), result.getDocument("stats")))
+				.orElse(new PlayerStats(uuid, name));
 	}
 
 	@Nonnull
 	private List<PlayerStats> getAllStats() throws DatabaseException {
 		return Challenges.getInstance().getDatabaseManager().getDatabase()
 				.query("challenges")
-				.select("uuid", "stats")
+				.select("uuid", "stats", "name")
 				.execute().all()
 				.filter(result -> result.getUUID("uuid") != null)
-				.map(result -> new PlayerStats(result.getUUID("uuid"), result.getDocument("stats")))
+				.map(result -> new PlayerStats(result.getUUID("uuid"), result.getString("name"), result.getDocument("stats")))
 				.collect(Collectors.toList());
 	}
 
@@ -121,7 +120,7 @@ public final class StatsManager implements Listener {
 			List<PlayerStats> stats = getAllStats();
 			LeaderboardInfo info = new LeaderboardInfo();
 			for (Statistic statistic : Statistic.values()) {
-				int place = determineIndex(new ArrayList<>(stats), PlayerStats::getPlayer, uuid, Comparator.<PlayerStats>comparingDouble(value -> value.getStatisticValue(statistic)).reversed()) + 1;
+				int place = determineIndex(new ArrayList<>(stats), PlayerStats::getPlayerUUID, uuid, getStatsComparator(statistic)) + 1;
 				info.setPlace(statistic, place);
 			}
 
@@ -129,6 +128,18 @@ public final class StatsManager implements Listener {
 		} catch (DatabaseException ex) {
 			Logger.severe("Could not get player leaderboard information for uuid " + uuid, ex);
 			return new LeaderboardInfo();
+		}
+	}
+
+	@Nonnull
+	public List<PlayerStats> getLeaderboard(@Nonnull Statistic statistic) {
+		try {
+			List<PlayerStats> stats = getAllStats();
+			stats.sort(getStatsComparator(statistic));
+			return stats;
+		} catch (Exception ex) {
+			Logger.severe("Could not get leaderboard in " + statistic, ex);
+			return new ArrayList<>();
 		}
 	}
 
@@ -149,6 +160,11 @@ public final class StatsManager implements Listener {
 
 	public boolean isNoStatsAfterCheating() {
 		return noStatsAfterCheating;
+	}
+
+	@Nonnull
+	public static Comparator<PlayerStats> getStatsComparator(@Nonnull Statistic statistic) {
+		return Comparator.<PlayerStats>comparingDouble(value -> value.getStatisticValue(statistic)).reversed();
 	}
 
 }

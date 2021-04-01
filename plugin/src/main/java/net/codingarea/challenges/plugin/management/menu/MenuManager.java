@@ -41,8 +41,7 @@ public final class MenuManager {
 			menus.put(type, new Menu(type));
 		}
 
-		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
-				.setFrameSound(SoundSample.CLICK).setEndSound(SoundSample.OPEN);
+		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
 		gui.cloneLastAndAdd().setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
@@ -126,7 +125,7 @@ public final class MenuManager {
 		return positions.get(player);
 	}
 
-	public void setPostion(@Nonnull Player player, @Nullable MenuPosition position) {
+	public synchronized void setPostion(@Nonnull Player player, @Nullable MenuPosition position) {
 		if (position == null) positions.remove(player);
 		else positions.put(player, position);
 	}

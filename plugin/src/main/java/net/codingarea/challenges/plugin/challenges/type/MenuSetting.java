@@ -81,7 +81,7 @@ public abstract class MenuSetting extends Setting {
 
 		}
 
-		InventoryUtils.setNavigationItems(inventories, Menu.NAVIGATION_SLOTS, false);
+		InventoryUtils.setNavigationItemsToInventory(inventories, Menu.NAVIGATION_SLOTS, false);
 
 	}
 
@@ -367,6 +367,10 @@ public abstract class MenuSetting extends Setting {
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int min, int max) {
 			this(item, value -> null, min, max);
+		}
+
+		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, int min, int max, int defaultValue) {
+			this(item, value -> null, min, max, defaultValue);
 		}
 
 		@Nonnull

@@ -71,8 +71,9 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 		int slot = InventoryUtils.getRandomFullSlot(inventory);
 		if (slot == -1) return;
 		ItemStack item = inventory.getItem(slot);
+		if (item == null) return;
 		inventory.setItem(slot, null);
-		Item droppedItem = location.getWorld().dropItemNaturally(location.clone().add(0, 1, 0), item);
+		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), item);
 		droppedItem.setVelocity(location.getDirection().multiply(0.4));
 	}
 

@@ -81,6 +81,7 @@ public class CheatListener implements Listener {
 
 	private void handleCheatsDetected(@Nonnull Player player) {
 		if (Challenges.getInstance().getServerManager().hasCheated()) return;
+		if (!Challenges.getInstance().getStatsManager().isNoStatsAfterCheating()) return;
 		Challenges.getInstance().getServerManager().setHasCheated();
 		Logger.info("Detected cheating: No more stats can be collected");
 		Message.forName("cheats-detected").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));

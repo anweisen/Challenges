@@ -141,6 +141,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ForwardingCommand("timer pause"), "pause");
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
+		registerCommand(new LeaderboardCommand(), "leaderboard");
 		registerCommand(new ConfigCommand(), "config");
 		registerCommand(new VillageCommand(), "village");
 		registerCommand(new HealCommand(), "heal");

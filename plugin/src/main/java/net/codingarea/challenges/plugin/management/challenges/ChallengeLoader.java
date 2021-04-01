@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -40,6 +41,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoItemDamageSetting.class);
 		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
+		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
 		register(TimberSetting.class); // TODO: Handle break event
 		register(PvPSetting.class);
 		register(NoHitDelaySetting.class);
@@ -105,6 +107,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomItemSwappingChallenge.class);
 		register(RandomItemRemovingChallenge.class);
 		register(DeathOnFallChallenge.class);
+		//register(ZeroHeartsChallenge.class);
+		register(RandomPotionEffectChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
@@ -125,6 +129,19 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
 		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
 		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
+
+		// Material Rules
+		registerMaterialRule("§cArmor", "Armor", ItemUtils.getArmor());
+		registerMaterialRule("§6Golden Apple", "Chest", Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE);
+		registerMaterialRule("§6Crafting Table", "Crafting Table", Material.CRAFTING_TABLE);
+		registerMaterialRule("§6Chest", "Chest", Material.CHEST);
+		registerMaterialRule("§cFurnace", "Furnace", Material.FURNACE, Material.FURNACE_MINECART);
+		registerMaterialRule("§5Enchanting Table", "Enchanting Table", Material.ENCHANTING_TABLE);
+		registerMaterialRule("§cAnvil", "Anvil", Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL);
+		registerMaterialRule("§dBrewing Stand", "Brewing Stand", Material.BREWING_STAND);
+		registerMaterialRule("§cBow", "Bow", Material.BOW);
+		registerMaterialRule("§fSnowball", "Snowball", Material.SNOWBALL);
+		registerMaterialRule("§cFlint and Steel", "Flint and Steel", Material.FLINT_AND_STEEL);
 	}
 
 }

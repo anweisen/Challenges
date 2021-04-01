@@ -48,13 +48,13 @@ public final class DefaultItem {
 	}
 
 	@Nonnull
-	public static ItemBuilder value(int number) {
-		return value(number, "§7");
+	public static ItemBuilder value(int value) {
+		return value(value, "§e");
 	}
 
 	@Nonnull
-	public static ItemBuilder value(int number, @Nonnull String prefix) {
-		return new ItemBuilder(Material.STONE_BUTTON).setName(name(prefix + number)).setAmount(Math.max(number, 1));
+	public static ItemBuilder value(int value, @Nonnull String prefix) {
+		return new ItemBuilder(Material.STONE_BUTTON).name(name(prefix + value)).amount(value);
 	}
 
 	@Nonnull

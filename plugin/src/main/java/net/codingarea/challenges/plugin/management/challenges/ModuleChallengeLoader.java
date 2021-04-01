@@ -2,8 +2,11 @@ package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.implementation.BlockMaterialSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.language.ItemDescription;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
@@ -81,13 +84,24 @@ public class ModuleChallengeLoader {
 		registerWithCommand(classOfChallenge, commandNames, new Class[0]);
 	}
 
-
 	public final void registerDamageRule(@Nonnull String name, @Nonnull Material material, @Nonnull DamageCause... causes) {
 		registerDamageRule(name, new ItemBuilder(material), causes);
 	}
 
 	public final void registerDamageRule(@Nonnull String name, @Nonnull ItemBuilder preset, @Nonnull DamageCause... causes) {
 		register(DamageRuleSetting.class, new Class[] { ItemBuilder.class, String.class, DamageCause[].class }, preset, name, causes);
+	}
+
+	public final void registerMaterialRule(@Nonnull String title, @Nonnull String replacement, @Nonnull Material... materials) {
+		registerMaterialRule("item-block-material", new Object[]{title, replacement}, materials);
+	}
+
+	public final void registerMaterialRule(@Nonnull String name, Object[] replacements, @Nonnull Material... materials) {
+		registerMaterialRule(name, new ItemBuilder(materials[0]), replacements, materials);
+	}
+
+	public final void registerMaterialRule(@Nonnull String name, @Nonnull ItemBuilder preset, Object[] replacements, @Nonnull Material... materials) {
+		register(BlockMaterialSetting.class, new Class[] { String.class, ItemBuilder.class, Object[].class, Material[].class }, name, preset, replacements, materials);
 	}
 
 }

@@ -10,6 +10,9 @@ import org.bukkit.inventory.InventoryHolder;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -36,6 +39,41 @@ public interface MenuPosition {
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
 			SoundSample.CLICK.play(info.getPlayer());
+		}
+
+	}
+
+	class SlottedMenuPosition implements MenuPosition {
+
+		protected final Map<Integer, Consumer<MenuClickInfo>> actions = new HashMap<>();
+
+		@Override
+		public void handleClick(@Nonnull MenuClickInfo info) {
+			Consumer<MenuClickInfo> action = actions.get(info.getSlot());
+			if (action == null) {
+				SoundSample.CLICK.play(info.getPlayer());
+				return;
+			}
+
+			action.accept(info);
+		}
+
+		@Nonnull
+		public SlottedMenuPosition setPlayerAction(int slot, @Nonnull Consumer<? super Player> action) {
+			actions.put(slot, info -> action.accept(info.getPlayer()));
+			return this;
+		}
+
+		@Nonnull
+		public SlottedMenuPosition setAction(int slot, @Nonnull Consumer<? super MenuClickInfo> action) {
+			actions.put(slot, info -> action.accept(info));
+			return this;
+		}
+
+		@Nonnull
+		public SlottedMenuPosition setAction(int slot, @Nonnull Runnable action) {
+			actions.put(slot, player -> action.run());
+			return this;
 		}
 
 	}

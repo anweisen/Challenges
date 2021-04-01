@@ -21,7 +21,7 @@ public class AnimatedInventory {
 	private final int size;
 	private final String title;
 	private List<AnimationFrame> frames = new ArrayList<>();
-	private SoundSample frameSound, endSound;
+	private SoundSample frameSound = SoundSample.CLICK, endSound = SoundSample.OPEN;
 	private int frameDelay = 1;
 
 	public AnimatedInventory(@Nonnull String title, int size) {
@@ -35,6 +35,11 @@ public class AnimatedInventory {
 	}
 
 	public void open(@Nonnull Player player, @Nonnull JavaPlugin plugin) {
+
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(plugin, () -> open(player, plugin));
+			return;
+		}
 
 		Inventory inventory = createInventory();
 		player.openInventory(inventory);
@@ -50,8 +55,8 @@ public class AnimatedInventory {
 
 				inventory.setContents(frame.getContent());
 
-				if (frameSound != null && frame.shouldPlaySound()) frameSound.play(player);
 				if (I == frames.size() - 1 && endSound != null) endSound.play(player);
+				else if (frameSound != null && frame.shouldPlaySound()) frameSound.play(player);
 
 			}, (long) frameDelay * i);
 
@@ -114,13 +119,13 @@ public class AnimatedInventory {
 	}
 
 	@Nonnull
-	public AnimatedInventory setEndSound(SoundSample endSound) {
+	public AnimatedInventory setEndSound(@Nullable SoundSample endSound) {
 		this.endSound = endSound;
 		return this;
 	}
 
 	@Nonnull
-	public AnimatedInventory setFrameSound(SoundSample frameSound) {
+	public AnimatedInventory setFrameSound(@Nullable SoundSample frameSound) {
 		this.frameSound = frameSound;
 		return this;
 	}

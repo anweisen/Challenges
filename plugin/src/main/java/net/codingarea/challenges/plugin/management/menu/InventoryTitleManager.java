@@ -35,4 +35,9 @@ public final class InventoryTitleManager {
 		return getTitle("§2Stats §8┃ §2" + playerName);
 	}
 
+	@Nonnull
+	public static String getLeaderboardTitle() {
+		return getTitle("§2Leaderboard");
+	}
+
 }

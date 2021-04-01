@@ -27,7 +27,7 @@ public class KeepInventorySetting extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.ENDER_CHEST, Message.forName("item-keep-inventory-setting"));
+		return new ItemBuilder(Material.ENDER_EYE, Message.forName("item-keep-inventory-setting"));
 	}
 
 	@Override
