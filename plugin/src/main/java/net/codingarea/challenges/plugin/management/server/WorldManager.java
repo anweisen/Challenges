@@ -177,11 +177,9 @@ public final class WorldManager {
 		Logger.info("Deleting worlds..");
 
 		for (String world : worlds) {
-			if (useCustomSeed) {
+			deleteWorld(world);
+			if (useCustomSeed)
 				copyPreGeneratedWorld(world);
-			} else {
-				deleteWorld(world);
-			}
 		}
 
 		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
