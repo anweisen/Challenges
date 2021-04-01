@@ -81,7 +81,7 @@ public abstract class MenuSetting extends Setting {
 
 		}
 
-		InventoryUtils.setNavigationItems(inventories, Menu.NAVIGATION_SLOTS, false);
+		InventoryUtils.setNavigationItemsToInventory(inventories, Menu.NAVIGATION_SLOTS, false);
 
 	}
 

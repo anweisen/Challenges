@@ -1,9 +1,11 @@
 package net.codingarea.challenges.plugin.utils.animation;
 
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Arrays;
 
 /**
@@ -52,6 +54,16 @@ public class AnimationFrame implements Cloneable {
 	public AnimationFrame setSound(boolean play) {
 		this.sound = play;
 		return this;
+	}
+
+	@Nullable
+	public ItemStack getItem(int slot) {
+		return content[slot];
+	}
+
+	@Nullable
+	public Material getItemType(int slot) {
+		return getItem(slot) == null ? Material.AIR : getItem(slot).getType();
 	}
 
 	@Nonnull

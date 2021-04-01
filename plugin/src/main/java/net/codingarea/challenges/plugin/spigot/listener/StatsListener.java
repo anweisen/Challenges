@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
+import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.GameMode;
 import org.bukkit.entity.EnderDragon;
@@ -17,6 +18,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -35,6 +37,7 @@ public class StatsListener implements Listener {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (countNoStats()) return;
 		if (!(event.getEntity() instanceof Player)) return;
+		if (event.getCause() == DamageCause.VOID) return;
 
 		Player player = (Player) event.getEntity();
 		if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
@@ -74,7 +77,6 @@ public class StatsListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
-		if (event.getEntity().getGameMode() == GameMode.SPECTATOR || event.getEntity().getGameMode() == GameMode.CREATIVE) return;
 		if (countNoStats()) return;
 		incrementStatistic(event.getEntity(), Statistic.DEATHS, 1);
 	}
@@ -101,6 +103,12 @@ public class StatsListener implements Listener {
 		if (event.getTo() == null) return;
 		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
 		incrementStatistic(event.getPlayer(), Statistic.BLOCKS_TRAVELED, 1);
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onJump(@Nonnull PlayerJumpEvent event) {
+		if (countNoStats()) return;
+		incrementStatistic(event.getPlayer(), Statistic.JUMPS, 1);
 	}
 
 	private void incrementStatistic(@Nonnull Player player, @Nonnull Statistic statistic, double amount) {

@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
-import org.bukkit.entity.HumanEntity;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -14,6 +14,7 @@ import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public final class InventoryUtils {
@@ -32,18 +33,47 @@ public final class InventoryUtils {
 		}
 	}
 
-	public static void setNavigationItems(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots) {
-		setNavigationItems(inventories, navigationSlots, true);
+	@FunctionalInterface
+	interface InventorySetter<I> {
+
+		InventorySetter<AnimationFrame> FRAME = (frame, slot, item) -> frame.setItem(slot, item);
+		InventorySetter<Inventory> INVENTORY = (inventory, slot, item) -> inventory.setItem(slot, item.build());
+
+		void set(@Nonnull I inventory, int slot, @Nonnull ItemBuilder item);
+
 	}
 
-	public static void setNavigationItems(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots, boolean goBackExit) {
+	public static void setNavigationItemsToInventory(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots) {
+		setNavigationItemsToInventory(inventories, navigationSlots, true);
+	}
+
+	public static void setNavigationItemsToInventory(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots, boolean goBackExit) {
+		setNavigationItems(inventories, navigationSlots, goBackExit, InventorySetter.INVENTORY);
+	}
+
+	public static void setNavigationItemsToFrame(@Nonnull List<AnimationFrame> frames, @Nonnull int[] navigationSlots) {
+		setNavigationItemsToFrame(frames, navigationSlots, true);
+	}
+
+	public static void setNavigationItemsToFrame(@Nonnull List<AnimationFrame> inventories, @Nonnull int[] navigationSlots, boolean goBackExit) {
+		setNavigationItems(inventories, navigationSlots, goBackExit, InventorySetter.FRAME);
+	}
+
+	public static void setNavigationItemsToFrame(@Nonnull AnimationFrame frame, @Nonnull int[] navigationSlots, boolean goBackExit, int index, int size) {
+		setNavigationItems(frame, navigationSlots, goBackExit, InventorySetter.FRAME, index, size);
+	}
+
+	public static <I> void setNavigationItems(@Nonnull List<I> inventories, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter) {
 		for (int i = 0; i < inventories.size(); i++) {
-			Inventory inventory = inventories.get(i);
-			ItemStack left = i == 0 && goBackExit ? DefaultItem.navigateBackMainMenu().build() : DefaultItem.navigateBack().build();
-			inventory.setItem(navigationSlots[0], left);
-			if (i < (inventories.size() - 1))
-				inventory.setItem(navigationSlots[1], DefaultItem.navigateNext().build());
+			setNavigationItems(inventories.get(i), navigationSlots, goBackExit, setter, i, inventories.size());
 		}
+	}
+
+	public static <I> void setNavigationItems(@Nonnull I inventory, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter, int index, int size) {
+		ItemBuilder left = index == 0 && goBackExit ? DefaultItem.navigateBackMainMenu() : DefaultItem.navigateBack();
+		setter.set(inventory, navigationSlots[0], left);
+		if (index < (size - 1))
+			setter.set(inventory, navigationSlots[1], DefaultItem.navigateNext());
 	}
 
 	public static boolean isEmpty(@Nonnull Inventory inventory) {
@@ -86,7 +116,6 @@ public final class InventoryUtils {
 			if (inventory.getItem(slot) != null) {
 				fullSlots.add(slot);
 			}
-
 		}
 
 		if (fullSlots.isEmpty()) return -1;

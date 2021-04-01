@@ -29,7 +29,6 @@
   "timer-mode-set-down": "Der Timer zählt nun §crückwärts",
   "timer-mode-set-up": "Der Timer zählt nun §ahoch",
   "fetching-data": "Daten werden abgerufen..",
-  "stats-of": "§8» §7Stats von §e{0}",
   "undefined": "undefiniert",
   "deprecated-plugin-version": [
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
@@ -62,7 +61,14 @@
   "stat-blocks-placed": "Blöcke platziert",
   "stat-blocks-traveled": "Blöcke gereist",
   "stat-challenges-played": "Challenges gespielt",
+  "stat-jumps": "Sprünge",
+  "stats-of": "§8» §7Stats von §e{0}",
   "stats-display": "§8» §7{0} §8(§e{1}. §7Platz§8)",
+  "stats-leaderboard-display": [
+    "§e{0}",
+    "§8§l┣ §7{1} §7{2}",
+    "§8§l┗ §e{3}. §7Platz"
+  ],
 
   "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
   "positions-disabled": "Positionen sind §cdeaktiviert",

@@ -14,9 +14,9 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
+import net.codingarea.challenges.plugin.utils.misc.StatsHelper;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -69,53 +69,26 @@ public class StatsCommand implements PlayerCommand {
 
 	private void open(@Nonnull Player player, @Nonnull UUID uuid, @Nonnull String name) {
 
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER)
-				.setEndSound(SoundSample.OPEN).setFrameSound(SoundSample.CLICK);
-		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
-		inventory.cloneLastAndAdd().setAccent(39, 41);
-		inventory.cloneLastAndAdd().setAccent(38, 42);
-		inventory.cloneLastAndAdd().setAccent(37, 43);
-		inventory.cloneLastAndAdd().setAccent(28, 34);
-		inventory.cloneLastAndAdd().setAccent(27, 35);
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER);
+		StatsHelper.setAccent(inventory, 3);
 		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, Message.forName("stats-of").asString(name)).build());
 
-		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid);
+		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid, name);
 		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
-		createInventory(stats, info, inventory, 19, 20, 21, 22, 23, 24, 25, 29, 30, 31, 32, 33);
+		createInventory(stats, info, inventory, StatsHelper.getSlots(2));
 
-		Bukkit.getScheduler().callSyncMethod(Challenges.getInstance(), () -> {
-			MenuPosition.set(player, new EmptyMenuPosition());
-			inventory.open(player, Challenges.getInstance());
-			return null;
-		});
+		MenuPosition.set(player, new EmptyMenuPosition());
+		inventory.open(player, Challenges.getInstance());
 	}
 
 	private void createInventory(@Nonnull PlayerStats stats, @Nonnull LeaderboardInfo info, @Nonnull AnimatedInventory inventory, @Nonnull int... slots) {
-		int i = 0;
-		for (Statistic statistic : Statistic.values()) {
+		for (int i = 0; i < Statistic.values().length; i++) {
+			Statistic statistic = Statistic.values()[i];
 			double value = stats.getStatisticValue(statistic);
 			String format = statistic.formatChat(value);
 
-			Message message = Message.forName("stat-" + statistic.name().toLowerCase().replace('_', '-'));
-			ItemBuilder item = new ItemBuilder(getMaterialForStatistic(statistic), message.asString()).setLore(Message.forName("stats-display").asArray(format, info.getPlace(statistic))).hideAttributes();
+			ItemBuilder item = new ItemBuilder(StatsHelper.getMaterial(statistic), StatsHelper.getNameMessage(statistic).asString()).setLore(Message.forName("stats-display").asArray(format, info.getPlace(statistic))).hideAttributes();
 			inventory.cloneLastAndAdd().setItem(slots[i], item);
-
-			i++;
-		}
-	}
-
-	private Material getMaterialForStatistic(@Nonnull Statistic statistic) {
-		switch (statistic) {
-			default:                return Material.PAPER;
-			case DEATHS:            return Material.STONE_SHOVEL;
-			case BLOCKS_MINED:      return Material.GOLDEN_PICKAXE;
-			case BLOCKS_PLACED:     return Material.DIRT;
-			case DAMAGE_DEALT:      return Material.STONE_SWORD;
-			case DAMAGE_TAKEN:      return Material.LEATHER_CHESTPLATE;
-			case ENTITY_KILLS:      return Material.IRON_SWORD;
-			case DRAGON_KILLED:     return Material.DRAGON_EGG;
-			case BLOCKS_TRAVELED:   return Material.MINECART;
-			case CHALLENGES_PLAYED: return Material.GOLD_INGOT;
 		}
 	}
 

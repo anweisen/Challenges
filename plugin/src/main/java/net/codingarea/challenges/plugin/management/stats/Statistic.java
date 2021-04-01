@@ -20,7 +20,7 @@ public enum Statistic {
 	BLOCKS_PLACED(Display.INTEGER),
 	BLOCKS_TRAVELED(Display.INTEGER),
 	CHALLENGES_PLAYED(Display.INTEGER),
-	;
+	JUMPS(Display.INTEGER);
 
 	private final Display display;
 

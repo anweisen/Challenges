@@ -1,10 +1,13 @@
 package net.codingarea.challenges.plugin.management.menu.info;
 
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -50,6 +53,16 @@ public class MenuClickInfo {
 
 	public int getSlot() {
 		return slot;
+	}
+
+	@Nullable
+	public ItemStack getClickedItem() {
+		return inventory.getItem(slot);
+	}
+
+	@Nonnull
+	public Material getClickedMaterial() {
+		return getClickedItem() == null ? Material.AIR : getClickedItem().getType();
 	}
 
 	@Override

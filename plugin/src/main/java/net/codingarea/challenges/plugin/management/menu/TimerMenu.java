@@ -113,7 +113,7 @@ public final class TimerMenu {
 	}
 
 	private void setNavigation() {
-		InventoryUtils.setNavigationItems(inventories, NAVIGATION_SLOTS);
+		InventoryUtils.setNavigationItemsToInventory(inventories, NAVIGATION_SLOTS);
 	}
 
 	public void open(@Nonnull Player player, int page) {

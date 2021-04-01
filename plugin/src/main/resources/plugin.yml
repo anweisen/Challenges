@@ -54,6 +54,12 @@ commands:
   stats:
     usage: "/stats [player]"
     description: "Allows you to see statistics of you/other players"
+  leaderboard:
+    usage: "/leaderboard"
+    description: "Show the leaderboard for every statistic"
+    aliases:
+      - top
+      - lb
   position:
     usage: "/pos [player]"
     description: "Allows you to save locations"

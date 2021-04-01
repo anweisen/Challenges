@@ -6,7 +6,7 @@ import net.anweisen.utilities.commons.annotations.ReplaceWith;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.utils.misc.TexturesUtils;
+import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -133,6 +133,13 @@ public class ItemBuilder {
 	}
 
 	@Nonnull
+	public ItemBuilder setName(@Nonnull String[] content) {
+		if (content.length > 0) setName(content[0]);
+		if (content.length > 1) setLore(Arrays.copyOfRange(content, 1, content.length));
+		return this;
+	}
+
+	@Nonnull
 	public ItemBuilder appendName(@Nullable Object sequence) {
 		String name = getMeta().getDisplayName();
 		return setName(name  + sequence);
@@ -141,6 +148,11 @@ public class ItemBuilder {
 	@Nonnull
 	public ItemBuilder name(@Nullable Object name) {
 		return setName(name);
+	}
+
+	@Nonnull
+	public ItemBuilder name(@Nonnull String[] content) {
+		return setName(content);
 	}
 
 	@Nonnull
@@ -337,7 +349,7 @@ public class ItemBuilder {
 		@Nonnull
 		public SkullBuilder setOwner(@Nonnull UUID uuid) {
 			if (Challenges.getInstance().getDatabaseManager().isConnected()) {
-				String textures = TexturesUtils.getTextures(uuid);
+				String textures = DatabaseHelper.getTextures(uuid);
 				if (textures != null) {
 					GameProfileUtils.applyTextures(getMeta(), textures);
 					return this;
