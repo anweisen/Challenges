@@ -104,7 +104,7 @@ public class StatsListener implements Listener {
 	}
 
 	private void incrementStatistic(@Nonnull Player player, @Nonnull Statistic statistic, double amount) {
-		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(player.getUniqueId());
+		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName());
 		stats.incrementStatistic(statistic, amount);
 	}
 

@@ -8,7 +8,7 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.language.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import net.codingarea.challenges.plugin.utils.misc.TexturesUtils;
+import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -75,7 +75,9 @@ public class PlayerConnectionListener implements Listener {
 			ChallengeAPI.resumeTimer();
 		}
 
-		Challenges.getInstance().runAsync(() -> TexturesUtils.saveTextures(player));
+		if (Challenges.getInstance().getDatabaseManager().getDatabase().isConnected()) {
+			Challenges.getInstance().runAsync(() -> DatabaseHelper.savePlayerData(player));
+		}
 
 	}
 

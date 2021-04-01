@@ -18,16 +18,19 @@ public final class PlayerStats {
 
 	private final Map<Statistic, Double> values = new HashMap<>();
 	private final UUID uuid;
+	private final String name;
 
-	public PlayerStats(@Nonnull UUID uuid, @Nonnull Document document) {
+	public PlayerStats(@Nonnull UUID uuid, @Nonnull String name, @Nonnull Document document) {
 		this.uuid = uuid;
+		this.name = name;
 		for (Statistic statistic : Statistic.values()) {
 			values.put(statistic, document.getDouble(statistic.name()));
 		}
 	}
 
-	public PlayerStats(@Nonnull UUID uuid) {
+	public PlayerStats(@Nonnull UUID uuid, @Nonnull String name) {
 		this.uuid = uuid;
+		this.name = name;
 	}
 
 	public void incrementStatistic(@Nonnull Statistic statistic, double amount) {
@@ -50,8 +53,13 @@ public final class PlayerStats {
 	}
 
 	@Nonnull
-	public UUID getPlayer() {
+	public UUID getPlayerUUID() {
 		return uuid;
+	}
+
+	@Nonnull
+	public String getPlayerName() {
+		return name;
 	}
 
 	@Override

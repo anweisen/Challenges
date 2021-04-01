@@ -94,7 +94,7 @@ public final class ChallengeTimer {
 
 		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
 			for (Player player : Bukkit.getOnlinePlayers())
-				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
+				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
 		}
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getCloudNetHelper().handleTimerStart();

@@ -19,24 +19,22 @@ import java.util.UUID;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class TexturesUtils {
+public final class DatabaseHelper {
 
-	private TexturesUtils() {}
+	private DatabaseHelper() {}
 
-	public static void saveTextures(@Nonnull Player player) {
+	public static void savePlayerData(@Nonnull Player player) {
 		try {
-
-			if (!Challenges.getInstance().getDatabaseManager().isConnected()) return;
 
 			GameProfile profile = GameProfileUtils.getGameProfile(player);
 			PropertyMap properties = profile.getProperties();
 			List<Property> textures = new ArrayList<>(properties.get("textures"));
-			if (textures.isEmpty()) return;
-			Property texture = textures.get(0);
+			String texture = textures.isEmpty() ? null : textures.get(0).getValue();
 
 			Challenges.getInstance().getDatabaseManager().getDatabase()
 					.insertOrUpdate("challenges")
-					.set("textures", texture.getValue())
+					.set("textures", texture)
+					.set("name", player.getName())
 					.where("uuid", player.getUniqueId())
 					.execute();
 
