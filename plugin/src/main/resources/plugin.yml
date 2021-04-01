@@ -58,7 +58,6 @@ commands:
     usage: "/leaderboard"
     description: "Show the leaderboard for every statistic"
     aliases:
-      - top
       - lb
   position:
     usage: "/pos [player]"
