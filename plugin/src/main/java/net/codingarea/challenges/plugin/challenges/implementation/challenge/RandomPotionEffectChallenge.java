@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
-import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -19,20 +19,10 @@ import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
+@Since("2.0")
 public class RandomPotionEffectChallenge extends MenuSetting {
-
-	/**
-	 * Effekt Infos:
-	 *  - Länge Auswählbar in Sekunden
-	 *  - Stärke: Auswöhlbar
-	 *
-	 * Blacklist:
-	 *  - Playerglow
-	 *  - Instant Effekte
-	 *
-	 */
 
 	int currentTime = 0;
 
