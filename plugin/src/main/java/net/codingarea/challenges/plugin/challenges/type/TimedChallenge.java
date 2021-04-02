@@ -79,7 +79,7 @@ public abstract class TimedChallenge extends SettingModifier {
 					handleCountdown();
 				}
 			} else {
-				Logger.debug("getTimerCondition returned false for " + this.getClass().getSimpleName());
+				Logger.debug("getTimerCondition returned false for {}", this.getClass().getSimpleName());
 			}
 		}
 
@@ -112,7 +112,7 @@ public abstract class TimedChallenge extends SettingModifier {
 	protected abstract int getSecondsUntilNextActivation();
 
 	protected void restartTimer(int seconds) {
-		Logger.debug("Restarting timer of " + this.getClass().getSimpleName() + " with " + seconds + " second(s)");
+		Logger.debug("Restarting timer of {} with {} second(s)", this.getClass().getSimpleName(), seconds);
 
 		startedBefore = true;
 		secondsUntilActivation = seconds;

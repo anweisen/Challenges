@@ -94,14 +94,14 @@ public final class BlockDropManager {
 	}
 
 	public void setCustomDrops(@Nonnull Material block, @Nonnull List<Material> items, byte priority) {
-		Logger.debug("Setting block drop for " + block + " to " + items + " at priority " + priority);
+		Logger.debug("Setting block drop for {} to {} at priority {}", block, items, priority);
 
 		RegisteredDrops option = this.drops.computeIfAbsent(block, key -> new RegisteredDrops());
 		option.setOption(priority, items);
 	}
 
 	public void resetCustomDrop(@Nonnull Material block, byte priority) {
-		Logger.debug("Resetting block drop for " + block + " at priority " + priority);
+		Logger.debug("Resetting block drop for {} at priority {}", block, priority);
 
 		RegisteredDrops option = drops.get(block);
 		if (option == null) return;
@@ -111,7 +111,7 @@ public final class BlockDropManager {
 	}
 
 	public void resetCustomDrops(byte priority) {
-		Logger.debug("Resetting block drops at priority " + priority);
+		Logger.debug("Resetting block drops at priority {}", priority);
 
 		List<Material> remove = new ArrayList<>();
 		for (Entry<Material, RegisteredDrops> entry : drops.entrySet()) {
@@ -132,7 +132,7 @@ public final class BlockDropManager {
 	}
 
 	public void setDropChance(@Nonnull Material block, byte priority, @Nonnull BooleanSupplier chance) {
-		Logger.debug("Setting block drop chance for " + block + " at priority " + priority);
+		Logger.debug("Setting block drop chance for {} at priority {}", block, priority);
 
 		RegisteredChance option = this.chance.computeIfAbsent(block, key -> new RegisteredChance());
 		option.setOption(priority, chance);

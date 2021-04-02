@@ -12,6 +12,7 @@ import org.bukkit.Color;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
 import org.bukkit.block.banner.Pattern;
+import org.bukkit.block.banner.PatternType;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -84,12 +85,13 @@ public class ItemBuilder {
 
 	@Nonnull
 	public ItemMeta getMeta() {
-		return meta == null ? meta = item.getItemMeta() : meta;
+		return getCastedMeta();
 	}
 
 	@Nonnull
-	public <M> M getCastedMeta() {
-		return (M) meta;
+	@SuppressWarnings("unchecked")
+	public final <M> M getCastedMeta() {
+		return (M) (meta == null ? meta = item.getItemMeta() : meta);
 	}
 
 	@Nonnull
@@ -235,15 +237,34 @@ public class ItemBuilder {
 		return this;
 	}
 
+	@Nullable
+	public ItemDescription getBuiltByItemDescription() {
+		return builtByItemDescription;
+	}
+
+	@Nonnull
+	public String getName() {
+		return getMeta().getDisplayName();
+	}
+
+	@Nonnull
+	public List<String> getLore() {
+		List<String> lore = getMeta().getLore();
+		return lore == null ? new ArrayList<>() : lore;
+	}
+
+	public int getAmount() {
+		return item.getAmount();
+	}
+
+	public int getDamage() {
+		return this.<Damageable>getCastedMeta().getDamage();
+	}
+
 	@Nonnull
 	public ItemStack build() {
 		item.setItemMeta(getMeta()); // Call to getter to prevent null value
 		return item;
-	}
-
-	@Nullable
-	public ItemDescription getBuiltByItemDescription() {
-		return builtByItemDescription;
 	}
 
 	@Nonnull
@@ -290,7 +311,12 @@ public class ItemBuilder {
 
 		@Nonnull
 		public BannerBuilder addPattern(@Nonnull BannerPattern pattern, @Nonnull DyeColor color) {
-			getMeta().addPattern(new Pattern(color, pattern.getPatternType()));
+			return addPattern(pattern.getPatternType(), color);
+		}
+
+		@Nonnull
+		public BannerBuilder addPattern(@Nonnull PatternType pattern, @Nonnull DyeColor color) {
+			getMeta().addPattern(new Pattern(color, pattern));
 			return this;
 		}
 
@@ -309,7 +335,7 @@ public class ItemBuilder {
 		}
 
 		/**
-		 * @deprecated Use uuid instead
+		 * @deprecated Use uuid and name to be able to access database cached textures to reduce loading time
 		 */
 		@Deprecated
 		@DeprecatedSince("2.0")
@@ -319,7 +345,7 @@ public class ItemBuilder {
 		}
 
 		/**
-		 * @deprecated Use uuid instead
+		 * @deprecated Use uuid and name to be able to access database cached textures to reduce loading time
 		 */
 		@Deprecated
 		@DeprecatedSince("2.0")
@@ -328,14 +354,24 @@ public class ItemBuilder {
 			setOwner(owner);
 		}
 
-		public SkullBuilder(@Nonnull UUID uuid) {
+		public SkullBuilder(@Nonnull UUID ownerUUID, @Nonnull String ownerName) {
 			super(Material.PLAYER_HEAD);
-			setOwner(uuid);
+			setOwner(ownerUUID, ownerName);
 		}
 
-		public SkullBuilder(@Nonnull UUID uuid, @Nonnull String name, @Nonnull String... lore) {
+		public SkullBuilder(@Nonnull UUID ownerUUID, @Nonnull String ownerName, @Nonnull Message message) {
+			super(Material.PLAYER_HEAD, message);
+			setOwner(ownerUUID, ownerName);
+		}
+
+		public SkullBuilder(@Nonnull UUID ownerUUID, @Nonnull String ownerName, @Nonnull ItemDescription description) {
+			super(Material.PLAYER_HEAD, description);
+			setOwner(ownerUUID, ownerName);
+		}
+
+		public SkullBuilder(@Nonnull UUID ownerUUID, @Nonnull String ownerName, @Nonnull String name, @Nonnull String... lore) {
 			super(Material.PLAYER_HEAD, name, lore);
-			setOwner(uuid);
+			setOwner(ownerUUID, ownerName);
 		}
 
 		@Nonnull
@@ -348,11 +384,11 @@ public class ItemBuilder {
 		}
 
 		@Nonnull
-		public SkullBuilder setOwner(@Nonnull UUID uuid) {
+		public SkullBuilder setOwner(@Nonnull UUID uuid, @Nonnull String name) {
 			if (Challenges.getInstance().getDatabaseManager().isConnected()) {
 				String textures = DatabaseHelper.getTextures(uuid);
 				if (textures != null) {
-					GameProfileUtils.applyTextures(getMeta(), textures);
+					GameProfileUtils.applyTextures(getMeta(), uuid, name, textures);
 					return this;
 				}
 			}

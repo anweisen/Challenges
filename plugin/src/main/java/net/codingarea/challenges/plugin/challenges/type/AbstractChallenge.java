@@ -29,10 +29,9 @@ import java.util.function.Consumer;
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
-	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstChallengeByClass = new HashMap<>();
+	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 
 	protected final Challenges plugin = Challenges.getInstance();
-
 	protected final MenuType menu;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
 	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
@@ -42,8 +41,8 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
 
-		if (!firstChallengeByClass.containsKey(this.getClass()))
-			firstChallengeByClass.put(this.getClass(), this);
+		if (!firstInstanceByClass.containsKey(this.getClass()))
+			firstInstanceByClass.put(this.getClass(), this);
 	}
 
 	@Nonnull
@@ -122,7 +121,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE;
 	}
 
-	public final void broadcast(@Nonnull Consumer<Player> action) {
+	protected final void broadcast(@Nonnull Consumer<Player> action) {
 		Bukkit.getOnlinePlayers().forEach(action);
 	}
 
@@ -143,7 +142,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
-		return classOfChallenge.cast(firstChallengeByClass.get(classOfChallenge));
+		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));
 	}
 
 }

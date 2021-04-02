@@ -70,9 +70,9 @@ public final class StatsManager implements Listener {
 					.where("uuid", uuid)
 					.set("stats", stats.asDocument())
 					.execute();
-			Logger.debug("Saved stats for uuid '" + uuid + "': " + stats);
+			Logger.debug("Saved stats for {}: {}", uuid, stats);
 		} catch (DatabaseException ex) {
-			Logger.severe("Could not save player stats for uuid '" + uuid + "'", ex);
+			Logger.error("Could not save player stats for {}", uuid, ex);
 		}
 	}
 
@@ -84,10 +84,10 @@ public final class StatsManager implements Listener {
 		try {
 			PlayerStats stats = getStatsFromDatabase(uuid, name);
 			cache.put(uuid, stats);
-			Logger.debug("Loaded stats for uuid '" + uuid + "': " + stats);
+			Logger.debug("Loaded stats for uuid {}: {}", uuid, stats);
 			return stats;
 		} catch (DatabaseException ex) {
-			Logger.severe("Could not get player stats for uuid " + uuid, ex);
+			Logger.error("Could not get player stats for {}", uuid, ex);
 			return new PlayerStats(uuid, name);
 		}
 	}
@@ -126,7 +126,7 @@ public final class StatsManager implements Listener {
 
 			return info;
 		} catch (DatabaseException ex) {
-			Logger.severe("Could not get player leaderboard information for uuid " + uuid, ex);
+			Logger.error("Could not get player leaderboard information for {}", uuid, ex);
 			return new LeaderboardInfo();
 		}
 	}
@@ -138,7 +138,7 @@ public final class StatsManager implements Listener {
 			stats.sort(getStatsComparator(statistic));
 			return stats;
 		} catch (Exception ex) {
-			Logger.severe("Could not get leaderboard in " + statistic, ex);
+			Logger.error("Could not get leaderboard in {}", statistic, ex);
 			return new ArrayList<>();
 		}
 	}

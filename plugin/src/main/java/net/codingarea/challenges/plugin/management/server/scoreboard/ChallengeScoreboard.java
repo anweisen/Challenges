@@ -114,7 +114,7 @@ public final class ChallengeScoreboard {
 			objectives.put(player, objective);
 
 		} catch (Exception ex) {
-			Logger.severe("Unable to update scoreboard for player '" + player.getName() + "': " + ex.getClass().getSimpleName() + ": " +  ex.getMessage());
+			Logger.error("Unable to update scoreboard for player '{}'", player.getName(), ex);
 		}
 	}
 

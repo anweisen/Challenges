@@ -34,7 +34,7 @@ public final class PlayerStats {
 	}
 
 	public void incrementStatistic(@Nonnull Statistic statistic, double amount) {
-		Logger.debug("Incrementing statistic " + statistic + " by " + amount);
+		Logger.debug("Incrementing statistic {} by {}", statistic, amount);
 		double value = values.getOrDefault(statistic, 0d);
 		values.put(statistic, value + amount);
 	}

@@ -5,8 +5,6 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.BlockMaterialSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.language.ItemDescription;
-import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
@@ -43,8 +41,8 @@ public class ModuleChallengeLoader {
 				plugin.registerListener((Listener) challenge);
 			}
 
-		} catch (Exception ex) {
-			Logger.severe("Could not register challenge " + challenge.getClass().getSimpleName(), ex);
+		} catch (Throwable ex) {
+			Logger.error("Could not register challenge {}", challenge.getClass().getSimpleName(), ex);
 		}
 	}
 
@@ -61,7 +59,7 @@ public class ModuleChallengeLoader {
 			registerWithCommand(challenge, commandNames);
 
 		} catch (Throwable ex) {
-			Logger.severe("Could not create challenge " + classOfChallenge.getSimpleName(), ex);
+			Logger.error("Could not create challenge {}", classOfChallenge.getSimpleName(), ex);
 		}
 	}
 

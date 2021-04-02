@@ -117,7 +117,7 @@ public final class Menu {
 				return item.build();
 			}
 		} catch (Exception ex) {
-			Logger.severe("Error while generating challenge display item for challenge " + challenge.getClass().getSimpleName(), ex);
+			Logger.error("Error while generating challenge display item for challenge {}", challenge.getClass().getSimpleName(), ex);
 			return new ItemBuilder().build();
 		}
 	}
@@ -127,7 +127,7 @@ public final class Menu {
 			ItemBuilder item = new ItemBuilder(challenge.getSettingsItem()).hideAttributes();
 			return item.build();
 		} catch (Exception ex) {
-			Logger.severe("Error while generating challenge settings item for challenge " + challenge.getClass().getSimpleName(), ex);
+			Logger.error("Error while generating challenge settings item for challenge {}", challenge.getClass().getSimpleName(), ex);
 			return new ItemBuilder().build();
 		}
 	}
@@ -219,7 +219,7 @@ public final class Menu {
 			try {
 				challenge.handleClick(new ChallengeMenuClickInfo(info, upperItem));
 			} catch (Exception ex) {
-				Logger.severe("An exception occurred while handling click on " + challenge.getClass().getName(), ex);
+				Logger.error("An exception occurred while handling click on {}", challenge.getClass().getName(), ex);
 			}
 
 		}

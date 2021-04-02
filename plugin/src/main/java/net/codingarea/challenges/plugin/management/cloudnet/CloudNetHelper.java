@@ -32,7 +32,7 @@ public final class CloudNetHelper {
 		try {
 			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.changeToIngame();
 		} catch (NoClassDefFoundError ex) {
-			Logger.severe("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
+			Logger.error("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
 		}
 	}
 
@@ -44,7 +44,7 @@ public final class CloudNetHelper {
 			de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper.setState("LOBBY");
 			de.dytanic.cloudnet.ext.bridge.BridgeHelper.updateServiceInfo();
 		} catch (NoClassDefFoundError ex) {
-			Logger.severe("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
+			Logger.error("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
 		}
 	}
 
@@ -59,7 +59,7 @@ public final class CloudNetHelper {
 			String color = group.getColor();
 			return color.replace('&', '§') + player.getName();
 		} catch (NoClassDefFoundError ex) {
-			Logger.severe("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
+			Logger.error("CloudNet Support is enabled, but no CloudNet dependencies could be loaded!");
 			return player.getName();
 		}
 	}

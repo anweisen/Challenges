@@ -36,7 +36,7 @@ public final class PrefixLoader extends ContentLoader {
 			Logger.info("Successfully loaded prefixes from config file");
 
 		} catch (Exception ex) {
-			Logger.severe("Could not load prefix", ex);
+			Logger.error("Could not load prefix", ex);
 		}
 	}
 

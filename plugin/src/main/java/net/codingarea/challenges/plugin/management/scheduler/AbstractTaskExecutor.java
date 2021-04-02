@@ -21,7 +21,7 @@ public abstract class AbstractTaskExecutor implements Runnable {
 			try {
 				function.invoke();
 			} catch (InvocationTargetException | IllegalAccessException ex) {
-				Logger.severe("An exception occurred while executing " + function, ex);
+				Logger.error("An exception occurred while executing {}", function, ex);
 			}
 		}
 	}

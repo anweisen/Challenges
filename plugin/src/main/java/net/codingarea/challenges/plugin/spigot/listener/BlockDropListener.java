@@ -66,7 +66,7 @@ public class BlockDropListener implements Listener {
 			try {
 				location.getWorld().dropItem(location, new ItemStack(drop));
 			} catch (Exception ex) {
-				Logger.severe("Unable to drop custom drop " + drop, ex);
+				Logger.warn("Unable to drop custom drop {}", drop, ex);
 			}
 		}
 

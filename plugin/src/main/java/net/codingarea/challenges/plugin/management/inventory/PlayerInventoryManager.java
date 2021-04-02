@@ -1,11 +1,13 @@
 package net.codingarea.challenges.plugin.management.inventory;
 
+import net.anweisen.utilities.commons.common.Triple;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -14,12 +16,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.*;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -28,10 +27,7 @@ import java.util.function.Consumer;
  */
 public final class PlayerInventoryManager implements Listener {
 
-	private static final List<Player> hasItems = new ArrayList<>();
-	private ItemStack[] items;
-	private Consumer<Player>[] actions;
-
+	protected static final String permission = "challenges.gui";
 	private final boolean enabled;
 
 	public PlayerInventoryManager() {
@@ -54,12 +50,7 @@ public final class PlayerInventoryManager implements Listener {
 
 	@EventHandler
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
-		if (items == null) return;
-		if (hasItems.contains(event.getPlayer()) && hasNoOtherItems(event.getPlayer().getInventory())) {
-			remove(event.getPlayer());
-		} else {
-			hasItems.remove(event.getPlayer());
-		}
+		removeItems(event.getPlayer());
 	}
 
 	@EventHandler(ignoreCancelled = true, priority = EventPriority.MONITOR)
@@ -69,7 +60,7 @@ public final class PlayerInventoryManager implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onDrop(@Nonnull PlayerDropItemEvent event) {
-		if (!hasItems.contains(event.getPlayer())) return;
+		if (!hasItems(event.getPlayer())) return;
 		event.setCancelled(true);
 	}
 
@@ -87,10 +78,16 @@ public final class PlayerInventoryManager implements Listener {
 				return;
 		}
 
-		if (!hasItems.contains(event.getPlayer())) return;
+		if (!hasItems(event.getPlayer())) return;
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(event.getPlayer());
+
 		int slot = event.getPlayer().getInventory().getHeldItemSlot();
-		if (slot >= actions.length) return;
-		Consumer<Player> action = actions[slot];
+		if (slot >= pairs.length) return;
+		Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[slot];
+		if (pair == null) return;
+		if (pair.getThird() && !event.getPlayer().hasPermission(permission)) return;
+
+		Consumer<Player> action = pair.getSecond();
 		if (action == null) return;
 
 		action.accept(event.getPlayer());
@@ -116,68 +113,114 @@ public final class PlayerInventoryManager implements Listener {
 	public void updateInventory(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
 		try {
 			if (!LanguageLoader.isLoaded()) return;
-			if (items == null) createItems();
-
 			if (ChallengeAPI.isPaused()) {
 				updateInventoryPaused(player, gamemode, join, alive);
 			} else {
 				updateInventoryStarted(player, gamemode, join, alive);
 			}
 		} catch (Exception ex) {
-			Logger.severe("Failed to update inventory", ex);
+			Logger.error("Failed to update inventory", ex);
 		}
 	}
 
 	private void updateInventoryStarted(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (hasNoOtherItems(player.getInventory())) {
-			remove(player);
-		}
+		removeItems(player);
 	}
 
 	private void updateInventoryPaused(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (hasNoOtherItems(player.getInventory())) {
-			if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !player.hasPermission("challenges.gui") || !enabled) {
-				remove(player);
-				return;
-			}
-
+		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !player.hasPermission("challenges.gui") || !enabled) {
+			removeItems(player);
+			return;
+		}
+		if (canGiveItems(player)) {
 			if (!alive) return;
-			for (int i = 0; i < items.length; i++) {
-				player.getInventory().setItem(i, items[i]);
-			}
+			giveItems(player);
 			if (join) player.getInventory().setHeldItemSlot(4);
-			if (!hasItems.contains(player))
-				hasItems.add(player);
 		}
 	}
 
-	private boolean hasNoOtherItems(@Nonnull Inventory inventory) {
-		for (int i = 0; i < items.length && i < inventory.getSize(); i++) {
-			ItemStack expected = items[i];
-			ItemStack found = inventory.getItem(i);
-			if (found == null)                          continue;
-			if (expected == null)                       return false;
-			if (expected.getType() != found.getType())  return false;
+	private boolean hasItems(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		for (int i = 0; i < pairs.length; i++) {
+			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			ItemStack expected = pair == null ? null : pair.getFirst();
+			ItemStack found = player.getInventory().getItem(i);
+			if (expected != null && found == null) return false;
+			if (expected == null) continue;
+			if (found == null) continue;
+			if (expected.getType() != found.getType()) return false;
 		}
 		return true;
 	}
 
-	private void remove(@Nonnull Player player) {
-		for (int i = 0; i < items.length; i++) {
-			player.getInventory().setItem(i, null);
+	private boolean canGiveItems(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		for (int i = 0; i < pairs.length; i++) {
+			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			ItemStack expected = pair == null ? null : pair.getFirst();
+			ItemStack found = player.getInventory().getItem(i);
+			if (expected == null && found != null) return false;
+			if (expected == null) continue;
+			if (found == null) continue;
+			if (expected.getType() != found.getType()) return false;
 		}
-		hasItems.remove(player);
+		return true;
 	}
 
-	private void createItems() {
-		items       = new ItemStack[9];
-		actions     = new Consumer[9];
-		items[3]    = new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build();
-		actions[3]  = player -> player.performCommand("timer");
-		items[4]    = new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build();
-		actions[4]  = player -> player.performCommand("challenge");
-		items[5]    = new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build();
-		actions[5]  = player -> player.performCommand("start");
+	private void removeItems(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		for (Triple<ItemStack, Consumer<Player>, Boolean> pair : pairs) {
+			if (pair == null) continue;
+			ItemStack item = pair.getFirst();
+			if (item == null) continue;
+			player.getInventory().remove(item);
+		}
+	}
+
+	private void giveItems(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		for (int i = 0; i < pairs.length; i++) {
+			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			if (pair == null) continue;
+			if (pair.getThird() && !player.hasPermission(permission)) continue;
+			player.getInventory().setItem(i, pair.getFirst());
+		}
+	}
+
+	@Nonnull
+	private Triple<ItemStack, Consumer<Player>, Boolean>[] createItemPairs(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = new Triple[9];
+
+		pairs[3] = new Triple<>(
+				new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
+				p -> p.performCommand("timer"),
+				true
+		);
+		pairs[4] = new Triple<>(
+				new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
+				p -> p.performCommand("challenges"),
+				true
+		);
+		pairs[5] = new Triple<>(
+				new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
+				p -> p.performCommand("start"),
+				true
+		);
+
+		if (Challenges.getInstance().getStatsManager().isEnabled()) {
+			pairs[0] = new Triple<>(
+					new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-menu-leaderboard").asString()).build(),
+					p -> p.performCommand("leaderboard"),
+					false
+			);
+			pairs[8] = new Triple<>(
+					new SkullBuilder(player.getUniqueId(), player.getName(), Message.forName("item-menu-stats").asString()).build(),
+					p -> player.performCommand("stats"),
+					false
+			);
+		}
+
+		return pairs;
 	}
 
 }

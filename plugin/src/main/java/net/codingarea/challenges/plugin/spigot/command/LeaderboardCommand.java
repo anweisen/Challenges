@@ -75,7 +75,7 @@ public class LeaderboardCommand implements PlayerCommand {
 		InventoryUtils.setNavigationItemsToFrame(inventory.cloneLastAndAdd(), navigationSlots, true, page, pages);
 		for (int i = page * slots.length; i < leaderboard.size() && i < slots.length; i++) {
 			PlayerStats stats = leaderboard.get(i);
-			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID()).setName(Message.forName("stats-leaderboard-display")
+			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID(), stats.getPlayerName()).setName(Message.forName("stats-leaderboard-display")
 					.asArray(stats.getPlayerName(), statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
 			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
 		}

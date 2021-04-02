@@ -105,7 +105,7 @@ public final class ChallengeBossBar {
 				bossbar.addPlayer(player);
 
 		} catch (Exception ex) {
-			Logger.severe("Unable to update bossbar for player '" + player.getName() + "': " + ex.getClass().getSimpleName() + ": " +  ex.getMessage());
+			Logger.error("Unable to update bossbar for player '{}'", player.getName(), ex);
 		}
 	}
 

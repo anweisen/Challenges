@@ -51,7 +51,7 @@ public final class ChallengeManager {
 					Document document = config.getDocument(name);
 					challenge.loadSettings(document);
 				} catch (Exception ex) {
-					Logger.severe("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
+					Logger.error("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
 				}
 			}
 		}
@@ -65,7 +65,7 @@ public final class ChallengeManager {
 					Document document = config.getDocument(name);
 					challenge.loadGameState(document);
 				} catch (Exception ex) {
-					Logger.severe("Could not load gamestate for " + challenge.getClass().getSimpleName(), ex);
+					Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 				}
 			}
 		}
@@ -77,7 +77,7 @@ public final class ChallengeManager {
 				Document document = config.getDocument(challenge.getName());
 				challenge.writeGameState(document);
 			} catch (Exception ex) {
-				Logger.severe("Could not write gamestate of " + challenge.getClass().getSimpleName(), ex);
+				Logger.error("Could not write gamestate of {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
@@ -94,7 +94,7 @@ public final class ChallengeManager {
 				Document document = config.getDocument(challenge.getName());
 				challenge.writeSettings(document);
 			} catch (Exception ex) {
-				Logger.severe("Could not write settings of " + challenge.getClass().getSimpleName(), ex);
+				Logger.error("Could not write settings of {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
