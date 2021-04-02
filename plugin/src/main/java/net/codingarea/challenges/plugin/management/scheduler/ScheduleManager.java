@@ -31,19 +31,19 @@ public final class ScheduleManager {
 			ScheduledTask annotation = method.getAnnotation(ScheduledTask.class);
 			ScheduledFunction function = new ScheduledFunction(scheduler, method, new PoliciesContainer(annotation));
 
-			Logger.debug("Registered scheduled task " + function);
+			Logger.debug("Registered scheduled task {}", function);
 			register(function, new ScheduledTaskConfig(annotation));
 		}
 		for (Method method : ReflectionUtils.getMethodsAnnotatedWith(scheduler.getClass(), TimerTask.class)) {
 			if (method.getParameterCount() != 0) {
-				Logger.warn("Could not register scheduler " + method);
+				Logger.warn("Could not register scheduler {}", method);
 				continue;
 			}
 
 			TimerTask annotation = method.getAnnotation(TimerTask.class);
 			ScheduledFunction function = new ScheduledFunction(scheduler, method, new PoliciesContainer(annotation));
 
-			Logger.debug("Registered timer task " + function);
+			Logger.debug("Registered timer task {}", function);
 			register(function, new TimerTaskConfig(annotation));
 		}
 	}
@@ -58,7 +58,7 @@ public final class ScheduleManager {
 		if (config instanceof ScheduledTaskConfig) {
 			ScheduledTaskConfig taskConfig = (ScheduledTaskConfig) config;
 			if (taskConfig.getRate() < 1) {
-				Logger.warn("Schedule rate cannot be less than 1; Could not register " + function);
+				Logger.warn("Schedule rate cannot be less than 1; Could not register {}", function);
 				return;
 			}
 

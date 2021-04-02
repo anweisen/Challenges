@@ -80,7 +80,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 
 	protected void teleportBack(@Nonnull Player player) {
-		PlayerData data = before.remove(player);
+		PlayerData data = before.remove(player.getUniqueId());
 		if (data == null) return;
 		player.setNoDamageTicks(20);
 		data.apply(player);

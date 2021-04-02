@@ -124,7 +124,7 @@ public final class PlayerInventoryManager implements Listener {
 				updateInventoryStarted(player, gamemode, join, alive);
 			}
 		} catch (Exception ex) {
-			Logger.severe("Failed to update inventory", ex);
+			Logger.error("Failed to update inventory", ex);
 		}
 	}
 

@@ -4,7 +4,6 @@ import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
 import net.anweisen.utilities.bukkit.utils.GameProfileUtils;
-import net.anweisen.utilities.commons.config.document.EmptyDocument;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
@@ -39,7 +38,7 @@ public final class DatabaseHelper {
 					.execute();
 
 		} catch (Exception ex) {
-			Logger.severe("Unable to update textures for " + player.getName() + " | " + player.getUniqueId(), ex);
+			Logger.error("Unable to update textures for {} | {}", player.getName(), player.getUniqueId(), ex);
 		}
 	}
 
@@ -53,7 +52,7 @@ public final class DatabaseHelper {
 					.execute().firstOrEmpty()
 					.getString("textures");
 		} catch (Exception ex) {
-			Logger.severe("Unable to get textures for " + uuid, ex);
+			Logger.error("Unable to get textures for {}", uuid, ex);
 			return null;
 		}
 	}

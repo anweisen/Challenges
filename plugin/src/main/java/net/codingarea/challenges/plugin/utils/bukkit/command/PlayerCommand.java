@@ -23,7 +23,7 @@ public interface PlayerCommand extends CommandExecutor {
 				onCommand((Player) sender, args);
 			} catch (Exception ex) {
 				sender.sendMessage(Prefix.CHALLENGES + "§cSomething went wrong while executing the command");
-				Logger.severe("Something went wrong while processing the command '/" + label + "'", ex);
+				Logger.error("Something went wrong while processing the command '{}'", label, ex);
 			}
 		} else {
 			Message.forName("player-command").send(sender, Prefix.CHALLENGES);

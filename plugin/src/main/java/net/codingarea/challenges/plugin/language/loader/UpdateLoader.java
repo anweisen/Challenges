@@ -29,7 +29,7 @@ public final class UpdateLoader extends ContentLoader {
 			Version config = VersionInfo.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
 
 			if (latest.isNewerThan(plugin)) {
-				Logger.info("A new version of Challenges is available: " + latest + ", you have " + plugin);
+				Logger.info("A new version of Challenges is available: {}, you have {}", latest, plugin);
 				newestPluginVersion = false;
 			}
 			if (plugin.isNewerThan(config)) {
@@ -38,7 +38,7 @@ public final class UpdateLoader extends ContentLoader {
 			}
 
 		} catch (Exception ex) {
-			Logger.severe("Could not check for update: " + ex.getMessage());
+			Logger.error("Could not check for update: {}", ex.getMessage());
 		}
 	}
 

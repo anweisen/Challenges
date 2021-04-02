@@ -34,7 +34,8 @@ public final class ConsolePrint {
 	}
 
 	public static void alreadyExecutingContentLoader() {
-		log("Cannot load contents; Already loading contents");
+		log("Cannot load contents; Already loading contents?");
+		log("Are you reloading too fast?");
 	}
 
 	public static void noMongoDependencies() {
@@ -49,7 +50,7 @@ public final class ConsolePrint {
 	}
 
 	private static void log(@Nonnull String message) {
-		Logger.severe(message);
+		Logger.error(message);
 	}
 
 }

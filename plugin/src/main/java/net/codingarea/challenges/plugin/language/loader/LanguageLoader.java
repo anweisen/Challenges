@@ -48,7 +48,7 @@ public final class LanguageLoader extends ContentLoader {
 			language = DEFAULT_LANGUAGE;
 		}
 
-		Logger.debug("Language '" + language + "' is currently selected");
+		Logger.debug("Language '{}' is currently selected", language);
 
 	}
 
@@ -68,12 +68,12 @@ public final class LanguageLoader extends ContentLoader {
 						verifyLanguage(language, file);
 
 				} catch (Exception ex) {
-					Logger.severe("Could not download language for " + element + ". " + ex.getClass().getSimpleName() + ": " + ex.getMessage());
+					Logger.error("Could not download language for {}. {}: {}", element, ex.getClass().getSimpleName(), ex.getMessage());
 				}
 			}
 
 		} catch (Exception ex) {
-			Logger.severe("Could not download languages", ex);
+			Logger.error("Could not download languages", ex);
 		}
 	}
 
@@ -88,7 +88,7 @@ public final class LanguageLoader extends ContentLoader {
 		JsonObject existing = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 		for (Entry<String, JsonElement> entry : download.entrySet()) {
 			if (!existing.has(entry.getKey())) {
-				Logger.debug("Overwriting message " + entry.getKey() + " with " + String.valueOf(entry.getValue()).replace("\"", "§r\""));
+				Logger.debug("Overwriting message {} with {}", entry.getKey(), String.valueOf(entry.getValue()).replace("\"", "§r\""));
 				existing.add(entry.getKey(), entry.getValue());
 			}
 		}
@@ -120,12 +120,12 @@ public final class LanguageLoader extends ContentLoader {
 					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
 					messages++;
 				} else {
-					Logger.warn("Illegal type '" + element.getClass().getName() + "' for " + message.getName());
+					Logger.warn("Illegal type '{}' for {}", element.getClass().getName(), message.getName());
 				}
 			}
 
 			loaded = true;
-			Logger.info("Successfully loaded language '" + language + "' from config file: " + messages + " message(s)");
+			Logger.info("Successfully loaded language '{}' from config file: {} message(s)", language, messages);
 
 			if (Challenges.getInstance().isEnabled()) {
 				Challenges.getInstance().getMenuManager().generateMenus();
@@ -135,7 +135,7 @@ public final class LanguageLoader extends ContentLoader {
 			Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 
 		} catch (Exception ex) {
-			Logger.severe("Could not read languages", ex);
+			Logger.error("Could not read languages", ex);
 		}
 	}
 

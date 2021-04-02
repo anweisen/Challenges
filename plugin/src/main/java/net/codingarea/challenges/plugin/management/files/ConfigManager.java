@@ -33,7 +33,7 @@ public final class ConfigManager {
 			FileUtils.createFilesIfNecessary(file);
 			return new FileDocumentWrapper(file, new GsonDocument(file));
 		} catch (Exception ex) {
-			Logger.severe("Could not load config '" + filename + "': " + ex.getMessage());
+			Logger.error("Could not load config '{}': {}", filename, ex);
 			return null;
 		}
 	}

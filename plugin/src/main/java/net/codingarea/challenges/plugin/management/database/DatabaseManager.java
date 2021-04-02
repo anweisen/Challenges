@@ -42,7 +42,7 @@ public final class DatabaseManager {
 		try {
 			Class<? extends Database> classOfDatabase = getDatabaseForName(type);
 			if (classOfDatabase == null) {
-				Logger.severe("Selected database type '" + type + "' which is unknown");
+				Logger.error("Selected illegal database type '{}'", type);
 				return;
 			}
 
@@ -50,7 +50,7 @@ public final class DatabaseManager {
 			Constructor<? extends Database> constructor = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class);
 			database = constructor.newInstance(config);
 		} catch (Throwable ex) {
-			Logger.severe("Could not create database", ex);
+			Logger.error("Could not create database", ex);
 		}
 	}
 

@@ -33,7 +33,7 @@ public class MessageImpl implements Message {
 		if (value instanceof String)            return StringUtils.format((String) value, args);
 		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
-		Logger.severe("Message '" + name + "' has an illegal value " + value.getClass().getName());
+		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
 		return Message.NULL;
 	}
 
@@ -44,7 +44,7 @@ public class MessageImpl implements Message {
 		if (value instanceof String[])          return StringUtils.format((String[]) value, args);
 		if (value instanceof String)            return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getLore();
-		Logger.severe("Message '" + name + "' has an illegal value " + value.getClass().getName());
+		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
 		return new String[] { Message.NULL};
 	}
 
