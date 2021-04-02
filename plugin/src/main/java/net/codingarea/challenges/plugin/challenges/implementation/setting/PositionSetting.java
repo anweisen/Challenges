@@ -20,10 +20,8 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -57,9 +55,13 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 				return;
 			}
 
-			positions.forEach((name, location) -> {
-				if (location.getWorld() != player.getLocation().getWorld()) return;
-				Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), name, (int) location.distance(player.getLocation()));
+			positions.entrySet().stream()
+					.filter(entry -> player.getWorld() == entry.getValue().getWorld())
+					.sorted(Comparator.<Entry<String, Location>>comparingDouble(entry -> entry.getValue().distance(player.getLocation())).reversed())
+					.forEach(entry -> {
+
+				Location location = entry.getValue();
+				Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), entry.getKey(), (int) location.distance(player.getLocation()));
 			});
 		} else if (args.length == 1) {
 			String name = args[0].toLowerCase();
