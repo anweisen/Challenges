@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
@@ -26,9 +27,15 @@ public final class ServerManager {
 	private static boolean isFresh; // This indicated if the timer was never started before
 	private static boolean hasCheated = false;
 
+	private final boolean setSpectatorOnWin;
+
 	public ServerManager() {
-		hasCheated = Challenges.getInstance().getConfigManager().getSessionConfig().getBoolean("cheated", hasCheated);
-		isFresh = Challenges.getInstance().getConfigManager().getSessionConfig().getBoolean("fresh", true);
+		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
+		hasCheated = sessionConfig.getBoolean("cheated", hasCheated);
+		isFresh = sessionConfig.getBoolean("fresh", true);
+
+		Document pluginConfig = Challenges.getInstance().getConfigDocument();
+		setSpectatorOnWin = pluginConfig.getBoolean("set-spectator-on-win");
 	}
 
 	public void setNotFresh() {
@@ -66,6 +73,8 @@ public final class ServerManager {
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
 		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
+
+		if (endCause == ChallengeEndCause.GOAL_REACHED && !setSpectatorOnWin) return;
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setGameMode(GameMode.SPECTATOR);
