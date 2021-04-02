@@ -25,6 +25,8 @@ public final class WorldManager {
 
 		private boolean placeBlocks = false;
 		private boolean destroyBlocks = false;
+		private boolean dropItems = false;
+		private boolean pickupItems = false;
 
 		public void setDestroyBlocks(boolean destroyBlocks) {
 			this.destroyBlocks = destroyBlocks;
@@ -34,12 +36,28 @@ public final class WorldManager {
 			this.placeBlocks = placeBlocks;
 		}
 
+		public void setDropItems(boolean dropItems) {
+			this.dropItems = dropItems;
+		}
+
+		public void setPickupItems(boolean pickupItems) {
+			this.pickupItems = pickupItems;
+		}
+
 		public boolean isDestroyBlocks() {
 			return destroyBlocks;
 		}
 
 		public boolean isPlaceBlocks() {
 			return placeBlocks;
+		}
+
+		public boolean isDropItems() {
+			return dropItems;
+		}
+
+		public boolean isPickupItems() {
+			return pickupItems;
 		}
 
 	}
@@ -111,7 +129,7 @@ public final class WorldManager {
 
 			World world = Bukkit.getWorld(name);
 			if (world == null) {
-				Logger.severe("Could not find world " + name);
+				Logger.error("Could not find world {}", name);
 				continue;
 			}
 
@@ -122,7 +140,7 @@ public final class WorldManager {
 			WorldCreator creator = new WorldCreator(newWorldName).seed(customSeed).environment(world.getEnvironment());
 			creator.createWorld();
 
-			Logger.debug("Created custom seed world " + newWorldName);
+			Logger.debug("Created custom seed world {}", newWorldName);
 
 		}
 
@@ -191,22 +209,22 @@ public final class WorldManager {
 	private void deleteWorld(@Nonnull String name) {
 		File folder = new File(name);
 		FileUtils.deleteWorldFolder(folder);
-		Logger.info("Deleted world " + name);
+		Logger.info("Deleted world {}", name);
 	}
 
 	private void copyPreGeneratedWorld(@Nonnull String name) {
 		File source = new File(customSeedWorldPrefix + name);
 		if (!source.exists() || !source.isDirectory()) {
-			Logger.warn("Custom seed world '" + name + "' does not exist!");
+			Logger.warn("Custom seed world '{}' does not exist!", name);
 			return;
 		}
 
 		File target = new File(name);
 		try {
 			copy(source, target);
-			Logger.debug("Copied pre generated custom seed world " + name);
+			Logger.debug("Copied pre generated custom seed world {}", name);
 		} catch (IOException ex) {
-			Logger.severe("Unable to copy pre generated custom seed world " + name, ex);
+			Logger.error("Unable to copy pre generated custom seed world {}", name, ex);
 		}
 	}
 
