@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.language.loader;
 
 import com.google.gson.*;
 import net.anweisen.utilities.commons.common.IOUtils;
+import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.anweisen.utilities.commons.misc.GsonUtils;
@@ -25,6 +26,8 @@ public final class LanguageLoader extends ContentLoader {
 	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() ? "development" : "master") + "/language/";
 	public static final String DEFAULT_LANGUAGE = "en";
 
+	protected static final String directFile = "direct-language-file";
+
 	private static final JsonParser parser = new JsonParser();
 	private static volatile boolean loaded = false;
 
@@ -32,6 +35,18 @@ public final class LanguageLoader extends ContentLoader {
 
 	@Override
 	protected void load() {
+		Document config = Challenges.getInstance().getConfigDocument();
+		if (config.contains(directFile)) {
+			String path = config.getString(directFile);
+			Logger.info("Using direct language file '{}'", path);
+			readLanguage(new File(path));
+			return;
+		}
+
+		loadDefault();
+	}
+
+	private void loadDefault() {
 		init();
 		download();
 		read();
