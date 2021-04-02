@@ -35,7 +35,7 @@ public class CustomEventListener implements Listener {
 	public void onInventoryClick(@Nonnull InventoryClickEvent event) {
 		if (!(event.getWhoClicked() instanceof Player)) return;
 		PlayerInventoryClickEvent eventCall = new PlayerInventoryClickEvent(event);
-		eventCall.setCancelled(eventCall.isCancelled());
+		eventCall.setCancelled(event.isCancelled());
 		Bukkit.getPluginManager().callEvent(eventCall);
 		event.setCancelled(eventCall.isCancelled());
 	}
@@ -44,7 +44,7 @@ public class CustomEventListener implements Listener {
 	public void onEntityPickupItem(@Nonnull EntityPickupItemEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		PlayerPickupItemEvent eventCall = new PlayerPickupItemEvent(((Player) event.getEntity()), event.getItem(), event.getRemaining());
-		eventCall.setCancelled(eventCall.isCancelled());
+		eventCall.setCancelled(event.isCancelled());
 		Bukkit.getPluginManager().callEvent(eventCall);
 		event.setCancelled(eventCall.isCancelled());
 	}
