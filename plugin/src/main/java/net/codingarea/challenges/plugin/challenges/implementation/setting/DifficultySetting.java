@@ -4,7 +4,9 @@ import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
@@ -12,15 +14,22 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.command.Command;
+import org.bukkit.command.CommandSender;
+import org.bukkit.command.TabCompleter;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class DifficultySetting extends Modifier {
+public class DifficultySetting extends Modifier implements SenderCommand, TabCompleter {
 
 	public DifficultySetting() {
 		super(MenuType.SETTINGS, 0, 3);
@@ -49,7 +58,7 @@ public class DifficultySetting extends Modifier {
 		}
 	}
 
-	private String getCurrentDifficultyName() {
+	private String getDifficultyName() {
 		switch (getValue()) {
 			case 0:     return "§aPeaceful";
 			case 1:     return "§2Easy";
@@ -60,7 +69,7 @@ public class DifficultySetting extends Modifier {
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getCurrentDifficultyName());
+		ChallengeHelper.playChangeChallengeValueTitle(this, getDifficultyName());
 	}
 
 	private void setDifficulty(Difficulty difficulty) {
@@ -86,6 +95,51 @@ public class DifficultySetting extends Modifier {
 			setValue(getCurrentDifficulty().ordinal());
 
 		super.loadSettings(document);
+	}
+
+	@Override
+	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
+
+		if (args.length < 1) {
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "difficulty <difficulty>");
+			return;
+		}
+
+		int difficulty = getDifficultyValue(args[0]);
+		if (difficulty == -1) {
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "difficulty <difficulty>");
+			return;
+		}
+
+		setValue(difficulty);
+		Message.forName("command-difficulty-change").send(sender, Prefix.CHALLENGES, getDifficultyName());
+
+	}
+
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
+		if (args.length > 1) return new ArrayList<>();
+		return Arrays.asList("peaceful", "easy", "normal", "hard");
+	}
+
+	private int getDifficultyValue(@Nonnull String input) {
+
+		switch (input.toLowerCase()) {
+			case "peaceful": return 0;
+			case "easy": return 1;
+			case "normal": return 2;
+			case "hard": return 3;
+		}
+
+		try {
+			int value = Integer.parseInt(input);
+			if (value < 0 || value > 3) return -1;
+			return value;
+		} catch (Exception ex) {
+			return -1;
+		}
+
 	}
 
 }

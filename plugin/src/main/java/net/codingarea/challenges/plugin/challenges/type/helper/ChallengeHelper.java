@@ -106,4 +106,8 @@ public final class ChallengeHelper {
 		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-seconds-range").asString(min, max));
 	}
 
+	public static void playChallengeMinutesValueChangeTitle(@Nonnull AbstractChallenge challenge, int seconds) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-minutes").asString(seconds));
+	}
+
 }

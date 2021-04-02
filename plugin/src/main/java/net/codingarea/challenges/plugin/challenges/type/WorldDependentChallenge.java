@@ -45,6 +45,22 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		super(menu, min, max, defaultValue);
 	}
 
+	public WorldDependentChallenge(@Nonnull MenuType menu, boolean runAsync) {
+		super(menu, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int max, boolean runAsync) {
+		super(menu, max, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int min, int max, boolean runAsync) {
+		super(menu, min, max, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue, boolean runAsync) {
+		super(menu, min, max, defaultValue, runAsync);
+	}
+
 	@Override
 	protected boolean getTimerCondition() {
 		return inExtraWorld || !Challenges.getInstance().getWorldManager().isWorldInUse();
@@ -80,7 +96,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 
 	protected void teleportBack(@Nonnull Player player) {
-		PlayerData data = before.remove(player);
+		PlayerData data = before.remove(player.getUniqueId());
 		if (data == null) return;
 		player.setNoDamageTicks(20);
 		data.apply(player);
@@ -88,7 +104,6 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
 		before.put(player.getUniqueId(), new PlayerData(player));
-		teleport.accept(player, teleportIndex++);
 		player.getInventory().clear();
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -98,6 +113,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
 		}
+		teleport.accept(player, teleportIndex++);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

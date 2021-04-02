@@ -3,7 +3,9 @@ package net.codingarea.challenges.plugin.utils.misc;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -125,6 +127,11 @@ public final class InventoryUtils {
 
 		if (slots.isEmpty()) return -1;
 		return slots.get(new Random().nextInt(slots.size()));
+	}
+
+	public static void dropItem(@Nonnull Location location, @Nonnull ItemStack itemStack) {
+		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), itemStack);
+		droppedItem.setVelocity(location.getDirection().multiply(0.4));
 	}
 
 }

@@ -51,7 +51,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	private UUID currentPlayer;
 
 	public JumpAndRunChallenge() {
-		super(MenuType.CHALLENGES, 10);
+		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
 
 	@Nonnull
@@ -63,12 +63,12 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 30, getValue() * 60 + 30);
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 20, getValue() * 60 + 20);
+		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 30, getValue() * 60 + 30);
 		//ChallengeHelper.playChangeChallengeValueTitle(this, getValue() + " " + Message.forName(getValue() == 1 ? "minute" : "minutes").asString());
 	}
 
@@ -151,7 +151,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Nonnull
 	protected Player getNextPlayer() {
 		List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-		players.removeIf(player -> player.getGameMode() == GameMode.SPECTATOR);
+		players.removeIf(this::ignorePlayer);
 		players.removeIf(player -> lastPlayers.contains(player.getUniqueId()));
 
 		if (players.isEmpty()) {

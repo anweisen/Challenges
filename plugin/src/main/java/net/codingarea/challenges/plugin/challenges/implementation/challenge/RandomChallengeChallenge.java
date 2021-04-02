@@ -1,19 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.annotations.Since;
+import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
-import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,9 +19,10 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @Since("2.0")
-public class RandomItemDroppingChallenge extends TimedChallenge {
+public class RandomChallengeChallenge extends TimedChallenge {
 
-	public RandomItemDroppingChallenge() {
+
+	public RandomChallengeChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 5);
 	}
 
@@ -60,19 +57,9 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 			if (player.getInventory().getContents().length <= 0) continue;
 
 			Bukkit.getScheduler().runTask(plugin, () -> {
-				dropRandomItem(player.getLocation(), player.getInventory());
+
 			});
 		}
-	}
-
-	private void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
-		if (location.getWorld() == null) return;
-		int slot = InventoryUtils.getRandomFullSlot(inventory);
-		if (slot == -1) return;
-		ItemStack item = inventory.getItem(slot);
-		if (item == null) return;
-		inventory.setItem(slot, null);
-		InventoryUtils.dropItem(location, item);
 	}
 
 }

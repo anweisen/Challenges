@@ -92,6 +92,7 @@
   "command-weather-set-thunder": "Wetter zu §estürmisch §7geändert",
   "command-invsee-open": "Inventar von §e{0} §7geöffnet",
   "command-enderchest-open": "§5Enderchest §7geöffnet",
+  "command-difficulty-change": "Schwierigkeit auf §e{0} §7geändert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
@@ -126,6 +127,7 @@
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
+  "subtitle-time-minutes": "§e{0} §7Minuten",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -211,6 +213,9 @@
   ],
   "item-time-seconds-range-description": [
     "§8» §7Zeit: §e{0}-{1} §7Sekunden"
+  ],
+  "item-time-minutes-description": [
+    "§8» §7Zeit: §e{0} §7Minuten"
   ],
   "item-heart-damage-description": [
     "§8» §7Schaden: §e{0} §c❤"

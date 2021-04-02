@@ -13,9 +13,12 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -34,7 +37,8 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 				value -> "§e" + value + " §7" +Message.forName(value == 1 ? "second" : "seconds").asString(),
 				1,
 				60,
-				30)
+				30
+				)
 		);
 		registerSetting("length", new NumberSubSetting(
 				() -> new ItemBuilder(Material.ARROW, Message.forName("item-random-effect-length-challenge")),
@@ -42,7 +46,8 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 				value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
 				1,
 				20,
-				10)
+				10
+				)
 		);
 		registerSetting("strength", new NumberSubSetting(
 				() -> new ItemBuilder(Material.STONE_SWORD, Message.forName("item-random-effect-strength-challenge")),
@@ -50,7 +55,8 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 				value -> "§7" + Message.forName("strength") + " §e" + value,
 				1,
 				8,
-				3)
+				3
+				)
 		);
 
 	}
@@ -61,27 +67,37 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		return new ItemBuilder(Material.BREWING_STAND, Message.forName("item-random-effect-challenge"));
 	}
 
-	@ScheduledTask(ticks = 20)
+	@ScheduledTask(ticks = 20, async = false)
 	public void onSecond() {
 		currentTime++;
 
 		if (currentTime > getSetting("time").getAsInt()) {
 			currentTime = 0;
-			Bukkit.getScheduler().runTask(plugin, this::applyRandomEffect);
+			applyRandomEffect();
 		}
 
 	}
 
 	private void applyRandomEffect() {
-		applyEffect(getRandomEffect());
+		Bukkit.getOnlinePlayers().forEach(this::applyRandomEffect);
 	}
 
-	private PotionEffectType getRandomEffect() {
-		ArrayList<PotionEffectType> list = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
-		list.remove(PotionEffectType.GLOWING);
-		list.remove(PotionEffectType.HEAL);
-		list.remove(PotionEffectType.HARM);
-		return list.get(new Random().nextInt(list.size()));
+	private void applyRandomEffect(@Nonnull Player player) {
+		PotionEffectType effect = getNewRandomEffect(player);
+		if (effect == null) return;
+		applyEffect(effect);
+	}
+
+	@Nullable
+	private PotionEffectType getNewRandomEffect(@Nonnull Player player) {
+		List<PotionEffectType> activeEffects = player.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
+
+		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
+		possibleEffects.removeAll(activeEffects);
+		possibleEffects.remove(PotionEffectType.GLOWING);
+		possibleEffects.remove(PotionEffectType.HEAL);
+		possibleEffects.remove(PotionEffectType.HARM);
+		return possibleEffects.get(new Random().nextInt(possibleEffects.size()));
 	}
 
 	private void applyEffect(@Nonnull PotionEffectType effectType) {

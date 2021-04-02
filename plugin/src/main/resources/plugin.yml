@@ -153,3 +153,7 @@ commands:
     aliases:
       - ec
     permission: "challenges.enderchest"
+  difficulty:
+    usage: "/difficulty <difficulty>"
+    description: "Changes the difficulty with saving it in the difficulty setting"
+    permission: "challenges.difficulty"

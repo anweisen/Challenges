@@ -25,7 +25,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 
 	public void load() {
 		// Settings
-		register(DifficultySetting.class);
+		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);
 		register(OneLifeSetting.class);
 		register(RespawnSetting.class);
@@ -46,7 +46,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(PvPSetting.class);
 		register(NoHitDelaySetting.class);
 		registerWithCommand(TopCommandSetting.class, "top");
-		register(MaxHealthModifier.class);
+		register(MaxHealthSetting.class);
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
 		register(FortressSpawnSetting.class);
@@ -69,7 +69,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);
-		// Water MLG
+		register(WaterMLGChallenge.class);
 		register(ReversedDamageChallenge.class);
 		register(HydraChallenge.class);
 		register(DupedSpawningChallenge.class);

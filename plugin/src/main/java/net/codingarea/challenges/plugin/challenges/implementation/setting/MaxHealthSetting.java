@@ -20,9 +20,9 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
-public class MaxHealthModifier extends Modifier {
+public class MaxHealthSetting extends Modifier {
 
-	public MaxHealthModifier() {
+	public MaxHealthSetting() {
 		super(MenuType.SETTINGS, 1, 100 * 2, 20);
 	}
 

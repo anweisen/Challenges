@@ -383,7 +383,7 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public ItemBuilder getSettingsItem() {
 			if (name != null)
-				return DefaultItem.create(Material.STONE_BUTTON, name.apply(getValue()));
+				return DefaultItem.create(Material.STONE_BUTTON, name.apply(getValue())).setAmount(getValue());
 
 			return DefaultItem.value(value);
 		}
