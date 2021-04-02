@@ -97,9 +97,9 @@ public class StatsListener implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
+		if (countNoStats()) return;
 		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 		if (ChallengeAPI.isPaused()) return;
-		if (countNoStats()) return;
 		if (event.getTo() == null) return;
 		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
 		incrementStatistic(event.getPlayer(), Statistic.BLOCKS_TRAVELED, 1);
@@ -108,6 +108,8 @@ public class StatsListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onJump(@Nonnull PlayerJumpEvent event) {
 		if (countNoStats()) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		if (ChallengeAPI.isPaused()) return;
 		incrementStatistic(event.getPlayer(), Statistic.JUMPS, 1);
 	}
 
