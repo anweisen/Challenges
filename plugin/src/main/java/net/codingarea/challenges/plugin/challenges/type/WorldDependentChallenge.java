@@ -78,6 +78,14 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		remove.forEach(before::remove);
 	}
 
+
+	protected void teleportBack(@Nonnull Player player) {
+		PlayerData data = before.remove(player);
+		if (data == null) return;
+		player.setNoDamageTicks(20);
+		data.apply(player);
+	}
+
 	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
 		before.put(player.getUniqueId(), new PlayerData(player));
 		teleport.accept(player, teleportIndex++);
