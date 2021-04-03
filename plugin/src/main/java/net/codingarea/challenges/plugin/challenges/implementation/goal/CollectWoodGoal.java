@@ -25,8 +25,6 @@ public class CollectWoodGoal extends CollectionGoal {
 
 	public CollectWoodGoal() {
 		super(getWoodMaterials());
-		System.out.println("--------------------------------------------------------------");
-		System.out.println(Arrays.toString(getWoodMaterials()));
 	}
 
 	@Nonnull
@@ -35,15 +33,14 @@ public class CollectWoodGoal extends CollectionGoal {
 		return new ItemBuilder(Material.OAK_LOG, Message.forName("item-collect-wood-goal"));
 	}
 
+	@Nonnull
 	private static Object[] getWoodMaterials() {
 		return new ListBuilder<Material>().fill(builder -> {
 			for (Material material : Material.values()) {
-				if (isLog(material)) {
+				if (isLog(material))
 					builder.add(material);
-				}
 			}
 		}).build().toArray();
-
 	}
 
 	private static boolean isLog(@Nonnull Material material) {

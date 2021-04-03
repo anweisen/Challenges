@@ -39,7 +39,6 @@ public class PermanentItemChallenge extends Setting {
 		if (ChallengeAPI.isWorldInUse()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		Inventory clickedInventory = event.getClickedInventory();
-		System.out.println(event.getCursor());
 		if (event.getCursor() == null) return;
 		if (clickedInventory == null) return;
 		if (clickedInventory.getType() == InventoryType.PLAYER || clickedInventory.getType() == InventoryType.CRAFTING) {

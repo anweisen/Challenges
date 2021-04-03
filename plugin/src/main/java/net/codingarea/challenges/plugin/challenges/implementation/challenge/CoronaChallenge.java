@@ -46,7 +46,6 @@ public class CoronaChallenge extends Setting {
 			return;
 		}
 		Bukkit.getOnlinePlayers().forEach(this::updateSickness);
-
 	}
 
 	private void updateSickness(@Nonnull Player player) {
@@ -69,11 +68,11 @@ public class CoronaChallenge extends Setting {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 15));
 		if (value == 1) {
 			if (!player.hasPotionEffect(PotionEffectType.WITHER)) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 7*20, 6));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5*20, 2));
 			}
 		} else {
 			player.removePotionEffect(PotionEffectType.POISON);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 7*20, 6));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 5*20, 4));
 		}
 
 	}

@@ -121,6 +121,7 @@
   "food-once-new-food": "§eDu §7hast §e{1} §7gegessen",
   "sneak-damage-failed": "§e{0} §7ist geschlichen",
   "jump-damage-failed": "§e{0} §7ist gesprungen",
+  "random-challenge-enabled": "Die Challenge §e{0} §7wurde §aaktiviert",
 
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
@@ -208,6 +209,8 @@
   "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
   "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
   "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
+  "item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
+  "item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
 
   "item-time-seconds-description": [
     "§8» §7Zeit: §e{0} §7Sekunden"
@@ -401,12 +404,12 @@
     "werden zu *Stein*"
   ],
   "item-bedrock-path-challenge": [
-    "§8Bedrock Path",
+    "§7Bedrock Path",
     "*Unter dir* entsteht die",
     "ganze Zeit *Bedrock*"
   ],
   "item-bedrock-walls-challenge": [
-    "§8Bedrock Walls",
+    "§7Bedrock Walls",
     "Hinter dir *spawnen* riesige",
     "*Wände* aus *Bedrock*"
   ],
@@ -619,8 +622,6 @@
     "Die *Stärke*, die der",
     "*Effekt* hat"
   ],
-
-
   "item-random-challenge-challenge": [
     "§cRandom Challenge",
     "In einem *gesetzten Intervall*",

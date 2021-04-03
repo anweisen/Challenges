@@ -33,7 +33,7 @@ public class HealthDisplaySetting extends Setting {
 	public static final String OBJECTIVE_NAME = "health_display";
 
 	public HealthDisplaySetting() {
-		super(MenuType.SETTINGS);
+		super(MenuType.SETTINGS, true);
 	}
 
 	@Nonnull

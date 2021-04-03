@@ -123,6 +123,7 @@ public final class Challenges extends BukkitModule {
 		databaseManager.connectIfCreated();
 		worldManager.enable();
 		timer.loadSession();
+		timer.enable();
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();

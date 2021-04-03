@@ -28,7 +28,7 @@ public final class ChallengeAPI {
 	}
 
 	public static void pauseTimer() {
-		Challenges.getInstance().getChallengeTimer().pause(false);
+		Challenges.getInstance().getChallengeTimer().pause(true);
 	}
 
 	public static void pauseTimer(boolean byPlayer) {

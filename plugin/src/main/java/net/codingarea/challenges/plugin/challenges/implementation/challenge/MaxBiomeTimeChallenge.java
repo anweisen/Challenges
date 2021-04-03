@@ -35,7 +35,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 		bossbar.setContent((bossbar, player) -> {
 			int currentTime = getCurrentTime(player);
 			int maxTime = (getValue() * 60);
-			bossbar.setTitle(Message.forName("bossbar-biome-time-time-left").asString(StringUtils.getEnumName(getBiome(player)), maxTime - currentTime));
+			bossbar.setTitle(Message.forName("bossbar-biome-time-left").asString(StringUtils.getEnumName(getBiome(player)), maxTime - currentTime));
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(1 - ((float) currentTime / maxTime));
 		});

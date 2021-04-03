@@ -53,9 +53,8 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 		for (Player player : targets) {
 			Message.forName("command-gamemode-gamemode-changed").send(player, Prefix.CHALLENGES, gamemodeName);
 			player.setGameMode(gamemode);
-			if (player != sender) {
+			if (player != sender)
 				otherPlayers = true;
-			}
 
 		}
 		if (otherPlayers) {

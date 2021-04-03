@@ -31,6 +31,7 @@ public final class ConsolePrint {
 
 	public static void unableToGetLanguages() {
 		log("No languages found to load");
+		log("Is the server / plugin set up correctly?");
 	}
 
 	public static void alreadyExecutingContentLoader() {

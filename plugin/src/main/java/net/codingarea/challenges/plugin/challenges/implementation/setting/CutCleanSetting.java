@@ -49,7 +49,7 @@ public class CutCleanSetting extends MenuSetting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.IRON_AXE, Message.forName("item-cut-clean"));
+		return new ItemBuilder(Material.IRON_AXE, Message.forName("item-cut-clean-setting"));
 	}
 
 	private class ConvertDropSubSetting extends BooleanSubSetting {

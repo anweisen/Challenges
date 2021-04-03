@@ -55,7 +55,10 @@ public final class ChallengeHelper {
 		if (item == null) return Message.NULL;
 		ItemDescription description = item.getBuiltByItemDescription();
 		if (description == null) return Message.NULL;
-		return description.getOriginalName();
+		String name = description.getOriginalName();
+		if (name.startsWith("§8"))
+			name = name.replaceFirst("§7", "§e");
+		return name;
 	}
 
 	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {

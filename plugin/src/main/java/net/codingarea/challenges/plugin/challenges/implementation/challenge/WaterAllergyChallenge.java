@@ -21,7 +21,6 @@ import javax.annotation.Nullable;
 @Since("2.0")
 public class WaterAllergyChallenge extends SettingModifier {
 
-
 	public WaterAllergyChallenge() {
 		super(MenuType.CHALLENGES, 1, 40);
 	}

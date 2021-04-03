@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
@@ -41,7 +42,7 @@ public class InvisibleMobsChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new PotionBuilder(Material.POTION, Message.forName("item-invisible-mobs-challenge")).setColor(Color.SILVER).addEnchantment(Enchantment.DURABILITY, 1);
+		return new PotionBuilder(Material.POTION, Message.forName("item-invisible-mobs-challenge")).setColor(Color.WHITE);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -60,6 +61,7 @@ public class InvisibleMobsChallenge extends Setting {
 	private void addEffectForEveryEntity() {
 		for (World world : Bukkit.getWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
+				if (entity instanceof Player) continue;
 				addEffect(entity);
 			}
 		}

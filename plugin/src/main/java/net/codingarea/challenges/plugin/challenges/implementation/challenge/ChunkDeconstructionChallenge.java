@@ -38,7 +38,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue() * 60);
+		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue());
 	}
 
 	@Override
