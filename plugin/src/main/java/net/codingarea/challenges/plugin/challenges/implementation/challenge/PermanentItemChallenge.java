@@ -30,7 +30,7 @@ public class PermanentItemChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.SWEET_BERRIES, Message.forName("item-permanent-item-challenge"));
+		return new ItemBuilder(Material.VINE, Message.forName("item-permanent-item-challenge"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
