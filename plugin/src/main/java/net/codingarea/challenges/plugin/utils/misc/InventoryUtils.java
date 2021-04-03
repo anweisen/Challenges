@@ -14,6 +14,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -97,7 +98,7 @@ public final class InventoryUtils {
 		}
 
 		if (emptySlots.isEmpty()) return -1;
-		return emptySlots.get(new Random().nextInt(emptySlots.size()));
+		return emptySlots.get(ThreadLocalRandom.current().nextInt(emptySlots.size()));
 	}
 
 	public static int getRandomFullSlot(@Nonnull Inventory inventory) {
@@ -112,7 +113,7 @@ public final class InventoryUtils {
 
 		if (fullSlots.isEmpty()) return -1;
 
-		return fullSlots.get(new Random().nextInt(fullSlots.size()));
+		return fullSlots.get(ThreadLocalRandom.current().nextInt(fullSlots.size()));
 	}
 
 	public static int getRandomSlot(@Nonnull Inventory inventory) {
@@ -126,7 +127,7 @@ public final class InventoryUtils {
 		}
 
 		if (slots.isEmpty()) return -1;
-		return slots.get(new Random().nextInt(slots.size()));
+		return slots.get(ThreadLocalRandom.current().nextInt(slots.size()));
 	}
 
 	public static void dropItem(@Nonnull Location location, @Nonnull ItemStack itemStack) {

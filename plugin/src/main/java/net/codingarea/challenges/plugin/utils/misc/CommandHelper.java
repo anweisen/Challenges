@@ -11,6 +11,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -30,7 +31,7 @@ public final class CommandHelper {
 				break;
 			}
 			case "@r": {
-				list.add(new ArrayList<Player>(Bukkit.getOnlinePlayers()).get(new Random().nextInt(Bukkit.getOnlinePlayers().size())));
+				list.add(new ArrayList<Player>(Bukkit.getOnlinePlayers()).get(ThreadLocalRandom.current().nextInt(Bukkit.getOnlinePlayers().size())));
 				break;
 			}
 			case "@p": {
