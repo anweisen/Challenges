@@ -24,6 +24,8 @@ import java.util.Random;
 @Since("2.0")
 public class StoneSightChallenge extends Setting {
 
+	private final Random random = new Random();
+
 	public StoneSightChallenge() {
 		super(MenuType.CHALLENGES);
 	}
@@ -73,7 +75,7 @@ public class StoneSightChallenge extends Setting {
 			Material.COBBLESTONE,
 			Material.MOSSY_COBBLESTONE
 		};
-		return materials[new Random().nextInt(materials.length)];
+		return materials[random.nextInt(materials.length)];
 	}
 
 	@Nonnull

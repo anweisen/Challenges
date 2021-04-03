@@ -28,6 +28,8 @@ import java.util.Random;
  */
 public class RandomizedHPChallenge extends SettingModifier {
 
+	private final Random random = new Random();
+
 	public RandomizedHPChallenge() {
 		super(MenuType.CHALLENGES, 5);
 		randomizeExistingEntityHealth();
@@ -63,7 +65,7 @@ public class RandomizedHPChallenge extends SettingModifier {
 			entity.setHealth(entity.getMaxHealth());
 			return;
 		}
-		int health = new Random().nextInt(getValue() * 100) + 1;
+		int health = random.nextInt(getValue() * 100) + 1;
 		entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
 		entity.setHealth(health);
 	}

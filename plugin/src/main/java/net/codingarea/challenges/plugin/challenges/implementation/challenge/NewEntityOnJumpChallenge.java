@@ -24,6 +24,8 @@ import java.util.Random;
 @Since("2.0")
 public class NewEntityOnJumpChallenge extends Setting {
 
+	private final Random random = new Random();
+
 	public NewEntityOnJumpChallenge() {
 		super(MenuType.CHALLENGES);
 	}
@@ -44,7 +46,7 @@ public class NewEntityOnJumpChallenge extends Setting {
 	private void spawnRandomEntity(@Nonnull Location location) {
 		if (location.getWorld() == null) return;
 		try {
-			location.getWorld().spawnEntity(location, EntityType.values()[new Random().nextInt(EntityType.values().length)]);
+			location.getWorld().spawnEntity(location, EntityType.values()[random.nextInt(EntityType.values().length)]);
 		} catch (Exception ex) {
 			ex.printStackTrace();
 			spawnRandomEntity(location);

@@ -26,6 +26,8 @@ import java.util.Random;
  */
 public class TimberSetting extends SettingModifier {
 
+	private Random random = new Random();
+
 	public TimberSetting() {
 		super(MenuType.SETTINGS, 2);
 	}
@@ -63,10 +65,10 @@ public class TimberSetting extends SettingModifier {
 			ChallengeHelper.breakBlock(block, item);
 		} else if (isLeaves(block.getType())) {
 			ChallengeHelper.breakBlock(block, item);
-			int random = new Random().nextInt(100);
-			if (isBetween(random, 0, 15)) {
+			int randomInt = random.nextInt(100);
+			if (isBetween(randomInt, 0, 15)) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.STICK));
-			} else if (isBetween(random, 30, 34)) {
+			} else if (isBetween(randomInt, 30, 34)) {
 				block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(Material.APPLE));
 			}
 

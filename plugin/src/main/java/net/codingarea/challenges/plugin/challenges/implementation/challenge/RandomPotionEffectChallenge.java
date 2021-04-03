@@ -27,6 +27,7 @@ import java.util.stream.Collectors;
 @Since("2.0")
 public class RandomPotionEffectChallenge extends MenuSetting {
 
+	private final Random random = new Random();
 	int currentTime = 0;
 
 	public RandomPotionEffectChallenge() {
@@ -34,7 +35,7 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		registerSetting("time", new NumberSubSetting(
 				() -> new ItemBuilder(Material.CLOCK, Message.forName("item-random-effect-time-challenge")),
 				value -> null,
-				value -> "§e" + value + " §7" +Message.forName(value == 1 ? "second" : "seconds").asString(),
+				value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
 				1,
 				60,
 				30
@@ -97,7 +98,7 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		possibleEffects.remove(PotionEffectType.GLOWING);
 		possibleEffects.remove(PotionEffectType.HEAL);
 		possibleEffects.remove(PotionEffectType.HARM);
-		return possibleEffects.get(new Random().nextInt(possibleEffects.size()));
+		return possibleEffects.get(random.nextInt(possibleEffects.size()));
 	}
 
 	private void applyEffect(@Nonnull PotionEffectType effectType) {
