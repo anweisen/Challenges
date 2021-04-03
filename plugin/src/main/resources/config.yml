@@ -101,6 +101,9 @@ start-on-first-join: false
 # So make sure that the server restarts when you perform the /restart command before reporting it to us!
 restart-on-reset: false
 
+# When the challenge is won, all players will be set into spectator mode
+set-spectator-on-win: false
+
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false
