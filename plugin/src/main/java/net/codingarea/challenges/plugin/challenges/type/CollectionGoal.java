@@ -64,8 +64,10 @@ public abstract class CollectionGoal extends SettingGoal {
 	}
 
 	protected void collect(@Nonnull Player player, @Nonnull Object item, @Nonnull Runnable success) {
+		if (ignorePlayer(player)) return;
 		List<String> collection = collections.computeIfAbsent(player.getUniqueId(), key -> new ArrayList<>());
 		if (collection.contains(item.toString())) return;
+		if (!Arrays.asList(target).contains(item)) return;
 		collection.add(item.toString());
 		scoreboard.update();
 		success.run();
