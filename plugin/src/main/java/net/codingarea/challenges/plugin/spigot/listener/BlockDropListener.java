@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.GameMode;
@@ -50,7 +51,7 @@ public class BlockDropListener implements Listener {
 		Material material = block.getType();
 		if (material.isAir()) return;
 
-		if (!Challenges.getInstance().getBlockDropManager().getDropChance(material).getAsBoolean()) {
+		if (!ChallengeAPI.getDropChance(material)) {
 			dropsExist.run();
 			return;
 		}
