@@ -38,6 +38,8 @@ public class CollectMostDeathsGoal extends CollectionGoal {
 		if (lastCause == null) return;
 
 		DamageCause cause = lastCause.getCause();
+		if (cause == DamageCause.CUSTOM) return;
+
 		collect(event.getEntity(), cause, () -> {
 			Message.forName("death-collected").send(event.getEntity(), Prefix.CHALLENGES, StringUtils.getEnumName(cause));
 			SoundSample.PLING.play(event.getEntity());
