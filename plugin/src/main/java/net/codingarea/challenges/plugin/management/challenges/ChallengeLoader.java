@@ -27,7 +27,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		// Settings
 		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);
-		register(OneLifeSetting.class);
+		register(OneTeamLifeSetting.class);
 		register(RespawnSetting.class);
 		register(DamageDisplaySetting.class);
 		register(PregameMovementSetting.class);

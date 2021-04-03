@@ -28,6 +28,8 @@ public class DeathMessageSetting extends Modifier {
 	public static final int ENABLED = 2,
 							VANILLA = 3;
 
+	private boolean hide;
+
 	public DeathMessageSetting() {
 		super(MenuType.SETTINGS, 1, 3, 2);
 	}
@@ -50,12 +52,12 @@ public class DeathMessageSetting extends Modifier {
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
-		String original = event.getDeathMessage();
 		event.setDeathMessage(null);
+		if (hide) return;
+
+		String original = event.getDeathMessage();
 		Player entity = event.getEntity();
 		switch (getValue()) {
-			default:
-				return;
 			case ENABLED:
 				EntityDamageEvent cause = entity.getLastDamageCause();
 				if (cause != null && cause.getCause() != DamageCause.CUSTOM) {
@@ -69,6 +71,10 @@ public class DeathMessageSetting extends Modifier {
 					Bukkit.broadcastMessage(Prefix.CHALLENGES + "§7" + original);
 				}
 		}
+	}
+
+	public void setHideMessagesTemporarily(boolean hide) {
+		this.hide = hide;
 	}
 
 }

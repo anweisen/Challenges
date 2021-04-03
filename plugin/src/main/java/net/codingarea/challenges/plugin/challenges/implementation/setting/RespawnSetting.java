@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.OneEnabledSetting;
+import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
@@ -24,12 +24,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
-public class RespawnSetting extends OneEnabledSetting {
+public class RespawnSetting extends Setting {
 
 	private final Map<Player, Location> locationsBeforeRespawn = new ConcurrentHashMap<>();
 
 	public RespawnSetting() {
-		super(MenuType.SETTINGS, "challenge_end_handle");
+		super(MenuType.SETTINGS);
 	}
 
 	@Nonnull
