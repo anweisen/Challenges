@@ -170,8 +170,6 @@ public abstract class MenuSetting extends Setting {
 
 	public abstract class SubSetting implements Listener {
 
-		protected final Challenges plugin = Challenges.getInstance();
-
 		private int page = -1, slot = -1;
 
 		private void setPage(int page) {
@@ -334,6 +332,7 @@ public abstract class MenuSetting extends Setting {
 			if (min < 0) throw new IllegalArgumentException("min < 0");
 			if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");
 			if (defaultValue < min) throw new IllegalArgumentException("defaultValue < min");
+			this.value = defaultValue;
 			this.max = max;
 			this.min = min;
 			this.item = item;
