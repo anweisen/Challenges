@@ -14,10 +14,7 @@ import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -53,6 +50,16 @@ public final class ChallengeTimer {
 		format = new TimerFormat(formatConfig);
 
 		Challenges.getInstance().getScheduler().register(this);
+	}
+
+	public void enable() {
+		updateTimeRule();
+	}
+
+	private void updateTimeRule() {
+		for (World world : Bukkit.getWorlds()) {
+			world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, !paused);
+		}
 	}
 
 	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
@@ -92,6 +99,9 @@ public final class ChallengeTimer {
 		if (!paused) return;
 		paused = false;
 
+		updateActionbar();
+		updateTimeRule();
+
 		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
 			for (Player player : Bukkit.getOnlinePlayers())
 				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
@@ -102,7 +112,6 @@ public final class ChallengeTimer {
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
 		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
-		updateActionbar();
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Challenges.getInstance().getPlayerInventoryManager().updateInventoryAuto(player);
@@ -122,12 +131,15 @@ public final class ChallengeTimer {
 		paused = true;
 
 		updateActionbar();
+		updateTimeRule();
+
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
 		if (byPlayer) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
+			SoundSample.BASS_OFF.broadcast();
 		}
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
