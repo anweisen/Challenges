@@ -69,11 +69,13 @@ public class StatsCommand implements PlayerCommand {
 
 	private void open(@Nonnull Player player, @Nonnull UUID uuid, @Nonnull String name) {
 
+		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid, name);
+		name = stats.getPlayerName();
+
 		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER);
 		StatsHelper.setAccent(inventory, 3);
-		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, Message.forName("stats-of").asString(name)).build());
+		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, name, Message.forName("stats-of").asString(name)).build());
 
-		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid, name);
 		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
 		createInventory(stats, info, inventory, StatsHelper.getSlots(2));
 
