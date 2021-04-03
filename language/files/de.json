@@ -52,6 +52,7 @@
   ],
   "player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
   "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
+  "player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
 
   "stat-dragon-killed": "Drachen getötet",
   "stat-deaths": "Tode",

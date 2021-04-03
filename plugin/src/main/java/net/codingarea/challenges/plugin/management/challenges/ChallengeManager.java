@@ -38,6 +38,10 @@ public final class ChallengeManager {
 		currentGoal = null;
 	}
 
+	public void restoreDefaults() {
+		challenges.forEach(IChallenge::restoreDefaults);
+	}
+
 	public void enable() {
 		loadGamestate(Challenges.getInstance().getConfigManager().getGamestateConfig());
 		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());

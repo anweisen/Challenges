@@ -56,6 +56,12 @@ public abstract class SettingModifier extends Modifier {
 		updateItems();
 	}
 
+	@Override
+	public void restoreDefaults() {
+		super.restoreDefaults();
+		setEnabled(false);
+	}
+
 	@Nonnull
 	@Override
 	public ItemStack getSettingsItem() {

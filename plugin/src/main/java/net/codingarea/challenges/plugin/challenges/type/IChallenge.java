@@ -15,6 +15,8 @@ public interface IChallenge {
 
 	boolean isEnabled();
 
+	void restoreDefaults();
+
 	@Nonnull
 	String getName();
 

@@ -18,10 +18,11 @@ import javax.annotation.Nonnull;
 public abstract class Modifier extends AbstractChallenge {
 
 	private final int max, min;
+	private final int defaultValue;
 	private int value;
 
 	public Modifier(@Nonnull MenuType menu) {
-		this(menu, 1, 64);
+		this(menu, 64);
 	}
 
 	public Modifier(@Nonnull MenuType menu, int max) {
@@ -41,6 +42,7 @@ public abstract class Modifier extends AbstractChallenge {
 		this.max = max;
 		this.min = min;
 		this.value = defaultValue;
+		this.defaultValue = defaultValue;
 	}
 
 	@Nonnull
@@ -53,8 +55,15 @@ public abstract class Modifier extends AbstractChallenge {
 		if (value > max) throw new IllegalArgumentException("value > max");
 		if (value < min) throw new IllegalArgumentException("value < min");
 		this.value = value;
+
 		if (isEnabled()) onValueChange();
+
 		updateItems();
+	}
+
+	@Override
+	public void restoreDefaults() {
+		setValue(defaultValue);
 	}
 
 	@Nonnegative

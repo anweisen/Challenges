@@ -16,14 +16,16 @@ import javax.annotation.Nonnull;
  */
 public abstract class Setting extends AbstractChallenge {
 
+	private final boolean enabledByDefault;
 	private boolean enabled;
 
 	public Setting(@Nonnull MenuType menu) {
-		super(menu);
+		this(menu, false);
 	}
 
 	public Setting(@Nonnull MenuType menu, boolean enabledByDefault) {
 		super(menu);
+		this.enabledByDefault = enabledByDefault;
 		setEnabled(enabledByDefault);
 	}
 
@@ -42,6 +44,11 @@ public abstract class Setting extends AbstractChallenge {
 		else onDisable();
 
 		updateItems();
+	}
+
+	@Override
+	public void restoreDefaults() {
+		setEnabled(enabledByDefault);
 	}
 
 	public void playStatusUpdateTitle() {
