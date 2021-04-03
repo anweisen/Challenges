@@ -659,6 +659,11 @@
     "§cErster Tod",
     "Wer als *erstes stirbt* gewinnt"
   ],
+  "item-collect-wood-goal": [
+    "§cHolzarten Sammeln",
+    "Wer als *erstes* alle 6 *Holzarten*",
+    "aus der *Overworld* gesammelt hat, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [

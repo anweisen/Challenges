@@ -32,7 +32,7 @@ public class CollectMostDeathsGoal extends CollectionGoal {
 
 	@EventHandler
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
-		if (!isEnabled()) return;
+		if (!shouldExecuteEffect()) return;
 
 		EntityDamageEvent lastCause = event.getEntity().getLastDamageCause();
 		if (lastCause == null) return;

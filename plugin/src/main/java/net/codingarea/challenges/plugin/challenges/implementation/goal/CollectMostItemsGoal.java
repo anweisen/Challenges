@@ -45,7 +45,7 @@ public class CollectMostItemsGoal extends CollectionGoal {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onClick(@Nonnull InventoryClickEvent event) {
-		if (!isEnabled()) return;
+		if (!shouldExecuteEffect()) return;
 		if (!(event.getWhoClicked() instanceof Player)) return;
 
 		Player player = (Player) event.getWhoClicked();
