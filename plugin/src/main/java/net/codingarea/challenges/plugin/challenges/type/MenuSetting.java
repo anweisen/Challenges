@@ -155,7 +155,8 @@ public abstract class MenuSetting extends Setting {
 	public void writeSettings(@Nonnull Document document) {
 		document.set("enabled", isEnabled());
 		for (Entry<String, SubSetting> entry : settings.entrySet()) {
-			document.set(entry.getKey(), entry.getValue().getAsInt());
+			Document subDocument = document.getDocument(entry.getKey());
+			entry.getValue().writeSettings(subDocument);
 		}
 	}
 
@@ -163,9 +164,16 @@ public abstract class MenuSetting extends Setting {
 	public void loadSettings(@Nonnull Document document) {
 		setEnabled(document.getBoolean("enabled"));
 		for (Entry<String, SubSetting> entry : settings.entrySet()) {
-			int value = document.getInt(entry.getKey());
-			entry.getValue().setValue(value);
+			if (!document.contains(entry.getKey())) continue;
+			Document subDocument = document.getDocument(entry.getKey());
+			entry.getValue().loadSettings(subDocument);
 		}
+	}
+
+	@Override
+	public void restoreDefaults() {
+		super.restoreDefaults();
+		settings.values().forEach(SubSetting::restoreDefaults);
 	}
 
 	public abstract class SubSetting implements Listener {
@@ -180,8 +188,8 @@ public abstract class MenuSetting extends Setting {
 		}
 
 		public final void updateItems() {
-			if (inventories.isEmpty()) return; // Nothing to update here
-			if (page == -1 || slot == -1) return; // Invalid
+			if (inventories.isEmpty()) return; // Menu not generated yet, nothing to update here
+			if (page == -1 || slot == -1) return; // Invalid slots, menu not generated yet
 
 			Inventory inventory = inventories.get(page);
 
@@ -207,9 +215,6 @@ public abstract class MenuSetting extends Setting {
 		@Nonnull
 		public abstract ItemBuilder getSettingsItem();
 
-		@Nonnull
-		public abstract SubSetting setValue(int value);
-
 		@Nullable
 		protected abstract String[] getSettingsDescription();
 
@@ -218,8 +223,12 @@ public abstract class MenuSetting extends Setting {
 		}
 
 		public abstract int getAsInt();
-
 		public abstract boolean getAsBoolean();
+
+		public abstract void restoreDefaults();
+
+		public abstract void loadSettings(@Nonnull Document document);
+		public abstract void writeSettings(@Nonnull Document document);
 
 		public abstract void handleClick(@Nonnull ChallengeMenuClickInfo info);
 
@@ -229,6 +238,7 @@ public abstract class MenuSetting extends Setting {
 
 		private final Supplier<ItemBuilder> item;
 		private final Supplier<String[]> description;
+		private final boolean enabledByDefault;
 		private boolean enabled;
 
 		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item) {
@@ -246,7 +256,8 @@ public abstract class MenuSetting extends Setting {
 		public BooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Supplier<String[]> description, boolean enabledByDefault) {
 			this.item = item;
 			this.description = description;
-			setEnabled(enabledByDefault);
+			this.enabledByDefault = enabledByDefault;
+			this.setEnabled(enabledByDefault);
 		}
 
 		@Nonnull
@@ -277,32 +288,43 @@ public abstract class MenuSetting extends Setting {
 			return enabled;
 		}
 
-		@Nonnull
 		@Override
-		public BooleanSubSetting setValue(int value) {
-			return setValue(value > 0);
+		public void restoreDefaults() {
+			this.setEnabled(enabledByDefault);
 		}
 
 		@Nonnull
-		public BooleanSubSetting setValue(boolean enabled) {
+		public BooleanSubSetting setEnabled(boolean enabled) {
 			if (this.enabled == enabled) return this;
 			this.enabled = enabled;
-			if (enabled) onEnable();
-			else onDisable();
-			updateItems();
+
+			if (enabled) this.onEnable();
+			else this.onDisable();
+
+			this.updateItems();
 			return this;
 		}
 
 		@Override
 		public final void handleClick(@Nonnull ChallengeMenuClickInfo info) {
-			setValue(!enabled);
+			this.setEnabled(!enabled);
 			SoundSample.playEnablingSound(info.getPlayer(), enabled);
 		}
 
-		public void onEnable() {
+		@Override
+		public void loadSettings(@Nonnull Document document) {
+			this.setEnabled(document.getBoolean("enabled"));
 		}
 
-		public void onDisable() {
+		@Override
+		public void writeSettings(@Nonnull Document document) {
+			document.set("enabled", enabled);
+		}
+
+		protected void onEnable() {
+		}
+
+		protected void onDisable() {
 		}
 
 	}
@@ -313,10 +335,11 @@ public abstract class MenuSetting extends Setting {
 		private final Function<Integer, String[]> description;
 		private final Function<Integer, String> name;
 		private final int max, min;
+		private final int defaultValue;
 		private int value;
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name) {
-			this(item, description, name, 64, 1);
+			this(item, description, name, 64);
 		}
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name, int max) {
@@ -333,6 +356,7 @@ public abstract class MenuSetting extends Setting {
 			if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");
 			if (defaultValue < min) throw new IllegalArgumentException("defaultValue < min");
 			this.value = defaultValue;
+			this.defaultValue = defaultValue;
 			this.max = max;
 			this.min = min;
 			this.item = item;
@@ -382,7 +406,7 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public ItemBuilder getSettingsItem() {
 			if (name != null)
-				return DefaultItem.create(Material.STONE_BUTTON, name.apply(getValue())).setAmount(getValue());
+				return DefaultItem.create(Material.STONE_BUTTON, name.apply(getValue())).amount(getValue());
 
 			return DefaultItem.value(value);
 		}
@@ -393,12 +417,17 @@ public abstract class MenuSetting extends Setting {
 			return description.apply(getValue());
 		}
 
-		@Nonnull
 		@Override
-		public NumberSubSetting setValue(int value) {
+		public void restoreDefaults() {
+			this.setValue(defaultValue);
+		}
+
+		public void setValue(int value) {
+			if (this.value == value) return;
 			this.value = value;
+
 			updateItems();
-			return this;
+			onValueChange();
 		}
 
 		public int getValue() {
@@ -430,14 +459,28 @@ public abstract class MenuSetting extends Setting {
 			if (newValue < min)
 				newValue = max;
 
-			setValue(newValue);
+			this.setValue(newValue);
 			SoundSample.CLICK.play(info.getPlayer());
+		}
+
+		@Override
+		public void loadSettings(@Nonnull Document document) {
+			this.setValue(document.getInt("value"));
+		}
+
+		@Override
+		public void writeSettings(@Nonnull Document document) {
+			document.set("value", value);
+		}
+
+		protected void onValueChange() {
 		}
 
 	}
 
 	public class NumberAndBooleanSubSetting extends NumberSubSetting {
 
+		private final boolean enabledByDefault = false; // Implement in future
 		private boolean enabled;
 
 		public NumberAndBooleanSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name) {
@@ -485,6 +528,22 @@ public abstract class MenuSetting extends Setting {
 		}
 
 		@Override
+		public void restoreDefaults() {
+			super.restoreDefaults();
+			this.setEnabled(enabledByDefault);
+		}
+
+		public void setEnabled(boolean enabled) {
+			if (this.enabled == enabled) return;
+			this.enabled = enabled;
+
+			if (enabled) this.onEnable();
+			else this.onDisable();
+
+			this.updateItems();
+		}
+
+		@Override
 		public boolean getAsBoolean() {
 			return enabled;
 		}
@@ -492,29 +551,29 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 			if (info.isUpperItemClick() || !enabled) {
-				setValue(!enabled);
+				this.setEnabled(!enabled);
 				SoundSample.playEnablingSound(info.getPlayer(), enabled);
 			} else {
 				super.handleClick(info);
 			}
 		}
 
-		@Nonnull
 		@Override
-		public NumberSubSetting setValue(int value) {
-			super.setValue(value);
-			if (!enabled && value > 0) setValue(true);
-			return this;
+		public void loadSettings(@Nonnull Document document) {
+			super.loadSettings(document);
+			this.setEnabled(document.getBoolean("enabled"));
 		}
 
-		@Nonnull
-		public NumberSubSetting setValue(boolean enabled) {
-			if (this.enabled == enabled) return this;
-			this.enabled = enabled;
-			if (enabled) onEnable();
-			else onDisable();
-			updateItems();
-			return this;
+		@Override
+		public void writeSettings(@Nonnull Document document) {
+			super.writeSettings(document);
+			document.set("enabled", enabled);
+		}
+
+		protected void onEnable() {
+		}
+
+		protected void onDisable() {
 		}
 
 	}
