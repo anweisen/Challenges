@@ -32,19 +32,19 @@ public class ConfigCommand implements PlayerCommand, Completer {
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 
-		if (!enabled || !Challenges.getInstance().getDatabaseManager().isConnected()) {
-			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
-			SoundSample.BASS_OFF.play(player);
-			return;
-		}
-
 		if (args.length != 1) {
-			Message.forName("syntax").send(player, Prefix.CHALLENGES, "config <save/load>");
+			Message.forName("syntax").send(player, Prefix.CHALLENGES, "config <save/load/reset>");
 			return;
 		}
 
 		switch (args[0].toLowerCase()) {
+			case "reset":
+			case "restore":
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
+				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
+				if (!enabled) break;
 			case "save":
+				if (!checkEnabled(player)) return;
 				Document document = new GsonDocument();
 				Challenges.getInstance().getChallengeManager().saveSettingsInto(document);
 				Challenges.getInstance().getDatabaseManager().getDatabase()
@@ -55,6 +55,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 				Message.forName("player-config-saved").send(player, Prefix.CHALLENGES);
 				break;
 			case "load":
+				if (!checkEnabled(player)) return;
 				Document config = Challenges.getInstance().getDatabaseManager().getDatabase()
 						.query("challenges")
 						.select("config")
@@ -65,15 +66,24 @@ public class ConfigCommand implements PlayerCommand, Completer {
 				Message.forName("player-config-loaded").send(player, Prefix.CHALLENGES);
 				break;
 			default:
-				Message.forName("syntax").send(player, Prefix.CHALLENGES, "config <save/load>");
+				Message.forName("syntax").send(player, Prefix.CHALLENGES, "config <save/load/reset>");
 		}
 
+	}
+
+	private boolean checkEnabled(@Nonnull Player player) {
+		if (!enabled || !Challenges.getInstance().getDatabaseManager().isConnected()) {
+			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
+			SoundSample.BASS_OFF.play(player);
+			return false;
+		}
+		return true;
 	}
 
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		return args.length == 1 ? Utils.filterRecommendations(args[0], "save", "load") : null;
+		return args.length == 1 ? Utils.filterRecommendations(args[0], "save", "load", "reset") : null;
 	}
 
 }
