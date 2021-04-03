@@ -33,7 +33,7 @@ public final class PrefixLoader extends ContentLoader {
 			}
 
 			document.save(file);
-			Logger.info("Successfully loaded prefixes from config file");
+			Logger.info("Successfully loaded {} prefixes from config file", Prefix.values().length);
 
 		} catch (Exception ex) {
 			Logger.error("Could not load prefix", ex);

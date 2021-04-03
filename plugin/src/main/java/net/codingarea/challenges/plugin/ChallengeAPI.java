@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin;
 
+import net.codingarea.challenges.plugin.language.loader.ContentLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.Material;
@@ -57,6 +58,10 @@ public final class ChallengeAPI {
 
 	public static void registerScheduler(@Nonnull Object scheduler) {
 		Challenges.getInstance().getScheduler().register(scheduler);
+	}
+
+	public static void subscribeLoader(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
+		Challenges.getInstance().getLoaderRegistry().subscribe(classOfLoader, action);
 	}
 
 	@Nonnull

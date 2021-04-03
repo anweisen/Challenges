@@ -30,16 +30,10 @@ public final class LanguageLoader extends ContentLoader {
 
 	protected static final String directFile = "direct-language-file";
 
-	private static final List<Runnable> subscribers = new ArrayList<>();
 	private static final JsonParser parser = new JsonParser();
 	private static volatile boolean loaded = false;
 
 	private String language;
-
-	public LanguageLoader() {
-		if (!isLoading())
-			clearSubscribers();
-	}
 
 	@Override
 	protected void load() {
@@ -150,10 +144,6 @@ public final class LanguageLoader extends ContentLoader {
 			loaded = true;
 			Logger.info("Successfully loaded language '{}' from config file: {} message(s)", language, messages);
 
-			if (Challenges.getInstance().isEnabled()) {
-				executeSubscribers();
-			}
-
 		} catch (Exception ex) {
 			Logger.error("Could not read languages", ex);
 		}
@@ -163,22 +153,5 @@ public final class LanguageLoader extends ContentLoader {
 		return loaded;
 	}
 
-	private static void clearSubscribers() {
-		subscribers.clear();
-	}
-
-	public static void subscribe(@Nonnull Runnable action) {
-		subscribers.add(action);
-	}
-
-	public static void executeSubscribers() {
-		for (Runnable subscriber : subscribers) {
-			try {
-				subscriber.run();
-			} catch (Exception ex) {
-				Logger.error("Could not execute subscriber", ex);
-			}
-		}
-	}
 
 }

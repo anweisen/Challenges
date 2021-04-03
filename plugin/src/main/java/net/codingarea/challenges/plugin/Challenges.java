@@ -1,10 +1,7 @@
 package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
-import net.codingarea.challenges.plugin.language.loader.ContentLoader;
-import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
-import net.codingarea.challenges.plugin.language.loader.PrefixLoader;
-import net.codingarea.challenges.plugin.language.loader.UpdateLoader;
+import net.codingarea.challenges.plugin.language.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
@@ -57,6 +54,7 @@ public final class Challenges extends BukkitModule {
 	private TitleManager titleManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
+	private LoaderRegistry loaderRegistry;
 
 	private boolean validationFailed = false;
 
@@ -93,6 +91,10 @@ public final class Challenges extends BukkitModule {
 		configManager = new ConfigManager();
 		configManager.loadConfigs();
 
+		loaderRegistry = new LoaderRegistry(
+				new LanguageLoader(), new PrefixLoader(), new UpdateLoader()
+		);
+
 		databaseManager = new DatabaseManager();
 		worldManager = new WorldManager();
 		serverManager = new ServerManager();
@@ -108,12 +110,11 @@ public final class Challenges extends BukkitModule {
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
 
-		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader(), new UpdateLoader());
-
 	}
 
 	private void loadManagers() {
 
+		loaderRegistry.load();
 		challengeLoader.load();
 		worldManager.load();
 
@@ -129,8 +130,7 @@ public final class Challenges extends BukkitModule {
 		statsManager.register();
 		scheduler.start();
 
-		if (LanguageLoader.isLoaded())
-			LanguageLoader.executeSubscribers();
+		loaderRegistry.enable();
 
 	}
 
@@ -183,6 +183,7 @@ public final class Challenges extends BukkitModule {
 
 		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
+		if (loaderRegistry != null) loaderRegistry.disable();
 		if (databaseManager != null) databaseManager.disconnectIfConnected();
 		if (scoreboardManager != null) scoreboardManager.disable();
 
@@ -262,6 +263,10 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public TitleManager getTitleManager() {
 		return titleManager;
+	}
+
+	public LoaderRegistry getLoaderRegistry() {
+		return loaderRegistry;
 	}
 
 }

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.language.Prefix;
@@ -35,7 +36,7 @@ public final class MenuManager {
 	private boolean generated = false;
 
 	public MenuManager() {
-		LanguageLoader.subscribe(this::generateMenus);
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::generateMenus);
 		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
 
 		for (MenuType type : MenuType.values()) {

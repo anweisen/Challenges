@@ -36,7 +36,7 @@ public final class PlayerInventoryManager implements Listener {
 
 	public PlayerInventoryManager() {
 		Challenges.getInstance().registerListener(this);
-		LanguageLoader.subscribe(() -> Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto));
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, () -> Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto));
 
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("inventory-menu");
 		control = config.getBoolean("control");

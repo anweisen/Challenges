@@ -12,8 +12,6 @@ import java.io.File;
  */
 public abstract class ContentLoader {
 
-	private static volatile int loads = 0;
-
 	@Nonnull
 	protected final File getMessagesFolder() {
 		return Challenges.getInstance().getDataFile("messages");
@@ -24,36 +22,6 @@ public abstract class ContentLoader {
 		return new File(getMessagesFolder(), name + "." + extension);
 	}
 
-	private void execute() {
-		Challenges.getInstance().runAsync(() -> {
-			startLoading();
-			load();
-			finishLoading();
-		});
-	}
-
 	protected abstract void load();
-
-	private static synchronized void startLoading() {
-		loads++;
-	}
-
-	private static synchronized void finishLoading() {
-		loads--;
-	}
-
-	public static boolean isLoading() {
-		return loads > 0;
-	}
-
-	public static void executeLoaders(@Nonnull ContentLoader... loaders) {
-		if (isLoading()) {
-			ConsolePrint.alreadyExecutingContentLoader();
-			return;
-		}
-		for (ContentLoader loader : loaders) {
-			loader.execute();
-		}
-	}
 
 }

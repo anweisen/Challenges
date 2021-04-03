@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
@@ -22,7 +23,7 @@ public final class ScoreboardManager {
 	private ChallengeScoreboard currentScoreboard;
 
 	public ScoreboardManager() {
-		LanguageLoader.subscribe(this::handleLoadLanguages);
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::handleLoadLanguages);
 	}
 
 	public void handleQuit(@Nonnull Player player) {
