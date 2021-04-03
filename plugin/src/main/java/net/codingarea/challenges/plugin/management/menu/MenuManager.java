@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
@@ -34,6 +35,7 @@ public final class MenuManager {
 	private boolean generated = false;
 
 	public MenuManager() {
+		LanguageLoader.subscribe(this::generateMenus);
 		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
 
 		for (MenuType type : MenuType.values()) {
