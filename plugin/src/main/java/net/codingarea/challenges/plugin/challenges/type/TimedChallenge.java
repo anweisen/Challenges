@@ -85,7 +85,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	}
 
-	private void executeTimeActivation() {
+	public void executeTimeActivation() {
 		if (runAsync) {
 			Bukkit.getScheduler().runTaskAsynchronously(plugin, this::onTimeActivation);
 		} else {
@@ -102,7 +102,6 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	protected void handleCountdown() {
-
 	}
 
 	protected boolean getTimerCondition() {
