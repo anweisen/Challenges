@@ -24,6 +24,7 @@ import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
 import net.codingarea.challenges.plugin.utils.bukkit.command.ForwardingCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 
@@ -89,8 +90,6 @@ public final class Challenges extends BukkitModule {
 
 	private void createManagers() {
 
-		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader(), new UpdateLoader());
-
 		configManager = new ConfigManager();
 		configManager.loadConfigs();
 
@@ -108,6 +107,8 @@ public final class Challenges extends BukkitModule {
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
+
+		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader(), new UpdateLoader());
 
 	}
 
@@ -127,10 +128,9 @@ public final class Challenges extends BukkitModule {
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
-		playerInventoryManager.enable();
 
 		if (LanguageLoader.isLoaded())
-			menuManager.generateMenus();
+			LanguageLoader.executeSubscribers();
 
 	}
 

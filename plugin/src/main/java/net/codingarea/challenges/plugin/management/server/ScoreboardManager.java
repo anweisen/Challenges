@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.server;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import org.bukkit.Bukkit;
@@ -19,6 +20,10 @@ public final class ScoreboardManager {
 
 	private final List<ChallengeBossBar> bossbars = new ArrayList<>();
 	private ChallengeScoreboard currentScoreboard;
+
+	public ScoreboardManager() {
+		LanguageLoader.subscribe(this::handleLoadLanguages);
+	}
 
 	public void handleQuit(@Nonnull Player player) {
 		for (ChallengeBossBar bossbar : bossbars) {

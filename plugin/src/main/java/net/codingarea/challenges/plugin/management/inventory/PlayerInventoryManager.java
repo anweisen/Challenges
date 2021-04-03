@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -34,14 +35,13 @@ public final class PlayerInventoryManager implements Listener {
 	private final boolean enabled;
 
 	public PlayerInventoryManager() {
+		Challenges.getInstance().registerListener(this);
+		LanguageLoader.subscribe(() -> Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto));
+
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("inventory-menu");
 		control = config.getBoolean("control");
 		stats = config.getBoolean("stats");
 		enabled = stats || control;
-	}
-
-	public void enable() {
-		Challenges.getInstance().registerListener(this);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
