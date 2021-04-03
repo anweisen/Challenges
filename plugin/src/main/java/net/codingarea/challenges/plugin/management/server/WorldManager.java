@@ -176,6 +176,19 @@ public final class WorldManager {
 		setGameRule("doDaylightCycle", false);
 		setGameRule("disableRaids", false);
 		setGameRule("mobGriefing", false);
+
+		teleportPlayersOutOfExtraWorld();
+	}
+
+	private void teleportPlayersOutOfExtraWorld() {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (player.getWorld() != world) continue;
+
+			Location location = player.getBedSpawnLocation();
+			if (location == null) location = Bukkit.getWorld(levelName).getSpawnLocation();
+
+			player.teleport(location);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
