@@ -40,9 +40,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
-
-		if (!firstInstanceByClass.containsKey(this.getClass()))
-			firstInstanceByClass.put(this.getClass(), this);
+		firstInstanceByClass.put(this.getClass(), this);
 	}
 
 	@Nonnull
