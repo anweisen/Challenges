@@ -73,14 +73,21 @@ public class LeaderboardCommand implements PlayerCommand {
 		List<PlayerStats> leaderboard = Challenges.getInstance().getStatsManager().getLeaderboard(statistic);
 		int pages = leaderboard.size() / slots.length;
 		InventoryUtils.setNavigationItemsToFrame(inventory.cloneLastAndAdd(), navigationSlots, true, page, pages);
+
+		SlottedMenuPosition position = new SlottedMenuPosition();
+
 		for (int i = page * slots.length; i < leaderboard.size() && i < slots.length; i++) {
 			PlayerStats stats = leaderboard.get(i);
 			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID(), stats.getPlayerName()).setName(Message.forName("stats-leaderboard-display")
 					.asArray(stats.getPlayerName(), statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
 			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
+
+			position.setAction(slots[i], () -> {
+				loadingInventory.open(player, Challenges.getInstance());
+				player.performCommand("stats " + stats.getPlayerName());
+			});
 		}
 
-		SlottedMenuPosition position = new SlottedMenuPosition();
 		if (page == 0) position.setAction(navigationSlots[0], () -> player.performCommand("lb"));
 		else position.setAction(navigationSlots[0], () -> openMenu(player, statistic, page - 1));
 		if (inventory.getLastFrame().getItemType(navigationSlots[1]) == Material.PLAYER_HEAD)
