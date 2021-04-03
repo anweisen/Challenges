@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.language.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -28,12 +29,16 @@ public class PlayerConnectionListener implements Listener {
 	private final boolean messages;
 	private final boolean timerPausedInfo;
 	private final boolean startTimerOnJoin;
+	private final boolean resetOnLastQuit;
+	private final boolean pauseOnLastQuit;
 
 	public PlayerConnectionListener() {
 		Document config = Challenges.getInstance().getConfigDocument();
 		messages = config.getBoolean("join-quit-messages");
 		timerPausedInfo = config.getBoolean("timer-is-paused-info");
 		startTimerOnJoin = config.getBoolean("start-on-first-join");
+		resetOnLastQuit = config.getBoolean("reset-on-last-leave");
+		pauseOnLastQuit = config.getBoolean("pause-on-last-leave");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -92,6 +97,14 @@ public class PlayerConnectionListener implements Listener {
 		} else if (messages) {
 			event.setQuitMessage(null);
 			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+		}
+
+		if (Bukkit.getOnlinePlayers().size() <= 1 && !Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
+			if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
+				Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
+			} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
+				ChallengeAPI.pauseTimer();
+			}
 		}
 
 	}
