@@ -35,9 +35,11 @@ public final class Menu {
 	private final List<Inventory> inventories = new ArrayList<>();
 
 	private final MenuType menu;
+	private final boolean newSuffix;
 
 	public Menu(@Nonnull MenuType menu) {
 		this.menu = menu;
+		newSuffix = Challenges.getInstance().getConfigDocument().getBoolean("new-suffix");
 	}
 
 	void addChallengeCache(@Nonnull IChallenge challenge) {
@@ -111,7 +113,7 @@ public final class Menu {
 	private ItemStack getDisplayItem(@Nonnull IChallenge challenge) {
 		try {
 			ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
-			if (isNew(challenge)) {
+			if (newSuffix && isNew(challenge)) {
 				return item.appendName(" " + Message.forName("new-challenge")).build();
 			} else {
 				return item.build();

@@ -67,6 +67,9 @@ timer-is-paused-info: true
 # New challenges will be displayed first in the setting menu.
 display-new-in-front: true
 
+# New challenges will have a suffix in their title
+new-suffix: true
+
 # A specific start sound, matching the current goal, the will be played when the timer is started.
 # Otherwise the dragon sound will always be played.
 enable-specific-start-sounds: true
