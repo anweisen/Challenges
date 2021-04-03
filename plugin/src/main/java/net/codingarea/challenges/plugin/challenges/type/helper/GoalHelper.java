@@ -25,8 +25,7 @@ public final class GoalHelper {
 
 	public static final int LEADERBOARD_SIZE = 9;
 
-	private GoalHelper() {
-	}
+	private GoalHelper() {}
 
 	public static void handleSetEnabled(@Nonnull Goal goal, boolean enabled) {
 		if (Challenges.getInstance().getChallengeManager().getCurrentGoal() != goal && enabled) {

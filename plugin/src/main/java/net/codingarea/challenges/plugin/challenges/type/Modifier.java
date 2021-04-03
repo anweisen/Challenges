@@ -87,8 +87,8 @@ public abstract class Modifier extends AbstractChallenge {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		ChallengeHelper.handleModifierClick(event, this);
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		ChallengeHelper.handleModifierClick(info, this);
 	}
 
 	public void playValueChangeTitle() {

@@ -46,6 +46,7 @@ public abstract class ModifierGoal extends SettingModifier implements Goal {
 		} else {
 			setEnabled(!isEnabled());
 			SoundSample.playEnablingSound(info.getPlayer(), isEnabled());
+			playStatusUpdateTitle();
 		}
 	}
 

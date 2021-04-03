@@ -39,7 +39,13 @@ public final class ChallengeManager {
 	}
 
 	public void restoreDefaults() {
-		challenges.forEach(IChallenge::restoreDefaults);
+		for (IChallenge challenge : challenges) {
+			try {
+				challenge.restoreDefaults();
+			} catch (Exception ex) {
+				Logger.error("Could not restore defaults for {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
 	}
 
 	public void enable() {
@@ -50,13 +56,12 @@ public final class ChallengeManager {
 	public synchronized void loadSettings(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
-			if (config.contains(name)) {
-				try {
-					Document document = config.getDocument(name);
-					challenge.loadSettings(document);
-				} catch (Exception ex) {
-					Logger.error("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
-				}
+			if (!config.contains(name)) continue;
+			try {
+				Document document = config.getDocument(name);
+				challenge.loadSettings(document);
+			} catch (Exception ex) {
+				Logger.error("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
@@ -64,13 +69,12 @@ public final class ChallengeManager {
 	public synchronized void loadGamestate(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
-			if (config.contains(name)) {
-				try {
-					Document document = config.getDocument(name);
-					challenge.loadGameState(document);
-				} catch (Exception ex) {
-					Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
-				}
+			if (!config.contains(name)) continue;
+			try {
+				Document document = config.getDocument(name);
+				challenge.loadGameState(document);
+			} catch (Exception ex) {
+				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
