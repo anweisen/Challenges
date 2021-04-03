@@ -84,6 +84,11 @@ public final class ChallengeScoreboard {
 	}
 
 	public void update(@Nonnull Player player) {
+		if (!isShown()) {
+			Logger.warn("Tried to update scoreboard which is not shown");
+			return;
+		}
+
 		try {
 
 			ScoreboardInstance instance = new ScoreboardInstance();
@@ -125,6 +130,10 @@ public final class ChallengeScoreboard {
 	public final void hide() {
 		if (Challenges.getInstance().getScoreboardManager().getCurrentScoreboard() != this) return;
 		Challenges.getInstance().getScoreboardManager().setCurrentScoreboard(null);
+	}
+
+	public final boolean isShown() {
+		return Challenges.getInstance().getScoreboardManager().isShown(this);
 	}
 
 	private void unregister(@Nullable Objective objective) {

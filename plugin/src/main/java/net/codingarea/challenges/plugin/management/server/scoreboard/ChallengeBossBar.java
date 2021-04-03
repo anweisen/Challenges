@@ -93,6 +93,11 @@ public final class ChallengeBossBar {
 	}
 
 	public void update(@Nonnull Player player) {
+		if (!isShown()) {
+			Logger.warn("Tried to update bossbar which is not shown");
+			return;
+		}
+
 		try {
 
 			BossBarInstance instance = new BossBarInstance();
@@ -115,6 +120,10 @@ public final class ChallengeBossBar {
 
 	public final void hide() {
 		Challenges.getInstance().getScoreboardManager().hideBossBar(this);
+	}
+
+	public final boolean isShown() {
+		return Challenges.getInstance().getScoreboardManager().isShown(this);
 	}
 
 }

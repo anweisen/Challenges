@@ -85,4 +85,12 @@ public final class ScoreboardManager {
 		}
 	}
 
+	public boolean isShown(@Nonnull ChallengeBossBar bossbar) {
+		return bossbars.contains(bossbar);
+	}
+
+	public boolean isShown(@Nonnull ChallengeScoreboard scoreboard) {
+		return currentScoreboard == scoreboard;
+	}
+
 }
