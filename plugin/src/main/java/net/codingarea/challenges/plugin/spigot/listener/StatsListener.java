@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.GameMode;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -24,6 +25,8 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -32,6 +35,8 @@ import javax.annotation.Nonnull;
  * @see net.codingarea.challenges.plugin.management.stats.StatsManager
  */
 public class StatsListener implements Listener {
+
+	private final List<Player> dragonDamager = new ArrayList<>();
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(@Nonnull EntityDamageEvent event) {
@@ -52,12 +57,18 @@ public class StatsListener implements Listener {
 			Player player = (Player) event.getDamager();
 			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 			incrementStatistic(player, Statistic.DAMAGE_DEALT, event.getFinalDamage());
+
+			if (event.getEntity() instanceof EnderDragon && !dragonDamager.contains(player))
+				dragonDamager.add(player);
 		} else if (event.getDamager() instanceof Projectile) {
 			Projectile projectile = (Projectile) event.getDamager();
 			if (!((projectile.getShooter()) instanceof Player)) return;
 			Player player = (Player) projectile.getShooter();
 			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 			incrementStatistic(player, Statistic.DAMAGE_DEALT, event.getFinalDamage());
+
+			if (event.getEntity() instanceof EnderDragon && !dragonDamager.contains(player))
+				dragonDamager.add(player);
 		}
 	}
 
@@ -90,8 +101,10 @@ public class StatsListener implements Listener {
 		if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
 
 		incrementStatistic(player, Statistic.ENTITY_KILLS, 1);
-		if (entity instanceof EnderDragon) {
-			incrementStatistic(player, Statistic.DRAGON_KILLED, 1);
+		if (entity instanceof EnderDragon && entity.getWorld().getEnvironment() == Environment.THE_END) {
+			for (Player damager : dragonDamager) {
+				incrementStatistic(damager, Statistic.DRAGON_KILLED, 1);
+			}
 		}
 	}
 
