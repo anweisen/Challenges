@@ -24,8 +24,7 @@ import javax.annotation.Nonnull;
 public class RegenerationSetting extends Modifier {
 
 	public RegenerationSetting() {
-		super(MenuType.SETTINGS, 3);
-		setValue(2);
+		super(MenuType.SETTINGS, 1, 3, 2);
 	}
 
 	@Nonnull
