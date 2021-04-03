@@ -44,6 +44,7 @@ public class RestrictionListener implements Listener {
 	@EventHandler(priority = EventPriority.LOW)
 	public void onEntityDeath(@Nonnull EntityDeathEvent event) {
 		if (ChallengeAPI.isStarted()) return;
+		if (!(event.getEntity() instanceof Player)) return;
 		event.getDrops().clear();
 		event.setDroppedExp(0);
 	}
