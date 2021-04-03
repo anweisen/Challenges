@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
 import net.codingarea.challenges.plugin.spigot.listener.StatsListener;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -83,8 +84,10 @@ public final class StatsManager implements Listener {
 
 		try {
 			PlayerStats stats = getStatsFromDatabase(uuid, name);
-			cache.put(uuid, stats);
-			Logger.debug("Loaded stats for uuid {}: {}", uuid, stats);
+			if (Bukkit.getPlayer(uuid) != null) {
+				cache.put(uuid, stats);
+				Logger.debug("Loaded stats for uuid {}: {}", uuid, stats);
+			}
 			return stats;
 		} catch (DatabaseException ex) {
 			Logger.error("Could not get player stats for {}", uuid, ex);
