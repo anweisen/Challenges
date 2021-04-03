@@ -621,6 +621,11 @@
   ],
 
 
+  "item-random-challenge-challenge": [
+    "§cRandom Challenge",
+    "In einem *gesetzten Intervall*",
+    "wird eine *random Challenge* aktiviert"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
