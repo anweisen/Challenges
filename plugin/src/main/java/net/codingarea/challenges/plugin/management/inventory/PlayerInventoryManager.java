@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.inventory;
 
 import net.anweisen.utilities.commons.common.Triple;
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
@@ -28,10 +29,15 @@ import java.util.function.Consumer;
 public final class PlayerInventoryManager implements Listener {
 
 	protected static final String permission = "challenges.gui";
+
+	private final boolean stats, control;
 	private final boolean enabled;
 
 	public PlayerInventoryManager() {
-		enabled = Challenges.getInstance().getConfigDocument().getBoolean("inventory-menu");
+		Document config = Challenges.getInstance().getConfigDocument().getDocument("inventory-menu");
+		control = config.getBoolean("control");
+		stats = config.getBoolean("stats");
+		enabled = stats || control;
 	}
 
 	public void enable() {
@@ -191,23 +197,24 @@ public final class PlayerInventoryManager implements Listener {
 	private Triple<ItemStack, Consumer<Player>, Boolean>[] createItemPairs(@Nonnull Player player) {
 		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = new Triple[9];
 
-		pairs[3] = new Triple<>(
-				new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
-				p -> p.performCommand("timer"),
-				true
-		);
-		pairs[4] = new Triple<>(
-				new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
-				p -> p.performCommand("challenges"),
-				true
-		);
-		pairs[5] = new Triple<>(
-				new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
-				p -> p.performCommand("start"),
-				true
-		);
-
-		if (Challenges.getInstance().getStatsManager().isEnabled()) {
+		if (control) {
+			pairs[3] = new Triple<>(
+					new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
+					p -> p.performCommand("timer"),
+					true
+			);
+			pairs[4] = new Triple<>(
+					new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
+					p -> p.performCommand("challenges"),
+					true
+			);
+			pairs[5] = new Triple<>(
+					new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
+					p -> p.performCommand("start"),
+					true
+			);
+		}
+		if (stats) {
 			pairs[0] = new Triple<>(
 					new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-menu-leaderboard").asString()).build(),
 					p -> p.performCommand("leaderboard"),
