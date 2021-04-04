@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.implementation.BlockMaterialSetting;
+import net.codingarea.challenges.plugin.challenges.implementation.material.BlockMaterialSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;

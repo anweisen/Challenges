@@ -17,6 +17,7 @@ public class KillEnderDragonGoal extends KillEntityGoal {
 
 	public KillEnderDragonGoal() {
 		super(EntityType.ENDER_DRAGON, Environment.THE_END, true);
+		setOneWinner(false);
 	}
 
 	@Nonnull

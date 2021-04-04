@@ -12,6 +12,11 @@ public final class ListBuilder <T> {
 
 	private final List<T> list = new ArrayList<>();
 
+	@SafeVarargs
+	public ListBuilder(T... t) {
+		list.addAll(Arrays.asList(t));
+	}
+
 	public ListBuilder<T> fill(Consumer<ListBuilder<T>> consumer) {
 		consumer.accept(this);
 		return this;
@@ -47,6 +52,11 @@ public final class ListBuilder <T> {
 	public ListBuilder<T> addIfNotContains(T t) {
 		if (list.contains(t)) return this;
 		return add(t);
+	}
+
+	public ListBuilder<T> remove(T t) {
+		list.remove(t);
+		return this;
 	}
 
 	public ListBuilder<T> forEach(Consumer<? super T> action) {

@@ -85,9 +85,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(OneDurabilityChallenge.class);
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
-		// Mob randomizer
+		register(MobRandomizerChallenge.class);
 		// Force height
 		// Force block
+		// Force Item
 		// Force mob kill
 		register(InvertHealthChallenge.class);
 		register(StoneSightChallenge.class);
@@ -115,6 +116,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
 		register(KillElderGuardianGoal.class);
+		register(AllBossesGoal.class);
 		register(LastManStandingGoal.class);
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);

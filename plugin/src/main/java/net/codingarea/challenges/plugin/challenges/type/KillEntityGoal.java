@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -20,8 +21,9 @@ import java.util.List;
 public abstract class KillEntityGoal extends SettingGoal {
 
 	protected final EntityType entity;
-	protected Player winner;
 	protected final Environment environment;
+	protected boolean oneWinner = true;
+	protected Player winner;
 
 	public KillEntityGoal(@Nonnull EntityType entity) {
 		this(entity, false);
@@ -35,7 +37,7 @@ public abstract class KillEntityGoal extends SettingGoal {
 		this(entity, world, false);
 	}
 
-	public KillEntityGoal(EntityType entity, Environment world, boolean enabled) {
+	public KillEntityGoal(EntityType entity, Environment world, boolean enabled ) {
 		super(enabled);
 		this.entity = entity;
 		this.environment = world;
@@ -43,7 +45,7 @@ public abstract class KillEntityGoal extends SettingGoal {
 
 	@Override
 	public void getWinnersOnEnd(@Nonnull List<Player> winners) {
-		if (winner != null) winners.add(winner);
+		if (oneWinner && winner != null) winners.add(winner);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -52,8 +54,12 @@ public abstract class KillEntityGoal extends SettingGoal {
 		LivingEntity entity = event.getEntity();
 		if (entity.getType() != this.entity) return;
 		if (environment != null && event.getEntity().getWorld().getEnvironment() != environment) return;
-		winner = entity.getKiller();
+		if (oneWinner) winner = event.getEntity().getKiller();
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
+	}
+
+	public void setOneWinner(boolean oneWinner) {
+		this.oneWinner = oneWinner;
 	}
 
 }

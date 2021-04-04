@@ -36,7 +36,7 @@ public class MobTransformationChallenge extends Setting {
 			bossbar.setColor(BarColor.GREEN);
 			EntityType type = getPlayerData(player).getEnum("type", EntityType.class);
 			String typeName = type == null ? "None" : StringUtils.getEnumName(type);
-			bossbar.setTitle(Message.forName("bossbar-mob-transformation-challenge").asString(typeName));
+			bossbar.setTitle(Message.forName("bossbar-mob-transformation").asString(typeName));
 		});
 		bossbar.show();
 	}

@@ -393,6 +393,10 @@
     "§6Crafting Randomizer",
     "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
   ],
+  "item-mob-randomizer-challenge": [
+    "§6Mob Randomizer",
+    "Wenn ein *Entity* spawnt, spawnt ein *anderes*"
+  ],
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
     "Du bekommst *Schaden* durch",
@@ -627,6 +631,31 @@
     "In einem *gesetzten Intervall*",
     "wird eine *random Challenge* aktiviert"
   ],
+  "item-anvil-rain-challenge": [
+    "§8Amboss Regen",
+    "Vom *Himmel* fallen *Ambosse*"
+  ],
+  "item-anvil-rain-time-challenge": [
+    "§6Intervall",
+    "Der *Intervall*, in",
+    "dem *Ambosse* spawnen"
+  ],
+  "item-anvil-rain-range-challenge": [
+    "§6Range",
+    "Die *Reichweite*, in",
+    "der *Ambosse* spawnen"
+  ],
+  "item-anvil-rain-count-challenge": [
+    "§6Anzahl",
+    "Die *Anzahl*, an *Ambossen*",
+    "die in einem *Chunk* spawnen"
+  ],
+  "item-anvil-rain-damage-challenge": [
+    "§6Schaden",
+    "Der *Schaden*, die",
+    "die *Ambosse* machen"
+  ],
+
 
   "item-dragon-goal": [
     "§5Enderdrache",
@@ -670,6 +699,11 @@
     "§cHolzarten Sammeln",
     "Wer als *erstes* alle 6 *Holzarten*",
     "aus der *Overworld* gesammelt hat, gewinnt"
+  ],
+  "item-all-bosses-goal": [
+    "§bAlle Bosse",
+    "Es müssen *alle Bosse* einmal",
+    "*getötet* werden um zu *gewinnen*"
   ],
 
 

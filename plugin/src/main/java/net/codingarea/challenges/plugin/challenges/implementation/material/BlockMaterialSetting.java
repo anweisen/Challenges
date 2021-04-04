@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.implementation;
+package net.codingarea.challenges.plugin.challenges.implementation.material;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;

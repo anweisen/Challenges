@@ -49,7 +49,7 @@ public class CollectWoodGoal extends CollectionGoal {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPickupItem(@Nonnull PlayerPickupItemEvent event) {
-		if (shouldExecuteEffect()) return;
+		if (!shouldExecuteEffect()) return;
 		Material material = event.getItem().getItemStack().getType();
 		Player player = event.getPlayer();
 		handleCollect(player, material);
@@ -57,7 +57,7 @@ public class CollectWoodGoal extends CollectionGoal {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
-		if (shouldExecuteEffect()) return;
+		if (!shouldExecuteEffect()) return;
 		if (event.isCancelled()) return;
 		if (event.getClickedInventory() == null) return;
 		if (event.getClickedInventory().getHolder() != event.getPlayer()) return;

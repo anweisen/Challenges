@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 

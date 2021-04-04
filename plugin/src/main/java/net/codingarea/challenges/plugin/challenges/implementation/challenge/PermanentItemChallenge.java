@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -41,8 +42,11 @@ public class PermanentItemChallenge extends Setting {
 		Inventory clickedInventory = event.getClickedInventory();
 		if (event.getCursor() == null) return;
 		if (clickedInventory == null) return;
-		if (clickedInventory.getType() == InventoryType.PLAYER || clickedInventory.getType() == InventoryType.CRAFTING) {
-			if (event.getInventory().getType()!=InventoryType.PLAYER && event.getInventory().getType()!=InventoryType.CRAFTING) {
+		InventoryType type = event.getPlayer().getOpenInventory().getTopInventory().getType();
+		if (type == InventoryType.WORKBENCH || type == InventoryType.CRAFTING) return;
+		if (clickedInventory.getType() == InventoryType.CRAFTING) return;
+		if (clickedInventory.getType() == InventoryType.PLAYER) {
+			if (event.getInventory().getType() != InventoryType.PLAYER) {
 				event.setCancelled(true);
 			}
 		}
