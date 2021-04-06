@@ -31,7 +31,7 @@ public class EnderGamesChallenge extends TimedChallenge {
     private final Random random = new Random();
 
     public EnderGamesChallenge() {
-        super(MenuType.CHALLENGES);
+        super(MenuType.CHALLENGES, 1, 10, 5);
     }
 
     @NotNull

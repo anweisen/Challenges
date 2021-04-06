@@ -35,7 +35,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 	private int state;
 
 	public TrafficLightChallenge() {
-		super(MenuType.CHALLENGES, 5);
+		super(MenuType.CHALLENGES, 1, 10, 5);
 	}
 
 	@Nonnull
