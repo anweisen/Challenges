@@ -34,17 +34,17 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder enabled() {
-		return new ItemBuilder(Material.LIME_DYE).setName(name("§aEnabled")).hideAttributes();
+		return new ItemBuilder(Material.LIME_DYE).setName(Message.forName("enabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(name("§cDisabled")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.forName("disabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(name("§6Customize")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.SIGN).setName(Message.forName("customize")).hideAttributes();
 	}
 
 	@Nonnull

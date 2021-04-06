@@ -36,11 +36,6 @@ public class WaterAllergyChallenge extends SettingModifier {
 
 	}
 
-	@Override
-	public void playValueChangeTitle() {
-		ChallengeHelper.playChallengeHeartsValueChangeTitle(this);
-	}
-
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -51,6 +46,11 @@ public class WaterAllergyChallenge extends SettingModifier {
 	@Override
 	protected String[] getSettingsDescription() {
 		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeHeartsValueChangeTitle(this);
 	}
 
 }

@@ -1,6 +1,9 @@
 {
   "syntax": "Bitte nutze §e/{0}",
   "player-command": "Dazu musst du ein Spieler sein!",
+  "enabled": "§8➟ §aAktiviert",
+  "disabled": "§8➟ §cDeaktiviert",
+  "customize": "§8➟ §6Anpassen",
   "navigate-back": "§8« §7Zurück",
   "navigate-next": "§8» §7Weiter",
   "seconds": "Sekunden",
@@ -103,6 +106,7 @@
   "health-inverted": "Deine Herzen wurden §cinvertiert",
   "exp-picked-up": "§e{0} §7hat XP aufgesammelt",
   "unable-to-find-fortress": "Es könnte §ckeine Festung §7gefunden werden",
+  "unable-to-find-bastion": "Es könnte §ckeine Bastion §7gefunden werden",
   "death-collected": "Todesgrund §e{0} §7wurde registriert",
   "item-collected": "Item §e{0} §7wurde registriert",
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
@@ -126,6 +130,7 @@
   "all-items-skipped": "Item §e{0} §7geskippt",
   "all-items-already-finished": "Es wurden bereits alle Items gefunden",
   "all-items-found": "Das Item §e{0} §7wurde registriert",
+  "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
 
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
@@ -386,6 +391,11 @@
     "Wenn du */ec* ausführst, öffnet",
     "sich deine *Enderchest*"
   ],
+  "item-split-health-setting": [
+    "§cGeteilte Herzen",
+    "Stellt ein, ob sich *alle*",
+    "*Spieler* eine *Gesundheit teilen*"
+  ],
 
 
   "item-traffic-light-challenge": [
@@ -411,9 +421,14 @@
     "jeden *Block* den du gehst"
   ],
   "item-stone-sight-challenge": [
-    "§7Stein Blick",
-    "*Mobs* denen du in die Augen *schaust*",
-    "werden zu *Stein*"
+    "§fStein Blick",
+    "*Mobs* denen du in die *Augen*",
+    "*schaust* werden zu *Stein*"
+  ],
+  "item-no-mob-sight-challenge": [
+    "§cMob Blick Schaden",
+    "Wenn du einen *Mob* in die *Augen*",
+    "*schaust*, erleidest du *Schaden*"
   ],
   "item-bedrock-path-challenge": [
     "§7Bedrock Path",
@@ -614,6 +629,11 @@
     "Wenn du *Fallschaden* erleidest",
     "*stirbst* du sofort"
   ],
+  "item-zero-hearts-challenge": [
+    "§6Null Herzen",
+    "Nach einer *Schutzzeit* musst du",
+    "dauerhaft absorption bekommen"
+  ],
   "item-random-effect-challenge": [
     "§6Random Effekte",
     "Du bekommst in einem gesetzen *Intervall*",
@@ -662,6 +682,18 @@
     "§6Schaden",
     "Der *Schaden*, die",
     "die *Ambosse* machen"
+  ],
+  "item-water-mlg-challenge": [
+    "§bWater MLG",
+    "Du musst *immer wieder*",
+    "einen *Water MLG* absolvieren"
+  ],
+  "item-ender-games-challenge": [
+    "§5EnderGames",
+    "Alle paar Minuten wirst du",
+    "mit einem zufälligem Entity aus",
+    "einem 200 Block radius getauscht"
+
   ],
 
 
