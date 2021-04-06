@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 
@@ -23,9 +24,21 @@ public interface Goal extends IChallenge {
 	 */
 	void setEnabled(boolean enabled);
 
+	/**
+	 * This sound will be played when the timer is started and the plugin setting "enable-specific-start-sounds" is enabled.
+	 * If not the standard sound will be played.
+	 *
+	 * @return the sound to play
+	 */
 	@Nonnull
 	SoundSample getStartSound();
 
+	/**
+	 * This method will be called, when the challenges is being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) in order to determine the winner of this challenge run.
+	 * If no players are added to the winners list, the {@link ChallengeEndCause#getNoWinnerMessage()} will be shown instead of the {@link ChallengeEndCause#getWinnerMessage()}.
+	 *
+	 * @param winners the list to which the winners should be added
+	 */
 	void getWinnersOnEnd(@Nonnull List<Player> winners);
 
 }
