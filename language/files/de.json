@@ -621,6 +621,11 @@
     "Wenn du *Fallschaden* erleidest",
     "*stirbst* du sofort"
   ],
+  "item-zero-hearts-challenge": [
+    "§6Null Herzen",
+    "Nach einer *Schutzzeit* musst du",
+    "dauerhaft absorption bekommen"
+  ],
   "item-random-effect-challenge": [
     "§6Random Effekte",
     "Du bekommst in einem gesetzen *Intervall*",

@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -18,12 +19,15 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
 public class WaterMLGChallenge extends WorldDependentChallenge {
+
+	private final Random random = new Random();
 
 	public WaterMLGChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
@@ -38,17 +42,17 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-time-minutes-description").asArray(getValue());
+		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 10, getValue() * 60 + 10);
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue());
+		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 10, getValue() * 60 + 10);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return getValue() * 60;
+		return RandomizeUtils.getAround(random, 60 * getValue(), 10);
 	}
 
 	@Override

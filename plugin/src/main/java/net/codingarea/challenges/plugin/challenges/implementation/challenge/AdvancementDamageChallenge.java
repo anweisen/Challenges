@@ -23,15 +23,6 @@ public class AdvancementDamageChallenge extends SettingModifier {
 		super(MenuType.CHALLENGES, 1, 40);
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onPlayerAdvancementDone(@Nonnull PlayerAdvancementDoneEvent event) {
-		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
-
-		event.getPlayer().setNoDamageTicks(0);
-		event.getPlayer().damage(getValue());
-	}
-
 	@Override
 	public void playValueChangeTitle() {
 		ChallengeHelper.playChallengeHeartsValueChangeTitle(this);
@@ -47,6 +38,16 @@ public class AdvancementDamageChallenge extends SettingModifier {
 	@Override
 	protected String[] getSettingsDescription() {
 		return Message.forName("item-heart-damage-description").asArray(getValue() / 2f);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onPlayerAdvancementDone(@Nonnull PlayerAdvancementDoneEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+
+		event.getPlayer().setNoDamageTicks(0);
+		event.getPlayer().damage(getValue());
 	}
 
 }
