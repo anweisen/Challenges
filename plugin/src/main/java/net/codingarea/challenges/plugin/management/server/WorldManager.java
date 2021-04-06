@@ -157,7 +157,7 @@ public final class WorldManager {
 		}
 		sessionConfig.save();
 
-		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		gamestateConfig.clear();
 		gamestateConfig.save();
 

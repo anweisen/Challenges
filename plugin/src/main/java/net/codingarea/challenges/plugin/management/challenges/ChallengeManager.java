@@ -49,7 +49,7 @@ public final class ChallengeManager {
 	}
 
 	public void enable() {
-		loadGamestate(Challenges.getInstance().getConfigManager().getGamestateConfig());
+		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig());
 		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());
 	}
 
@@ -91,7 +91,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		saveGameStateInto(config);
 		config.save(async);
 	}

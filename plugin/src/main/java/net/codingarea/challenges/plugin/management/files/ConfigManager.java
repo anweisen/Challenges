@@ -44,7 +44,7 @@ public final class ConfigManager {
 	}
 
 	@Nonnull
-	public FileDocumentWrapper getGamestateConfig() {
+	public FileDocumentWrapper getGameStateConfig() {
 		return gamestateConfig;
 	}
 

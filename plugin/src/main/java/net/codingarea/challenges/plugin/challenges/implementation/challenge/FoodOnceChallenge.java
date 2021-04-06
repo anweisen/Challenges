@@ -95,13 +95,13 @@ public class FoodOnceChallenge extends SettingModifier {
 	}
 
 	private void addTeamFood(@Nonnull Material material) {
-		List<Material> foods = getGamestateData().getEnumList("foods", Material.class);
+		List<Material> foods = getGameStateData().getEnumList("foods", Material.class);
 		foods.add(material);
-		getGamestateData().set("foods", foods);
+		getGameStateData().set("foods", foods);
 	}
 
 	private boolean hasBeenEatenByTeam(@Nonnull Material material) {
-		return getGamestateData().getEnumList("foods", Material.class).contains(material);
+		return getGameStateData().getEnumList("foods", Material.class).contains(material);
 	}
 
 	private boolean teamFoodsActivated() {
