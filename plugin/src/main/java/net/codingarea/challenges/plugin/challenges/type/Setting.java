@@ -68,6 +68,12 @@ public abstract class Setting extends AbstractChallenge {
 	}
 
 	@Override
+	public void handleShutdown() {
+		super.handleShutdown();
+		onDisable();
+	}
+
+	@Override
 	public final boolean isEnabled() {
 		return enabled;
 	}

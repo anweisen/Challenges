@@ -94,6 +94,10 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Override
+	public void handleShutdown() {
+	}
+
+	@Override
 	public void writeGameState(@Nonnull Document document) {
 	}
 

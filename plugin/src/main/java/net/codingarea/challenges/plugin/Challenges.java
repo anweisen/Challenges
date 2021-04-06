@@ -188,6 +188,7 @@ public final class Challenges extends BukkitModule {
 		if (scoreboardManager != null) scoreboardManager.disable();
 
 		if (challengeManager != null) {
+			challengeManager.shutdownChallenges();
 			challengeManager.saveLocalSettings(false);
 			if (!shutdownBecauseOfReset)
 				challengeManager.saveGamestate(false);

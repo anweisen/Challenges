@@ -14,21 +14,21 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public abstract class ModifierGoal extends SettingModifier implements Goal {
+public abstract class SettingModifierGoal extends SettingModifier implements Goal {
 
-	public ModifierGoal(@Nonnull MenuType menu) {
+	public SettingModifierGoal(@Nonnull MenuType menu) {
 		super(menu);
 	}
 
-	public ModifierGoal(@Nonnull MenuType menu, int max) {
+	public SettingModifierGoal(@Nonnull MenuType menu, int max) {
 		super(menu, max);
 	}
 
-	public ModifierGoal(@Nonnull MenuType menu, int min, int max) {
+	public SettingModifierGoal(@Nonnull MenuType menu, int min, int max) {
 		super(menu, min, max);
 	}
 
-	public ModifierGoal(@Nonnull MenuType menu, int min, int max, int defaultValue) {
+	public SettingModifierGoal(@Nonnull MenuType menu, int min, int max, int defaultValue) {
 		super(menu, min, max, defaultValue);
 	}
 
@@ -48,18 +48,6 @@ public abstract class ModifierGoal extends SettingModifier implements Goal {
 			SoundSample.playEnablingSound(info.getPlayer(), isEnabled());
 			playStatusUpdateTitle();
 		}
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getSettingsItem() {
-		return DefaultItem.status(isEnabled()).build();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getDisplayItem() {
-		return createDisplayItem().amount(getValue()).build();
 	}
 
 }

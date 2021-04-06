@@ -33,6 +33,16 @@ public final class ChallengeManager {
 		challenges.add(challenge);
 	}
 
+	public void shutdownChallenges() {
+		for (IChallenge challenge : challenges) {
+			try {
+				challenge.handleShutdown();
+			} catch (Exception ex) {
+				Logger.error("Could not handle shutdown for {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
+	}
+
 	public void clearChallengeCache() {
 		challenges.clear();
 		currentGoal = null;

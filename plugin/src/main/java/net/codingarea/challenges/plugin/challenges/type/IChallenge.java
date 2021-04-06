@@ -17,6 +17,8 @@ public interface IChallenge {
 
 	void restoreDefaults();
 
+	void handleShutdown();
+
 	@Nonnull
 	String getName();
 

@@ -90,6 +90,12 @@ public abstract class SettingModifier extends Modifier {
 	}
 
 	@Override
+	public void handleShutdown() {
+		super.handleShutdown();
+		onDisable();
+	}
+
+	@Override
 	public void writeSettings(@Nonnull Document document) {
 		super.writeSettings(document);
 		document.set("enabled", enabled);
