@@ -752,6 +752,11 @@
     "Stellt ein ob du Schaden durch",
     "*Fallende Blöcke* bekommen kannst"
   ],
+  "item-damage-rule-magic": [
+    "§5Magic Damage",
+    "Stellt ein ob du Schaden durch",
+    "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
+  ],
 
   "item-block-material": [
     "{0}",
