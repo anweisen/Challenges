@@ -1,6 +1,9 @@
 {
   "syntax": "Bitte nutze §e/{0}",
   "player-command": "Dazu musst du ein Spieler sein!",
+  "enabled": "§8➟ §aAktiviert",
+  "disabled": "§8➟ §cDeaktiviert",
+  "customize": "§8➟ §6Anpassen",
   "navigate-back": "§8« §7Zurück",
   "navigate-next": "§8» §7Weiter",
   "seconds": "Sekunden",
