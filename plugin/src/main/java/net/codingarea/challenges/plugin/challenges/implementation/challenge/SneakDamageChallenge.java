@@ -24,7 +24,7 @@ import javax.annotation.Nullable;
 public class SneakDamageChallenge extends SettingModifier {
 
 	public SneakDamageChallenge() {
-		super(MenuType.CHALLENGES, 1, 40);
+		super(MenuType.CHALLENGES, 1, 60);
 	}
 
 	@Nonnull
