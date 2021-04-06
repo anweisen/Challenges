@@ -130,6 +130,8 @@
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
+  "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
+  "bossbar-random-challenge-waiting": "§8» §7Warten auf neue Challenge..",
   "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
   "bossbar-all-items-finished": "§8» §7Alle Items gefunden",
 
@@ -543,7 +545,7 @@
     "erleidest du den *gesetzen Schaden*"
   ],
   "item-no-duped-items-challenge": [
-    "§6Keine Doppelten Item",
+    "§6Keine Doppelten Items",
     "Wenn *2 Spieler* das gleiche *Item* im",
     "Inventar haben, *sterben* beide"
   ],
@@ -703,7 +705,7 @@
   ],
   "item-collect-wood-goal": [
     "§cHolzarten Sammeln",
-    "Wer als *erstes* alle 6 *Holzarten*",
+    "Wer als *erstes* alle *6 Holzarten*",
     "aus der *Overworld* gesammelt hat, gewinnt"
   ],
   "item-all-bosses-goal": [

@@ -8,8 +8,10 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -28,7 +30,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 
 	private final Random random = new Random();
 
-	private IChallenge lastUsed;
+	private AbstractChallenge lastUsed;
 
 	public RandomChallengeChallenge() {
 		super(MenuType.CHALLENGES, 30, 600, 60, false);
@@ -52,16 +54,35 @@ public class RandomChallengeChallenge extends TimedChallenge {
 	}
 
 	@Override
+	protected void onEnable() {
+		bossbar.setContent((bossbar, player) -> {
+			if (lastUsed == null) {
+				bossbar.setTitle(Message.forName("bossbar-random-challenge-waiting").asString());
+				return;
+			}
+			bossbar.setProgress((float) (getSecondsLeftUntilNextActivation()) / getSecondsUntilNextActivation());
+			bossbar.setTitle(Message.forName("bossbar-random-challenge-current").asString(ChallengeHelper.getColoredChallengeName(lastUsed)));
+		});
+		bossbar.show();
+	}
+
+	@Override
 	protected void onDisable() {
 		if (lastUsed != null) {
 			setEnabled(lastUsed, false);
 			lastUsed = null;
 		}
+		bossbar.hide();
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
 		return getValue();
+	}
+
+	@Override
+	protected void handleCountdown() {
+		bossbar.update();
 	}
 
 	@Override
@@ -76,18 +97,17 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		List<IChallenge> challenges = new ArrayList<>(Challenges.getInstance().getChallengeManager().getChallenges());
 		challenges.remove(this);
 		challenges.removeIf(challenge -> challenge.getType() != MenuType.CHALLENGES);
+		challenges.removeIf(challenge -> !(challenge instanceof AbstractChallenge));
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 
-		IChallenge challenge = challenges.get(random.nextInt(challenges.size()));
-		if (challenge instanceof AbstractChallenge) {
-			AbstractChallenge abstractChallenge = (AbstractChallenge) challenge;
-			String name = ChallengeHelper.getColoredChallengeName(abstractChallenge);
-			Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
-		}
+		AbstractChallenge challenge = (AbstractChallenge) challenges.get(random.nextInt(challenges.size()));
+		String name = ChallengeHelper.getColoredChallengeName(challenge);
+		Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
 
 		setEnabled(challenge, true);
 		lastUsed = challenge;
+		bossbar.update();
 
 	}
 
@@ -101,9 +121,10 @@ public class RandomChallengeChallenge extends TimedChallenge {
 			setting.setEnabled(enabled);
 		}
 
-		if (challenge instanceof TimedChallenge) {
+		if (enabled && challenge instanceof TimedChallenge) {
 			TimedChallenge timedChallenge = (TimedChallenge) challenge;
-			timedChallenge.executeTimeActivation();
+			int random = RandomizeUtils.getAround(this.random, getValue() / 2, 10);
+			timedChallenge.setValue(Math.min(timedChallenge.getMaxValue(), random));
 		}
 	}
 
