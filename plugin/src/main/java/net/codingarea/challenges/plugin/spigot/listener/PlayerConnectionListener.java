@@ -91,6 +91,7 @@ public class PlayerConnectionListener implements Listener {
 
 		Player player = event.getPlayer();
 		Challenges.getInstance().getScoreboardManager().handleQuit(player);
+		DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
 
 		if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
 			event.setQuitMessage(null);

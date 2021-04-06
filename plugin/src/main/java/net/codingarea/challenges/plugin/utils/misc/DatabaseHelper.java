@@ -6,13 +6,12 @@ import com.mojang.authlib.properties.PropertyMap;
 import net.anweisen.utilities.bukkit.utils.GameProfileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -20,19 +19,27 @@ import java.util.UUID;
  */
 public final class DatabaseHelper {
 
+	private static final Map<UUID, String> cachedTextures = new HashMap<>();
+
 	private DatabaseHelper() {}
+
+	@Nullable
+	public static String getPlayerTextures(@Nonnull Player player) {
+		GameProfile profile = GameProfileUtils.getGameProfile(player);
+		PropertyMap properties = profile.getProperties();
+		List<Property> textures = new ArrayList<>(properties.get("textures"));
+		return textures.isEmpty() ? null : textures.get(0).getValue();
+	}
 
 	public static void savePlayerData(@Nonnull Player player) {
 		try {
 
-			GameProfile profile = GameProfileUtils.getGameProfile(player);
-			PropertyMap properties = profile.getProperties();
-			List<Property> textures = new ArrayList<>(properties.get("textures"));
-			String texture = textures.isEmpty() ? null : textures.get(0).getValue();
+			String textures = getPlayerTextures(player);
+			if (textures != null) cachedTextures.put(player.getUniqueId(), textures);
 
 			Challenges.getInstance().getDatabaseManager().getDatabase()
 					.insertOrUpdate("challenges")
-					.set("textures", texture)
+					.set("textures", textures)
 					.set("name", player.getName())
 					.where("uuid", player.getUniqueId())
 					.execute();
@@ -44,17 +51,38 @@ public final class DatabaseHelper {
 
 	@Nullable
 	public static String getTextures(@Nonnull UUID uuid) {
+		String cached = cachedTextures.get(uuid);
+		if (cached != null) return cached;
+
+		Player player = Bukkit.getPlayer(uuid);
+		if (player != null) {
+			String textures = getPlayerTextures(player);
+			if (textures != null) {
+				cachedTextures.put(uuid, textures);
+				return textures;
+			}
+		}
+
+		if (!Challenges.getInstance().getDatabaseManager().isConnected())
+			return null;
+
 		try {
-			return Challenges.getInstance().getDatabaseManager().getDatabase()
+			String textures = Challenges.getInstance().getDatabaseManager().getDatabase()
 					.query("challenges")
 					.select("textures")
 					.where("uuid", uuid)
 					.execute().firstOrEmpty()
 					.getString("textures");
+			cachedTextures.put(uuid, textures);
+			return textures;
 		} catch (Exception ex) {
 			Logger.error("Unable to get textures for {}", uuid, ex);
 			return null;
 		}
+	}
+
+	public static void clearCache(@Nonnull UUID uuid) {
+		cachedTextures.remove(uuid);
 	}
 
 }
