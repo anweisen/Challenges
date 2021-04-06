@@ -99,6 +99,14 @@ public class AnimatedInventory {
 	}
 
 	@Nonnull
+	public AnimationFrame getOrCreateFrame(int index) {
+		while (frames.size() <= index) {
+			cloneLastAndAdd();
+		}
+		return getFrame(index);
+	}
+
+	@Nonnull
 	public AnimationFrame cloneAndAdd(int index) {
 		AnimationFrame frame = getFrame(index).clone();
 		addFrame(frame);
