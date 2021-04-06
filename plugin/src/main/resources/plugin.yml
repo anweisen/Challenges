@@ -158,3 +158,7 @@ commands:
     usage: "/difficulty <difficulty>"
     description: "Changes the difficulty with saving it in the difficulty setting"
     permission: "challenges.difficulty"
+  skipitem:
+    usage: "/skipitem"
+    description: "Skips the current item of the collect all items goal"
+    permission: "challenges.manage.current"

@@ -21,6 +21,7 @@
   ],
   "new-challenge": "§a§lNeu!",
   "feature-disabled": "Diese Funktion ist derzeit §cdeaktiviert",
+  "challenge-disabled": "Diese Challenge ist derzeit §cdeaktiviert",
   "timer-not-started": "Der wurde noch §cnicht gestartet",
   "timer-was-started": "Der Timer wurde §agestartet",
   "timer-was-paused": "Der Timer wurde §cpausiert",
@@ -122,10 +123,15 @@
   "sneak-damage-failed": "§e{0} §7ist geschlichen",
   "jump-damage-failed": "§e{0} §7ist gesprungen",
   "random-challenge-enabled": "Die Challenge §e{0} §7wurde §aaktiviert",
+  "all-items-skipped": "Item §e{0} §7geskippt",
+  "all-items-already-finished": "Es wurden bereits alle Items gefunden",
+  "all-items-found": "Das Item §e{0} §7wurde registriert",
 
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
+  "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
+  "bossbar-all-items-finished": "§8» §7Alle Items gefunden",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -704,6 +710,10 @@
     "§bAlle Bosse",
     "Es müssen *alle Bosse* einmal",
     "*getötet* werden um zu *gewinnen*"
+  ],
+  "item-all-items-goal": [
+    "§2Alle Items",
+    "Finde *alle Items* die es *in Minecraft gibt*"
   ],
 
 
