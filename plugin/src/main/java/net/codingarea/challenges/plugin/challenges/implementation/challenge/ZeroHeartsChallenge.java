@@ -76,13 +76,13 @@ public class ZeroHeartsChallenge extends SettingModifier {
 			}
 			return;
 		}
-		getGamestateData().set("absorption-time", absorptionTime+1);
+		getGameStateData().set("absorption-time", absorptionTime+1);
 		applyAbsorptionEffect();
 		bossbar.update();
 	}
 
 	private int getCurrentTime() {
-		return getGamestateData().getInt("absorption-time", 0);
+		return getGameStateData().getInt("absorption-time", 0);
 	}
 
 	private void applyAbsorptionEffect() {

@@ -131,6 +131,7 @@
   "all-items-already-finished": "Es wurden bereits alle Items gefunden",
   "all-items-found": "Das Item §e{0} §7wurde registriert",
   "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
+  "endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
 
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
@@ -693,7 +694,6 @@
     "Alle *paar Minuten* wirst du",
     "mit einem *zufälligem Entity* aus",
     "einem *200 Block* radius *getauscht*"
-
   ],
 
 
