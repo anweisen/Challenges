@@ -29,6 +29,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RegenerationSetting.class);
 		register(OneTeamLifeSetting.class);
 		register(RespawnSetting.class);
+		register(SplitHealthSetting.class);
 		register(DamageDisplaySetting.class);
 		register(PregameMovementSetting.class);
 		register(DeathMessageSetting.class);
@@ -55,6 +56,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(SlotLimitSetting.class);
 
 		// Challenges
+		register(RandomChallengeChallenge.class);
 		register(TrafficLightChallenge.class);
 		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class);
@@ -73,7 +75,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ReversedDamageChallenge.class);
 		register(HydraChallenge.class);
 		register(DupedSpawningChallenge.class);
-		// Anvil rain
+		register(AnvilRainChallenge.class);
 		register(NoExpChallenge.class);
 		register(NoTradingChallenge.class);
 		register(AdvancementDamageChallenge.class);
@@ -92,6 +94,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		// Force mob kill
 		register(InvertHealthChallenge.class);
 		register(StoneSightChallenge.class);
+		register(NoMobSightChallenge.class);
 		register(LowDropRateChallenge.class);
 		//register(TsunamiChallenge.class);
 		register(InvisibleMobsChallenge.class);
@@ -110,7 +113,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DeathOnFallChallenge.class);
 		//register(ZeroHeartsChallenge.class);
 		register(RandomPotionEffectChallenge.class);
-		register(RandomChallengeChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
