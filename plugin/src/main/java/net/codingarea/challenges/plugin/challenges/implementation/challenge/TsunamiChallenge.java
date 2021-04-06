@@ -40,8 +40,6 @@ public class TsunamiChallenge extends TimedChallenge {
 	@Override
 	protected void onEnable() {
 		bossbar.setContent((bossbar, player) -> {
-			bossbar.setProgress(1);
-			bossbar.setStyle(BarStyle.SOLID);
 			Environment environment = player.getWorld().getEnvironment();
 			if (environment == Environment.NORMAL) {
 				bossbar.setColor(BarColor.BLUE);

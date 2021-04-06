@@ -28,11 +28,7 @@ public final class LoaderRegistry {
 			Logger.debug("Executing subscribers for {}", loader.getSimpleName());
 			executed = true;
 			for (Runnable subscriber : actions) {
-				try {
-					subscriber.run();
-				} catch (Exception ex) {
-					Logger.error("Could not execute subscriber for {}", loader.getSimpleName(), ex);
-				}
+				LoaderRegistry.execute(loader, subscriber);
 			}
 		}
 
@@ -92,6 +88,17 @@ public final class LoaderRegistry {
 	public void subscribe(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
 		Subscribers subscribers = this.subscribers.computeIfAbsent(classOfLoader, key -> new Subscribers(classOfLoader));
 		subscribers.actions.add(action);
+
+		if (subscribers.executed)
+			execute(classOfLoader, action);
+	}
+
+	protected static void execute(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
+		try {
+			action.run();
+		} catch (Exception ex) {
+			Logger.error("Could not execute subscriber for {}", classOfLoader.getSimpleName(), ex);
+		}
 	}
 
 }

@@ -5,7 +5,7 @@ import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
@@ -14,9 +14,9 @@ import java.util.UUID;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class PlayerStats {
+public class PlayerStats {
 
-	private final Map<Statistic, Double> values = new HashMap<>();
+	private final Map<Statistic, Double> values = new EnumMap<>(Statistic.class);
 	private final UUID uuid;
 	private final String name;
 

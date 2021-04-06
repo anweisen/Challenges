@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
@@ -9,6 +10,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuPosition.SlottedMenu
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
@@ -17,6 +19,7 @@ import net.codingarea.challenges.plugin.utils.misc.StatsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.util.List;
 
@@ -36,7 +39,18 @@ public class LeaderboardCommand implements PlayerCommand {
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
+		if (!Challenges.getInstance().getStatsManager().isEnabled()) {
+			player.sendMessage(Prefix.CHALLENGES + Message.forName("feature-disabled").asString());
+			SoundSample.BASS_OFF.play(player);
+			return;
+		}
 
+		createInventory(player).open(player, Challenges.getInstance());
+	}
+
+	@Nonnull
+	@CheckReturnValue
+	public AnimatedInventory createInventory(@Nonnull Player player) {
 		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 4*9, MenuPosition.HOLDER);
 		StatsHelper.setAccent(inventory, 2);
 		SlottedMenuPosition position = new SlottedMenuPosition();
@@ -47,9 +61,8 @@ public class LeaderboardCommand implements PlayerCommand {
 			position.setAction(slots[i], () -> openMenu(player, statistic, 0));
 		}
 
-		inventory.open(player, Challenges.getInstance());
 		MenuPosition.set(player, position);
-
+		return inventory;
 	}
 
 	private void openMenu(@Nonnull Player player, @Nonnull Statistic statistic, int page) {
@@ -83,12 +96,13 @@ public class LeaderboardCommand implements PlayerCommand {
 			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
 
 			position.setAction(slots[i], () -> {
+				MenuPosition.set(player, new EmptyMenuPosition());
 				loadingInventory.open(player, Challenges.getInstance());
 				player.performCommand("stats " + stats.getPlayerName());
 			});
 		}
 
-		if (page == 0) position.setAction(navigationSlots[0], () -> player.performCommand("lb"));
+		if (page == 0) position.setAction(navigationSlots[0], () -> createInventory(player).openNotAnimated(player, true));
 		else position.setAction(navigationSlots[0], () -> openMenu(player, statistic, page - 1));
 		if (inventory.getLastFrame().getItemType(navigationSlots[1]) == Material.PLAYER_HEAD)
 			position.setAction(navigationSlots[1], () -> openMenu(player, statistic, page + 1));

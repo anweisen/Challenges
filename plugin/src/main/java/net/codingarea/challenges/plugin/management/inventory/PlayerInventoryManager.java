@@ -66,6 +66,7 @@ public final class PlayerInventoryManager implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onDrop(@Nonnull PlayerDropItemEvent event) {
+		if (ChallengeAPI.isStarted()) return;
 		if (!hasItems(event.getPlayer())) return;
 		event.setCancelled(true);
 	}
@@ -84,6 +85,7 @@ public final class PlayerInventoryManager implements Listener {
 				return;
 		}
 
+		if (ChallengeAPI.isStarted()) return;
 		if (!hasItems(event.getPlayer())) return;
 		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(event.getPlayer());
 

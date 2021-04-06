@@ -29,15 +29,7 @@ public final class StringUtils {
 			builder.append(lastWasSpace ? Character.toUpperCase(letter) : Character.toLowerCase(letter));
 			lastWasSpace = false;
 		}
-
-		String name = builder.toString();
-		String[] lowerCase = {"And", "Or", "If", "But", "It", "He", "She", "It", "We", "Are", "Is"};
-		for (String sequence : lowerCase) {
-			name = name.replace(sequence + " ", sequence.toLowerCase() + " ")
-					.replace(" " + sequence, " " + sequence.toLowerCase());
-		}
-
-		return name;
+		return builder.toString();
 	}
 
 	@Nonnull

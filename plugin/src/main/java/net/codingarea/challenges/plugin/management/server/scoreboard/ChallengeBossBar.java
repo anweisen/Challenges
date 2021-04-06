@@ -37,7 +37,7 @@ public final class ChallengeBossBar {
 
 		@Nonnull
 		public BossBarInstance setProgress(double progress) {
-			if (progress < 0 || progress > 1) throw new IllegalArgumentException("Progress must be between 0 and 1");
+			if (progress < 0 || progress > 1) throw new IllegalArgumentException("Progress must be between 0 and 1; Got " + progress);
 			this.progress = progress;
 			return this;
 		}

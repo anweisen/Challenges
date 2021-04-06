@@ -56,6 +56,7 @@ public class MaxHealthSetting extends Modifier {
 
 	private void updateHealth(Player player) {
 		AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+		if (attribute == null) return; // Normally this should never happen because its a generic attribute, but sometimes it does somehow, weird
 		if (attribute.getBaseValue() != getValue()) {
 			attribute.setBaseValue(getValue());
 			player.setHealth(getValue());

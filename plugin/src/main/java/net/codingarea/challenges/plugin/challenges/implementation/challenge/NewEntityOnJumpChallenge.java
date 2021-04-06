@@ -39,7 +39,6 @@ public class NewEntityOnJumpChallenge extends Setting {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJump(@Nonnull PlayerJumpEvent event) {
 		if (!shouldExecuteEffect()) return;
-		//if (ignorePlayer(event.getPlayer())) return;
 		spawnRandomEntity(event.getPlayer().getLocation());
 	}
 
@@ -47,8 +46,7 @@ public class NewEntityOnJumpChallenge extends Setting {
 		if (location.getWorld() == null) return;
 		try {
 			location.getWorld().spawnEntity(location, EntityType.values()[random.nextInt(EntityType.values().length)]);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (IllegalArgumentException | IllegalStateException ex) {
 			spawnRandomEntity(location);
 		}
 	}

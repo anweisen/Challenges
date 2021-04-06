@@ -6,6 +6,7 @@ import net.anweisen.utilities.commons.annotations.ReplaceWith;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -385,7 +386,7 @@ public class ItemBuilder {
 
 		@Nonnull
 		public SkullBuilder setOwner(@Nonnull UUID uuid, @Nonnull String name) {
-			if (Challenges.getInstance().getDatabaseManager().isConnected()) {
+			if (Challenges.getInstance().getDatabaseManager().isEnabled()) {
 				String textures = DatabaseHelper.getTextures(uuid);
 				if (textures != null) {
 					GameProfileUtils.applyTextures(getMeta(), uuid, name, textures);

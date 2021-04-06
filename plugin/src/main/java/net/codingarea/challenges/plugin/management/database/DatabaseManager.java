@@ -64,7 +64,8 @@ public final class DatabaseManager {
 					new SQLColumn("name", "varchar", 16),
 					new SQLColumn("textures", "varchar", 265),
 					new SQLColumn("stats", "varchar", 1500),
-					new SQLColumn("config", "varchar", 1500));
+					new SQLColumn("config", "varchar", 1500)
+			);
 		});
 	}
 
@@ -86,6 +87,10 @@ public final class DatabaseManager {
 
 	public boolean isConnected() {
 		return database != null && database.isConnected();
+	}
+
+	public boolean isEnabled() {
+		return database != null;
 	}
 
 	public Database getDatabase() {

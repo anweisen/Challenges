@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -45,10 +46,7 @@ public class ResetCommand implements SenderCommand, Completer {
 
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		if (confirmReset && args.length == 1) {
-			return Collections.singletonList("confirm");
-		}
-		return null;
+		return confirmReset && args.length == 1 ? Collections.singletonList("confirm") : Collections.emptyList();
 	}
 
 }

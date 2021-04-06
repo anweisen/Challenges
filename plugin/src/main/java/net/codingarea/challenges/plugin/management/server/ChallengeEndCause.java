@@ -27,4 +27,18 @@ public enum ChallengeEndCause {
 		return withWinner && winnerMessage != null ? winnerMessage : noWinnerMessage;
 	}
 
+	@Nonnull
+	public Message getNoWinnerMessage() {
+		return noWinnerMessage;
+	}
+
+	@Nullable
+	public Message getWinnerMessage() {
+		return winnerMessage;
+	}
+
+	public boolean isWinnable() {
+		return winnerMessage != null;
+	}
+
 }

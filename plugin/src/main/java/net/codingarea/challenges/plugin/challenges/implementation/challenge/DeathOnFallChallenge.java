@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 import javax.annotation.Nonnull;
 
@@ -36,7 +37,7 @@ public class DeathOnFallChallenge extends Setting {
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
 		if (event.getCause() != DamageCause.FALL) return;
-		player.damage(Integer.MAX_VALUE);
+		event.setDamage(player.getHealth());
 	}
 
 }
