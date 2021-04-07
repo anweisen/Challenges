@@ -43,7 +43,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
 		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
-		register(TimberSetting.class); // TODO: Handle break event
+		register(TimberSetting.class);
 		register(PvPSetting.class);
 		register(NoHitDelaySetting.class);
 		registerWithCommand(TopCommandSetting.class, "top");
@@ -115,6 +115,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		//register(ZeroHeartsChallenge.class);
 		register(RandomPotionEffectChallenge.class);
 		register(EnderGamesChallenge.class);
+		register(RandomEventChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

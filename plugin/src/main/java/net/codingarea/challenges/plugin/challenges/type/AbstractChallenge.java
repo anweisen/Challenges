@@ -123,8 +123,15 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE;
 	}
 
-	protected final void broadcast(@Nonnull Consumer<Player> action) {
+	protected final void broadcast(@Nonnull Consumer<? super Player> action) {
 		Bukkit.getOnlinePlayers().forEach(action);
+	}
+
+	protected final void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
+			action.accept(player);
+		}
 	}
 
 	@Nonnull

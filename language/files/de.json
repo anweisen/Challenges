@@ -137,6 +137,38 @@
   "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
   "endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
 
+  "random-event-speed": [
+    "Sonic? Bist du es?",
+    "Woahh! Das ist aber schnell"
+  ],
+  "random-event-entities": [
+    "Ist das hier ein Zoo?",
+    "Wo kommt ihr denn her?",
+    "Was macht ihr denn hier?"
+  ],
+  "random-event-hole": [
+    "Du bist aber ganz schön tief gefallen",
+    "Von ganz oben nach ganz unten..",
+    "Wo kommt denn das Loch her?"
+  ],
+  "random-event-fly": [
+    "Guten Flug :)",
+    "I believe I can fly..",
+    "So fühlt sich also fliegen an"
+  ],
+  "random-event-webs": [
+    "Liegen die schon lange hier?"
+  ],
+  "random-event-ores": [
+    "Wo sind denn die ganzen Erze hin?",
+    "Gibt es hier keine Erze?",
+    "Gab es hier mal Erze?"
+  ],
+  "random-event-sickness": [
+    "Bist du etwa krank?",
+    "Was geht denn jetzt ab"
+  ],
+
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
@@ -704,6 +736,11 @@
     "mit einem *zufälligem Entity* aus",
     "einem *200 Block* radius *getauscht*"
   ],
+  "item-random-event-challenge": [
+    "§6Random Events",
+    "Alle *paar Minuten* wird ein von",
+    "*{0} random Events* aktiviert"
+  ],
 
 
   "item-dragon-goal": [
@@ -804,5 +841,4 @@
     "Stellt ein ob *{1}*",
     "genutzt werden *kann*"
   ]
-
 }

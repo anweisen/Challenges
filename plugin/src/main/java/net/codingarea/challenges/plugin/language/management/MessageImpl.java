@@ -5,12 +5,15 @@ import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
+import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 
 /**
@@ -35,6 +38,20 @@ public class MessageImpl implements Message {
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
 		return Message.NULL;
+	}
+
+	@Nonnull
+	@Override
+	public String asRandomString(@Nonnull Object... args) {
+		return asRandomString(ThreadLocalRandom.current(), args);
+	}
+
+	@Nonnull
+	@Override
+	public String asRandomString(@Nonnull Random random, @Nonnull Object... args) {
+		String[] array = asArray(args);
+		if (array.length == 0) return Message.NULL;
+		return RandomizeUtils.choose(random, array);
 	}
 
 	@Nonnull
@@ -70,6 +87,20 @@ public class MessageImpl implements Message {
 			if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
 			else                       Bukkit.broadcastMessage(prefix + line);
 		}
+	}
+
+	@Override
+	public void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args) {
+		String line = asRandomString(args);
+		if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
+		else                       Bukkit.broadcastMessage(prefix + line);
+	}
+
+	@Override
+	public void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args) {
+		String line = asRandomString(random, args);
+		if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
+		else                       Bukkit.broadcastMessage(prefix + line);
 	}
 
 	@Override

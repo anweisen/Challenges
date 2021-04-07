@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -19,6 +20,12 @@ public interface Message {
 	String asString(@Nonnull Object... args);
 
 	@Nonnull
+	String asRandomString(@Nonnull Random random, @Nonnull Object... args);
+
+	@Nonnull
+	String asRandomString(@Nonnull Object... args);
+
+	@Nonnull
 	String[] asArray(@Nonnull Object... args);
 
 	@Nonnull
@@ -26,6 +33,8 @@ public interface Message {
 
 	void send(@Nonnull CommandSender player, @Nonnull Prefix prefix, @Nonnull Object... args);
 	void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args);
+	void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args);
+	void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcastTitle(@Nonnull Object... args);
 	void sendTitle(@Nonnull Player player, @Nonnull Object... args);
