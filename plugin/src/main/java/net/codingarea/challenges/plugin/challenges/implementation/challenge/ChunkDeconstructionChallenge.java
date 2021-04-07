@@ -43,11 +43,6 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 	}
 
 	@Override
-	protected void onValueChange() {
-		restartTimer();
-	}
-
-	@Override
 	protected int getSecondsUntilNextActivation() {
 		return getValue();
 	}

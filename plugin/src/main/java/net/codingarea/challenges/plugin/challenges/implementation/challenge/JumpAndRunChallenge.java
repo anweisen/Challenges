@@ -129,17 +129,20 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		lastBlock.setType(Material.GOLD_BLOCK);
 
 		Material type = getRandomBlockType();
-		targetBlock = new RandomJumpGenerator().next(random, lastBlock, type == Material.BLUE_TERRACOTTA, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
+		targetBlock = new RandomJumpGenerator().next(random, lastBlock, type == Material.CYAN_TERRACOTTA || type == Material.EMERALD_BLOCK, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
 		targetBlock.setType(type);
 
 	}
 
 	@Nonnull
 	protected Material getRandomBlockType() {
+		if (currentJump == jumps - 1) return Material.EMERALD_BLOCK;
+
 		Material[] materials = {
-			Material.BLUE_TERRACOTTA,
-			Material.BLUE_TERRACOTTA,
-			Material.BLUE_TERRACOTTA,
+			Material.CYAN_TERRACOTTA,
+			Material.CYAN_TERRACOTTA,
+			Material.CYAN_TERRACOTTA,
+			Material.CYAN_TERRACOTTA,
 			Material.END_ROD,
 			Material.COBBLESTONE_WALL,
 			Material.SPRUCE_FENCE
@@ -201,7 +204,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.ALWAYS, worldPolicy = ExtraWorldPolicy.USED)
 	public void spawnParticles() {
 		if (targetBlock == null) return;
-		ParticleUtils.spawnParticleCircle(targetBlock.getLocation().add(0.5, 1.05, 0.5), Particle.SPELL_INSTANT, 13, 0.45);
+		ParticleUtils.spawnParticleCircle(targetBlock.getLocation().add(0.5, 1.05, 0.5), Particle.SPELL_INSTANT, 13, 0.35);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

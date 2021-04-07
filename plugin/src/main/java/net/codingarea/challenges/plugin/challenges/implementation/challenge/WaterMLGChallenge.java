@@ -92,7 +92,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!isEnabled()) return;
