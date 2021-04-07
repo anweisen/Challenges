@@ -238,6 +238,12 @@
   "item-heart-damage-description": [
     "§8» §7Schaden: §e{0} §c❤"
   ],
+  "item-max-health-description": [
+    "§8» §7Maximale Leben: §e{0} §c❤"
+  ],
+  "item-chance-description": [
+    "§8» §7Chance: §e{0}%"
+  ],
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -490,9 +496,6 @@
     "Die *Leben* aller *Mobs*",
     "sind *random*"
   ],
-  "item-randomized-hp-challenge-description": [
-    "§8» §7Maximale Leben: §e{0} §c❤"
-  ],
   "item-snake-challenge": [
     "§9Snake",
     "*Jeder Spieler* zieht eine",
@@ -541,9 +544,6 @@
     "§6Low Drop Chance",
     "Die *Dropchance* jedes *Blockes* wird auf die",
     "angegebene *Prozentzahl* gesetzt"
-  ],
-  "item-low-drop-rate-challenge-description": [
-    "§8» §7Chance: §e{0}%"
   ],
   "item-invisible-mobs-challenge": [
     "§fUnsichtbare Mobs",

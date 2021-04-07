@@ -37,7 +37,7 @@ public class LowDropRateChallenge extends SettingModifier {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-low-drop-rate-challenge-description").asArray(getValue() * 10);
+		return Message.forName("item-chance-description").asArray(getValue() * 10);
 	}
 
 	@Override

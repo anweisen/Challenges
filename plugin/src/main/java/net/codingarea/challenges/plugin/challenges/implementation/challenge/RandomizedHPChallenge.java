@@ -120,7 +120,7 @@ public class RandomizedHPChallenge extends SettingModifier {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-randomized-hp-challenge-description").asArray(getValue() * 50);
+		return Message.forName("item-max-health-description").asArray(getValue() * 50);
 	}
 
 }
