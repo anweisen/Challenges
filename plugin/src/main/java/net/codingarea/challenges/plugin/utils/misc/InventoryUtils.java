@@ -6,8 +6,10 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Location;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -23,7 +25,7 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class InventoryUtils {
 
-	private InventoryUtils() {}
+	private InventoryUtils() { }
 
 	public static void fillInventory(@Nonnull Inventory inventory, @Nullable ItemStack item) {
 		for (int i = 0; i < inventory.getSize(); i++) {
@@ -133,6 +135,12 @@ public final class InventoryUtils {
 	public static void dropItem(@Nonnull Location location, @Nonnull ItemStack itemStack) {
 		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), itemStack);
 		droppedItem.setVelocity(location.getDirection().multiply(0.4));
+	}
+
+	public static void removeRandomItem(@Nonnull Inventory inventory) {
+		int slot = InventoryUtils.getRandomFullSlot(inventory);
+		if (slot == -1) return;
+		inventory.setItem(slot, null);
 	}
 
 }

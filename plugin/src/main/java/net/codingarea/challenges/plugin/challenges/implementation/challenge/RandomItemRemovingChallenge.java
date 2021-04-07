@@ -58,16 +58,9 @@ public class RandomItemRemovingChallenge extends TimedChallenge {
 			if (player.getInventory().getContents().length <= 0) continue;
 
 			Bukkit.getScheduler().runTask(plugin, () -> {
-				removeRandomItem(player.getLocation(), player.getInventory());
+				InventoryUtils.removeRandomItem(player.getInventory());
 			});
 		}
-	}
-
-	private void removeRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
-		if (location.getWorld() == null) return;
-		int slot = InventoryUtils.getRandomFullSlot(inventory);
-		if (slot == -1) return;
-		inventory.setItem(slot, null);
 	}
 
 }

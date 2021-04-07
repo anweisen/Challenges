@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -41,6 +42,10 @@ public final class BlockUtils {
 	public static boolean isSameLocationIgnoreHeight(@Nonnull Location loc1, @Nonnull Location loc2) {
 		return loc1.getX() == loc2.getX()
 			&& loc1.getZ() == loc2.getZ();
+	}
+
+	public static boolean isSameChunk(@Nonnull Chunk chunk1, @Nonnull Chunk chunk2) {
+		return chunk1.getX() == chunk2.getX() && chunk1.getZ() == chunk2.getZ();
 	}
 
 	private static final BlockFace[] faces = {
