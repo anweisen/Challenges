@@ -700,6 +700,12 @@
     "mit einem *zufälligem Entity* aus",
     "einem *200 Block* radius *getauscht*"
   ],
+  "item-block-chunk-item-remove-challenge": [
+    "§6Item Löschung bei Fortbewegung",
+    "Es wird für jeden *Block* / *Chunk*",
+    "den du dich *fortbewegst* ein Item,",
+    "aus deinem Inventar, *gelöscht*"
+  ],
 
 
   "item-dragon-goal": [
