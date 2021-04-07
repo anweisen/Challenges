@@ -69,7 +69,6 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Override
 	public void playValueChangeTitle() {
 		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 30, getValue() * 60 + 30);
-		//ChallengeHelper.playChangeChallengeValueTitle(this, getValue() + " " + Message.forName(getValue() == 1 ? "minute" : "minutes").asString());
 	}
 
 	@Override

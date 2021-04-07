@@ -26,12 +26,15 @@ public final class PlayerData {
 	private final double health;
 	private final int food;
 	private final float saturation;
+	private final int heldItemSlot;
 
 	public PlayerData(@Nonnull Player player) {
-		this(player.getGameMode(), player.getLocation(), player.getInventory().getContents(), player.getInventory().getArmorContents(), player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation());
+		this(player.getGameMode(), player.getLocation(), player.getInventory().getContents(), player.getInventory().getArmorContents(),
+				player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot());
 	}
 
-	public PlayerData(@Nonnull GameMode gamemode, @Nonnull Location location, @Nonnull ItemStack[] inventory, @Nonnull ItemStack[] armor, @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation) {
+	public PlayerData(@Nonnull GameMode gamemode, @Nonnull Location location, @Nonnull ItemStack[] inventory, @Nonnull ItemStack[] armor,
+	                  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot) {
 		this.gamemode = gamemode;
 		this.location = location;
 		this.inventory = inventory;
@@ -40,6 +43,7 @@ public final class PlayerData {
 		this.health = health;
 		this.food = food;
 		this.saturation = saturation;
+		this.heldItemSlot = heldItemSlot;
 	}
 
 	public void apply(@Nonnull Player player) {
@@ -53,6 +57,7 @@ public final class PlayerData {
 		player.setSaturation(saturation);
 		player.getInventory().setContents(inventory);
 		player.getInventory().setArmorContents(armor);
+		player.getInventory().setHeldItemSlot(heldItemSlot);
 		player.addPotionEffects(effects);
 	}
 
@@ -67,6 +72,7 @@ public final class PlayerData {
 				", health=" + health +
 				", food=" + food +
 				", saturation=" + saturation +
+				", heldItemSlot=" + heldItemSlot +
 				'}';
 	}
 
@@ -78,16 +84,17 @@ public final class PlayerData {
 		return Double.compare(data.health, health) == 0
 				&& food == data.food
 				&& Float.compare(data.saturation, saturation) == 0
-				&& Objects.equals(effects, data.effects)
+				&& heldItemSlot == data.heldItemSlot
+				&& effects.equals(data.effects)
 				&& gamemode == data.gamemode
-				&& Objects.equals(location, data.location)
+				&& location.equals(data.location)
 				&& Arrays.equals(inventory, data.inventory)
 				&& Arrays.equals(armor, data.armor);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(effects, gamemode, location, health, food, saturation);
+		int result = Objects.hash(effects, gamemode, location, health, food, saturation, heldItemSlot);
 		result = 31 * result + Arrays.hashCode(inventory);
 		result = 31 * result + Arrays.hashCode(armor);
 		return result;

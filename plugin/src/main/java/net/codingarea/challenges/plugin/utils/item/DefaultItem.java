@@ -54,7 +54,7 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder value(int value, @Nonnull String prefix) {
-		return new ItemBuilder(Material.STONE_BUTTON).name(name(prefix + value)).amount(value);
+		return create(Material.STONE_BUTTON, prefix + value).amount(value);
 	}
 
 	@Nonnull

@@ -179,7 +179,7 @@ public final class Menu {
 
 			if (info.getSlot() == NAVIGATION_SLOTS[0]) {
 				SoundSample.CLICK.play(info.getPlayer());
-				if (page == 0) {
+				if (page == 0 || info.isShiftClick()) {
 					Challenges.getInstance().getMenuManager().openGUIInstantly(info.getPlayer());
 				} else {
 					open(info.getPlayer(), page - 1);

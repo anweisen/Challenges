@@ -289,7 +289,7 @@
   "item-position-setting": [
     "§9Positions",
     "Erlaubt es dir *Positionen*",
-    "zu *markieren*"
+    "mit */pos*  zu *markieren*"
   ],
   "item-backpack-setting": [
     "§6Backpack",
@@ -781,7 +781,7 @@
   ],
   "item-damage-rule-explosion": [
     "§cExplosion Damage",
-    "Stellt ein ob du *Explosions* bekommen kannst"
+    "Stellt ein ob du *Explosions Schaden* bekommen kannst"
   ],
   "item-damage-rule-drowning": [
     "§9Drowning Damage",

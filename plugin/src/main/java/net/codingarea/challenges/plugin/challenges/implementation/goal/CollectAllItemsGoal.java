@@ -96,7 +96,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
 		if (!isEnabled()) {
-			Message.forName("challenges-disabled").send(sender, Prefix.CHALLENGES);
+			Message.forName("challenge-disabled").send(sender, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.playIfPlayer(sender);
 			return;
 		}

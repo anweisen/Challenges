@@ -95,7 +95,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 		int time = getCurrentTime(player) + 1;
 		if (time >= getValue() * 60) {
 			Bukkit.getScheduler().runTask(plugin, () -> {
-				player.damage(Integer.MAX_VALUE);
+				player.setHealth(0);
 			});
 		}
 		if (time < getValue() * 60) {

@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
+import net.codingarea.challenges.plugin.challenges.implementation.setting.RespawnSetting;
+import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
@@ -60,7 +63,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 		Location currentLocation = new Location(getExtraWorld(), 0, 150, 0);
 
-		teleportToWorld(true, (player, integer) -> {
+		teleportToWorld(false, (player, index) -> {
 			currentLocation.add(100, 0, 0);
 			player.getInventory().setHeldItemSlot(4);
 			player.getInventory().setItem(4, new ItemStack(Material.WATER_BUCKET));
@@ -94,8 +97,13 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!isEnabled()) return;
 		if (!isInExtraWorld()) return;
-		Player player = (Player) event.getEntity();
-		teleportBack(player);
+
+		if (AbstractChallenge.getFirstInstance(OneTeamLifeSetting.class).isEnabled()) {
+			teleportBack();
+		} else {
+			Player player = (Player) event.getEntity();
+			teleportBack(player);
+		}
 	}
 
 }

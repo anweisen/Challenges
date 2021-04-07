@@ -6,6 +6,7 @@ import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.*;
@@ -15,6 +16,9 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -73,6 +77,8 @@ public final class WorldManager {
 	private final long customSeed;
 	private final String levelName;
 	private final String[] worlds;
+
+	private final Map<UUID, PlayerData> playerData = new HashMap<>();
 
 	private WorldSettings settings = new WorldSettings();
 	private World world;
@@ -295,8 +301,35 @@ public final class WorldManager {
 	}
 
 	public void setWorldIsInUse(boolean worldIsInUse) {
-		if (!worldIsInUse) settings = new WorldSettings();
 		this.worldIsInUse = worldIsInUse;
+		if (worldIsInUse) {
+			cachePlayerData();
+		} else {
+			settings = new WorldSettings();
+			restorePlayerData();
+		}
+	}
+
+	private void cachePlayerData() {
+		Bukkit.getOnlinePlayers().forEach(this::cachePlayerData);
+	}
+
+	public void cachePlayerData(@Nonnull Player player) {
+		playerData.put(player.getUniqueId(), new PlayerData(player));
+	}
+
+	public void restorePlayerData() {
+		Bukkit.getOnlinePlayers().forEach(this::restorePlayerData);
+	}
+
+	public void restorePlayerData(@Nonnull Player player) {
+		PlayerData data = playerData.remove(player.getUniqueId());
+		if (data == null) return;
+		data.apply(player);
+	}
+
+	public boolean hasPlayerData(@Nonnull Player player) {
+		return playerData.containsKey(player.getUniqueId());
 	}
 
 	@Nonnull

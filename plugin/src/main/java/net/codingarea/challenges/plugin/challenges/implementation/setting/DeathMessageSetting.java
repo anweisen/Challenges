@@ -46,7 +46,7 @@ public class DeathMessageSetting extends Modifier {
 		switch (getValue()) {
 			default:        return DefaultItem.disabled();
 			case ENABLED:   return DefaultItem.enabled();
-			case VANILLA:   return new ItemBuilder(MaterialWrapper.SIGN, DefaultItem.name("§6Vanilla"));
+			case VANILLA:   return DefaultItem.create(MaterialWrapper.SIGN, "§6Vanilla");
 		}
 	}
 

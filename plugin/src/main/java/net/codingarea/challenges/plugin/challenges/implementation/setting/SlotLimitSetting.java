@@ -47,7 +47,7 @@ public class SlotLimitSetting extends Modifier {
 	}
 
 	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
-	private void updateSlots() {
+	public void updateSlots() {
 		Bukkit.getOnlinePlayers().forEach(this::updateSlots);
 	}
 

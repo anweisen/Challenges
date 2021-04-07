@@ -28,6 +28,7 @@ public final class ServerManager {
 	private static boolean hasCheated = false;
 
 	private final boolean setSpectatorOnWin;
+	private final boolean winSounds;
 
 	public ServerManager() {
 		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
@@ -36,6 +37,7 @@ public final class ServerManager {
 
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
 		setSpectatorOnWin = pluginConfig.getBoolean("set-spectator-on-win");
+		winSounds = pluginConfig.getBoolean("enabled-win-sounds");
 	}
 
 	public void setNotFresh() {
@@ -74,8 +76,16 @@ public final class ServerManager {
 		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
 
-		if (endCause == ChallengeEndCause.GOAL_REACHED && !setSpectatorOnWin) return;
+		if (endCause != ChallengeEndCause.GOAL_REACHED || setSpectatorOnWin) {
+			setSpectator();
+		}
+		if (endCause == ChallengeEndCause.GOAL_REACHED && winSounds && currentGoal != null) {
+			if (currentGoal.getWinSound() != null)
+				currentGoal.getWinSound().broadcast();
+		}
+	}
 
+	private void setSpectator() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.setGameMode(GameMode.SPECTATOR);
 			SoundSample.BLAST.play(player);
@@ -86,7 +96,6 @@ public final class ServerManager {
 				// We cant spawn fireworks like that in some versions of spigot
 			}
 		}
-
 	}
 
 }

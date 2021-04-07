@@ -108,7 +108,7 @@ public class ZeroHeartsChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
-		player.damage(Integer.MAX_VALUE);
+		player.setHealth(0);
 		Message.forName("zero-hearts-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));
 	}
 

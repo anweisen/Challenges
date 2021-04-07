@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.EmptyDocument;
 import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
@@ -60,8 +59,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 						.query("challenges")
 						.select("config")
 						.where("uuid", player.getUniqueId())
-						.execute().first()
-						.orElse(new EmptyDocument());
+						.execute().firstOrEmpty();
 				Challenges.getInstance().getChallengeManager().loadSettings(config);
 				Message.forName("player-config-loaded").send(player, Prefix.CHALLENGES);
 				break;

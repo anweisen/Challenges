@@ -41,9 +41,9 @@ public class DamageInventoryClearChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == 1) {
-			return new ItemBuilder(Material.ENDER_CHEST, DefaultItem.name("§5Everyone"));
+			return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
 		} else {
-			return new ItemBuilder(Material.PLAYER_HEAD, DefaultItem.name("§6Player"));
+			return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
 		}
 	}
 

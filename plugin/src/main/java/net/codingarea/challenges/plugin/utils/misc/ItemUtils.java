@@ -27,7 +27,7 @@ public final class ItemUtils {
 		if (BukkitReflectionUtils.isAir(material)) return false;
 		if (name.endsWith("_SPAWN_EGG")) return false;
 		if (name.startsWith("INFESTED_")) return false;
-		if (name.startsWith("LEGACY_")) return isObtainableInSurvival(Material.valueOf(name.substring("LEGACY_".length())));
+		if (name.startsWith("LEGACY_")) return false;
 		switch (name) { // Use name instead of enum its self, to prevent NoSuchFieldErrors in older versions where this specific enum does not exist
 			case "CHAIN_COMMAND_BLOCK":
 			case "REPEATING_COMMAND_BLOCK":

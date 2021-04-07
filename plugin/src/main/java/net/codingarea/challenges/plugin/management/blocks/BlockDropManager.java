@@ -52,8 +52,12 @@ public final class BlockDropManager {
 
 	}
 
-	private static class RegisteredDrops extends RegisteredOptions<List<Material>> {}
-	private static class RegisteredChance extends RegisteredOptions<BooleanSupplier> {}
+	public static class RegisteredDrops extends RegisteredOptions<List<Material>> {
+		private RegisteredDrops() {}
+	}
+	public static class RegisteredChance extends RegisteredOptions<BooleanSupplier> {
+		private RegisteredChance() {}
+	}
 
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 	private final Map<Material, RegisteredChance> chance = new HashMap<>();
@@ -142,6 +146,11 @@ public final class BlockDropManager {
 		}
 
 		remove.forEach(drops::remove);
+	}
+
+	@Nonnull
+	public Map<Material, RegisteredDrops> getRegisteredDrops() {
+		return Collections.unmodifiableMap(drops);
 	}
 
 }

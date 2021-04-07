@@ -23,8 +23,6 @@ import java.util.function.Consumer;
  */
 public abstract class WorldDependentChallenge extends TimedChallenge {
 
-	private final Map<UUID, PlayerData> before = new HashMap<>();
-
 	private boolean inExtraWorld;
 	private BiConsumer<Player, Integer> lastTeleport;
 	private int teleportIndex;
@@ -80,30 +78,14 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = false);
 		lastTeleport = null;
 		teleportIndex = 0;
-
-		List<UUID> remove = new ArrayList<>();
-		before.forEach((uuid, data) -> {
-			Player player = Bukkit.getPlayer(uuid);
-			if (player == null) return;
-
-			player.setNoDamageTicks(20);
-			data.apply(player);
-
-			remove.add(uuid);
-		});
-		remove.forEach(before::remove);
 	}
 
-
 	protected void teleportBack(@Nonnull Player player) {
-		PlayerData data = before.remove(player.getUniqueId());
-		if (data == null) return;
-		player.setNoDamageTicks(20);
-		data.apply(player);
+		Challenges.getInstance().getWorldManager().restorePlayerData(player);
 	}
 
 	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
-		before.put(player.getUniqueId(), new PlayerData(player));
+		Challenges.getInstance().getWorldManager().cachePlayerData(player);
 		player.getInventory().clear();
 		player.setFoodLevel(20);
 		player.setSaturation(20);
@@ -118,16 +100,12 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		UUID uuid = event.getPlayer().getUniqueId();
 		if (isInExtraWorld()) {
 			if (lastTeleport == null) return;
-			if (before.containsKey(uuid)) return;
+			if (Challenges.getInstance().getWorldManager().hasPlayerData(event.getPlayer())) return;
 			teleport(event.getPlayer(), lastTeleport);
 		} else {
-			PlayerData data = before.get(uuid);
-			if (data == null) return;
-			data.apply(event.getPlayer());
-			before.remove(uuid);
+			Challenges.getInstance().getWorldManager().restorePlayerData(event.getPlayer());
 		}
 	}
 

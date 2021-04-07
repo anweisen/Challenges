@@ -32,7 +32,6 @@ public final class ScoreboardManager {
 		}
 		if (currentScoreboard != null) {
 			currentScoreboard.applyHide(player);
-
 			Bukkit.getScheduler().runTaskLaterAsynchronously(Challenges.getInstance(), () -> currentScoreboard.update(), 1);
 		}
 	}

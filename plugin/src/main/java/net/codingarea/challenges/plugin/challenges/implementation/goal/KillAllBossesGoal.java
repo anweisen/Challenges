@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.SettingGoal;
@@ -8,11 +9,8 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,14 +23,15 @@ import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
-public class AllBossesGoal extends SettingGoal {
+@Since("2.0")
+public class KillAllBossesGoal extends SettingGoal {
 
 	protected List<EntityType> entitiesToKill;
 	protected int totalBossCount;
 
-	public AllBossesGoal() {
+	public KillAllBossesGoal() {
 		resetBossesToKill();
 	}
 

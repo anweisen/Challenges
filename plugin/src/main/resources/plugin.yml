@@ -64,7 +64,7 @@ commands:
     description: "Shows you from which block the given item will be dropped through eg. block randomizer"
     permission: "challenges.search"
   position:
-    usage: "/pos [player]"
+    usage: "/pos [name]"
     description: "Allows you to save locations"
     aliases:
       - "pos"
