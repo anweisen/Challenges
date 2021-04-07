@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.CollectAllItemsGoal;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -13,32 +14,35 @@ import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
 
 /**
+ * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public abstract class PortalStructureTargetSetting extends OneEnabledSetting {
+public abstract class NetherPortalSpawnSetting extends OneEnabledSetting {
 
 	private static final String id = "netherportal_handle";
 
 	private final Map<Location, Location> netherPortalsByOverworldPortals = new HashMap<>();
 	private final StructureType structureType;
+	private final Collection<Material> groundMaterial;
 	private final String unableToFindMessage;
 
-	public PortalStructureTargetSetting(@Nonnull MenuType menu, @Nonnull StructureType structureType, @Nonnull String unableToFindMessage) {
+	public NetherPortalSpawnSetting(@Nonnull MenuType menu, @Nonnull StructureType structureType, @Nonnull String unableToFindMessage, @Nonnull Material... groundMaterial) {
 		super(menu, id);
 		this.structureType = structureType;
 		this.unableToFindMessage = unableToFindMessage;
+		this.groundMaterial = Arrays.asList(groundMaterial);
 	}
 
-	public PortalStructureTargetSetting(@Nonnull MenuType menu, boolean enabledByDefault, @Nonnull StructureType structureType, @Nonnull String unableToFindMessage) {
-		super(menu, enabledByDefault, id);
+	public NetherPortalSpawnSetting(@Nonnull MenuType menu, @Nonnull StructureType structureType, @Nonnull String unableToFindMessage, @Nonnull Collection<Material> groundMaterial) {
+		super(menu, id);
 		this.structureType = structureType;
 		this.unableToFindMessage = unableToFindMessage;
+		this.groundMaterial = groundMaterial;
 	}
 
 	@EventHandler
@@ -112,7 +116,7 @@ public abstract class PortalStructureTargetSetting extends OneEnabledSetting {
 				Location location = chunk.getBlock(x, 100, z).getLocation(); // Fortresses wont be above y=100
 				while (location.getBlockY() > 30) { // Fortresses wont be below y=30
 					location.subtract(0, 1, 0);
-					if (location.getBlock().getType() == Material.NETHER_BRICKS)
+					if (groundMaterial.contains(location.getBlock().getType()))
 						return location.add(0, 1, 0);
 				}
 

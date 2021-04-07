@@ -364,6 +364,11 @@
     "Wenn du in den *Nether* gehst",
     "spawnst du immer in einer *Festung*"
   ],
+  "item-bastion-spawn-setting": [
+    "§cBastions Spawn",
+    "Wenn du in den *Nether* gehst",
+    "spawnst du immer in einer *Bastion*"
+  ],
   "item-no-offhand-setting": [
     "§6Keine Offhand",
     "Die *zweite Hand* wird geblockt"
