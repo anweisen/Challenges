@@ -21,6 +21,7 @@ import org.bukkit.inventory.meta.*;
 import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -33,7 +34,7 @@ public class ItemBuilder {
 
 	public static final ItemStack FILL_ITEM     = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName("§0").build(),
 								  FILL_ITEM_2   = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§0").build(),
-								  BLOCKED_ITEM = new ItemBuilder(Material.BARRIER, "§cBlocked").build(),
+								  BLOCKED_ITEM  = new ItemBuilder(Material.BARRIER, "§cBlocked").build(),
 								  AIR           = new ItemStack(Material.AIR);
 
 	protected ItemStack item;
@@ -137,7 +138,7 @@ public class ItemBuilder {
 	}
 
 	@Nonnull
-	public ItemBuilder setName(@Nonnull String[] content) {
+	public ItemBuilder setName(@Nonnull String... content) {
 		if (content.length > 0) setName(content[0]);
 		if (content.length > 1) setLore(Arrays.copyOfRange(content, 1, content.length));
 		return this;
@@ -155,7 +156,7 @@ public class ItemBuilder {
 	}
 
 	@Nonnull
-	public ItemBuilder name(@Nonnull String[] content) {
+	public ItemBuilder name(@Nonnull String... content) {
 		return setName(content);
 	}
 
@@ -451,6 +452,11 @@ public class ItemBuilder {
 		}
 
 		@Nonnull
+		public PotionBuilder color(@Nonnull Color color) {
+			return setColor(color);
+		}
+
+		@Nonnull
 		@Override
 		public PotionMeta getMeta() {
 			return getCastedMeta();
@@ -488,6 +494,11 @@ public class ItemBuilder {
 		public LeatherArmorBuilder setColor(@Nonnull Color color) {
 			getMeta().setColor(color);
 			return this;
+		}
+
+		@Nonnull
+		public LeatherArmorBuilder color(@Nonnull Color color) {
+			return setColor(color);
 		}
 
 		@Nonnull

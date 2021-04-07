@@ -1,8 +1,12 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
@@ -41,24 +45,28 @@ public final class TimerMenu {
 		createNewInventory(1);
 		setNavigation();
 		updateInventories();
+
+		ChallengeAPI.registerScheduler(this);
 	}
 
+	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
 	public void updateInventories() {
 		updateFirstPage();
 		updateSecondPage();
 	}
 
-	private void updateFirstPage() {
+	public void updateFirstPage() {
 		Inventory inventory = inventories.get(0);
 		inventory.setItem(START_SLOT, Challenges.getInstance().getChallengeTimer().isStarted() ?
-				new ItemBuilder(Material.LIME_DYE).setName(Message.forName("timer-is-running")).build() :
-				new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.forName("timer-is-paused")).build());
+				new ItemBuilder(Material.LIME_DYE).name(Message.forName("timer-is-running")).build() :
+				new ItemBuilder(MaterialWrapper.RED_DYE).name(Message.forName("timer-is-paused")).build());
 		inventory.setItem(MODE_SLOT, Challenges.getInstance().getChallengeTimer().isCountingUp() ?
-				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).setName(Message.forName("timer-counting-up")).hideAttributes().build() :
-				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).setName(Message.forName("timer-counting-down")).hideAttributes().build());
+				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).name(Message.forName("timer-counting-up")).hideAttributes().build() :
+				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).name(Message.forName("timer-counting-down")).hideAttributes().build());
 	}
 
-	private void updateSecondPage() {
+	@ScheduledTask(ticks = 20)
+	public void updateSecondPage() {
 		setTimeNavigation(HOUR_SLOTS, Message.forName("hour"),Message.forName("hours"));
 		setTimeNavigation(MINUTE_SLOTS, Message.forName("minute"), Message.forName("minutes"));
 		setTimeNavigation(SECOND_SLOTS, Message.forName("second"), Message.forName("seconds"));
@@ -82,23 +90,22 @@ public final class TimerMenu {
 
 	@Nonnull
 	private ItemStack getNavigationItem(boolean up, @Nonnull Message singular, @Nonnull Message plural) {
-		Material material = up ? Material.DARK_OAK_BUTTON : Material.STONE_BUTTON;
-		String[] lore = {
+		return new ItemBuilder(up ? Material.DARK_OAK_BUTTON : Material.STONE_BUTTON).name(
+				" ",
 				"§7§o[Click] §8» §" + (up ? "a+" : "c-") + "1 " + singular,
 				"§7§o[Shift-Click] §8» §" + (up ? "a+" : "c-") + "10 " + plural,
 				" "
-		};
-		return new ItemBuilder(material).setName(" ").setLore(lore).hideAttributes().build();
+		).hideAttributes().build();
 	}
+
 	@Nonnull
 	private ItemStack getTimeItem(long value, @Nonnull Message singular, @Nonnull Message plural) {
-		long amount = value < 1 ? 1 : Math.min(value, 64);
-		String[] lore = {
-			" ",
-			"§7§o[Click] §8» §cReset §7timer",
-			" "
-		};
-		return new ItemBuilder(Material.CLOCK).setName("§8» " + (value == 1 ? singular : plural) + ": §e" + value).setLore(lore).hideAttributes().setAmount((int) amount).build();
+		return new ItemBuilder(Material.CLOCK).name(
+				"§8» " + (value == 1 ? singular : plural) + ": §e" + value,
+				" ",
+				"§7§o[Click] §8» §cReset §7timer",
+				" "
+		).hideAttributes().amount((int) Math.max(value, 1)).build();
 	}
 
 	@Nonnull
@@ -122,11 +129,6 @@ public final class TimerMenu {
 		Inventory inventory = inventories.get(page);
 		Challenges.getInstance().getMenuManager().setPostion(player, new TimerMenuPosition(page));
 		player.openInventory(inventory);
-	}
-
-	@Nonnull
-	List<Inventory> getInventories() {
-		return inventories;
 	}
 
 	private class TimerMenuPosition implements MenuPosition {

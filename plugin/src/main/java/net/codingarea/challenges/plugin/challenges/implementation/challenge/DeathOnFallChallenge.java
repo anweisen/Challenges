@@ -30,7 +30,7 @@ public class DeathOnFallChallenge extends Setting {
 		return new ItemBuilder(Material.FEATHER, Message.forName("item-death-on-fall-challenge"));
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!shouldExecuteEffect()) return;
@@ -38,6 +38,7 @@ public class DeathOnFallChallenge extends Setting {
 		if (ignorePlayer(player)) return;
 		if (event.getCause() != DamageCause.FALL) return;
 		event.setDamage(player.getHealth());
+		event.setCancelled(false);
 	}
 
 }

@@ -20,7 +20,7 @@ import java.lang.annotation.Target;
 public @interface TimerTask {
 
 	@Nonnull
-	TimerStatus status();
+	TimerStatus[] status();
 
 	boolean async() default true;
 

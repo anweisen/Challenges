@@ -80,11 +80,6 @@ public final class MenuManager {
 		generated = true;
 	}
 
-	public void updateTimerMenu() {
-		if (timerMenu != null)
-			timerMenu.updateInventories();
-	}
-
 	public void openGUI(@Nonnull Player player) {
 		SoundSample.PLOP.play(player);
 		setPostion(player, new MainMenuPosition());

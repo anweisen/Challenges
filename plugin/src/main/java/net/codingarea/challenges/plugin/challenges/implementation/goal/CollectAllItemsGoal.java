@@ -15,6 +15,7 @@ import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.command.CommandSender;
@@ -127,10 +128,11 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onInteract(@Nonnull PlayerInteractEvent event) {
-		ItemStack item = event.getItem();
-		if (item == null) return;
-		Material material = item.getType();
-		handleNewItem(material);
+		Bukkit.getScheduler().runTaskLater(plugin, () -> {
+			ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
+			Material material = item.getType();
+			handleNewItem(material);
+		}, 1);
 	}
 
 	protected void handleNewItem(@Nullable Material material) {

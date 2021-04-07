@@ -99,7 +99,7 @@ public final class ScheduleManager {
 	public void fireTimerStatusChange() {
 		if (!started) return;
 		for (TimerTaskExecutor executor : timerTaskExecutorsByConfig.values()) {
-			if (executor.getConfig().getStatus() != ChallengeAPI.getTimerStatus()) continue;
+			if (!executor.getConfig().acceptsStatus(ChallengeAPI.getTimerStatus())) continue;
 			executor.execute();
 		}
 	}
@@ -108,6 +108,7 @@ public final class ScheduleManager {
 		started = false;
 		scheduledTaskExecutorsByConfig.values().forEach(ScheduledTaskExecutor::stop);
 		scheduledTaskExecutorsByConfig.clear();
+		timerTaskExecutorsByConfig.clear();
 	}
 
 	public void start() {

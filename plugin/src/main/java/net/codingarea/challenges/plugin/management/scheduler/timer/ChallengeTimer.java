@@ -77,7 +77,6 @@ public final class ChallengeTimer {
 		}
 
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 
 	}
 
@@ -108,7 +107,6 @@ public final class ChallengeTimer {
 		}
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getCloudNetHelper().handleTimerStart();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
 		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
@@ -134,7 +132,6 @@ public final class ChallengeTimer {
 		updateTimeRule();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
 		if (byPlayer) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
@@ -149,7 +146,6 @@ public final class ChallengeTimer {
 		time = 0;
 		countingUp = true;
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
@@ -202,7 +198,6 @@ public final class ChallengeTimer {
 
 		this.countingUp = countingUp;
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
 		SoundSample.BASS_ON.broadcast();
 	}

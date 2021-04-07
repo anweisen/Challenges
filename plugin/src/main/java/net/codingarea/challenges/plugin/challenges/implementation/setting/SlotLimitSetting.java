@@ -19,6 +19,7 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -43,19 +44,9 @@ public class SlotLimitSetting extends Modifier {
 	@Override
 	protected void onValueChange() {
 		updateSlots();
-
 	}
 
-	@TimerTask(status = TimerStatus.PAUSED)
-	public void onPause() {
-		updateSlots();
-	}
-
-	@TimerTask(status = TimerStatus.RUNNING)
-	public void onRun() {
-		updateSlots();
-	}
-
+	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
 	private void updateSlots() {
 		Bukkit.getOnlinePlayers().forEach(this::updateSlots);
 	}
@@ -67,7 +58,6 @@ public class SlotLimitSetting extends Modifier {
 			} else {
 				unBlockSlot(player, i);
 			}
-
 		}
 	}
 
@@ -96,7 +86,6 @@ public class SlotLimitSetting extends Modifier {
 	}
 
 	private void unBlockSlot(@Nonnull Player player, int slot) {
-
 		ItemStack item = player.getInventory().getItem(slot);
 		if (item != null && item.isSimilar(ItemBuilder.BLOCKED_ITEM)) {
 			player.getInventory().setItem(slot, null);
@@ -105,6 +94,7 @@ public class SlotLimitSetting extends Modifier {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (event.getClickedInventory() == null) return;
 		if (event.getClickedInventory().getType() != InventoryType.PLAYER) return;
 		if (isBlocked(event.getSlot())) {
@@ -114,6 +104,7 @@ public class SlotLimitSetting extends Modifier {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerDropItem(@Nonnull PlayerDropItemEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		if (!event.getItemDrop().getItemStack().isSimilar(ItemBuilder.BLOCKED_ITEM)) return;
 		event.setCancelled(true);
@@ -121,9 +112,22 @@ public class SlotLimitSetting extends Modifier {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onClick(@Nonnull BlockPlaceEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		if (!event.getItemInHand().isSimilar(ItemBuilder.BLOCKED_ITEM)) return;
 		event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onSwapItem(@Nonnull PlayerSwapHandItemsEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+
+		if (event.getMainHandItem() != null && event.getMainHandItem().isSimilar(ItemBuilder.BLOCKED_ITEM)) {
+			event.setCancelled(true);
+		} else if (event.getOffHandItem() != null && event.getOffHandItem().isSimilar(ItemBuilder.BLOCKED_ITEM)) {
+			event.setCancelled(true);
+		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
