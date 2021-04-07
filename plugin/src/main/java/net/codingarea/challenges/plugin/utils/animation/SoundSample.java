@@ -29,6 +29,7 @@ public final class SoundSample {
 			EAT             = new SoundSample().addSound(Sound.ENTITY_PLAYER_BURP, 1),
 			BLAST           = new SoundSample().addSound(Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 1),
 			BREAK           = new SoundSample().addSound(Sound.ENTITY_WITHER_BREAK_BLOCK, 0.7f),
+			WIN             = new SoundSample().addSound(Sound.UI_TOAST_CHALLENGE_COMPLETE, 1),
 			DRAGON_BREATH   = new SoundSample().addSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5F);
 
 	public static void playEnablingSound(@Nonnull Player player, boolean enabled) {

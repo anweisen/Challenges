@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 /**
@@ -32,6 +33,15 @@ public interface Goal extends IChallenge {
 	 */
 	@Nonnull
 	SoundSample getStartSound();
+
+	/**
+	 * This sound will be played when the challenge is won and the plugin setting "enabled-win-sounds" is enabled.
+	 * If this returns {@code null} no sound will be played.
+	 *
+	 * @return the sound to play
+	 */
+	@Nullable
+	SoundSample getWinSound();
 
 	/**
 	 * This method will be called, when the challenges is being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) in order to determine the winner of this challenge run.

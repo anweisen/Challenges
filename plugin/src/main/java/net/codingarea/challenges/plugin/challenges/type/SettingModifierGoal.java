@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -37,6 +38,18 @@ public abstract class SettingModifierGoal extends SettingModifier implements Goa
 		if (isEnabled() == enabled) return;
 		GoalHelper.handleSetEnabled(this, enabled);
 		super.setEnabled(enabled);
+	}
+
+	@Nonnull
+	@Override
+	public SoundSample getStartSound() {
+		return SoundSample.DRAGON_BREATH;
+	}
+
+	@Nullable
+	@Override
+	public SoundSample getWinSound() {
+		return SoundSample.WIN;
 	}
 
 	@Override
