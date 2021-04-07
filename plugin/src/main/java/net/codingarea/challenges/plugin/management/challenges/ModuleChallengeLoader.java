@@ -1,10 +1,12 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
+import net.anweisen.utilities.bukkit.utils.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.material.BlockMaterialSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
@@ -52,6 +54,16 @@ public class ModuleChallengeLoader {
 
 	public final void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Class<?>[] parameterClasses, @Nonnull Object... parameters) {
 		try {
+
+			if (classOfChallenge.isAnnotationPresent(RequireVersion.class)) {
+				RequireVersion annotation = classOfChallenge.getAnnotation(RequireVersion.class);
+				MinecraftVersion minVersion = annotation.value();
+
+				if (!Challenges.getInstance().getServerVersion().isNewerOrEqualThan(minVersion)) {
+					Logger.debug("Did not register challenge {}, requires version {}, server running on {}", classOfChallenge.getSimpleName(), minVersion, Challenges.getInstance().getServerVersion());
+					return;
+				}
+			}
 
 			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(parameterClasses);
 			IChallenge challenge = constructor.newInstance(parameters);
