@@ -59,6 +59,10 @@ commands:
     description: "Show the leaderboard for every statistic"
     aliases:
       - lb
+  search:
+    usage: "/search <item>"
+    description: "Shows you from which block the given item will be dropped through eg. block randomizer"
+    permission: "challenges.search"
   position:
     usage: "/pos [player]"
     description: "Allows you to save locations"

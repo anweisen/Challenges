@@ -35,6 +35,8 @@
   "timer-mode-set-up": "Der Timer zählt nun §ahoch",
   "fetching-data": "Daten werden abgerufen..",
   "undefined": "undefiniert",
+  "no-such-material": "Dieses Material gibt es nicht",
+  "not-an-item": "§e{0} §7ist kein Item",
   "deprecated-plugin-version": [
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
     "Download: §e{0}"
@@ -98,6 +100,8 @@
   "command-invsee-open": "Inventar von §e{0} §7geöffnet",
   "command-enderchest-open": "§5Enderchest §7geöffnet",
   "command-difficulty-change": "Schwierigkeit auf §e{0} §7geändert",
+  "command-search-nothing": "§e{0} §7wird durch keinen speziellen Block gedroppt",
+  "command-search-result": "§e{0} §7droppt aus §e{1}",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
