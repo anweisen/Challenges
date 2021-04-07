@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -47,7 +48,7 @@ public class OnlyDirtChallenge extends Setting {
 
 		Block blockBelow = BlockUtils.getBlockBelow(event.getTo());
 		if (blockBelow == null) return;
-		if (blockBelow.getType() != Material.DIRT && !blockBelow.getType().isAir()) {
+		if (blockBelow.getType() != Material.DIRT && !BukkitReflectionUtils.isAir(blockBelow.getType())) {
 			Message.forName("only-dirt-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 			event.getPlayer().damage(Integer.MAX_VALUE);
 		}

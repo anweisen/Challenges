@@ -75,14 +75,6 @@ public final class BlockDropManager {
 	}
 
 	@Nonnull
-	public Collection<ItemStack> getDrops(@Nonnull Block block, @Nonnull ItemStack tool, @Nonnull Entity entity) {
-		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
-		List<Material> customDrops = getCustomDrops(block.getType());
-		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
-		return block.getDrops(tool, entity);
-	}
-
-	@Nonnull
 	public List<Material> getCustomDrops(@Nonnull Material block) {
 		RegisteredDrops option = drops.get(block);
 		if (option == null) return new ArrayList<>();

@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.*;
@@ -96,7 +97,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 	}
 
 	private boolean isBreakable(@Nonnull Block block) {
-		return block.getType() != Material.BEDROCK && !block.getType().isAir() && !block.isLiquid();
+		return block.getType() != Material.BEDROCK && !BukkitReflectionUtils.isAir(block.getType()) && !block.isLiquid();
 	}
 
 	private List<Chunk> getChunksToDeconstruct() {

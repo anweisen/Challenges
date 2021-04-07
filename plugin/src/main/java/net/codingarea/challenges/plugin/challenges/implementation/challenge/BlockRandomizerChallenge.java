@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import org.bukkit.Material;
@@ -37,7 +38,7 @@ public class BlockRandomizerChallenge extends RandomizerSetting {
 		BlockDropManager manager = Challenges.getInstance().getBlockDropManager();
 
 		List<Material> blocks = new ArrayList<>(Arrays.asList(Material.values()));
-		blocks.removeIf(material -> !ItemUtils.isObtainableInSurvival(material) || !material.isBlock() || material.isAir());
+		blocks.removeIf(material -> !ItemUtils.isObtainableInSurvival(material) || !material.isBlock() || BukkitReflectionUtils.isAir(material));
 		Collections.shuffle(blocks, random);
 
 		List<Material> drops = new ArrayList<>(Arrays.asList(Material.values()));

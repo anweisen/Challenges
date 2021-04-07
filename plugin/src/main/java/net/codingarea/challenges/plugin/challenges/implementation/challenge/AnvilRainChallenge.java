@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.stats.Statistic.Display;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
@@ -170,7 +171,7 @@ public class AnvilRainChallenge extends MenuSetting {
 		if (!name.contains("ANVIL")) return;
 
 		Block block = event.getBlock().getLocation().subtract(0, 1, 0).getBlock();
-		if (block.getType().isAir()) return;
+		if (BukkitReflectionUtils.isAir(block.getType())) return;
 
 		event.getBlock().setType(Material.AIR);
 		event.setCancelled(true);

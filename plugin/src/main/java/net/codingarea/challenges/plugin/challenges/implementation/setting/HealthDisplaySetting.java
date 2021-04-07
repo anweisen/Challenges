@@ -6,9 +6,11 @@ import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -99,7 +101,7 @@ public class HealthDisplaySetting extends Setting {
 		for (Player current : Bukkit.getOnlinePlayers()) {
 			Objective objective = current.getScoreboard().getObjective(OBJECTIVE_NAME);
 			if (objective == null) continue;
-			objective.getScore(player.getName()).setScore((int) (player.getHealth() + player.getAbsorptionAmount()));
+			objective.getScore(player.getName()).setScore((int) (player.getHealth() + BukkitReflectionUtils.getAbsorptionAmount(player)));
 		}
 	}
 

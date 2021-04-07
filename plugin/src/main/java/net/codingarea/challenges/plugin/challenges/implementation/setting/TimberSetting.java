@@ -141,10 +141,9 @@ public class TimberSetting extends SettingModifier {
 	}
 
 	public boolean isLeaveMaterial(@Nonnull Material logMaterial, @Nonnull Material leaveMaterial) {
-		if (logMaterial == Material.CRIMSON_STEM) return leaveMaterial == Material.NETHER_WART_BLOCK;
+		if (logMaterial.name().equals("CRIMSON_STEM")) return leaveMaterial == Material.NETHER_WART_BLOCK;
 
 		String logPrefix = logMaterial.name().substring(0, logMaterial.name().indexOf("_"));
-
 		return leaveMaterial.name().startsWith(logPrefix) && (leaveMaterial.name().endsWith("LEAVES") || leaveMaterial.name().endsWith("WART_BLOCK"));
 	}
 

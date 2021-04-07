@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -23,7 +24,7 @@ public final class ItemUtils {
 
 	public static boolean isObtainableInSurvival(@Nonnull Material material) {
 		String name = material.name();
-		if (material.isAir()) return false;
+		if (BukkitReflectionUtils.isAir(material)) return false;
 		if (name.endsWith("_SPAWN_EGG")) return false;
 		if (name.startsWith("INFESTED_")) return false;
 		if (name.startsWith("LEGACY_")) return isObtainableInSurvival(Material.valueOf(name.substring("LEGACY_".length())));

@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.management.server;
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -68,9 +69,9 @@ public final class WorldManager {
 
 	private final boolean restartOnReset;
 	private final boolean enableFreshReset;
-	private final String levelName;
-	private final long customSeed;
 	private final boolean useCustomSeed;
+	private final long customSeed;
+	private final String levelName;
 	private final String[] worlds;
 
 	private WorldSettings settings = new WorldSettings();
@@ -106,6 +107,7 @@ public final class WorldManager {
 	public void prepareWorldReset(@Nullable CommandSender requestedBy) {
 
 		shutdownBecauseOfReset = true;
+		ChallengeAPI.pauseTimer(false);
 
 		// Stop all tasks to prevent them from overwriting configs
 		Challenges.getInstance().getScheduler().stop();

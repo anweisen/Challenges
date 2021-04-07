@@ -5,6 +5,7 @@ import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import net.codingarea.challenges.plugin.utils.misc.VersionHelper;
@@ -139,7 +140,7 @@ public class TsunamiChallenge extends TimedChallenge {
 							for (int y = (overworld ? waterHeight : lavaHeight); y > VersionHelper.getMinBuildHeight(chunk.getWorld()); y--) {
 									Block block = chunk.getBlock(finalX, y-1, finalZ);
 									Material type = block.getType();
-									if (type != Material.WATER && type != Material.LAVA && type.isAir() || (overworld && type == Material.LAVA)) {
+									if (type != Material.WATER && type != Material.LAVA && BukkitReflectionUtils.isAir(type) || (overworld && type == Material.LAVA)) {
 										block.setType(overworld ? Material.WATER : Material.LAVA, false);
 									}
 							}

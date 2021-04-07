@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -49,7 +50,7 @@ public class BlockDropListener implements Listener {
 	protected void dropCustomDrops(@Nonnull Block block, @Nonnull Runnable dropsExist) {
 
 		Material material = block.getType();
-		if (material.isAir()) return;
+		if (BukkitReflectionUtils.isAir(material)) return;
 
 		if (!ChallengeAPI.getDropChance(material)) {
 			dropsExist.run();
@@ -60,7 +61,7 @@ public class BlockDropListener implements Listener {
 		if (drops.isEmpty()) return;
 
 		Location location = block.getLocation().clone().add(0.5, 0, 0.5);
-		if (!location.isWorldLoaded()) return;
+		if (location.getWorld() == null) return;
 
 		dropsExist.run();
 		for (Material drop : drops) {
