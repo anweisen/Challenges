@@ -13,9 +13,11 @@ public final class RandomizeUtils {
 
 	private RandomizeUtils() {}
 
-	public static int getAround(@Nonnull Random random, @Nonnegative int value, @Nonnegative int range) {
-		int min = value - range;
-		int max = value + range;
+	public static int randomAround(@Nonnull Random random, @Nonnegative int value, @Nonnegative int range) {
+		return randomInRange(random, value - range, value + range);
+	}
+
+	public static int randomInRange(@Nonnull Random random, int min, int max) {
 		return random.nextInt(max - min) + min;
 	}
 
