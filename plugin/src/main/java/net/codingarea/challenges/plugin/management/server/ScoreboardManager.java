@@ -3,6 +3,8 @@ package net.codingarea.challenges.plugin.management.server;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import org.bukkit.Bukkit;
@@ -23,7 +25,8 @@ public final class ScoreboardManager {
 	private ChallengeScoreboard currentScoreboard;
 
 	public ScoreboardManager() {
-		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::handleLoadLanguages);
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::updateAll);
+		ChallengeAPI.registerScheduler(this);
 	}
 
 	public void handleQuit(@Nonnull Player player) {
@@ -37,6 +40,11 @@ public final class ScoreboardManager {
 	}
 
 	public void handleJoin(@Nonnull Player player) {
+		updateAll();
+	}
+
+	@TimerTask(status = { TimerStatus.RUNNING, TimerStatus.PAUSED })
+	public void updateAll() {
 		for (ChallengeBossBar bossbar : bossbars) {
 			bossbar.update();
 		}
@@ -80,14 +88,6 @@ public final class ScoreboardManager {
 			hideBossBar(bossbar);
 		}
 		setCurrentScoreboard(null);
-	}
-
-	public void handleLoadLanguages() {
-		if (currentScoreboard != null)
-			currentScoreboard.update();
-		for (ChallengeBossBar bossbar : bossbars) {
-			bossbar.update();
-		}
 	}
 
 	public boolean isShown(@Nonnull ChallengeBossBar bossbar) {
