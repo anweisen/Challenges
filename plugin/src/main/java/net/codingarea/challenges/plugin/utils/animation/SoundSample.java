@@ -21,6 +21,7 @@ public final class SoundSample {
 			BASS_ON         = new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F),
 			PLING           = new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BELL, 1),
 			KLING           = new SoundSample().addSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 2),
+			LEVEL_UP        = new SoundSample().addSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 1.1f),
 			PLOP            = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 2),
 			LOW_PLOP        = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 1.3f),
 			DEATH           = new SoundSample().addSound(Sound.ENTITY_BAT_DEATH, 0.7F),
