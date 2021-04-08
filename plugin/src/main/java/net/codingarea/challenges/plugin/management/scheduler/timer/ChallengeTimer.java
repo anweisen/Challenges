@@ -142,7 +142,7 @@ public final class ChallengeTimer {
 	}
 
 	public void reset() {
-		pause(true);
+		if (!countingUp) pause(true);
 		time = 0;
 		countingUp = true;
 		updateActionbar();
