@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.wrapper;
 
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -57,6 +58,15 @@ public final class BukkitReflectionUtils {
 			default:
 				return false;
 		}
+	}
+
+	public static int getMinHeight(@Nonnull World world) {
+		try {
+			world.getMinHeight();
+		} catch (Throwable ex) {
+		}
+
+		return 0;
 	}
 
 }
