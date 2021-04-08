@@ -81,4 +81,9 @@ public final class Utils {
 		}
 	}
 
+	public static <T extends Enum<?>> void removeEnums(@Nonnull Collection<T> collection, @Nonnull String... names) {
+		List<String> nameList = Arrays.asList(names);
+		collection.removeIf(element -> nameList.contains(element.name()));
+	}
+
 }
