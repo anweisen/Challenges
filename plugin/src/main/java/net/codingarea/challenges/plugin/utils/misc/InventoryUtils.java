@@ -143,4 +143,12 @@ public final class InventoryUtils {
 		inventory.setItem(slot, null);
 	}
 
+	public static void giveItem(@Nonnull Inventory inventory, @Nonnull Location locationToDrop, @Nonnull ItemStack itemStack) {
+		if (inventory.firstEmpty() == -1) {
+			dropItem(locationToDrop, itemStack);
+			return;
+		}
+		inventory.addItem(itemStack);
+	}
+
 }

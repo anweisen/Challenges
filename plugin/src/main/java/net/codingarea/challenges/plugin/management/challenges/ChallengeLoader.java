@@ -119,6 +119,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomPotionEffectChallenge.class);
 		register(EnderGamesChallenge.class);
 		register(RandomEventChallenge.class);
+		register(RandomItemChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

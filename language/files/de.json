@@ -768,6 +768,7 @@
     "den du dich *fortbewegst* ein Item,",
     "aus deinem Inventar, *gelöscht*"
   ],
+<<<<<<< Updated upstream
   "item-higher-jumps-challenge": [
     "§aHigher Jumps",
     "*Umso öfter* du springst",
@@ -799,6 +800,14 @@
     "Alle *paar Minuten* musst du",
     "ein *bestimmtes Item* finden oder du stirbst"
   ],
+=======
+  "item-random-item-challenge": [
+    "§bRandom Items",
+    "Alle Spieler erhalten alle paar",
+    "Sekunden ein zufälliges Item"
+  ],
+
+>>>>>>> Stashed changes
 
   "item-dragon-goal": [
     "§5Enderdrache",
