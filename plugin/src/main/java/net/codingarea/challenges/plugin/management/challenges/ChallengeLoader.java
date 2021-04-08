@@ -89,10 +89,11 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		register(MobRandomizerChallenge.class);
-		// Force height
-		// Force block
-		// Force Item
-		// Force mob kill
+		register(ForceHeightChallenge.class);
+		register(ForceBlockChallenge.class);
+		register(ForceMobChallenge.class);
+		register(ForceItemChallenge.class);
+		register(ForceBiomeChallenge.class);
 		register(InvertHealthChallenge.class);
 		register(StoneSightChallenge.class);
 		register(NoMobSightChallenge.class);

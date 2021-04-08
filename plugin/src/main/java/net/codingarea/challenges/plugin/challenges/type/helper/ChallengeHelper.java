@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
@@ -111,6 +112,16 @@ public final class ChallengeHelper {
 
 	public static void playChallengeMinutesValueChangeTitle(@Nonnull AbstractChallenge challenge, int seconds) {
 		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-minutes").asString(seconds));
+	}
+
+	@Nonnull
+	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int multiplier, @Nonnegative int range) {
+		return Message.forName("item-time-seconds-range-description").asArray(modifier.getValue() * multiplier - range, modifier.getValue() * multiplier + range);
+	}
+
+	@Nonnull
+	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int range) {
+		return getTimeRangeSettingsDescription(modifier, 1, range);
 	}
 
 }

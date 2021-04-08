@@ -16,6 +16,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	private final boolean runAsync;
 	private int secondsUntilActivation;
+	private int originalSecondsUntilActivation;
 	private boolean timerStatus = false;
 	private boolean startedBefore = false;
 
@@ -85,7 +86,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	}
 
-	public void executeTimeActivation() {
+	public final void executeTimeActivation() {
 		if (runAsync) {
 			Bukkit.getScheduler().runTaskAsynchronously(plugin, this::onTimeActivation);
 		} else {
@@ -99,6 +100,14 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	public final int getSecondsLeftUntilNextActivation() {
 		return secondsUntilActivation;
+	}
+
+	public final int getOriginalSecondsUntilActivation() {
+		return originalSecondsUntilActivation;
+	}
+
+	protected float getProgress() {
+		return (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
 	}
 
 	protected void handleCountdown() {
@@ -115,6 +124,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 		startedBefore = true;
 		secondsUntilActivation = seconds;
+		originalSecondsUntilActivation = seconds;
 		timerStatus = true;
 	}
 
