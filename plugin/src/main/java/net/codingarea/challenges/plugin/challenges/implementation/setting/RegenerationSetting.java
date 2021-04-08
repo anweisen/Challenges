@@ -30,7 +30,7 @@ public class RegenerationSetting extends Modifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new PotionBuilder(Material.POTION, Message.forName("item-regeneration-setting")).setColor(Color.RED);
+		return new PotionBuilder(Material.POTION, Message.forName("item-regeneration-setting")).color(Color.RED);
 	}
 
 	@Nonnull
@@ -41,7 +41,7 @@ public class RegenerationSetting extends Modifier {
 		} else if (getValue() == 2) {
 			return DefaultItem.enabled();
 		}
-		return DefaultItem.create(Material.ORANGE_DYE, "§6Not natural");
+		return DefaultItem.create(Material.ORANGE_DYE, "§6Not Natural");
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class RegenerationSetting extends Modifier {
 			ChallengeHelper.playToggleChallengeTitle(this, false);
 			return;
 		}
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? "§aEnabled" : "§6Not natural");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? "§aEnabled" : "§6Not Natural");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

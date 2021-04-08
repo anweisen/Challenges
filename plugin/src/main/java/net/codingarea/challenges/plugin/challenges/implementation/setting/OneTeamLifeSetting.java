@@ -41,9 +41,8 @@ public class OneTeamLifeSetting extends Setting {
 		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = true);
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player == event.getEntity()) continue;
-			if (player.getGameMode() == GameMode.SPECTATOR) continue;
-
-			player.setHealth(0);
+			if (ignorePlayer(player)) continue;
+			kill(player);
 		}
 		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = false);
 	}

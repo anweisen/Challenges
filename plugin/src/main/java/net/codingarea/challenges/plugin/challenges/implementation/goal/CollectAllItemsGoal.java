@@ -59,6 +59,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
 	private void reloadItemsToFind() {
 		itemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
+		itemsToFind.removeIf(material -> !material.isItem());
 		itemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
 		Collections.shuffle(itemsToFind, random);
 		nextItem();

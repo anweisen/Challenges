@@ -100,7 +100,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.getAround(random, 60 * getValue(), 30);
+		return RandomizeUtils.randomAround(random, 60 * getValue(), 30);
 	}
 
 	@Override

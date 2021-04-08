@@ -76,8 +76,8 @@ public class NoDupedItemsChallenge extends Setting {
 						NameHelper.getName(result.getSecond()),
 						StringUtils.getEnumName(result.getThird())
 				);
-				result.getFirst().setHealth(0);
-				result.getSecond().setHealth(0);
+				kill(result.getFirst());
+				kill(result.getSecond());
 			}
 
 		}

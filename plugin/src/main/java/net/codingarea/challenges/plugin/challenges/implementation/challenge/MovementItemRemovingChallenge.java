@@ -23,8 +23,10 @@ import javax.annotation.Nonnull;
 @Since("2.0")
 public class MovementItemRemovingChallenge extends SettingModifier {
 
+	public static final int BLOCK = 1;
+
 	public MovementItemRemovingChallenge() {
-		super(MenuType.CHALLENGES,2);
+		super(MenuType.CHALLENGES, 1, 2, 2);
 	}
 
 	@Nonnull
@@ -37,13 +39,13 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == 1) return DefaultItem.create(Material.BOOK, "§6Block");
-		return DefaultItem.create(Material.BOOKSHELF, "§6Chunk");
+		if (getValue() == 1) return DefaultItem.create(Material.GRASS_BLOCK, "§6Block");
+		return DefaultItem.create(Material.BOOK, "§6Chunk");
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		if (getValue() == 1) ChallengeHelper.playChangeChallengeValueTitle(this, "§6Block");
+		if (getValue() == BLOCK) ChallengeHelper.playChangeChallengeValueTitle(this, "§6Block");
 		else ChallengeHelper.playChangeChallengeValueTitle(this, "§6Chunk");
 	}
 
@@ -53,7 +55,7 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo() == null) return;
 
-		if (getValue() == 1) {
+		if (getValue() == BLOCK) {
 			if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
 		} else {
 			if (BlockUtils.isSameChunk(event.getFrom().getChunk(), event.getTo().getChunk())) return;

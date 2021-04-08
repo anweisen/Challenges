@@ -9,17 +9,13 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.boss.BarColor;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -60,7 +56,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 				bossbar.setTitle(Message.forName("bossbar-random-challenge-waiting").asString());
 				return;
 			}
-			bossbar.setProgress((float) (getSecondsLeftUntilNextActivation()) / getSecondsUntilNextActivation());
+			bossbar.setProgress(getProgress());
 			bossbar.setTitle(Message.forName("bossbar-random-challenge-current").asString(ChallengeHelper.getColoredChallengeName(lastUsed)));
 		});
 		bossbar.show();
@@ -123,7 +119,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 
 		if (enabled && challenge instanceof TimedChallenge) {
 			TimedChallenge timedChallenge = (TimedChallenge) challenge;
-			int random = RandomizeUtils.getAround(this.random, getValue() / 2, 10);
+			int random = RandomizeUtils.randomAround(this.random, getValue() / 2, 10);
 			timedChallenge.setValue(Math.min(timedChallenge.getMaxValue(), random));
 		}
 	}

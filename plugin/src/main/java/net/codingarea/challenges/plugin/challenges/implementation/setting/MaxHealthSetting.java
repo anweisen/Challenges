@@ -40,7 +40,7 @@ public class MaxHealthSetting extends Modifier {
 
 	@Override
 	public void onValueChange() {
-		Bukkit.getOnlinePlayers().forEach(this::updateHealth);
+		broadcast(this::updateHealth);
 	}
 
 	@Override

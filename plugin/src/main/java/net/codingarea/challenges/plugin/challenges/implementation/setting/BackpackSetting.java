@@ -30,15 +30,15 @@ import java.util.UUID;
  */
 public class BackpackSetting extends SettingModifier implements PlayerCommand {
 
-	public static final int SHARED = 2,
-							PLAYER = 3;
+	public static final int SHARED = 1,
+							PLAYER = 2;
 
 	private final int size;
 	private final Map<UUID, Inventory> backpacks = new HashMap<>();
 	private final Inventory sharedBackpack;
 
 	public BackpackSetting() {
-		super(MenuType.SETTINGS, 3);
+		super(MenuType.SETTINGS, 2);
 		size = Math.max(Math.min(Challenges.getInstance().getConfigDocument().getInt("backpack-size") * 9, 6*9), 9);
 		sharedBackpack = createInventory("§5Team Backpack");
 	}
@@ -52,11 +52,9 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	@Nonnull
 	@Override
 	public ItemBuilder createSettingsItem() {
-		switch (getValue()) {
-			case SHARED:    return DefaultItem.create(Material.ENDER_CHEST, "§5Team");
-			case PLAYER:    return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
-			default:        return DefaultItem.disabled();
-		}
+		if (getValue() == SHARED)
+			return DefaultItem.create(Material.ENDER_CHEST, "§5Team");
+		return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
 	}
 
 
@@ -83,6 +81,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 		}
 
 		if (getValue() == SHARED || getValue() == PLAYER) {
+			Message.forName("backpack-opened").send(player, Prefix.BACKPACK, getValue() == SHARED ? "§5Team Backpack" : "§6Player Backpack");
 			player.openInventory(getCurrentBackpack(player));
 			SoundSample.OPEN.play(player);
 		} else {

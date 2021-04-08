@@ -56,7 +56,7 @@ public class EnderGamesChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.getAround(random, getValue() * 60, 20);
+		return RandomizeUtils.randomAround(random, getValue() * 60, 20);
 	}
 
 	@Override

@@ -34,15 +34,15 @@ public class SplitHealthSetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
-	@Override
-	protected void onEnable() {
-		setHealth();
-	}
-
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new PotionBuilder(Material.TIPPED_ARROW, Message.forName("item-split-health-setting")).setColor(Color.RED);
+		return new PotionBuilder(Material.TIPPED_ARROW, Message.forName("item-split-health-setting")).color(Color.RED);
+	}
+
+	@Override
+	protected void onEnable() {
+		setHealth();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -87,7 +87,7 @@ public class SplitHealthSetting extends Setting {
 		setHealth(player);
  	}
 
-	private void setHealth(@Nonnull Player player) {
+	public void setHealth(@Nonnull Player player) {
 		if (!shouldExecuteEffect()) return;
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {

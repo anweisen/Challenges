@@ -8,12 +8,10 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
-import net.codingarea.challenges.plugin.utils.misc.VersionHelper;
 import org.bukkit.*;
 import org.bukkit.World.Environment;
 import org.bukkit.block.Block;
 import org.bukkit.boss.BarColor;
-import org.bukkit.boss.BarStyle;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -137,7 +135,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 							if (!chunk.isLoaded()) return;
 							Bukkit.getScheduler().runTask(plugin, () -> {
-							for (int y = (overworld ? waterHeight : lavaHeight); y > VersionHelper.getMinBuildHeight(chunk.getWorld()); y--) {
+							for (int y = (overworld ? waterHeight : lavaHeight); y > BukkitReflectionUtils.getMinHeight(chunk.getWorld()); y--) {
 									Block block = chunk.getBlock(finalX, y-1, finalZ);
 									Material type = block.getType();
 									if (type != Material.WATER && type != Material.LAVA && BukkitReflectionUtils.isAir(type) || (overworld && type == Material.LAVA)) {

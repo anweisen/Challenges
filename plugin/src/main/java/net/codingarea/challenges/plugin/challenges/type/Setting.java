@@ -70,7 +70,9 @@ public abstract class Setting extends AbstractChallenge {
 	@Override
 	public void handleShutdown() {
 		super.handleShutdown();
-		onDisable();
+
+		if (isEnabled())
+			onDisable();
 	}
 
 	@Override

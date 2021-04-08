@@ -6,10 +6,10 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
-import net.codingarea.challenges.plugin.utils.misc.VersionHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -75,7 +75,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.getAround(random, getValue() * 60, 30);
+		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
 	}
 
 	@Override
@@ -202,7 +202,7 @@ public class RandomEventChallenge extends TimedChallenge {
 						int finalZ = z;
 						int finalX = x;
 						Bukkit.getScheduler().runTask(plugin, () -> {
-							for (int y = VersionHelper.getMinBuildHeight(location.getWorld()); y < 80; y++) {
+							for (int y = BukkitReflectionUtils.getMinHeight(location.getWorld()); y < 80; y++) {
 								Location current = location.clone().add(finalX, 0, finalZ);
 								current.setY(y);
 								Block block = current.getBlock();

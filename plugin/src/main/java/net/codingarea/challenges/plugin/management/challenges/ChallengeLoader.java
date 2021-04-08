@@ -73,6 +73,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);
 		register(WaterMLGChallenge.class);
+		register(HigherJumpsChallenge.class);
 		register(ReversedDamageChallenge.class);
 		register(HydraChallenge.class);
 		register(DupedSpawningChallenge.class);
@@ -155,6 +156,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		registerMaterialRule("§cBow", "Bow", Material.BOW);
 		registerMaterialRule("§fSnowball", "Snowball", Material.SNOWBALL);
 		registerMaterialRule("§cFlint and Steel", "Flint and Steel", Material.FLINT_AND_STEEL);
+		registerMaterialRule("§cBucket", "Bucket", Material.BUCKET);
 	}
 
 }

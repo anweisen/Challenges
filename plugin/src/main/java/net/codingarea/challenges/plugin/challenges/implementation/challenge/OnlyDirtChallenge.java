@@ -50,7 +50,7 @@ public class OnlyDirtChallenge extends Setting {
 		if (blockBelow == null) return;
 		if (blockBelow.getType() != Material.DIRT && !BukkitReflectionUtils.isAir(blockBelow.getType())) {
 			Message.forName("only-dirt-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-			event.getPlayer().setHealth(0);
+			kill(event.getPlayer());
 		}
 
 	}

@@ -58,7 +58,7 @@ public class FoodOnceChallenge extends SettingModifier {
 		Material type = event.getItem().getType();
 		if (hasEaten(event.getPlayer(), type)) {
 			Message.forName("food-once-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
-			Bukkit.getScheduler().runTaskLater(plugin, () -> event.getPlayer().setHealth(0), 1);
+			kill(event.getPlayer(), 1);
 		} else {
 			addFood(event.getPlayer(), type);
 			if (teamFoodsActivated()) {

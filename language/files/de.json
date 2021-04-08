@@ -25,7 +25,7 @@
   "new-challenge": "§a§lNeu!",
   "feature-disabled": "Diese Funktion ist derzeit §cdeaktiviert",
   "challenge-disabled": "Diese Challenge ist derzeit §cdeaktiviert",
-  "timer-not-started": "Der wurde noch §cnicht gestartet",
+  "timer-not-started": "Der Timer wurde noch §cnicht gestartet",
   "timer-was-started": "Der Timer wurde §agestartet",
   "timer-was-paused": "Der Timer wurde §cpausiert",
   "timer-was-set": "Der Timer wurde auf §e§l{0} §7gesetzt",
@@ -136,6 +136,16 @@
   "all-items-found": "Das Item §e{0} §7wurde registriert",
   "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
   "endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
+  "force-height-fail": "§e{0} §7war auf der §cfalschen Höhe §8(§e{1}§8)",
+  "force-height-success": "Alle Spieler waren auf der §arichtigen Höhe",
+  "force-block-fail": "§e{0} §7war auf dem §cfalschen Block §8(§e{1}§8)",
+  "force-block-success": "Alle Spieler waren auf dem §arichtigen Block",
+  "force-biome-fail": "Das Biom §e{0} §7wurde §cnicht gefunden",
+  "force-biome-success": "§e{0} §7hat das Biom §e{1} §agefunden",
+  "force-mob-fail": "Das Mob §e{0} §7wurde §cnicht getötet",
+  "force-mob-success": "§e{0} §7hat das Mob §e{1} §agetötet",
+  "force-item-fail": "Das Item §e{0} §7wurde §cnicht gefunden",
+  "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -169,13 +179,24 @@
     "Was geht denn jetzt ab"
   ],
 
+  "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
-  "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
   "bossbar-random-challenge-waiting": "§8» §7Warten auf neue Challenge..",
+  "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
   "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
   "bossbar-all-items-finished": "§8» §7Alle Items gefunden",
+  "bossbar-force-height-waiting": "§8» §7Warten auf nächste Höhe..",
+  "bossbar-force-height-instruction": "§8» §7Höhe §e{0} §8┃ §a{1}",
+  "bossbar-force-block-waiting": "§8» §7Warten auf nächsten Block..",
+  "bossbar-force-block-instruction": "§8» §7Block §e{0} §8┃ §a{1}",
+  "bossbar-force-biome-waiting": "§8» §7Warten auf nächstes Biom..",
+  "bossbar-force-biome-instruction": "§8» §7Biom §e{0} §8┃ §a{1}",
+  "bossbar-force-mob-waiting": "§8» §7Warten auf nächsten Mob..",
+  "bossbar-force-mob-instruction": "§8» §7Mob §e{0} §8┃ §a{1}",
+  "bossbar-force-item-waiting": "§8» §7Warten auf nächstes Item..",
+  "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -702,7 +723,7 @@
     "wird eine *random Challenge* aktiviert"
   ],
   "item-anvil-rain-challenge": [
-    "§8Amboss Regen",
+    "§7Amboss Regen",
     "Vom *Himmel* fallen *Ambosse*"
   ],
   "item-anvil-rain-time-challenge": [
@@ -742,12 +763,42 @@
     "*{0} random Events* aktiviert"
   ],
   "item-block-chunk-item-remove-challenge": [
-    "§6Item Löschung bei Fortbewegung",
+    "§6Movement Item Remove",
     "Es wird für jeden *Block* / *Chunk*",
     "den du dich *fortbewegst* ein Item,",
     "aus deinem Inventar, *gelöscht*"
   ],
-
+  "item-higher-jumps-challenge": [
+    "§aHigher Jumps",
+    "*Umso öfter* du springst",
+    "*desto höher* springst du"
+  ],
+  "item-force-height-challenge": [
+    "§eForce Height",
+    "Alle *paar Minuten* musst du auf",
+    "eine *bestimmte Höhe* oder du stirbst"
+  ],
+  "item-force-block-challenge": [
+    "§6Force Block",
+    "Alle *paar Minuten* musst du auf",
+    "einen *bestimmten Block* oder du stirbst"
+  ],
+  "item-force-biome-challenge": [
+    "§aForce Biome",
+    "Alle *paar Minuten* musst du in",
+    "ein *bestimmtes Biom* oder du stirbst",
+    "Je *seltener* das Biom ist, desto *mehr Zeit* hast du"
+  ],
+  "item-force-mob-challenge": [
+    "§bForce Mob",
+    "Alle *paar Minuten* musst du",
+    "ein *bestimmtes Entity* killen oder du stirbst"
+  ],
+  "item-force-item-challenge": [
+    "§6Force Item",
+    "Alle *paar Minuten* musst du",
+    "ein *bestimmtes Item* finden oder du stirbst"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

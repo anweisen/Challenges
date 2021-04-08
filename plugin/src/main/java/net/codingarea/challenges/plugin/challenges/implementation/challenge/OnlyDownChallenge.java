@@ -37,7 +37,7 @@ public class OnlyDownChallenge extends Setting {
 		if (event.getTo() == null) return;
 		if (event.getTo().getBlockY() <= event.getFrom().getBlockY()) return;
 		Message.forName("only-down-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-		event.getPlayer().setHealth(0);
+		kill(event.getPlayer());
 	}
 
 }

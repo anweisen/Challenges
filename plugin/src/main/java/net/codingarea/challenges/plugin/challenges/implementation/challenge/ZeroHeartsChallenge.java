@@ -67,7 +67,7 @@ public class ZeroHeartsChallenge extends SettingModifier {
 
 	@ScheduledTask(ticks = 20, async = false)
 	public void onSecond() {
-		Bukkit.getOnlinePlayers().forEach(player -> player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(0));
+		broadcast(player -> player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(0));
 		int absorptionTime = getCurrentTime();
 		if (absorptionTime >= getValue() * 60) {
 			bossbar.hide();
@@ -82,23 +82,15 @@ public class ZeroHeartsChallenge extends SettingModifier {
 	}
 
 	private int getCurrentTime() {
-		return getGameStateData().getInt("absorption-time", 0);
+		return getGameStateData().getInt("absorption-time");
 	}
 
 	private void applyAbsorptionEffect() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, (getValue() - getCurrentTime()) * 20 * 60, 1, true, false, false));
-		}
-
+		broadcastFiltered(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.ABSORPTION, (getValue() - getCurrentTime()) * 20 * 60, 1, true, false, false)));
 	}
 
 	private void removeAbsorptionEffect() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			player.removePotionEffect(PotionEffectType.ABSORPTION);
-		}
-
+		broadcastFiltered(player -> player.removePotionEffect(PotionEffectType.ABSORPTION));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -108,7 +100,7 @@ public class ZeroHeartsChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
-		player.setHealth(0);
+		kill(player);
 		Message.forName("zero-hearts-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));
 	}
 

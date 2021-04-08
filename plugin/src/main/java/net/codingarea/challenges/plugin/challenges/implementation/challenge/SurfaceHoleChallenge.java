@@ -3,9 +3,9 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import net.codingarea.challenges.plugin.utils.misc.VersionHelper;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -41,7 +41,7 @@ public class SurfaceHoleChallenge extends SettingModifier {
 			World world = event.getPlayer().getWorld();
 
 			List<Block> blocks = new ArrayList<>();
-			for (int y = VersionHelper.getMinBuildHeight(world); y < world.getMaxHeight(); y++) {
+			for (int y = BukkitReflectionUtils.getMinHeight(world); y < world.getMaxHeight(); y++) {
 				Location blockLocation = location.clone();
 				blockLocation.setY(y);
 				blocks.add(blockLocation.getBlock());

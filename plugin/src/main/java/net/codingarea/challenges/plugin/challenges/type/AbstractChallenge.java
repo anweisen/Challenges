@@ -134,6 +134,19 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		}
 	}
 
+	protected final void kill(@Nonnull Player player) {
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
+			return;
+		}
+
+		player.damage(player.getHealth());
+	}
+
+	protected final void kill(@Nonnull Player player, int delay) {
+		Bukkit.getScheduler().runTaskLater(plugin, () -> kill(player), delay);
+	}
+
 	@Nonnull
 	protected final Document getGameStateData() {
 		return plugin.getConfigManager().getGameStateConfig().getDocument(getName());

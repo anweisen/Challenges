@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
-import net.codingarea.challenges.plugin.challenges.implementation.setting.RespawnSetting;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -55,7 +54,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.getAround(random, 60 * getValue(), 10);
+		return RandomizeUtils.randomAround(random, 60 * getValue(), 10);
 	}
 
 	@Override
