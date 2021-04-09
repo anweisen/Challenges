@@ -197,6 +197,8 @@
   "bossbar-force-mob-instruction": "§8» §7Mob §e{0} §8┃ §a{1}",
   "bossbar-force-item-waiting": "§8» §7Warten auf nächstes Item..",
   "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
+  "bossbar-tsunami-water": "§8» §7Wasserhöhe: §9{0}",
+  "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -815,6 +817,11 @@
     "Wenn du ein *Item aufhebst*",
     "dann wirst du *in die Luft* geschleudert"
   ],
+  "item-tsunami-challenge": [
+    "§9Tsunami",
+    "In einem *gesetztem Interval*",
+    "*steigt* das *Wasser* in der *Overworld*",
+    "und die *Lava* in im *Nether*"
   ],
 
 >>>>>>> Stashed changes
