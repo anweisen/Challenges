@@ -101,12 +101,7 @@ public final class ChallengeTimer {
 		updateActionbar();
 		updateTimeRule();
 
-		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
-			for (Player player : Bukkit.getOnlinePlayers())
-				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
-		}
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
-		Challenges.getInstance().getCloudNetHelper().handleTimerStart();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
 		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
@@ -132,7 +127,6 @@ public final class ChallengeTimer {
 		updateTimeRule();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
-		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
 		if (byPlayer) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);

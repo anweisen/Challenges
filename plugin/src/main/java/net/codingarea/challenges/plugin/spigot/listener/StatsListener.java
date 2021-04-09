@@ -2,10 +2,13 @@ package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EnderDragon;
@@ -37,6 +40,15 @@ import java.util.List;
 public class StatsListener implements Listener {
 
 	private final List<Player> dragonDamager = new ArrayList<>();
+
+	@TimerTask(status = TimerStatus.RUNNING)
+	public void onStart() {
+		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
+			}
+		}
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(@Nonnull EntityDamageEvent event) {

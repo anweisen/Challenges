@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.stats;
 
 import net.anweisen.utilities.database.exceptions.DatabaseException;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
@@ -38,8 +39,9 @@ public final class StatsManager implements Listener {
 
 	public void register() {
 		if (enabled) {
-			Challenges.getInstance().getScheduler().register(this);
-			Challenges.getInstance().registerListener(this, new StatsListener());
+			StatsListener listener = new StatsListener();
+			ChallengeAPI.registerScheduler(this, listener);
+			Challenges.getInstance().registerListener(this, listener);
 		}
 	}
 

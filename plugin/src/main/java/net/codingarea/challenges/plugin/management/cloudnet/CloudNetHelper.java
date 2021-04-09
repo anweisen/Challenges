@@ -3,6 +3,8 @@ package net.codingarea.challenges.plugin.management.cloudnet;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
 
@@ -23,8 +25,11 @@ public final class CloudNetHelper {
 		startNewService = config.getBoolean("start-new-service");
 		nameSupport = config.getBoolean("name-rank-colors");
 		resetToLobby = config.getBoolean("reset-to-lobby");
+
+		ChallengeAPI.registerScheduler(this);
 	}
 
+	@TimerTask(status = TimerStatus.RUNNING, async = false)
 	public void handleTimerStart() {
 
 		if (!startNewService || !ChallengeAPI.isFresh()) return;
@@ -36,6 +41,7 @@ public final class CloudNetHelper {
 		}
 	}
 
+	@TimerTask(status = TimerStatus.PAUSED, async = false)
 	public void handleTimerPause() {
 
 		if (!resetToLobby || !startNewService) return;
