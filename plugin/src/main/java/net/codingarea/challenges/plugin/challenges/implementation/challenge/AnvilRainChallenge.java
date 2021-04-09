@@ -11,13 +11,12 @@ import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUti
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.FallingBlock;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.block.BlockPhysicsEvent;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
+import org.bukkit.event.entity.EntityDropItemEvent;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -111,34 +110,29 @@ public class AnvilRainChallenge extends MenuSetting {
 
 	private void handleTimeActivation() {
 		List<Chunk> chunks = new ArrayList<>();
-
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			//if (ignorePlayer(player)) continue;
+			if (ignorePlayer(player)) continue;
 
 			List<Chunk> targetChunks = getTargetChunks(player.getLocation().getChunk());
-
 			for (Chunk targetChunk : targetChunks) {
 				if (chunks.contains(targetChunk)) continue;
 				chunks.add(targetChunk);
 				spawnAnvils(targetChunk, getHeight(player.getLocation().getBlockY()));
 			}
-
 		}
 
 	}
 
 	private void spawnAnvils(@Nonnull Chunk chunk, int height) {
-
 		for (int i = 0; i < getCount(); i++) {
-				Block block = getRandomBlockInChunk(chunk, height);
-				Location location = block.getLocation().add(0.5, 0, 0.5);
-				block.getWorld().spawnFallingBlock(location, Material.ANVIL, ((byte) 0));
+			Block block = getRandomBlockInChunk(chunk, height);
+			Location location = block.getLocation().add(0.5, 0, 0.5);
+			block.getWorld().spawnFallingBlock(location, Material.ANVIL, ((byte) 0));
 		}
-
 	}
 
 	private List<Chunk> getTargetChunks(@Nonnull Chunk origin) {
-		ArrayList<Chunk> chunks = new ArrayList<>();
+		List<Chunk> chunks = new ArrayList<>();
 
 		int originX = origin.getX();
 		int originZ = origin.getZ();
@@ -166,7 +160,6 @@ public class AnvilRainChallenge extends MenuSetting {
 		if (!shouldExecuteEffect()) return;
 		if (!(event.getEntity() instanceof FallingBlock)) return;
 
-		// TODO: SWITCH CASE
 		String name = ((FallingBlock) event.getEntity()).getBlockData().getMaterial().name();
 		if (!name.contains("ANVIL")) return;
 
@@ -178,6 +171,19 @@ public class AnvilRainChallenge extends MenuSetting {
 		event.getEntity().remove();
 		destroyRandomBlocks(event.getBlock().getLocation());
 		applyDamageToNearEntities(event.getBlock().getLocation().add(0.5, 0.5, 0.5));
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onDrop(@Nonnull EntityDropItemEvent event) {
+		if (event.getItemDrop().getItemStack().getType() != Material.ANVIL) return;
+		if (event.getEntityType() != EntityType.FALLING_BLOCK) return;
+		String name = ((FallingBlock) event.getEntity()).getBlockData().getMaterial().name();
+		if (!name.contains("ANVIL")) return;
+
+		event.setCancelled(true);
+
+		destroyRandomBlocks(event.getEntity().getLocation());
+		applyDamageToNearEntities(event.getEntity().getLocation().getBlock().getLocation().add(0.5, 0.5, 0.5));
 	}
 
 	public void destroyRandomBlocks(@Nonnull Location origin) {
