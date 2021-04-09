@@ -805,6 +805,10 @@
     "§bRandom Items",
     "Alle Spieler erhalten alle paar",
     "Sekunden ein zufälliges Item"
+  "item-always-running-challenge": [
+    "§cAlways Running",
+    "Du kannst *nicht aufhören* vorwärts zu laufen"
+  ],
   ],
 
 >>>>>>> Stashed changes
