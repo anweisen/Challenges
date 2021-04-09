@@ -44,6 +44,10 @@ public final class PlayerInventoryManager implements Listener {
 		enabled = stats || control;
 	}
 
+	public void handleDisable() {
+		Bukkit.getOnlinePlayers().forEach(this::removeItems);
+	}
+
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onCommandsUpdate(@Nonnull PlayerCommandSendEvent event) {
 		updateInventoryAuto(event.getPlayer());
@@ -181,7 +185,16 @@ public final class PlayerInventoryManager implements Listener {
 			if (pair == null) continue;
 			ItemStack item = pair.getFirst();
 			if (item == null) continue;
-			player.getInventory().remove(item);
+			if (item.getItemMeta() == null) continue;
+			ItemStack[] content = player.getInventory().getContents();
+			for (int i = 0; i < content.length; i++) {
+				ItemStack current = content[i];
+				if (current == null) continue;
+				if (current.getType() != item.getType()) continue;
+				if (current.getItemMeta() == null) continue;
+				if (!current.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName())) continue;
+				player.getInventory().setItem(i, null);
+			}
 		}
 	}
 

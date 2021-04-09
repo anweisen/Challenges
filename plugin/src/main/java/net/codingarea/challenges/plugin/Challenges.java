@@ -182,6 +182,7 @@ public final class Challenges extends BukkitModule {
 
 		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
 
+		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
 		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
 		if (loaderRegistry != null) loaderRegistry.disable();
