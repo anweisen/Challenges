@@ -33,12 +33,10 @@ public final class ChallengeHelper {
 
 	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull Modifier modifier) {
 		int newValue = modifier.getValue();
-		int amount = info.isShiftClick() ? 10 : 1;
-		if (info.isRightClick()) {
-			newValue -= amount;
-		} else {
-			newValue += amount;
-		}
+		int amount = info.isShiftClick()
+				? (modifier.getValue() == modifier.getMinValue() || info.isRightClick() && modifier.getValue() == (10 - (modifier.getMinValue() - 1)) ? 9 : 10)
+				: 1;
+		newValue += info.isRightClick() ? -amount : amount;
 
 		if (newValue > modifier.getMaxValue())
 			newValue = modifier.getMinValue();
