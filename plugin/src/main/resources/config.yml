@@ -107,6 +107,9 @@ restart-on-reset: false
 # When the challenge is won, all players will be set into spectator mode
 set-spectator-on-win: false
 
+# The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
+drop-items-on-end: false
+
 # We only support cloudnet version 3
 cloudnet-support:
   name-rank-colors: false
