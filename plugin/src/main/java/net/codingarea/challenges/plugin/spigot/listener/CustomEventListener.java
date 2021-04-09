@@ -26,6 +26,7 @@ public class CustomEventListener implements Listener {
 	 */
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerStatisticIncrement(@Nonnull PlayerStatisticIncrementEvent event) {
+		if (event.getPlayer().isInWater()) return;
 		if (event.getStatistic() == Statistic.JUMP) {
 			Bukkit.getPluginManager().callEvent(new PlayerJumpEvent(event.getPlayer()));
 		}
