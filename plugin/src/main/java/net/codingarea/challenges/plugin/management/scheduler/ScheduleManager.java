@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.scheduler;
 
 import net.anweisen.utilities.commons.misc.ReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -20,6 +21,12 @@ public final class ScheduleManager {
 	private final Map<ScheduledTaskConfig, ScheduledTaskExecutor> scheduledTaskExecutorsByConfig = new ConcurrentHashMap<>();
 	private final Map<TimerTaskConfig, TimerTaskExecutor> timerTaskExecutorsByConfig = new ConcurrentHashMap<>();
 	private boolean started = false;
+
+	public void register(@Nonnull Object... schedulers) {
+		for (Object scheduler : schedulers) {
+			register(scheduler);
+		}
+	}
 
 	public void register(@Nonnull Object scheduler) {
 		for (Method method : ReflectionUtils.getMethodsAnnotatedWith(scheduler.getClass(), ScheduledTask.class)) {

@@ -56,7 +56,7 @@ public final class ChallengeAPI {
 		return Challenges.getInstance().getServerManager().isFresh();
 	}
 
-	public static void registerScheduler(@Nonnull Object scheduler) {
+	public static void registerScheduler(@Nonnull Object... scheduler) {
 		Challenges.getInstance().getScheduler().register(scheduler);
 	}
 
