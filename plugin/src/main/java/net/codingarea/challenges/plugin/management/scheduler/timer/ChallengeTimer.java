@@ -15,7 +15,9 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.memory.MemoryKey;
 
 import javax.annotation.Nonnull;
 
@@ -59,6 +61,14 @@ public final class ChallengeTimer {
 	private void updateTimeRule() {
 		for (World world : Bukkit.getWorlds()) {
 			world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, !paused);
+		}
+	}
+
+	private void removeEntityAnger() {
+		for (World world : Bukkit.getWorlds()) {
+			for (LivingEntity entity : world.getLivingEntities()) {
+				entity.setMemory(MemoryKey.ANGRY_AT, null);
+			}
 		}
 	}
 
@@ -125,6 +135,7 @@ public final class ChallengeTimer {
 
 		updateActionbar();
 		updateTimeRule();
+		removeEntityAnger();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		if (byPlayer) {
