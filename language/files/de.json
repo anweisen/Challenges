@@ -100,6 +100,7 @@
   "command-invsee-open": "Inventar von §e{0} §7geöffnet",
   "command-enderchest-open": "§5Enderchest §7geöffnet",
   "command-difficulty-change": "Schwierigkeit auf §e{0} §7geändert",
+  "command-difficulty-current": "Die derzeitige Schwierigkeit ist §e{0}",
   "command-search-nothing": "§e{0} §7wird durch keinen speziellen Block gedroppt",
   "command-search-result": "§e{0} §7droppt aus §e{1}",
   "command-time-set": "Die Zeit wurde auf §e{0} §7Ticks §8(§7ca. §e{1}§8) §7geändert",

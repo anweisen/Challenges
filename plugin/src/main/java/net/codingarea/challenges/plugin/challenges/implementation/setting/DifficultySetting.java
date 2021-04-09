@@ -100,8 +100,8 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
 
-		if (args.length < 1) {
-			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "difficulty <difficulty>");
+		if (args.length == 0) {
+			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyName());
 			return;
 		}
 
