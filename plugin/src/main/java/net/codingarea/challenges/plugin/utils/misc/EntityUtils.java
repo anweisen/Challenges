@@ -8,7 +8,9 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public class EntityUtils {
+public final class EntityUtils {
+
+	private EntityUtils() {}
 
 	public static Vector getSucceedingVelocity(@Nonnull Vector vector) {
 		return new Vector(vector.getX(), getSucceedingVelocity(vector.getY()), vector.getX());

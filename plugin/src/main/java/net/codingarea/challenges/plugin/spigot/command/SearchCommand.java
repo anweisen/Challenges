@@ -59,7 +59,7 @@ public class SearchCommand implements SenderCommand, Completer {
 		if (blocks.isEmpty()) {
 			Message.forName("command-search-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material));
 		} else {
-			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, " ", StringUtils::getEnumName));
+			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
 		}
 
 	}

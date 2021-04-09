@@ -1,12 +1,17 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.anweisen.utilities.database.Database;
 import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
+import org.bukkit.inventory.meta.ItemMeta;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public final class ItemUtils {
@@ -53,6 +58,19 @@ public final class ItemUtils {
 		}
 
 		return true;
+	}
+
+	public static void damageItem(@Nonnull ItemStack item) {
+		damageItem(item, 1);
+	}
+
+	public static void damageItem(@Nonnull ItemStack item, int amount) {
+		ItemMeta meta = item.getItemMeta();
+		if (meta == null) return;
+		if (!(meta instanceof Damageable)) return;
+		Damageable damageable = (Damageable) meta;
+		damageable.setDamage(damageable.getDamage() + amount);
+		item.setItemMeta(meta);
 	}
 
 	public static Material[] getArmor() {

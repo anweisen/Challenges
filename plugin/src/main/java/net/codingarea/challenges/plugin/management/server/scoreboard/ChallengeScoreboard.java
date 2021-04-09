@@ -40,6 +40,7 @@ public final class ChallengeScoreboard {
 
 		@Nonnull
 		public ScoreboardInstance addLine(@Nonnull String text) {
+			if (linesIndex >= lines.length) throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
 			lines[linesIndex++] = text;
 			return this;
 		}
