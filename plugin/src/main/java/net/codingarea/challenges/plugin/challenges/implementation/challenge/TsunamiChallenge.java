@@ -68,8 +68,8 @@ public class TsunamiChallenge extends TimedChallenge {
 		bossbar.setContent((bossbar, player) -> {
 			World world = player.getWorld();
 			Environment environment = world.getEnvironment();
-			int height = environment == Environment.NETHER ? waterHeight : lavaHeight;
-			if (height < world.getMaxHeight())
+			int height = environment == Environment.NORMAL ? waterHeight : lavaHeight;
+			if (height < (world.getMaxHeight() - 1))
 				bossbar.setProgress(getProgress());
 
 			if (environment == Environment.NORMAL) {
@@ -107,10 +107,10 @@ public class TsunamiChallenge extends TimedChallenge {
 		for (World world : Bukkit.getWorlds()) {
 			if (!world.getPlayers().isEmpty()) {
 				if (world.getEnvironment() == Environment.NORMAL) {
-					if (waterHeight >= world.getMaxHeight()) continue;
+					if (waterHeight >= (world.getMaxHeight() - 1)) continue;
 					waterHeight++;
 				} else if (world.getEnvironment() == Environment.NETHER) {
-					if (lavaHeight >= world.getMaxHeight()) continue;
+					if (lavaHeight >= (world.getMaxHeight() - 1)) continue;
 					lavaHeight++;
 				}
 			}
@@ -125,7 +125,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	private void onPlayerMove(PlayerMoveEvent event) {
+	private void onPlayerMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer()))  return;
 		if (event.getTo() == null) return;
@@ -160,8 +160,6 @@ public class TsunamiChallenge extends TimedChallenge {
 
 		boolean overworld = chunk.getWorld().getEnvironment() == Environment.NORMAL;
 		int height = overworld ? waterHeight : lavaHeight;
-		if (height >= chunk.getWorld().getMaxHeight()) return;
-
 		floodChunk0(chunk, discovered ? null : height - 1, height, overworld, (delay, task) -> Bukkit.getScheduler().runTaskLater(plugin, task, delay));
 	}
 
