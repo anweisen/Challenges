@@ -255,6 +255,11 @@ public class ItemBuilder {
 		return lore == null ? new ArrayList<>() : lore;
 	}
 
+	@Nonnull
+	public Material getType() {
+		return item.getType();
+	}
+
 	public int getAmount() {
 		return item.getAmount();
 	}
