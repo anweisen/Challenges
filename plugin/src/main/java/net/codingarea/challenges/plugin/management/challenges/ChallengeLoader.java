@@ -121,6 +121,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomEventChallenge.class);
 		register(RandomItemChallenge.class);
 		register(AlwaysRunningChallenge.class);
+		register(PickupItemLaunchChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
