@@ -58,6 +58,12 @@ public class StatsCommand implements PlayerCommand {
 	}
 	private void handleCommand(@Nonnull Player player, @Nonnull String name) {
 		Challenges.getInstance().runAsync(() -> {
+			Player target = Bukkit.getPlayer(name);
+			if (target != null) {
+				open(player, target.getUniqueId(), target.getName());
+				return;
+			}
+
 			try {
 				UUID uuid = Utils.fetchUUID(name);
 				open(player, uuid, name);
