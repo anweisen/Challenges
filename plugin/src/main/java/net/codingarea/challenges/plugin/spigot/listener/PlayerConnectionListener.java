@@ -67,7 +67,7 @@ public class PlayerConnectionListener implements Listener {
 			if (!UpdateLoader.isNewestConfigVersion()) {
 				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
-			if (timerPausedInfo && ChallengeAPI.isPaused()) {
+			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {
 				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
 			}
 		}
