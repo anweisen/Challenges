@@ -30,13 +30,9 @@ public final class DatabaseManager {
 		if ("none".equals(type)) return;
 
 		// Check dependencies
-		if ("mongodb".equals(type)) {
-			try {
-				Class.forName("net.codingarea.challenges.mongoconnector.MongoConnector");
-			} catch (ClassNotFoundException | NoClassDefFoundError ex) {
-				ConsolePrint.noMongoDependencies();
-				return;
-			}
+		if ("mongodb".equals(type) && !checkDependencies("com.mongodb.client.MongoClient")) {
+			ConsolePrint.noMongoDependencies();
+			return;
 		}
 
 		try {
@@ -95,6 +91,17 @@ public final class DatabaseManager {
 
 	public Database getDatabase() {
 		return database;
+	}
+
+	private boolean checkDependencies(@Nonnull String... classes) {
+		try {
+			for (String name : classes) {
+				Class.forName(name);
+			}
+		} catch (Throwable ex) {
+			return false;
+		}
+		return true;
 	}
 
 }
