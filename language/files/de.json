@@ -293,24 +293,13 @@
   "item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
   "item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
 
-  "item-time-seconds-description": [
-    "§8» §7Zeit: §e{0} §7Sekunden"
-  ],
-  "item-time-seconds-range-description": [
-    "§8» §7Zeit: §e{0}-{1} §7Sekunden"
-  ],
-  "item-time-minutes-description": [
-    "§8» §7Zeit: §e{0} §7Minuten"
-  ],
-  "item-heart-damage-description": [
-    "§8» §7Schaden: §e{0} §c❤"
-  ],
-  "item-max-health-description": [
-    "§8» §7Maximale Leben: §e{0} §c❤"
-  ],
-  "item-chance-description": [
-    "§8» §7Chance: §e{0}%"
-  ],
+  "item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
+  "item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
+  "item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",
+  "item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
+  "item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
+  "item-chance-description": "§8» §7Chance: §e{0}%",
+  "item-pickup-launcher-description": "§8» §7Stärke: §e{0}",
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -570,8 +559,8 @@
   ],
   "item-reversed-damage-challenge": [
     "§cReversed Damage",
-    "Beim *Schlagen* von *Mobs* bekommt",
-    "der Spieler den Schaden zurück"
+    "Wenn du Entities *schlägst* oder *abschießt*",
+    "bekommst du den *gleichen Schaden*"
   ],
   "item-duped-spawning-challenge": [
     "§cDoppeltes Spawning",
@@ -778,7 +767,6 @@
     "den du dich *fortbewegst* ein Item,",
     "aus deinem Inventar, *gelöscht*"
   ],
-<<<<<<< Updated upstream
   "item-higher-jumps-challenge": [
     "§aHigher Jumps",
     "*Umso öfter* du springst",
@@ -810,7 +798,6 @@
     "Alle *paar Minuten* musst du",
     "ein *bestimmtes Item* finden oder du stirbst"
   ],
-=======
   "item-random-item-challenge": [
     "§bRandom Items",
     "Alle Spieler erhalten *alle paar*",
@@ -832,7 +819,6 @@
     "und die *Lava* in im *Nether*"
   ],
 
->>>>>>> Stashed changes
 
   "item-dragon-goal": [
     "§5Enderdrache",

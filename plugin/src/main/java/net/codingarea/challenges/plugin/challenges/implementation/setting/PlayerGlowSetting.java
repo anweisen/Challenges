@@ -5,10 +5,10 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
@@ -35,25 +35,27 @@ public class PlayerGlowSetting extends Setting {
 
 	@Override
 	protected void onEnable() {
-		playEffects();
+		updateEffects();
 	}
 
 	@Override
 	protected void onDisable() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.removePotionEffect(PotionEffectType.GLOWING);
-		}
+		updateEffects();
 	}
 
-	@ScheduledTask(ticks = 20*60, async = false, timerPolicy = TimerPolicy.ALWAYS)
-	public void playEffects() {
-		if (!shouldExecuteEffect()) return;
-		Bukkit.getOnlinePlayers().forEach(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 1, true, false, false)));
+	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING }, async = false)
+	@ScheduledTask(ticks = 50, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	public void updateEffects() {
+		if (!shouldExecuteEffect()) {
+			broadcast(player -> player.removePotionEffect(PotionEffectType.GLOWING));
+			return;
+		}
+		broadcast(player -> player.addPotionEffect(new PotionEffect(PotionEffectType.GLOWING, Integer.MAX_VALUE, 1, true, false, false)));
 	}
 
 	@EventHandler
 	public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
-		playEffects();
+		updateEffects();
 	}
 
 }
