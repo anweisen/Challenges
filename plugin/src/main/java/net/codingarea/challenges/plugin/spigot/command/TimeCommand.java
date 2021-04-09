@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.commons.misc.NumberFormatter;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
@@ -11,14 +12,24 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public class TimeCommand implements PlayerCommand, Completer {
+
+	private final Map<Long, String> names;
+
+	public TimeCommand() {
+		names = new HashMap<>();
+		names.put(1000L, "Day");
+		names.put(6000L, "Noon");
+		names.put(13000L, "Night");
+		names.put(18000L, "Midnight");
+	}
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
@@ -48,12 +59,16 @@ public class TimeCommand implements PlayerCommand, Completer {
 					break;
 				}
 				long time = getTime(args[1]);
-				if (time == -1) {
+				if (time < 0) {
 					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time set <ticks/day/night/noon/midnight>");
 					break;
 				}
 				world.setTime(time);
-				player.sendMessage(Prefix.CHALLENGES + "§7Set: §e" + time + " Ticks");
+				if (names.containsKey(time)) {
+					Message.forName("command-time-set-exact").send(player, Prefix.CHALLENGES, names.get(time), time);
+				} else {
+					Message.forName("command-time-set").send(player, Prefix.CHALLENGES, time, getNearestTime(world));
+				}
 				break;
 			}
 			case "add": {
@@ -62,12 +77,11 @@ public class TimeCommand implements PlayerCommand, Completer {
 					break;
 				}
 				long time = getLongFromString(args[1]);
-				if (time == -1) {
+				if (time < 0) {
 					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time add <ticks>");
 					break;
 				}
-				world.setTime(world.getTime() + time);
-				player.sendMessage(Prefix.CHALLENGES + "§7Add: §e" + time + " Ticks");
+				player.performCommand("time set " + (world.getTime() + time));
 				break;
 			}
 			case "subtract": {
@@ -76,25 +90,15 @@ public class TimeCommand implements PlayerCommand, Completer {
 					break;
 				}
 				long time = getLongFromString(args[1]);
-				if (time == -1) {
+				if (time < 0) {
 					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time subtract <ticks>");
 					break;
 				}
-				world.setTime(world.getTime() - time);
-				player.sendMessage(Prefix.CHALLENGES + "§7Subtract: §e" + time + " Ticks");
+				player.performCommand("time set " + (world.getTime() - time));
 				break;
 			}
 			case "query": {
-				if (args.length <= 1) {
-					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time query <day/daytime/gametime>");
-					break;
-				}
-				long time = getQueryTime(world, args[1]);
-				if (time == -1) {
-					Message.forName("syntax").send(player, Prefix.CHALLENGES, "time query <day/daytime/gametime>");
-					break;
-				}
-				player.sendMessage(Prefix.CHALLENGES + "§7Query: §e" + time + (args[1].equalsIgnoreCase("day") ? " Days" : " Ticks"));
+				Message.forName("command-time-query").send(player, Prefix.CHALLENGES, NumberFormatter.MIDDLE_NUMBER.format(world.getFullTime()), world.getFullTime() / 24000, NumberFormatter.MIDDLE_NUMBER.format(world.getTime()), getNearestTime(world));
 				break;
 			}
 
@@ -102,12 +106,17 @@ public class TimeCommand implements PlayerCommand, Completer {
 
 	}
 
+	private String getNearestTime(@Nonnull World world) {
+		return names.entrySet().stream()
+				.min(Comparator.comparingLong(entry -> Math.abs(world.getTime() - entry.getKey())))
+				.map(Entry::getValue)
+				.orElse("Day");
+	}
+
 	private long getTime(@Nonnull String input) {
-		switch (input.toLowerCase()) {
-			case "day":         return 1000;
-			case "noon":        return 6000;
-			case "night":       return 13000;
-			case "midnight":    return 18000;
+		for (Entry<Long, String> entry : names.entrySet()) {
+			if (entry.getValue().equalsIgnoreCase(input))
+				return entry.getKey();
 		}
 		return getLongFromString(input);
 	}
@@ -119,21 +128,11 @@ public class TimeCommand implements PlayerCommand, Completer {
 		return -1;
 	}
 
-	private long getQueryTime(@Nonnull World world, @Nonnull String query) {
-		switch (query.toLowerCase()) {
-			case "day": return world.getFullTime() / 24000;
-			case "daytime": return world.getTime();
-			case "gametime": return world.getFullTime();
-		}
-		return -1;
-	}
-
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		if (args.length <= 1) return Utils.filterRecommendations(args[0], "set", "subtract", "query", "day", "night", "noon", "midnight");
 		if (args[0].equalsIgnoreCase("set")) return Utils.filterRecommendations(args[1], "day", "night", "noon", "midnight");
-		if (args[0].equalsIgnoreCase("query")) return Utils.filterRecommendations(args[1], "day", "daytime", "gametime");
 		return new ArrayList<>();
 	}
 
