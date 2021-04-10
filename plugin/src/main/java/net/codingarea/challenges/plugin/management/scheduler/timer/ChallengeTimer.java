@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.management.scheduler.timer;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
-import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.language.Message;
@@ -10,7 +9,6 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -61,14 +59,6 @@ public final class ChallengeTimer {
 	private void updateTimeRule() {
 		for (World world : Bukkit.getWorlds()) {
 			world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, !paused);
-		}
-	}
-
-	private void removeEntityAnger() {
-		for (World world : Bukkit.getWorlds()) {
-			for (LivingEntity entity : world.getLivingEntities()) {
-				entity.setMemory(MemoryKey.ANGRY_AT, null);
-			}
 		}
 	}
 
@@ -135,7 +125,6 @@ public final class ChallengeTimer {
 
 		updateActionbar();
 		updateTimeRule();
-		removeEntityAnger();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		if (byPlayer) {
