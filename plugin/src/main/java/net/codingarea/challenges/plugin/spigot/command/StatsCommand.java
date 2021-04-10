@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.spigot.command;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
@@ -78,9 +79,12 @@ public class StatsCommand implements PlayerCommand {
 		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(uuid, name);
 		name = stats.getPlayerName();
 
+		CloudSupportManager cloudSupport = Challenges.getInstance().getCloudSupportManager();
+		String coloredName = cloudSupport.isNameSupport() && cloudSupport.hasNameFor(uuid) ? cloudSupport.getColoredName(uuid) : name;
+
 		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER);
 		StatsHelper.setAccent(inventory, 3);
-		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, name, Message.forName("stats-of").asString(name)).build());
+		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, name, Message.forName("stats-of").asString(coloredName)).build());
 
 		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
 		createInventory(stats, info, inventory, StatsHelper.getSlots(2));

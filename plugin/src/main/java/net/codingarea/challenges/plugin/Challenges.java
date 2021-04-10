@@ -5,7 +5,8 @@ import net.codingarea.challenges.plugin.language.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
-import net.codingarea.challenges.plugin.management.cloudnet.CloudNetHelper;
+import net.codingarea.challenges.plugin.management.cloud.CloudNetSupport;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
 import net.codingarea.challenges.plugin.management.files.ConfigManager;
 import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryManager;
@@ -21,7 +22,6 @@ import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
 import net.codingarea.challenges.plugin.utils.bukkit.command.ForwardingCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
-import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 
@@ -45,7 +45,7 @@ public final class Challenges extends BukkitModule {
 	private BlockDropManager blockDropManager;
 	private ChallengeLoader challengeLoader;
 	private DatabaseManager databaseManager;
-	private CloudNetHelper cloudNetHelper;
+	private CloudSupportManager cloudSupportManager;
 	private ServerManager serverManager;
 	private ConfigManager configManager;
 	private ScheduleManager scheduler;
@@ -100,7 +100,7 @@ public final class Challenges extends BukkitModule {
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();
 		scoreboardManager = new ScoreboardManager();
-		cloudNetHelper = new CloudNetHelper();
+		cloudSupportManager = new CloudSupportManager();
 		titleManager = new TitleManager();
 		timer = new ChallengeTimer();
 		blockDropManager = new BlockDropManager();
@@ -254,8 +254,8 @@ public final class Challenges extends BukkitModule {
 	}
 
 	@Nonnull
-	public CloudNetHelper getCloudNetHelper() {
-		return cloudNetHelper;
+	public CloudSupportManager getCloudSupportManager() {
+		return cloudSupportManager;
 	}
 
 	@Nonnull

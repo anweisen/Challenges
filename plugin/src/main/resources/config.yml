@@ -110,12 +110,13 @@ set-spectator-on-win: false
 # The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
 drop-items-on-end: false
 
-# We only support cloudnet version 3
-cloudnet-support:
-  name-rank-colors: false
+# We currently support:
+# - cloudnet (only cloudnet v3)
+cloud-support:
+  type: none
+  name-rank-colors: true
   start-new-service: false
-  # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY
-  reset-to-lobby: false
+  reset-to-lobby: false # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY, this will only be used if start-new-service is enabled as well
 
 # This will require a database connection
 save-player-configs: false

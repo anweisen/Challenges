@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.spigot.command;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
@@ -88,11 +89,13 @@ public class LeaderboardCommand implements PlayerCommand {
 		InventoryUtils.setNavigationItemsToFrame(inventory.cloneLastAndAdd(), navigationSlots, true, page, pages);
 
 		SlottedMenuPosition position = new SlottedMenuPosition();
+		CloudSupportManager cloudSupport = Challenges.getInstance().getCloudSupportManager();
 
 		for (int i = page * slots.length; i < leaderboard.size() && i < slots.length; i++) {
 			PlayerStats stats = leaderboard.get(i);
+			String coloredName = cloudSupport.isNameSupport() && cloudSupport.hasNameFor(stats.getPlayerUUID()) ? cloudSupport.getColoredName(stats.getPlayerUUID()) : stats.getPlayerName();
 			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID(), stats.getPlayerName()).setName(Message.forName("stats-leaderboard-display")
-					.asArray(stats.getPlayerName(), statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
+					.asArray(coloredName, statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
 			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
 
 			position.setAction(slots[i], () -> {
