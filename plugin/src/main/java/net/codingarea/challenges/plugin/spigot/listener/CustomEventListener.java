@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class CustomEventListener implements Listener {
 	 */
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerStatisticIncrement(@Nonnull PlayerStatisticIncrementEvent event) {
-		if (event.getPlayer().isInWater()) return;
+		if (BukkitReflectionUtils.isInWater(event.getPlayer())) return;
 		if (event.getStatistic() == Statistic.JUMP) {
 			Bukkit.getPluginManager().callEvent(new PlayerJumpEvent(event.getPlayer()));
 		}

@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import org.apache.commons.lang3.event.EventUtils;
@@ -47,7 +48,7 @@ public class AlwaysRunningChallenge extends Setting {
 
 			if (player.isSneaking())
 				velocity.multiply(0.5);
-			else if (player.isInWater())
+			else if (BukkitReflectionUtils.isInWater(player))
 				velocity.multiply(0.5);
 			else if (!player.isOnGround())
 				velocity.multiply(0.85);

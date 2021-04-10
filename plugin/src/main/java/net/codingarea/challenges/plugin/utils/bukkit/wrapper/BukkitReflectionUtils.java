@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.wrapper;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -67,6 +68,16 @@ public final class BukkitReflectionUtils {
 		}
 
 		return 0;
+	}
+
+	@Deprecated
+	public static boolean isInWater(@Nonnull Entity entity) {
+		try {
+			return entity.isInWater();
+		} catch (Throwable ex) {
+		}
+
+		return false;
 	}
 
 }
