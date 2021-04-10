@@ -8,7 +8,6 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
-import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -61,13 +60,12 @@ public class RandomItemChallenge extends TimedChallenge {
 		Material[] materials = Arrays.stream(Material.values())
 				.filter(ItemUtils::isObtainableInSurvival)
 				.filter(Material::isItem)
-				.toArray(length -> new Material[length]);
+				.toArray(Material[]::new);
 
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			int index = random.nextInt(materials.length);
-			Material material = materials[index];
-			InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(material));
-		}
+		Player player = Bukkit.getOnlinePlayers().toArray(new Player[0])[random.nextInt(Bukkit.getOnlinePlayers().size())];
+		int materialIndex = random.nextInt(materials.length);
+		Material material = materials[materialIndex];
+		InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(material));
 
 	}
 
