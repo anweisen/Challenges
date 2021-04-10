@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -28,6 +29,7 @@ import java.util.function.BiConsumer;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@Since("2.0")
 public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	private Biome biome;
