@@ -21,6 +21,7 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerSwapHandItemsEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 
@@ -132,7 +133,7 @@ public class SlotLimitSetting extends Modifier {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
-		event.getEntity().getInventory().remove(ItemBuilder.BLOCKED_ITEM);
+		event.getDrops().removeIf(itemStack -> itemStack.isSimilar(ItemBuilder.BLOCKED_ITEM));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
