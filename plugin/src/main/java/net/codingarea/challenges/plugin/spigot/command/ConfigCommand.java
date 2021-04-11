@@ -44,13 +44,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 				if (!enabled) break;
 			case "save":
 				if (!checkEnabled(player)) return;
-				Document document = new GsonDocument();
-				Challenges.getInstance().getChallengeManager().saveSettingsInto(document);
-				Challenges.getInstance().getDatabaseManager().getDatabase()
-						.insertOrUpdate("challenges")
-						.where("uuid", player.getUniqueId())
-						.set("config", document)
-						.execute();
+				Challenges.getInstance().getChallengeManager().saveSettings(player);
 				Message.forName("player-config-saved").send(player, Prefix.CHALLENGES);
 				break;
 			case "load":

@@ -1,11 +1,14 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
+import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -58,6 +61,16 @@ public final class ChallengeManager {
 		}
 	}
 
+	public void saveSettings(@Nonnull Player player) throws DatabaseException {
+		Document document = new GsonDocument();
+		saveSettingsInto(document);
+		Challenges.getInstance().getDatabaseManager().getDatabase()
+				.insertOrUpdate("challenges")
+				.where("uuid", player.getUniqueId())
+				.set("config", document)
+				.execute();
+	}
+
 	public void enable() {
 		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig());
 		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());
@@ -71,7 +84,7 @@ public final class ChallengeManager {
 				Document document = config.getDocument(name);
 				challenge.loadSettings(document);
 			} catch (Exception ex) {
-				Logger.error("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
+				Logger.error("Could not load setting for challenge {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
