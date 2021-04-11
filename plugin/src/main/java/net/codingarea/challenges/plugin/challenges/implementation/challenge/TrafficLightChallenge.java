@@ -24,7 +24,7 @@ import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 2.0
+ * @since 1.3
  */
 @Since("1.3")
 public class TrafficLightChallenge extends TimedChallenge {
