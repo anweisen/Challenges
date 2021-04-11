@@ -10,7 +10,6 @@ api-version: 1.13
 main: net.codingarea.challenges.plugin.Challenges
 load: POSTWORLD
 softdepend:
-  - Challenges-MongoConnector
   - CloudNet-Bridge
 description: |
   This plugin provides you with loads of challenges for beating minecraft or cometing with your friends.
