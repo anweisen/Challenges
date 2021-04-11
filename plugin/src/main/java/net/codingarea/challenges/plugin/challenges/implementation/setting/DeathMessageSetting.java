@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -47,6 +48,20 @@ public class DeathMessageSetting extends Modifier {
 			default:        return DefaultItem.disabled();
 			case ENABLED:   return DefaultItem.enabled();
 			case VANILLA:   return DefaultItem.create(MaterialWrapper.SIGN, "§6Vanilla");
+		}
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		switch (getValue()) {
+			case ENABLED:
+				ChallengeHelper.playToggleChallengeTitle(this, true);
+				return;
+			case VANILLA:
+				ChallengeHelper.playChangeChallengeValueTitle(this, "§6Vanilla");
+				return;
+			default:
+				ChallengeHelper.playToggleChallengeTitle(this, false);
 		}
 	}
 
