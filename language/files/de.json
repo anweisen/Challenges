@@ -110,6 +110,9 @@
     "Spielzeit §e{0} §7Ticks §8(§7Tag §e{1}§8)",
     "Tageszeit §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
+  "command-fly-enabled": "Du §akannst §7nun §efliegen",
+  "command-fly-disabled": "Du kannst nun §cnicht §7mehr §efliegen",
+  "command-toogled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
