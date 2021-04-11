@@ -15,6 +15,8 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -75,32 +77,43 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		for (String line : asArray(args)) {
-			if (line.trim().isEmpty()) target.sendMessage(line);
-			else                       target.sendMessage(prefix + line);
-		}
+		doSendLines(target::sendMessage, prefix, asArray(args));
+	}
+
+	@Override
+	public void sendRandom(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
+		sendRandom(defaultRandom(), target, prefix, args);
+	}
+
+	@Override
+	public void sendRandom(@Nonnull Random random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
+		doSendLine(target::sendMessage, prefix, asRandomString(random, args));
 	}
 
 	@Override
 	public void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args) {
-		for (String line : asArray(args)) {
-			if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
-			else                       Bukkit.broadcastMessage(prefix + line);
-		}
+		doSendLines(Bukkit::broadcastMessage, prefix, asArray(args));
 	}
 
 	@Override
 	public void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args) {
-		String line = asRandomString(args);
-		if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
-		else                       Bukkit.broadcastMessage(prefix + line);
+		broadcastRandom(defaultRandom(), prefix, args);
 	}
 
 	@Override
 	public void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		String line = asRandomString(random, args);
-		if (line.trim().isEmpty()) Bukkit.broadcastMessage(line);
-		else                       Bukkit.broadcastMessage(prefix + line);
+		doSendLine(Bukkit::broadcastMessage, prefix, asRandomString(random, args));
+	}
+
+	private void doSendLines(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String[] lines) {
+		for (String line : lines) {
+			doSendLine(sender, prefix, line);
+		}
+	}
+
+	private void doSendLine(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String line) {
+		if (line.trim().isEmpty()) sender.accept(line);
+		else                       sender.accept(prefix + line);
 	}
 
 	@Override
@@ -156,6 +169,10 @@ public class MessageImpl implements Message {
 	@Override
 	public String toString() {
 		return asString();
+	}
+
+	protected static Random defaultRandom() {
+		return ThreadLocalRandom.current();
 	}
 
 }

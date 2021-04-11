@@ -31,7 +31,10 @@ public interface Message {
 	@Nonnull
 	ItemDescription asItemDescription(@Nonnull Object... args);
 
-	void send(@Nonnull CommandSender player, @Nonnull Prefix prefix, @Nonnull Object... args);
+	void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+	void sendRandom(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+	void sendRandom(@Nonnull Random random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+
 	void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args);
 	void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args);
 	void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args);
