@@ -53,7 +53,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 						.query("challenges")
 						.select("config")
 						.where("uuid", player.getUniqueId())
-						.execute().firstOrEmpty();
+						.execute().firstOrEmpty().getDocument("config");
 				Challenges.getInstance().getChallengeManager().loadSettings(config);
 				Message.forName("player-config-loaded").send(player, Prefix.CHALLENGES);
 				break;
