@@ -1,25 +1,35 @@
 package net.codingarea.challenges.plugin.language;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 1.2
  */
-public enum Prefix {
+public class Prefix {
 
-	CHALLENGES("§6Challenge"),
-	DAMAGE("§cDamage"),
-	POSITION("§9Position"),
-	BACKPACK("§aBackpack"),
-	TIMER("§5Timer");
+	private static final Map<String, Prefix> values = new HashMap<>();
 
+	public static final Prefix
+			CHALLENGES  = forName("challenges", "§6Challenges"),
+			DAMAGE      = forName("damage", "§cDamage"),
+			POSITION    = forName("position", "§9Position"),
+			BACKPACK    = forName("backpack", "§aBackpack"),
+			TIMER       = forName("timer", "§5Timer");
+
+	private final String name;
 	private final String defaultValue;
 	private String value;
 
-	Prefix(@Nonnull String defaultValue) {
-		this.defaultValue = "§8§l┃ " + defaultValue + " §8┃ ";
+	private Prefix(@Nonnull String name, @Nonnull String defaultValue) {
+		this.defaultValue = getDefaultValueFor(defaultValue);
+		this.name = name;
 	}
 
 	public void setValue(@Nullable String value) {
@@ -27,8 +37,31 @@ public enum Prefix {
 	}
 
 	@Nonnull
+	@Override
 	public String toString() {
 		return value == null ? defaultValue : value;
+	}
+
+	@Nonnull
+	public String getName() {
+		return name;
+	}
+
+	@Nonnull
+	@CheckReturnValue
+	public static Collection<Prefix> values() {
+		return Collections.unmodifiableCollection(values.values());
+	}
+
+	@Nonnull
+	@CheckReturnValue
+	public static Prefix forName(@Nonnull String name, @Nonnull String defaultValue) {
+		return values.computeIfAbsent(name, key -> new Prefix(name, defaultValue));
+	}
+
+	@Nonnull
+	public static String getDefaultValueFor(@Nonnull String value) {
+		return "§8§l┃ " + value + " §8┃ ";
 	}
 
 }

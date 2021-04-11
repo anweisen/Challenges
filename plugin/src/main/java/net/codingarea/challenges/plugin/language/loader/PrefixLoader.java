@@ -24,19 +24,19 @@ public final class PrefixLoader extends ContentLoader {
 			Document document = new PropertiesDocument(file);
 
 			for (Prefix prefix : Prefix.values()) {
-				if (!document.contains(prefix.name())) {
-					document.set(prefix.name(), prefix.toString());
+				if (!document.contains(prefix.getName())) {
+					document.set(prefix.getName(), prefix.toString());
 					continue;
 				}
 
-				prefix.setValue(document.getString(prefix.name()));
+				prefix.setValue(document.getString(prefix.getName()));
 			}
 
 			document.save(file);
-			Logger.info("Successfully loaded {} prefixes from config file", Prefix.values().length);
+			Logger.info("Successfully loaded {} prefixes from config file", Prefix.values().size());
 
 		} catch (Exception ex) {
-			Logger.error("Could not load prefix", ex);
+			Logger.error("Could not load prefixes", ex);
 		}
 	}
 
