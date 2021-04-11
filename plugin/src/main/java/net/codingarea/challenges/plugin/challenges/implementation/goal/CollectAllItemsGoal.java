@@ -137,6 +137,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 	}
 
 	protected void handleNewItem(@Nullable Material material) {
+		if (!shouldExecuteEffect()) return;
 		if (currentItem != material) return;
 		Message.forName("all-items-found").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(currentItem));
 		SoundSample.PLING.broadcast();
