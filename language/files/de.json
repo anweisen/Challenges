@@ -73,7 +73,7 @@
   "stats-of": "§8» §7Stats von §e{0}",
   "stats-display": "§8» §7{0} §8(§e{1}. §7Platz§8)",
   "stats-leaderboard-display": [
-    "§e{0}",
+    "§8» §e{0}",
     "§8§l┣ §7{1} §7{2}",
     "§8§l┗ §e{3}. §7Platz"
   ],
@@ -443,7 +443,8 @@
   ],
   "item-immediate-respawn-setting": [
     "§6Direkter Respawn",
-    "Stellt ein ob man *direkt Respawnt*"
+    "Wenn du stirbst *respawnst* du *automatisch*",
+    "ohne den *Death Screen* zu sehen"
   ],
   "item-slot-limit-setting": [
     "§4Inventar Slots",
