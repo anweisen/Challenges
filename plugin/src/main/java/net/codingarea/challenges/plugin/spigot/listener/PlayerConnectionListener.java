@@ -31,6 +31,7 @@ public class PlayerConnectionListener implements Listener {
 	private final boolean startTimerOnJoin;
 	private final boolean resetOnLastQuit;
 	private final boolean pauseOnLastQuit;
+	private final boolean restoreDefaultsOnLastQuit;
 
 	public PlayerConnectionListener() {
 		Document config = Challenges.getInstance().getConfigDocument();
@@ -39,6 +40,7 @@ public class PlayerConnectionListener implements Listener {
 		startTimerOnJoin = config.getBoolean("start-on-first-join");
 		resetOnLastQuit = config.getBoolean("reset-on-last-leave");
 		pauseOnLastQuit = config.getBoolean("pause-on-last-leave");
+		restoreDefaultsOnLastQuit = config.getBoolean("restore-defaults-on-last-leave");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -100,11 +102,17 @@ public class PlayerConnectionListener implements Listener {
 			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 		}
 
-		if (Bukkit.getOnlinePlayers().size() <= 1 && !Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
-			if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
-				Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
-			} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
-				ChallengeAPI.pauseTimer();
+		if (Bukkit.getOnlinePlayers().size() <= 1) {
+			if (restoreDefaultsOnLastQuit) {
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
+			}
+
+			if (!Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
+				if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
+					Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
+				} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
+					ChallengeAPI.pauseTimer();
+				}
 			}
 		}
 
