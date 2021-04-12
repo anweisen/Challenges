@@ -20,7 +20,7 @@
   "confirm-reset": "Bestätige den Reset mit §e/{0}",
   "no-fresh-reset": [
     "Der Server kann §cnicht resetet §7werden",
-    "Die Challenge §cnoch nicht §7gespielt wurde"
+    "Die Challenge wurde §cnoch nicht §7gespielt"
   ],
   "new-challenge": "§a§lNeu!",
   "feature-disabled": "Diese Funktion ist derzeit §cdeaktiviert",
@@ -110,8 +110,8 @@
     "Spielzeit §e{0} §7Ticks §8(§7Tag §e{1}§8)",
     "Tageszeit §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
-  "command-fly-enabled": "Du §akannst §7nun §efliegen",
-  "command-fly-disabled": "Du kannst nun §cnicht §7mehr §efliegen",
+  "command-fly-enabled": "Du kannst §anun fliegen",
+  "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
   "command-toogled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
