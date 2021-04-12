@@ -60,6 +60,12 @@ public class Prefix {
 	}
 
 	@Nonnull
+	@CheckReturnValue
+	public static Prefix forName(@Nonnull String name) {
+		return forName(name, name);
+	}
+
+	@Nonnull
 	public static String getDefaultValueFor(@Nonnull String value) {
 		return "§8§l┃ " + value + " §8┃ ";
 	}
