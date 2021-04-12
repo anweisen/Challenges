@@ -59,20 +59,20 @@ public class LeaderboardCommand implements PlayerCommand {
 			Statistic statistic = Statistic.values()[i];
 			ItemBuilder item = new ItemBuilder(StatsHelper.getMaterial(statistic), "§8» " + StatsHelper.getNameMessage(statistic).asString());
 			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
-			position.setAction(slots[i], () -> openMenu(player, statistic, 0));
+			position.setAction(slots[i], () -> openMenu(player, statistic, 0, false));
 		}
 
 		MenuPosition.set(player, position);
 		return inventory;
 	}
 
-	private void openMenu(@Nonnull Player player, @Nonnull Statistic statistic, int page) {
+	private void openMenu(@Nonnull Player player, @Nonnull Statistic statistic, int page, boolean openInstant) {
 		loadingInventory.open(player, Challenges.getInstance());
 		MenuPosition.set(player, new EmptyMenuPosition());
-		Challenges.getInstance().runAsync(() -> openMenu0(player, statistic, page));
+		Challenges.getInstance().runAsync(() -> openMenu0(player, statistic, page, openInstant));
 	}
 
-	private void openMenu0(@Nonnull Player player, @Nonnull Statistic statistic, int page) {
+	private void openMenu0(@Nonnull Player player, @Nonnull Statistic statistic, int page, boolean openInstant) {
 
 		int[] slots = {
 			10, 11, 12, 13, 14, 15, 16,
@@ -86,33 +86,41 @@ public class LeaderboardCommand implements PlayerCommand {
 
 		List<PlayerStats> leaderboard = Challenges.getInstance().getStatsManager().getLeaderboard(statistic);
 		int pages = leaderboard.size() / slots.length;
-		InventoryUtils.setNavigationItemsToFrame(inventory.cloneLastAndAdd(), navigationSlots, true, page, pages);
+		if (leaderboard.size() % slots.length > 0) pages++;
+		int offset = page * slots.length;
 
+		InventoryUtils.setNavigationItemsToFrame(inventory.cloneLastAndAdd(), navigationSlots, true, page, pages);
 		SlottedMenuPosition position = new SlottedMenuPosition();
 		CloudSupportManager cloudSupport = Challenges.getInstance().getCloudSupportManager();
 
-		for (int i = page * slots.length; i < leaderboard.size() && i < slots.length; i++) {
+		for (int i = offset; i < leaderboard.size() && i < offset + slots.length; i++) {
+			int slot = slots[i - offset];
 			PlayerStats stats = leaderboard.get(i);
 			String coloredName = cloudSupport.isNameSupport() && cloudSupport.hasNameFor(stats.getPlayerUUID()) ? cloudSupport.getColoredName(stats.getPlayerUUID()) : stats.getPlayerName();
 			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID(), stats.getPlayerName()).setName(Message.forName("stats-leaderboard-display")
 					.asArray(coloredName, statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
-			inventory.cloneLastAndAdd().setItem(slots[i], item.hideAttributes());
+			inventory.cloneLastAndAdd().setItem(slot, item.hideAttributes());
 
-			position.setAction(slots[i], () -> {
+			position.setAction(slot, () -> {
 				MenuPosition.set(player, new EmptyMenuPosition());
 				loadingInventory.open(player, Challenges.getInstance());
 				player.performCommand("stats " + stats.getPlayerName());
 			});
 		}
 
-		if (page == 0) position.setAction(navigationSlots[0], () -> createInventory(player).openNotAnimated(player, true));
-		else position.setAction(navigationSlots[0], () -> openMenu(player, statistic, page - 1));
+		position.setAction(navigationSlots[0], info -> {
+			if (page == 0 || info.isShiftClick()) {
+				createInventory(player).openNotAnimated(player, true, Challenges.getInstance());
+			} else {
+				openMenu(player, statistic, page - 1, true);
+			}
+		});
 		if (inventory.getLastFrame().getItemType(navigationSlots[1]) == Material.PLAYER_HEAD)
-			position.setAction(navigationSlots[1], () -> openMenu(player, statistic, page + 1));
+			position.setAction(navigationSlots[1], () -> openMenu(player, statistic, page + 1, true));
 
-		inventory.open(player, Challenges.getInstance());
+		if (openInstant) inventory.openNotAnimated(player, true, Challenges.getInstance());
+		else inventory.open(player, Challenges.getInstance());
 		MenuPosition.set(player, position);
-
 	}
 
 }
