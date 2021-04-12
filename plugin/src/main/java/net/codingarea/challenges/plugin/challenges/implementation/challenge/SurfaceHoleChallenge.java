@@ -32,8 +32,9 @@ public class SurfaceHoleChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
 
-		Location location = event.getFrom();
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), location)) return;
+		Location location = event.getTo();
+		if (location == null) return;
+		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), location)) return;
 
 		Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
 			if (!shouldExecuteEffect()) return;
