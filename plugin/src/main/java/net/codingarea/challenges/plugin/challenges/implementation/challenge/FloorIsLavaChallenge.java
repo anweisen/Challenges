@@ -36,7 +36,7 @@ public class FloorIsLavaChallenge extends SettingModifier {
 	}
 
 	private void createMagmaFloor(@Nonnull Location to) {
-		BlockUtils.setBlockNatural(BlockUtils.getBlockBelow(to), Material.MAGMA_BLOCK, true);
+		BlockUtils.setBlockNatural(BlockUtils.getBlockBelow(to, 0.6), Material.MAGMA_BLOCK, true);
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			createLavaFloor(to);
 		}, getValue() * 20L);

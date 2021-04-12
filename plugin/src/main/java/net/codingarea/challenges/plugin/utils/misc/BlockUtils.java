@@ -138,7 +138,16 @@ public final class BlockUtils {
 	 */
 	@Nullable
 	public static Block getBlockBelow(@Nonnull Location location) {
-		Block block = location.getBlock().getLocation().subtract(0, 0.1, 0).getBlock();
+		return getBlockBelow(location, 0.1);
+	}
+
+	/**
+	 * @param location the location to get the block below
+	 * @return the block below the location
+	 */
+	@Nullable
+	public static Block getBlockBelow(@Nonnull Location location, double offset) {
+		Block block = location.getBlock().getLocation().subtract(0, offset, 0).getBlock();
 		if (!block.getType().isSolid()) {
 			return null;
 		}
