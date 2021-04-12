@@ -98,7 +98,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 
-		AbstractChallenge challenge = (AbstractChallenge) challenges.get(random.nextInt(challenges.size()));
+		AbstractChallenge challenge = (AbstractChallenge) RandomizeUtils.choose(random, challenges);
 		String name = ChallengeHelper.getColoredChallengeName(challenge);
 		Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
 
