@@ -22,7 +22,8 @@ public class PoliciesContainer {
 				annotation.challengePolicy(),
 				annotation.timerPolicy(),
 				annotation.playerPolicy(),
-				annotation.worldPolicy()
+				annotation.worldPolicy(),
+				annotation.freshnessPolicy()
 		);
 	}
 
@@ -30,7 +31,8 @@ public class PoliciesContainer {
 		addPolicies(
 				annotation.challengePolicy(),
 				annotation.playerPolicy(),
-				annotation.worldPolicy()
+				annotation.worldPolicy(),
+				annotation.freshnessPolicy()
 		);
 	}
 

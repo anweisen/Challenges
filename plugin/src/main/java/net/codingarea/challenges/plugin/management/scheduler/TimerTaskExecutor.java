@@ -19,7 +19,8 @@ final class TimerTaskExecutor extends AbstractTaskExecutor {
 
 	public void execute() {
 		if (config.isAsync()) Bukkit.getScheduler().runTaskAsynchronously(Challenges.getInstance(), this);
-		else                  Bukkit.getScheduler().runTask(Challenges.getInstance(), this);
+		else if (!Bukkit.isPrimaryThread()) Bukkit.getScheduler().runTask(Challenges.getInstance(), this);
+		else this.run();
 	}
 
 	@Nonnull

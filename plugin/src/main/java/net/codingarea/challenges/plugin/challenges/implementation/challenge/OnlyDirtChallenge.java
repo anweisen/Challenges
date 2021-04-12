@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -22,6 +23,7 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
+@CanInstaKillOnEnable
 public class OnlyDirtChallenge extends Setting {
 
 	public OnlyDirtChallenge() {

@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -29,6 +30,10 @@ public final class ChallengeHelper {
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
 		Challenges.getInstance().getMenuManager().getMenu(challenge.getType()).updateItem(challenge);
+	}
+
+	public static boolean canInstaKillOnEnable(@Nonnull IChallenge challenge) {
+		return challenge.getClass().isAnnotationPresent(CanInstaKillOnEnable.class);
 	}
 
 	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull Modifier modifier) {
@@ -55,8 +60,6 @@ public final class ChallengeHelper {
 		ItemDescription description = item.getBuiltByItemDescription();
 		if (description == null) return Message.NULL;
 		String name = description.getOriginalName();
-		if (name.startsWith("§8"))
-			name = name.replaceFirst("§7", "§e");
 		return name;
 	}
 

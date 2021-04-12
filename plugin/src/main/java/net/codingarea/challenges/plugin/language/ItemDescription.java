@@ -19,9 +19,8 @@ public final class ItemDescription {
 	private static final Document config = Challenges.getInstance().getConfigDocument().getDocument("design");
 
 	private final String[] colors;
-	private final String name;
 	private final String[] lore;
-
+	private final String name;
 	private final String originalName;
 
 	public static ItemDescription empty() {

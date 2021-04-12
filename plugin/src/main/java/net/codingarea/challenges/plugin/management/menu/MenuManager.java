@@ -88,7 +88,7 @@ public final class MenuManager {
 
 	public void openGUIInstantly(@Nonnull Player player) {
 		setPostion(player, new MainMenuPosition());
-		gui.openNotAnimated(player, true);
+		gui.openNotAnimated(player, true, Challenges.getInstance());
 	}
 
 	/**

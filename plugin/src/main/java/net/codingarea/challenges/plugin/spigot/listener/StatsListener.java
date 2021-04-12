@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.scheduler.policy.FreshnessPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
@@ -41,12 +42,12 @@ public class StatsListener implements Listener {
 
 	private final List<Player> dragonDamager = new ArrayList<>();
 
-	@TimerTask(status = TimerStatus.RUNNING)
+	@TimerTask(status = TimerStatus.RUNNING, freshnessPolicy = FreshnessPolicy.FRESH, async = false)
 	public void onStart() {
-		if (ChallengeAPI.isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
-			for (Player player : Bukkit.getOnlinePlayers()) {
-				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
-			}
+		if (!Challenges.getInstance().getStatsManager().isEnabled()) return;
+
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			Challenges.getInstance().getStatsManager().getStats(player).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
 		}
 	}
 
@@ -139,7 +140,7 @@ public class StatsListener implements Listener {
 	}
 
 	private void incrementStatistic(@Nonnull Player player, @Nonnull Statistic statistic, double amount) {
-		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(player.getUniqueId(), player.getName());
+		PlayerStats stats = Challenges.getInstance().getStatsManager().getStats(player);
 		stats.incrementStatistic(statistic, amount);
 	}
 

@@ -41,15 +41,11 @@ public class RespawnSetting extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
 		Player player = event.getEntity();
-		locationsBeforeRespawn.put(player, player.getLocation());
 		if (isEnabled()) {
 			SoundSample.DEATH.play(player);
 		} else {
+			locationsBeforeRespawn.put(player, player.getLocation());
 			player.setGameMode(GameMode.SPECTATOR);
-			player.teleport(player.getLocation());
-
-			// Reset bed spawn location or the player will spawn there but we want him to spawn at his death location
-			player.setBedSpawnLocation(null, true);
 
 			if (ChallengeAPI.isStarted())
 				checkAllPlayersDead();
@@ -58,7 +54,7 @@ public class RespawnSetting extends Setting {
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_WITCH, 17, 1, 2);
 	}
 
-	private void checkAllPlayersDead() {
+	public void checkAllPlayersDead() {
 		int playersAlive = 0;
 		for (Player current : Bukkit.getOnlinePlayers()) {
 			if (current.getGameMode() != GameMode.SPECTATOR)
@@ -76,6 +72,7 @@ public class RespawnSetting extends Setting {
 		Player player = event.getPlayer();
 		Location locationBeforeRespawn = locationsBeforeRespawn.remove(player);
 		if (locationBeforeRespawn == null) return;
+		if (locationBeforeRespawn.getY() < 0) return; // If the player dies in the void (y <= 0), we dont want him to spawn there, he would die again
 		event.setRespawnLocation(locationBeforeRespawn);
 	}
 

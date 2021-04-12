@@ -94,10 +94,11 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		challenges.remove(this);
 		challenges.removeIf(challenge -> challenge.getType() != MenuType.CHALLENGES);
 		challenges.removeIf(challenge -> !(challenge instanceof AbstractChallenge));
+		challenges.removeIf(ChallengeHelper::canInstaKillOnEnable);
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 
-		AbstractChallenge challenge = (AbstractChallenge) challenges.get(random.nextInt(challenges.size()));
+		AbstractChallenge challenge = (AbstractChallenge) RandomizeUtils.choose(random, challenges);
 		String name = ChallengeHelper.getColoredChallengeName(challenge);
 		Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
 

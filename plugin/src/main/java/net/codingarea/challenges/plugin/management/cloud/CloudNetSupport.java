@@ -46,13 +46,14 @@ public final class CloudNetSupport implements CloudSupport {
 
 	@Override
 	public void setIngame() {
-		BukkitCloudNetHelper.setState("LOBBY");
+		BukkitCloudNetHelper.changeToIngame();
 		BridgeHelper.updateServiceInfo();
 	}
 
 	@Override
 	public void setLobby() {
-		BukkitCloudNetHelper.changeToIngame();
+		BukkitCloudNetHelper.setState("LOBBY");
+		BridgeHelper.updateServiceInfo();
 	}
 
 }

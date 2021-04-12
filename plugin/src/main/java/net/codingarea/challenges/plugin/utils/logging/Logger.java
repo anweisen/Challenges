@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.logging;
 
-import net.anweisen.utilities.commons.logging.JavaILogger;
+import net.anweisen.utilities.commons.logging.ILogger;
 import net.codingarea.challenges.plugin.Challenges;
 
 import javax.annotation.Nonnull;
@@ -15,7 +15,7 @@ public final class Logger {
 	private Logger() {}
 
 	@Nonnull
-	public static JavaILogger getInstance() {
+	public static ILogger getInstance() {
 		return Challenges.getInstance().getLogger();
 	}
 

@@ -15,9 +15,11 @@ import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -39,17 +41,27 @@ public class AllBlocksDisappearChallenge extends Setting {
 		return new ItemBuilder(Material.TNT, Message.forName("item-all-blocks-disappear-challenge"));
 	}
 
-	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (!shouldExecuteEffect()) return;
-		Chunk chunk = event.getBlock().getChunk();
-		List<Block> blocks = getAllBlocksToBreak(chunk, event.getBlock().getType());
+		breakBlocks(event.getBlock(), event.getPlayer().getInventory().getItemInMainHand());
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onBlockPlace(@Nonnull BlockPlaceEvent event) {
+		if (!shouldExecuteEffect()) return;
+		breakBlocks(event.getBlockAgainst(), null);
+	}
+
+	private void breakBlocks(@Nonnull Block block, @Nullable ItemStack tool) {
+		Chunk chunk = block.getChunk();
+		List<Block> blocks = getAllBlocksToBreak(chunk, block.getType());
 
 		List<ItemStack> allDrops = new ArrayList<>();
 
-		for (Block block : blocks) {
-			Collection<ItemStack> drops = Challenges.getInstance().getBlockDropManager().getDrops(block, event.getPlayer().getInventory().getItemInMainHand());
-			block.setType(Material.AIR);
+		for (Block current : blocks) {
+			Collection<ItemStack> drops = Challenges.getInstance().getBlockDropManager().getDrops(current, tool);
+			current.setType(Material.AIR);
 
 			for (ItemStack currentBlockDrop : drops) {
 				boolean containsType = false;
@@ -69,8 +81,7 @@ public class AllBlocksDisappearChallenge extends Setting {
 
 		}
 
-		dropList(allDrops, event.getBlock().getLocation());
-
+		dropList(allDrops, block.getLocation());
 	}
 
 	private void dropList(@Nonnull Collection<ItemStack> itemStacks, @Nonnull Location location) {

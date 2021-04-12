@@ -52,6 +52,7 @@ public final class ChallengeManager {
 	}
 
 	public void restoreDefaults() {
+		Logger.debug("Restoring default settings..");
 		for (IChallenge challenge : challenges) {
 			try {
 				challenge.restoreDefaults();
@@ -72,8 +73,8 @@ public final class ChallengeManager {
 	}
 
 	public void enable() {
-		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig());
-		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());
+		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig().readonly());
+		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig().readonly());
 	}
 
 	public synchronized void loadSettings(@Nonnull Document config) {

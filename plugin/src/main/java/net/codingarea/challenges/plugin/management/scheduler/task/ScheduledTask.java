@@ -1,9 +1,6 @@
 package net.codingarea.challenges.plugin.management.scheduler.task;
 
-import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.policy.*;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -36,5 +33,8 @@ public @interface ScheduledTask {
 
 	@Nonnull
 	ExtraWorldPolicy worldPolicy() default ExtraWorldPolicy.NOT_USED;
+
+	@Nonnull
+	FreshnessPolicy freshnessPolicy() default FreshnessPolicy.ALWAYS;
 
 }
