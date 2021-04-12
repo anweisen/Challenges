@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeSta
 import net.codingarea.challenges.plugin.spigot.listener.StatsListener;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -47,7 +48,6 @@ public final class StatsManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onLeave(@Nonnull PlayerQuitEvent event) {
-		if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) return;
 		PlayerStats cached = cache.remove(event.getPlayer().getUniqueId());
 		if (cached == null) return;
 		store(event.getPlayer().getUniqueId(), cached);
@@ -56,7 +56,7 @@ public final class StatsManager implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
 		// Cache stats
-		getStats(event.getPlayer().getUniqueId(), event.getPlayer().getName());
+		getStats(event.getPlayer());
 	}
 
 	@ScheduledTask(ticks = 30 * 20, challengePolicy = ChallengeStatusPolicy.ALWAYS)
@@ -77,6 +77,11 @@ public final class StatsManager implements Listener {
 		} catch (DatabaseException ex) {
 			Logger.error("Could not save player stats for {}", uuid, ex);
 		}
+	}
+
+	@Nonnull
+	public PlayerStats getStats(@Nonnull Player player) {
+		return getStats(player.getUniqueId(), player.getName());
 	}
 
 	@Nonnull
