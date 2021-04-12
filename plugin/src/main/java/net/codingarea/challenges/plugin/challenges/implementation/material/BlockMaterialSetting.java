@@ -42,6 +42,7 @@ public class BlockMaterialSetting extends Setting {
 
 	@Override
 	protected void onDisable() {
+		if (!shouldExecuteEffect()) return;
 		Bukkit.getOnlinePlayers().forEach(player -> dropMaterial(player.getLocation(), player.getInventory()));
 	}
 
