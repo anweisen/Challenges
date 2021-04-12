@@ -683,8 +683,9 @@
   ],
   "item-random-swapping-challenge": [
     "§cZufälliges Item Mischen",
-    "Alle paar Sekunden wird ein *zufälliges*",
-    "*Item* aus deinem Inventar *gedroppt*"
+    "Alle paar Sekunden wird ein",
+    "*zufälliges Item* aus deinem Inventar",
+    "mit einem anderem *getauscht*"
   ],
   "item-random-removing-challenge": [
     "§cZufälliges Item Löschen",
