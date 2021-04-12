@@ -58,7 +58,7 @@ public class RespawnSetting extends Setting {
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_WITCH, 17, 1, 2);
 	}
 
-	private void checkAllPlayersDead() {
+	public void checkAllPlayersDead() {
 		int playersAlive = 0;
 		for (Player current : Bukkit.getOnlinePlayers()) {
 			if (current.getGameMode() != GameMode.SPECTATOR)

@@ -8,15 +8,23 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerCommandSendEvent;
 
 import javax.annotation.Nonnull;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class CloudSupportManager {
+public final class CloudSupportManager implements Listener {
+
+	private final Map<UUID, String> cachedColoredNames = new HashMap<>();
 
 	private final boolean startNewService;
 	private final boolean nameSupport;
@@ -37,23 +45,32 @@ public final class CloudSupportManager {
 		if (type.equals("none")) return;
 
 		loadSupport(type);
+		ChallengeAPI.registerScheduler(this);
+		Challenges.getInstance().registerListener(this);
 
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onCommandsUpdate(@Nonnull PlayerCommandSendEvent event) {
+		cachedColoredNames.remove(event.getPlayer().getUniqueId());
 	}
 
 	private void loadSupport(@Nonnull String name) {
 		switch (name) {
+			default: return;
 			case "cloudnet":
 				support = new CloudNetSupport();
-				return;
+				break;
 		}
 	}
 
 	@Nonnull
 	public String getColoredName(@Nonnull Player player) {
 		if (support == null) throw new IllegalStateException("No support loaded! Check compatibility before use");
+		if (cachedColoredNames.containsKey(player.getUniqueId())) return cachedColoredNames.get(player.getUniqueId());
 
 		try {
-			return support.getColoredName(player);
+			return cacheColoredName(player.getUniqueId(), support.getColoredName(player));
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to get name with cloud support '{}', missing dependencies", type);
 			throw new WrappedException(ex);
@@ -63,13 +80,20 @@ public final class CloudSupportManager {
 	@Nonnull
 	public String getColoredName(@Nonnull UUID uuid) {
 		if (support == null) throw new IllegalStateException("No support loaded! Check compatibility before use");
+		if (cachedColoredNames.containsKey(uuid)) return cachedColoredNames.get(uuid);
 
 		try {
-			return support.getColoredName(uuid);
+			return cacheColoredName(uuid, support.getColoredName(uuid));
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to get name with cloud support '{}', missing dependencies", type);
 			throw new WrappedException(ex);
 		}
+	}
+
+	@Nonnull
+	private String cacheColoredName(@Nonnull UUID uuid, @Nonnull String name) {
+		cachedColoredNames.put(uuid, name);
+		return name;
 	}
 
 	public boolean hasNameFor(@Nonnull UUID uuid) {
@@ -85,7 +109,7 @@ public final class CloudSupportManager {
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
 	public void setIngame() {
-		if (!startNewService || !ChallengeAPI.isFresh()) return;
+		if (!startNewService) return;
 		if (support == null) return;
 
 		try {

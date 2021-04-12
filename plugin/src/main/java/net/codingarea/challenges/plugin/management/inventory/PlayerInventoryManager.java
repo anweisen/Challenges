@@ -140,7 +140,7 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void updateInventoryPaused(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !player.hasPermission("challenges.gui") || !enabled) {
+		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !enabled) {
 			removeItems(player);
 			return;
 		}
@@ -157,6 +157,7 @@ public final class PlayerInventoryManager implements Listener {
 			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
 			ItemStack expected = pair == null ? null : pair.getFirst();
 			ItemStack found = player.getInventory().getItem(i);
+			if (pair != null && pair.getThird() && !player.hasPermission(permission)) continue;
 			if (expected != null && found == null) return false;
 			if (expected == null) continue;
 			if (found == null) continue;
