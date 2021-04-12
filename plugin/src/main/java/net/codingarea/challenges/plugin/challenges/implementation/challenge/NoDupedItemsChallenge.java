@@ -5,6 +5,7 @@ import net.anweisen.utilities.commons.common.Triple;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
@@ -28,6 +29,7 @@ import java.util.Map.Entry;
  * @since 2.0
  */
 @Since("2.0")
+@CanInstaKillOnEnable
 public class NoDupedItemsChallenge extends Setting {
 
 	public NoDupedItemsChallenge() {
