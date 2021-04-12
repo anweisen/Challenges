@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.animation;
 
+import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -10,6 +11,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -17,10 +19,10 @@ import java.util.List;
  */
 public class AnimatedInventory {
 
-	private InventoryHolder holder;
+	private final List<AnimationFrame> frames = new ArrayList<>();
+	private final InventoryHolder holder;
 	private final int size;
 	private final String title;
-	private List<AnimationFrame> frames = new ArrayList<>();
 	private SoundSample frameSound = SoundSample.CLICK, endSound = SoundSample.OPEN;
 	private int frameDelay = 1;
 
@@ -35,7 +37,6 @@ public class AnimatedInventory {
 	}
 
 	public void open(@Nonnull Player player, @Nonnull JavaPlugin plugin) {
-
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(plugin, () -> open(player, plugin));
 			return;
@@ -44,38 +45,41 @@ public class AnimatedInventory {
 		Inventory inventory = createInventory();
 		player.openInventory(inventory);
 
-		for (int i = 0; i < frames.size(); i++) {
+		AtomicInteger index = new AtomicInteger();
+		Bukkit.getScheduler().runTaskTimerAsynchronously(Challenges.getInstance(), task -> {
 
-			AnimationFrame frame = frames.get(i);
+			if (index.get() >= frames.size() || player.getOpenInventory().getTopInventory() != inventory) {
+				task.cancel();
+				return;
+			}
 
-			int I = i; // effective final clone
-			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
+			AnimationFrame frame = frames.get(index.get());
+			inventory.setContents(frame.getContent());
 
-				if (!player.getOpenInventory().getTitle().equals(title)) return;
+			if (index.get() == frames.size() - 1 && endSound != null) endSound.play(player);
+			else if (frameSound != null && frame.shouldPlaySound()) frameSound.play(player);
 
-				inventory.setContents(frame.getContent());
+			index.incrementAndGet();
 
-				if (I == frames.size() - 1 && endSound != null) endSound.play(player);
-				else if (frameSound != null && frame.shouldPlaySound()) frameSound.play(player);
-
-			}, (long) frameDelay * i);
-
-		}
+		}, 0, frameDelay);
 
 	}
 
-	public void openNotAnimated(@Nonnull Player player, boolean playSound) {
+	public void openNotAnimated(@Nonnull Player player, boolean playSound, @Nonnull JavaPlugin plugin) {
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(plugin, () -> openNotAnimated(player, playSound, plugin));
+			return;
+		}
 
 		Inventory inventory = createInventory();
+		player.openInventory(inventory);
+
 		if (!frames.isEmpty()) {
-			AnimationFrame frame = frames.get(frames.size() - 1);
+			AnimationFrame frame = getLastFrame();
 			inventory.setContents(frame.getContent());
 		}
 
-		if (playSound && endSound != null)
-			endSound.play(player);
-
-		player.openInventory(inventory);
+		if (playSound && endSound != null) endSound.play(player);
 
 	}
 
