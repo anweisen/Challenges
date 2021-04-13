@@ -110,4 +110,4 @@ public class AllBlocksDisappearChallenge extends Setting {
 				.build();
 	}
 
-}}
+}
