@@ -51,7 +51,7 @@ public class PickupItemLaunchChallenge extends SettingModifier {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
 
-        Vector velocityToAdd = new Vector(0, getValue(), 0);
+        Vector velocityToAdd = new Vector(0, getValue() / 2, 0);
         Vector newVelocity = EntityUtils.getSucceedingVelocity(event.getPlayer().getVelocity()).add(velocityToAdd);
         event.getPlayer().setVelocity(newVelocity);
     }
