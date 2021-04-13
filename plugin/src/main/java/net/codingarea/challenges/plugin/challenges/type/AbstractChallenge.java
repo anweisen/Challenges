@@ -29,9 +29,10 @@ import java.util.function.Consumer;
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
+	protected static final Challenges plugin = Challenges.getInstance();
+
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 
-	protected final Challenges plugin = Challenges.getInstance();
 	protected final MenuType menu;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
 	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
