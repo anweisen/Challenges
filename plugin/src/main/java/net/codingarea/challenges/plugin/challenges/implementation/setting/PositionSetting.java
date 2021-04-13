@@ -10,17 +10,22 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
+import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.Location;
-import org.bukkit.Material;
+import org.bukkit.*;
+import org.bukkit.Color;
+import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.*;
+import java.util.List;
 import java.util.Map.Entry;
 
 /**
@@ -73,6 +78,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 					return;
 				}
 				 Message.forName("position").send(player, Prefix.POSITION, position.getBlockX(), position.getBlockY(), position.getBlockZ(), getWorldName(position), name, (int) position.distance(player.getLocation()));
+				playParticleLine(player, position);
 			} else if (ChallengeAPI.isPaused()) {
 				Message.forName("timer-not-started").send(player, Prefix.POSITION);
 				SoundSample.BASS_OFF.play(player);
@@ -80,6 +86,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 				positions.put(name, position = player.getLocation());
 				Message.forName("position-set").broadcast(Prefix.POSITION, position.getBlockX(), position.getBlockY(), position.getBlockZ(), getWorldName(position), name, NameHelper.getName(player));
 				SoundSample.BASS_ON.play(player);
+				broadcastParticleLine(position);
 			}
 
 		} else {
@@ -105,6 +112,25 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	public boolean containsPosition(@Nonnull String name) {
 		return positions.containsKey(name);
+	}
+
+	private void broadcastParticleLine(@Nonnull Location location) {
+		broadcast(player -> playParticleLine(player, location));
+	}
+
+	private void playParticleLine(@Nonnull Player player, @Nonnull Location position) {
+		if (player.getWorld() != position.getWorld()) return;
+
+		// Defining target location to
+		Location target = position.clone().add(0, 0.3, 0);
+
+		final int[] current = {0};
+		Bukkit.getScheduler().runTaskTimer(plugin, task -> {
+			System.out.println(current[0]);
+			current[0]++;
+			if (current[0] >= 10) task.cancel();
+			ParticleUtils.drawLine(player, player.getLocation(), target, Particle.REDSTONE, new DustOptions(Color.LIME, 1), 1, 0.5, 50);
+		}, 0, 10);
 	}
 
 	@Override
