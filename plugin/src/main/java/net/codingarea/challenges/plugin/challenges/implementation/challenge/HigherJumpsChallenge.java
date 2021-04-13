@@ -38,7 +38,7 @@ public class HigherJumpsChallenge extends Setting {
 		int jumps = getPlayerData(event.getPlayer()).getInt("jumps") + 1;
 		getPlayerData(event.getPlayer()).set("jumps", jumps);
 
-		float y = jumps / 3f;
+		float y = jumps / 7f;
 		event.getPlayer().setVelocity(new Vector().setY(y));
 	}
 
