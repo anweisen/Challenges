@@ -648,8 +648,9 @@
   ],
   "item-all-blocks-disappear-challenge": [
     "§cAlle Blöcke Verschwinden",
-    "Wenn du einen *Block abbaust*, werden",
-    "alle des *selben Types* im Chunk *zerstört*"
+    "Wenn du einen *Block abbaust* order *plazierst*, werden",
+    "alle des *selben Types* im Chunk *zerstört*",
+    "Beim *platzieren*, der typ des *angeklickten Blockes*"
   ],
   "item-water-allergy-challenge": [
     "§9Wasserallergie",
