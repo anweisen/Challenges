@@ -44,12 +44,14 @@ public class AllBlocksDisappearChallenge extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		breakBlocks(event.getBlock(), event.getPlayer().getInventory().getItemInMainHand());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockPlace(@Nonnull BlockPlaceEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		breakBlocks(event.getBlockAgainst(), null);
 	}
 
@@ -108,4 +110,4 @@ public class AllBlocksDisappearChallenge extends Setting {
 				.build();
 	}
 
-}
+}}
