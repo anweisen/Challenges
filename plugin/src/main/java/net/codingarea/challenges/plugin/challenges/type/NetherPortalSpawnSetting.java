@@ -113,8 +113,8 @@ public abstract class NetherPortalSpawnSetting extends OneEnabledSetting {
 		for (int x = 0; x < 16; x++) {
 			for (int z = 0; z < 16; z++) {
 
-				Location location = chunk.getBlock(x, 100, z).getLocation(); // Fortresses wont be above y=100
-				while (location.getBlockY() > 30) { // Fortresses wont be below y=30
+				Location location = chunk.getBlock(x, 100, z).getLocation(); // Structures wont be above y=100
+				while (location.getBlockY() > 30) { // Structures wont be below y=30
 					location.subtract(0, 1, 0);
 					if (groundMaterial.contains(location.getBlock().getType()))
 						return location.add(0, 1, 0);
