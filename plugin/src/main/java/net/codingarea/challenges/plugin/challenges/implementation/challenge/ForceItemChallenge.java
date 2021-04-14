@@ -96,6 +96,7 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 		items.removeIf(material -> !material.isItem());
 		items.removeIf(material -> material.name().contains("PURPUR"));
 		items.removeIf(material -> material.name().contains("END"));
+		items.removeIf(material -> material.name().contains("SHULKER"));
 		Utils.removeEnums(items, "ELYTRA", "NETHER_STAR");
 
 		item = RandomizeUtils.choose(random, items);
