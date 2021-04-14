@@ -55,7 +55,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		}
 
 		if (args.length == 0) {
-			if (positions.isEmpty()) {
+			if (positions.entrySet().stream().noneMatch(entry -> player.getWorld() == entry.getValue().getWorld())) {
 				Message.forName("no-positions").send(player, Prefix.POSITION, "position <name>");
 				return;
 			}
