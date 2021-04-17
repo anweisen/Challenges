@@ -1,6 +1,7 @@
 {
   "syntax": "Bitte nutze §e/{0}",
   "player-command": "Dazu musst du ein Spieler sein!",
+  "no-permission": "Dazu hast du §ckeine §7Rechte",
   "enabled": "§8➟ §aAktiviert",
   "disabled": "§8➟ §cDeaktiviert",
   "customize": "§8➟ §6Anpassen",

@@ -595,7 +595,7 @@ public abstract class MenuSetting extends Setting {
 
 			if (info.getSlot() == Menu.NAVIGATION_SLOTS[0]) {
 				if (page == 0) {
-					Challenges.getInstance().getMenuManager().setPostion(info.getPlayer(), before);
+					Challenges.getInstance().getMenuManager().setPosition(info.getPlayer(), before);
 					info.getPlayer().openInventory(inventoryBefore);
 				} else {
 					open(info.getPlayer(), inventoryBefore, before, page - 1);
