@@ -380,8 +380,13 @@
     "*Gravel* droppt immer *Flint*"
   ],
   "item-cut-clean-vein-setting": [
-    "§bOre Veins",
+    "§eOre Veins",
     "*Erz Venen* werden direkt abgebaut"
+  ],
+  "item-cut-clean-inventory-setting": [
+    "§6Direkt ins Inventar",
+    "*Items* von *CutClean* werden",
+    "*direkt* ins *Inventar* hinzugefügt"
   ],
   "item-cut-clean-food-setting": [
     "§cGebratenes Essen",
@@ -648,9 +653,19 @@
   ],
   "item-all-blocks-disappear-challenge": [
     "§cAlle Blöcke Verschwinden",
-    "Wenn du einen *Block abbaust* order *plazierst*, werden",
-    "alle des *selben Types* im Chunk *zerstört*",
-    "Beim *platzieren*, der typ des *angeklickten Blockes*"
+    "Bei verschiedenen *Interaktionen*",
+    "verschwinden alle *Blöcke* im *Chunk*",
+    "eines *betimmten types*"
+  ],
+  "item-all-blocks-disappear-break-challenge": [
+    "§bBeim Abbauen",
+    "Wenn du einen Block *abbaust*, werden",
+    "*alle Blöcke* des *selben types zerstört*"
+  ],
+  "item-all-blocks-disappear-place-challenge": [
+    "§bBeim Platzieren",
+    "Wenn du einen Block *platzierst*, werden",
+    "*alle Blöcke* des *selben types zerstört*"
   ],
   "item-water-allergy-challenge": [
     "§9Wasserallergie",

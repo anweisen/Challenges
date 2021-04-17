@@ -2,7 +2,8 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
@@ -29,10 +30,18 @@ import java.util.List;
  * @since 2.0
  */
 @Since("2.0")
-public class AllBlocksDisappearChallenge extends Setting {
+public class AllBlocksDisappearChallenge extends MenuSetting {
 
 	public AllBlocksDisappearChallenge() {
-		super(MenuType.CHALLENGES);
+		super(MenuType.CHALLENGES, "All Blocks Disappear");
+		registerSetting("break", new BooleanSubSetting(
+				() -> new ItemBuilder(Material.DIAMOND_PICKAXE, Message.forName("item-all-blocks-disappear-break-challenge")),
+				true
+				));
+		registerSetting("place", new BooleanSubSetting(
+				() -> new ItemBuilder(Material.DIAMOND_BLOCK, Message.forName("item-all-blocks-disappear-place-challenge"))
+		));
+
 	}
 
 	@Nonnull
@@ -44,6 +53,7 @@ public class AllBlocksDisappearChallenge extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (!getSetting("break").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		breakBlocks(event.getBlock(), event.getPlayer().getInventory().getItemInMainHand());
 	}
@@ -51,6 +61,7 @@ public class AllBlocksDisappearChallenge extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onBlockPlace(@Nonnull BlockPlaceEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (!getSetting("place").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		breakBlocks(event.getBlockAgainst(), null);
 	}
@@ -89,6 +100,7 @@ public class AllBlocksDisappearChallenge extends Setting {
 	private void dropList(@Nonnull Collection<ItemStack> itemStacks, @Nonnull Location location) {
 		if (location.getWorld() == null) return;
 		for (ItemStack itemStack : itemStacks) {
+
 			location.getWorld().dropItemNaturally(location, itemStack);
 		}
 	}
