@@ -10,7 +10,6 @@ import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -72,7 +71,7 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 		ItemStack item = inventory.getItem(slot);
 		if (item == null) return;
 		inventory.setItem(slot, null);
-		InventoryUtils.dropItem(location, item);
+		InventoryUtils.dropItemByPlayer(location, item);
 	}
 
 }

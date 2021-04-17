@@ -17,7 +17,9 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -55,7 +57,8 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		if (!shouldExecuteEffect()) return;
 		if (!getSetting("break").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		breakBlocks(event.getBlock(), event.getPlayer().getInventory().getItemInMainHand());
+		PlayerInventory inventory = event.getPlayer().getInventory();
+		breakBlocks(event.getBlock(), inventory.getItemInMainHand(), inventory);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -63,10 +66,10 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		if (!shouldExecuteEffect()) return;
 		if (!getSetting("place").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		breakBlocks(event.getBlockAgainst(), null);
+		breakBlocks(event.getBlockAgainst(), null, event.getPlayer().getInventory());
 	}
 
-	private void breakBlocks(@Nonnull Block block, @Nullable ItemStack tool) {
+	private void breakBlocks(@Nonnull Block block, @Nullable ItemStack tool, @Nonnull Inventory inventory) {
 		Chunk chunk = block.getChunk();
 		List<Block> blocks = getAllBlocksToBreak(chunk, block.getType());
 
@@ -94,18 +97,18 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 
 		}
 
-		dropList(allDrops, block.getLocation());
+		dropList(allDrops, block.getLocation(), inventory);
 	}
 
-	private void dropList(@Nonnull Collection<ItemStack> itemStacks, @Nonnull Location location) {
+	private void dropList(@Nonnull Collection<ItemStack> itemStacks, @Nonnull Location location, @Nonnull Inventory inventory) {
 		if (location.getWorld() == null) return;
 		for (ItemStack itemStack : itemStacks) {
-
+			ChallengeHelper.dropItem(itemStack, location, inventory);
 			location.getWorld().dropItemNaturally(location, itemStack);
 		}
 	}
 
-	public List<Block> getAllBlocksToBreak(@Nonnull Chunk chunk, @Nonnull Material material) {
+	protected List<Block> getAllBlocksToBreak(@Nonnull Chunk chunk, @Nonnull Material material) {
 		return new ListBuilder<Block>()
 				.fill(builder -> {
 					for (int x = 0; x < 16; x++) {

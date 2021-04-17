@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.material;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.management.menu.Menu;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
@@ -100,7 +99,7 @@ public class BlockMaterialSetting extends Setting {
 			ItemStack item = inventory.getItem(slot);
 			if (item == null) continue;
 			if (!blockMaterial(item.getType())) continue;
-			InventoryUtils.dropItem(location, item);
+			InventoryUtils.dropItemByPlayer(location, item);
 			inventory.setItem(slot, null);
 		}
 

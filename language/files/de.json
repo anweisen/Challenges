@@ -385,7 +385,7 @@
   ],
   "item-cut-clean-inventory-setting": [
     "§6Direkt ins Inventar",
-    "*Items* von *CutClean* werden",
+    "*Items* werden *anstatt gedroppt* zu werden,",
     "*direkt* ins *Inventar* hinzugefügt"
   ],
   "item-cut-clean-food-setting": [

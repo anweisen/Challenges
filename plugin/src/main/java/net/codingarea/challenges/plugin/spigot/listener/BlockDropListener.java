@@ -28,6 +28,7 @@ public class BlockDropListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGHEST, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		if (!event.isDropItems()) return;
 		dropCustomDrops(event.getBlock(), () -> event.setDropItems(false));
 	}
 

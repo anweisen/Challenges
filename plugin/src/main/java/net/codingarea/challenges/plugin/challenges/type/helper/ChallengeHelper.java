@@ -6,13 +6,16 @@ import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnegative;
@@ -56,28 +59,55 @@ public final class ChallengeHelper {
 	@Nonnull
 	public static String getColoredChallengeName(@Nonnull AbstractChallenge challenge) {
 		ItemBuilder item = challenge.createDisplayItem();
-		if (item == null) return Message.NULL;
 		ItemDescription description = item.getBuiltByItemDescription();
 		if (description == null) return Message.NULL;
-		String name = description.getOriginalName();
-		return name;
+		return description.getOriginalName();
 	}
 
 	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {
+		breakBlock(block, tool, null);
+	}
 
-		if (!Challenges.getInstance().getBlockDropManager().getDropChance(block.getType()).getAsBoolean()) return;
+	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool, @Nullable Inventory targetInventory) {
 
-		List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(block.getType());
+		BlockDropManager dropManager = Challenges.getInstance().getBlockDropManager();
+		if (!dropManager.getDropChance(block.getType()).getAsBoolean()) return;
+		boolean putIntoInventory = dropManager.getItemsDirectIntoInventory() && targetInventory != null;
+
+		List<Material> customDrops = dropManager.getCustomDrops(block.getType());
+		Location location = block.getLocation().clone().add(0.5, 0, 0.5);
 		if (!customDrops.isEmpty()) {
-			Location location = block.getLocation().clone().add(0.5, 0, 0.5);
-			customDrops.forEach(drop -> block.getWorld().dropItem(location, new ItemStack(drop)));
+			if (putIntoInventory) {
+				customDrops.forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
+			} else {
+				customDrops.forEach(drop -> block.getWorld().dropItem(location, new ItemStack(drop)));
+			}
 			block.setType(Material.AIR);
+			return;
+		}
+
+		if (putIntoInventory) {
+			block.getDrops(tool).forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
 			return;
 		}
 
 		block.breakNaturally(tool);
 
 	}
+
+	public static void dropItem(@Nonnull ItemStack itemStack, @Nonnull Location dropLocation, @Nonnull Inventory inventory) {
+		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+
+		if (directIntoInventory) {
+			InventoryUtils.dropOrGiveItem(inventory, dropLocation, itemStack);
+			return;
+		}
+
+		if (dropLocation.getWorld() == null) return;
+		dropLocation.getWorld().dropItemNaturally(dropLocation, itemStack);
+
+	}
+
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge) {
 		playToggleChallengeTitle(challenge, challenge.isEnabled());
