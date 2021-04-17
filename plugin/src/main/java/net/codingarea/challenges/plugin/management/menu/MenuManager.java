@@ -82,12 +82,12 @@ public final class MenuManager {
 
 	public void openGUI(@Nonnull Player player) {
 		SoundSample.PLOP.play(player);
-		setPostion(player, new MainMenuPosition());
+		setPosition(player, new MainMenuPosition());
 		gui.open(player, Challenges.getInstance());
 	}
 
 	public void openGUIInstantly(@Nonnull Player player) {
-		setPostion(player, new MainMenuPosition());
+		setPosition(player, new MainMenuPosition());
 		gui.openNotAnimated(player, true, Challenges.getInstance());
 	}
 
@@ -123,7 +123,7 @@ public final class MenuManager {
 		return positions.get(player);
 	}
 
-	public synchronized void setPostion(@Nonnull Player player, @Nullable MenuPosition position) {
+	public synchronized void setPosition(@Nonnull Player player, @Nullable MenuPosition position) {
 		if (position == null) positions.remove(player);
 		else positions.put(player, position);
 	}
