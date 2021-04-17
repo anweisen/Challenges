@@ -88,7 +88,7 @@ public class PlayerConnectionListener implements Listener {
 
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
 
 		Player player = event.getPlayer();
