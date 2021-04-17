@@ -4,14 +4,24 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
-import net.codingarea.challenges.plugin.lang.ItemDescription;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.ItemDescription;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
+import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
+import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -19,21 +29,22 @@ import javax.annotation.Nullable;
  */
 public final class ChallengeHelper {
 
-	private ChallengeHelper() {
-	}
+	private ChallengeHelper() {}
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
 		Challenges.getInstance().getMenuManager().getMenu(challenge.getType()).updateItem(challenge);
 	}
 
+	public static boolean canInstaKillOnEnable(@Nonnull IChallenge challenge) {
+		return challenge.getClass().isAnnotationPresent(CanInstaKillOnEnable.class);
+	}
+
 	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull Modifier modifier) {
 		int newValue = modifier.getValue();
-		int amount = info.isShiftClick() ? 10 : 1;
-		if (info.isRightClick()) {
-			newValue -= amount;
-		} else {
-			newValue += amount;
-		}
+		int amount = info.isShiftClick()
+				? (modifier.getValue() == modifier.getMinValue() || info.isRightClick() && modifier.getValue() == (10 - (modifier.getMinValue() - 1)) ? 9 : 10)
+				: 1;
+		newValue += info.isRightClick() ? -amount : amount;
 
 		if (newValue > modifier.getMaxValue())
 			newValue = modifier.getMinValue();
@@ -48,11 +59,55 @@ public final class ChallengeHelper {
 	@Nonnull
 	public static String getColoredChallengeName(@Nonnull AbstractChallenge challenge) {
 		ItemBuilder item = challenge.createDisplayItem();
-		if (item == null) return Message.NULL;
 		ItemDescription description = item.getBuiltByItemDescription();
 		if (description == null) return Message.NULL;
 		return description.getOriginalName();
 	}
+
+	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {
+		breakBlock(block, tool, null);
+	}
+
+	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool, @Nullable Inventory targetInventory) {
+
+		BlockDropManager dropManager = Challenges.getInstance().getBlockDropManager();
+		if (!dropManager.getDropChance(block.getType()).getAsBoolean()) return;
+		boolean putIntoInventory = dropManager.getItemsDirectIntoInventory() && targetInventory != null;
+
+		List<Material> customDrops = dropManager.getCustomDrops(block.getType());
+		Location location = block.getLocation().clone().add(0.5, 0, 0.5);
+		if (!customDrops.isEmpty()) {
+			if (putIntoInventory) {
+				customDrops.forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
+			} else {
+				customDrops.forEach(drop -> block.getWorld().dropItem(location, new ItemStack(drop)));
+			}
+			block.setType(Material.AIR);
+			return;
+		}
+
+		if (putIntoInventory) {
+			block.getDrops(tool).forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
+			return;
+		}
+
+		block.breakNaturally(tool);
+
+	}
+
+	public static void dropItem(@Nonnull ItemStack itemStack, @Nonnull Location dropLocation, @Nonnull Inventory inventory) {
+		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+
+		if (directIntoInventory) {
+			InventoryUtils.dropOrGiveItem(inventory, dropLocation, itemStack);
+			return;
+		}
+
+		if (dropLocation.getWorld() == null) return;
+		dropLocation.getWorld().dropItemNaturally(dropLocation, itemStack);
+
+	}
+
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge) {
 		playToggleChallengeTitle(challenge, challenge.isEnabled());
@@ -66,8 +121,38 @@ public final class ChallengeHelper {
 		playChangeChallengeValueTitle(modifier, modifier.getValue());
 	}
 
-	public static void playChangeChallengeValueTitle(@Nonnull Modifier modifier, @Nullable Object value) {
+	public static void playChangeChallengeValueTitle(@Nonnull AbstractChallenge modifier, @Nullable Object value) {
 		Challenges.getInstance().getTitleManager().sendChallengeStatusTitle(Message.forName("title-challenge-value-changed"), getColoredChallengeName(modifier), value);
+	}
+
+	public static void playChallengeHeartsValueChangeTitle(@Nonnull AbstractChallenge challenge, int health) {
+		playChangeChallengeValueTitle(challenge, (health / 2f) + " §c❤");
+	}
+
+	public static void playChallengeHeartsValueChangeTitle(@Nonnull Modifier modifier) {
+		playChallengeHeartsValueChangeTitle(modifier, modifier.getValue());
+	}
+
+	public static void playChallengeSecondsValueChangeTitle(@Nonnull AbstractChallenge challenge, int seconds) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-seconds").asString(seconds));
+	}
+
+	public static void playChallengeSecondsRangeValueChangeTitle(@Nonnull AbstractChallenge challenge, int min, int max) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-seconds-range").asString(min, max));
+	}
+
+	public static void playChallengeMinutesValueChangeTitle(@Nonnull AbstractChallenge challenge, int seconds) {
+		playChangeChallengeValueTitle(challenge, Message.forName("subtitle-time-minutes").asString(seconds));
+	}
+
+	@Nonnull
+	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int multiplier, @Nonnegative int range) {
+		return Message.forName("item-time-seconds-range-description").asArray(modifier.getValue() * multiplier - range, modifier.getValue() * multiplier + range);
+	}
+
+	@Nonnull
+	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int range) {
+		return getTimeRangeSettingsDescription(modifier, 1, range);
 	}
 
 }

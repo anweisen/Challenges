@@ -15,7 +15,7 @@ import java.net.URL;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public class ImageUtils {
+public final class ImageUtils {
 
 	private ImageUtils() {}
 

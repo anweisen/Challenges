@@ -1,11 +1,14 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
+import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,8 +33,17 @@ public final class ChallengeManager {
 
 	public void register(@Nonnull IChallenge challenge) {
 		if (!challenge.getType().isUsable()) throw new IllegalArgumentException("Invalid MenuType");
-		Challenges.getInstance().getScheduler().register(challenge);
 		challenges.add(challenge);
+	}
+
+	public void shutdownChallenges() {
+		for (IChallenge challenge : challenges) {
+			try {
+				challenge.handleShutdown();
+			} catch (Exception ex) {
+				Logger.error("Could not handle shutdown for {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
 	}
 
 	public void clearChallengeCache() {
@@ -39,21 +51,41 @@ public final class ChallengeManager {
 		currentGoal = null;
 	}
 
+	public void restoreDefaults() {
+		Logger.debug("Restoring default settings..");
+		for (IChallenge challenge : challenges) {
+			try {
+				challenge.restoreDefaults();
+			} catch (Exception ex) {
+				Logger.error("Could not restore defaults for {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
+	}
+
+	public void saveSettings(@Nonnull Player player) throws DatabaseException {
+		Document document = new GsonDocument();
+		saveSettingsInto(document);
+		Challenges.getInstance().getDatabaseManager().getDatabase()
+				.insertOrUpdate("challenges")
+				.where("uuid", player.getUniqueId())
+				.set("config", document)
+				.execute();
+	}
+
 	public void enable() {
-		loadGamestate(Challenges.getInstance().getConfigManager().getGamestateConfig());
-		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig());
+		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig().readonly());
+		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig().readonly());
 	}
 
 	public synchronized void loadSettings(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
-			if (config.contains(name)) {
-				try {
-					Document document = config.getDocument(name);
-					challenge.loadSettings(document);
-				} catch (Exception ex) {
-					Logger.severe("Could not load setting for challenge " + challenge.getClass().getSimpleName(), ex);
-				}
+			if (!config.contains(name)) continue;
+			try {
+				Document document = config.getDocument(name);
+				challenge.loadSettings(document);
+			} catch (Exception ex) {
+				Logger.error("Could not load setting for challenge {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
@@ -61,13 +93,12 @@ public final class ChallengeManager {
 	public synchronized void loadGamestate(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
-			if (config.contains(name)) {
-				try {
-					Document document = config.getDocument(name);
-					challenge.loadGameState(document);
-				} catch (Exception ex) {
-					Logger.severe("Could not load gamestate for " + challenge.getClass().getSimpleName(), ex);
-				}
+			if (!config.contains(name)) continue;
+			try {
+				Document document = config.getDocument(name);
+				challenge.loadGameState(document);
+			} catch (Exception ex) {
+				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
@@ -78,13 +109,13 @@ public final class ChallengeManager {
 				Document document = config.getDocument(challenge.getName());
 				challenge.writeGameState(document);
 			} catch (Exception ex) {
-				Logger.severe("Could not write gamestate of " + challenge.getClass().getSimpleName(), ex);
+				Logger.error("Could not write gamestate of {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGamestateConfig();
+		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		saveGameStateInto(config);
 		config.save(async);
 	}
@@ -95,7 +126,7 @@ public final class ChallengeManager {
 				Document document = config.getDocument(challenge.getName());
 				challenge.writeSettings(document);
 			} catch (Exception ex) {
-				Logger.severe("Could not write settings of " + challenge.getClass().getSimpleName(), ex);
+				Logger.error("Could not write settings of {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
 	}

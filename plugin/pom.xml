@@ -1,148 +1,128 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.codingarea.challenges</groupId>
-    <artifactId>plugin</artifactId>
-    <name>plugin</name>
-    <version>2.0</version>
-    <url>https://github.com/anweisen/Challenges</url>
+	<groupId>net.codingarea.challenges</groupId>
+	<artifactId>plugin</artifactId>
+	<version>2.0</version>
 
-    <parent>
-        <groupId>net.codingarea.challenges</groupId>
-        <artifactId>root</artifactId>
-        <version>2.0</version>
-    </parent>
+	<build>
 
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
+		<sourceDirectory>src/main/java</sourceDirectory>
 
-    <build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+		</plugins>
 
-        <sourceDirectory>src/main/java</sourceDirectory>
+	</build>
 
-        <plugins>
+	<repositories>
 
-            <!-- Compiler declaration -->
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.8.0</version>
-                <configuration>
-                    <source>1.8</source>
-                    <target>1.8</target>
-                </configuration>
-            </plugin>
+		<repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
 
-            <!-- Plugin for sources -->
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
+		<repository>
+			<id>releases</id>
+			<url>https://repo.cloudnetservice.eu/repository/releases/</url>
+		</repository>
 
-        </plugins>
+		<repository>
+			<id>minecraft-repo</id>
+			<url>https://libraries.minecraft.net/</url>
+		</repository>
 
-    </build>
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/anweisen/*</url>
+		</repository>
 
-    <repositories>
+	</repositories>
 
-        <repository>
-            <id>spigot-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-        </repository>
+	<dependencies>
 
-        <repository>
-            <id>releases</id>
-            <url>https://repo.cloudnetservice.eu/repository/releases/</url>
-        </repository>
+		<dependency>
+			<groupId>com.mojang</groupId>
+			<artifactId>authlib</artifactId>
+			<version>1.5.21</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <repository>
-            <id>github</id>
-            <url>https://maven.pkg.github.com/anweisen/*</url>
-        </repository>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot-api</artifactId>
+			<version>1.16.5-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 
-    </repositories>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver</artifactId>
+			<version>3.12.7</version>
+		</dependency>
 
-    <dependencies>
+		<dependency>
+			<groupId>com.google.code.findbugs</groupId>
+			<artifactId>jsr305</artifactId>
+			<version>3.0.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.16.5-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
+		<dependency>
+			<groupId>de.dytanic.cloudnet</groupId>
+			<artifactId>cloudnet-driver</artifactId>
+			<version>3.3.0-RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongodb-driver</artifactId>
-            <version>3.12.7</version>
-        </dependency>
+		<dependency>
+			<groupId>de.dytanic.cloudnet</groupId>
+			<artifactId>cloudnet-bridge</artifactId>
+			<version>3.3.0-RELEASE</version>
+			<scope>provided</scope>
+		</dependency>
 
-        <dependency>
-            <groupId>com.google.code.findbugs</groupId>
-            <artifactId>jsr305</artifactId>
-            <version>3.0.2</version>
-        </dependency>
+		<!-- Common Utilities -->
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>common-utils</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-driver</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- Minecraft Utilities -->
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>bukkit-utils</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-bridge</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
+		<!-- Database API -->
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>database-api</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>database-sql</artifactId>
+			<version>1.2</version>
+		</dependency>
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>database-mongodb</artifactId>
+			<version>1.2</version>
+		</dependency>
 
-        <!-- Common Utilities -->
-        <dependency>
-            <groupId>net.anweisen.utilities</groupId>
-            <artifactId>common-utils</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <!-- Minecraft Utilities -->
-        <dependency>
-            <groupId>net.anweisen.utilities</groupId>
-            <artifactId>bukkit-utils</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-        <!-- Database API -->
-        <dependency>
-            <groupId>net.anweisen.utilities</groupId>
-            <artifactId>database-api</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.anweisen.utilities</groupId>
-            <artifactId>database-sql</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <dependency>
-            <groupId>net.anweisen.utilities</groupId>
-            <artifactId>database-mongodb</artifactId>
-            <version>1.0</version>
-        </dependency>
-
-    </dependencies>
+	</dependencies>
 
     <distributionManagement>
         <repository>

@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -24,6 +25,12 @@ public abstract class SettingGoal extends Setting implements Goal {
 	@Nonnull
 	public SoundSample getStartSound() {
 		return SoundSample.DRAGON_BREATH;
+	}
+
+	@Nullable
+	@Override
+	public SoundSample getWinSound() {
+		return SoundSample.WIN;
 	}
 
 	@Override

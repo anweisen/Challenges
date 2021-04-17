@@ -8,7 +8,6 @@ import javax.annotation.Nonnull;
  */
 public enum MenuType {
 
-	@Deprecated
 	TIMER("Timer", false),
 	GOAL("Goal"),
 	DAMAGE("Damage"),

@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
@@ -30,8 +30,7 @@ public final class ChallengeScoreboard {
 		private String title = Message.forName("scoreboard-title").asString();
 		private int linesIndex = 0;
 
-		private ScoreboardInstance() {
-		}
+		private ScoreboardInstance() {}
 
 		@Nonnull
 		public ScoreboardInstance setTitle(@Nonnull String title) {
@@ -41,6 +40,7 @@ public final class ChallengeScoreboard {
 
 		@Nonnull
 		public ScoreboardInstance addLine(@Nonnull String text) {
+			if (linesIndex >= lines.length) throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
 			lines[linesIndex++] = text;
 			return this;
 		}
@@ -76,10 +76,6 @@ public final class ChallengeScoreboard {
 		this.content = content;
 	}
 
-	public void applyShow(@Nonnull Player player) {
-		update(player);
-	}
-
 	public void applyHide(@Nonnull Player player) {
 		unregister(objectives.get(player));
 	}
@@ -89,6 +85,11 @@ public final class ChallengeScoreboard {
 	}
 
 	public void update(@Nonnull Player player) {
+		if (!isShown()) {
+			Logger.warn("Tried to update scoreboard which is not shown");
+			return;
+		}
+
 		try {
 
 			ScoreboardInstance instance = new ScoreboardInstance();
@@ -119,7 +120,7 @@ public final class ChallengeScoreboard {
 			objectives.put(player, objective);
 
 		} catch (Exception ex) {
-			Logger.severe("Unable to update scoreboard for player '" + player.getName() + "': " + ex.getClass().getSimpleName() + ": " +  ex.getMessage());
+			Logger.error("Unable to update scoreboard for player '{}'", player.getName(), ex);
 		}
 	}
 
@@ -130,6 +131,10 @@ public final class ChallengeScoreboard {
 	public final void hide() {
 		if (Challenges.getInstance().getScoreboardManager().getCurrentScoreboard() != this) return;
 		Challenges.getInstance().getScoreboardManager().setCurrentScoreboard(null);
+	}
+
+	public final boolean isShown() {
+		return Challenges.getInstance().getScoreboardManager().isShown(this);
 	}
 
 	private void unregister(@Nullable Objective objective) {

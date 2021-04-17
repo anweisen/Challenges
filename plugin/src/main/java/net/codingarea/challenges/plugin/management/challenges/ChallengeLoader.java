@@ -4,13 +4,10 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
-import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.command.CommandExecutor;
-import org.bukkit.event.Listener;
-
-import javax.annotation.Nonnull;
-import java.lang.reflect.Constructor;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
+import org.bukkit.Material;
+import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
 /**
  * This class loads all challenges of this plugin.
@@ -20,69 +17,149 @@ import java.lang.reflect.Constructor;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public final class ChallengeLoader {
+public final class ChallengeLoader extends ModuleChallengeLoader {
+
+	public ChallengeLoader() {
+		super(Challenges.getInstance());
+	}
 
 	public void load() {
 		// Settings
-		register(DamageDisplaySetting.class);
-		register(OneLifeSetting.class);
+		registerWithCommand(DifficultySetting.class, "difficulty");
+		register(RegenerationSetting.class);
+		register(OneTeamLifeSetting.class);
 		register(RespawnSetting.class);
-		register(DeathMessageModifier.class);
-		register(MaxHealthModifier.class);
-		register(DamageMultiplierModifier.class);
-		register(SoupSetting.class);
+		register(SplitHealthSetting.class);
+		register(DamageDisplaySetting.class);
+		register(PregameMovementSetting.class);
+		register(DeathMessageSetting.class);
+		register(HealthDisplaySetting.class);
 		registerWithCommand(PositionSetting.class, "position");
+		register(DeathPositionSetting.class);
+		register(PlayerGlowSetting.class);
+		register(SoupSetting.class);
+		register(NoHungerSetting.class);
+		register(NoItemDamageSetting.class);
+		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
+		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
+		register(TimberSetting.class);
 		register(PvPSetting.class);
+		register(NoHitDelaySetting.class);
+		registerWithCommand(TopCommandSetting.class, "top");
+		register(MaxHealthSetting.class);
+		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
+		register(FortressSpawnSetting.class);
+		register(BastionSpawnSetting.class);
+		register(NoOffhandSetting.class);
+		register(ImmediateRespawnSetting.class);
+		register(SlotLimitSetting.class);
 
 		// Challenges
-		register(InvertHealthChallenge.class);
+		register(RandomChallengeChallenge.class);
 		register(TrafficLightChallenge.class);
+		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class);
+		register(CoronaChallenge.class);
+		register(DamagePerBlockChallenge.class);
+		register(SneakDamageChallenge.class);
+		register(JumpDamageChallenge.class);
+		register(RandomizedHPChallenge.class);
+		register(FoodOnceChallenge.class);
+		register(FloorIsLavaChallenge.class);
+		register(ChunkDeconstructionChallenge.class);
+		register(SurfaceHoleChallenge.class);
+		register(BedrockWallChallenge.class);
+		register(BedrockPathChallenge.class);
+		register(WaterMLGChallenge.class);
+		register(HigherJumpsChallenge.class);
+		register(ReversedDamageChallenge.class);
+		register(HydraChallenge.class);
+		register(DupedSpawningChallenge.class);
+		register(AnvilRainChallenge.class);
+		register(NoExpChallenge.class);
+		register(NoTradingChallenge.class);
+		register(AdvancementDamageChallenge.class);
+		register(BlockBreakDamageChallenge.class);
+		register(BlockPlaceDamageChallenge.class);
+		register(OnlyDirtChallenge.class);
+		// High jumps
+		register(DamageInventoryClearChallenge.class);
+		register(OneDurabilityChallenge.class);
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
+		register(MobRandomizerChallenge.class);
+		register(ForceHeightChallenge.class);
+		register(ForceBlockChallenge.class);
+		register(ForceMobChallenge.class);
+		register(ForceItemChallenge.class);
+		register(ForceBiomeChallenge.class);
+		register(InvertHealthChallenge.class);
+		register(StoneSightChallenge.class);
+		register(NoMobSightChallenge.class);
+		register(LowDropRateChallenge.class);
+		register(TsunamiChallenge.class);
+		register(InvisibleMobsChallenge.class);
+		register(MobTransformationChallenge.class);
+		register(NewEntityOnJumpChallenge.class);
+		register(NoMoveMouseChallenge.class);
+		register(NoDupedItemsChallenge.class);
+		register(OnlyDownChallenge.class);
+		register(WaterAllergyChallenge.class);
+		register(AllBlocksDisappearChallenge.class);
+		register(MaxBiomeTimeChallenge.class);
+		register(PermanentItemChallenge.class);
+		register(RandomItemDroppingChallenge.class);
+		register(RandomItemSwappingChallenge.class);
+		register(RandomItemRemovingChallenge.class);
+		register(MovementItemRemovingChallenge.class);
+		register(DeathOnFallChallenge.class);
+		//register(ZeroHeartsChallenge.class);
+		register(RandomPotionEffectChallenge.class);
+		register(EnderGamesChallenge.class);
+		register(RandomEventChallenge.class);
+		register(RandomItemChallenge.class);
+		register(AlwaysRunningChallenge.class);
+		register(PickupItemLaunchChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
+		register(KillElderGuardianGoal.class);
+		register(KillAllBossesGoal.class);
 		register(LastManStandingGoal.class);
+		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
-	}
+		register(CollectMostExpGoal.class);
+		register(FirstOneToDieGoal.class);
+		register(CollectWoodGoal.class);
 
-	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String[] commandNames, @Nonnull Object... parameters) {
-		try {
+		// Damage Rules
+		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
+		registerDamageRule("attack",    Material.DIAMOND_SWORD,             DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION);
+		registerDamageRule("projectile",Material.ARROW,                     DamageCause.PROJECTILE);
+		registerDamageRule("fall",      Material.FEATHER,                   DamageCause.FALL);
+		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
+		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
+		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
+		registerDamageRule("magic",     Material.BREWING_STAND,             DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
 
-			Class[] parameterClasses = new Class[parameters.length];
-			for (int i = 0; i < parameters.length; i++) {
-				parameterClasses[i] = parameters.getClass();
-			}
-
-			Constructor<? extends IChallenge> constructor = classOfChallenge.getDeclaredConstructor(parameterClasses);
-			IChallenge challenge = constructor.newInstance(parameters);
-
-			Challenges.getInstance().getChallengeManager().register(challenge);
-
-			if (challenge instanceof CommandExecutor) {
-				Challenges.getInstance().registerCommand((CommandExecutor) challenge, commandNames);
-			}
-			if (challenge instanceof Listener) {
-				Challenges.getInstance().registerListener((Listener) challenge);
-			}
-
-		} catch (Throwable ex) {
-			Logger.severe("Could not register challenge " + classOfChallenge.getSimpleName(), ex);
-		}
-	}
-
-	private void register(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull Object... parameters) {
-		registerWithCommand(classOfChallenge, new String[0], parameters);
-	}
-
-	private void registerWithCommand(@Nonnull Class<? extends IChallenge> classOfChallenge, @Nonnull String... commandNames) {
-		registerWithCommand(classOfChallenge, commandNames, new Object[0]);
+		// Material Rules
+		registerMaterialRule("§cArmor", "Armor", ItemUtils.getArmor());
+		registerMaterialRule("§6Golden Apple", "Chest", Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE);
+		registerMaterialRule("§6Crafting Table", "Crafting Table", Material.CRAFTING_TABLE);
+		registerMaterialRule("§6Chest", "Chest", Material.CHEST);
+		registerMaterialRule("§cFurnace", "Furnace", Material.FURNACE, Material.FURNACE_MINECART);
+		registerMaterialRule("§5Enchanting Table", "Enchanting Table", Material.ENCHANTING_TABLE);
+		registerMaterialRule("§cAnvil", "Anvil", Material.ANVIL, Material.CHIPPED_ANVIL, Material.DAMAGED_ANVIL);
+		registerMaterialRule("§dBrewing Stand", "Brewing Stand", Material.BREWING_STAND);
+		registerMaterialRule("§cBow", "Bow", Material.BOW);
+		registerMaterialRule("§fSnowball", "Snowball", Material.SNOWBALL);
+		registerMaterialRule("§cFlint and Steel", "Flint and Steel", Material.FLINT_AND_STEEL);
+		registerMaterialRule("§cBucket", "Bucket", Material.BUCKET);
 	}
 
 }

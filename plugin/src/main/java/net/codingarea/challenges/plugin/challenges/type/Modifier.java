@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
@@ -17,10 +18,11 @@ import javax.annotation.Nonnull;
 public abstract class Modifier extends AbstractChallenge {
 
 	private final int max, min;
+	private final int defaultValue;
 	private int value;
 
 	public Modifier(@Nonnull MenuType menu) {
-		this(menu, 1, 64);
+		this(menu, 64);
 	}
 
 	public Modifier(@Nonnull MenuType menu, int max) {
@@ -40,6 +42,7 @@ public abstract class Modifier extends AbstractChallenge {
 		this.max = max;
 		this.min = min;
 		this.value = defaultValue;
+		this.defaultValue = defaultValue;
 	}
 
 	@Nonnull
@@ -52,8 +55,15 @@ public abstract class Modifier extends AbstractChallenge {
 		if (value > max) throw new IllegalArgumentException("value > max");
 		if (value < min) throw new IllegalArgumentException("value < min");
 		this.value = value;
-		onValueChange();
+
+		if (isEnabled()) onValueChange();
+
 		updateItems();
+	}
+
+	@Override
+	public void restoreDefaults() {
+		setValue(defaultValue);
 	}
 
 	@Nonnegative
@@ -77,8 +87,8 @@ public abstract class Modifier extends AbstractChallenge {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		ChallengeHelper.handleModifierClick(event, this);
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		ChallengeHelper.handleModifierClick(info, this);
 	}
 
 	public void playValueChangeTitle() {

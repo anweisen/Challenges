@@ -1,12 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.codingarea.challenges.plugin.challenges.type.KillEntityGoal;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -15,7 +18,14 @@ import javax.annotation.Nonnull;
 public class KillEnderDragonGoal extends KillEntityGoal {
 
 	public KillEnderDragonGoal() {
-		super(EntityType.ENDER_DRAGON, true);
+		super(EntityType.ENDER_DRAGON, Environment.THE_END, true);
+		setOneWinner(false);
+	}
+
+	@Nullable
+	@Override
+	public SoundSample getWinSound() {
+		return null;
 	}
 
 	@Nonnull

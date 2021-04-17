@@ -5,29 +5,36 @@ import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class PlayerStats {
+public class PlayerStats {
 
-	private final Map<Statistic, Double> values = new HashMap<>();
+	private final Map<Statistic, Double> values = new EnumMap<>(Statistic.class);
+	private final UUID uuid;
+	private final String name;
 
-	public PlayerStats(@Nonnull Document document) {
+	public PlayerStats(@Nonnull UUID uuid, @Nonnull String name, @Nonnull Document document) {
+		this.uuid = uuid;
+		this.name = name;
 		for (Statistic statistic : Statistic.values()) {
 			values.put(statistic, document.getDouble(statistic.name()));
 		}
 	}
 
-	public PlayerStats() {
+	public PlayerStats(@Nonnull UUID uuid, @Nonnull String name) {
+		this.uuid = uuid;
+		this.name = name;
 	}
 
 	public void incrementStatistic(@Nonnull Statistic statistic, double amount) {
-		Logger.debug("Incrementing statistic " + statistic + " by " + amount);
+		Logger.debug("Incrementing statistic {} by {} for {}", statistic, amount, name);
 		double value = values.getOrDefault(statistic, 0d);
 		values.put(statistic, value + amount);
 	}
@@ -43,6 +50,16 @@ public final class PlayerStats {
 
 	public double getStatisticValue(@Nonnull Statistic statistic) {
 		return values.getOrDefault(statistic, 0d);
+	}
+
+	@Nonnull
+	public UUID getPlayerUUID() {
+		return uuid;
+	}
+
+	@Nonnull
+	public String getPlayerName() {
+		return name;
 	}
 
 	@Override

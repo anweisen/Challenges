@@ -4,10 +4,8 @@ import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
-import net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase;
-import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
-import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
@@ -29,27 +27,24 @@ public final class DatabaseManager {
 		if ("none".equals(type)) return;
 
 		// Check dependencies
-		if ("mongodb".equals(type)) {
-			try {
-				Class.forName("net.codingarea.challenges.mongoconnector.MongoConnector");
-			} catch (ClassNotFoundException | NoClassDefFoundError ex) {
-				Logger.severe("Cannot use mongodb database without Challenges-MongoConnector");
-				return;
-			}
+		if ("mongodb".equals(type) && !checkDependencies("com.mongodb.client.MongoClient")) {
+			ConsolePrint.noMongoDependencies();
+			return;
 		}
 
 		try {
-			Class<? extends Database> classOfDatabase = getDatabaseForName(type);
-			if (classOfDatabase == null) {
-				Logger.severe("Selected database type '" + type + "' which is unknown");
+			String nameOfClass = getDatabaseForName(type);
+			if (nameOfClass == null) {
+				Logger.error("Selected illegal database type '{}'", type);
 				return;
 			}
+			Class<? extends Database> classOfDatabase = (Class<? extends Database>) Class.forName(nameOfClass);
 
 			DatabaseConfig config = new DatabaseConfig(document.getDocument(type));
 			Constructor<? extends Database> constructor = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class);
 			database = constructor.newInstance(config);
 		} catch (Throwable ex) {
-			Logger.severe("Could not create database", ex);
+			Logger.error("Could not create database", ex);
 		}
 	}
 
@@ -60,8 +55,11 @@ public final class DatabaseManager {
 			database.connectSafely();
 			database.createTableIfNotExistsSafely("challenges",
 					new SQLColumn("uuid", "varchar", 36),
+					new SQLColumn("name", "varchar", 16),
+					new SQLColumn("textures", "varchar", 265),
 					new SQLColumn("stats", "varchar", 1500),
-					new SQLColumn("config", "varchar", 1500));
+					new SQLColumn("config", "varchar", 7500)
+			);
 		});
 	}
 
@@ -72,11 +70,11 @@ public final class DatabaseManager {
 	}
 
 	@Nullable
-	private Class<? extends Database> getDatabaseForName(@Nonnull String type) {
+	private String getDatabaseForName(@Nonnull String type) {
 		switch (type) {
-			case "mongodb": return MongoDBDatabase.class;
-			case "mysql":   return MySQLDatabase.class;
-			case "sqlite":  return SQLiteDatabase.class;
+			case "mongodb": return "net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase";
+			case "mysql":   return "net.anweisen.utilities.database.internal.sql.mysqlMySQLDatabase";
+			case "sqlite":  return "net.anweisen.utilities.database.internal.sql.sqliteSQLiteDatabase";
 			default:        return null;
 		}
 	}
@@ -85,8 +83,23 @@ public final class DatabaseManager {
 		return database != null && database.isConnected();
 	}
 
+	public boolean isEnabled() {
+		return database != null;
+	}
+
 	public Database getDatabase() {
 		return database;
+	}
+
+	private boolean checkDependencies(@Nonnull String... classes) {
+		try {
+			for (String name : classes) {
+				Class.forName(name);
+			}
+		} catch (Throwable ex) {
+			return false;
+		}
+		return true;
 	}
 
 }

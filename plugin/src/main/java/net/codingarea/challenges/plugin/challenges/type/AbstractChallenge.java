@@ -1,21 +1,37 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
+import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public abstract class AbstractChallenge implements IChallenge, Listener {
+
+	protected static final Challenges plugin = Challenges.getInstance();
+
+	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 
 	protected final MenuType menu;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
@@ -25,6 +41,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
+		firstInstanceByClass.put(this.getClass(), this);
 	}
 
 	@Nonnull
@@ -46,7 +63,19 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	@Override
 	public ItemStack getSettingsItem() {
-		return createSettingsItem().build();
+		ItemBuilder item = createSettingsItem();
+		String[] description = getSettingsDescription();
+		if (description != null && isEnabled()) {
+			item.appendLore(" ");
+			item.appendLore(description);
+		}
+
+		return item.build();
+	}
+
+	@Nullable
+	protected String[] getSettingsDescription() {
+		return null;
 	}
 
 	@Nonnull
@@ -66,6 +95,10 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Override
+	public void handleShutdown() {
+	}
+
+	@Override
 	public void writeGameState(@Nonnull Document document) {
 	}
 
@@ -79,6 +112,60 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Override
 	public void loadSettings(@Nonnull Document document) {
+	}
+
+	@CheckReturnValue
+	protected boolean shouldExecuteEffect() {
+		return isEnabled() && ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse();
+	}
+
+	@CheckReturnValue
+	protected boolean ignorePlayer(@Nonnull Player player) {
+		return player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE;
+	}
+
+	protected final void broadcast(@Nonnull Consumer<? super Player> action) {
+		Bukkit.getOnlinePlayers().forEach(action);
+	}
+
+	protected final void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
+			action.accept(player);
+		}
+	}
+
+	protected final void kill(@Nonnull Player player) {
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
+			return;
+		}
+
+		player.damage(player.getHealth());
+	}
+
+	protected final void kill(@Nonnull Player player, int delay) {
+		Bukkit.getScheduler().runTaskLater(plugin, () -> kill(player), delay);
+	}
+
+	@Nonnull
+	protected final Document getGameStateData() {
+		return plugin.getConfigManager().getGameStateConfig().getDocument(getName());
+	}
+
+	@Nonnull
+	protected final Document getPlayerData(@Nonnull UUID player) {
+		return getGameStateData().getDocument("player").getDocument(player.toString());
+	}
+
+	@Nonnull
+	protected final Document getPlayerData(@Nonnull Player player) {
+		return getPlayerData(player.getUniqueId());
+	}
+
+	@Nonnull
+	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
+		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));
 	}
 
 }

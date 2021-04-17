@@ -1,8 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import net.anweisen.utilities.commons.misc.NumberFormatter;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard.ScoreboardInstance;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
@@ -24,8 +25,7 @@ public final class GoalHelper {
 
 	public static final int LEADERBOARD_SIZE = 9;
 
-	private GoalHelper() {
-	}
+	private GoalHelper() {}
 
 	public static void handleSetEnabled(@Nonnull Goal goal, boolean enabled) {
 		if (Challenges.getInstance().getChallengeManager().getCurrentGoal() != goal && enabled) {
@@ -88,7 +88,7 @@ public final class GoalHelper {
 					for (Player current : players) {
 						displayed++;
 						if (displayed >= LEADERBOARD_SIZE) break;
-						scoreboard.addLine("§e#" + place + " §8┃ §7" + NameHelper.getName(current) + " §8» §e" + entry.getKey());
+						scoreboard.addLine(Message.forName("scoreboard-leaderboard").asString(place, NameHelper.getName(current), NumberFormatter.MIDDLE_NUMBER.format(entry.getKey())));
 					}
 					if (displayed >= LEADERBOARD_SIZE) break;
 					place++;

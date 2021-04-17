@@ -4,20 +4,18 @@ import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled.TimerPolicy;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.Location;
+import org.bukkit.*;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.memory.MemoryKey;
 
 import javax.annotation.Nonnull;
 
@@ -30,11 +28,17 @@ public final class ChallengeTimer {
 	private long time = 0;
 	private boolean countingUp = true;
 	private boolean paused = true;
+	private boolean hidden = false;
+	private boolean sentEmpty;
 
 	private final TimerFormat format;
 	private final String stoppedMessage, upMessage, downMessage;
 
+	private final boolean specificStartSounds;
+
 	public ChallengeTimer() {
+
+		specificStartSounds = Challenges.getInstance().getConfigDocument().getBoolean("enable-specific-start-sounds");
 
 		// Load format + messages
 		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
@@ -48,7 +52,17 @@ public final class ChallengeTimer {
 		Challenges.getInstance().getScheduler().register(this);
 	}
 
-	@Scheduled(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	public void enable() {
+		updateTimeRule();
+	}
+
+	private void updateTimeRule() {
+		for (World world : Bukkit.getWorlds()) {
+			world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, !paused);
+		}
+	}
+
+	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void onTimerSecond() {
 
 		if (!paused) {
@@ -57,17 +71,17 @@ public final class ChallengeTimer {
 
 			if (time <= 0) {
 				time = 0;
+				countingUp = true;
 				handleHitZero();
 			}
 		}
 
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 
 	}
 
-	@Scheduled(ticks = 20, timerPolicy = TimerPolicy.PAUSED)
-	public void onTimerPaused() {
+	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.PAUSED)
+	public void playPausedParticles() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() == GameMode.SPECTATOR) continue;
 			Location location = player.getLocation();
@@ -84,16 +98,13 @@ public final class ChallengeTimer {
 		if (!paused) return;
 		paused = false;
 
-		if (Challenges.getInstance().getServerManager().isFresh() && Challenges.getInstance().getStatsManager().isEnabled()) {
-			for (Player player : Bukkit.getOnlinePlayers())
-				Challenges.getInstance().getStatsManager().getStats(player.getUniqueId()).incrementStatistic(Statistic.CHALLENGES_PLAYED, 1);
-		}
-		Challenges.getInstance().getCloudNetHelper().handleTimerStart();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		updateActionbar();
+		updateTimeRule();
+
+		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
 		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
-		updateActionbar();
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			Challenges.getInstance().getPlayerInventoryManager().updateInventoryAuto(player);
@@ -102,7 +113,7 @@ public final class ChallengeTimer {
 		}
 
 		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
-		if (currentGoal != null)
+		if (currentGoal != null && specificStartSounds)
 			currentGoal.getStartSound().broadcast();
 		else SoundSample.DRAGON_BREATH.broadcast();
 
@@ -113,26 +124,30 @@ public final class ChallengeTimer {
 		paused = true;
 
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
-		Challenges.getInstance().getCloudNetHelper().handleTimerPause();
+		updateTimeRule();
+
+		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		if (byPlayer) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
+			SoundSample.BASS_OFF.broadcast();
 		}
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void reset() {
-		pause(true);
+		if (!countingUp) pause(true);
 		time = 0;
 		countingUp = true;
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
 		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void updateActionbar() {
-		String actionbar = getActionbar();
+		if (sentEmpty && hidden) return;
+		if (hidden) sentEmpty = true;
+		String actionbar = hidden ? "" : getActionbar();
+
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionbar));
 		}
@@ -149,12 +164,14 @@ public final class ChallengeTimer {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		time = config.getInt("timer.seconds");
 		countingUp = config.getBoolean("timer.countingUp", true);
+		hidden = config.getBoolean("timer.hidden", false);
 	}
 
 	public synchronized void saveSession(boolean async) {
 		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		config.set("timer.seconds", time);
 		config.set("timer.countingUp", countingUp);
+		config.set("timer.hidden", hidden);
 		config.save(async);
 	}
 
@@ -162,16 +179,27 @@ public final class ChallengeTimer {
 		time += amount;
 		if (time < 0)
 			time = 0;
+		updateActionbar();
 	}
 
 	public void setSeconds(int seconds) {
 		this.time = seconds;
+		updateActionbar();
 	}
 
 	public void setCountingUp(boolean countingUp) {
+		if (this.countingUp == countingUp) return;
+
 		this.countingUp = countingUp;
 		updateActionbar();
-		Challenges.getInstance().getMenuManager().updateTimerMenu();
+		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
+		SoundSample.BASS_ON.broadcast();
+	}
+
+	public void setHidden(boolean hide) {
+		this.sentEmpty = false;
+		this.hidden = hide;
+		updateActionbar();
 	}
 
 	@Nonnull
@@ -188,6 +216,11 @@ public final class ChallengeTimer {
 		return time;
 	}
 
+	@Nonnull
+	public TimerStatus getStatus() {
+		return paused ? TimerStatus.PAUSED : TimerStatus.RUNNING;
+	}
+
 	public boolean isPaused() {
 		return paused;
 	}
@@ -199,4 +232,5 @@ public final class ChallengeTimer {
 	public boolean isCountingUp() {
 		return countingUp;
 	}
+
 }

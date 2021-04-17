@@ -4,7 +4,7 @@ import net.anweisen.utilities.commons.version.Version;
 import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -35,20 +35,31 @@ public final class Menu {
 	private final List<Inventory> inventories = new ArrayList<>();
 
 	private final MenuType menu;
+	private final boolean newSuffix;
 
 	public Menu(@Nonnull MenuType menu) {
 		this.menu = menu;
+		newSuffix = Challenges.getInstance().getConfigDocument().getBoolean("new-suffix");
 	}
 
 	void addChallengeCache(@Nonnull IChallenge challenge) {
 		if (isNew(challenge) && Challenges.getInstance().getMenuManager().isDisplayNewInFront()) {
-			challenges.add(0, challenge);
+			challenges.add(countNewChallenges(), challenge);
 		} else {
 			challenges.add(challenge);
 		}
 	}
 	void resetChallengesCache() {
 		challenges.clear();
+	}
+
+	private int countNewChallenges() {
+		int i = 0;
+		for (IChallenge challenge : challenges) {
+			if (!isNew(challenge)) return i;
+			i++;
+		}
+		return i;
 	}
 
 	public void generateInventories() {
@@ -79,7 +90,7 @@ public final class Menu {
 			index++;
 		}
 
-		InventoryUtils.setNavigationItems(inventories, NAVIGATION_SLOTS);
+		InventoryUtils.setNavigationItemsToInventory(inventories, NAVIGATION_SLOTS);
 
 	}
 
@@ -102,13 +113,13 @@ public final class Menu {
 	private ItemStack getDisplayItem(@Nonnull IChallenge challenge) {
 		try {
 			ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
-			if (isNew(challenge)) {
+			if (newSuffix && isNew(challenge)) {
 				return item.appendName(" " + Message.forName("new-challenge")).build();
 			} else {
 				return item.build();
 			}
 		} catch (Exception ex) {
-			Logger.severe("Error while generating challenge display item for challenge " + challenge.getClass().getSimpleName(), ex);
+			Logger.error("Error while generating challenge display item for challenge {}", challenge.getClass().getSimpleName(), ex);
 			return new ItemBuilder().build();
 		}
 	}
@@ -118,7 +129,7 @@ public final class Menu {
 			ItemBuilder item = new ItemBuilder(challenge.getSettingsItem()).hideAttributes();
 			return item.build();
 		} catch (Exception ex) {
-			Logger.severe("Error while generating challenge settings item for challenge " + challenge.getClass().getSimpleName(), ex);
+			Logger.error("Error while generating challenge settings item for challenge {}", challenge.getClass().getSimpleName(), ex);
 			return new ItemBuilder().build();
 		}
 	}
@@ -141,7 +152,7 @@ public final class Menu {
 		if (inventories.isEmpty()) return; // This will only happen, when there are no challenges registered to this MenuType
 		if (page >= inventories.size()) page = inventories.size() - 1;
 		Inventory inventory = inventories.get(page);
-		Challenges.getInstance().getMenuManager().setPostion(player, new SubMenuPosition(page));
+		MenuPosition.set(player, new SubMenuPosition(page));
 		player.openInventory(inventory);
 	}
 
@@ -168,7 +179,7 @@ public final class Menu {
 
 			if (info.getSlot() == NAVIGATION_SLOTS[0]) {
 				SoundSample.CLICK.play(info.getPlayer());
-				if (page == 0) {
+				if (page == 0 || info.isShiftClick()) {
 					Challenges.getInstance().getMenuManager().openGUIInstantly(info.getPlayer());
 				} else {
 					open(info.getPlayer(), page - 1);
@@ -210,7 +221,7 @@ public final class Menu {
 			try {
 				challenge.handleClick(new ChallengeMenuClickInfo(info, upperItem));
 			} catch (Exception ex) {
-				Logger.severe("An exception occurred while handling click on " + challenge.getClass().getName(), ex);
+				Logger.error("An exception occurred while handling click on {}", challenge.getClass().getName(), ex);
 			}
 
 		}

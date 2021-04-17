@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
-import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.CollectionGoal;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
@@ -33,12 +32,14 @@ public class CollectMostDeathsGoal extends CollectionGoal {
 
 	@EventHandler
 	public void onDeath(@Nonnull PlayerDeathEvent event) {
-		if (!isEnabled() || ChallengeAPI.isPaused()) return;
+		if (!shouldExecuteEffect()) return;
 
 		EntityDamageEvent lastCause = event.getEntity().getLastDamageCause();
 		if (lastCause == null) return;
 
 		DamageCause cause = lastCause.getCause();
+		if (cause == DamageCause.CUSTOM) return;
+
 		collect(event.getEntity(), cause, () -> {
 			Message.forName("death-collected").send(event.getEntity(), Prefix.CHALLENGES, StringUtils.getEnumName(cause));
 			SoundSample.PLING.play(event.getEntity());

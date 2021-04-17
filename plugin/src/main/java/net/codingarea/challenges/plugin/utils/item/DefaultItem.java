@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import org.bukkit.Material;
 
@@ -34,27 +34,27 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder enabled() {
-		return new ItemBuilder(Material.LIME_DYE).setName(name("§aEnabled")).hideAttributes();
+		return new ItemBuilder(Material.LIME_DYE).setName(Message.forName("enabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(name("§cDisabled")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.forName("disabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(name("§6Customize")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.SIGN).setName(Message.forName("customize")).hideAttributes();
 	}
 
 	@Nonnull
-	public static ItemBuilder value(int number) {
-		return value(number, "§7");
+	public static ItemBuilder value(int value) {
+		return value(value, "§e");
 	}
 
 	@Nonnull
-	public static ItemBuilder value(int number, @Nonnull String prefix) {
-		return new ItemBuilder(Material.STONE_BUTTON).setName(name(prefix + number)).setAmount(Math.max(number, 1));
+	public static ItemBuilder value(int value, @Nonnull String prefix) {
+		return create(Material.STONE_BUTTON, prefix + value).amount(value);
 	}
 
 	@Nonnull

@@ -2,8 +2,8 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.OneEnabledSetting;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
@@ -24,12 +24,12 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
-public class RespawnSetting extends OneEnabledSetting {
+public class RespawnSetting extends Setting {
 
 	private final Map<Player, Location> locationsBeforeRespawn = new ConcurrentHashMap<>();
 
 	public RespawnSetting() {
-		super(MenuType.SETTINGS, "challenge_end_handle");
+		super(MenuType.SETTINGS);
 	}
 
 	@Nonnull
@@ -41,13 +41,11 @@ public class RespawnSetting extends OneEnabledSetting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
 		Player player = event.getEntity();
-		locationsBeforeRespawn.put(player, player.getLocation());
 		if (isEnabled()) {
 			SoundSample.DEATH.play(player);
 		} else {
+			locationsBeforeRespawn.put(player, player.getLocation());
 			player.setGameMode(GameMode.SPECTATOR);
-			player.teleport(player.getLocation());
-			player.setBedSpawnLocation(null, true);
 
 			if (ChallengeAPI.isStarted())
 				checkAllPlayersDead();
@@ -56,7 +54,7 @@ public class RespawnSetting extends OneEnabledSetting {
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_WITCH, 17, 1, 2);
 	}
 
-	private void checkAllPlayersDead() {
+	public void checkAllPlayersDead() {
 		int playersAlive = 0;
 		for (Player current : Bukkit.getOnlinePlayers()) {
 			if (current.getGameMode() != GameMode.SPECTATOR)
@@ -74,6 +72,7 @@ public class RespawnSetting extends OneEnabledSetting {
 		Player player = event.getPlayer();
 		Location locationBeforeRespawn = locationsBeforeRespawn.remove(player);
 		if (locationBeforeRespawn == null) return;
+		if (locationBeforeRespawn.getY() < 0) return; // If the player dies in the void (y <= 0), we dont want him to spawn there, he would die again
 		event.setRespawnLocation(locationBeforeRespawn);
 	}
 

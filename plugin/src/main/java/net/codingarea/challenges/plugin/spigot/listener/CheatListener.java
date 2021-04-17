@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
@@ -37,14 +37,16 @@ public class CheatListener implements Listener {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onCommand(@Nonnull PlayerCommandPreprocessEvent event) {
 		String[] commands = {
-				"gamemode",
-				"gm",
 				"give",
 				"replaceitem",
 				"effect",
 				"i",
 				"summon",
-				"kill"
+				"enchant",
+				"heal",
+				"kill",
+				"setblock",
+				"fill"
 		};
 		String message = event.getMessage().toLowerCase();
 		if (message.isEmpty()) return;
@@ -66,8 +68,9 @@ public class CheatListener implements Listener {
 	private boolean hasPermission(@Nonnull Player player, @Nonnull String command) {
 		String[] prefixes = {
 			"challenges.",
-			"minecraft.command",
-			"essentials."
+			"minecraft.command.",
+			"essentials.",
+			"bukkit."
 		};
 
 		for (String prefix : prefixes) {
@@ -80,6 +83,7 @@ public class CheatListener implements Listener {
 
 	private void handleCheatsDetected(@Nonnull Player player) {
 		if (Challenges.getInstance().getServerManager().hasCheated()) return;
+		if (!Challenges.getInstance().getStatsManager().isNoStatsAfterCheating()) return;
 		Challenges.getInstance().getServerManager().setHasCheated();
 		Logger.info("Detected cheating: No more stats can be collected");
 		Message.forName("cheats-detected").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));

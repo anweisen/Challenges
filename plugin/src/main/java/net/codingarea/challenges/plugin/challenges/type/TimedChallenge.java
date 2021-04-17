@@ -1,13 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
-import net.codingarea.challenges.plugin.utils.item.DefaultItem;
+import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 
@@ -17,24 +14,46 @@ import javax.annotation.Nonnull;
  */
 public abstract class TimedChallenge extends SettingModifier {
 
+	private final boolean runAsync;
 	private int secondsUntilActivation;
+	private int originalSecondsUntilActivation;
 	private boolean timerStatus = false;
 	private boolean startedBefore = false;
 
 	public TimedChallenge(@Nonnull MenuType menu) {
-		super(menu);
+		this(menu, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int max) {
-		super(menu, max);
+		this(menu, max, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int min, int max) {
-		super(menu, min, max);
+		this(menu, min, max, true);
 	}
 
 	public TimedChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue) {
+		this(menu, min, max, defaultValue, true);
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, boolean runAsync) {
+		super(menu);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int max, boolean runAsync) {
+		super(menu, max);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int min, int max, boolean runAsync) {
+		super(menu, min, max);
+		this.runAsync = runAsync;
+	}
+
+	public TimedChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue, boolean runAsync) {
 		super(menu, min, max, defaultValue);
+		this.runAsync = runAsync;
 	}
 
 	@Override
@@ -43,12 +62,11 @@ public abstract class TimedChallenge extends SettingModifier {
 		restartTimer();
 	}
 
-	@Scheduled(ticks = 20)
-	public void onSecond() {
+	@ScheduledTask(ticks = 20, worldPolicy = ExtraWorldPolicy.ALWAYS)
+	public final void onSecond() {
 
-		if (!startedBefore) {
+		if (!startedBefore)
 			restartTimer();
-		}
 
 		if (timerStatus) {
 
@@ -57,13 +75,42 @@ public abstract class TimedChallenge extends SettingModifier {
 				if (secondsUntilActivation <= 0) {
 					secondsUntilActivation = 0;
 					timerStatus = false;
-					onTimeActivation();
+					executeTimeActivation();
+				} else {
+					handleCountdown();
 				}
 			} else {
-				Logger.debug("getTimerCondition returned false for " + this.getClass().getSimpleName());
+				Logger.debug("getTimerCondition returned false for {}", this.getClass().getSimpleName());
 			}
 		}
 
+	}
+
+	public final void executeTimeActivation() {
+		if (runAsync) {
+			Bukkit.getScheduler().runTaskAsynchronously(plugin, this::onTimeActivation);
+		} else {
+			Bukkit.getScheduler().runTask(plugin, this::onTimeActivation);
+		}
+	}
+
+	public final boolean isTimerRunning() {
+		return timerStatus;
+	}
+
+	public final int getSecondsLeftUntilNextActivation() {
+		return secondsUntilActivation;
+	}
+
+	public final int getOriginalSecondsUntilActivation() {
+		return originalSecondsUntilActivation;
+	}
+
+	protected float getProgress() {
+		return (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
+	}
+
+	protected void handleCountdown() {
 	}
 
 	protected boolean getTimerCondition() {
@@ -73,10 +120,11 @@ public abstract class TimedChallenge extends SettingModifier {
 	protected abstract int getSecondsUntilNextActivation();
 
 	protected void restartTimer(int seconds) {
-		Logger.debug("Restarting timer of " + this.getClass().getSimpleName() + " with " + seconds + " second(s)");
+		Logger.debug("Restarting timer of {} with {} second(s)", this.getClass().getSimpleName(), seconds);
 
 		startedBefore = true;
 		secondsUntilActivation = seconds;
+		originalSecondsUntilActivation = seconds;
 		timerStatus = true;
 	}
 
@@ -85,28 +133,5 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	protected abstract void onTimeActivation();
-
-	@Nonnull
-	@Override
-	public ItemStack getSettingsItem() {
-		return DefaultItem.status(isEnabled()).build();
-	}
-
-	@Nonnull
-	@Override
-	public ItemStack getDisplayItem() {
-		return createDisplayItem().amount(getValue()).build();
-	}
-
-	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		if (event.isUpperItemClick() && isEnabled()) {
-			ChallengeHelper.handleModifierClick(event, this);
-		} else {
-			setEnabled(!isEnabled());
-			SoundSample.playEnablingSound(event.getPlayer(), isEnabled());
-			playStatusUpdateTitle();
-		}
-	}
 
 }

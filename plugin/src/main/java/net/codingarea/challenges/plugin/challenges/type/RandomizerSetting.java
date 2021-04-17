@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.anweisen.utilities.commons.common.SeededRandomWrapper;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.SeededRandomWrapper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 
 import javax.annotation.Nonnull;
@@ -44,6 +44,8 @@ public abstract class RandomizerSetting extends Setting {
 		if (seed == random.getSeed()) return;
 
 		random = new SeededRandomWrapper(seed);
+
+		if (!isEnabled()) return;
 		reloadRandomization();
 	}
 

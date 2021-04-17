@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickI
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -35,13 +36,13 @@ public abstract class SettingModifier extends Modifier {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		if (event.isUpperItemClick() || !enabled) {
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		if (info.isUpperItemClick() || !enabled) {
 			setEnabled(!enabled);
-			SoundSample.playEnablingSound(event.getPlayer(), enabled);
+			SoundSample.playEnablingSound(info.getPlayer(), enabled);
 			playStatusUpdateTitle();
 		} else {
-			super.handleClick(event);
+			super.handleClick(info);
 		}
 	}
 
@@ -55,10 +56,22 @@ public abstract class SettingModifier extends Modifier {
 		updateItems();
 	}
 
+	@Override
+	public void restoreDefaults() {
+		super.restoreDefaults();
+		setEnabled(false);
+	}
+
+	@Nonnull
+	@Override
+	public ItemStack getSettingsItem() {
+		return isEnabled() ? super.getSettingsItem() : DefaultItem.disabled().build();
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createSettingsItem() {
-		return enabled ? super.createSettingsItem() : DefaultItem.disabled();
+		return DefaultItem.enabled().amount(getValue());
 	}
 
 	@Override
@@ -70,10 +83,16 @@ public abstract class SettingModifier extends Modifier {
 		ChallengeHelper.playToggleChallengeTitle(this);
 	}
 
-	public void onEnable() {
+	protected void onEnable() {
 	}
 
-	public void onDisable() {
+	protected void onDisable() {
+	}
+
+	@Override
+	public void handleShutdown() {
+		super.handleShutdown();
+		onDisable();
 	}
 
 	@Override

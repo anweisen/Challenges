@@ -1,12 +1,15 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
-import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.language.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
+import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
+import org.bukkit.Bukkit;
 import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -25,10 +28,19 @@ public class PlayerConnectionListener implements Listener {
 
 	private final boolean messages;
 	private final boolean timerPausedInfo;
+	private final boolean startTimerOnJoin;
+	private final boolean resetOnLastQuit;
+	private final boolean pauseOnLastQuit;
+	private final boolean restoreDefaultsOnLastQuit;
 
 	public PlayerConnectionListener() {
-		messages = Challenges.getInstance().getConfigDocument().getBoolean("join-quit-messages");
-		timerPausedInfo = Challenges.getInstance().getConfigDocument().getBoolean("timer-is-paused-info");
+		Document config = Challenges.getInstance().getConfigDocument();
+		messages = config.getBoolean("join-quit-messages");
+		timerPausedInfo = config.getBoolean("timer-is-paused-info");
+		startTimerOnJoin = config.getBoolean("start-on-first-join");
+		resetOnLastQuit = config.getBoolean("reset-on-last-leave");
+		pauseOnLastQuit = config.getBoolean("pause-on-last-leave");
+		restoreDefaultsOnLastQuit = config.getBoolean("restore-defaults-on-last-leave");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -57,7 +69,7 @@ public class PlayerConnectionListener implements Listener {
 			if (!UpdateLoader.isNewestConfigVersion()) {
 				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
-			if (timerPausedInfo && ChallengeAPI.isPaused()) {
+			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {
 				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
 			}
 		}
@@ -66,19 +78,42 @@ public class PlayerConnectionListener implements Listener {
 			Message.forName("cheats-already-detected").send(player, Prefix.CHALLENGES);
 		}
 
+		if (startTimerOnJoin) {
+			ChallengeAPI.resumeTimer();
+		}
+
+		if (Challenges.getInstance().getDatabaseManager().isConnected()) {
+			Challenges.getInstance().runAsync(() -> DatabaseHelper.savePlayerData(player));
+		}
+
 	}
 
-	@EventHandler
+	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
 
 		Player player = event.getPlayer();
 		Challenges.getInstance().getScoreboardManager().handleQuit(player);
+		DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
 
 		if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
 			event.setQuitMessage(null);
 		} else if (messages) {
 			event.setQuitMessage(null);
 			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+		}
+
+		if (Bukkit.getOnlinePlayers().size() <= 1) {
+			if (restoreDefaultsOnLastQuit) {
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
+			}
+
+			if (!Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
+				if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
+					Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
+				} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
+					ChallengeAPI.pauseTimer();
+				}
+			}
 		}
 
 	}

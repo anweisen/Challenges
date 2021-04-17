@@ -1,14 +1,16 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -27,7 +29,7 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
-		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && Challenges.getInstance().getServerManager().isFresh()) {
+		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && ChallengeAPI.isFresh()) {
 			Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.playIfPlayer(sender);
 			return;
@@ -44,10 +46,7 @@ public class ResetCommand implements SenderCommand, Completer {
 
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		if (confirmReset && args.length == 1) {
-			return Collections.singletonList("confirm");
-		}
-		return null;
+		return confirmReset && args.length == 1 ? Collections.singletonList("confirm") : Collections.emptyList();
 	}
 
 }

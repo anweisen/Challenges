@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
  */
 public final class InventoryTitleManager {
 
-	private InventoryTitleManager() { }
+	private InventoryTitleManager() {}
 
 	@Nonnull
 	public static String getTitle(@Nonnull String name) {
@@ -33,6 +33,11 @@ public final class InventoryTitleManager {
 	@Nonnull
 	public static String getStatsTitle(@Nonnull String playerName) {
 		return getTitle("§2Stats §8┃ §2" + playerName);
+	}
+
+	@Nonnull
+	public static String getLeaderboardTitle() {
+		return getTitle("§2Leaderboard");
 	}
 
 }

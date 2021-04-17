@@ -13,7 +13,7 @@
 # - KxmischesDomi | Dominik - https://github.com/kxmischesdomi  #
 #                                                               #
 # Visit our website / minecraft server (coding-area.net) or     #
-# join our discord server (https://discord.gg/74Ay5zF)          #
+# join our discord server (https://discord.gg/v6zzCk8)          #
 #                                                               #
 # You can find the source code at                               #
 # https://github.com/anweisen/Challenges                        #
@@ -24,54 +24,80 @@
 # We recommend regenerating the config to get access to new features / settings.
 config-version: "2.0"
 
-# Currently supported
+# Currently supported by default
 # - en (English)
 # - de (German / Deutsch)
 language: "en"
 
 timer:
-  stopped-message: "§8• §7Timer §c§lstopped §8•"
+  stopped-message: "§8• §7Timer §c§lpaused §8•"
   count-up-message: "§8• §7Time: §a§l{time} §8•"
   count-down-message: "§8• §7Time: §c§l{time} §8•"
   format:
-    days: "{d} days {hh}:{mm}:{ss}"
-    day: "{d} day {hh}:{mm}:{ss}"
-    hours: "{hh}:{mm}:{ss}"
-    minutes: "{mm}:{ss}"
     seconds: "{mm}:{ss}"
+    minutes: "{mm}:{ss}"
+    hours: "{hh}:{mm}:{ss}"
+    day: "{d} day {hh}:{mm}:{ss}"
+    days: "{d} days {hh}:{mm}:{ss}"
+
+# When the worlds are reset using /reset, the given seed will be used, if enabled, to generate the new worlds
+custom-seed:
+  enabled: false
+  seed: 0
+
+# This will change the item design in the challenges menu
+design:
+  empty-line-above: false
+  empty-line-underneath: false
 
 # The size stands for the amount of rows in the backpack inventory
 backpack-size: 3
 
 # Players with the permission 'challenges.gui' will have items in their hotbar
 # while the timer is paused, for controlling some settings.
-inventory-menu: true
+inventory-menu:
+  control: true
+  stats: false
 
 # Toggles join and quit messages
 # These can be edited in the corresponding language file
 join-quit-messages: true
 
-# Players with the 'challenges.gui' will get a message if the timer is paused when they join
+# Players with the permission 'challenges.gui' will get a message if the timer is paused when they join
 timer-is-paused-info: true
 
 # New challenges will be displayed first in the setting menu.
 display-new-in-front: true
 
+# New challenges will have a suffix in their title
+new-suffix: true
+
+# A specific start sound, matching the current goal, the will be played when the timer is started.
+# Otherwise the dragon sound will always be played.
+enable-specific-start-sounds: true
+
+# If the challenge is win, a sound will be played if provided
+enabled-win-sounds: true
+
 # A title will be shown to all players when the timer is paused/started/reset,
 # set to another time or the mode is toggled or a challenges is enabled/disabled
 titles:
   timer-status: true
-  challenge-status: false
+  challenge-status: true
 
 # You will have to type /reset confirm to reset your server/worlds
 confirm-reset: true
 
+# The /reset command can be executed when the server is fresh, what means the timer was never started before
+enable-fresh-reset: true
+
 # This will pause the timer / reset the world if the last one leaves the server and the timer was started before
 pause-on-last-leave: true
 reset-on-last-leave: false
+restore-defaults-on-last-leave: false
 
-# The /reset command can be executed when the server is fresh, what means the timer was never started before
-enable-fresh-reset: true
+# The timer will automatically be started when the first player joined the server
+start-on-first-join: false
 
 # If you enable this the start command defined in the spigot.yml will be executed,
 # otherwise the server will be stopped if the reset command was executed.
@@ -79,12 +105,19 @@ enable-fresh-reset: true
 # So make sure that the server restarts when you perform the /restart command before reporting it to us!
 restart-on-reset: false
 
-# We only support cloudnet version 3
-cloudnet-support:
-  name-rank-colors: false
+# When the challenge is won, all players will be set into spectator mode
+set-spectator-on-win: false
+
+# The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
+drop-items-on-end: false
+
+# We currently support:
+# - cloudnet (only cloudnet v3)
+cloud-support:
+  type: none
+  name-rank-colors: true
   start-new-service: false
-  # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY
-  reset-to-lobby: false
+  reset-to-lobby: false # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY, this will only be used if start-new-service is enabled as well
 
 # This will require a database connection
 save-player-configs: false
@@ -93,6 +126,7 @@ no-stats-after-cheating: true
 
 # Debug messages will be shown in the console.
 # You should enable this setting when reporting an issue.
+# This may also enable experimental settings which aren't stable yet.
 dev-mode: false
 
 database:

@@ -1,8 +1,10 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
@@ -34,6 +36,7 @@ public final class MenuManager {
 	private boolean generated = false;
 
 	public MenuManager() {
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::generateMenus);
 		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
 
 		for (MenuType type : MenuType.values()) {
@@ -41,8 +44,7 @@ public final class MenuManager {
 			menus.put(type, new Menu(type));
 		}
 
-		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER)
-				.setFrameSound(SoundSample.CLICK).setEndSound(SoundSample.OPEN);
+		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
 		gui.cloneLastAndAdd().setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
@@ -78,20 +80,15 @@ public final class MenuManager {
 		generated = true;
 	}
 
-	public void updateTimerMenu() {
-		if (timerMenu != null)
-			timerMenu.updateInventories();
-	}
-
 	public void openGUI(@Nonnull Player player) {
 		SoundSample.PLOP.play(player);
-		setPostion(player, new MainMenuPosition());
+		MenuPosition.set(player, new MainMenuPosition());
 		gui.open(player, Challenges.getInstance());
 	}
 
 	public void openGUIInstantly(@Nonnull Player player) {
-		setPostion(player, new MainMenuPosition());
-		gui.openNotAnimated(player, true);
+		MenuPosition.set(player, new MainMenuPosition());
+		gui.openNotAnimated(player, true, Challenges.getInstance());
 	}
 
 	/**
@@ -126,7 +123,7 @@ public final class MenuManager {
 		return positions.get(player);
 	}
 
-	public void setPostion(@Nonnull Player player, @Nullable MenuPosition position) {
+	public synchronized void setPosition(@Nonnull Player player, @Nullable MenuPosition position) {
 		if (position == null) positions.remove(player);
 		else positions.put(player, position);
 	}

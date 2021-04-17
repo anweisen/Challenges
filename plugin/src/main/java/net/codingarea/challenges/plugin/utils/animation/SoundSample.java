@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.animation;
 
-import net.codingarea.challenges.plugin.management.player.ChallengePlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -22,12 +21,16 @@ public final class SoundSample {
 			BASS_ON         = new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_PLING, 0.5F),
 			PLING           = new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BELL, 1),
 			KLING           = new SoundSample().addSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 2),
+			LEVEL_UP        = new SoundSample().addSound(Sound.ENTITY_PLAYER_LEVELUP, 0.6F, 1.1f),
 			PLOP            = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 2),
+			LOW_PLOP        = new SoundSample().addSound(Sound.ENTITY_CHICKEN_EGG, 1, 1.3f),
 			DEATH           = new SoundSample().addSound(Sound.ENTITY_BAT_DEATH, 0.7F),
 			TELEPORT        = new SoundSample().addSound(Sound.ITEM_CHORUS_FRUIT_TELEPORT, 0.9F),
 			OPEN            = new SoundSample().addSound(KLING).addSound(PLOP),
 			EAT             = new SoundSample().addSound(Sound.ENTITY_PLAYER_BURP, 1),
 			BLAST           = new SoundSample().addSound(Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, 1),
+			BREAK           = new SoundSample().addSound(Sound.ENTITY_WITHER_BREAK_BLOCK, 0.7f),
+			WIN             = new SoundSample().addSound(Sound.UI_TOAST_CHALLENGE_COMPLETE, 1),
 			DRAGON_BREATH   = new SoundSample().addSound(Sound.ENTITY_ENDER_DRAGON_GROWL, 0.5F);
 
 	public static void playEnablingSound(@Nonnull Player player, boolean enabled) {
@@ -88,14 +91,6 @@ public final class SoundSample {
 		return this;
 	}
 
-	public void play(@Nonnull ChallengePlayer player) {
-		play(player.getPlayer());
-	}
-
-	public void play(@Nonnull ChallengePlayer player, @Nonnull Location location) {
-		play(player.getPlayer(), location);
-	}
-
 	public void play(@Nonnull Player player) {
 		play(player, player.getLocation());
 	}
@@ -109,8 +104,6 @@ public final class SoundSample {
 	public void playIfPlayer(@Nonnull Object target) {
 		if (target instanceof Player)
 			play((Player) target);
-		if (target instanceof ChallengePlayer)
-			play((ChallengePlayer) target);
 	}
 
 	public void broadcast() {

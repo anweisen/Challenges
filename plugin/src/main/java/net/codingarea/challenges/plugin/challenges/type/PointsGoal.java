@@ -50,7 +50,7 @@ public abstract class PointsGoal extends SettingGoal {
 				int value = scores.getInt(key);
 				points.put(uuid, value);
 			} catch (Exception ex) {
-				Logger.severe("Could not load scores for " + key);
+				Logger.error("Could not load scores for {}", key);
 			}
 		}
 	}
@@ -75,7 +75,11 @@ public abstract class PointsGoal extends SettingGoal {
 	}
 
 	protected void collect(@Nonnull Player player) {
-		points.compute(player.getUniqueId(), (uuid, integer) -> integer == null ? 1 : integer + 1);
+		collect(player, 1);
+	}
+
+	protected void collect(@Nonnull Player player, int amount) {
+		points.compute(player.getUniqueId(), (uuid, points) -> points == null ? amount : points + amount);
 		scoreboard.update();
 	}
 

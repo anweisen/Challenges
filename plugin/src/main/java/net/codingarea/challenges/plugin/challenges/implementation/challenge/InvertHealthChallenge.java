@@ -1,11 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.anntations.Since;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.Scheduled;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
@@ -14,6 +14,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -26,24 +27,29 @@ public class InvertHealthChallenge extends TimedChallenge {
 	private final Random random = new Random();
 
 	public InvertHealthChallenge() {
-		super(MenuType.CHALLENGES, 1, 10, 5);
+		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
 
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.POPPY, Message.forName("item-invert-health"));
+		return new ItemBuilder(Material.POPPY, Message.forName("item-invert-health-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
+	}
+
+	@Override
+	public void playValueChangeTitle() {
+		ChallengeHelper.playChallengeSecondsRangeValueChangeTitle(this, getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.getAround(random, getValue() * 60, 20);
-	}
-
-	@Override
-	@Scheduled(ticks = 20, async = false)
-	public void onSecond() {
-		super.onSecond();
+		return RandomizeUtils.randomAround(random, getValue() * 60, 20);
 	}
 
 	@Override
@@ -51,6 +57,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 		SoundSample.PLOP.broadcast();
 		Message.forName("health-inverted").broadcast(Prefix.CHALLENGES);
 		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
 			double health = player.getMaxHealth() - player.getHealth();
 			player.setHealth(health);
 		}

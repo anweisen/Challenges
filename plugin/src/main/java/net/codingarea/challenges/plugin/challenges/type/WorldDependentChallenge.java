@@ -10,18 +10,18 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 public abstract class WorldDependentChallenge extends TimedChallenge {
-
-	private final Map<UUID, PlayerData> before = new HashMap<>();
 
 	private boolean inExtraWorld;
 	private BiConsumer<Player, Integer> lastTeleport;
@@ -43,6 +43,22 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		super(menu, min, max, defaultValue);
 	}
 
+	public WorldDependentChallenge(@Nonnull MenuType menu, boolean runAsync) {
+		super(menu, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int max, boolean runAsync) {
+		super(menu, max, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int min, int max, boolean runAsync) {
+		super(menu, min, max, runAsync);
+	}
+
+	public WorldDependentChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue, boolean runAsync) {
+		super(menu, min, max, defaultValue, runAsync);
+	}
+
 	@Override
 	protected boolean getTimerCondition() {
 		return inExtraWorld || !Challenges.getInstance().getWorldManager().isWorldInUse();
@@ -54,9 +70,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 		teleportIndex = 0;
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.getInventory().clear();
-			before.put(player.getUniqueId(), new PlayerData(player));
-			action.accept(player, teleportIndex++);
+			teleport(player, action);
 		}
 	}
 
@@ -64,34 +78,35 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = false);
 		lastTeleport = null;
 		teleportIndex = 0;
-
-		List<UUID> remove = new ArrayList<>();
-		before.forEach((uuid, data) -> {
-			Player player = Bukkit.getPlayer(uuid);
-			if (player == null) return;
-
-			player.setNoDamageTicks(20);
-			data.apply(player);
-
-			remove.add(uuid);
-		});
-		remove.forEach(before::remove);
 	}
 
+	protected void teleportBack(@Nonnull Player player) {
+		Challenges.getInstance().getWorldManager().restorePlayerData(player);
+	}
+
+	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
+		Challenges.getInstance().getWorldManager().cachePlayerData(player);
+		player.getInventory().clear();
+		player.setFoodLevel(20);
+		player.setSaturation(20);
+		player.setNoDamageTicks(10);
+		player.setFallDistance(0);
+		player.setHealth(player.getMaxHealth());
+		for (PotionEffect effect : player.getActivePotionEffects()) {
+			player.removePotionEffect(effect.getType());
+		}
+		teleport.accept(player, teleportIndex++);
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		if (!isInExtraWorld()) return;
-		if (lastTeleport == null) return;
-
-		UUID uuid = event.getPlayer().getUniqueId();
-		PlayerData data = before.get(uuid);
-		if (data != null) return;
-
-		data = new PlayerData(event.getPlayer());
-		before.put(uuid, data);
-
-		lastTeleport.accept(event.getPlayer(), teleportIndex++);
+		if (isInExtraWorld()) {
+			if (lastTeleport == null) return;
+			if (Challenges.getInstance().getWorldManager().hasPlayerData(event.getPlayer())) return;
+			teleport(event.getPlayer(), lastTeleport);
+		} else {
+			Challenges.getInstance().getWorldManager().restorePlayerData(event.getPlayer());
+		}
 	}
 
 	@Nonnull

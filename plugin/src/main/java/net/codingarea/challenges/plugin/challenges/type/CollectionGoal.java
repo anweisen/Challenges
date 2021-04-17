@@ -64,8 +64,10 @@ public abstract class CollectionGoal extends SettingGoal {
 	}
 
 	protected void collect(@Nonnull Player player, @Nonnull Object item, @Nonnull Runnable success) {
+		if (ignorePlayer(player)) return;
 		List<String> collection = collections.computeIfAbsent(player.getUniqueId(), key -> new ArrayList<>());
 		if (collection.contains(item.toString())) return;
+		if (!Arrays.asList(target).contains(item)) return;
 		collection.add(item.toString());
 		scoreboard.update();
 		success.run();
@@ -81,10 +83,10 @@ public abstract class CollectionGoal extends SettingGoal {
 		for (String key : scores.keys()) {
 			try {
 				UUID uuid = UUID.fromString(key);
-				List<String> collection = scores.getList(key);
+				List<String> collection = scores.getStringList(key);
 				collections.put(uuid, collection);
 			} catch (Exception ex) {
-				Logger.severe("Could not load scores for " + key);
+				Logger.error("Could not load scores for {}", key);
 			}
 		}
 	}

@@ -1,11 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -34,16 +34,17 @@ public class SoupSetting extends Setting {
 
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
-		if (!isEnabled() || ChallengeAPI.isPaused()) return;
+		if (!shouldExecuteEffect()) return;
 		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (event.getItem() == null) return;
 		if (event.getItem().getType() != Material.MUSHROOM_STEW) return;
 
 		Player player = event.getPlayer();
+		if (player.getGameMode() == GameMode.CREATIVE) return;
 		if (player.getHealth() == player.getMaxHealth()) return;
 
 		player.addPotionEffect(new PotionEffect(PotionEffectType.HEAL, 1, 1));
-		player.setItemInHand(new ItemBuilder(Material.BOWL).build());
+		player.getInventory().setItemInMainHand(new ItemBuilder(Material.BOWL).build());
 		player.updateInventory();
 		SoundSample.EAT.play(player);
 

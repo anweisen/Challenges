@@ -1,11 +1,16 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.BoundingBox;
+import org.bukkit.util.Vector;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
+import java.util.Objects;
 import java.util.function.BiConsumer;
 
 /**
@@ -65,6 +70,25 @@ public final class ParticleUtils {
 
 	public static void spawnParticleCircleAroundRadius(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Particle particle, double radius, double height) {
 		spawnUpGoingParticleCircle(plugin, location, particle, (int) (radius * 15), radius, height);
+	}
+
+	public static void drawLine(@Nonnull Player player, @Nonnull Location point1, @Nonnull Location point2, @Nonnull Particle particle, @Nullable Particle.DustOptions dustOptions, int count, double space, int max) {
+		World world = point1.getWorld();
+		if (!Objects.equals(world, point2.getWorld())) return;
+		double distance = point1.distance(point2);
+		Vector p1 = point1.toVector();
+		Vector p2 = point2.toVector();
+		Vector vector = p2.clone().subtract(p1).normalize().multiply(space);
+		double length = 0;
+		int current = 0;
+		for (; length < distance; p1.add(vector)) {
+			player.spawnParticle(particle, p1.getX(), p1.getY(), p1.getZ(), count, dustOptions);
+			length += space;
+
+			current++;
+			if (current >= max) break;
+		}
+
 	}
 
 }

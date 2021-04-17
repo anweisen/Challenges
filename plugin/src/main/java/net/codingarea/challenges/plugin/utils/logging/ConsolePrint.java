@@ -11,14 +11,17 @@ import javax.annotation.Nullable;
  */
 public final class ConsolePrint {
 
-	private ConsolePrint() {
-	}
+	private ConsolePrint() {}
 
 	public static void notSpigot() {
+		log("");
 		log("=============================================================================================");
+		log("");
 		log("Your server does NOT run an instance of spigot (Your server: " + Bukkit.getVersion() + ")");
 		log("Please use an instance of spigot to support all features!");
+		log("");
 		log("=============================================================================================");
+		log("");
 	}
 
 	public static void unknownLanguage(@Nullable String language) {
@@ -28,14 +31,27 @@ public final class ConsolePrint {
 
 	public static void unableToGetLanguages() {
 		log("No languages found to load");
+		log("Is the server / plugin set up correctly?");
 	}
 
 	public static void alreadyExecutingContentLoader() {
-		log("Cannot load contents; Already loading contents");
+		log("Cannot load contents; Already loading contents?");
+		log("Are you reloading too fast?");
+	}
+
+	public static void noMongoDependencies() {
+		log("");
+		log("=============================================================================================");
+		log("");
+		log("Cannot use MongoDB as database without the Challenges-MongoConnector dependency plugin.");
+		log("Please add this plugin in order to be able to access a mongodb database.");
+		log("");
+		log("=============================================================================================");
+		log("");
 	}
 
 	private static void log(@Nonnull String message) {
-		Logger.severe(message);
+		Logger.error(message);
 	}
 
 }

@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -15,8 +16,9 @@ public final class NameHelper {
 
 	@Nonnull
 	public static String getName(@Nonnull Player player) {
-		if (Challenges.getInstance().getCloudNetHelper().isNameSupport()) {
-			return Challenges.getInstance().getCloudNetHelper().getColoredName(player);
+		CloudSupportManager cloudSupport = Challenges.getInstance().getCloudSupportManager();
+		if (cloudSupport.isNameSupport() && cloudSupport.hasNameFor(player.getUniqueId())) {
+			return cloudSupport.getColoredName(player);
 		}
 
 		return player.getName();

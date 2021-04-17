@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.CollectionGoal;
-import net.codingarea.challenges.plugin.lang.Message;
-import net.codingarea.challenges.plugin.lang.Prefix;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -44,19 +45,20 @@ public class CollectMostItemsGoal extends CollectionGoal {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onClick(@Nonnull InventoryClickEvent event) {
-		if (!isEnabled()) return;
+		if (!shouldExecuteEffect()) return;
 		if (!(event.getWhoClicked() instanceof Player)) return;
 
 		Player player = (Player) event.getWhoClicked();
 		ItemStack item = event.getCurrentItem();
 		if (item == null) return;
+		if (!ItemUtils.isObtainableInSurvival(item.getType())) return;
 
 		handleNewItem(item.getType(), player);
 	}
 
 	protected void handleNewItem(@Nonnull Material material, @Nonnull Player player) {
 		collect(player, material, () -> {
-			Message.forName("death-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
 			SoundSample.PLING.play(player);
 		});
 	}

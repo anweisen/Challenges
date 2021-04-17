@@ -1,6 +1,10 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import org.bukkit.Bukkit;
@@ -20,30 +24,39 @@ public final class ScoreboardManager {
 	private final List<ChallengeBossBar> bossbars = new ArrayList<>();
 	private ChallengeScoreboard currentScoreboard;
 
+	public ScoreboardManager() {
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::updateAll);
+		ChallengeAPI.registerScheduler(this);
+	}
+
 	public void handleQuit(@Nonnull Player player) {
 		for (ChallengeBossBar bossbar : bossbars) {
 			bossbar.applyHide(player);
 		}
 		if (currentScoreboard != null) {
 			currentScoreboard.applyHide(player);
-
 			Bukkit.getScheduler().runTaskLaterAsynchronously(Challenges.getInstance(), () -> currentScoreboard.update(), 1);
 		}
 	}
 
 	public void handleJoin(@Nonnull Player player) {
+		updateAll();
+	}
+
+	@TimerTask(status = { TimerStatus.RUNNING, TimerStatus.PAUSED })
+	public void updateAll() {
 		for (ChallengeBossBar bossbar : bossbars) {
-			bossbar.applyShow(player);
+			bossbar.update();
 		}
 		if (currentScoreboard != null) {
-			currentScoreboard.applyShow(player);
+			currentScoreboard.update();
 		}
 	}
 
 	public void showBossBar(@Nonnull ChallengeBossBar bossbar) {
 		if (bossbars.contains(bossbar)) return;
 		bossbars.add(bossbar);
-		Bukkit.getOnlinePlayers().forEach(bossbar::applyShow);
+		bossbar.update();
 	}
 
 	public void hideBossBar(@Nonnull ChallengeBossBar bossbar) {
@@ -62,7 +75,7 @@ public final class ScoreboardManager {
 
 		// Add new scoreboard if available
 		if (scoreboard == null) return;
-		Bukkit.getOnlinePlayers().forEach(scoreboard::applyShow);
+		scoreboard.update();
 	}
 
 	@Nullable
@@ -77,9 +90,12 @@ public final class ScoreboardManager {
 		setCurrentScoreboard(null);
 	}
 
-	public void handleLoadLanguages() {
-		if (currentScoreboard != null)
-			currentScoreboard.update();
+	public boolean isShown(@Nonnull ChallengeBossBar bossbar) {
+		return bossbars.contains(bossbar);
+	}
+
+	public boolean isShown(@Nonnull ChallengeScoreboard scoreboard) {
+		return currentScoreboard == scoreboard;
 	}
 
 }

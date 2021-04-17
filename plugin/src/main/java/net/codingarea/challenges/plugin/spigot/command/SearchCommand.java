@@ -1,0 +1,79 @@
+package net.codingarea.challenges.plugin.spigot.command;
+
+import net.anweisen.utilities.commons.misc.StringUtils;
+import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.RegisteredDrops;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
+import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
+import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+
+/**
+ * @author anweisen | https://github.com/anweisen
+ * @since 2.0
+ */
+public class SearchCommand implements SenderCommand, Completer {
+
+	@Override
+	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
+
+		if (args.length == 0) {
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "search <item>");
+			return;
+		}
+
+		String input = StringUtils.getArrayAsString(args, "_").toUpperCase();
+		Material material = Utils.getMaterial(input);
+
+		if (material == null) {
+			Message.forName("no-such-material").send(sender, Prefix.CHALLENGES);
+			return;
+		}
+		if (!material.isItem()) {
+			Message.forName("not-an-item").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			return;
+		}
+
+		Map<Material, RegisteredDrops> allDrops = Challenges.getInstance().getBlockDropManager().getRegisteredDrops();
+
+		List<Material> blocks = new ArrayList<>(1);
+		for (Entry<Material, RegisteredDrops> entry : allDrops.entrySet()) {
+			List<Material> drops = entry.getValue().getFirst().orElse(new ArrayList<>());
+			if (drops.contains(material))
+				blocks.add(entry.getKey());
+		}
+
+		if (blocks.isEmpty()) {
+			Message.forName("command-search-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+		} else {
+			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
+		}
+
+	}
+
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
+		return args.length != 1 ? null :
+				Arrays.stream(Material.values())
+						.filter(ItemUtils::isObtainableInSurvival)
+						.filter(Material::isItem)
+						.map(material -> material.name().toLowerCase())
+						.collect(Collectors.toList()
+				);
+	}
+
+}

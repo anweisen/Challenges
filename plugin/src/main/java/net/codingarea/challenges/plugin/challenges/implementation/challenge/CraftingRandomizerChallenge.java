@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.RandomizerSetting;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
@@ -59,11 +59,12 @@ public class CraftingRandomizerChallenge extends RandomizerSetting {
 
 	@EventHandler(priority = EventPriority.NORMAL, ignoreCancelled = true)
 	public void onCraftItem(@Nonnull CraftItemEvent event) {
-		try {
-			if (!isEnabled()) return;
-			event.setCurrentItem(new ItemStack(randomization.get(event.getCurrentItem().getType())));
-		} catch (NullPointerException ex) {
-		}
+		if (!isEnabled()) return;
+		ItemStack item = event.getCurrentItem();
+		if (item == null) return;
+		Material result = randomization.get(item.getType());
+		if (result == null) return;
+		event.setCurrentItem(new ItemBuilder(result).amount(item.getAmount()).build());
 	}
 
 }

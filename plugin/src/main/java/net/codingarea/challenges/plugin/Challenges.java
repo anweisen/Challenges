@@ -1,14 +1,11 @@
 package net.codingarea.challenges.plugin;
 
-import net.anweisen.utilitites.bukkit.core.BukkitModule;
-import net.codingarea.challenges.plugin.lang.loader.ContentLoader;
-import net.codingarea.challenges.plugin.lang.loader.LanguageLoader;
-import net.codingarea.challenges.plugin.lang.loader.PrefixLoader;
-import net.codingarea.challenges.plugin.lang.loader.UpdateLoader;
+import net.anweisen.utilities.bukkit.core.BukkitModule;
+import net.codingarea.challenges.plugin.language.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
-import net.codingarea.challenges.plugin.management.cloudnet.CloudNetHelper;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
 import net.codingarea.challenges.plugin.management.files.ConfigManager;
 import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryManager;
@@ -22,6 +19,7 @@ import net.codingarea.challenges.plugin.management.server.WorldManager;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
+import net.codingarea.challenges.plugin.utils.bukkit.command.ForwardingCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
 
 import javax.annotation.Nonnull;
@@ -46,7 +44,7 @@ public final class Challenges extends BukkitModule {
 	private BlockDropManager blockDropManager;
 	private ChallengeLoader challengeLoader;
 	private DatabaseManager databaseManager;
-	private CloudNetHelper cloudNetHelper;
+	private CloudSupportManager cloudSupportManager;
 	private ServerManager serverManager;
 	private ConfigManager configManager;
 	private ScheduleManager scheduler;
@@ -55,6 +53,7 @@ public final class Challenges extends BukkitModule {
 	private TitleManager titleManager;
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
+	private LoaderRegistry loaderRegistry;
 
 	private boolean validationFailed = false;
 
@@ -88,17 +87,19 @@ public final class Challenges extends BukkitModule {
 
 	private void createManagers() {
 
-		ContentLoader.executeLoaders(new LanguageLoader(), new PrefixLoader(), new UpdateLoader());
-
 		configManager = new ConfigManager();
 		configManager.loadConfigs();
+
+		loaderRegistry = new LoaderRegistry(
+				new LanguageLoader(), new PrefixLoader(), new UpdateLoader()
+		);
 
 		databaseManager = new DatabaseManager();
 		worldManager = new WorldManager();
 		serverManager = new ServerManager();
 		scheduler = new ScheduleManager();
 		scoreboardManager = new ScoreboardManager();
-		cloudNetHelper = new CloudNetHelper();
+		cloudSupportManager = new CloudSupportManager();
 		titleManager = new TitleManager();
 		timer = new ChallengeTimer();
 		blockDropManager = new BlockDropManager();
@@ -112,7 +113,9 @@ public final class Challenges extends BukkitModule {
 
 	private void loadManagers() {
 
+		loaderRegistry.load();
 		challengeLoader.load();
+		worldManager.load();
 
 	}
 
@@ -121,21 +124,44 @@ public final class Challenges extends BukkitModule {
 		databaseManager.connectIfCreated();
 		worldManager.enable();
 		timer.loadSession();
+		timer.enable();
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
-		playerInventoryManager.enable();
+
+		loaderRegistry.enable();
 
 	}
 
 	private void registerCommands() {
+		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
-		registerCommand(new PauseCommand(), "pause");
-		registerCommand(new StartCommand(), "start");
+		registerCommand(new ForwardingCommand("timer start"), "start");
+		registerCommand(new ForwardingCommand("timer pause"), "pause");
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
+		registerCommand(new LeaderboardCommand(), "leaderboard");
 		registerCommand(new ConfigCommand(), "config");
+		registerCommand(new VillageCommand(), "village");
+		registerCommand(new HealCommand(), "heal");
+		registerCommand(new SearchCommand(), "search");
+		registerListenerCommand(new InvseeCommand(), "invsee");
+		registerCommand(new FlyCommand(), "fly");
+		registerCommand(new GamemodeCommand(), "gamemode");
+		registerCommand(new ForwardingCommand("gamemode 0", false), "gms");
+		registerCommand(new ForwardingCommand("gamemode 1", false), "gmc");
+		registerCommand(new ForwardingCommand("gamemode 2", false), "gma");
+		registerCommand(new ForwardingCommand("gamemode 3", false), "gmsp");
+		registerCommand(new WeatherCommand(), "weather");
+		registerCommand(new ForwardingCommand("weather sun"), "sun");
+		registerCommand(new ForwardingCommand("weather rain"), "rain");
+		registerCommand(new ForwardingCommand("weather thunder"), "thunder");
+		registerCommand(new TimeCommand(), "time");
+		registerCommand(new ForwardingCommand("time set day"), "day");
+		registerCommand(new ForwardingCommand("time set night"), "night");
+		registerCommand(new ForwardingCommand("time set noon"), "noon");
+		registerCommand(new ForwardingCommand("time set midnight"), "midnight");
 	}
 
 	private void registerListeners() {
@@ -145,7 +171,8 @@ public final class Challenges extends BukkitModule {
 				new RestrictionListener(),
 				new ExtraWorldRestrictionListener(),
 				new CheatListener(),
-				new BlockDropListener()
+				new BlockDropListener(),
+				new CustomEventListener()
 		);
 	}
 
@@ -155,12 +182,15 @@ public final class Challenges extends BukkitModule {
 
 		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
 
+		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
 		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
+		if (loaderRegistry != null) loaderRegistry.disable();
 		if (databaseManager != null) databaseManager.disconnectIfConnected();
 		if (scoreboardManager != null) scoreboardManager.disable();
 
 		if (challengeManager != null) {
+			challengeManager.shutdownChallenges();
 			challengeManager.saveLocalSettings(false);
 			if (!shutdownBecauseOfReset)
 				challengeManager.saveGamestate(false);
@@ -224,8 +254,8 @@ public final class Challenges extends BukkitModule {
 	}
 
 	@Nonnull
-	public CloudNetHelper getCloudNetHelper() {
-		return cloudNetHelper;
+	public CloudSupportManager getCloudSupportManager() {
+		return cloudSupportManager;
 	}
 
 	@Nonnull
@@ -236,6 +266,10 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public TitleManager getTitleManager() {
 		return titleManager;
+	}
+
+	public LoaderRegistry getLoaderRegistry() {
+		return loaderRegistry;
 	}
 
 }

@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration;
 
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.block.Block;
 
 import javax.annotation.CheckReturnValue;
@@ -21,10 +20,7 @@ public class RandomJumpGenerator implements IJumpGenerator {
 	public Block next(@Nonnull Random random, @Nonnull Block startingPoint, boolean includeFourBlockJumps, boolean includeUpGoing) {
 
 		int layer = random.nextInt(includeUpGoing ? 3 : 2) - 1;
-		Logger.debug("Layer: " + layer);
-
 		int range = layer == 0 ? 4 : 3;
-		Logger.debug("Range: " + range);
 
 		int mainDirection = random.nextInt(range * 2) - range;
 		int mainDirectionValue = Math.abs(mainDirection);
@@ -32,11 +28,8 @@ public class RandomJumpGenerator implements IJumpGenerator {
 			mainDirection = choose(random, -range, range);
 			mainDirectionValue = Math.abs(mainDirection);
 		}
-		Logger.debug("MainDirection: " + mainDirectionValue);
 
 		int secondDirection = determineSecondDirection(random, mainDirectionValue, range);
-		Logger.debug("SecondDirection: " + secondDirection);
-
 		return translate(startingPoint, random, layer, mainDirection, secondDirection);
 
 	}

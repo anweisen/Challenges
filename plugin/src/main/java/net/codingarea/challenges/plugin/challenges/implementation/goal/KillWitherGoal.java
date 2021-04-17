@@ -1,12 +1,13 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.codingarea.challenges.plugin.challenges.type.KillEntityGoal;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 

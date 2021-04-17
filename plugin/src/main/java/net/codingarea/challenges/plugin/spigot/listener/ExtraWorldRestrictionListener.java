@@ -1,12 +1,15 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
 import javax.annotation.Nonnull;
 
@@ -33,8 +36,29 @@ public class ExtraWorldRestrictionListener implements Listener {
 		event.setCancelled(true);
 	}
 
+	@EventHandler(priority = EventPriority.LOW)
+	public void onDrop(@Nonnull PlayerDropItemEvent event) {
+		if (!isInExtraWorld(event.getPlayer().getWorld())) return;
+		if (Challenges.getInstance().getWorldManager().getSettings().isDropItems()) return;
+
+		event.setCancelled(true);
+	}
+
+	@EventHandler(priority = EventPriority.LOW)
+	public void onPickUp(@Nonnull PlayerPickupItemEvent event) {
+		if (!isInExtraWorld(event.getPlayer().getWorld())) return;
+		if (Challenges.getInstance().getWorldManager().getSettings().isPickupItems()) return;
+
+		event.setCancelled(true);
+	}
+
 	private boolean isInExtraWorld(@Nonnull Location location) {
-		return Challenges.getInstance().getWorldManager().getExtraWorld().equals(location.getWorld());
+		if (location.getWorld() == null) return false;
+		return isInExtraWorld(location.getWorld());
+	}
+
+	private boolean isInExtraWorld(@Nonnull World world) {
+		return Challenges.getInstance().getWorldManager().getExtraWorld().equals(world);
 	}
 
 }

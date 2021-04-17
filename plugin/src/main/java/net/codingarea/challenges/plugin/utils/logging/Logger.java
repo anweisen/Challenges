@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.utils.logging;
 
+import net.anweisen.utilities.commons.logging.ILogger;
 import net.codingarea.challenges.plugin.Challenges;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.logging.Level;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -15,36 +15,24 @@ public final class Logger {
 	private Logger() {}
 
 	@Nonnull
-	private static java.util.logging.Logger getLogger() {
+	public static ILogger getInstance() {
 		return Challenges.getInstance().getLogger();
 	}
 
-	public static void severe(@Nonnull String message) {
-		getLogger().log(LogLevel.SEVERE, message);
+	public static void error(@Nullable Object message, @Nonnull Object... args) {
+		getInstance().error(message, args);
 	}
 
-	public static void severe(@Nonnull String message, @Nonnull Throwable thrown) {
-		getLogger().log(LogLevel.SEVERE, message, thrown);
+	public static void warn(@Nullable Object message, @Nonnull Object... args) {
+		getInstance().warn(message, args);
 	}
 
-	public static void info(@Nullable Object message) {
-		info(String.valueOf(message));
+	public static void info(@Nullable Object message, @Nonnull Object... args) {
+		getInstance().info(message, args);
 	}
 
-	public static void info(@Nonnull String message) {
-		getLogger().log(LogLevel.INFO, message);
-	}
-
-	public static void debug(@Nullable Object message) {
-		debug(String.valueOf(message));
-	}
-
-	public static void debug(@Nonnull String message) {
-		getLogger().log(LogLevel.DEBUG, message);
-	}
-
-	public static void warn(@Nonnull String message) {
-		getLogger().log(LogLevel.WARNING, message);
+	public static void debug(@Nullable Object message, @Nonnull Object... args) {
+		getInstance().debug(message, args);
 	}
 
 }

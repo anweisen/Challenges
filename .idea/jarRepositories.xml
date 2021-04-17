@@ -2,6 +2,11 @@
 <project version="4">
   <component name="RemoteRepositoriesConfiguration">
     <remote-repository>
+      <option name="id" value="github-anweisen" />
+      <option name="name" value="github-anweisen" />
+      <option name="url" value="https://maven.pkg.github.com/anweisen/*" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="central" />
       <option name="name" value="Central Repository" />
       <option name="url" value="https://repo.maven.apache.org/maven2" />
@@ -15,6 +20,11 @@
       <option name="id" value="spigot-repo" />
       <option name="name" value="spigot-repo" />
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github-codingarea" />
+      <option name="name" value="github-codingarea" />
+      <option name="url" value="https://maven.pkg.github.com/coding-area-net/*" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="github" />
@@ -35,6 +45,16 @@
       <option name="id" value="github" />
       <option name="name" value="github" />
       <option name="url" value="https://maven.pkg.github.com/anweisen/*" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="github" />
+      <option name="name" value="github" />
+      <option name="url" value="https://maven.pkg.github.com/coding-area-net/*" />
+    </remote-repository>
+    <remote-repository>
+      <option name="id" value="minecraft-repo" />
+      <option name="name" value="minecraft-repo" />
+      <option name="url" value="https://libraries.minecraft.net/" />
     </remote-repository>
     <remote-repository>
       <option name="id" value="central" />

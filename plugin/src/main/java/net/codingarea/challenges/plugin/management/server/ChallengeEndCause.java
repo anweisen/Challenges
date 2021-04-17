@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -25,6 +25,20 @@ public enum ChallengeEndCause {
 	@Nonnull
 	public Message getMessage(boolean withWinner) {
 		return withWinner && winnerMessage != null ? winnerMessage : noWinnerMessage;
+	}
+
+	@Nonnull
+	public Message getNoWinnerMessage() {
+		return noWinnerMessage;
+	}
+
+	@Nullable
+	public Message getWinnerMessage() {
+		return winnerMessage;
+	}
+
+	public boolean isWinnable() {
+		return winnerMessage != null;
 	}
 
 }

@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.management.server;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.lang.Message;
+import net.codingarea.challenges.plugin.language.Message;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -44,6 +44,10 @@ public final class TitleManager {
 
 	public void sendTitle(@Nonnull Player player, @Nonnull String title, @Nonnull String subtitle) {
 		player.sendTitle(title, subtitle, fadein, duration, fadeout);
+	}
+
+	public void sendTitleInstant(@Nonnull Player player, @Nonnull String title, @Nonnull String subtitle) {
+		player.sendTitle(title, subtitle, 0, duration, fadeout);
 	}
 
 }
