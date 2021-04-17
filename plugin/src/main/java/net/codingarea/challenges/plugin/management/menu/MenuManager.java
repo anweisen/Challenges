@@ -82,12 +82,12 @@ public final class MenuManager {
 
 	public void openGUI(@Nonnull Player player) {
 		SoundSample.PLOP.play(player);
-		setPosition(player, new MainMenuPosition());
+		MenuPosition.set(player, new MainMenuPosition());
 		gui.open(player, Challenges.getInstance());
 	}
 
 	public void openGUIInstantly(@Nonnull Player player) {
-		setPosition(player, new MainMenuPosition());
+		MenuPosition.set(player, new MainMenuPosition());
 		gui.openNotAnimated(player, true, Challenges.getInstance());
 	}
 

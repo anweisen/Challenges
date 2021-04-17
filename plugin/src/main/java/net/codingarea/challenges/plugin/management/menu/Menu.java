@@ -152,7 +152,7 @@ public final class Menu {
 		if (inventories.isEmpty()) return; // This will only happen, when there are no challenges registered to this MenuType
 		if (page >= inventories.size()) page = inventories.size() - 1;
 		Inventory inventory = inventories.get(page);
-		Challenges.getInstance().getMenuManager().setPosition(player, new SubMenuPosition(page));
+		MenuPosition.set(player, new SubMenuPosition(page));
 		player.openInventory(inventory);
 	}
 

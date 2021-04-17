@@ -127,7 +127,7 @@ public final class TimerMenu {
 		if (inventories.isEmpty()) return; // This should normally never happen
 		if (page >= inventories.size()) page = inventories.size() - 1;
 		Inventory inventory = inventories.get(page);
-		Challenges.getInstance().getMenuManager().setPostion(player, new TimerMenuPosition(page));
+		MenuPosition.set(player, new TimerMenuPosition(page));
 		player.openInventory(inventory);
 	}
 
