@@ -62,6 +62,8 @@ public final class BlockDropManager {
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 	private final Map<Material, RegisteredChance> chance = new HashMap<>();
 
+	private boolean itemsDirectIntoInventory;
+
 	@Nonnull
 	public Collection<ItemStack> getDrops(@Nonnull Block block) {
 		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
@@ -151,6 +153,14 @@ public final class BlockDropManager {
 	@Nonnull
 	public Map<Material, RegisteredDrops> getRegisteredDrops() {
 		return Collections.unmodifiableMap(drops);
+	}
+
+	public boolean getItemsDirectIntoInventory() {
+		return itemsDirectIntoInventory;
+	}
+
+	public void setItemsDirectIntoInventory(boolean itemsDirectIntoInventory) {
+		this.itemsDirectIntoInventory = itemsDirectIntoInventory;
 	}
 
 }

@@ -3,19 +3,17 @@ package net.codingarea.challenges.plugin.utils.misc;
 import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.entity.HumanEntity;
+import org.bukkit.Material;
 import org.bukkit.entity.Item;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.PlayerInventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -132,9 +130,23 @@ public final class InventoryUtils {
 		return slots.get(ThreadLocalRandom.current().nextInt(slots.size()));
 	}
 
-	public static void dropItem(@Nonnull Location location, @Nonnull ItemStack itemStack) {
+	public static void dropItemByPlayer(@Nonnull Location location, @Nonnull ItemStack itemStack) {
 		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), itemStack);
 		droppedItem.setVelocity(location.getDirection().multiply(0.4));
+	}
+
+	public static void dropOrGiveItem(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull Material material) {
+		dropOrGiveItem(inventory, location, new ItemStack(material));
+	}
+
+	public static void dropOrGiveItem(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull ItemStack itemStack) {
+		location = location.clone();
+		if (inventory.firstEmpty() == -1) {
+			if (location.getWorld() == null) location.setWorld(Bukkit.getWorlds().get(0));
+			location.getWorld().dropItem(location, itemStack);
+			return;
+		}
+		inventory.addItem(itemStack);
 	}
 
 	public static void removeRandomItem(@Nonnull Inventory inventory) {
@@ -145,7 +157,7 @@ public final class InventoryUtils {
 
 	public static void giveItem(@Nonnull Inventory inventory, @Nonnull Location locationToDrop, @Nonnull ItemStack itemStack) {
 		if (inventory.firstEmpty() == -1) {
-			dropItem(locationToDrop, itemStack);
+			dropItemByPlayer(locationToDrop, itemStack);
 			return;
 		}
 		inventory.addItem(itemStack);
