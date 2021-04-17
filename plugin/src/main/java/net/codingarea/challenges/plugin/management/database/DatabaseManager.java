@@ -4,9 +4,6 @@ import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
-import net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase;
-import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
-import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -36,11 +33,12 @@ public final class DatabaseManager {
 		}
 
 		try {
-			Class<? extends Database> classOfDatabase = getDatabaseForName(type);
-			if (classOfDatabase == null) {
+			String nameOfClass = getDatabaseForName(type);
+			if (nameOfClass == null) {
 				Logger.error("Selected illegal database type '{}'", type);
 				return;
 			}
+			Class<? extends Database> classOfDatabase = (Class<? extends Database>) Class.forName(nameOfClass);
 
 			DatabaseConfig config = new DatabaseConfig(document.getDocument(type));
 			Constructor<? extends Database> constructor = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class);
@@ -72,11 +70,11 @@ public final class DatabaseManager {
 	}
 
 	@Nullable
-	private Class<? extends Database> getDatabaseForName(@Nonnull String type) {
+	private String getDatabaseForName(@Nonnull String type) {
 		switch (type) {
-			case "mongodb": return MongoDBDatabase.class;
-			case "mysql":   return MySQLDatabase.class;
-			case "sqlite":  return SQLiteDatabase.class;
+			case "mongodb": return "net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase";
+			case "mysql":   return "net.anweisen.utilities.database.internal.sql.mysqlMySQLDatabase";
+			case "sqlite":  return "net.anweisen.utilities.database.internal.sql.sqliteSQLiteDatabase";
 			default:        return null;
 		}
 	}
