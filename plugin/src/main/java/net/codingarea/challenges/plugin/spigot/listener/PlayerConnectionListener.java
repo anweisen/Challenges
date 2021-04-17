@@ -82,7 +82,7 @@ public class PlayerConnectionListener implements Listener {
 			ChallengeAPI.resumeTimer();
 		}
 
-		if (Challenges.getInstance().getDatabaseManager().getDatabase().isConnected()) {
+		if (Challenges.getInstance().getDatabaseManager().isConnected()) {
 			Challenges.getInstance().runAsync(() -> DatabaseHelper.savePlayerData(player));
 		}
 
