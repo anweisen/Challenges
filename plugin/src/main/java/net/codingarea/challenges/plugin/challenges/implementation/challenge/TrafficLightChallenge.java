@@ -124,7 +124,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 		Player player = event.getPlayer();
 		Message.forName("traffic-light-challenge-fail").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));
-		player.damage(player.getMaxHealth());
+		kill(player);
 	}
 
 }
