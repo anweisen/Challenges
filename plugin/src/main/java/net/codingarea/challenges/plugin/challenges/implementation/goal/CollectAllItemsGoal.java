@@ -1,8 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.commons.annotations.Since;
+import net.anweisen.utilities.commons.common.SeededRandomWrapper;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.SeededRandomWrapper;
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.SettingGoal;
 import net.codingarea.challenges.plugin.language.Message;
@@ -14,12 +15,9 @@ import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.boss.BarColor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

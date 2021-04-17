@@ -95,31 +95,31 @@
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>common-utils</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 
 		<!-- Minecraft Utilities -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>bukkit-utils</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 
 		<!-- Database API -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-api</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-sql</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-mongodb</artifactId>
-			<version>1.1</version>
+			<version>1.2</version>
 		</dependency>
 
 	</dependencies>

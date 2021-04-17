@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.cloud;
 
+import net.anweisen.utilities.commons.common.WrappedException;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.WrappedException;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;

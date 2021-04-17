@@ -110,4 +110,18 @@ public final class ColorConversions {
 		return (pctDiffRed + pctDiffGreen + pctDiffBlue) / 3f * 100;
 	}
 
+	public static boolean isValidColorCode(char code) {
+		for (ChatColor color : ChatColor.values()) {
+			if (color.isColor() && color.getChar() == code)
+				return true;
+		}
+		return false;
+	}
+
+	public static boolean isValidColorCode(@Nonnull String code) {
+		if (code.length() != 1) return false;
+		return isValidColorCode(code.toCharArray()[0]);
+	}
+
+
 }

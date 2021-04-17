@@ -44,6 +44,7 @@ public class OneTeamLifeSetting extends Setting {
 			if (ignorePlayer(player)) continue;
 			kill(player);
 		}
+		AbstractChallenge.getFirstInstance(RespawnSetting.class).checkAllPlayersDead();
 		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = false);
 	}
 

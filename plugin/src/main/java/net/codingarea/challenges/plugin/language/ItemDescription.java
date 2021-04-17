@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.language;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+import net.codingarea.challenges.plugin.utils.misc.ColorConversions;
 import org.bukkit.ChatColor;
 
 import javax.annotation.Nonnull;
@@ -94,7 +94,7 @@ public final class ItemDescription {
 						nextIsColor = true;
 					} else if (nextIsColor) {
 						nextIsColor = false;
-						if (StringUtils.isValidColorCode(c))
+						if (ColorConversions.isValidColorCode(c))
 							colorBefore = "";
 						colorBefore += "§" + c;
 					}
@@ -128,7 +128,7 @@ public final class ItemDescription {
 
 			colors.add(latestColors + ChatColor.COLOR_CHAR + c);
 
-			if (StringUtils.isValidColorCode(c))
+			if (ColorConversions.isValidColorCode(c))
 				colorIndex++;
 		}
 

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.CollectionGoal;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
@@ -8,14 +9,12 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

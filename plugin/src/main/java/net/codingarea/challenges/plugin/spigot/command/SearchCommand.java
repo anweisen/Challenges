@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
@@ -7,7 +8,6 @@ import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.Regis
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;

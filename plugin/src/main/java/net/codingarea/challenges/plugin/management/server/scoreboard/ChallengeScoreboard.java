@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.management.server.scoreboard;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
+import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;

@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;

@@ -10,8 +10,8 @@ import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBo
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
-import net.codingarea.challenges.plugin.utils.misc.StringUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
+import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.EntityType;
