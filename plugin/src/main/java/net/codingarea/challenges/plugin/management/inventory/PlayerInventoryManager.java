@@ -29,8 +29,6 @@ import java.util.function.Consumer;
  */
 public final class PlayerInventoryManager implements Listener {
 
-	protected static final String permission = "challenges.gui";
-
 	private final boolean stats, control;
 	private final boolean enabled;
 
@@ -91,13 +89,13 @@ public final class PlayerInventoryManager implements Listener {
 
 		if (ChallengeAPI.isStarted()) return;
 		if (!hasItems(event.getPlayer())) return;
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(event.getPlayer());
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = createItemPairs(event.getPlayer());
 
 		int slot = event.getPlayer().getInventory().getHeldItemSlot();
 		if (slot >= pairs.length) return;
-		Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[slot];
+		Triple<ItemStack, Consumer<Player>, String> pair = pairs[slot];
 		if (pair == null) return;
-		if (pair.getThird() && !event.getPlayer().hasPermission(permission)) return;
+		if (pair.getThird() != null && !event.getPlayer().hasPermission(pair.getThird())) return;
 
 		Consumer<Player> action = pair.getSecond();
 		if (action == null) return;
@@ -152,12 +150,12 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private boolean hasItems(@Nonnull Player player) {
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = createItemPairs(player);
 		for (int i = 0; i < pairs.length; i++) {
-			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			Triple<ItemStack, Consumer<Player>, String> pair = pairs[i];
 			ItemStack expected = pair == null ? null : pair.getFirst();
 			ItemStack found = player.getInventory().getItem(i);
-			if (pair != null && pair.getThird() && !player.hasPermission(permission)) continue;
+			if (pair != null && pair.getThird() != null && !player.hasPermission(pair.getThird())) continue;
 			if (expected != null && found == null) return false;
 			if (expected == null) continue;
 			if (found == null) continue;
@@ -167,9 +165,9 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private boolean canGiveItems(@Nonnull Player player) {
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = createItemPairs(player);
 		for (int i = 0; i < pairs.length; i++) {
-			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			Triple<ItemStack, Consumer<Player>, String> pair = pairs[i];
 			ItemStack expected = pair == null ? null : pair.getFirst();
 			ItemStack found = player.getInventory().getItem(i);
 			if (expected == null && found != null) return false;
@@ -181,8 +179,8 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void removeItems(@Nonnull Player player) {
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
-		for (Triple<ItemStack, Consumer<Player>, Boolean> pair : pairs) {
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = createItemPairs(player);
+		for (Triple<ItemStack, Consumer<Player>, String> pair : pairs) {
 			if (pair == null) continue;
 			ItemStack item = pair.getFirst();
 			if (item == null) continue;
@@ -200,46 +198,46 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void giveItems(@Nonnull Player player) {
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = createItemPairs(player);
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = createItemPairs(player);
 		for (int i = 0; i < pairs.length; i++) {
-			Triple<ItemStack, Consumer<Player>, Boolean> pair = pairs[i];
+			Triple<ItemStack, Consumer<Player>, String> pair = pairs[i];
 			if (pair == null) continue;
-			if (pair.getThird() && !player.hasPermission(permission)) continue;
+			if (pair.getThird() != null && !player.hasPermission(pair.getThird())) continue;
 			player.getInventory().setItem(i, pair.getFirst());
 		}
 	}
 
 	@Nonnull
-	private Triple<ItemStack, Consumer<Player>, Boolean>[] createItemPairs(@Nonnull Player player) {
-		Triple<ItemStack, Consumer<Player>, Boolean>[] pairs = new Triple[9];
+	private Triple<ItemStack, Consumer<Player>, String>[] createItemPairs(@Nonnull Player player) {
+		Triple<ItemStack, Consumer<Player>, String>[] pairs = new Triple[9];
 
 		if (control) {
 			pairs[3] = new Triple<>(
 					new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
 					p -> p.performCommand("timer"),
-					true
+					"challenges.manage"
 			);
 			pairs[4] = new Triple<>(
 					new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
 					p -> p.performCommand("challenges"),
-					true
+					"challenges.gui"
 			);
 			pairs[5] = new Triple<>(
 					new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
 					p -> p.performCommand("start"),
-					true
+					"challenges.manage"
 			);
 		}
 		if (stats) {
 			pairs[0] = new Triple<>(
 					new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-menu-leaderboard").asString()).build(),
 					p -> p.performCommand("leaderboard"),
-					false
+					null
 			);
 			pairs[8] = new Triple<>(
 					new SkullBuilder(player.getUniqueId(), player.getName(), Message.forName("item-menu-stats").asString()).build(),
 					p -> player.performCommand("stats"),
-					false
+					null
 			);
 		}
 
