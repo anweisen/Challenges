@@ -15,24 +15,6 @@
 		<module>mongo-connector</module>
 	</modules>
 
-	<build>
-
-		<plugins>
-
-			<!-- Compiler declaration -->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-
-		</plugins>
-
-	</build>
-
 	<distributionManagement>
 		<repository>
 			<id>github</id>
