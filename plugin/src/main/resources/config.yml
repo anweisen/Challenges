@@ -72,6 +72,10 @@ display-new-in-front: true
 # New challenges will have a suffix in their title
 new-suffix: true
 
+# If activated players need the permission "challenges.manage" to manage settings in the gui
+# To manage the timer in the gui, players will always need the permission "challenges.timer"
+manage-settings-permission: false
+
 # A specific start sound, matching the current goal, the will be played when the timer is started.
 # Otherwise the dragon sound will always be played.
 enable-specific-start-sounds: true

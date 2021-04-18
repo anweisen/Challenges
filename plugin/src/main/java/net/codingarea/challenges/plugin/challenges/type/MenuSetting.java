@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.type;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
-import net.codingarea.challenges.plugin.management.menu.Menu;
+import net.codingarea.challenges.plugin.management.menu.SettingsMenu;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -81,13 +81,13 @@ public abstract class MenuSetting extends Setting {
 
 		}
 
-		InventoryUtils.setNavigationItemsToInventory(inventories, Menu.NAVIGATION_SLOTS, false);
+		InventoryUtils.setNavigationItemsToInventory(inventories, SettingsMenu.NAVIGATION_SLOTS, false);
 
 	}
 
 	@Nonnull
 	private Inventory createNewInventory(int page, int pagesAmount) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, Menu.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenu.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
@@ -593,7 +593,7 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
 
-			if (info.getSlot() == Menu.NAVIGATION_SLOTS[0]) {
+			if (info.getSlot() == SettingsMenu.NAVIGATION_SLOTS[0]) {
 				if (page == 0) {
 					MenuPosition.set(info.getPlayer(), before);
 					info.getPlayer().openInventory(inventoryBefore);
@@ -602,7 +602,7 @@ public abstract class MenuSetting extends Setting {
 				}
 				SoundSample.CLICK.play(info.getPlayer());
 				return;
-			} else if (info.getSlot() == Menu.NAVIGATION_SLOTS[1]) {
+			} else if (info.getSlot() == SettingsMenu.NAVIGATION_SLOTS[1]) {
 				open(info.getPlayer(), inventoryBefore, before, page + 1);
 				SoundSample.CLICK.play(info.getPlayer());
 				return;
