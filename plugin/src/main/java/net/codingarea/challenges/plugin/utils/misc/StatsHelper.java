@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
-import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 

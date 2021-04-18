@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
+import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
@@ -7,9 +10,6 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
-import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
-import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

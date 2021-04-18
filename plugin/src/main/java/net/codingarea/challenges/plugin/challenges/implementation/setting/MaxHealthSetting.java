@@ -1,13 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
-import org.bukkit.Bukkit;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;

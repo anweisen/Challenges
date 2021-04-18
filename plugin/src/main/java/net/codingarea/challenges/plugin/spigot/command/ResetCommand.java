@@ -1,16 +1,15 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import org.bukkit.command.CommandSender;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 

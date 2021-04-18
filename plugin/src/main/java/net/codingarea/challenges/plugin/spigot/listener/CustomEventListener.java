@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
-import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Player;

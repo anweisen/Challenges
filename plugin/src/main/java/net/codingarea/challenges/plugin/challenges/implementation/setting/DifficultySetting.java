@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -9,7 +10,6 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;

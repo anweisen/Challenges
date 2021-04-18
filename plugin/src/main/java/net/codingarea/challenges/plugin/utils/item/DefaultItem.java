@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.item;
 
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import org.bukkit.Material;

@@ -27,14 +27,17 @@ public final class PlayerData {
 	private final int food;
 	private final float saturation;
 	private final int heldItemSlot;
+	private final boolean allowedFlight;
+	private final boolean flying;
 
 	public PlayerData(@Nonnull Player player) {
 		this(player.getGameMode(), player.getLocation(), player.getInventory().getContents(), player.getInventory().getArmorContents(),
-				player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot());
+			 player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot(),
+			 player.getAllowFlight(), player.isFlying());
 	}
 
 	public PlayerData(@Nonnull GameMode gamemode, @Nonnull Location location, @Nonnull ItemStack[] inventory, @Nonnull ItemStack[] armor,
-	                  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot) {
+	                  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot, boolean allowedFlight, boolean flying) {
 		this.gamemode = gamemode;
 		this.location = location;
 		this.inventory = inventory;
@@ -44,6 +47,8 @@ public final class PlayerData {
 		this.food = food;
 		this.saturation = saturation;
 		this.heldItemSlot = heldItemSlot;
+		this.allowedFlight = allowedFlight;
+		this.flying = allowedFlight && flying;
 	}
 
 	public void apply(@Nonnull Player player) {
@@ -59,6 +64,8 @@ public final class PlayerData {
 		player.getInventory().setArmorContents(armor);
 		player.getInventory().setHeldItemSlot(heldItemSlot);
 		player.addPotionEffects(effects);
+		player.setAllowFlight(allowedFlight);
+		player.setFlying(flying);
 	}
 
 	@Override
@@ -73,6 +80,8 @@ public final class PlayerData {
 				", food=" + food +
 				", saturation=" + saturation +
 				", heldItemSlot=" + heldItemSlot +
+				", allowedFlight=" + allowedFlight +
+				", flying=" + flying +
 				'}';
 	}
 
@@ -80,21 +89,13 @@ public final class PlayerData {
 	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
-		PlayerData data = (PlayerData) o;
-		return Double.compare(data.health, health) == 0
-				&& food == data.food
-				&& Float.compare(data.saturation, saturation) == 0
-				&& heldItemSlot == data.heldItemSlot
-				&& effects.equals(data.effects)
-				&& gamemode == data.gamemode
-				&& location.equals(data.location)
-				&& Arrays.equals(inventory, data.inventory)
-				&& Arrays.equals(armor, data.armor);
+		PlayerData that = (PlayerData) o;
+		return Double.compare(that.health, health) == 0 && food == that.food && Float.compare(that.saturation, saturation) == 0 && heldItemSlot == that.heldItemSlot && allowedFlight == that.allowedFlight && flying == that.flying && Objects.equals(effects, that.effects) && gamemode == that.gamemode && Objects.equals(location, that.location) && Arrays.equals(inventory, that.inventory) && Arrays.equals(armor, that.armor);
 	}
 
 	@Override
 	public int hashCode() {
-		int result = Objects.hash(effects, gamemode, location, health, food, saturation, heldItemSlot);
+		int result = Objects.hash(effects, gamemode, location, health, food, saturation, heldItemSlot, allowedFlight, flying);
 		result = 31 * result + Arrays.hashCode(inventory);
 		result = 31 * result + Arrays.hashCode(armor);
 		return result;

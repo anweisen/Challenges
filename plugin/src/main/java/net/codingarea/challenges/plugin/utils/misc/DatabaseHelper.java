@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.utils.misc;
 import com.mojang.authlib.GameProfile;
 import com.mojang.authlib.properties.Property;
 import com.mojang.authlib.properties.PropertyMap;
-import net.anweisen.utilities.bukkit.utils.GameProfileUtils;
+import net.anweisen.utilities.bukkit.utils.misc.GameProfileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Bukkit;

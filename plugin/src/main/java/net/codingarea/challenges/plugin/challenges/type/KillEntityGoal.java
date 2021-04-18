@@ -29,16 +29,16 @@ public abstract class KillEntityGoal extends SettingGoal {
 		this(entity, false);
 	}
 
-	public KillEntityGoal(@Nonnull EntityType entity, boolean enabled) {
-		this(entity, null, enabled);
+	public KillEntityGoal(@Nonnull EntityType entity, boolean enabledByDefault) {
+		this(entity, null, enabledByDefault);
 	}
 
 	public KillEntityGoal(EntityType entity, Environment world) {
 		this(entity, world, false);
 	}
 
-	public KillEntityGoal(EntityType entity, Environment world, boolean enabled ) {
-		super(enabled);
+	public KillEntityGoal(EntityType entity, Environment world, boolean enabledByDefault ) {
+		super(enabledByDefault);
 		this.entity = entity;
 		this.environment = world;
 	}

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
@@ -9,13 +10,10 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.entity.memory.MemoryKey;
 
 import javax.annotation.Nonnull;
 

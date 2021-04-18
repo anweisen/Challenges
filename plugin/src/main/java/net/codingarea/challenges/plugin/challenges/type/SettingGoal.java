@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -18,8 +18,7 @@ public abstract class SettingGoal extends Setting implements Goal {
 	}
 
 	public SettingGoal(boolean enabledByDefault) {
-		super(MenuType.GOAL);
-		setEnabled(enabledByDefault);
+		super(MenuType.GOAL, enabledByDefault);
 	}
 
 	@Nonnull

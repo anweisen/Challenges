@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -9,7 +10,6 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;

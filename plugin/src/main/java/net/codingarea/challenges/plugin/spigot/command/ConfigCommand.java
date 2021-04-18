@@ -1,11 +1,10 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.misc.Utils;

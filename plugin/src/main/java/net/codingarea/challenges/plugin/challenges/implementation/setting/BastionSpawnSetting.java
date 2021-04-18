@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import net.anweisen.utilities.bukkit.utils.MinecraftVersion;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.NetherPortalSpawnSetting;
 import net.codingarea.challenges.plugin.language.Message;

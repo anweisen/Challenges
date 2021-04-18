@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;

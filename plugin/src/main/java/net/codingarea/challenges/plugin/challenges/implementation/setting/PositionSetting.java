@@ -1,12 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -19,11 +19,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
-import org.bukkit.scheduler.BukkitTask;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
-import java.awt.*;
 import java.util.*;
 import java.util.List;
 import java.util.Map.Entry;

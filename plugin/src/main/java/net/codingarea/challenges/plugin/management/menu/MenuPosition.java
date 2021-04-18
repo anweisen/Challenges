@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.InventoryHolder;
 

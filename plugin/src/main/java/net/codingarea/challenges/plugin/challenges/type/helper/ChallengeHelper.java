@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
@@ -9,7 +10,6 @@ import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Location;

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.annotations.Since;
 import net.anweisen.utilities.commons.common.SeededRandomWrapper;
 import net.anweisen.utilities.commons.config.Document;
@@ -11,7 +12,6 @@ import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ItemUtils;

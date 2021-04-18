@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
@@ -11,7 +12,6 @@ import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPo
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration.RandomJumpGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;

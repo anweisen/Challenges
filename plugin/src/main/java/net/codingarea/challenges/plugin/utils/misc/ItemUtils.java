@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.anweisen.utilities.database.Database;
-import net.codingarea.challenges.plugin.utils.bukkit.wrapper.BukkitReflectionUtils;
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;

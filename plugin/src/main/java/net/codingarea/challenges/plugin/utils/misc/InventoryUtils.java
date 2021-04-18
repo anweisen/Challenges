@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.codingarea.challenges.plugin.utils.animation.AnimationFrame;
+import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;

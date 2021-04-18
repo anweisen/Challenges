@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
-import net.anweisen.utilities.bukkit.utils.MinecraftVersion;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.material.BlockMaterialSetting;
 import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageRuleSetting;

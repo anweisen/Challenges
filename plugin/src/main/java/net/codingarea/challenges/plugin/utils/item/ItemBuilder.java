@@ -1,12 +1,12 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.anweisen.utilities.bukkit.utils.GameProfileUtils;
+import net.anweisen.utilities.bukkit.utils.item.BannerPattern;
+import net.anweisen.utilities.bukkit.utils.misc.GameProfileUtils;
 import net.anweisen.utilities.commons.annotations.DeprecatedSince;
 import net.anweisen.utilities.commons.annotations.ReplaceWith;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -21,7 +21,6 @@ import org.bukkit.inventory.meta.*;
 import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
@@ -30,25 +29,16 @@ import java.util.*;
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
-public class ItemBuilder {
-
-	public static final ItemStack FILL_ITEM     = new ItemBuilder(Material.GRAY_STAINED_GLASS_PANE).setName("§0").build(),
-								  FILL_ITEM_2   = new ItemBuilder(Material.BLACK_STAINED_GLASS_PANE).setName("§0").build(),
-								  BLOCKED_ITEM  = new ItemBuilder(Material.BARRIER, "§cBlocked").build(),
-								  AIR           = new ItemStack(Material.AIR);
-
-	protected ItemStack item;
-	protected ItemMeta meta;
+public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBuilder {
 
 	protected ItemDescription builtByItemDescription;
 
 	public ItemBuilder(@Nonnull ItemStack item) {
-		this(item, item.getItemMeta());
+		super(item);
 	}
 
 	public ItemBuilder(@Nonnull ItemStack item, @Nullable ItemMeta meta) {
-		this.item = item;
-		this.meta = meta;
+		super(item, meta);
 	}
 
 	public ItemBuilder() {
@@ -56,7 +46,7 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder(@Nonnull Material material) {
-		this(new ItemStack(material));
+		super(material);
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull Message message) {
@@ -69,31 +59,15 @@ public class ItemBuilder {
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name) {
-		this(material);
-		setName(name);
+		super(material, name);
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, @Nonnull String... lore) {
-		this(material);
-		setName(name);
-		setLore(lore);
+		super(material, name, lore);
 	}
 
 	public ItemBuilder(@Nonnull Material material, @Nonnull String name, int amount) {
-		this(material);
-		setName(name);
-		setAmount(amount);
-	}
-
-	@Nonnull
-	public ItemMeta getMeta() {
-		return getCastedMeta();
-	}
-
-	@Nonnull
-	@SuppressWarnings("unchecked")
-	public final <M> M getCastedMeta() {
-		return (M) (meta == null ? meta = item.getItemMeta() : meta);
+		super(material, name, amount);
 	}
 
 	@Nonnull
@@ -103,132 +77,146 @@ public class ItemBuilder {
 
 	@Nonnull
 	public ItemBuilder setLore(@Nonnull List<String> lore) {
-		getMeta().setLore(lore);
+		super.setLore(lore);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setLore(@Nonnull String... lore) {
-		return setLore(Arrays.asList(lore));
+		super.setLore(lore);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder appendLore(@Nonnull String... lore) {
-		return appendLore(Arrays.asList(lore));
+		super.appendLore(lore);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder appendLore(@Nonnull Collection<String> lore) {
-		List<String> newLore = getMeta().getLore();
-		if (newLore == null) newLore = new ArrayList<>();
-		newLore.addAll(lore);
-		setLore(newLore);
+		super.appendLore(lore);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nullable String name) {
-		getMeta().setDisplayName(name);
+		super.setName(name);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nullable Object name) {
-		return setName(name == null ? null : name.toString());
+		super.setName(name);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nonnull String... content) {
-		if (content.length > 0) setName(content[0]);
-		if (content.length > 1) setLore(Arrays.copyOfRange(content, 1, content.length));
+		super.setName(content);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder appendName(@Nullable Object sequence) {
-		String name = getMeta().getDisplayName();
-		return setName(name  + sequence);
+		super.appendName(sequence);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder name(@Nullable Object name) {
-		return setName(name);
+		super.name(name);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder name(@Nonnull String... content) {
-		return setName(content);
+		super.name(content);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder addEnchantment(@Nonnull Enchantment enchantment, int level) {
-		getMeta().addEnchant(enchantment, level, true);
+		super.addEnchantment(enchantment, level);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder enchant(@Nonnull Enchantment enchantment, int level) {
-		return addEnchantment(enchantment, level);
+		super.enchant(enchantment, level);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder addFlag(@Nonnull ItemFlag... flags) {
-		getMeta().addItemFlags(flags);
+		super.addFlag(flags);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder removeFlag(@Nonnull ItemFlag... flags) {
-		getMeta().removeItemFlags(flags);
+		super.removeFlag(flags);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder hideAttributes() {
-		return addFlag(ItemFlag.values());
+		super.hideAttributes();
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder showAttributes() {
-		return removeFlag(ItemFlag.values());
+		super.showAttributes();
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setUnbreakable(boolean unbreakable) {
-		getMeta().setUnbreakable(unbreakable);
+		super.setUnbreakable(unbreakable);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder unbreakable() {
-		return setUnbreakable(true);
+		super.unbreakable();
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder breakable() {
-		return setUnbreakable(false);
+		super.breakable();
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setAmount(int amount) {
-		item.setAmount(Math.min(Math.max(amount, 0), 64));
+		super.setAmount(amount);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder amount(int amount) {
-		return setAmount(amount);
+		super.amount(amount);
+		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder setDamage(int damage) {
-		this.<Damageable>getCastedMeta().setDamage(damage);
+		super.setDamage(damage);
 		return this;
 	}
 
 	@Nonnull
 	public ItemBuilder damage(int damage) {
-		return setDamage(damage);
+		super.damage(damage);
+		return this;
+	}
+
+	@Nonnull
+	public ItemBuilder setType(@Nonnull Material material) {
+		super.setType(material);
+		return this;
 	}
 
 	@Nonnull
@@ -242,41 +230,6 @@ public class ItemBuilder {
 	@Nullable
 	public ItemDescription getBuiltByItemDescription() {
 		return builtByItemDescription;
-	}
-
-	@Nonnull
-	public String getName() {
-		return getMeta().getDisplayName();
-	}
-
-	@Nonnull
-	public List<String> getLore() {
-		List<String> lore = getMeta().getLore();
-		return lore == null ? new ArrayList<>() : lore;
-	}
-
-	@Nonnull
-	public Material getType() {
-		return item.getType();
-	}
-
-	public int getAmount() {
-		return item.getAmount();
-	}
-
-	public int getDamage() {
-		return this.<Damageable>getCastedMeta().getDamage();
-	}
-
-	@Nonnull
-	public ItemStack build() {
-		item.setItemMeta(getMeta()); // Call to getter to prevent null value
-		return item;
-	}
-
-	@Nonnull
-	public ItemStack toItem() {
-		return build();
 	}
 
 	@Override
@@ -317,12 +270,12 @@ public class ItemBuilder {
 		}
 
 		@Nonnull
-		public BannerBuilder addPattern(@Nonnull BannerPattern pattern, @Nonnull DyeColor color) {
+		public ItemBuilder.BannerBuilder addPattern(@Nonnull BannerPattern pattern, @Nonnull DyeColor color) {
 			return addPattern(pattern.getPatternType(), color);
 		}
 
 		@Nonnull
-		public BannerBuilder addPattern(@Nonnull PatternType pattern, @Nonnull DyeColor color) {
+		public ItemBuilder.BannerBuilder addPattern(@Nonnull PatternType pattern, @Nonnull DyeColor color) {
 			getMeta().addPattern(new Pattern(color, pattern));
 			return this;
 		}
@@ -385,13 +338,13 @@ public class ItemBuilder {
 		@Deprecated
 		@DeprecatedSince("2.0")
 		@ReplaceWith("setOwner(UUID)")
-		public SkullBuilder setOwner(@Nonnull String owner) {
+		public ItemBuilder.SkullBuilder setOwner(@Nonnull String owner) {
 			getMeta().setOwner(owner);
 			return this;
 		}
 
 		@Nonnull
-		public SkullBuilder setOwner(@Nonnull UUID uuid, @Nonnull String name) {
+		public ItemBuilder.SkullBuilder setOwner(@Nonnull UUID uuid, @Nonnull String name) {
 			if (Challenges.getInstance().getDatabaseManager().isEnabled()) {
 				String textures = DatabaseHelper.getTextures(uuid);
 				if (textures != null) {
@@ -417,7 +370,7 @@ public class ItemBuilder {
 		@Nonnull
 		@CheckReturnValue
 		public static ItemBuilder createWaterBottle() {
-			return new PotionBuilder(Material.POTION).setColor(Color.BLUE).hideAttributes();
+			return new ItemBuilder.PotionBuilder(Material.POTION).setColor(Color.BLUE).hideAttributes();
 		}
 
 		public PotionBuilder(@Nonnull Material material) {
@@ -445,19 +398,19 @@ public class ItemBuilder {
 		}
 
 		@Nonnull
-		public PotionBuilder addEffect(@Nonnull PotionEffect effect) {
+		public ItemBuilder.PotionBuilder addEffect(@Nonnull PotionEffect effect) {
 			getMeta().addCustomEffect(effect, true);
 			return this;
 		}
 
 		@Nonnull
-		public PotionBuilder setColor(@Nonnull Color color) {
+		public ItemBuilder.PotionBuilder setColor(@Nonnull Color color) {
 			getMeta().setColor(color);
 			return this;
 		}
 
 		@Nonnull
-		public PotionBuilder color(@Nonnull Color color) {
+		public ItemBuilder.PotionBuilder color(@Nonnull Color color) {
 			return setColor(color);
 		}
 
@@ -496,13 +449,13 @@ public class ItemBuilder {
 		}
 
 		@Nonnull
-		public LeatherArmorBuilder setColor(@Nonnull Color color) {
+		public ItemBuilder.LeatherArmorBuilder setColor(@Nonnull Color color) {
 			getMeta().setColor(color);
 			return this;
 		}
 
 		@Nonnull
-		public LeatherArmorBuilder color(@Nonnull Color color) {
+		public ItemBuilder.LeatherArmorBuilder color(@Nonnull Color color) {
 			return setColor(color);
 		}
 

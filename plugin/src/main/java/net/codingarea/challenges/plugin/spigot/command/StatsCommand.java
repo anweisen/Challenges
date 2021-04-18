@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
@@ -10,8 +12,6 @@ import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.stats.LeaderboardInfo;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
-import net.codingarea.challenges.plugin.utils.animation.AnimatedInventory;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;

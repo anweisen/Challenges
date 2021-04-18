@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
@@ -7,10 +9,8 @@ import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;

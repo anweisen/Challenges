@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.codingarea.challenges.plugin.utils.item.MaterialWrapper;
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;

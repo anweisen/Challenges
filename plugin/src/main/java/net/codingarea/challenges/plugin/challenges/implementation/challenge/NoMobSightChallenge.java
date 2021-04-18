@@ -1,19 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.annotations.Since;
-import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
-import net.codingarea.challenges.plugin.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.util.BoundingBox;
@@ -21,7 +17,6 @@ import org.bukkit.util.RayTraceResult;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
