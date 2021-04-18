@@ -27,7 +27,7 @@ public final class MenuManager {
 
 	public static final int[] GUI_SLOTS = { 30, 32, 19, 25, 11, 15 };
 
-	private final Map<MenuType, Menu> menus = new HashMap<>();
+	private final Map<MenuType, SettingsMenu> menus = new HashMap<>();
 	private final Map<Player, MenuPosition> positions = new HashMap<>();
 	private final AnimatedInventory gui;
 	private final boolean displayNewInFront;
@@ -43,7 +43,7 @@ public final class MenuManager {
 
 		for (MenuType type : MenuType.values()) {
 			if (!type.isUsable()) continue;
-			menus.put(type, new Menu(type));
+			menus.put(type, new SettingsMenu(type));
 		}
 
 		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
@@ -68,14 +68,14 @@ public final class MenuManager {
 	}
 
 	public void generateMenus() {
-		menus.values().forEach(Menu::resetChallengesCache);
+		menus.values().forEach(SettingsMenu::resetChallengesCache);
 		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
 			MenuType type = challenge.getType();
-			Menu menu = menus.get(type);
+			SettingsMenu menu = menus.get(type);
 			if (menu == null) continue; // Menu is disabled
 			menu.addChallengeCache(challenge);
 		}
-		menus.values().forEach(Menu::generateInventories);
+		menus.values().forEach(SettingsMenu::generateInventories);
 
 		timerMenu = new TimerMenu();
 
@@ -108,7 +108,7 @@ public final class MenuManager {
 		if (type == MenuType.TIMER) {
 			timerMenu.open(player, page);
 		} else {
-			Menu menu = getMenu(type);
+			SettingsMenu menu = getMenu(type);
 			if (menu.getInventories().isEmpty()) return false;
 			menu.open(player, page);
 		}
@@ -116,7 +116,7 @@ public final class MenuManager {
 	}
 
 	@Nonnull
-	public Menu getMenu(@Nonnull MenuType type) {
+	public SettingsMenu getMenu(@Nonnull MenuType type) {
 		return menus.get(type);
 	}
 

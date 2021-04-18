@@ -25,7 +25,7 @@ import java.util.List;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class Menu {
+public final class SettingsMenu {
 
 	public static final int[] SLOTS = { 10, 11, 12, 13, 14, 15, 16 };
 	public static final int[] NAVIGATION_SLOTS = { 27, 35 };
@@ -37,7 +37,7 @@ public final class Menu {
 	private final MenuType menu;
 	private final boolean newSuffix;
 
-	public Menu(@Nonnull MenuType menu) {
+	public SettingsMenu(@Nonnull MenuType menu) {
 		this.menu = menu;
 		newSuffix = Challenges.getInstance().getConfigDocument().getBoolean("new-suffix");
 	}
