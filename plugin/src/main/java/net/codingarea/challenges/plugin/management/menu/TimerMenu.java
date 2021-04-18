@@ -159,6 +159,7 @@ public final class TimerMenu {
 
 			if (page == 0) {
 				if (info.getSlot() == START_SLOT) {
+					if (playNoPermissionsEffect(info.getPlayer())) return;
 					if (Challenges.getInstance().getChallengeTimer().isStarted()) {
 						Challenges.getInstance().getChallengeTimer().pause(true);
 					} else {
@@ -166,14 +167,16 @@ public final class TimerMenu {
 					}
 					return;
 				} else if (info.getSlot() == MODE_SLOT) {
+					if (playNoPermissionsEffect(info.getPlayer())) return;
 					Challenges.getInstance().getChallengeTimer().setCountingUp(!Challenges.getInstance().getChallengeTimer().isCountingUp());
 					return;
 				}
 			} else if (page == 1) {
-				for (int[] slots : new int[][] {HOUR_SLOTS, MINUTE_SLOTS, SECOND_SLOTS}) {
+				for (int[] slots : new int[][] { HOUR_SLOTS, MINUTE_SLOTS, SECOND_SLOTS }) {
 					for (int i = 0; i < 3; i++) {
 
 						if (info.getSlot() != slots[i]) continue;
+						if (playNoPermissionsEffect(info.getPlayer())) return;
 
 						if (i == 1) {
 							Challenges.getInstance().getChallengeTimer().reset();
@@ -199,6 +202,16 @@ public final class TimerMenu {
 
 			SoundSample.CLICK.play(info.getPlayer());
 
+		}
+
+		private boolean playNoPermissionsEffect(@Nonnull Player player) {
+			if (mayManageTimer(player)) return false;
+			Challenges.getInstance().getMenuManager().playNoPermissionsEffect(player);
+			return true;
+		}
+
+		private boolean mayManageTimer(@Nonnull Player player) {
+			return player.hasPermission("challenges.timer");
 		}
 
 	}

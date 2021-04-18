@@ -37,19 +37,19 @@ commands:
   timer:
     usage: "/timer <set/stop/set>"
     description: "Start/Stops/Sets the timer"
-    permission: "challenges.gui"
+    permission: "challenges.timer"
     aliases:
       - "t"
   start:
     usage: "/start"
     description: "Start the timer"
-    permission: "challenges.gui"
+    permission: "challenges.timer"
     aliases:
       - "resume"
   pause:
     usage: "/pause"
     description: "Pauses the timer"
-    permission: "challenges.gui"
+    permission: "challenges.timer"
   stats:
     usage: "/stats [player]"
     description: "Allows you to see statistics of you/other players"

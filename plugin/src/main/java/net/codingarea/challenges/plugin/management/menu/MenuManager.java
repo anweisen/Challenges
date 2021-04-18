@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
@@ -28,16 +29,17 @@ public final class MenuManager {
 
 	private final Map<MenuType, Menu> menus = new HashMap<>();
 	private final Map<Player, MenuPosition> positions = new HashMap<>();
+	private final AnimatedInventory gui;
 	private final boolean displayNewInFront;
+	private final boolean permissionToManageGUI;
 
 	private TimerMenu timerMenu;
-	private AnimatedInventory gui;
-
 	private boolean generated = false;
 
 	public MenuManager() {
 		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::generateMenus);
 		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
+		permissionToManageGUI = Challenges.getInstance().getConfigDocument().getBoolean("manage-settings-permission");
 
 		for (MenuType type : MenuType.values()) {
 			if (!type.isUsable()) continue;
@@ -151,6 +153,15 @@ public final class MenuManager {
 
 		}
 
+	}
+
+	public void playNoPermissionsEffect(@Nonnull Player player) {
+		SoundSample.BASS_OFF.play(player);
+		Message.forName("no-permission").send(player, Prefix.CHALLENGES);
+	}
+
+	public boolean permissionToManageGUI() {
+		return permissionToManageGUI;
 	}
 
 }

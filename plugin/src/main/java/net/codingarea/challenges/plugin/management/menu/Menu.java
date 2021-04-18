@@ -218,12 +218,24 @@ public final class Menu {
 
 			IChallenge challenge = challenges.get(index);
 
+			if (playNoPermissionsEffect(info.getPlayer())) return;
+
 			try {
 				challenge.handleClick(new ChallengeMenuClickInfo(info, upperItem));
 			} catch (Exception ex) {
 				Logger.error("An exception occurred while handling click on {}", challenge.getClass().getName(), ex);
 			}
 
+		}
+
+		private boolean playNoPermissionsEffect(@Nonnull Player player) {
+			if (mayManageTimer(player)) return false;
+			Challenges.getInstance().getMenuManager().playNoPermissionsEffect(player);
+			return true;
+		}
+
+		private boolean mayManageTimer(@Nonnull Player player) {
+			return player.hasPermission("challenges.manage");
 		}
 
 	}
