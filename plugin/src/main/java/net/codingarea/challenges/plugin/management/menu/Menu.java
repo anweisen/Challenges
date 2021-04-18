@@ -229,12 +229,14 @@ public final class Menu {
 		}
 
 		private boolean playNoPermissionsEffect(@Nonnull Player player) {
-			if (mayManageTimer(player)) return false;
-			Challenges.getInstance().getMenuManager().playNoPermissionsEffect(player);
+			MenuManager menuManager = Challenges.getInstance().getMenuManager();
+			if (!menuManager.permissionToManageGUI()) return false;
+			if (mayManageSettings(player)) return false;
+			menuManager.playNoPermissionsEffect(player);
 			return true;
 		}
 
-		private boolean mayManageTimer(@Nonnull Player player) {
+		private boolean mayManageSettings(@Nonnull Player player) {
 			return player.hasPermission("challenges.manage");
 		}
 
