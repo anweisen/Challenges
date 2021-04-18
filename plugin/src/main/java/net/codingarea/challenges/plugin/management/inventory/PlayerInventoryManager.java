@@ -215,7 +215,7 @@ public final class PlayerInventoryManager implements Listener {
 			pairs[3] = new Triple<>(
 					new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
 					p -> p.performCommand("timer"),
-					"challenges.manage"
+					"challenges.timer"
 			);
 			pairs[4] = new Triple<>(
 					new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
@@ -225,7 +225,7 @@ public final class PlayerInventoryManager implements Listener {
 			pairs[5] = new Triple<>(
 					new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
 					p -> p.performCommand("start"),
-					"challenges.manage"
+					"challenges.timer"
 			);
 		}
 		if (stats) {
