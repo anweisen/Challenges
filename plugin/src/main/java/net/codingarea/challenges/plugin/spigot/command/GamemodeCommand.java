@@ -35,6 +35,11 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 
 		GameMode gamemode = getGameMode(args[0]);
 
+		if (gamemode == null) {
+			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "gm <gamemode> [player]");
+			return true;
+		}
+
 		if (args.length > 1) {
 			targets.addAll(CommandHelper.getPlayers(sender, args[1]));
 
@@ -64,27 +69,34 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 		return true;
 	}
 
-	@Nonnull
+	@Nullable
 	private GameMode getGameMode(String input) {
 		switch (input.toLowerCase()) {
 			case "survival":
+			case "s":
 			case "0":
 				return GameMode.SURVIVAL;
 			case "spectator":
+			case "sp":
 			case "3":
 				return GameMode.SPECTATOR;
 			case "adventure":
+			case "a":
 			case "2":
 				return GameMode.ADVENTURE;
+			case "creative":
+			case "c":
+			case "1":
+				return GameMode.CREATIVE;
 		}
-		return GameMode.CREATIVE;
+		return null;
 	}
 
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		if (args.length > 1) return null;
-		return Utils.filterRecommendations(args[0], "0", "1", "2", "3", "creative", "survival", "spectator", "adventure");
+		return Utils.filterRecommendations(args[0], "0", "1", "2", "3", "survival", "creative", "spectator", "adventure", "s", "c", "sp", "a");
 	}
 
 }
