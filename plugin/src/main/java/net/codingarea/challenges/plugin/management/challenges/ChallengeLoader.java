@@ -135,7 +135,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
 		register(FirstOneToDieGoal.class);
-		register(CollectOverworldWoodGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
