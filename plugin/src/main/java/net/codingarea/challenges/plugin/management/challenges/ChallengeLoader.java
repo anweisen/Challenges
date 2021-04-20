@@ -135,7 +135,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
 		register(FirstOneToDieGoal.class);
-		register(CollectWoodGoal.class);
+		register(CollectOverworldWoodGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
@@ -149,7 +149,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 
 		// Material Rules
 		registerMaterialRule("§cArmor", "Armor", ItemUtils.getArmor());
-		registerMaterialRule("§6Golden Apple", "Chest", Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE);
+		registerMaterialRule("§6Golden Apple", "Golden Apple", Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE);
 		registerMaterialRule("§6Crafting Table", "Crafting Table", Material.CRAFTING_TABLE);
 		registerMaterialRule("§6Chest", "Chest", Material.CHEST);
 		registerMaterialRule("§cFurnace", "Furnace", Material.FURNACE, Material.FURNACE_MINECART);
