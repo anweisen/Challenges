@@ -116,10 +116,11 @@ public class TsunamiChallenge extends TimedChallenge {
 			}
 		}
 
+		List<Chunk> previouslyFlooded = new ArrayList<>(floodedChunks);
 		bossbar.update();
 		floodedChunks.clear();
 		for (Chunk chunk : getChunksToFlood()) {
-			floodChunk(chunk, false);
+			floodChunk(chunk, !previouslyFlooded.contains(chunk));
 		}
 
 	}
@@ -129,8 +130,10 @@ public class TsunamiChallenge extends TimedChallenge {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer()))  return;
 		if (event.getTo() == null) return;
+
 		Chunk newChunk = event.getTo().getChunk();
 		if (event.getFrom().getChunk() == newChunk) return;
+
 		for (Chunk chunk : getChunksAroundChunk(newChunk)) {
 			floodChunk(chunk, true);
 		}
@@ -138,11 +141,15 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onTeleport(@Nonnull PlayerTeleportEvent event) {
+		if (ignorePlayer(event.getPlayer()))  return;
 		if (!shouldExecuteEffect()) return;
 		if (event.getTo() == null) return;
-		bossbar.update();
 
 		Chunk newChunk = event.getTo().getChunk();
+		if (event.getFrom().getChunk() == newChunk) return;
+
+		bossbar.update();
+
 		for (Chunk chunk : getChunksAroundChunk(newChunk)) {
 			floodChunk(chunk, true);
 		}
@@ -164,7 +171,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	}
 
 	private void floodChunk0(@Nonnull Chunk chunk, @Nullable Integer givenStartAt, int height, boolean overworld, @Nonnull BiConsumer<Integer, Runnable> executor) {
-		int startAt = givenStartAt != null ? Math.max(BukkitReflectionUtils.getMinHeight(chunk.getWorld()), givenStartAt) : BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1;
+		int startAt = givenStartAt != null ? Math.max(BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1, givenStartAt) : BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1;
 		Map<Integer, List<Block>> blocksByDelay = new HashMap<>();
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 			for (int x = 0; x < 16; x++) {
