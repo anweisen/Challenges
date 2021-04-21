@@ -29,7 +29,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 	private AbstractChallenge lastUsed;
 
 	public RandomChallengeChallenge() {
-		super(MenuType.CHALLENGES, 30, 600, 60, false);
+		super(MenuType.CHALLENGES, 3, 60, 6, false);
 	}
 
 	@Nonnull
@@ -41,12 +41,12 @@ public class RandomChallengeChallenge extends TimedChallenge {
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
-		return Message.forName("item-time-seconds-description").asArray(getValue());
+		return Message.forName("item-time-seconds-description").asArray(getValue() * 10);
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue());
+		ChallengeHelper.playChallengeSecondsValueChangeTitle(this, getValue() * 10);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return getValue();
+		return getValue() * 10;
 	}
 
 	@Override
