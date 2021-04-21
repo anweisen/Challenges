@@ -22,7 +22,9 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import java.io.IOException;
+import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -30,13 +32,21 @@ import java.util.UUID;
  */
 public class StatsCommand implements PlayerCommand {
 
+	private final Map<Player, Long> submitTimeByPlayer = new ConcurrentHashMap<>();
+
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) {
 		if (!Challenges.getInstance().getStatsManager().isEnabled()) {
-			player.sendMessage(Prefix.CHALLENGES + Message.forName("feature-disabled").asString());
+			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.play(player);
 			return;
 		}
+
+		if (System.currentTimeMillis() - submitTimeByPlayer.getOrDefault(player, System.currentTimeMillis() - 10*1000) < 5*1000) {
+			SoundSample.BASS_OFF.play(player);
+			return;
+		}
+		submitTimeByPlayer.put(player, System.currentTimeMillis());
 
 		switch (args.length) {
 			case 0:
@@ -91,6 +101,8 @@ public class StatsCommand implements PlayerCommand {
 
 		MenuPosition.set(player, new EmptyMenuPosition());
 		inventory.open(player, Challenges.getInstance());
+
+		submitTimeByPlayer.remove(player);
 	}
 
 	private void createInventory(@Nonnull PlayerStats stats, @Nonnull LeaderboardInfo info, @Nonnull AnimatedInventory inventory, @Nonnull int... slots) {
