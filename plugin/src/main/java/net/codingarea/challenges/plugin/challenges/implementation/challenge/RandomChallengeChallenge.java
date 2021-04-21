@@ -120,8 +120,11 @@ public class RandomChallengeChallenge extends TimedChallenge {
 
 		if (enabled && challenge instanceof TimedChallenge) {
 			TimedChallenge timedChallenge = (TimedChallenge) challenge;
-			int random = RandomizeUtils.randomAround(this.random, getValue() / 2, 10);
-			timedChallenge.setValue(Math.min(timedChallenge.getMaxValue(), random));
+			if (timedChallenge.isTimerRunning()) {
+				int seconds = RandomizeUtils.randomInRange(random, 10, 20);
+				if (seconds < timedChallenge.getSecondsLeftUntilNextActivation())
+					timedChallenge.shortCountDownTo(seconds);
+			}
 		}
 	}
 

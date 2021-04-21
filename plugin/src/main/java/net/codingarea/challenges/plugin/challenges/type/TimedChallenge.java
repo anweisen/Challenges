@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Bukkit;
 
+import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 
 /**
@@ -92,6 +93,12 @@ public abstract class TimedChallenge extends SettingModifier {
 		} else {
 			Bukkit.getScheduler().runTask(plugin, this::onTimeActivation);
 		}
+	}
+
+	public final void shortCountDownTo(@Nonnegative int seconds) {
+		if (!timerStatus) throw new IllegalArgumentException("Countdown is not started");
+		if (seconds > originalSecondsUntilActivation) throw new IllegalArgumentException("Cannot short countdown to a higher length than originally set");
+		this.secondsUntilActivation = seconds;
 	}
 
 	public final boolean isTimerRunning() {
