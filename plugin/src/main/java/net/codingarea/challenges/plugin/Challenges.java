@@ -121,7 +121,7 @@ public final class Challenges extends BukkitModule {
 
 	private void enableManagers() {
 
-		databaseManager.connectIfCreated();
+		databaseManager.enable();
 		worldManager.enable();
 		timer.loadSession();
 		timer.enable();

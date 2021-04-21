@@ -1,16 +1,25 @@
 package net.codingarea.challenges.plugin.management.database;
 
+import net.anweisen.utilities.commons.common.Tuple;
 import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.logging.LoggingExceptionHandler;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
+import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
+import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
+import org.bukkit.plugin.PluginManager;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -18,9 +27,15 @@ import java.lang.reflect.Constructor;
  */
 public final class DatabaseManager {
 
+	private final Map<String, Tuple<String, JavaPlugin>> registry = new HashMap<>();
 	private Database database;
+	{
+		// Database types supported by default
+		registerDatabase("sqlite", SQLiteDatabase.class, Challenges.getInstance());
+		registerDatabase("mysql", MySQLDatabase.class, Challenges.getInstance());
+	}
 
-	public DatabaseManager() {
+	public void enable() {
 		Document document = Challenges.getInstance().getConfigDocument().getDocument("database");
 
 		String type = document.getString("type", "none").toLowerCase();
@@ -33,24 +48,37 @@ public final class DatabaseManager {
 		}
 
 		try {
-			String nameOfClass = getDatabaseForName(type);
-			if (nameOfClass == null) {
+			Tuple<String, JavaPlugin> pair = getDatabaseForName(type);
+			if (pair == null) {
 				Logger.error("Selected illegal database type '{}'", type);
 				return;
 			}
-			Class<? extends Database> classOfDatabase = (Class<? extends Database>) Class.forName(nameOfClass);
+
+			JavaPlugin provider = pair.getSecond();
+			PluginManager manager = Bukkit.getPluginManager();
+			if (!manager.isPluginEnabled(provider) && provider != Challenges.getInstance()) {
+				manager.enablePlugin(provider);
+			}
+
+			ClassLoader loader = provider.getClass().getClassLoader();
+
+			String className = pair.getFirst();
+			@SuppressWarnings("unchecked")
+			Class<? extends Database> classOfDatabase = (Class<? extends Database>) loader.loadClass(className);
 
 			DatabaseConfig config = new DatabaseConfig(document.getDocument(type));
 			Constructor<? extends Database> constructor = classOfDatabase.getDeclaredConstructor(DatabaseConfig.class);
 			database = constructor.newInstance(config);
+
+			connect();
+		} catch (ClassNotFoundException ex) {
+			Logger.error("Could not find class for database '{}'", type, ex);
 		} catch (Throwable ex) {
 			Logger.error("Could not create database", ex);
 		}
 	}
 
-	public void connectIfCreated() {
-		if (database == null) return;
-		
+	private void connect() {
 		Challenges.getInstance().runAsync(() -> {
 			database.connectSafely();
 			database.createTableIfNotExistsSafely("challenges",
@@ -70,13 +98,12 @@ public final class DatabaseManager {
 	}
 
 	@Nullable
-	private String getDatabaseForName(@Nonnull String type) {
-		switch (type) {
-			case "mongodb": return "net.anweisen.utilities.database.internal.mongodb.MongoDBDatabase";
-			case "mysql":   return "net.anweisen.utilities.database.internal.sql.mysqlMySQLDatabase";
-			case "sqlite":  return "net.anweisen.utilities.database.internal.sql.sqliteSQLiteDatabase";
-			default:        return null;
-		}
+	private Tuple<String, JavaPlugin> getDatabaseForName(@Nonnull String type) throws ClassNotFoundException {
+		return registry.get(type);
+	}
+
+	public void registerDatabase(@Nonnull String name, @Nonnull Class<? extends Database> classOfDatabase, @Nonnull JavaPlugin provider) {
+		registry.put(name, new Tuple<>(classOfDatabase.getName(), provider));
 	}
 
 	public boolean isConnected() {

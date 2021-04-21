@@ -5,7 +5,7 @@ author: CodingArea
 authors:
   - anweisen
 main: net.codingarea.challenges.mongoconnector.MongoConnector
-loadbefore:
+depend:
   - Challenges
 description: |
   Provides the needed depedencies to the ChallengesPlugin to conntent to a MongoDB database
