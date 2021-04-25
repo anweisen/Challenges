@@ -92,7 +92,7 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 		List<EntityType> entities = new ArrayList<>(Arrays.asList(EntityType.values()));
 		entities.removeIf(type -> !type.isSpawnable());
 		entities.removeIf(type -> !type.isAlive());
-		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER");
+		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER", "WITHER");
 
 		entity = RandomizeUtils.choose(random, entities);
 	}
