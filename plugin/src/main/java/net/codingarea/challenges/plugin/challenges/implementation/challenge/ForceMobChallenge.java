@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.CompletableForceChalleng
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -32,6 +33,7 @@ import java.util.function.BiConsumer;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@ExcludeFromRandomChallenges
 public class ForceMobChallenge extends CompletableForceChallenge {
 
 	private EntityType entity;
@@ -79,7 +81,7 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-mob-failed").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(entity));
+		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(entity));
 	}
 
 	@Override

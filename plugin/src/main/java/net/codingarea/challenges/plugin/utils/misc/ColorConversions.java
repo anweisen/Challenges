@@ -123,5 +123,4 @@ public final class ColorConversions {
 		return isValidColorCode(code.toCharArray()[0]);
 	}
 
-
 }
