@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
+import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -37,6 +38,10 @@ public final class ChallengeHelper {
 
 	public static boolean canInstaKillOnEnable(@Nonnull IChallenge challenge) {
 		return challenge.getClass().isAnnotationPresent(CanInstaKillOnEnable.class);
+	}
+
+	public static boolean isExcludedFromRandomChallenges(@Nonnull IChallenge challenge) {
+		return challenge.getClass().isAnnotationPresent(ExcludeFromRandomChallenges.class);
 	}
 
 	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull Modifier modifier) {

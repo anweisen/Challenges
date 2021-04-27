@@ -58,7 +58,7 @@ public class CheatListener implements Listener {
 		}
 
 		for (String command : commands) {
-			if (!message.startsWith("/" + command)) continue;
+			if (!commandName.equalsIgnoreCase("/" + command)) continue;
 			if (!hasPermission(event.getPlayer(), command)) continue;
 			handleCheatsDetected(event.getPlayer());
 			break;

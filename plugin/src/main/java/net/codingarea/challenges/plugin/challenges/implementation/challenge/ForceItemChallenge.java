@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.CompletableForceChalleng
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -35,6 +36,7 @@ import java.util.function.BiConsumer;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@ExcludeFromRandomChallenges
 public class ForceItemChallenge extends CompletableForceChallenge {
 
 	private Material item;

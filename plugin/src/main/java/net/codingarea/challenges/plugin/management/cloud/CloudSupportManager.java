@@ -40,7 +40,7 @@ public final class CloudSupportManager implements Listener {
 		nameSupport = config.getBoolean("name-rank-colors");
 		resetToLobby = config.getBoolean("reset-to-lobby");
 		type = config.getString("type", "none");
-		Logger.debug("Detected cloud support type {}", type);
+		Logger.debug("Detected cloud support type '{}'", type);
 
 		if (type.equals("none")) return;
 
