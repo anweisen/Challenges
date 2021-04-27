@@ -22,7 +22,7 @@ import java.util.List;
 public class ChunkDeconstructionChallenge extends TimedChallenge {
 
 	public ChunkDeconstructionChallenge() {
-		super(MenuType.CHALLENGES, 1, 60);
+		super(MenuType.CHALLENGES, 1, 60, 20);
 	}
 
 	@Nonnull
@@ -62,9 +62,12 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 	private void deconstructChunk(@Nonnull Chunk chunk) {
 
 		for (int x = 0; x < 16; x++) {
-			for (int z = 0; z < 16; z++) {
-				deconstructAtLocation(chunk.getBlock(x, 0, z));
-			}
+			int finalX = x;
+			Bukkit.getScheduler().runTask(plugin, () -> {
+				for (int z = 0; z < 16; z++) {
+					deconstructAtLocation(chunk.getBlock(finalX, 0, z));
+				}
+			});
 		}
 
 	}
@@ -73,9 +76,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 		Block lowestBreakableBlock = getLowestBreakableBlock(block);
 		if (lowestBreakableBlock == null) return;
 
-		Bukkit.getScheduler().runTask(plugin, () -> {
 			lowestBreakableBlock.setType(Material.AIR, true);
-		});
 	}
 
 	@Nullable
