@@ -75,7 +75,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(WaterMLGChallenge.class);
 		register(HigherJumpsChallenge.class);
 		register(ReversedDamageChallenge.class);
-		register(HydraChallenge.class);
+		register(HydraNormalChallenge.class);
+		register(HydraPlusChallenge.class);
 		register(DupedSpawningChallenge.class);
 		register(AnvilRainChallenge.class);
 		register(NoExpChallenge.class);
@@ -122,6 +123,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomItemChallenge.class);
 		register(AlwaysRunningChallenge.class);
 		register(PickupItemLaunchChallenge.class);
+		register(AllMobsToDeathPoint.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

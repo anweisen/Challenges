@@ -583,6 +583,12 @@
     "Wenn du einen *Mob* tötest",
     "spawnen *zwei* neue"
   ],
+  "item-hydra-plus-challenge": [
+    "§cHydra Plus",
+    "Wenn du einen *Mob* tötest",
+    "spawnen *doppelt* so viele",
+    "wie beim *vorherigen* mal"
+  ],
   "item-floor-lava-challenge": [
     "§6Der Boden ist Lava",
     "Alle *Blöcke* unter dir verwandeln sich",
@@ -823,7 +829,7 @@
   ],
   "item-random-item-challenge": [
     "§bRandom Items",
-    "Ein zufälliger Spieler erhält *alle paar*",
+    "Ein *zufälliger Spieler* erhält alle paar",
     "*Sekunden* ein *zufälliges Item*"
   ],
   "item-always-running-challenge": [
@@ -840,6 +846,13 @@
     "In einem *gesetztem Interval*",
     "*steigt* das *Wasser* in der *Overworld*",
     "und die *Lava* in im *Nether*"
+  ],
+  "item-all-mobs-to-death-position-challenge": [
+    "§cAlle Monster zum Todespunkt",
+    "Wenn ein *Mob* von einem Spieler",
+    "*getötet* wird, werden *alle* anderen",
+    "Monster vom *selben Typen* zum",
+    "*Todespunkt* teleportiert"
   ],
 
 

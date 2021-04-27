@@ -67,7 +67,7 @@ join-quit-messages: true
 timer-is-paused-info: true
 
 # New challenges will be displayed first in the setting menu.
-display-new-in-front: true
+display-new-in-front: false
 
 # New challenges will have a suffix in their title
 new-suffix: true
