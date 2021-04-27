@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
@@ -153,7 +154,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@Nonnull
 	protected Player getNextPlayer() {
 		List<Player> players = new ArrayList<>(Bukkit.getOnlinePlayers());
-		players.removeIf(this::ignorePlayer);
+		players.removeIf(AbstractChallenge::ignorePlayer);
 		players.removeIf(player -> lastPlayers.contains(player.getUniqueId()));
 
 		if (players.isEmpty()) {

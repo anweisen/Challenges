@@ -16,6 +16,10 @@ import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Arrow;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -113,6 +117,17 @@ public final class ChallengeHelper {
 
 	}
 
+	public static boolean ignoreDamager(@Nonnull Entity damager) {
+		Player damagerPlayer = getDamagerPlayer(damager);
+		if (damagerPlayer == null) return false;
+		return AbstractChallenge.ignorePlayer(damagerPlayer);
+	}
+
+	public static Player getDamagerPlayer(@Nonnull Entity damager) {
+		if (damager instanceof Player) return ((Player) damager);
+		if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player) return ((Player) ((Projectile) damager).getShooter());
+		return null;
+	}
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge) {
 		playToggleChallengeTitle(challenge, challenge.isEnabled());

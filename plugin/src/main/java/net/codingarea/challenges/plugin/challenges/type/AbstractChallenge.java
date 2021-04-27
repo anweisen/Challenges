@@ -32,12 +32,18 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	protected static final Challenges plugin = Challenges.getInstance();
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
+	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
 
 	protected final MenuType menu;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
 	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
 
 	private String name;
+
+	static {
+		ignoreCreativePlayers = Challenges.getInstance().getConfigDocument().getBoolean("ignore-players.creative");
+		ignoreSpectatorPlayers = Challenges.getInstance().getConfigDocument().getBoolean("ignore-players.spectator");
+	}
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
@@ -119,22 +125,6 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return isEnabled() && ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse();
 	}
 
-	@CheckReturnValue
-	protected boolean ignorePlayer(@Nonnull Player player) {
-		return player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE;
-	}
-
-	protected final void broadcast(@Nonnull Consumer<? super Player> action) {
-		Bukkit.getOnlinePlayers().forEach(action);
-	}
-
-	protected final void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			action.accept(player);
-		}
-	}
-
 	protected final void kill(@Nonnull Player player) {
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
@@ -166,6 +156,30 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
 		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));
+	}
+
+	public static void broadcast(@Nonnull Consumer<? super Player> action) {
+		Bukkit.getOnlinePlayers().forEach(action);
+	}
+
+	public static void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
+			action.accept(player);
+		}
+	}
+
+	@CheckReturnValue
+	public static boolean ignorePlayer(@Nonnull Player player) {
+		return (isIgnoreSpectatorPlayers() && player.getGameMode() == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && player.getGameMode() == GameMode.CREATIVE);
+	}
+
+	public static boolean isIgnoreCreativePlayers() {
+		return ignoreCreativePlayers;
+	}
+
+	public static boolean isIgnoreSpectatorPlayers() {
+		return ignoreSpectatorPlayers;
 	}
 
 }
