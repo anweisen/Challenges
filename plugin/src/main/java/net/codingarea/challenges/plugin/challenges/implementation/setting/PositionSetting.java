@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -33,9 +34,11 @@ import java.util.Map.Entry;
 public class PositionSetting extends Setting implements PlayerCommand, TabCompleter {
 
 	private final Map<String, Location> positions = new HashMap<>();
+	private final boolean particleLines;
 
 	public PositionSetting() {
 		super(MenuType.SETTINGS, true);
+		particleLines = ChallengeConfigHelper.getSettingsDocument().getBoolean("position-particle-lines");
 	}
 
 	@Nonnull
@@ -117,6 +120,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	}
 
 	private void playParticleLine(@Nonnull Player player, @Nonnull Location position) {
+		if (!particleLines) return;
 		if (player.getWorld() != position.getWorld()) return;
 
 		// Defining target location to

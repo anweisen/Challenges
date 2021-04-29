@@ -50,6 +50,9 @@ ignore-players:
   creative: true
   spectator: true
 
+challenge-settings:
+  position-particle-lines: true
+
 # This will change the item design in the challenges menu
 design:
   empty-line-above: false
