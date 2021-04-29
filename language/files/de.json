@@ -194,6 +194,7 @@
   "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
   "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
+  "bossbar-height-time-left": "§8» §7Zeit übrig auf §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
   "bossbar-random-challenge-waiting": "§8» §7Warten auf neue Challenge..",
   "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
@@ -682,6 +683,11 @@
   "item-max-biome-time-challenge": [
     "§2Maximale Biom Zeit",
     "Die *Zeit* die du in jedem *Biom*",
+    "sein darfst, ist *begrenzt*"
+  ],
+  "item-max-height-time-challenge": [
+    "§9Maximale Höhen Zeit",
+    "Die *Zeit* die du auf jeder *Höhe*",
     "sein darfst, ist *begrenzt*"
   ],
   "item-permanent-item-challenge": [

@@ -110,6 +110,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(WaterAllergyChallenge.class);
 		register(AllBlocksDisappearChallenge.class);
 		register(MaxBiomeTimeChallenge.class);
+		register(MaxHeightTimeChallenge.class);
 		register(PermanentItemChallenge.class);
 		register(RandomItemDroppingChallenge.class);
 		register(RandomItemSwappingChallenge.class);
