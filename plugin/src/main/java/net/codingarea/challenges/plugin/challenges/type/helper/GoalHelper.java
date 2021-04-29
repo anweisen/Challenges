@@ -52,7 +52,6 @@ public final class GoalHelper {
 			Player player = Bukkit.getPlayer(entry.getKey());
 			if (player == null) continue;
 			int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
-			System.out.println(points);
 			if (points == 0) continue;
 
 			if (points >= mostPoints.get()) {

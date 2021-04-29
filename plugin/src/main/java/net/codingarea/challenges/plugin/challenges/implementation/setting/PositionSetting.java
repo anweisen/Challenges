@@ -128,7 +128,6 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 		final int[] current = {0};
 		Bukkit.getScheduler().runTaskTimer(plugin, task -> {
-			System.out.println(current[0]);
 			current[0]++;
 			if (current[0] >= 10) task.cancel();
 			ParticleUtils.drawLine(player, player.getLocation(), target, Particle.REDSTONE, new DustOptions(Color.LIME, 1), 1, 0.5, 50);
