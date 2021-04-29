@@ -41,8 +41,9 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	private String name;
 
 	static {
-		ignoreCreativePlayers = Challenges.getInstance().getConfigDocument().getBoolean("ignore-players.creative");
-		ignoreSpectatorPlayers = Challenges.getInstance().getConfigDocument().getBoolean("ignore-players.spectator");
+		Document ignoreDocument = Challenges.getInstance().getConfigDocument().getDocument("ignore-players");
+		ignoreCreativePlayers = ignoreDocument.getBoolean("creative");
+		ignoreSpectatorPlayers = ignoreDocument.getBoolean("spectator");
 	}
 
 	public AbstractChallenge(@Nonnull MenuType menu) {

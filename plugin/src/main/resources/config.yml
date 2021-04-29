@@ -45,6 +45,11 @@ custom-seed:
   enabled: false
   seed: 0
 
+# Challenges will ignore creative / spectator players
+ignore-players:
+  creative: true
+  spectator: true
+
 # This will change the item design in the challenges menu
 design:
   empty-line-above: false
