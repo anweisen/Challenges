@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 public abstract class Setting extends AbstractChallenge {
 
 	private final boolean enabledByDefault;
-	private boolean enabled;
+	protected boolean enabled;
 
 	public Setting(@Nonnull MenuType menu) {
 		this(menu, false);
@@ -76,7 +76,7 @@ public abstract class Setting extends AbstractChallenge {
 	}
 
 	@Override
-	public final boolean isEnabled() {
+	public boolean isEnabled() {
 		return enabled;
 	}
 

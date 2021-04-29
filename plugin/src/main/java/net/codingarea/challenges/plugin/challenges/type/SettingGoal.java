@@ -33,7 +33,7 @@ public abstract class SettingGoal extends Setting implements Goal {
 	}
 
 	@Override
-	public final void setEnabled(boolean enabled) {
+	public void setEnabled(boolean enabled) {
 		if (isEnabled() == enabled) return;
 		GoalHelper.handleSetEnabled(this, enabled);
 		super.setEnabled(enabled);

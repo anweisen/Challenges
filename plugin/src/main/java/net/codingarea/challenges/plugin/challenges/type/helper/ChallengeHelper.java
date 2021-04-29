@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.challenges.type.IModifier;
 import net.codingarea.challenges.plugin.challenges.type.Modifier;
 import net.codingarea.challenges.plugin.language.ItemDescription;
 import net.codingarea.challenges.plugin.language.Message;
@@ -48,7 +49,7 @@ public final class ChallengeHelper {
 		return challenge.getClass().isAnnotationPresent(ExcludeFromRandomChallenges.class);
 	}
 
-	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull Modifier modifier) {
+	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull IModifier modifier) {
 		int newValue = modifier.getValue();
 		int amount = info.isShiftClick()
 				? (modifier.getValue() == modifier.getMinValue() || info.isRightClick() && modifier.getValue() == (10 - (modifier.getMinValue() - 1)) ? 9 : 10)
@@ -135,6 +136,10 @@ public final class ChallengeHelper {
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge, boolean enabled) {
 		Challenges.getInstance().getTitleManager().sendChallengeStatusTitle(enabled ? Message.forName("title-challenge-enabled") : Message.forName("title-challenge-disabled"), getColoredChallengeName(challenge));
+	}
+
+	public static void playChangeChallengeValueTitle(@Nonnull AbstractChallenge challenge, @Nonnull IModifier modifier) {
+		playChangeChallengeValueTitle(challenge, modifier.getValue());
 	}
 
 	public static void playChangeChallengeValueTitle(@Nonnull Modifier modifier) {

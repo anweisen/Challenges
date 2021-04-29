@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
@@ -12,6 +13,7 @@ import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -20,7 +22,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public abstract class CollectionGoal extends SettingGoal {
 
 	private final Map<UUID, List<String>> collections = new HashMap<>();
-	private final Object[] target;
+	protected Object[] target;
 
 	public CollectionGoal(@Nonnull Object... target) {
 		super();
@@ -60,17 +62,36 @@ public abstract class CollectionGoal extends SettingGoal {
 	@Nonnull
 	@CheckReturnValue
 	protected Map<Player, Integer> getPoints(@Nonnull AtomicInteger mostPoints, boolean zeros) {
-		return GoalHelper.createPointsFromValues(mostPoints, collections, Collection::size, zeros);
+		return GoalHelper.createPointsFromValues(mostPoints, collections, (uuid, strings) -> getCollectionFiltered(uuid).size(), zeros);
 	}
 
 	protected void collect(@Nonnull Player player, @Nonnull Object item, @Nonnull Runnable success) {
 		if (ignorePlayer(player)) return;
-		List<String> collection = collections.computeIfAbsent(player.getUniqueId(), key -> new ArrayList<>());
+		List<String> collection = getCollectionRaw(player.getUniqueId());
 		if (collection.contains(item.toString())) return;
 		if (!Arrays.asList(target).contains(item)) return;
 		collection.add(item.toString());
-		scoreboard.update();
 		success.run();
+		checkCollects();
+	}
+
+	protected List<String> getCollectionFiltered(@Nonnull UUID uuid) {
+		List<String> targetStringList = Arrays.stream(target).map(Object::toString).collect(Collectors.toList());
+		return collections.computeIfAbsent(uuid, key -> new ArrayList<>()).stream().filter(targetStringList::contains).collect(Collectors.toList());
+	}
+
+	protected List<String> getCollectionRaw(@Nonnull UUID uuid) {
+		return collections.computeIfAbsent(uuid, key -> new ArrayList<>());
+	}
+
+	protected void checkCollects() {
+		scoreboard.update();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			checkCollects(getCollectionFiltered(player.getUniqueId()));
+		}
+	}
+
+	protected void checkCollects(@Nonnull List<String> collection) {
 		if (collection.size() >= target.length)
 			ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 	}
@@ -99,6 +120,10 @@ public abstract class CollectionGoal extends SettingGoal {
 		collections.forEach((uuid, collection) -> {
 			scores.set(uuid.toString(), collection);
 		});
+	}
+
+	protected void setTarget(@Nonnull Object... target) {
+		this.target = target;
 	}
 
 }

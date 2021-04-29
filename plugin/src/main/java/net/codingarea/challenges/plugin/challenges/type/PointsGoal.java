@@ -71,7 +71,7 @@ public abstract class PointsGoal extends SettingGoal {
 	@Nonnull
 	@CheckReturnValue
 	protected Map<Player, Integer> getPoints(@Nonnull AtomicInteger mostPoints, boolean zeros) {
-		return GoalHelper.createPointsFromValues(mostPoints, points, value -> value, zeros);
+		return GoalHelper.createPointsFromValues(mostPoints, points, (uuid, integer) -> integer, zeros);
 	}
 
 	protected void collect(@Nonnull Player player) {
