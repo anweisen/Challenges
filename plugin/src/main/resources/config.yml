@@ -41,8 +41,10 @@ timer:
     days: "{d} days {hh}:{mm}:{ss}"
 
 # When the worlds are reset using /reset, the given seed will be used, if enabled, to generate the new worlds
+# When a seed is written in the reset command, the seed of the command will be taken
 custom-seed:
-  enabled: false
+  command: true
+  config: false
   seed: 0
 
 # Challenges will ignore creative / spectator players

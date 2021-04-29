@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
@@ -73,10 +74,10 @@ public final class WorldManager {
 
 	private final boolean restartOnReset;
 	private final boolean enableFreshReset;
-	private final boolean useCustomSeed;
 	private final long customSeed;
 	private final String levelName;
 	private final String[] worlds;
+	private boolean useCustomSeed;
 
 	private final Map<UUID, PlayerData> playerData = new HashMap<>();
 
@@ -90,7 +91,7 @@ public final class WorldManager {
 		enableFreshReset = pluginConfig.getBoolean("enable-fresh-reset");
 
 		Document seedConfig = pluginConfig.getDocument("custom-seed");
-		useCustomSeed = seedConfig.getBoolean("enabled");
+		useCustomSeed = seedConfig.getBoolean("config");
 		customSeed = seedConfig.getLong("seed");
 
 		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
@@ -111,6 +112,12 @@ public final class WorldManager {
 	}
 
 	public void prepareWorldReset(@Nullable CommandSender requestedBy) {
+		prepareWorldReset(requestedBy, customSeed);
+	}
+
+	public void prepareWorldReset(@Nullable CommandSender requestedBy, @Nullable Long seed) {
+		if (seed == null && useCustomSeed) seed = customSeed;
+		if (seed != null) useCustomSeed = true;
 
 		shutdownBecauseOfReset = true;
 		ChallengeAPI.pauseTimer(false);
@@ -124,15 +131,17 @@ public final class WorldManager {
 		String kickMessage = Message.forName("server-reset").asString(requester);
 		Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(kickMessage));
 
-		if (useCustomSeed) generateCustomSeedWorlds();
+		if (seed != null) {
+			generateCustomSeedWorlds(seed);
+		}
 
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), this::stopServerNow, 3);
 
 	}
 
-	private void generateCustomSeedWorlds() {
+	private void generateCustomSeedWorlds(long seed) {
 
-		Logger.debug("Generating custom seed worlds with seed " + customSeed);
+		Logger.debug("Generating custom seed worlds with seed " + seed);
 		for (String name : worlds) {
 
 			World world = Bukkit.getWorld(name);
@@ -145,7 +154,7 @@ public final class WorldManager {
 			File folder = new File(newWorldName);
 			if (folder.exists()) FileUtils.deleteWorldFolder(folder);
 
-			WorldCreator creator = new WorldCreator(newWorldName).seed(customSeed).environment(world.getEnvironment());
+			WorldCreator creator = new WorldCreator(newWorldName).seed(seed).environment(world.getEnvironment());
 			creator.createWorld();
 
 			Logger.debug("Created custom seed world {}", newWorldName);
@@ -159,6 +168,7 @@ public final class WorldManager {
 		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		sessionConfig.clear();
 		sessionConfig.set("reset", true);
+		sessionConfig.set("seed-reset", useCustomSeed);
 		try {
 			sessionConfig.set("level-name", Bukkit.getWorlds().get(0).getName());
 		} catch (Exception ex) {
@@ -212,17 +222,22 @@ public final class WorldManager {
 	}
 
 	public void executeWorldReset() {
+		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
+		boolean seedReset = sessionConfig.getBoolean("seed-reset");
 
 		Logger.info("Deleting worlds..");
 
 		for (String world : worlds) {
 			deleteWorld(world);
-			if (useCustomSeed)
+			if (seedReset) {
 				copyPreGeneratedWorld(world);
+			} else {
+				deletePreGeneratedWorld(world);
+			}
 		}
 
-		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		sessionConfig.set("reset", false);
+		sessionConfig.set("seed-reset", false);
 		sessionConfig.save();
 
 	}
@@ -247,6 +262,17 @@ public final class WorldManager {
 		} catch (IOException ex) {
 			Logger.error("Unable to copy pre generated custom seed world {}", name, ex);
 		}
+	}
+
+	private void deletePreGeneratedWorld(@Nonnull String name) {
+		File source = new File(customSeedWorldPrefix + name);
+		if (!source.exists() || !source.isDirectory()) {
+			Logger.warn("Custom seed world '{}' does not exist!", name);
+			return;
+		}
+
+		FileUtils.deleteWorldFolder(source);
+		Logger.debug("Deleted pre generated custom seed world {}", name);
 	}
 
 	public void copy(@Nonnull File source, @Nonnull File target) throws IOException {

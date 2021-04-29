@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
@@ -19,10 +20,14 @@ import java.util.List;
  */
 public class ResetCommand implements SenderCommand, Completer {
 
-	private final boolean confirmReset;
+	private final boolean confirmReset, seedResetCommand;
 
 	public ResetCommand() {
-		confirmReset = Challenges.getInstance().getConfigDocument().getBoolean("confirm-reset");
+		Document pluginConfig = Challenges.getInstance().getConfigDocument();
+		confirmReset = pluginConfig.getBoolean("confirm-reset");
+
+		Document seedResetConfig = pluginConfig.getDocument("custom-seed");
+		seedResetCommand = seedResetConfig.getBoolean("command");
 	}
 
 	@Override
@@ -34,18 +39,34 @@ public class ResetCommand implements SenderCommand, Completer {
 			return;
 		}
 
-		if (confirmReset && (args.length != 1 || !args[0].equalsIgnoreCase("confirm"))) {
+		if (confirmReset && (args.length < 1 || !args[0].equalsIgnoreCase("confirm"))) {
 			Message.forName("confirm-reset").send(sender, Prefix.CHALLENGES, "reset confirm");
 			return;
 		}
 
-		Challenges.getInstance().getWorldManager().prepareWorldReset(sender);
+		Long seed = null;
+
+		if (seedResetCommand) {
+			int index = confirmReset ? 1 : 0;
+			if (args.length > index) {
+				String seedInput = args[index];
+				try {
+					seed = Long.parseLong(seedInput);
+				} catch (NumberFormatException exception) {
+				}
+			}
+		}
+
+		Challenges.getInstance().getWorldManager().prepareWorldReset(sender, seed);
 
 	}
 
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		return confirmReset && args.length == 1 ? Collections.singletonList("confirm") : Collections.emptyList();
+		if (confirmReset && args.length == 1) return Collections.singletonList("confirm");
+		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) return Collections.singletonList("[seed]");
+
+		return Collections.emptyList();
 	}
 
 }
