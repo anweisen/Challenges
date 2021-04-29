@@ -57,8 +57,8 @@ challenge-settings:
 
 # This will change the item design in the challenges menu
 design:
-  empty-line-above: false
-  empty-line-underneath: false
+  empty-line-above: true
+  empty-line-underneath: true
 
 # The size stands for the amount of rows in the backpack inventory
 backpack-size: 3
