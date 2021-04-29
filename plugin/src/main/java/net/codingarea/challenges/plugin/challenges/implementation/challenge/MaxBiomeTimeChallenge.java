@@ -80,9 +80,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 
 	@ScheduledTask(ticks = 20)
 	public void onSecond() {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			updateBiomeTime(player);
-		}
+		broadcast(this::updateBiomeTime);
 	}
 
 	private void updateBiomeTime(@Nonnull Player player) {
@@ -93,7 +91,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 
 		Biome biome = player.getLocation().getBlock().getBiome();
 		int time = getCurrentTime(player) + 1;
-		if (time >= getValue() * 60) {
+		if (time > getValue() * 60) {
 			kill(player);
 		}
 		if (time < getValue() * 60) {
