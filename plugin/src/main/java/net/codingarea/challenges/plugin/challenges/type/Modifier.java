@@ -35,7 +35,7 @@ public abstract class Modifier extends AbstractChallenge implements IModifier {
 
 	public Modifier(@Nonnull MenuType menu, int min, int max, int defaultValue) {
 		super(menu);
-		if (max <= min) throw new IllegalArgumentException("max <= min");
+		if (max < min) throw new IllegalArgumentException("max < min");
 		if (min < 0) throw new IllegalArgumentException("min < 0");
 		if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");
 		if (defaultValue < min) throw new IllegalArgumentException("defaultValue < min");

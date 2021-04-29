@@ -4,11 +4,11 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.CollectionGoal;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifierCollectionGoal;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -19,7 +19,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.omg.CosNaming.NamingContextPackage.NotEmptyHelper;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +28,7 @@ import javax.annotation.Nonnull;
  */
 public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
-	private static final boolean newNether = Challenges.getInstance().getServerVersion().isOlderOrEqualThan(MinecraftVersion.V1_16);
+	private static final boolean newNether = Challenges.getInstance().getServerVersion().isNewerOrEqualThan(MinecraftVersion.V1_16);
 	private static final int
 			OVERWORLD = 1,
 			NETHER = 2,
@@ -52,6 +51,17 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 		if (getValue() == OVERWORLD) return DefaultItem.create(Material.OAK_LOG, "§aOverworld");
 		if (getValue() == NETHER) return DefaultItem.create(Material.WARPED_STEM, "§cNether");
 		return DefaultItem.create(Material.CRYING_OBSIDIAN, "§9Both");
+	}
+
+	@Override
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		if (!newNether && info.isLowerItemClick() && enabled) {
+			setEnabled(false);
+			SoundSample.playEnablingSound(info.getPlayer(), enabled);
+			playStatusUpdateTitle();
+		} else {
+			super.handleClick(info);
+		}
 	}
 
 	@Override

@@ -27,7 +27,7 @@ public abstract class ModifierCollectionGoal extends CollectionGoal implements I
 
 	public ModifierCollectionGoal(@Nonnull MenuType menu, int min, int max, int defaultValue, @Nonnull Object... target) {
 		super(menu, target);
-		if (max <= min) throw new IllegalArgumentException("max <= min");
+		if (max < min) throw new IllegalArgumentException("max < min");
 		if (min < 0) throw new IllegalArgumentException("min < 0");
 		if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");
 		if (defaultValue < min) throw new IllegalArgumentException("defaultValue < min");
