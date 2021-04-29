@@ -58,6 +58,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		if (!getSetting("break").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		PlayerInventory inventory = event.getPlayer().getInventory();
+		event.setDropItems(false);
 		breakBlocks(event.getBlock(), inventory.getItemInMainHand(), inventory);
 	}
 
@@ -66,6 +67,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		if (!shouldExecuteEffect()) return;
 		if (!getSetting("place").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
+		if (event.getBlockAgainst().getType() == Material.BEDROCK) return;
 		breakBlocks(event.getBlockAgainst(), null, event.getPlayer().getInventory());
 	}
 
