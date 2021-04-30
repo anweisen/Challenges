@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
-import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
@@ -20,6 +19,7 @@ import java.util.Collection;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
+@Since("2.0")
 public class AllMobsToDeathPoint extends Setting {
 
 	public AllMobsToDeathPoint() {

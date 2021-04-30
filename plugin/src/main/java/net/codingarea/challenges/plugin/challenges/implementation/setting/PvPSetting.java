@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 public class PvPSetting extends Setting {
 
 	public PvPSetting() {
-		super(MenuType.SETTINGS);
+		super(MenuType.SETTINGS, true);
 	}
 
 	@Nonnull

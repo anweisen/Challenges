@@ -67,4 +67,9 @@ public final class DefaultItem {
 		return new ItemBuilder(material, name(name));
 	}
 
+	public static ItemBuilder create(@Nonnull Material material, @Nonnull Message message) {
+		ItemBuilder itemBuilder = new ItemBuilder(material, message);
+		return itemBuilder.setName(name(itemBuilder.getName()));
+	}
+
 }
