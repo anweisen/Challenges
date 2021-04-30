@@ -24,22 +24,23 @@ import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/KxmischesDomi
  * @since 2.0
  */
 public final class StatsManager implements Listener {
 
-	private final boolean enabled;
-	private final boolean noStatsAfterCheating;
+	private final boolean enabled, noStatsAfterCheating, databaseConnection;
 
 	private final Map<UUID, PlayerStats> cache = new ConcurrentHashMap<>();
 
 	public StatsManager() {
-		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats") && Challenges.getInstance().getDatabaseManager().getDatabase() != null;
+		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats");
+		databaseConnection = Challenges.getInstance().getDatabaseManager().getDatabase() != null;
 		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
 	public void register() {
-		if (enabled) {
+		if (enabled && databaseConnection) {
 			StatsListener listener = new StatsListener();
 			ChallengeAPI.registerScheduler(this, listener);
 			Challenges.getInstance().registerListener(this, listener);
@@ -165,7 +166,11 @@ public final class StatsManager implements Listener {
 	}
 
 	public boolean isEnabled() {
-		return enabled && Challenges.getInstance().getDatabaseManager().isConnected();
+		return enabled;
+	}
+
+	public boolean hasDatabaseConnection() {
+		return databaseConnection && Challenges.getInstance().getDatabaseManager().isConnected();
 	}
 
 	public boolean isNoStatsAfterCheating() {

@@ -41,7 +41,11 @@ public class LeaderboardCommand implements PlayerCommand {
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 		if (!Challenges.getInstance().getStatsManager().isEnabled()) {
-			player.sendMessage(Prefix.CHALLENGES + Message.forName("feature-disabled").asString());
+			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
+			SoundSample.BASS_OFF.play(player);
+			return;
+		} else if (!Challenges.getInstance().getStatsManager().hasDatabaseConnection()) {
+			Message.forName("no-database-connection").send(player, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.play(player);
 			return;
 		}

@@ -28,6 +28,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/KxmischesDomi
  * @since 2.0
  */
 public class StatsCommand implements PlayerCommand {
@@ -38,6 +39,10 @@ public class StatsCommand implements PlayerCommand {
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) {
 		if (!Challenges.getInstance().getStatsManager().isEnabled()) {
 			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
+			SoundSample.BASS_OFF.play(player);
+			return;
+		} else if (!Challenges.getInstance().getStatsManager().hasDatabaseConnection()) {
+			Message.forName("no-database-connection").send(player, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.play(player);
 			return;
 		}
