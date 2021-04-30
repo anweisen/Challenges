@@ -13,7 +13,7 @@
   "minute": "Minute",
   "hours": "Stunden",
   "hour": "Stunde",
-  "strength": "Stärke",
+  "amplifier": "Stärke",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -34,6 +34,7 @@
   "timer-already-paused": "Der Timer ist §cbereits pausiert",
   "timer-mode-set-down": "Der Timer zählt nun §crückwärts",
   "timer-mode-set-up": "Der Timer zählt nun §ahoch",
+  "no-database-connection": "Es gibt §ckeine §7Datenbankverbindung",
   "fetching-data": "Daten werden abgerufen..",
   "undefined": "undefiniert",
   "no-such-material": "Dieses Material gibt es nicht",
@@ -278,11 +279,11 @@
   ],
   "title-challenge-enabled": [
     "§e{0}",
-    "§2§l✔ §8┃ §aaktiviert"
+    "§2§l✔ §8┃ §aAktiviert"
   ],
   "title-challenge-disabled": [
     "§e{0}",
-    "§4✖ §8┃ §cdeaktiviert"
+    "§4✖ §8┃ §cDeaktiviert"
   ],
   "title-challenge-value-changed": [
     "§e{0}",
@@ -306,6 +307,8 @@
   "item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
   "item-pickup-launcher-description": "§8» §7Stärke: §e{0}",
+  "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
+  "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -746,10 +749,15 @@
     "Die *Länge*, die der",
     "*Effekt* anhält"
   ],
-  "item-random-effect-strength-challenge": [
-    "§6Stärke",
+  "item-random-effect-amplifier-challenge": [
+    "§6Amplifier",
     "Die *Stärke*, die der",
     "*Effekt* hat"
+  ],
+  "item-permanent-effect-on-damage-challenge": [
+    "§6Permanente Effekte",
+    "Du bekommst immer wenn du *Schaden*",
+    "erleidest einen *zufälligen Effekt*"
   ],
   "item-random-challenge-challenge": [
     "§cRandom Challenge",
@@ -902,8 +910,8 @@
   ],
   "item-collect-wood-goal": [
     "§6Holzarten Sammeln",
-    "Wer als *erstes* alle *Holzarten*",
-    "die *eingestellt* sind gesammelt hat, gewinnt"
+    "Wer als *erstes* alle *Holzarten*, die",
+    "*eingestellt* sind, gesammelt hat, gewinnt"
   ],
   "item-all-bosses-goal": [
     "§bAlle Bosse",

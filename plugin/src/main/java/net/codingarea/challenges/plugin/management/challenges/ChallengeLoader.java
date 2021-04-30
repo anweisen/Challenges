@@ -119,6 +119,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DeathOnFallChallenge.class);
 		//register(ZeroHeartsChallenge.class);
 		register(RandomPotionEffectChallenge.class);
+		register(PermanentEffectOnDamageChallenge.class);
 		register(EnderGamesChallenge.class);
 		register(RandomEventChallenge.class);
 		register(RandomItemChallenge.class);

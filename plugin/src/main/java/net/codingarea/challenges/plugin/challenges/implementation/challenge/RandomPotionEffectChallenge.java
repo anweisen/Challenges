@@ -50,10 +50,10 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 				10
 				)
 		);
-		registerSetting("strength", new NumberSubSetting(
-				() -> new ItemBuilder(Material.STONE_SWORD, Message.forName("item-random-effect-strength-challenge")),
+		registerSetting("amplifier", new NumberSubSetting(
+				() -> new ItemBuilder(Material.STONE_SWORD, Message.forName("item-random-effect-amplifier-challenge")),
 				value -> null,
-				value -> "§7" + Message.forName("strength") + " §e" + value,
+				value -> "§7" + Message.forName("amplifier") + " §e" + value,
 				1,
 				8,
 				3
@@ -95,7 +95,6 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 
 		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
 		possibleEffects.removeAll(activeEffects);
-		possibleEffects.remove(PotionEffectType.GLOWING);
 		possibleEffects.remove(PotionEffectType.HEAL);
 		possibleEffects.remove(PotionEffectType.HARM);
 		return possibleEffects.get(random.nextInt(possibleEffects.size()));
@@ -106,7 +105,7 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 	}
 
 	private void applyEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType) {
-		PotionEffect potionEffect = new PotionEffect(effectType, (getSetting("length").getAsInt() + 1) * 20, getSetting("strength").getAsInt() - 1);
+		PotionEffect potionEffect = new PotionEffect(effectType, (getSetting("length").getAsInt() + 1) * 20, getSetting("amplifier").getAsInt() - 1);
 		player.addPotionEffect(potionEffect);
 	}
 
