@@ -77,9 +77,8 @@ public final class ServerManager {
 		if (endCause != ChallengeEndCause.GOAL_REACHED || setSpectatorOnWin) {
 			setSpectator();
 		}
-		if (endCause == ChallengeEndCause.GOAL_REACHED && winSounds && currentGoal != null) {
-			if (currentGoal.getWinSound() != null)
-				currentGoal.getWinSound().broadcast();
+		if (endCause == ChallengeEndCause.GOAL_REACHED && winSounds && currentGoal != null && currentGoal.getWinSound() != null) {
+			currentGoal.getWinSound().broadcast();
 		}
 		if (dropItemsOnEnd) {
 			for (Player player : Bukkit.getOnlinePlayers()) {

@@ -86,6 +86,9 @@ new-suffix: true
 # To manage the timer in the gui, players will always need the permission "challenges.timer"
 manage-settings-permission: false
 
+# A dragon breath sound will be played when the timer is started
+enable-default-start-sounds: true
+
 # A specific start sound, matching the current goal, the will be played when the timer is started.
 # Otherwise the dragon sound will always be played.
 enable-specific-start-sounds: true

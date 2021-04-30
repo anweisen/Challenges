@@ -31,12 +31,12 @@ public final class ChallengeTimer {
 
 	private final TimerFormat format;
 	private final String stoppedMessage, upMessage, downMessage;
-
-	private final boolean specificStartSounds;
+	private final boolean specificStartSounds, defaultStartSound;
 
 	public ChallengeTimer() {
 
 		specificStartSounds = Challenges.getInstance().getConfigDocument().getBoolean("enable-specific-start-sounds");
+		defaultStartSound = Challenges.getInstance().getConfigDocument().getBoolean("enable-default-start-sound");
 
 		// Load format + messages
 		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
@@ -111,9 +111,11 @@ public final class ChallengeTimer {
 		}
 
 		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
-		if (currentGoal != null && specificStartSounds)
+		if (currentGoal != null && specificStartSounds) {
 			currentGoal.getStartSound().broadcast();
-		else SoundSample.DRAGON_BREATH.broadcast();
+		} else if (defaultStartSound) {
+			SoundSample.DRAGON_BREATH.broadcast();
+		}
 
 	}
 
