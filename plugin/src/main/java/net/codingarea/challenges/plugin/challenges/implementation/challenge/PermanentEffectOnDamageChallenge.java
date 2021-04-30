@@ -63,11 +63,13 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
 	public void onTimerStart() {
+		if (!isEnabled()) return;
 		updateEffects();
 	}
 
 	@TimerTask(status = TimerStatus.PAUSED, async = false)
 	public void onTimerPause() {
+		if (!isEnabled()) return;
 		clearEffects();
 	}
 
