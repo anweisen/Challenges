@@ -81,8 +81,7 @@ public final class LanguageLoader extends ContentLoader {
 					JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
 					File file = getMessageFile(name, "json");
 
-					if (name.equalsIgnoreCase(this.language))
-						verifyLanguage(language, file);
+					verifyLanguage(language, file);
 
 				} catch (Exception ex) {
 					Logger.error("Could not download language for {}. {}: {}", element, ex.getClass().getSimpleName(), ex.getMessage());
