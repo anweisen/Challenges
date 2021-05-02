@@ -922,6 +922,11 @@
     "§2Alle Items",
     "Finde *alle Items* die es *in Minecraft gibt*"
   ],
+  "item-finish-raid-goal": [
+    "§6Raid Gewinnen",
+    "Der erste Spieler, der einen *Raid*",
+    "*abschließt*, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
