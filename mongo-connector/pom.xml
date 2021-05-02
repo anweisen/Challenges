@@ -4,9 +4,7 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>net.codingarea.challenges</groupId>
 	<artifactId>mongo-connector</artifactId>
-	<name>mongo-connector</name>
 	<version>2.0</version>
 	<url>https://github.com/anweisen/Challenges</url>
 
@@ -91,6 +89,12 @@
 			<groupId>net.codingarea.challenges</groupId>
 			<artifactId>plugin</artifactId>
 			<version>2.0</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.anweisen.utilities</groupId>
+			<artifactId>database-mongodb</artifactId>
+			<version>1.2.3</version>
 		</dependency>
 
 	</dependencies>

@@ -23,6 +23,7 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: commons-lang:commons-lang:2.6" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: net.md-5:bungeecord-chat:1.16-R0.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.yaml:snakeyaml:1.27" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: org.spigotmc:spigot:1.16.5-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver:3.12.7" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:bson:3.12.7" level="project" />
     <orderEntry type="library" name="Maven: org.mongodb:mongodb-driver-core:3.12.7" level="project" />
@@ -41,13 +42,13 @@
     <orderEntry type="library" scope="PROVIDED" name="Maven: io.netty:netty-transport-native-kqueue:osx-x86_64:4.1.36.Final" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.jetbrains:annotations:19.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: de.dytanic.cloudnet:cloudnet-bridge:3.3.0-RELEASE" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.2.1" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.2" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.2" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.2.3" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.2.3" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.23" level="project" />
     <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.11.4" level="project" />
     <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.34.0" level="project" />
-    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-mongodb:1.2" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-mongodb:1.2.3" level="project" />
   </component>
 </module>

@@ -4,7 +4,6 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>net.codingarea.challenges</groupId>
 	<artifactId>plugin</artifactId>
 	<version>2.0</version>
 
@@ -73,7 +72,7 @@
 		</repository>
 
 		<repository>
-			<id>github</id>
+			<id>github-anweisen</id>
 			<url>https://maven.pkg.github.com/anweisen/*</url>
 		</repository>
 
@@ -91,6 +90,12 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
+			<version>1.16.5-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.spigotmc</groupId>
+			<artifactId>spigot</artifactId>
 			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
@@ -121,42 +126,35 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Common Utilities -->
-		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
-			<artifactId>common-utils</artifactId>
-			<version>1.2.1</version>
-		</dependency>
-
 		<!-- Minecraft Utilities -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>bukkit-utils</artifactId>
-			<version>1.2.1</version>
+			<version>1.2.3</version>
 		</dependency>
 
 		<!-- Database API -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-api</artifactId>
-			<version>1.2</version>
+			<version>1.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-sql</artifactId>
-			<version>1.2</version>
+			<version>1.2.3</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-mongodb</artifactId>
-			<version>1.2</version>
+			<version>1.2.3</version>
 		</dependency>
 
 	</dependencies>
 
     <distributionManagement>
         <repository>
-            <id>github</id>
+            <id>github-anweisen</id>
             <name>GitHub anweisen Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/anweisen/Challenges</url>
         </repository>
