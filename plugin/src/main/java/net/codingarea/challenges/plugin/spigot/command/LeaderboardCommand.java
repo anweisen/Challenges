@@ -85,7 +85,8 @@ public class LeaderboardCommand implements PlayerCommand {
 			37, 38, 39, 40, 41, 42, 43
 		};
 
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 6*9, MenuPosition.HOLDER);
+		String statisticName = StatsHelper.getNameMessage(statistic).asString();
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(statisticName, page + 1), 6*9, MenuPosition.HOLDER);
 		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
 
 		List<PlayerStats> leaderboard = Challenges.getInstance().getStatsManager().getLeaderboard(statistic);
@@ -102,7 +103,7 @@ public class LeaderboardCommand implements PlayerCommand {
 			PlayerStats stats = leaderboard.get(i);
 			String coloredName = cloudSupport.isNameSupport() && cloudSupport.hasNameFor(stats.getPlayerUUID()) ? cloudSupport.getColoredName(stats.getPlayerUUID()) : stats.getPlayerName();
 			ItemBuilder item = new SkullBuilder(stats.getPlayerUUID(), stats.getPlayerName()).setName(Message.forName("stats-leaderboard-display")
-					.asArray(coloredName, statistic.formatChat(stats.getStatisticValue(statistic)), StatsHelper.getNameMessage(statistic).asString(), i + 1));
+					.asArray(coloredName, statistic.formatChat(stats.getStatisticValue(statistic)), statisticName, i + 1));
 			inventory.cloneLastAndAdd().setItem(slot, item.hideAttributes());
 
 			position.setAction(slot, () -> {

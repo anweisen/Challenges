@@ -71,21 +71,17 @@ public final class SettingsMenu {
 		for (IChallenge challenge : challenges) {
 
 			Inventory inventory;
-
-			if (index >= SLOTS.length) { // Current page is full
+			if (inventories.isEmpty()) { // This is the first challenge
+				inventory = createNewInventory(page);
+			} else if (index >= SLOTS.length) { // Current page is full
 				index = 0;
 				inventory = createNewInventory(++page);
-			} else if (inventories.isEmpty()) { // This is the first challenge
-				inventory = createNewInventory(page);
 			} else {
 				inventory = inventories.get(page);
 			}
 
-			int displaySlot = SLOTS[index];
-			int settingsSlot = displaySlot + 9;
-
-			inventory.setItem(displaySlot, getDisplayItem(challenge));
-			inventory.setItem(settingsSlot, getSettingsItem(challenge));
+			inventory.setItem(SLOTS[index], getDisplayItem(challenge));
+			inventory.setItem(SLOTS[index] + 9, getSettingsItem(challenge));
 
 			index++;
 		}

@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.management.challenges;
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.config.document.GsonDocument;
-import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;

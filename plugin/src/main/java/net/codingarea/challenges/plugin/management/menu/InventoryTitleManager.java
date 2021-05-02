@@ -40,4 +40,9 @@ public final class InventoryTitleManager {
 		return getTitle("§2Leaderboard");
 	}
 
+	@Nonnull
+	public static String getLeaderboardTitle(@Nonnull String name, int page) {
+		return getTitle("§2" + name + " §8┃ §2" + page);
+	}
+
 }
