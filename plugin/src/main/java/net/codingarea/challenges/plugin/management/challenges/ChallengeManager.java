@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
 import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
@@ -115,7 +116,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument config = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		saveGameStateInto(config);
 		config.save(async);
 	}
@@ -132,7 +133,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveLocalSettings(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSettingsConfig();
+		FileDocument config = Challenges.getInstance().getConfigManager().getSettingsConfig();
 		saveSettingsInto(config);
 		config.save(async);
 	}

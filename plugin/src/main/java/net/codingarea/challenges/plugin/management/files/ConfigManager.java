@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.files;
 
+import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.commons.misc.FileUtils;
@@ -16,9 +17,14 @@ import java.io.File;
  */
 public final class ConfigManager {
 
-	private FileDocumentWrapper sessionConfig;
-	private FileDocumentWrapper gamestateConfig;
-	private FileDocumentWrapper settingsConfig;
+	private FileDocument sessionConfig;
+	private FileDocument gamestateConfig;
+	private FileDocument settingsConfig;
+
+	public ConfigManager() {
+		GsonDocument.setCleanupEmptyObjects(true);
+		GsonDocument.setCleanupEmptyObjects(true);
+	}
 
 	public void loadConfigs() {
 		sessionConfig   = load("internal/session.json");
@@ -27,7 +33,7 @@ public final class ConfigManager {
 	}
 
 	@Nullable
-	private FileDocumentWrapper load(@Nonnull String filename) {
+	private FileDocument load(@Nonnull String filename) {
 		try {
 			File file = Challenges.getInstance().getDataFile(filename);
 			FileUtils.createFilesIfNecessary(file);
@@ -39,17 +45,17 @@ public final class ConfigManager {
 	}
 
 	@Nonnull
-	public FileDocumentWrapper getSessionConfig() {
+	public FileDocument getSessionConfig() {
 		return sessionConfig;
 	}
 
 	@Nonnull
-	public FileDocumentWrapper getGameStateConfig() {
+	public FileDocument getGameStateConfig() {
 		return gamestateConfig;
 	}
 
 	@Nonnull
-	public FileDocumentWrapper getSettingsConfig() {
+	public FileDocument getSettingsConfig() {
 		return settingsConfig;
 	}
 

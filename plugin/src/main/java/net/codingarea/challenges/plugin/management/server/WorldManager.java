@@ -1,8 +1,7 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
+import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -165,7 +164,7 @@ public final class WorldManager {
 
 	private void resetConfigs() {
 
-		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
+		FileDocument sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		sessionConfig.clear();
 		sessionConfig.set("reset", true);
 		sessionConfig.set("seed-reset", useCustomSeed);
@@ -175,7 +174,7 @@ public final class WorldManager {
 		}
 		sessionConfig.save();
 
-		FileDocumentWrapper gamestateConfig = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument gamestateConfig = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		gamestateConfig.clear();
 		gamestateConfig.save();
 
@@ -222,7 +221,7 @@ public final class WorldManager {
 	}
 
 	public void executeWorldReset() {
-		FileDocumentWrapper sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
+		FileDocument sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
 		boolean seedReset = sessionConfig.getBoolean("seed-reset");
 
 		Logger.info("Deleting worlds..");

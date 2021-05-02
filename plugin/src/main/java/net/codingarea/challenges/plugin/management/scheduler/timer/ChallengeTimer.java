@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.scheduler.timer;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
@@ -161,14 +162,14 @@ public final class ChallengeTimer {
 	}
 
 	public synchronized void loadSession() {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
+		FileDocument config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		time = config.getInt("timer.seconds");
 		countingUp = config.getBoolean("timer.countingUp", true);
 		hidden = config.getBoolean("timer.hidden", false);
 	}
 
 	public synchronized void saveSession(boolean async) {
-		FileDocumentWrapper config = Challenges.getInstance().getConfigManager().getSessionConfig();
+		FileDocument config = Challenges.getInstance().getConfigManager().getSessionConfig();
 		config.set("timer.seconds", time);
 		config.set("timer.countingUp", countingUp);
 		config.set("timer.hidden", hidden);
@@ -182,7 +183,7 @@ public final class ChallengeTimer {
 		updateActionbar();
 	}
 
-	public void setSeconds(int seconds) {
+	public void setSeconds(long seconds) {
 		this.time = seconds;
 		updateActionbar();
 	}
