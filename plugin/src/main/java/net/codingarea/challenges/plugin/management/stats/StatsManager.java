@@ -29,18 +29,17 @@ import java.util.stream.Collectors;
  */
 public final class StatsManager implements Listener {
 
-	private final boolean enabled, noStatsAfterCheating, databaseConnection;
+	private final boolean enabled, noStatsAfterCheating;
 
 	private final Map<UUID, PlayerStats> cache = new ConcurrentHashMap<>();
 
 	public StatsManager() {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats");
-		databaseConnection = Challenges.getInstance().getDatabaseManager().getDatabase() != null;
 		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
 	public void register() {
-		if (enabled && databaseConnection) {
+		if (enabled) {
 			StatsListener listener = new StatsListener();
 			ChallengeAPI.registerScheduler(this, listener);
 			Challenges.getInstance().registerListener(this, listener);
@@ -170,7 +169,7 @@ public final class StatsManager implements Listener {
 	}
 
 	public boolean hasDatabaseConnection() {
-		return databaseConnection && Challenges.getInstance().getDatabaseManager().isConnected();
+		return Challenges.getInstance().getDatabaseManager().getDatabase() != null && Challenges.getInstance().getDatabaseManager().isConnected();
 	}
 
 	public boolean isNoStatsAfterCheating() {
