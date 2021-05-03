@@ -22,16 +22,16 @@ import java.util.stream.Collectors;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class CoronaChallenge extends Setting {
+public class InfectionChallenge extends Setting {
 
-	public CoronaChallenge() {
+	public InfectionChallenge() {
 		super(MenuType.CHALLENGES);
 	}
 
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.SLIME_BALL, Message.forName("item-corona-challenge"));
+		return new ItemBuilder(Material.SLIME_BALL, Message.forName("item-infection-challenge"));
 	}
 
 	@Override

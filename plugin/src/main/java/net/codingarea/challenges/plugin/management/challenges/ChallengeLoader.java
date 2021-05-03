@@ -61,7 +61,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(TrafficLightChallenge.class);
 		register(SnakeChallenge.class);
 		register(JumpAndRunChallenge.class);
-		register(CoronaChallenge.class);
+		register(InfectionChallenge.class);
 		register(DamagePerBlockChallenge.class);
 		register(HungerPerBlockChallenge.class);
 		register(SneakDamageChallenge.class);

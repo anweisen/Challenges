@@ -652,8 +652,8 @@
     "Wenn *2 Spieler* das gleiche *Item* im",
     "Inventar haben, *sterben* beide"
   ],
-  "item-corona-challenge": [
-    "§aCorona Challenge",
+  "item-infection-challenge": [
+    "§aInfection Challenge",
     "Du musst *2 Blöcke* abstand von allen ",
     "*Mobs* halten oder du wirst *krank*"
   ],
