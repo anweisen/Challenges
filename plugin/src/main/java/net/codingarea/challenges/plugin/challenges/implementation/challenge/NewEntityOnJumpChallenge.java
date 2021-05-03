@@ -38,6 +38,7 @@ public class NewEntityOnJumpChallenge extends Setting {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJump(@Nonnull PlayerJumpEvent event) {
+		if (ignorePlayer(event.getPlayer())) return;
 		if (!shouldExecuteEffect()) return;
 		spawnRandomEntity(event.getPlayer().getLocation());
 	}

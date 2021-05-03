@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 
 import javax.annotation.Nonnull;
@@ -21,17 +22,28 @@ public class NoHungerSetting extends Setting {
 		super(MenuType.SETTINGS);
 	}
 
-	@EventHandler
-	public void onHunger(@Nonnull FoodLevelChangeEvent event) {
-		if (!(event.getEntity() instanceof Player)) return;
-		if (!shouldExecuteEffect()) return;
-		event.setCancelled(true);
+	@Override
+	protected void onEnable() {
+		broadcastFiltered(this::feedPlayer);
 	}
 
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.BREAD, Message.forName("no-hunger-setting"));
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onHunger(@Nonnull FoodLevelChangeEvent event) {
+		if (!(event.getEntity() instanceof Player)) return;
+		if (!shouldExecuteEffect()) return;
+		feedPlayer(((Player) event.getEntity()));
+		event.setCancelled(true);
+	}
+
+	private void feedPlayer(@Nonnull Player player) {
+		player.setFoodLevel(20);
+		player.setSaturation(20);
 	}
 
 }

@@ -8,7 +8,6 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
-import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
@@ -16,13 +15,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.event.player.PlayerJoinEvent;
 
 import javax.annotation.Nonnull;
-import java.io.PrintStream;
+import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -52,7 +49,7 @@ public class SplitHealthSetting extends Setting {
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
 
-		Bukkit.getScheduler().runTaskLater(plugin, () -> setHealth(player), 1);
+		Bukkit.getScheduler().runTaskLater(plugin, () -> setHealth(player, null), 1);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -62,7 +59,7 @@ public class SplitHealthSetting extends Setting {
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
 
-		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> setHealth(player), 1);
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> setHealth(player, event), 1);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -72,7 +69,7 @@ public class SplitHealthSetting extends Setting {
 	}
 
 	/**
-	 * Calls {@link SplitHealthSetting#setHealth(Player)} for the player with the lowest health
+	 * Calls {@link SplitHealthSetting#setHealth(Player, EntityDamageEvent)} for the player with the lowest health
 	 */
 	private void setHealth() {
 		Player player = null;
@@ -84,10 +81,10 @@ public class SplitHealthSetting extends Setting {
 
 		}
 		if (player == null) return;
-		setHealth(player);
+		setHealth(player, null);
  	}
 
-	public void setHealth(@Nonnull Player player) {
+	public void setHealth(@Nonnull Player player, @Nullable EntityDamageEvent damageEvent) {
 		if (!shouldExecuteEffect()) return;
 
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
@@ -100,6 +97,10 @@ public class SplitHealthSetting extends Setting {
 			if (health > attribute.getValue()) {
 				health = attribute.getValue();
 			}
+
+ 			if (health <= 0 && damageEvent != null) {
+ 				currentPlayer.setLastDamageCause(damageEvent);
+		    }
 
 			currentPlayer.setHealth(health);
 		}
