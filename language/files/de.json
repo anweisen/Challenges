@@ -503,6 +503,11 @@
     "Du bekommst *Schaden* durch",
     "jeden *Block* den du gehst"
   ],
+  "item-hunger-block-challenge": [
+    "§6Hunger pro Block",
+    "Du bekommst *Hunger* durch",
+    "jeden *Block* den du gehst"
+  ],
   "item-stone-sight-challenge": [
     "§fStein Blick",
     "*Mobs* denen du in die *Augen*",
