@@ -8,7 +8,6 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -37,12 +36,6 @@ public class BlockMaterialSetting extends Setting {
 		this.preset = preset;
 		this.replacements = replacements;
 		this.materials = materials;
-	}
-
-	@Override
-	protected void onDisable() {
-		if (!shouldExecuteEffect()) return;
-		Bukkit.getOnlinePlayers().forEach(player -> dropMaterial(player.getLocation(), player.getInventory()));
 	}
 
 	@Nonnull
