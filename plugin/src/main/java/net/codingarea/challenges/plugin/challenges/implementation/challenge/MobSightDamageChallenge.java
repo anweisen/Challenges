@@ -23,9 +23,9 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @Since("2.0")
-public class NoMobSightChallenge extends SettingModifier {
+public class MobSightDamageChallenge extends SettingModifier {
 
-	public NoMobSightChallenge() {
+	public MobSightDamageChallenge() {
 		super(MenuType.CHALLENGES);
 	}
 

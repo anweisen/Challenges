@@ -8,10 +8,8 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -30,7 +28,7 @@ public class RandomItemRemovingChallenge extends TimedChallenge {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.OBSERVER, Message.forName("item-random-removing-challenge"));
+		return new ItemBuilder(Material.DROPPER, Message.forName("item-random-removing-challenge"));
 	}
 
 	@Nullable

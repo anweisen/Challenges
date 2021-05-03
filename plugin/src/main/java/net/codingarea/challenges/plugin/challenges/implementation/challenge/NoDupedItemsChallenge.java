@@ -39,7 +39,7 @@ public class NoDupedItemsChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.DISPENSER, Message.forName("item-no-duped-items-challenge"));
+		return new ItemBuilder(Material.OBSERVER, Message.forName("item-no-duped-items-challenge"));
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

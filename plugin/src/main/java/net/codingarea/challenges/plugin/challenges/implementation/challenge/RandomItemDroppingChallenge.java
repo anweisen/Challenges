@@ -31,7 +31,7 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.DROPPER, Message.forName("item-random-dropping-challenge"));
+		return new ItemBuilder(Material.DISPENSER, Message.forName("item-random-dropping-challenge"));
 	}
 
 	@Nullable
