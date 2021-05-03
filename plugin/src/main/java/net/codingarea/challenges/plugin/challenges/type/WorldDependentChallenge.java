@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.WorldManager.WorldSettings;
-import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
-import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,9 +13,9 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import javax.annotation.Nullable;
+import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -69,9 +69,11 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		lastTeleport = allowJoinCatchUp ? action : null;
 
 		teleportIndex = 0;
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			teleport(player, action);
-		}
+		broadcastFiltered(player -> teleport(player, action));
+		broadcastIgnored(player -> {
+			teleport(player, null);
+			teleportSpectator(player);
+		});
 	}
 
 	protected void teleportBack() {
@@ -84,7 +86,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		Challenges.getInstance().getWorldManager().restorePlayerData(player);
 	}
 
-	private void teleport(@Nonnull Player player, @Nonnull BiConsumer<Player, Integer> teleport) {
+	private void teleport(@Nonnull Player player, @Nullable BiConsumer<Player, Integer> teleport) {
 		Challenges.getInstance().getWorldManager().cachePlayerData(player);
 		player.getInventory().clear();
 		player.setFoodLevel(20);
@@ -95,7 +97,18 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		for (PotionEffect effect : player.getActivePotionEffects()) {
 			player.removePotionEffect(effect.getType());
 		}
-		teleport.accept(player, teleportIndex++);
+		if (teleport != null) {
+			teleport.accept(player, teleportIndex++);
+		}
+	}
+
+	protected void teleportSpectator(@Nonnull Player player) {
+		player.setGameMode(GameMode.SPECTATOR);
+		List<Player> ingamePlayers = ChallengeHelper.getIngamePlayers();
+		if (ingamePlayers.isEmpty()) return;
+		Player target = ingamePlayers.get(0);
+		player.teleport(target);
+		player.setSpectatorTarget(target);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

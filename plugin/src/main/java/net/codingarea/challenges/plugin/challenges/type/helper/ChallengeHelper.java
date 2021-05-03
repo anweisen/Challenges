@@ -14,10 +14,10 @@ import net.codingarea.challenges.plugin.management.challenges.annotations.Exclud
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Arrow;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -28,6 +28,7 @@ import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -128,6 +129,10 @@ public final class ChallengeHelper {
 		if (damager instanceof Player) return ((Player) damager);
 		if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player) return ((Player) ((Projectile) damager).getShooter());
 		return null;
+	}
+
+	public static List<Player> getIngamePlayers() {
+		return Bukkit.getOnlinePlayers().stream().filter(player -> !AbstractChallenge.ignorePlayer(player)).collect(Collectors.toList());
 	}
 
 	public static void playToggleChallengeTitle(@Nonnull AbstractChallenge challenge) {
