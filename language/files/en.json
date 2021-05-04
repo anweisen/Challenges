@@ -1,289 +1,290 @@
 {
-  "syntax": "Bitte nutze §e/{0}",
-  "player-command": "Dazu musst du ein Spieler sein!",
-  "no-permission": "Dazu hast du §ckeine §7Rechte",
-  "enabled": "§8➟ §aAktiviert",
-  "disabled": "§8➟ §cDeaktiviert",
-  "customize": "§8➟ §6Anpassen",
-  "navigate-back": "§8« §7Zurück",
-  "navigate-next": "§8» §7Weiter",
-  "seconds": "Sekunden",
-  "second": "Sekunde",
-  "minutes": "Minuten",
-  "minute": "Minute",
-  "hours": "Stunden",
-  "hour": "Stunde",
-  "amplifier": "Stärke",
-  "timer-counting-up": "§8» §7Timer zählt §ahoch",
-  "timer-counting-down": "§8» §7Timer zählt §crunter",
-  "timer-is-paused": "§8» §7Timer ist §cpausiert",
-  "timer-is-running": "§8» §7Timer ist §agestartet",
-  "confirm-reset": "Bestätige den Reset mit §e/{0}",
+  "syntax": "Please use §e/{0}",
+  "player-command": "You must be a player!",
+  "no-permission": "You §cdon't §7have permissions Rechte to do this",
+  "enabled": "§8➟ §aActivated",
+  "disabled": "§8➟ §cDeactivated",
+  "customize": "§8➟ §6Customize",
+  "navigate-back": "§8« §7Back",
+  "navigate-next": "§8» §7Next",
+  "seconds": "seconds",
+  "second": "second",
+  "minutes": "minutes",
+  "minute": "minute",
+  "hours": "hours",
+  "hour": "hour",
+  "amplifier": "amplifier",
+  "timer-counting-up": "§8» §7Timer counting §aup",
+  "timer-counting-down": "§8» §7Timer counting §cdown",
+  "timer-is-paused": "§8» §7Timer §cpaused",
+  "timer-is-running": "§8» §7Timer §astarted",
+  "confirm-reset": "Confirm reset with §e/{0}",
   "no-fresh-reset": [
-    "Der Server kann §cnicht resetet §7werden",
-    "Die Challenge wurde §cnoch nicht §7gestartet"
+    "Der Server §ccan't §7be reset yet",
+    "The Challenge §chasn't been §7started"
   ],
-  "new-challenge": "§a§lNeu!",
-  "feature-disabled": "Diese Funktion ist derzeit §cdeaktiviert",
-  "challenge-disabled": "Diese Challenge ist derzeit §cdeaktiviert",
-  "timer-not-started": "Der Timer wurde noch §cnicht gestartet",
-  "timer-was-started": "Der Timer wurde §agestartet",
-  "timer-was-paused": "Der Timer wurde §cpausiert",
-  "timer-was-set": "Der Timer wurde auf §e§l{0} §7gesetzt",
-  "timer-already-started": "Der Timer §cläuft bereits",
-  "timer-already-paused": "Der Timer ist §cbereits pausiert",
-  "timer-mode-set-down": "Der Timer zählt nun §crunter",
-  "timer-mode-set-up": "Der Timer zählt nun §ahoch",
-  "no-database-connection": "Es gibt §ckeine §7Datenbankverbindung",
-  "fetching-data": "Daten werden abgerufen..",
-  "undefined": "undefiniert",
-  "no-such-material": "Dieses Material gibt es nicht",
-  "not-an-item": "§e{0} §7ist kein Item",
+  "new-challenge": "§a§lNew!",
+  "feature-disabled": "This function is currently §cdeactivated",
+  "challenge-disabled": "This challenge is currently §cdeactivated",
+  "timer-not-started": "The timer §chasn't been started",
+  "timer-was-started": "The timer has been §astarted",
+  "timer-was-paused": "The timer has been §cpaused",
+  "timer-was-set": "The timer has ben set on §e§l{0}",
+  "timer-already-started": "The timer is §calready running",
+  "timer-already-paused": "The timer is §calready paused",
+  "timer-mode-set-down": "The timer is counting §cdown",
+  "timer-mode-set-up": "The timer is counting §aup",
+  "no-database-connection": "There is §cno §7Database connection",
+  "fetching-data": "Data is being retrieved..",
+  "undefined": "undefined",
+  "no-such-material": "This material doesn't exist",
+  "not-an-item": "§e{0} §7is not an item",
   "deprecated-plugin-version": [
-    "Eine neue Version von §e§lChallenges §7ist verfügbar",
+    "A new version of §e§lChallenges §7is available",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "Eine neue Version der §eChallengesconfig §7ist verfügbar",
-  "join-message": "§e{0} §7hat den Server §abetreten",
-  "quit-message": "§e{0} §7hat den Server §cverlassen",
+  "deprecated-config-version": "A new version of the §econfig §7ist available",
+  "join-message": "§e{0} §7has §ajoined §7the server",
+  "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [
-    "Der Timer ist noch §cpausiert",
-    "Nutze §e/timer resume §7um ihn zu starten"
+    "The timer is §cpaused",
+    "Use §e/timer resume §7to start it"
   ],
   "cheats-detected": [
-    "§e{0} §7hat §cgecheated",
-    "Es können §ckeine weiteren §7Statistiken gesammelt werden"
+    "§e{0} §7has §ccheated",
+    "",
+    "§cNo §7further statistics can be collected"
   ],
   "cheats-already-detected": [
-    "Auf diesem Server wurde §cgecheated",
-    "Es können §ckeine weiteren §7Statistiken gesammelt werden"
+    "On this server has been §ccheated",
+    "§cNo §7further statistics can be collected"
   ],
-  "player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
-  "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
-  "player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
+  "player-config-loaded": "Your settings have been loaded §asuccessfully",
+  "player-config-saved": "Your settings have been saved §asuccessfully",
+  "player-config-reset": "The settings were §asuccessfully §7reset",
 
-  "stat-dragon-killed": "Drachen getötet",
-  "stat-deaths": "Tode",
+  "stat-dragon-killed": "Dragons killed",
+  "stat-deaths": "Deaths",
   "stat-entity-kills": "Kills",
-  "stat-damage-dealt": "Schaden ausgeteilt",
-  "stat-damage-taken": "Schaden genommen",
-  "stat-blocks-mined": "Blöcke abgebaut",
-  "stat-blocks-placed": "Blöcke platziert",
-  "stat-blocks-traveled": "Blöcke gereist",
-  "stat-challenges-played": "Challenges gespielt",
-  "stat-jumps": "Sprünge",
-  "stats-of": "§8» §7Stats von §e{0}",
+  "stat-damage-dealt": "Damage dealt",
+  "stat-damage-taken": "Damage taken",
+  "stat-blocks-mined": "Blocks destroyed",
+  "stat-blocks-placed": "Blocks placed",
+  "stat-blocks-traveled": "Blocks travelled",
+  "stat-challenges-played": "Challenges played",
+  "stat-jumps": "Jumps",
+  "stats-of": "§8» §7Stats of §e{0}",
   "stats-display": "§8» §7{0} §8(§e{1}. §7Platz§8)",
   "stats-leaderboard-display": [
     "§8» §e{0}",
     "§8§l┣ §7{1} §7{2}",
-    "§8§l┗ §e{3}. §7Platz"
+    "§8§l┗ §e{3}. §7Place"
   ],
 
   "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
-  "positions-disabled": "Positionen sind §cdeaktiviert",
-  "position-other-world": "Diese Position befindet sich in einer anderen Welt §8(§e{0}§8)",
-  "position-set": "§e{5} §7hat §e{4} §7{0}, {1}, {2} §8(§e{3}§8) §7erstellt",
+  "positions-disabled": "Positions are §cdeactivated",
+  "position-other-world": "This position is in another world §8(§e{0}§8)",
+  "position-set": "§e{5} §7created position §e{4} §7{0}, {1}, {2} §8(§e{3}§8)",
   "no-positions": [
-    "Es sind keine §ePositionen §7in dieser Welt gesetzt",
-    "Erstelle eine mit §e/{0}"
+    "There are no §epositions §7set in this world",
+    "Create on with §e/{0}"
   ],
 
-  "command-no-target": "Es wurde §ckein §7Spieler gefunden",
-  "command-heal-healed": "Du wurdest §ageheilt",
-  "command-heal-healed-others": "Du hast §e{0} Spieler §ageheilt",
-  "command-gamemode-gamemode-changed": "Du wurdest in den Gamemode §e{0} §7gesetzt",
-  "command-gamemode-gamemode-changed-others": "Du hast §e{1} Spieler §7in den Gamemode §e{0} §7gesetzt",
-  "command-village-teleport": "Du wurdest in ein Dorf §ateleportiert",
-  "command-village-not-found": "Es wurde §ckein neues §7Dorf gefunden",
-  "command-weather-set-clear": "Wetter zu §eklar §7geändert",
-  "command-weather-set-rain": "Wetter zu §eregnerisch §7geändert",
-  "command-weather-set-thunder": "Wetter zu §estürmisch §7geändert",
-  "command-invsee-open": "Inventar von §e{0} §7geöffnet",
-  "command-enderchest-open": "§5Enderchest §7geöffnet",
-  "command-difficulty-change": "Schwierigkeit auf §e{0} §7geändert",
-  "command-difficulty-current": "Die derzeitige Schwierigkeit ist §e{0}",
-  "command-search-nothing": "§e{0} §7wird durch keinen speziellen Block gedroppt",
-  "command-search-result": "§e{0} §7droppt aus §e{1}",
-  "command-time-set": "Die Zeit wurde auf §e{0} §7Ticks §8(§7ca. §e{1}§8) §7geändert",
-  "command-time-set-exact": "Die Zeit wurde auf §e{0} §8(§e{1} §7Ticks§8) §7geändert",
+  "command-no-target": "§cNo §7players has been found",
+  "command-heal-healed": "You have been §ahealed",
+  "command-heal-healed-others": "You healed §e{0} player/s",
+  "command-gamemode-gamemode-changed": "Your gamemode has been changed to §e{0}",
+  "command-gamemode-gamemode-changed-others": "The gamemode of §e{1} §7player/s has been changed to §e{0}",
+  "command-village-teleport": "You have been §ateleported to a village",
+  "command-village-not-found": "§cNo §7new village was found",
+  "command-weather-set-clear": "Weather was changed to §eclear",
+  "command-weather-set-rain": "Weather was changed to §erainy",
+  "command-weather-set-thunder": "Weather was changed to §ethundery",
+  "command-invsee-open": "Inventory of §e{0} §7opened",
+  "command-enderchest-open": "§5Enderchest §7opened",
+  "command-difficulty-change": "Difficulty changed to §e{0}",
+  "command-difficulty-current": "Current difficulty is §e{0}",
+  "command-search-nothing": "§e{0} §7is not dropped by any special block",
+  "command-search-result": "§e{0} §7drops from §e{1}",
+  "command-time-set": "Time was changed to §e{0} §7Ticks §8(§7ca. §e{1}§8)",
+  "command-time-set-exact": "Time was changed to §e{0} §8(§e{1} §7Ticks§8)",
   "command-time-query": [
-    "§8» §7Derzeitige Ingamezeiten",
-    "Spielzeit §e{0} §7Ticks §8(§7Tag §e{1}§8)",
-    "Tageszeit §e{2} §7Ticks §8(§7ca. §e{3}§8)"
+    "§8» §7Current ingame times",
+    "Playtime §e{0} §7Ticks §8(§7Tag §e{1}§8)",
+    "Time of day §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
-  "command-fly-enabled": "Du kannst §anun fliegen",
-  "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
-  "command-toogled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
+  "command-fly-enabled": "You can fly §anow",
+  "command-fly-disabled": "You can §cno longer §7fly",
+  "command-toogled-others": "You toggled §efly §7for §e{0} §7player/s",
 
-  "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
-  "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
-  "death-message": "§e{0} §7ist gestorben",
-  "death-message-cause": "§e{0} §7ist durch §e{1} §7gestorben",
-  "health-inverted": "Deine Herzen wurden §cinvertiert",
-  "exp-picked-up": "§e{0} §7hat §cXP §7aufgesammelt",
-  "unable-to-find-fortress": "Es konnte §ckeine Festung §7gefunden werden",
-  "unable-to-find-bastion": "Es konnte §ckeine Bastion §7gefunden werden",
-  "death-collected": "Todesgrund §e{0} §7wurde registriert",
-  "item-collected": "Item §e{0} §7wurde registriert",
-  "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
-  "backpack-opened": "Du hast den {0} §7geöffnet",
-  "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
-  "top-to-surface": "Du wurdest zur §eOverfläche §7teleportiert",
-  "jnr-countdown": "Nächstes §6JumpAndRun §7in §e{0} Sekunden",
-  "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
-  "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
-  "snake-failed": "§e{0} §7ist über die §9Linie §7getreten",
-  "only-dirt-failed": "§e{0} §7stand nicht auf Erde",
-  "no-mouse-move-failed": "§e{0} §7hat seine Maus bewegt",
-  "no-duped-items-failed": "§e{0} §7und §e{1} §7hatten beide §e{2} §7im Inventar",
-  "only-down-failed": "§e{0} §7ist einen Block nach oben gegangen",
-  "food-once-failed": "§e{0} §7ist an §e{1} §7erstickt",
-  "food-once-new-food-team": "§e{0} §7hat §e{1} §7gegessen",
-  "food-once-new-food": "§eDu §7hast §e{1} §7gegessen",
-  "sneak-damage-failed": "§e{0} §7ist geschlichen",
-  "jump-damage-failed": "§e{0} §7ist gesprungen",
-  "random-challenge-enabled": "Die Challenge §e{0} §7wurde §aaktiviert",
-  "all-items-skipped": "Item §e{0} §7geskippt",
-  "all-items-already-finished": "Es wurden bereits alle Items gefunden",
-  "all-items-found": "Das Item §e{0} §7wurde registriert",
-  "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
-  "endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
-  "force-height-fail": "§e{0} §7war auf der §cfalschen Höhe §8(§e{1}§8)",
-  "force-height-success": "Alle Spieler waren auf der §arichtigen Höhe",
-  "force-block-fail": "§e{0} §7war auf dem §cfalschen Block §8(§e{1}§8)",
-  "force-block-success": "Alle Spieler waren auf dem §arichtigen Block",
-  "force-biome-fail": "Das Biom §e{0} §7wurde §cnicht gefunden",
-  "force-biome-success": "§e{0} §7hat das Biom §e{1} §agefunden",
-  "force-mob-fail": "Das Mob §e{0} §7wurde §cnicht getötet",
-  "force-mob-success": "§e{0} §7hat das Mob §e{1} §agetötet",
-  "force-item-fail": "Das Item §e{0} §7wurde §cnicht gefunden",
-  "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
+  "traffic-light-challenge-fail": "§e{0} §7went over §cred",
+  "player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",
+  "death-message": "§e{0} §7died",
+  "death-message-cause": "§e{0} §7died by §e{1}",
+  "health-inverted": "Your hearts have been §cinverted",
+  "exp-picked-up": "§e{0} §7collected §cEXP",
+  "unable-to-find-fortress": "§cNo fortress §7could be found",
+  "unable-to-find-bastion": "§cNo bastion §7could be found",
+  "death-collected": "Death reason §e{0} §7registered",
+  "item-collected": "Item §e{0} §7registered",
+  "backpacks-disabled": "Backpacks are currently §cdeactivated",
+  "backpack-opened": "You opened the {0}",
+  "top-to-overworld": "You have been teleported to the §eoverworld",
+  "top-to-surface": "You have been teleported to the §etop",
+  "jnr-countdown": "Next §6JumpAndRun §7in §e{0} seconds",
+  "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eone second",
+  "jnr-finished": "§e{0} §afinished §7the §6JumpAndRun",
+  "snake-failed": "§e{0} §7stepped over the §9line",
+  "only-dirt-failed": "§e{0} §7did not stand on dirt",
+  "no-mouse-move-failed": "§e{0} §7moved his mouse",
+  "no-duped-items-failed": "§e{0} §7and §e{1} §7both had §e{2} §7in their inventory",
+  "only-down-failed": "§e{0} §7went up one block",
+  "food-once-failed": "§e{0} §7suffocated by §e{1}",
+  "food-once-new-food-team": "§e{0} §7ate §e{1}",
+  "food-once-new-food": "§eYou §7ate §e{1}",
+  "sneak-damage-failed": "§e{0} §7sneaked",
+  "jump-damage-failed": "§e{0} §7jumped",
+  "random-challenge-enabled": "The challenge §e{0} §7has been §aactivated",
+  "all-items-skipped": "Item §e{0} §7skipped",
+  "all-items-already-finished": "All items has been already found",
+  "all-items-found": "Item §e{0} §7registered",
+  "boss-kill": "The §e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
+  "endergames-teleport": "Swapped with §e{0}",
+  "force-height-fail": "§e{0} §7was on the §cwrong §7height §8(§e{1}§8)",
+  "force-height-success": "All players were on the §aright §7height",
+  "force-block-fail": "§e{0} §7was on the §cwrong §7block §8(§e{1}§8)",
+  "force-block-success": "All players were on the §aright §7block",
+  "force-biome-fail": "The biome §e{0} §chasn't been found",
+  "force-biome-success": "§e{0} §7found the biome §e{1}",
+  "force-mob-fail": "The mob §e{0} §chasn't been killed",
+  "force-mob-success": "§e{0} §7killed the mob §e{1}",
+  "force-item-fail": "Item §e{0} §chasn't benn found",
+  "force-item-success": "§e{0} §afound §7the item §e{1}",
 
   "random-event-speed": [
-    "Sonic? Bist du es?",
-    "Woahh! Das ist aber schnell"
+    "Sonic? Is it you?",
+    "Woahh! That's fast"
   ],
   "random-event-entities": [
-    "Ist das hier ein Zoo?",
-    "Wo kommt ihr denn her?",
-    "Was macht ihr denn hier?"
+    "Is this a zoo?",
+    "Where did this come from?",
+    "What are you doing here?"
   ],
   "random-event-hole": [
-    "Du bist aber ganz schön tief gefallen",
-    "Von ganz oben nach ganz unten..",
-    "Wo kommt denn das Loch her?"
+    "But you fell pretty deep",
+    "From the very top to the very bottom..",
+    "Where did this hole come from?"
   ],
   "random-event-fly": [
-    "Guten Flug :)",
+    "Good flight :)",
     "I believe I can fly..",
-    "So fühlt sich also fliegen an"
+    "So this is what flying feels like"
   ],
   "random-event-webs": [
-    "Liegen die schon lange hier?"
+    "Have they been here for a long time?"
   ],
   "random-event-ores": [
-    "Wo sind denn die ganzen Erze hin?",
-    "Gibt es hier keine Erze?",
-    "Gab es hier mal Erze?"
+    "Where did all the ores go?",
+    "Aren't there any ores here?",
+    "Was there any ore here??"
   ],
   "random-event-sickness": [
-    "Bist du etwa krank?",
-    "Was geht denn jetzt ab"
+    "Are you sick??",
+    "What's going on now?!"
   ],
 
-  "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
-  "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
-  "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
-  "bossbar-height-time-left": "§8» §7Zeit übrig auf §e{0} §8§l┃ §a{1}s",
-  "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
-  "bossbar-random-challenge-waiting": "§8» §7Warten auf neue Challenge..",
+  "bossbar-timer-paused": "§8» §7The timer is §cstill paused",
+  "bossbar-mob-transformation": "§8» §7Last mob §8§l┃ §a{0}",
+  "bossbar-biome-time-left": "§8» §7Time left in §e{0} §8§l┃ §a{1}s",
+  "bossbar-height-time-left": "§8» §7Time left on §e{0} §8§l┃ §a{1}s",
+  "bossbar-zero-hearts": "§8» §7Protection time §8§l┃ §a{0}s",
+  "bossbar-random-challenge-waiting": "§8» §7Waiting for new challenge..",
   "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
   "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
-  "bossbar-all-items-finished": "§8» §7Alle Items gefunden",
-  "bossbar-force-height-waiting": "§8» §7Warten auf nächste Höhe..",
-  "bossbar-force-height-instruction": "§8» §7Höhe §e{0} §8┃ §a{1}",
-  "bossbar-force-block-waiting": "§8» §7Warten auf nächsten Block..",
+  "bossbar-all-items-finished": "§8» §7All items found",
+  "bossbar-force-height-waiting": "§8» §7Waiting for next height..",
+  "bossbar-force-height-instruction": "§8» §7Height §e{0} §8┃ §a{1}",
+  "bossbar-force-block-waiting": "§8» §7Waiting for next block..",
   "bossbar-force-block-instruction": "§8» §7Block §e{0} §8┃ §a{1}",
-  "bossbar-force-biome-waiting": "§8» §7Warten auf nächstes Biom..",
-  "bossbar-force-biome-instruction": "§8» §7Biom §e{0} §8┃ §a{1}",
-  "bossbar-force-mob-waiting": "§8» §7Warten auf nächsten Mob..",
+  "bossbar-force-biome-waiting": "§8» §7Waiting for next biome..",
+  "bossbar-force-biome-instruction": "§8» §7Biome §e{0} §8┃ §a{1}",
+  "bossbar-force-mob-waiting": "§8» §7Waiting for next mob..",
   "bossbar-force-mob-instruction": "§8» §7Mob §e{0} §8┃ §a{1}",
-  "bossbar-force-item-waiting": "§8» §7Warten auf nächstes Item..",
+  "bossbar-force-item-waiting": "§8» §7Waiting for next item..",
   "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
-  "bossbar-tsunami-water": "§8» §7Wasserhöhe: §9{0}",
-  "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
+  "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
+  "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
 
-  "subtitle-time-seconds": "§e{0} §7Sekunden",
-  "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
-  "subtitle-time-minutes": "§e{0} §7Minuten",
+  "subtitle-time-seconds": "§e{0} §7seconds",
+  "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
+  "subtitle-time-minutes": "§e{0} §7minutes",
   "subtitle-pickup-launcher-description": "Stärke §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
-  "your-place": "§7Dein Platz §8» §e{0}",
+  "your-place": "§7Your place §8» §e{0}",
 
   "server-reset": [
     "§8————————————————————",
     "",
-    "§8» §cServerreset",
+    "§8» §cServer reset",
     "",
-    "§7Reset durch §4§l{0}",
-    "§7Der Server startet nun §cneu",
+    "§7Reset by §4§l{0}",
+    "§7The server is §crestarting",
     "",
     "§8————————————————————"
   ],
   "challenge-end-timer-hit-zero": [
     "",
-    "§cDie Challenge ist vorbei!",
+    "§cThe challenge is over!",
     "§7Seed: §e§l{2}",
     ""
   ],
   "challenge-end-timer-hit-zero-winner": [
     "",
-    "§cDie Challenge ist vorbei!",
+    "§cThe challenge is over!",
     "§7Gewinner: §e§l{1}",
     "§7Seed: §e§l{2}",
     ""
   ],
   "challenge-end-goal-reached": [
     "",
-    "§7Die Challenge wurde beendet!",
-    "§7Zeit benötigt: §a§l{0}",
+    "§7The challenge was ended!",
+    "§7Time needed: §a§l{0}",
     "§7Seed: §e§l{2}",
     ""
   ],
   "challenge-end-goal-reached-winner": [
     "",
-    "§7Die Challenge wurde beendet!",
-    "§7Gewinner: §e§l{1}",
-    "§7Zeit benötigt: §a§l{0}",
+    "§7The challenge was ended!",
+    "§7Winner: §e§l{1}",
+    "§7Time needed: §a§l{0}",
     "§7Seed: §e§l{2}",
     ""
   ],
   "challenge-end-goal-failed": [
     "",
-    "§cDie Challenge ist vorbei! §6#FeelsBadMan ✞",
-    "§7Zeit verschwendet: §a§l{0}",
+    "§cThe challenge is over! §6#FeelsBadMan ✞",
+    "§7Time wasted: §a§l{0}",
     "§7Seed: §e§l{2}",
     ""
   ],
 
   "title-timer-started": [
     "",
-    "§8» §7Timer §afortgesetzt"
+    "§8» §7Timer §acontinued"
   ],
   "title-timer-paused": [
     "",
-    "§8» §7Timer §cpausiert"
+    "§8» §7Timer §cpaused"
   ],
   "title-challenge-enabled": [
     "§e{0}",
-    "§2§l✔ §8┃ §aAktiviert"
+    "§2§l✔ §8┃ §aActivated"
   ],
   "title-challenge-disabled": [
     "§e{0}",
-    "§4✖ §8┃ §cDeaktiviert"
+    "§4✖ §8┃ §cDeactivated"
   ],
   "title-challenge-value-changed": [
     "§e{0}",
@@ -291,212 +292,212 @@
   ],
   "title-pregame-movement-setting": [
     "§cWarte..",
-    "§8» §7Der Timer ist gestoppt.."
+    "§8» §7Timer is stopped.."
   ],
 
   "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
   "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
   "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
   "item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
-  "item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
+  "item-menu-stats": "§8• §2Statistics §8┃ §e/stats §8•",
 
-  "item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
-  "item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
-  "item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",
-  "item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
-  "item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
+  "item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
+  "item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
+  "item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",
+  "item-heart-damage-description": "§8» §7Damage: §e{0} §c❤",
+  "item-max-health-description": "§8» §7Max health: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
-  "item-pickup-launcher-description": "§8» §7Stärke: §e{0}",
-  "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
-  "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
+  "item-pickup-launcher-description": "§8» §7Strength: §e{0}",
+  "item-permanent-effect-target-player-description": "§8» §7Only the active players gets the effect",
+  "item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
 
   "item-difficulty-setting": [
-    "§aSchwierigkeit",
-    "Stellt die *Schwierigkeitsstufe* ein"
+    "§aDifficulty",
+    "Sets the *Difficulty* ein"
   ],
   "item-one-life-setting": [
-    "§cEin Teamleben",
-    "*Jeder* stirbt wenn *einer stirbt*"
+    "§cOne Teamlife",
+    "*Everyone* dies when *one dies*"
   ],
   "item-respawn-setting": [
     "§4Respawn",
-    "Wenn du *stirbst*, wirst du nicht zu einem *Zuschauer*"
+    "When you *die*, you won't be a *spectator*"
   ],
   "item-death-message-setting": [
-    "§6Todesnachrichten",
-    "Schaltet *Todesnachrichten* ein/aus"
+    "§6Death messages",
+    "Toggles *Death messages*"
   ],
   "item-pvp-setting": [
     "§9PvP"
   ],
   "item-max-health-setting": [
-    "§cMaximale Herzen",
-    "Stellt ein wie viele",
-    "Herzen man hat"
+    "§cMax health",
+    "Sets the *max health*",
+    "for *all players*"
   ],
   "item-soup-setting": [
-    "§cSuppen Heilung",
-    "Wenn du eine *Pilzsuppe Suppe* benutzt",
-    "wirst du um *4 Herzen* geheilt"
+    "§cSoup healing",
+    "When you use a *mushroom soup*",
+    "you will be healed for *4 hearts*"
   ],
   "item-damage-setting": [
     "§cDamage Multiplier",
-    "Schaden den du nimmst wird *multipliziert*"
+    "Damage you take will be *multiplied*"
   ],
   "item-damage-display-setting": [
     "§eDamage Display",
-    "Es wird im Chat angezeigt",
-    "wenn jemand *Schaden* bekommt"
+    "It will be displayed in the *chat*",
+    "when anybody takes *damage*"
   ],
   "item-health-display-setting": [
     "§cHealth Display",
-    "Die *Herzen* aller Spieler",
-    "werden in der *Tablist* angezeigt"
+    "The *hearts* of all players",
+    "will be showed in the *tablist*"
   ],
   "item-position-setting": [
     "§9Positions",
-    "Erlaubt es dir *Positionen*",
-    "mit */pos*  zu *markieren*"
+    "Allows you to mark *positions*",
+    "with */pos*"
   ],
   "item-backpack-setting": [
     "§6Backpack",
-    "Erlaubt es dir *deinen Backpack* oder den",
-    "*Team Backpack* mit */backpack* zu öffnen"
+    "Allows you to open *your backpack* or",
+    "the *team backpack* with */backpack*"
   ],
   "item-cut-clean-setting": [
     "§9CutClean",
-    "Verschiedene *Einstellungen* die",
-    "das *Farmen* von Items *einfacher* machen"
+    "Different *settings* to simplify",
+    "the *farming* of items"
   ],
   "item-cut-clean-gold-setting": [
     "§6Gold",
-    "*Golderz* wird direkt zu *Goldbarren*"
+    "*Gold ore* will be directly dropped as *Gold ingot*"
   ],
   "item-cut-clean-iron-setting": [
     "§7Iron",
-    "*Eisenerz* wird direkt zu *Eisenbarren*"
+    "*Iron ore* will be directly dropped as *Iron ingot*"
   ],
   "item-cut-clean-coal-setting": [
     "§eCoal",
-    "*Kohleerz* wird direkt zu *Fackeln*"
+    "*Coal* will be directly dropped as *torches*"
   ],
   "item-cut-clean-flint-setting": [
     "§eFlint",
-    "*Gravel* droppt immer *Flint*"
+    "*Gravel* will always drop *flint*"
   ],
   "item-cut-clean-vein-setting": [
     "§eOre Veins",
-    "*Erz Venen* werden direkt abgebaut"
+    "*Ore veins* will be directly destroyed"
   ],
   "item-cut-clean-inventory-setting": [
-    "§6Direkt ins Inventar",
-    "*Items* werden *anstatt gedroppt* zu werden,",
-    "*direkt* ins *Inventar* hinzugefügt"
+    "§6Direct Into Inventory",
+    "*Items* will be put *directly* into your",
+    "*inventory* instead of dropping"
   ],
   "item-cut-clean-food-setting": [
-    "§cGebratenes Essen",
-    "*Rohes Fleisch* wird direkt zu *gebratenem Fleisch*"
+    "§cCooked Food",
+    "*Raw meat* will be directly dropped as *cooked meat*"
   ],
   "item-glow-setting": [
-    "§fPlayerglow",
-    "*Spieler* sind durch die *Wand* sichtbar"
+    "§fPlayer Glow",
+    "*Players* are visible through *walls*"
   ],
   "no-hunger-setting": [
-    "§cKein Hunger",
-    "Du bekommst keinen *Hunger*"
+    "§cNo Hunger",
+    "You don't get *hungry*"
   ],
   "pregame-movement-setting": [
     "§6Pregame Movement",
-    "Du kannst dich *bewegen*, bevor",
-    "das Spiel *gestartet* hat"
+    "You can *move* before",
+    "the game has been *started*"
   ],
   "item-no-hit-delay-setting": [
     "§fNoHitDelay",
-    "Nachdem du *Schaden* genommen hast,",
-    "kannst du *sofort* wieder Schaden *bekommen*"
+    "After you've *taken* damage",
+    "you can *get* damage *immediately* again"
   ],
   "item-timber-setting": [
     "§bTimber",
-    "Du kannst einen *Baum* zerstören,",
-    "indem du *einen Block* des Baumes abbaust"
+    "You can destroy a *tree*",
+    "by breaking down *a single block* of the tree"
   ],
   "item-keep-inventory-setting": [
     "§5Keep Inventory",
-    "Du verlierst keine *Items*",
-    "Wenn du *stirbst*"
+    "You don't lose any *items*",
+    "when you die"
   ],
   "item-no-item-damage-setting": [
-    "§5Kein Itemschaden",
-    "*Items* sind *unzerstörbar*"
+    "§5No Item Damage",
+    "*Items* area *unbreakable*"
   ],
   "top-command-setting": [
     "§dTop Command",
-    "Mit */top* kannst du dich",
-    "zur *Oberfläche* oder in",
-    "die *Overworld* teleportieren"
+    "You can *teleport* to the *top*",
+    "of the world or to the *overworld*",
+    "with /top"
   ],
   "item-fortress-spawn-setting": [
     "§cFestungs Spawn",
-    "Wenn du in den *Nether* gehst",
-    "spawnst du immer in einer *Festung*"
+    "When you go into the *nether*",
+    "you will always spawn in a *fortress*"
   ],
   "item-bastion-spawn-setting": [
-    "§cBastions Spawn",
-    "Wenn du in den *Nether* gehst",
-    "spawnst du immer in einer *Bastion*"
+    "§cBastion Spawn",
+    "When you go into the *nether*",
+    "you will always spawn in a *bastion*"
   ],
   "item-no-offhand-setting": [
-    "§6Keine Offhand",
-    "Die *zweite Hand* wird geblockt"
+    "§6No Offhand",
+    "The *second hand* will be blocked"
   ],
   "item-regeneration-setting": [
     "§cRegeneration",
-    "Stellt ein *ob* und",
-    "*wie* man *regeneriert*"
+    "Sets *wheter* and",
+    "*how* to *regenerate*"
   ],
   "item-immediate-respawn-setting": [
-    "§6Direkter Respawn",
-    "Wenn du stirbst *respawnst* du *automatisch*",
-    "ohne den *Death Screen* zu sehen"
+    "§6Direct Respawn",
+    "When you *die* you *respawn* automatically",
+    "*without* seeing the *death screen*"
   ],
   "item-slot-limit-setting": [
-    "§4Inventar Slots",
-    "Stellt ein wie viele *Inventar*",
-    "*Slots* nutzbar sind"
+    "§4Inventory Slots",
+    "Sets how many *inventory*",
+    "*slots* are useable"
   ],
   "item-death-position-setting": [
     "§cDeath Position",
-    "Wenn du stirbst, wird mit */pos* ",
-    "eine *Position an deinem Todespunkt* erstellt"
+    "When you die, */pos* creates",
+    "a position at your death point"
   ],
   "item-enderchest-command-setting": [
     "§5Enderchest Command",
-    "Wenn du */ec* ausführst, öffnet",
-    "sich deine *Enderchest*"
+    "When you execute */ec*,",
+    "your *Enderchest* opens"
   ],
   "item-split-health-setting": [
-    "§cGeteilte Herzen",
-    "Stellt ein, ob sich *alle*",
-    "*Spieler* eine *Gesundheit teilen*"
+    "§cSplit Health",
+    "Sets whether *all players*",
+    "share the same *health*"
   ],
 
 
   "item-traffic-light-challenge": [
-    "§cAmpelchallenge",
-    "Die *Ampel* schaltet alle paar Minuten um",
-    "Wenn du bei *rot* gehst stirbst du"
+    "§cTraffic Light Challenge",
+    "The *traffic light* switches every few minutes.",
+    "If you go on *red*, you die"
   ],
   "item-block-randomizer-challenge": [
     "§6Block Randomizer",
-    "Jeder *Block* droppt ein *zufälliges Item*"
+    "Each *block* drops a *random item*"
   ],
   "item-crafting-randomizer-challenge": [
     "§6Crafting Randomizer",
-    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
+    "If you *craft* something you will get another *random item*"
   ],
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
-    "Wenn ein *Entity* spawnt, spawnt ein *anderes*"
+    "When an *Entity* spawns, *another one* spawns"
   ],
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
@@ -521,7 +522,7 @@
   "item-bedrock-path-challenge": [
     "§7Bedrock Path",
     "*Unter dir* entsteht die",
-    "ganze Zeit *Bedrock*"
+    "ganze Time *Bedrock*"
   ],
   "item-bedrock-walls-challenge": [
     "§7Bedrock Walls",
@@ -689,13 +690,13 @@
     "*erleidest* du den gesetzen Schaden"
   ],
   "item-max-biome-time-challenge": [
-    "§2Maximale Biom Zeit",
-    "Die *Zeit* die du in jedem *Biom*",
+    "§2Maximale Biom Time",
+    "Die *Time* die du in jedem *Biom*",
     "sein darfst, ist *begrenzt*"
   ],
   "item-max-height-time-challenge": [
-    "§9Maximale Höhen Zeit",
-    "Die *Zeit* die du auf jeder *Höhe*",
+    "§9Maximale Höhen Time",
+    "Die *Time* die du auf jeder *Höhe*",
     "sein darfst, ist *begrenzt*"
   ],
   "item-permanent-item-challenge": [
@@ -736,7 +737,7 @@
   ],
   "item-zero-hearts-challenge": [
     "§6Null Herzen",
-    "Nach einer *Schutzzeit* musst du",
+    "Nach einer *SchutzTime* musst du",
     "dauerhaft absorption bekommen"
   ],
   "item-random-effect-challenge": [
@@ -834,7 +835,7 @@
     "§aForce Biome",
     "Alle *paar Minuten* musst du in",
     "ein *bestimmtes Biom* oder du stirbst",
-    "Je *seltener* das Biom ist, desto *mehr Zeit* hast du"
+    "Je *seltener* das Biom ist, desto *mehr Time* hast du"
   ],
   "item-force-mob-challenge": [
     "§bForce Mob",
