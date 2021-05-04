@@ -68,6 +68,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		if (!getSetting("place").getAsBoolean()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getBlockAgainst().getType() == Material.BEDROCK) return;
+		if (event.getBlockAgainst().getType() == Material.END_PORTAL) return;
 		breakBlocks(event.getBlockAgainst(), null, event.getPlayer().getInventory());
 	}
 
