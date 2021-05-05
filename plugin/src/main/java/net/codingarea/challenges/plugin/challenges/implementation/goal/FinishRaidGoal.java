@@ -43,8 +43,8 @@ public class FinishRaidGoal extends SettingGoal {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onRaidFinish(@Nonnull RaidFinishEvent event) {
 		if (event.getRaid().getStatus() != RaidStatus.VICTORY) return;
-		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 		this.winners = event.getWinners();
+		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 	}
 
 }
