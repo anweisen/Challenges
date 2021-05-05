@@ -38,7 +38,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	private final Inventory sharedBackpack;
 
 	public BackpackSetting() {
-		super(MenuType.SETTINGS, 2);
+		super(MenuType.SETTINGS, 1, 3, SHARED);
 		size = Math.max(Math.min(Challenges.getInstance().getConfigDocument().getInt("backpack-size") * 9, 6*9), 9);
 		sharedBackpack = createInventory("§5Team Backpack");
 	}
