@@ -38,7 +38,10 @@ public abstract class RandomizerSetting extends Setting {
 	@Override
 	public void loadGameState(@Nonnull Document document) {
 		super.loadGameState(document);
-		if (!document.contains("seed")) return;
+		if (!document.contains("seed")) {
+			random = new SeededRandomWrapper();
+			return;
+		}
 
 		long seed = document.getLong("seed");
 		if (seed == random.getSeed()) return;

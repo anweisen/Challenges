@@ -115,7 +115,9 @@
   ],
   "command-fly-enabled": "You can fly §anow",
   "command-fly-disabled": "You can §cno longer §7fly",
-  "command-toogled-others": "You toggled §efly §7for §e{0} §7player/s",
+  "command-fly-toggled-others": "You toggled §efly §7for §e{0} §7player/s",
+  "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
+  "command-gamestate-reset": "Der Gamestate wurde §azurück gesetzt",
 
   "traffic-light-challenge-fail": "§e{0} §7went over §cred",
   "player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",

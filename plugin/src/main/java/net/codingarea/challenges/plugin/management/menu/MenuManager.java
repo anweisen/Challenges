@@ -3,19 +3,19 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
-import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +28,6 @@ public final class MenuManager {
 	public static final int[] GUI_SLOTS = { 30, 32, 19, 25, 11, 15 };
 
 	private final Map<MenuType, SettingsMenu> menus = new HashMap<>();
-	private final Map<Player, MenuPosition> positions = new HashMap<>();
 	private final AnimatedInventory gui;
 	private final boolean displayNewInFront;
 	private final boolean permissionToManageGUI;
@@ -48,7 +47,7 @@ public final class MenuManager {
 
 		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
-		gui.cloneLastAndAdd().setItem(39, ItemBuilder.FILL_ITEM_2).setItem(41, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setAccent(39, 41);
 		gui.cloneLastAndAdd().setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(37, ItemBuilder.FILL_ITEM_2).setItem(43, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(28, ItemBuilder.FILL_ITEM_2).setItem(34, ItemBuilder.FILL_ITEM_2);
@@ -72,7 +71,7 @@ public final class MenuManager {
 		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
 			MenuType type = challenge.getType();
 			SettingsMenu menu = menus.get(type);
-			if (menu == null) continue; // Menu is disabled
+			if (menu == null) continue; // Menu is not usable
 			menu.addChallengeCache(challenge);
 		}
 		menus.values().forEach(SettingsMenu::generateInventories);
@@ -118,16 +117,6 @@ public final class MenuManager {
 	@Nonnull
 	public SettingsMenu getMenu(@Nonnull MenuType type) {
 		return menus.get(type);
-	}
-
-	@Nullable
-	public MenuPosition getPosition(@Nonnull Player player) {
-		return positions.get(player);
-	}
-
-	public synchronized void setPosition(@Nonnull Player player, @Nullable MenuPosition position) {
-		if (position == null) positions.remove(player);
-		else positions.put(player, position);
 	}
 
 	public boolean isDisplayNewInFront() {

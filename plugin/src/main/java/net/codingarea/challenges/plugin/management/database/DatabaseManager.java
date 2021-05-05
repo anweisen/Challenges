@@ -93,7 +93,7 @@ public final class DatabaseManager {
 
 	public void disconnectIfConnected() {
 		if (database != null) {
-			Challenges.getInstance().runAsync(database::disconnectSafely);
+			database.disconnectSafely();
 		}
 	}
 

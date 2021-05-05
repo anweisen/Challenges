@@ -31,6 +31,8 @@ import java.util.*;
  */
 public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBuilder {
 
+	public static final ItemStack BLOCKED_ITEM  = new ItemBuilder(Material.BARRIER, "§cBlocked").build();
+
 	protected ItemDescription builtByItemDescription;
 
 	public ItemBuilder(@Nonnull ItemStack item) {
@@ -353,7 +355,7 @@ public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBu
 				}
 			}
 
-			getMeta().setOwningPlayer(Bukkit.getOfflinePlayer(uuid));
+			setOwner(name);
 			return this;
 		}
 

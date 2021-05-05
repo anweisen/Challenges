@@ -37,7 +37,7 @@ public final class ConfigManager {
 		try {
 			File file = Challenges.getInstance().getDataFile(filename);
 			FileUtils.createFilesIfNecessary(file);
-			return new FileDocumentWrapper(file, new GsonDocument(file));
+			return FileDocument.read(GsonDocument.class, file);
 		} catch (Exception ex) {
 			Logger.error("Could not load config '{}': {}", filename, ex);
 			return null;

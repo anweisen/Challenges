@@ -105,7 +105,6 @@ public final class ChallengeTimer {
 		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			Challenges.getInstance().getPlayerInventoryManager().updateInventoryAuto(player);
 			if (player.getGameMode() != GameMode.CREATIVE)
 				player.setGameMode(GameMode.SURVIVAL);
 		}
@@ -132,7 +131,6 @@ public final class ChallengeTimer {
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
 			SoundSample.BASS_OFF.broadcast();
 		}
-		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void reset() {
@@ -140,7 +138,6 @@ public final class ChallengeTimer {
 		time = 0;
 		countingUp = true;
 		updateActionbar();
-		Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto);
 	}
 
 	public void updateActionbar() {

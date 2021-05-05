@@ -1,13 +1,14 @@
 package net.codingarea.challenges.plugin.management.menu;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.commons.version.Version;
 import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -54,12 +55,7 @@ public final class SettingsMenu {
 	}
 
 	private int countNewChallenges() {
-		int i = 0;
-		for (IChallenge challenge : challenges) {
-			if (!isNew(challenge)) return i;
-			i++;
-		}
-		return i;
+		return (int) challenges.stream().filter(this::isNew).count();
 	}
 
 	public void generateInventories() {

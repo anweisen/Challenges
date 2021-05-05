@@ -150,7 +150,7 @@ public final class WorldManager {
 			}
 
 			String newWorldName = customSeedWorldPrefix + name;
-			File folder = new File(newWorldName);
+			File folder = new File(Bukkit.getWorldContainer(), newWorldName);
 			if (folder.exists()) FileUtils.deleteWorldFolder(folder);
 
 			WorldCreator creator = new WorldCreator(newWorldName).seed(seed).environment(world.getEnvironment());
@@ -242,19 +242,19 @@ public final class WorldManager {
 	}
 
 	private void deleteWorld(@Nonnull String name) {
-		File folder = new File(name);
+		File folder = new File(Bukkit.getWorldContainer(), name);
 		FileUtils.deleteWorldFolder(folder);
 		Logger.info("Deleted world {}", name);
 	}
 
 	private void copyPreGeneratedWorld(@Nonnull String name) {
-		File source = new File(customSeedWorldPrefix + name);
+		File source = new File(Bukkit.getWorldContainer(), customSeedWorldPrefix + name);
 		if (!source.exists() || !source.isDirectory()) {
 			Logger.warn("Custom seed world '{}' does not exist!", name);
 			return;
 		}
 
-		File target = new File(name);
+		File target = new File(Bukkit.getWorldContainer(), name);
 		try {
 			copy(source, target);
 			Logger.debug("Copied pre generated custom seed world {}", name);
@@ -264,11 +264,8 @@ public final class WorldManager {
 	}
 
 	private void deletePreGeneratedWorld(@Nonnull String name) {
-		File source = new File(customSeedWorldPrefix + name);
-		if (!source.exists() || !source.isDirectory()) {
-			Logger.warn("Custom seed world '{}' does not exist!", name);
-			return;
-		}
+		File source = new File(Bukkit.getWorldContainer(), customSeedWorldPrefix + name);
+		if (!source.exists() || !source.isDirectory()) return;
 
 		FileUtils.deleteWorldFolder(source);
 		Logger.debug("Deleted pre generated custom seed world {}", name);

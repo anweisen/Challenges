@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.info;
 
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 

@@ -1,15 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.EmptyMenuPosition;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.SettingsMenu;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
-import net.codingarea.challenges.plugin.management.menu.info.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -126,7 +126,7 @@ public abstract class MenuSetting extends Setting {
 	}
 
 	private void openMenu(@Nonnull ChallengeMenuClickInfo event) {
-		MenuPosition position = Challenges.getInstance().getMenuManager().getPosition(event.getPlayer());
+		MenuPosition position = MenuPosition.get(event.getPlayer());
 		if (position == null) position = new EmptyMenuPosition();
 		Inventory inventory = event.getInventory();
 		SoundSample.CLICK.play(event.getPlayer());
