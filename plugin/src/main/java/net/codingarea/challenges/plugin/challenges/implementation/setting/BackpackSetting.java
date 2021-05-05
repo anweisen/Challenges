@@ -109,7 +109,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 		for (String key : document.keys()) {
 			try {
 				int index = Integer.parseInt(key);
-				ItemStack item = ItemStack.deserialize(((Map<String, Object>) document.getObject(key)));
+				ItemStack item = document.getSerializable(key, ItemStack.class);
 				inventory.setItem(index, item);
 			} catch (Exception ex) {
 			}
@@ -133,8 +133,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	protected void write(@Nonnull Document document, @Nonnull Inventory inventory) {
 		for (int i = 0; i < inventory.getSize(); i++) {
 			ItemStack item = inventory.getItem(i);
-			if (item == null) continue;
-			document.set(i + "", item.serialize());
+			document.set(i + "", item);
 		}
 	}
 
