@@ -27,7 +27,7 @@ config-version: "2.0"
 # Currently supported by default
 # - en (English)
 # - de (German / Deutsch)
-language: "en"
+language: "de"
 
 timer:
   stopped-message: "§8• §7Timer §c§lpaused §8•"

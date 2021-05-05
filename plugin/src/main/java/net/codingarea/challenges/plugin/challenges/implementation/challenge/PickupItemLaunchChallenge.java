@@ -6,7 +6,6 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
-import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import org.bukkit.Material;
@@ -26,7 +25,7 @@ import javax.annotation.Nullable;
 public class PickupItemLaunchChallenge extends SettingModifier {
 
     public PickupItemLaunchChallenge() {
-        super(MenuType.CHALLENGES, 1, 5, 2);
+        super(MenuType.CHALLENGES, 1, 10, 2);
     }
 
     @NotNull
