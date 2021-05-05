@@ -79,6 +79,10 @@ commands:
     aliases:
       - "config"
     permission: "challenges.config"
+  gamestate:
+    usage: "/gamestate <reset/reload>"
+    description: "Allows you to reload/reset the current challenges gamestate"
+    permission: "challenges.gamestate"
   top:
     usage: "/top"
     description: "Teleports you to the surface or to the overworld"
