@@ -11,6 +11,11 @@
     </content>
     <orderEntry type="jdk" jdkName="1.8" jdkType="JavaSDK" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:bukkit-utils:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:common-utils:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.25" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-api:1.2.4" level="project" />
+    <orderEntry type="library" name="Maven: net.anweisen.utilities:database-sql:1.2.4" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.mojang:authlib:1.5.21" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: com.google.guava:guava:17.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: org.apache.commons:commons-lang3:3.3.2" level="project" />

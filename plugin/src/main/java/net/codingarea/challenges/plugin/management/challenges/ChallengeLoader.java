@@ -59,12 +59,12 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 
 		// Challenges
 		register(RandomChallengeChallenge.class);
-		register(WaterMLGChallenge.class);
-		register(NoTradingChallenge.class);
-		register(NoExpChallenge.class);
+		register(RandomizedHPChallenge.class);
 		register(OneDurabilityChallenge.class);
 		register(OnlyDirtChallenge.class);
-		register(RandomizedHPChallenge.class);
+		register(NoTradingChallenge.class);
+		register(NoExpChallenge.class);
+		register(WaterMLGChallenge.class);
 
 		register(HungerPerBlockChallenge.class);
 		register(DamagePerBlockChallenge.class);
