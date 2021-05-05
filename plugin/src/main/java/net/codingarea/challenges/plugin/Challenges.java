@@ -91,7 +91,7 @@ public final class Challenges extends BukkitModule {
 		configManager.loadConfigs();
 
 		loaderRegistry = new LoaderRegistry(
-				new LanguageLoader(), new PrefixLoader(), new UpdateLoader()
+				new LanguageLoader(), new PrefixLoader(), new UpdateLoader(), new ServiceLoader()
 		);
 
 		databaseManager = new DatabaseManager();
@@ -167,7 +167,6 @@ public final class Challenges extends BukkitModule {
 
 	private void registerListeners() {
 		registerListener(
-				new InventoryListener(),
 				new PlayerConnectionListener(),
 				new RestrictionListener(),
 				new ExtraWorldRestrictionListener(),
@@ -197,6 +196,10 @@ public final class Challenges extends BukkitModule {
 				challengeManager.saveGamestate(false);
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public final void setValidationFailed() {
+		validationFailed = true;
 	}
 
 	@Nonnull

@@ -2,14 +2,14 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.EmptyMenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.SlottedMenuPosition;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition.EmptyMenuPosition;
-import net.codingarea.challenges.plugin.management.menu.MenuPosition.SlottedMenuPosition;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
 import net.codingarea.challenges.plugin.management.stats.Statistic;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.StatsHelper;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -86,7 +87,7 @@ public class LeaderboardCommand implements PlayerCommand {
 		};
 
 		String statisticName = StatsHelper.getNameMessage(statistic).asString();
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(statisticName, page + 1), 6*9, MenuPosition.HOLDER);
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(ChatColor.stripColor(statisticName), page + 1), 6*9, MenuPosition.HOLDER);
 		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
 
 		List<PlayerStats> leaderboard = Challenges.getInstance().getStatsManager().getLeaderboard(statistic);

@@ -25,18 +25,40 @@ public final class ConsolePrint {
 	}
 
 	public static void unknownLanguage(@Nullable String language) {
+		log("");
 		log("Found unknown language '" + language + "'!");
 		log("Defaulting to en (English)");
+		log("");
 	}
 
 	public static void unableToGetLanguages() {
+		log("");
 		log("No languages found to load");
 		log("Is the server / plugin set up correctly?");
+		log("");
 	}
 
 	public static void alreadyExecutingContentLoader() {
+		log("");
 		log("Cannot load contents; Already loading contents?");
 		log("Are you reloading too fast?");
+		log("");
+	}
+
+	public static void accessBlocked() {
+		log(" ");
+		log(" ");
+		log("██████╗░██╗░░░░░░█████╗░░█████╗░██╗░░██╗███████╗██████╗░");
+		log("██╔══██╗██║░░░░░██╔══██╗██╔══██╗██║░██╔╝██╔════╝██╔══██╗");
+		log("██████╦╝██║░░░░░██║░░██║██║░░╚═╝█████═╝░█████╗░░██║░░██║");
+		log("██╔══██╗██║░░░░░██║░░██║██║░░██╗██╔═██╗░██╔══╝░░██║░░██║");
+		log("██████╦╝███████╗╚█████╔╝╚█████╔╝██║░╚██╗███████╗██████╔╝");
+		log("╚═════╝░╚══════╝░╚════╝░░╚════╝░╚═╝░░╚═╝╚══════╝╚═════╝░");
+		log(" ");
+		log("Your server's access is blocked.");
+		log("For more information and support visit our discord server: https://discord.coding-area.net");
+		log(" ");
+		log(" ");
 	}
 
 	public static void noMongoDependencies() {

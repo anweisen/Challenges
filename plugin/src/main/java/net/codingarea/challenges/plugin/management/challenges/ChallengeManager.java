@@ -103,6 +103,16 @@ public final class ChallengeManager {
 		}
 	}
 
+	public void resetGamestate() {
+		for (IChallenge challenge : challenges) {
+			try {
+				challenge.loadGameState(Document.empty());
+			} catch (Exception ex) {
+				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
+	}
+
 	public void saveGameStateInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
 			try {

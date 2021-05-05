@@ -22,6 +22,10 @@ public abstract class ContentLoader {
 		return new File(getMessagesFolder(), name + "." + extension);
 	}
 
+	protected final String getGitHubUrl(@Nonnull String path) {
+		return "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() ? "development" : "master") + "/" + path;
+	}
+
 	protected abstract void load();
 
 }

@@ -22,6 +22,7 @@ commands:
     aliases:
       - "hilfe"
       - "h"
+      - "info"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"

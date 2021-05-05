@@ -93,12 +93,6 @@
 			<version>1.16.5-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot</artifactId>
-			<version>1.16.5-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
 
 		<dependency>
 			<groupId>org.mongodb</groupId>
@@ -130,24 +124,19 @@
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>bukkit-utils</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.4</version>
 		</dependency>
 
 		<!-- Database API -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-api</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.4</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-sql</artifactId>
-			<version>1.2.3</version>
-		</dependency>
-		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
-			<artifactId>database-mongodb</artifactId>
-			<version>1.2.3</version>
+			<version>1.2.4</version>
 		</dependency>
 
 	</dependencies>

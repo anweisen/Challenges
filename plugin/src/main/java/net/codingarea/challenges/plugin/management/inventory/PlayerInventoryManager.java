@@ -7,6 +7,8 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -34,6 +36,7 @@ public final class PlayerInventoryManager implements Listener {
 
 	public PlayerInventoryManager() {
 		Challenges.getInstance().registerListener(this);
+		ChallengeAPI.registerScheduler(this);
 		ChallengeAPI.subscribeLoader(LanguageLoader.class, () -> Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto));
 
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("inventory-menu");
@@ -104,6 +107,11 @@ public final class PlayerInventoryManager implements Listener {
 		SoundSample.PLOP.play(event.getPlayer());
 	}
 
+	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
+	public void updateInventories() {
+		Bukkit.getOnlinePlayers().forEach(this::updateInventoryAuto);
+	}
+
 	public void updateInventoryAuto(@Nonnull Player player) {
 		updateInventory(player, player.getGameMode(), false, !player.isDead());
 	}
@@ -121,6 +129,11 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	public void updateInventory(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
+		if (Bukkit.isPrimaryThread()) {
+			Challenges.getInstance().runAsync(() -> updateInventory(player, gamemode, join, alive));
+			return;
+		}
+
 		try {
 			if (!LanguageLoader.isLoaded()) return;
 			if (ChallengeAPI.isPaused()) {

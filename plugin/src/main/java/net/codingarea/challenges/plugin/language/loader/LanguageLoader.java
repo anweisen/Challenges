@@ -10,13 +10,10 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map.Entry;
 
 /**
@@ -25,10 +22,8 @@ import java.util.Map.Entry;
  */
 public final class LanguageLoader extends ContentLoader {
 
-	public static final String BASE_URL = "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() ? "development" : "master") + "/language/";
 	public static final String DEFAULT_LANGUAGE = "en";
-
-	protected static final String directFile = "direct-language-file";
+	public static final String DIRECT_FILE_PATH = "direct-language-file";
 
 	private static final JsonParser parser = new JsonParser();
 	private static volatile boolean loaded = false;
@@ -38,8 +33,8 @@ public final class LanguageLoader extends ContentLoader {
 	@Override
 	protected void load() {
 		Document config = Challenges.getInstance().getConfigDocument();
-		if (config.contains(directFile)) {
-			String path = config.getString(directFile);
+		if (config.contains(DIRECT_FILE_PATH)) {
+			String path = config.getString(DIRECT_FILE_PATH);
 			Logger.info("Using direct language file '{}'", path);
 			readLanguage(new File(path));
 			return;
@@ -72,11 +67,11 @@ public final class LanguageLoader extends ContentLoader {
 	private void download() {
 		try {
 
-			JsonArray languages = parser.parse(IOUtils.toString(BASE_URL + "languages.json")).getAsJsonArray();
+			JsonArray languages = parser.parse(IOUtils.toString(getGitHubUrl("language/languages.json"))).getAsJsonArray();
 			for (JsonElement element : languages) {
 				try {
 					String name = element.getAsString();
-					String url = BASE_URL + "files/" + name + ".json";
+					String url = getGitHubUrl("language/files/" + name + ".json");
 
 					JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
 					File file = getMessageFile(name, "json");
@@ -104,7 +99,7 @@ public final class LanguageLoader extends ContentLoader {
 		JsonObject existing = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 		for (Entry<String, JsonElement> entry : download.entrySet()) {
 			if (!existing.has(entry.getKey())) {
-				Logger.debug("Overwriting message {} with {}", entry.getKey(), String.valueOf(entry.getValue()).replace("\"", "§r\""));
+				Logger.debug("Overwriting message {} in {} with {}", entry.getKey(), FileUtils.getFileName(file), String.valueOf(entry.getValue()).replace("\"", "§r\""));
 				existing.add(entry.getKey(), entry.getValue());
 			}
 		}

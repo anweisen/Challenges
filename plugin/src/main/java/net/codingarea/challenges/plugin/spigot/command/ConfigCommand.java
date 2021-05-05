@@ -13,6 +13,7 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -74,7 +75,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		return args.length == 1 ? Utils.filterRecommendations(args[0], "save", "load", "reset") : null;
+		return args.length == 1 ? Utils.filterRecommendations(args[0], "save", "load", "reset") : Collections.emptyList();
 	}
 
 }
