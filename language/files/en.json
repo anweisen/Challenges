@@ -500,114 +500,115 @@
     "When an *Entity* spawns, *another one* spawns"
   ],
   "item-damage-block-challenge": [
-    "§4Schaden pro Block",
-    "Du bekommst *Schaden* durch",
-    "jeden *Block* den du gehst"
+    "§4Damage per Block",
+    "You take *damage* for",
+    "every *block* you walk"
   ],
   "item-hunger-block-challenge": [
-    "§6Hunger pro Block",
-    "Du bekommst *Hunger* durch",
-    "jeden *Block* den du gehst"
+    "§6Hunger per Block",
+    "You lose *food* for",
+    "every *block* you walk"
   ],
   "item-stone-sight-challenge": [
-    "§fStein Blick",
-    "*Mobs* denen du in die *Augen*",
-    "*schaust* werden zu *Stein*"
+    "§fStone Sight",
+    "*Mobs* that you look in the",
+    "*eyes* turn to stone"
   ],
   "item-no-mob-sight-challenge": [
-    "§cMob Blick Schaden",
+    "§cMob Sight Damage",
     "Wenn du einen *Mob* in die *Augen*",
     "*schaust*, erleidest du *Schaden*"
   ],
   "item-bedrock-path-challenge": [
     "§7Bedrock Path",
-    "*Unter dir* entsteht die",
-    "ganze Time *Bedrock*"
+    "*Under you* spawns *bedrock*",
+    "the whole time"
   ],
   "item-bedrock-walls-challenge": [
     "§7Bedrock Walls",
-    "Hinter dir *spawnen* riesige",
-    "*Wände* aus *Bedrock*"
+    "Huge *walls of bedrock*",
+    "are *spawning* behind you"
   ],
   "item-surface-hole-challenge": [
     "§cSurface Hole",
-    "§7Hinter dir *verschwindet* der",
-    "*Boden* bis ins *Void*"
+    "The *floor* is disappearing",
+    "to *void* behind you"
   ],
   "item-damage-inv-clear-challenge": [
     "§cDamage Inventory Clear",
-    "Die *Inventare* aller Spieler werden *geleert*,",
-    "wenn ein *Spieler* schaden erleidet"
+    "Player *inventories* are *cleared*",
+    "when a *player* takes damage"
   ],
   "item-no-trading-challenge": [
     "§2Kein Handeln",
-    "Du kannst *nicht* mit",
-    "Villagern *handeln*"
+    "You *cannot* trade",
+    "with villagers"
   ],
   "item-block-break-damage-challenge": [
     "§6Block Break Damage",
-    "Wenn du einen *Block abbaust*,",
-    "*erleidest* du die gesetze Anzahl *schaden*"
+    "If you *break* a *block*, you",
+    "will *take* the set amount of *damage*"
   ],
   "item-block-place-damage-challenge": [
     "§6Block Place Damage",
-    "Wenn du einen *Block plazierst*,",
-    "*erleidest* du die gesetze Anzahl *schaden*"
+    "If you *place* a *block*, you",
+    "will *take* the set amount of *damage*"
   ],
   "item-no-exp-challenge": [
     "§aKeine XP",
-    "Wenn du *XP* aufsammelst, stirbst du"
+    "If you pickup *EXP* you die"
   ],
   "item-invert-health-challenge": [
     "§cInvert Health",
-    "Alle paar Minuten werden deine *Herzen invertiert*",
-    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+    "Every few minutes the *hearts are inverted*.",
+    "If you have *8 hearts* then you have *2 hearts*",
+    "and the other way around"
   ],
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
-    "Alle *paar Minuten* musst du ein random *Jump and Run* machen,",
-    "welches jedes mal *schwerer* wird"
+    "Every *few minutes* you have to do a random",
+    "*jump and run*, which gets *harder* everytime"
   ],
   "item-randomized-hp-challenge": [
     "§4Randomized HP",
-    "Die *Leben* aller *Mobs*",
-    "sind *random*"
+    "The *health* of all mobs",
+    "are randomized"
   ],
   "item-snake-challenge": [
     "§9Snake",
-    "*Jeder Spieler* zieht eine",
-    "tödliche Linie hinter sich her"
+    "Each player draws a *deadly line*",
+    "behind them"
   ],
   "item-reversed-damage-challenge": [
     "§cReversed Damage",
-    "Wenn du Entities *schlägst* oder *abschießt*",
-    "bekommst du den *gleichen Schaden*"
+    "If you deal damage to entites",
+    "you take the same damage"
   ],
   "item-duped-spawning-challenge": [
-    "§cDoppeltes Spawning",
-    "Wenn ein Monster *spawnt*,",
-    "spawnt es *zweimal*"
+    "§cDuped Spawning",
+    "If a mob *spawns*",
+    "it spawns *two times*"
   ],
   "item-hydra-challenge": [
     "§5Hydra",
-    "Wenn du einen *Mob* tötest",
-    "spawnen *zwei* neue"
+    "If you *kill* a mob",
+    "*two new* are spawning"
   ],
   "item-hydra-plus-challenge": [
     "§cHydra Plus",
-    "Wenn du einen *Mob* tötest",
-    "spawnen *doppelt* so viele",
-    "wie beim *vorherigen* mal"
+    "If you kill a *mob* it",
+    "spawns *twice* as many",
+    "times as the *previous* time"
   ],
   "item-floor-lava-challenge": [
-    "§6Der Boden ist Lava",
-    "Alle *Blöcke* unter dir verwandeln sich",
-    "erst zu *Magma* und dann zu *Lava*"
+    "§6The Floor Is Lava",
+    "*Blocks* below you transform first",
+    "to *magma* and then to *lava*"
   ],
   "item-only-dirt-challenge": [
     "§cOnly Dirt",
-    "Wenn du nicht auf *Erde*",
-    "stehst, *stirbst* du"
+    "You must stay on *dirt*",
+    "else you will *die*"
   ],
   "item-food-once-challenge": [
     "§cFood Once",
@@ -616,369 +617,349 @@
   ],
   "item-chunk-deconstruction-challenge": [
     "§bChunk Deconstruction",
-    "*Chunks*, in denen sich Spieler befinden",
-    "*bauen* sich von *oben* aus ab"
+    "*Chunks* that players are in",
+    "*break* down from *above*"
   ],
   "item-one-durability-challenge": [
     "§4Eine Haltbarkeit",
-    "*Items* gehen nach *einer* Benutzung *kaputt*"
+    "Items are *destroyed* after one *use*"
   ],
   "item-low-drop-rate-challenge": [
     "§6Low Drop Chance",
-    "Die *Dropchance* jedes *Blockes* wird auf die",
-    "angegebene *Prozentzahl* gesetzt"
+    "The *drop chance* of each *block*",
+    "will be set to the defined *percentage*"
   ],
   "item-invisible-mobs-challenge": [
-    "§fUnsichtbare Mobs",
-    "Alle *Mobs und Spieler* haben",
-    "einen *Unsichtbarkeits* Effekt"
+    "§fInvisible Mobs",
+    "All *Mobs* have an",
+    "*invisibility* effect"
   ],
   "item-mob-transformation-challenge": [
-    "§cMob Verwandlung",
-    "Wenn du einen Mob schlägst *verwandelt* sich",
-    "dieser in den *letzen Mob* den du *geschlagen* hast"
+    "§cMob Transformation",
+    "When you hit a mob, it *turns*",
+    " into the last mob *you* hit"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
-    "Wenn du *springst*, *spawnt* ein",
-    "zufälliges *Entity*"
+    "A *random entity* spawns",
+    "everytime you *jump*"
   ],
   "item-no-mouse-move-challenge": [
-    "§cMausbewegung Schaden",
-    "Wenn du deinen *Blick bewegst*,",
-    "erleidest du den *gesetzen Schaden*"
+    "§cMouse Movement Damage",
+    "You take *damage* everytime",
+    "you *move* your *view*"
   ],
   "item-no-duped-items-challenge": [
-    "§6Keine Doppelten Items",
-    "Wenn *2 Spieler* das gleiche *Item* im",
-    "Inventar haben, *sterben* beide"
+    "§6No Duped Items",
+    "Players are *not allowed* to have",
+    "the *same item* in their *inventories*"
   ],
   "item-infection-challenge": [
     "§aInfection Challenge",
-    "Du musst *2 Blöcke* abstand von allen ",
-    "*Mobs* halten oder du wirst *krank*"
+    "You have to keep *2 blocks* away",
+    "from all *mobs* or you will *get* sick"
   ],
   "item-only-down-challenge": [
-    "§cNur nach Unten",
-    "Wenn du *einen Block* nach",
-    "*oben* gehst *stirbst* du"
+    "§cOnly Down",
+    "If you go *up* by *a block*, you *die*"
   ],
   "item-advancement-damage-challenge": [
-    "§cAdvancement Schaden",
-    "Du bekommst für jedes neue *Advancement*",
-    "die gesetze Anzahl *schaden*"
+    "§cAdvancement Damage",
+    "You *take* the set amount of *damage*",
+    "for every new *advancement*"
   ],
   "item-all-blocks-disappear-challenge": [
-    "§cAlle Blöcke Verschwinden",
-    "Bei verschiedenen *Interaktionen*",
-    "verschwinden alle *Blöcke* im *Chunk*",
-    "eines *betimmten types*"
+    "§cAll Blocks Disappear",
+    "With different *interactions* all",
+    "*blocks* of a certain type",
+    "disappear in the same chunk"
   ],
   "item-all-blocks-disappear-break-challenge": [
-    "§bBeim Abbauen",
-    "Wenn du einen Block *abbaust*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "§bBy breaking",
+    "If you *break* a *block* all blocks",
+    "of the same types disappear"
   ],
   "item-all-blocks-disappear-place-challenge": [
-    "§bBeim Platzieren",
-    "Wenn du einen Block *platzierst*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "§bBy Placing",
+    "If you *place* a *block* all blocks",
+    "of the same types disappear"
   ],
   "item-water-allergy-challenge": [
-    "§9Wasserallergie",
-    "Wenn du in *Wasser* bist,",
-    "*erleidest* du den gesetzen Schaden"
+    "§9Water Allergy",
+    "You *take* the set amount of *damage*",
+    "while you are in *water*"
   ],
   "item-max-biome-time-challenge": [
-    "§2Maximale Biom Time",
-    "Die *Time* die du in jedem *Biom*",
-    "sein darfst, ist *begrenzt*"
+    "§2Max Biome Time",
+    "The *time* that you may spend",
+    "in every *biome* is limited"
   ],
   "item-max-height-time-challenge": [
-    "§9Maximale Höhen Time",
-    "Die *Time* die du auf jeder *Höhe*",
-    "sein darfst, ist *begrenzt*"
+    "§9Max Biome Time",
+    "The *time* that you may spend",
+    "on every *height* is limited"
   ],
   "item-permanent-item-challenge": [
-    "§cPermanente Items",
-    "*Items* können nicht gedroppt",
-    "oder *weggelegt* werden"
+    "§cPermanent Items",
+    "*Items* cannot be dropped",
+    "or put *away*"
   ],
   "item-sneak-damage-challenge": [
-    "§6Schaden pro Schleichen",
-    "Du *erleidest* den gesetzen",
-    "*Schaden*, wenn du *schleichst*"
+    "§6Damage per Sneak",
+    "You *take* the set amount",
+    "of *damage* if you *sneak*"
   ],
   "item-jump-damage-challenge": [
-    "§6Schaden pro Sprung",
-    "Du *erleidest* den gesetzen",
-    "*Schaden*, wenn du *springst*"
+    "§6Damage per Jump",
+    "You *take* the set amount",
+    "of *damage* if you *jump*"
   ],
   "item-random-dropping-challenge": [
-    "§cZufälliges Item Droppen",
-    "Alle paar Sekunden wird ein *zufälliges*",
-    "*Item* aus deinem Inventar *gedroppt*"
+    "§cRandom Item Dropping",
+    "Every few seconds a *random item*",
+    "will be *dropped* from your *inventory*"
   ],
   "item-random-swapping-challenge": [
     "§cZufälliges Item Mischen",
-    "Alle paar Sekunden wird ein",
-    "*zufälliges Item* aus deinem Inventar",
-    "mit einem anderem *getauscht*"
+    "Every few seconds a *random item*",
+    "will be *swapped* with *another item*",
+    "from your *inventory*"
   ],
   "item-random-removing-challenge": [
     "§cZufälliges Item Löschen",
-    "Alle paar Sekunden wird ein *zufälliges*",
-    "*Item* aus deinem Inventar *gelöscht*"
+    "Every few seconds a *random item*",
+    "will be *removed* from your *inventory*"
   ],
   "item-death-on-fall-challenge": [
-    "§fTot bei Fallschaden",
-    "Wenn du *Fallschaden* erleidest",
-    "*stirbst* du sofort"
+    "§fDeath On Fall Damage",
+    "You *die instantly*, when",
+    "you take *fall damage*"
   ],
   "item-zero-hearts-challenge": [
     "§6Null Herzen",
-    "Nach einer *SchutzTime* musst du",
-    "dauerhaft absorption bekommen"
+    "After a *protection time* you have to",
+    "get *absorption permanently* else you will die"
   ],
   "item-random-effect-challenge": [
-    "§6Random Effekte",
-    "Du bekommst in einem gesetzen *Intervall*",
-    "einen *zufälligen Trank Effekt*"
+    "§6Random Effects",
+    "You get a *random potion effect*",
+    "in a set *interval*"
   ],
   "item-random-effect-time-challenge": [
-    "§6Intervall",
-    "Der *Intervall*, in dem man",
-    "einen *Effekt* erhält"
+    "§6Interval",
+    "The *interval*, you get the *effect* in"
   ],
   "item-random-effect-length-challenge": [
-    "§6Länge",
-    "Die *Länge*, die der",
-    "*Effekt* anhält"
+    "§6Length",
+    "The *length* you have the *effect*"
   ],
   "item-random-effect-amplifier-challenge": [
     "§6Amplifier",
-    "Die *Stärke*, die der",
-    "*Effekt* hat"
+    "The *amplifier*, the effect has"
   ],
   "item-permanent-effect-on-damage-challenge": [
-    "§6Permanente Effekte",
-    "Du bekommst immer wenn du *Schaden*",
-    "erleidest einen *zufälligen Effekt*"
+    "§6Permanent Effects",
+    "Everytime you *take damage* you get",
+    "a random *permanent potion effect*"
   ],
   "item-random-challenge-challenge": [
     "§cRandom Challenge",
-    "In einem *gesetzten Intervall*",
-    "wird eine *random Challenge* aktiviert"
+    "In a set *interval* a random",
+    "*challenge* will be *activated*"
   ],
   "item-anvil-rain-challenge": [
-    "§7Amboss Regen",
-    "Vom *Himmel* fallen *Ambosse*"
+    "§cAnvil Rain",
+    "*Anvils* are falling from the *sky*"
   ],
   "item-anvil-rain-time-challenge": [
-    "§6Intervall",
-    "Der *Intervall*, in",
-    "dem *Ambosse* spawnen"
+    "§6Interval",
+    "The *interval*, the *anvils* are spawning in"
   ],
   "item-anvil-rain-range-challenge": [
     "§6Range",
-    "Die *Reichweite*, in",
-    "der *Ambosse* spawnen"
+    "The *range* of chunks, the *anvils* are spawning in"
   ],
   "item-anvil-rain-count-challenge": [
-    "§6Anzahl",
-    "Die *Anzahl*, an *Ambossen*",
-    "die in einem *Chunk* spawnen"
+    "§6Amount",
+    "The *amount* of anvils that",
+    "are spawning in one chunk"
   ],
   "item-anvil-rain-damage-challenge": [
-    "§6Schaden",
-    "Der *Schaden*, die",
-    "die *Ambosse* machen"
+    "§6Damage",
+    "The *damage* you take from an *anvil*"
   ],
   "item-water-mlg-challenge": [
     "§bWater MLG",
-    "Du musst *immer wieder*",
-    "einen *Water MLG* absolvieren"
+    "You have to do a *Water MLG*",
+    "over and over again"
   ],
   "item-ender-games-challenge": [
-    "§5EnderGames",
-    "Alle *paar Minuten* wirst du",
-    "mit einem *zufälligem Entity* aus",
-    "einem *200 Block* radius *getauscht*"
+    "§5Ender Games",
+    "Every *few minutes* you will be",
+    "*swapped* with a *random entity*",
+    "in a *200 blocks* range"
   ],
   "item-random-event-challenge": [
     "§6Random Events",
-    "Alle *paar Minuten* wird ein von",
-    "*{0} random Events* aktiviert"
+    "Every *few minutes* one of",
+    "*{0} random Events* will be activated"
   ],
   "item-block-chunk-item-remove-challenge": [
     "§6Movement Item Remove",
-    "Es wird für jeden *Block* / *Chunk*",
-    "den du dich *fortbewegst* ein Item,",
-    "aus deinem Inventar, *gelöscht*"
+    "A random item will be removed from",
+    "your inventory for every",
+    "*block* / *chunk* you walk"
   ],
   "item-higher-jumps-challenge": [
     "§aHigher Jumps",
-    "*Umso öfter* du springst",
-    "*desto höher* springst du"
+    "The more *you jump*, the *higher* you jump"
   ],
   "item-force-height-challenge": [
     "§eForce Height",
-    "Alle *paar Minuten* musst du auf",
-    "eine *bestimmte Höhe* oder du stirbst"
+    "Every *few minutes* you have to be",
+    "on a *certain height*, else you die"
   ],
   "item-force-block-challenge": [
     "§6Force Block",
-    "Alle *paar Minuten* musst du auf",
-    "einen *bestimmten Block* oder du stirbst"
+    "Every *few minutes* you have to be",
+    "on a *certain block*, else you die"
   ],
   "item-force-biome-challenge": [
     "§aForce Biome",
-    "Alle *paar Minuten* musst du in",
-    "ein *bestimmtes Biom* oder du stirbst",
-    "Je *seltener* das Biom ist, desto *mehr Time* hast du"
+    "Every *few minutes* you have to be",
+    "in a *certain biome*, else you die",
+    "The *rarer* the biome, the *more time* you have"
   ],
   "item-force-mob-challenge": [
     "§bForce Mob",
-    "Alle *paar Minuten* musst du",
-    "ein *bestimmtes Entity* killen oder du stirbst"
+    "Every *few minutes* you have to",
+    "*kill* a *certain mob*, else you die"
   ],
   "item-force-item-challenge": [
     "§6Force Item",
-    "Alle *paar Minuten* musst du",
-    "ein *bestimmtes Item* finden oder du stirbst"
+    "Every *few minutes* you have to get",
+    "a *certain item*, else you die"
   ],
   "item-random-item-challenge": [
     "§bRandom Items",
-    "Ein *zufälliger Spieler* erhält alle paar",
-    "*Sekunden* ein *zufälliges Item*"
+    "A *random player* gets a *random item*",
+    "every *few seconds*"
   ],
   "item-always-running-challenge": [
     "§cAlways Running",
-    "Du kannst *nicht aufhören* vorwärts zu laufen"
+    "You *cannot stop* to *walk forwards*"
   ],
   "item-pickup-launch-challenge": [
     "§cPickup Launcher",
-    "Wenn du ein *Item aufhebst*",
-    "dann wirst du *in die Luft* geschleudert"
+    "When you *pick up* an *item*",
+    "you will be *launched* into the air"
   ],
   "item-tsunami-challenge": [
     "§9Tsunami",
-    "In einem *gesetztem Interval*",
-    "*steigt* das *Wasser* in der *Overworld*",
-    "und die *Lava* in im *Nether*",
+    "In a *set interval* ",
+    "the water rises in the *Overworld*",
+    "and the *lava* in the nether",
     "",
-    "Sollte mit wenigen Personen gespielt werden!"
+    "Should be played with a *few people*!"
   ],
   "item-all-mobs-to-death-position-challenge": [
-    "§cAlle Monster zum Todespunkt",
-    "Wenn ein *Mob* von einem Spieler",
-    "*getötet* wird, werden *alle* anderen",
-    "Monster vom *selben Typen* zum",
-    "*Todespunkt* teleportiert"
+    "§cAlle Mobs To Death Point",
+    "If a *Mob* gets *killed* by a player",
+    "all mobs of the *same type* will be",
+    "*teleported* to its *death point*"
   ],
 
 
   "item-dragon-goal": [
-    "§5Enderdrache",
-    "Töte den *Enderdrachen* um zu gewinnen"
+    "§5Ender Dragon",
+    "Kill the *Ender Dragon* to win"
   ],
   "item-wither-goal": [
     "§dWither",
-    "Tote einen *Wither* um zu gewinnen"
+    "Kill a *Wither* to win"
   ],
   "item-elder-guardian-goal": [
     "§bElder Guardian",
-    "Töte einen *Elder Guardian* um zu gewinnen"
+    "Kill an *Elder Guardian* to win"
   ],
   "item-most-deaths-goal": [
-    "§6Meiste Tode",
-    "Wer die meisten *verschiedene Tode*",
-    "sammelt, *gewinnt*"
+    "§6Most Deaths",
+    "Who *collects* the most *different deaths* wins"
   ],
   "item-most-items-goal": [
-    "§cMeisten Items",
-    "Wer die meisten *verschiedenen Items*",
-    "findet, *gewinnt*"
+    "§cMost Items",
+    "Who *collects* the most *different items* wins"
   ],
   "item-last-man-standing-goal": [
     "§cLast Man Standing",
-    "Wer *am Ende* noch *lebt*, gewinnt"
+    "Who survived until the end wins"
   ],
   "item-mine-most-blocks-goal": [
-    "§eMeisten Blöcke",
-    "Wer die *meisten Blöcke* abbaut gewinnt"
+    "§eMobs Blocks",
+    "Who *breaks* the most *blocks* wins"
   ],
   "item-most-xp-goal": [
-    "§aMeiste XP",
-    "Wer die meiste *XP sammelt* gewinnt"
+    "§aMost XP",
+    "Who *collects* the most *EXP* wins"
   ],
   "item-first-one-to-die-goal": [
-    "§cErster Tod",
-    "Wer als *erstes stirbt* gewinnt"
+    "§cFirst Death",
+    "Who *dies* first wins"
   ],
   "item-collect-wood-goal": [
-    "§6Holzarten Sammeln",
-    "Wer als *erstes* alle *Holzarten*, die",
-    "*eingestellt* sind, gesammelt hat, gewinnt"
+    "§6Collect Wood",
+    "Who first collected all types of wood set wins"
   ],
   "item-all-bosses-goal": [
-    "§bAlle Bosse",
-    "Es müssen *alle Bosse* einmal",
-    "*getötet* werden um zu *gewinnen*"
+    "§bAll Bosses",
+    "Each boss must has been killed once to win"
   ],
   "item-all-items-goal": [
-    "§2Alle Items",
-    "Finde *alle Items* die es *in Minecraft gibt*"
+    "§2All Items",
+    "Find *all items* that are in *Minecraft*"
   ],
   "item-finish-raid-goal": [
-    "§6Raid Gewinnen",
-    "Der erste Spieler, der einen *Raid*",
-    "*abschließt*, gewinnt"
+    "§6Finish Raid",
+    "The first player that wins a raid wins"
   ],
 
 
   "item-damage-rule-fire": [
-    "§6Feuer Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Lava* und *Feuer* bekommen kannst"
+    "§6Fire Damage",
+    "Sets whether you get *damage* from *Fire* and *Lava*"
   ],
   "item-damage-rule-attack": [
     "§3Attack Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Nahkampfangriffe von Entities* bekommen kannst"
+    "Sets whether you get *damage* from *Melee Attacks* of entites"
   ],
   "item-damage-rule-projectile": [
     "§6Projectile Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Projektile* bekommen kannst"
+    "Sets whether you get *damage* from *Projectiles*"
   ],
   "item-damage-rule-fall": [
     "§fFall Damage",
-    "Stellt ein ob du *Fallschaden* bekommen kannst"
+    "Sets whether you get *damage* from *Fall Damage"
   ],
   "item-damage-rule-explosion": [
     "§cExplosion Damage",
-    "Stellt ein ob du *Explosions Schaden* bekommen kannst"
+    "Sets whether you get *damage* from *Explosions"
   ],
   "item-damage-rule-drowning": [
     "§9Drowning Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Ertrinken* bekommen kannst"
+    "Sets whether you get *damage* from *Drowning"
   ],
   "item-damage-rule-block": [
     "§eBlock Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Fallende Blöcke* bekommen kannst"
+    "Sets whether you get *damage* from *Falling Blocks"
   ],
   "item-damage-rule-magic": [
     "§5Magic Damage",
-    "Stellt ein ob du Schaden durch",
-    "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
+    "Sets whether you get *damage* from",
+    "*Poison, Wither or other Potions"
   ],
 
   "item-block-material": [
     "{0}",
-    "Stellt ein ob *{1}*",
-    "genutzt werden *kann*"
+    "Sets whether *{1}* can be used"
   ]
 }

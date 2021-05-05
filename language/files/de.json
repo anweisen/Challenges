@@ -629,8 +629,8 @@
   ],
   "item-invisible-mobs-challenge": [
     "§fUnsichtbare Mobs",
-    "Alle *Mobs und Spieler* haben",
-    "einen *Unsichtbarkeits* Effekt"
+    "Alle *Mobs* haben einen",
+    "*Unsichtbarkeits* Effekt"
   ],
   "item-mob-transformation-challenge": [
     "§cMob Verwandlung",
@@ -770,7 +770,7 @@
     "wird eine *random Challenge* aktiviert"
   ],
   "item-anvil-rain-challenge": [
-    "§7Amboss Regen",
+    "§cAmboss Regen",
     "Vom *Himmel* fallen *Ambosse*"
   ],
   "item-anvil-rain-time-challenge": [
@@ -799,7 +799,7 @@
     "einen *Water MLG* absolvieren"
   ],
   "item-ender-games-challenge": [
-    "§5EnderGames",
+    "§5Ender Games",
     "Alle *paar Minuten* wirst du",
     "mit einem *zufälligem Entity* aus",
     "einem *200 Block* radius *getauscht*"
