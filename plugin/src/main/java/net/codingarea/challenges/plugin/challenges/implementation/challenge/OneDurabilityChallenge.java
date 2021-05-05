@@ -27,17 +27,6 @@ public class OneDurabilityChallenge extends Setting {
 		super(MenuType.CHALLENGES);
 	}
 
-	@Override
-	protected void onEnable() {
-		broadcast(player -> {
-			for (ItemStack currentItem : player.getInventory().getContents()) {
-				if (currentItem == null) continue;
-				setDurability(currentItem);
-			}
-			player.updateInventory();
-		});
-	}
-
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
