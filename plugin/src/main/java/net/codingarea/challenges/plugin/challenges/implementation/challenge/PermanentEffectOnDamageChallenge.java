@@ -99,6 +99,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerDamage(@Nonnull EntityDamageEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (event.getFinalDamage() <= 0) return;
 		if (!(event.getEntity() instanceof Player)) return;
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
