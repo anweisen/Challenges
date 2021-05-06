@@ -1,0 +1,967 @@
+{
+  "syntax": "Please use §e/{0}",
+  "player-command": "You must be a player!",
+  "no-permission": "You §cdon't §7have permissions Rechte to do this",
+  "enabled": "§8➟ §aActivated",
+  "disabled": "§8➟ §cDeactivated",
+  "customize": "§8➟ §6Customize",
+  "navigate-back": "§8« §7Back",
+  "navigate-next": "§8» §7Next",
+  "seconds": "seconds",
+  "second": "second",
+  "minutes": "minutes",
+  "minute": "minute",
+  "hours": "hours",
+  "hour": "hour",
+  "amplifier": "amplifier",
+  "timer-counting-up": "§8» §7Timer counting §aup",
+  "timer-counting-down": "§8» §7Timer counting §cdown",
+  "timer-is-paused": "§8» §7Timer §cpaused",
+  "timer-is-running": "§8» §7Timer §astarted",
+  "confirm-reset": "Confirm reset with §e/{0}",
+  "no-fresh-reset": [
+    "Der Server §ccan't §7be reset yet",
+    "The Challenge §chasn't been §7started"
+  ],
+  "new-challenge": "§a§lNew!",
+  "feature-disabled": "This function is currently §cdeactivated",
+  "challenge-disabled": "This challenge is currently §cdeactivated",
+  "timer-not-started": "The timer §chasn't been started",
+  "timer-was-started": "The timer has been §astarted",
+  "timer-was-paused": "The timer has been §cpaused",
+  "timer-was-set": "The timer has ben set on §e§l{0}",
+  "timer-already-started": "The timer is §calready running",
+  "timer-already-paused": "The timer is §calready paused",
+  "timer-mode-set-down": "The timer is counting §cdown",
+  "timer-mode-set-up": "The timer is counting §aup",
+  "no-database-connection": "There is §cno §7Database connection",
+  "fetching-data": "Data is being retrieved..",
+  "undefined": "undefined",
+  "no-such-material": "This material doesn't exist",
+  "not-an-item": "§e{0} §7is not an item",
+  "deprecated-plugin-version": [
+    "A new version of §e§lChallenges §7is available",
+    "Download: §e{0}"
+  ],
+  "deprecated-config-version": "A new version of the §econfig §7ist available",
+  "join-message": "§e{0} §7has §ajoined §7the server",
+  "quit-message": "§e{0} §7has §cleft §7the server",
+  "timer-paused-message": [
+    "The timer is §cpaused",
+    "Use §e/timer resume §7to start it"
+  ],
+  "cheats-detected": [
+    "§e{0} §7has §ccheated",
+    "",
+    "§cNo §7further statistics can be collected"
+  ],
+  "cheats-already-detected": [
+    "On this server has been §ccheated",
+    "§cNo §7further statistics can be collected"
+  ],
+  "player-config-loaded": "Your settings have been loaded §asuccessfully",
+  "player-config-saved": "Your settings have been saved §asuccessfully",
+  "player-config-reset": "The settings were §asuccessfully §7reset",
+
+  "stat-dragon-killed": "Dragons killed",
+  "stat-deaths": "Deaths",
+  "stat-entity-kills": "Kills",
+  "stat-damage-dealt": "Damage dealt",
+  "stat-damage-taken": "Damage taken",
+  "stat-blocks-mined": "Blocks destroyed",
+  "stat-blocks-placed": "Blocks placed",
+  "stat-blocks-traveled": "Blocks travelled",
+  "stat-challenges-played": "Challenges played",
+  "stat-jumps": "Jumps",
+  "stats-of": "§8» §7Stats of §e{0}",
+  "stats-display": "§8» §7{0} §8(§e{1}. §7Platz§8)",
+  "stats-leaderboard-display": [
+    "§8» §e{0}",
+    "§8§l┣ §7{1} §7{2}",
+    "§8§l┗ §e{3}. §7Place"
+  ],
+
+  "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
+  "positions-disabled": "Positions are §cdeactivated",
+  "position-other-world": "This position is in another world §8(§e{0}§8)",
+  "position-set": "§e{5} §7created position §e{4} §7{0}, {1}, {2} §8(§e{3}§8)",
+  "no-positions": [
+    "There are no §epositions §7set in this world",
+    "Create on with §e/{0}"
+  ],
+
+  "command-no-target": "§cNo §7players has been found",
+  "command-heal-healed": "You have been §ahealed",
+  "command-heal-healed-others": "You healed §e{0} player/s",
+  "command-gamemode-gamemode-changed": "Your gamemode has been changed to §e{0}",
+  "command-gamemode-gamemode-changed-others": "The gamemode of §e{1} §7player/s has been changed to §e{0}",
+  "command-village-teleport": "You have been §ateleported to a village",
+  "command-village-not-found": "§cNo §7new village was found",
+  "command-weather-set-clear": "Weather was changed to §eclear",
+  "command-weather-set-rain": "Weather was changed to §erainy",
+  "command-weather-set-thunder": "Weather was changed to §ethundery",
+  "command-invsee-open": "Inventory of §e{0} §7opened",
+  "command-enderchest-open": "§5Enderchest §7opened",
+  "command-difficulty-change": "Difficulty changed to §e{0}",
+  "command-difficulty-current": "Current difficulty is §e{0}",
+  "command-search-nothing": "§e{0} §7is not dropped by any special block",
+  "command-search-result": "§e{0} §7drops from §e{1}",
+  "command-time-set": "Time was changed to §e{0} §7Ticks §8(§7ca. §e{1}§8)",
+  "command-time-set-exact": "Time was changed to §e{0} §8(§e{1} §7Ticks§8)",
+  "command-time-query": [
+    "§8» §7Current ingame times",
+    "Playtime §e{0} §7Ticks §8(§7Tag §e{1}§8)",
+    "Time of day §e{2} §7Ticks §8(§7ca. §e{3}§8)"
+  ],
+  "command-fly-enabled": "You can fly §anow",
+  "command-fly-disabled": "You can §cno longer §7fly",
+  "command-fly-toggled-others": "You toggled §efly §7for §e{0} §7player/s",
+  "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
+  "command-gamestate-reset": "Der Gamestate wurde §azurück gesetzt",
+
+  "traffic-light-challenge-fail": "§e{0} §7went over §cred",
+  "player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",
+  "death-message": "§e{0} §7died",
+  "death-message-cause": "§e{0} §7died by §e{1}",
+  "health-inverted": "Your hearts have been §cinverted",
+  "exp-picked-up": "§e{0} §7collected §cEXP",
+  "unable-to-find-fortress": "§cNo fortress §7could be found",
+  "unable-to-find-bastion": "§cNo bastion §7could be found",
+  "death-collected": "Death reason §e{0} §7registered",
+  "item-collected": "Item §e{0} §7registered",
+  "backpacks-disabled": "Backpacks are currently §cdeactivated",
+  "backpack-opened": "You opened the {0}",
+  "top-to-overworld": "You have been teleported to the §eoverworld",
+  "top-to-surface": "You have been teleported to the §etop",
+  "jnr-countdown": "Next §6JumpAndRun §7in §e{0} seconds",
+  "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eone second",
+  "jnr-finished": "§e{0} §afinished §7the §6JumpAndRun",
+  "snake-failed": "§e{0} §7stepped over the §9line",
+  "only-dirt-failed": "§e{0} §7did not stand on dirt",
+  "no-mouse-move-failed": "§e{0} §7moved his mouse",
+  "no-duped-items-failed": "§e{0} §7and §e{1} §7both had §e{2} §7in their inventory",
+  "only-down-failed": "§e{0} §7went up one block",
+  "food-once-failed": "§e{0} §7suffocated by §e{1}",
+  "food-once-new-food-team": "§e{0} §7ate §e{1}",
+  "food-once-new-food": "§eYou §7ate §e{1}",
+  "sneak-damage-failed": "§e{0} §7sneaked",
+  "jump-damage-failed": "§e{0} §7jumped",
+  "random-challenge-enabled": "The challenge §e{0} §7has been §aactivated",
+  "all-items-skipped": "Item §e{0} §7skipped",
+  "all-items-already-finished": "All items has been already found",
+  "all-items-found": "Item §e{0} §7registered",
+  "boss-kill": "The §e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
+  "endergames-teleport": "Swapped with §e{0}",
+  "force-height-fail": "§e{0} §7was on the §cwrong §7height §8(§e{1}§8)",
+  "force-height-success": "All players were on the §aright §7height",
+  "force-block-fail": "§e{0} §7was on the §cwrong §7block §8(§e{1}§8)",
+  "force-block-success": "All players were on the §aright §7block",
+  "force-biome-fail": "The biome §e{0} §chasn't been found",
+  "force-biome-success": "§e{0} §7found the biome §e{1}",
+  "force-mob-fail": "The mob §e{0} §chasn't been killed",
+  "force-mob-success": "§e{0} §7killed the mob §e{1}",
+  "force-item-fail": "Item §e{0} §chasn't benn found",
+  "force-item-success": "§e{0} §afound §7the item §e{1}",
+
+  "random-event-speed": [
+    "Sonic? Is it you?",
+    "Woahh! That's fast"
+  ],
+  "random-event-entities": [
+    "Is this a zoo?",
+    "Where did this come from?",
+    "What are you doing here?"
+  ],
+  "random-event-hole": [
+    "But you fell pretty deep",
+    "From the very top to the very bottom..",
+    "Where did this hole come from?"
+  ],
+  "random-event-fly": [
+    "Good flight :)",
+    "I believe I can fly..",
+    "So this is what flying feels like"
+  ],
+  "random-event-webs": [
+    "Have they been here for a long time?"
+  ],
+  "random-event-ores": [
+    "Where did all the ores go?",
+    "Aren't there any ores here?",
+    "Was there any ore here??"
+  ],
+  "random-event-sickness": [
+    "Are you sick??",
+    "What's going on now?!"
+  ],
+
+  "bossbar-timer-paused": "§8» §7The timer is §cstill paused",
+  "bossbar-mob-transformation": "§8» §7Last mob §8§l┃ §a{0}",
+  "bossbar-biome-time-left": "§8» §7Time left in §e{0} §8§l┃ §a{1}s",
+  "bossbar-height-time-left": "§8» §7Time left on §e{0} §8§l┃ §a{1}s",
+  "bossbar-zero-hearts": "§8» §7Protection time §8§l┃ §a{0}s",
+  "bossbar-random-challenge-waiting": "§8» §7Waiting for new challenge..",
+  "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
+  "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
+  "bossbar-all-items-finished": "§8» §7All items found",
+  "bossbar-force-height-waiting": "§8» §7Waiting for next height..",
+  "bossbar-force-height-instruction": "§8» §7Height §e{0} §8┃ §a{1}",
+  "bossbar-force-block-waiting": "§8» §7Waiting for next block..",
+  "bossbar-force-block-instruction": "§8» §7Block §e{0} §8┃ §a{1}",
+  "bossbar-force-biome-waiting": "§8» §7Waiting for next biome..",
+  "bossbar-force-biome-instruction": "§8» §7Biome §e{0} §8┃ §a{1}",
+  "bossbar-force-mob-waiting": "§8» §7Waiting for next mob..",
+  "bossbar-force-mob-instruction": "§8» §7Mob §e{0} §8┃ §a{1}",
+  "bossbar-force-item-waiting": "§8» §7Waiting for next item..",
+  "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
+  "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
+  "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
+
+  "subtitle-time-seconds": "§e{0} §7seconds",
+  "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
+  "subtitle-time-minutes": "§e{0} §7minutes",
+  "subtitle-pickup-launcher-description": "Stärke §e{0}",
+
+  "scoreboard-title": "§7» §f§lChallenge",
+  "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
+  "your-place": "§7Your place §8» §e{0}",
+
+  "server-reset": [
+    "§8————————————————————",
+    "",
+    "§8» §cServer reset",
+    "",
+    "§7Reset by §4§l{0}",
+    "§7The server is §crestarting",
+    "",
+    "§8————————————————————"
+  ],
+  "challenge-end-timer-hit-zero": [
+    "",
+    "§cThe challenge is over!",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-timer-hit-zero-winner": [
+    "",
+    "§cThe challenge is over!",
+    "§7Gewinner: §e§l{1}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-reached": [
+    "",
+    "§7The challenge was ended!",
+    "§7Time needed: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-reached-winner": [
+    "",
+    "§7The challenge was ended!",
+    "§7Winner: §e§l{1}",
+    "§7Time needed: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+  "challenge-end-goal-failed": [
+    "",
+    "§cThe challenge is over! §6#FeelsBadMan ✞",
+    "§7Time wasted: §a§l{0}",
+    "§7Seed: §e§l{2}",
+    ""
+  ],
+
+  "title-timer-started": [
+    "",
+    "§8» §7Timer §acontinued"
+  ],
+  "title-timer-paused": [
+    "",
+    "§8» §7Timer §cpaused"
+  ],
+  "title-challenge-enabled": [
+    "§e{0}",
+    "§2§l✔ §8┃ §aActivated"
+  ],
+  "title-challenge-disabled": [
+    "§e{0}",
+    "§4✖ §8┃ §cDeactivated"
+  ],
+  "title-challenge-value-changed": [
+    "§e{0}",
+    "§8» §e{1}"
+  ],
+  "title-pregame-movement-setting": [
+    "§cWarte..",
+    "§8» §7Timer is stopped.."
+  ],
+
+  "item-menu-start": "§8• §aStart Challenge §8┃ §e/start §8•",
+  "item-menu-challenges": "§8• §cChallenges §8┃ §e/challenge §8•",
+  "item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
+  "item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
+  "item-menu-stats": "§8• §2Statistics §8┃ §e/stats §8•",
+
+  "item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
+  "item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
+  "item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",
+  "item-heart-damage-description": "§8» §7Damage: §e{0} §c❤",
+  "item-max-health-description": "§8» §7Max health: §e{0} §c❤",
+  "item-chance-description": "§8» §7Chance: §e{0}%",
+  "item-pickup-launcher-description": "§8» §7Strength: §e{0}",
+  "item-permanent-effect-target-player-description": "§8» §7Only the active players gets the effect",
+  "item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
+
+  "item-difficulty-setting": [
+    "§aDifficulty",
+    "Sets the *Difficulty* ein"
+  ],
+  "item-one-life-setting": [
+    "§cOne Teamlife",
+    "*Everyone* dies when *one dies*"
+  ],
+  "item-respawn-setting": [
+    "§4Respawn",
+    "When you *die*, you won't be a *spectator*"
+  ],
+  "item-death-message-setting": [
+    "§6Death messages",
+    "Toggles *Death messages*"
+  ],
+  "item-pvp-setting": [
+    "§9PvP"
+  ],
+  "item-max-health-setting": [
+    "§cMax health",
+    "Sets the *max health*",
+    "for *all players*"
+  ],
+  "item-soup-setting": [
+    "§cSoup healing",
+    "When you use a *mushroom soup*",
+    "you will be healed for *4 hearts*"
+  ],
+  "item-damage-setting": [
+    "§cDamage Multiplier",
+    "Damage you take will be *multiplied*"
+  ],
+  "item-damage-display-setting": [
+    "§eDamage Display",
+    "It will be displayed in the *chat*",
+    "when anybody takes *damage*"
+  ],
+  "item-health-display-setting": [
+    "§cHealth Display",
+    "The *hearts* of all players",
+    "will be showed in the *tablist*"
+  ],
+  "item-position-setting": [
+    "§9Positions",
+    "Allows you to mark *positions*",
+    "with */pos*"
+  ],
+  "item-backpack-setting": [
+    "§6Backpack",
+    "Allows you to open *your backpack* or",
+    "the *team backpack* with */backpack*"
+  ],
+  "item-cut-clean-setting": [
+    "§9CutClean",
+    "Different *settings* to simplify",
+    "the *farming* of items"
+  ],
+  "item-cut-clean-gold-setting": [
+    "§6Gold",
+    "*Gold ore* will be directly dropped as *Gold ingot*"
+  ],
+  "item-cut-clean-iron-setting": [
+    "§7Iron",
+    "*Iron ore* will be directly dropped as *Iron ingot*"
+  ],
+  "item-cut-clean-coal-setting": [
+    "§eCoal",
+    "*Coal* will be directly dropped as *torches*"
+  ],
+  "item-cut-clean-flint-setting": [
+    "§eFlint",
+    "*Gravel* will always drop *flint*"
+  ],
+  "item-cut-clean-vein-setting": [
+    "§eOre Veins",
+    "*Ore veins* will be directly destroyed"
+  ],
+  "item-cut-clean-inventory-setting": [
+    "§6Direct Into Inventory",
+    "*Items* will be put *directly* into your",
+    "*inventory* instead of dropping"
+  ],
+  "item-cut-clean-food-setting": [
+    "§cCooked Food",
+    "*Raw meat* will be directly dropped as *cooked meat*"
+  ],
+  "item-glow-setting": [
+    "§fPlayer Glow",
+    "*Players* are visible through *walls*"
+  ],
+  "no-hunger-setting": [
+    "§cNo Hunger",
+    "You don't get *hungry*"
+  ],
+  "pregame-movement-setting": [
+    "§6Pregame Movement",
+    "You can *move* before",
+    "the game has been *started*"
+  ],
+  "item-no-hit-delay-setting": [
+    "§fNoHitDelay",
+    "After you've *taken* damage",
+    "you can *get* damage *immediately* again"
+  ],
+  "item-timber-setting": [
+    "§bTimber",
+    "You can destroy a *tree*",
+    "by breaking down *a single block* of the tree"
+  ],
+  "item-keep-inventory-setting": [
+    "§5Keep Inventory",
+    "You don't lose any *items*",
+    "when you die"
+  ],
+  "item-no-item-damage-setting": [
+    "§5No Item Damage",
+    "*Items* area *unbreakable*"
+  ],
+  "top-command-setting": [
+    "§dTop Command",
+    "You can *teleport* to the *top*",
+    "of the world or to the *overworld*",
+    "with /top"
+  ],
+  "item-fortress-spawn-setting": [
+    "§cFestungs Spawn",
+    "When you go into the *nether*",
+    "you will always spawn in a *fortress*"
+  ],
+  "item-bastion-spawn-setting": [
+    "§cBastion Spawn",
+    "When you go into the *nether*",
+    "you will always spawn in a *bastion*"
+  ],
+  "item-no-offhand-setting": [
+    "§6No Offhand",
+    "The *second hand* will be blocked"
+  ],
+  "item-regeneration-setting": [
+    "§cRegeneration",
+    "Sets *wheter* and",
+    "*how* to *regenerate*"
+  ],
+  "item-immediate-respawn-setting": [
+    "§6Direct Respawn",
+    "When you *die* you *respawn* automatically",
+    "*without* seeing the *death screen*"
+  ],
+  "item-slot-limit-setting": [
+    "§4Inventory Slots",
+    "Sets how many *inventory*",
+    "*slots* are useable"
+  ],
+  "item-death-position-setting": [
+    "§cDeath Position",
+    "When you die, */pos* creates",
+    "a position at your death point"
+  ],
+  "item-enderchest-command-setting": [
+    "§5Enderchest Command",
+    "When you execute */ec*,",
+    "your *Enderchest* opens"
+  ],
+  "item-split-health-setting": [
+    "§cSplit Health",
+    "Sets whether *all players*",
+    "share the same *health*"
+  ],
+
+
+  "item-traffic-light-challenge": [
+    "§cTraffic Light Challenge",
+    "The *traffic light* switches every few minutes.",
+    "If you go on *red*, you die"
+  ],
+  "item-block-randomizer-challenge": [
+    "§6Block Randomizer",
+    "Each *block* drops a *random item*"
+  ],
+  "item-crafting-randomizer-challenge": [
+    "§6Crafting Randomizer",
+    "If you *craft* something you will get another *random item*"
+  ],
+  "item-mob-randomizer-challenge": [
+    "§6Mob Randomizer",
+    "When an *Entity* spawns, *another one* spawns"
+  ],
+  "item-damage-block-challenge": [
+    "§4Damage per Block",
+    "You take *damage* for",
+    "every *block* you walk"
+  ],
+  "item-hunger-block-challenge": [
+    "§6Hunger per Block",
+    "You lose *food* for",
+    "every *block* you walk"
+  ],
+  "item-stone-sight-challenge": [
+    "§fStone Sight",
+    "*Mobs* that you look in the",
+    "*eyes* turn to stone"
+  ],
+  "item-no-mob-sight-challenge": [
+    "§cMob Sight Damage",
+    "Wenn du einen *Mob* in die *Augen*",
+    "*schaust*, erleidest du *Schaden*"
+  ],
+  "item-bedrock-path-challenge": [
+    "§7Bedrock Path",
+    "*Under you* spawns *bedrock*",
+    "the whole time"
+  ],
+  "item-bedrock-walls-challenge": [
+    "§7Bedrock Walls",
+    "Huge *walls of bedrock*",
+    "are *spawning* behind you"
+  ],
+  "item-surface-hole-challenge": [
+    "§cSurface Hole",
+    "The *floor* is disappearing",
+    "to *void* behind you"
+  ],
+  "item-damage-inv-clear-challenge": [
+    "§cDamage Inventory Clear",
+    "Player *inventories* are *cleared*",
+    "when a *player* takes damage"
+  ],
+  "item-no-trading-challenge": [
+    "§2Kein Handeln",
+    "You *cannot* trade",
+    "with villagers"
+  ],
+  "item-block-break-damage-challenge": [
+    "§6Block Break Damage",
+    "If you *break* a *block*, you",
+    "will *take* the set amount of *damage*"
+  ],
+  "item-block-place-damage-challenge": [
+    "§6Block Place Damage",
+    "If you *place* a *block*, you",
+    "will *take* the set amount of *damage*"
+  ],
+  "item-no-exp-challenge": [
+    "§aKeine XP",
+    "If you pickup *EXP* you die"
+  ],
+  "item-invert-health-challenge": [
+    "§cInvert Health",
+    "Every few minutes the *hearts are inverted*.",
+    "If you have *8 hearts* then you have *2 hearts*",
+    "and the other way around"
+  ],
+  "item-jump-and-run-challenge": [
+    "§6Jump and Run",
+    "Every *few minutes* you have to do a random",
+    "*jump and run*, which gets *harder* everytime"
+  ],
+  "item-randomized-hp-challenge": [
+    "§4Randomized HP",
+    "The *health* of all mobs",
+    "are randomized"
+  ],
+  "item-snake-challenge": [
+    "§9Snake",
+    "Each player draws a *deadly line*",
+    "behind them"
+  ],
+  "item-reversed-damage-challenge": [
+    "§cReversed Damage",
+    "If you deal damage to entites",
+    "you take the same damage"
+  ],
+  "item-duped-spawning-challenge": [
+    "§cDuped Spawning",
+    "If a mob *spawns*",
+    "it spawns *two times*"
+  ],
+  "item-hydra-challenge": [
+    "§5Hydra",
+    "If you *kill* a mob",
+    "*two new* are spawning"
+  ],
+  "item-hydra-plus-challenge": [
+    "§cHydra Plus",
+    "If you kill a *mob* it",
+    "spawns *twice* as many",
+    "times as the *previous* time"
+  ],
+  "item-floor-lava-challenge": [
+    "§6The Floor Is Lava",
+    "*Blocks* below you transform first",
+    "to *magma* and then to *lava*"
+  ],
+  "item-only-dirt-challenge": [
+    "§cOnly Dirt",
+    "You must stay on *dirt*",
+    "else you will *die*"
+  ],
+  "item-food-once-challenge": [
+    "§cFood Once",
+    "Du kannst jeden *Essen*",
+    "nur einmal *essen*"
+  ],
+  "item-chunk-deconstruction-challenge": [
+    "§bChunk Deconstruction",
+    "*Chunks* that players are in",
+    "*break* down from *above*"
+  ],
+  "item-one-durability-challenge": [
+    "§4Eine Haltbarkeit",
+    "Items are *destroyed* after one *use*"
+  ],
+  "item-low-drop-rate-challenge": [
+    "§6Low Drop Chance",
+    "The *drop chance* of each *block*",
+    "will be set to the defined *percentage*"
+  ],
+  "item-invisible-mobs-challenge": [
+    "§fInvisible Mobs",
+    "All *Mobs* have an",
+    "*invisibility* effect"
+  ],
+  "item-mob-transformation-challenge": [
+    "§cMob Transformation",
+    "When you hit a mob, it *turns*",
+    " into the last mob *you* hit"
+  ],
+  "item-jump-entity-challenge": [
+    "§2Jump Entity",
+    "A *random entity* spawns",
+    "everytime you *jump*"
+  ],
+  "item-no-mouse-move-challenge": [
+    "§cMouse Movement Damage",
+    "You take *damage* everytime",
+    "you *move* your *view*"
+  ],
+  "item-no-duped-items-challenge": [
+    "§6No Duped Items",
+    "Players are *not allowed* to have",
+    "the *same item* in their *inventories*"
+  ],
+  "item-infection-challenge": [
+    "§aInfection Challenge",
+    "You have to keep *2 blocks* away",
+    "from all *mobs* or you will *get* sick"
+  ],
+  "item-only-down-challenge": [
+    "§cOnly Down",
+    "If you go *up* by *a block*, you *die*"
+  ],
+  "item-advancement-damage-challenge": [
+    "§cAdvancement Damage",
+    "You *take* the set amount of *damage*",
+    "for every new *advancement*"
+  ],
+  "item-all-blocks-disappear-challenge": [
+    "§cAll Blocks Disappear",
+    "With different *interactions* all",
+    "*blocks* of a certain type",
+    "disappear in the same chunk"
+  ],
+  "item-all-blocks-disappear-break-challenge": [
+    "§bBy breaking",
+    "If you *break* a *block* all blocks",
+    "of the same types disappear"
+  ],
+  "item-all-blocks-disappear-place-challenge": [
+    "§bBy Placing",
+    "If you *place* a *block* all blocks",
+    "of the same types disappear"
+  ],
+  "item-water-allergy-challenge": [
+    "§9Water Allergy",
+    "You *take* the set amount of *damage*",
+    "while you are in *water*"
+  ],
+  "item-max-biome-time-challenge": [
+    "§2Max Biome Time",
+    "The *time* that you may spend",
+    "in every *biome* is limited"
+  ],
+  "item-max-height-time-challenge": [
+    "§9Max Biome Time",
+    "The *time* that you may spend",
+    "on every *height* is limited"
+  ],
+  "item-permanent-item-challenge": [
+    "§cPermanent Items",
+    "*Items* cannot be dropped",
+    "or put *away*"
+  ],
+  "item-sneak-damage-challenge": [
+    "§6Damage per Sneak",
+    "You *take* the set amount",
+    "of *damage* if you *sneak*"
+  ],
+  "item-jump-damage-challenge": [
+    "§6Damage per Jump",
+    "You *take* the set amount",
+    "of *damage* if you *jump*"
+  ],
+  "item-random-dropping-challenge": [
+    "§cRandom Item Dropping",
+    "Every few seconds a *random item*",
+    "will be *dropped* from your *inventory*"
+  ],
+  "item-random-swapping-challenge": [
+    "§cZufälliges Item Mischen",
+    "Every few seconds a *random item*",
+    "will be *swapped* with *another item*",
+    "from your *inventory*"
+  ],
+  "item-random-removing-challenge": [
+    "§cZufälliges Item Löschen",
+    "Every few seconds a *random item*",
+    "will be *removed* from your *inventory*"
+  ],
+  "item-death-on-fall-challenge": [
+    "§fDeath On Fall Damage",
+    "You *die instantly*, when",
+    "you take *fall damage*"
+  ],
+  "item-zero-hearts-challenge": [
+    "§6Null Herzen",
+    "After a *protection time* you have to",
+    "get *absorption permanently* else you will die"
+  ],
+  "item-random-effect-challenge": [
+    "§6Random Effects",
+    "You get a *random potion effect*",
+    "in a set *interval*"
+  ],
+  "item-random-effect-time-challenge": [
+    "§6Interval",
+    "The *interval*, you get the *effect* in"
+  ],
+  "item-random-effect-length-challenge": [
+    "§6Length",
+    "The *length* you have the *effect*"
+  ],
+  "item-random-effect-amplifier-challenge": [
+    "§6Amplifier",
+    "The *amplifier*, the effect has"
+  ],
+  "item-permanent-effect-on-damage-challenge": [
+    "§6Permanent Effects",
+    "Everytime you *take damage* you get",
+    "a random *permanent potion effect*"
+  ],
+  "item-random-challenge-challenge": [
+    "§cRandom Challenge",
+    "In a set *interval* a random",
+    "*challenge* will be *activated*"
+  ],
+  "item-anvil-rain-challenge": [
+    "§cAnvil Rain",
+    "*Anvils* are falling from the *sky*"
+  ],
+  "item-anvil-rain-time-challenge": [
+    "§6Interval",
+    "The *interval*, the *anvils* are spawning in"
+  ],
+  "item-anvil-rain-range-challenge": [
+    "§6Range",
+    "The *range* of chunks, the *anvils* are spawning in"
+  ],
+  "item-anvil-rain-count-challenge": [
+    "§6Amount",
+    "The *amount* of anvils that",
+    "are spawning in one chunk"
+  ],
+  "item-anvil-rain-damage-challenge": [
+    "§6Damage",
+    "The *damage* you take from an *anvil*"
+  ],
+  "item-water-mlg-challenge": [
+    "§bWater MLG",
+    "You have to do a *Water MLG*",
+    "over and over again"
+  ],
+  "item-ender-games-challenge": [
+    "§5Ender Games",
+    "Every *few minutes* you will be",
+    "*swapped* with a *random entity*",
+    "in a *200 blocks* range"
+  ],
+  "item-random-event-challenge": [
+    "§6Random Events",
+    "Every *few minutes* one of",
+    "*{0} random Events* will be activated"
+  ],
+  "item-block-chunk-item-remove-challenge": [
+    "§6Movement Item Remove",
+    "A random item will be removed from",
+    "your inventory for every",
+    "*block* / *chunk* you walk"
+  ],
+  "item-higher-jumps-challenge": [
+    "§aHigher Jumps",
+    "The more *you jump*, the *higher* you jump"
+  ],
+  "item-force-height-challenge": [
+    "§eForce Height",
+    "Every *few minutes* you have to be",
+    "on a *certain height*, else you die"
+  ],
+  "item-force-block-challenge": [
+    "§6Force Block",
+    "Every *few minutes* you have to be",
+    "on a *certain block*, else you die"
+  ],
+  "item-force-biome-challenge": [
+    "§aForce Biome",
+    "Every *few minutes* you have to be",
+    "in a *certain biome*, else you die",
+    "The *rarer* the biome, the *more time* you have"
+  ],
+  "item-force-mob-challenge": [
+    "§bForce Mob",
+    "Every *few minutes* you have to",
+    "*kill* a *certain mob*, else you die"
+  ],
+  "item-force-item-challenge": [
+    "§6Force Item",
+    "Every *few minutes* you have to get",
+    "a *certain item*, else you die"
+  ],
+  "item-random-item-challenge": [
+    "§bRandom Items",
+    "A *random player* gets a *random item*",
+    "every *few seconds*"
+  ],
+  "item-always-running-challenge": [
+    "§cAlways Running",
+    "You *cannot stop* to *walk forwards*"
+  ],
+  "item-pickup-launch-challenge": [
+    "§cPickup Launcher",
+    "When you *pick up* an *item*",
+    "you will be *launched* into the air"
+  ],
+  "item-tsunami-challenge": [
+    "§9Tsunami",
+    "In a *set interval* ",
+    "the water rises in the *Overworld*",
+    "and the *lava* in the nether",
+    "",
+    "Should be played with a *few people*!"
+  ],
+  "item-all-mobs-to-death-position-challenge": [
+    "§cAlle Mobs To Death Point",
+    "If a *Mob* gets *killed* by a player",
+    "all mobs of the *same type* will be",
+    "*teleported* to its *death point*"
+  ],
+
+
+  "item-dragon-goal": [
+    "§5Ender Dragon",
+    "Kill the *Ender Dragon* to win"
+  ],
+  "item-wither-goal": [
+    "§dWither",
+    "Kill a *Wither* to win"
+  ],
+  "item-elder-guardian-goal": [
+    "§bElder Guardian",
+    "Kill an *Elder Guardian* to win"
+  ],
+  "item-most-deaths-goal": [
+    "§6Most Deaths",
+    "Who *collects* the most *different deaths* wins"
+  ],
+  "item-most-items-goal": [
+    "§cMost Items",
+    "Who *collects* the most *different items* wins"
+  ],
+  "item-last-man-standing-goal": [
+    "§cLast Man Standing",
+    "Who survived until the end wins"
+  ],
+  "item-mine-most-blocks-goal": [
+    "§eMobs Blocks",
+    "Who *breaks* the most *blocks* wins"
+  ],
+  "item-most-xp-goal": [
+    "§aMost XP",
+    "Who *collects* the most *EXP* wins"
+  ],
+  "item-first-one-to-die-goal": [
+    "§cFirst Death",
+    "Who *dies* first wins"
+  ],
+  "item-collect-wood-goal": [
+    "§6Collect Wood",
+    "Who first collected all types of wood set wins"
+  ],
+  "item-all-bosses-goal": [
+    "§bAll Bosses",
+    "Each boss must has been killed once to win"
+  ],
+  "item-all-items-goal": [
+    "§2All Items",
+    "Find *all items* that are in *Minecraft*"
+  ],
+  "item-finish-raid-goal": [
+    "§6Finish Raid",
+    "The first player that wins a raid wins"
+  ],
+
+
+  "item-damage-rule-fire": [
+    "§6Fire Damage",
+    "Sets whether you get *damage* from *Fire* and *Lava*"
+  ],
+  "item-damage-rule-attack": [
+    "§3Attack Damage",
+    "Sets whether you get *damage* from *Melee Attacks* of entites"
+  ],
+  "item-damage-rule-projectile": [
+    "§6Projectile Damage",
+    "Sets whether you get *damage* from *Projectiles*"
+  ],
+  "item-damage-rule-fall": [
+    "§fFall Damage",
+    "Sets whether you get *damage* from *Fall Damage"
+  ],
+  "item-damage-rule-explosion": [
+    "§cExplosion Damage",
+    "Sets whether you get *damage* from *Explosions"
+  ],
+  "item-damage-rule-drowning": [
+    "§9Drowning Damage",
+    "Sets whether you get *damage* from *Drowning"
+  ],
+  "item-damage-rule-block": [
+    "§eBlock Damage",
+    "Sets whether you get *damage* from *Falling Blocks"
+  ],
+  "item-damage-rule-magic": [
+    "§5Magic Damage",
+    "Sets whether you get *damage* from",
+    "*Poison, Wither or other Potions"
+  ],
+
+  "item-block-material": [
+    "{0}",
+    "Sets whether *{1}* can be used"
+  ]
+}

@@ -1,10 +1,36 @@
 
-/out
-/target
-/.idea
-/Depends
+# User-specific stuff
+.idea/**/workspace.xml
+.idea/**/tasks.xml
+.idea/**/usage.statistics.xml
+.idea/**/dictionaries
+.idea/**/shelf
+.idea/discord.xml
+.idea/vcs.xml
+.idea/artifacts
+.idea/inspectionProfiles/Project_Default.xml
 
-Challenges.iml
-config.properties
-.floo
-.flooignore
+# Generated files
+.idea/**/contentModel.xml
+.idea/libraries
+
+# Sensitive or high-churn files
+.idea/**/dataSources/
+.idea/**/dataSources.ids
+.idea/**/dataSources.local.xml
+.idea/**/sqlDataSources.xml
+.idea/**/dynamic.xml
+.idea/**/uiDesigner.xml
+.idea/**/dbnavigator.xml
+
+# Mongo Explorer plugin
+.idea/**/mongoSettings.xml
+
+# Test Sources
+**/src/test
+
+# Compiled files
+**/out
+**/target
+*.class
+*.jar

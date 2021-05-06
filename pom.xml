@@ -1,110 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
+		 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
 
-    <groupId>net.conding-area</groupId>
-    <artifactId>Challenges</artifactId>
-    <version>1.1.3</version>
+	<groupId>net.codingarea.challenges</groupId>
+	<artifactId>root</artifactId>
+	<version>2.0</version>
+	<packaging>pom</packaging>
+	<name>root</name>
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>8</source>
-                    <target>8</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
+	<modules>
+		<module>plugin</module>
+		<module>mongo-connector</module>
+	</modules>
 
-    <repositories>
-
-        <repository>
-            <id>minebench-repo</id>
-            <url>https://repo.minebench.de/</url>
-        </repository>
-
-        <!--  New Maven repository for releases -->
-        <repository>
-            <id>releases</id>
-            <url>https://repo.cloudnetservice.eu/repository/releases/</url>
-        </repository>
-
-        <repository>
-            <id>jcenter</id>
-            <name>jcenter-bintray</name>
-            <url>https://jcenter.bintray.com</url>
-        </repository>
-
-
-    </repositories>
-
-    <dependencies>
-
-        <dependency>
-            <groupId>de.themoep.showitem</groupId>
-            <artifactId>api</artifactId>
-            <version>1.5.22</version>
-            <scope>compile</scope>
-        </dependency>
-
-        <!-- wrapper for discord -->
-        <dependency>
-            <groupId>net.dv8tion</groupId>
-            <artifactId>JDA</artifactId>
-            <version>4.2.0_177</version>
-        </dependency>
-
-        <dependency>
-            <groupId>mysql</groupId>
-            <artifactId>mysql-connector-java</artifactId>
-            <version>8.0.19</version>
-        </dependency>
-
-        <!--  cloudnet driver for plugins and modules -->
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-driver</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--  cloudnet wrapper for plugins -->
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-wrapper-jvm</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--  cloudnet bridge module for plugins and modules -->
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-bridge</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--  cloudnet syncproxy module for plugins (proxy) and modules -->
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-syncproxy</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
-
-        <!--  cloudnet signs module for plugins and modules -->
-        <dependency>
-            <groupId>de.dytanic.cloudnet</groupId>
-            <artifactId>cloudnet-signs</artifactId>
-            <version>3.3.0-RELEASE</version>
-            <scope>provided</scope>
-        </dependency>
-
-    </dependencies>
+	<distributionManagement>
+		<repository>
+			<id>github</id>
+			<name>GitHub anweisen Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/anweisen/Utilities</url>
+		</repository>
+	</distributionManagement>
 
 </project>
