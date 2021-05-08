@@ -61,6 +61,7 @@ design:
   empty-line-underneath: true
 
 # The size stands for the amount of rows in the backpack inventory
+# Value can be between 1-6
 backpack-size: 3
 
 # Players with the permission 'challenges.gui' will have items in their hotbar
