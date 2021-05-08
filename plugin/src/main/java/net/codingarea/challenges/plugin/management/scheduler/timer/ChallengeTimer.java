@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
@@ -60,7 +61,7 @@ public final class ChallengeTimer {
 		}
 	}
 
-	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS)
+	@ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.ALWAYS, playerPolicy = PlayerCountPolicy.ALWAYS)
 	public void onTimerSecond() {
 
 		if (!paused) {
