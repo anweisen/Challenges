@@ -38,7 +38,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	private final Inventory sharedBackpack;
 
 	public BackpackSetting() {
-		super(MenuType.SETTINGS, 1, 3, SHARED);
+		super(MenuType.SETTINGS, 1, 2, SHARED);
 		size = Math.max(Math.min(Challenges.getInstance().getConfigDocument().getInt("backpack-size") * 9, 6*9), 9);
 		sharedBackpack = createInventory("§5Team Backpack");
 	}
@@ -80,6 +80,12 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 			return;
 		}
 
+		if (!isEnabled()) {
+			Message.forName("backpacks-disabled").send(player, Prefix.BACKPACK);
+			SoundSample.BASS_OFF.play(player);
+			return;
+		}
+
 		if (getValue() == SHARED || getValue() == PLAYER) {
 			Message.forName("backpack-opened").send(player, Prefix.BACKPACK, getValue() == SHARED ? "§5Team Backpack" : "§6Player Backpack");
 			player.openInventory(getCurrentBackpack(player));
@@ -109,7 +115,12 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 		for (String key : document.keys()) {
 			try {
 				int index = Integer.parseInt(key);
-				ItemStack item = document.getSerializable(key, ItemStack.class);
+				ItemStack item;
+				try {
+					item = document.getSerializable(key, ItemStack.class);
+				} catch (Exception ex) {
+					item = ItemStack.deserialize(((Map<String, Object>) document.getObject(key)));
+				}
 				inventory.setItem(index, item);
 			} catch (Exception ex) {
 			}
