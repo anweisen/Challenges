@@ -3,10 +3,8 @@ package net.codingarea.challenges.plugin.utils.misc;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Sound;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-import org.bukkit.event.player.PlayerMoveEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -146,9 +144,27 @@ public final class BlockUtils {
 	 * @return the block below the location
 	 */
 	@Nullable
+	public static Block getBlockBelow(@Nonnull Location location, boolean ignoreNonSolid) {
+		return getBlockBelow(location, 0.1, ignoreNonSolid);
+	}
+
+	/**
+	 * @param location the location to get the block below
+	 * @return the block below the location
+	 */
+	@Nullable
 	public static Block getBlockBelow(@Nonnull Location location, double offset) {
+		return getBlockBelow(location, offset, true);
+	}
+
+	/**
+	 * @param location the location to get the block below
+	 * @return the block below the location
+	 */
+	@Nullable
+	public static Block getBlockBelow(@Nonnull Location location, double offset, boolean ignoreNonSolid) {
 		Block block = location.getBlock().getLocation().subtract(0, offset, 0).getBlock();
-		if (!block.getType().isSolid()) {
+		if (ignoreNonSolid && !block.getType().isSolid()) {
 			return null;
 		}
 		return block;

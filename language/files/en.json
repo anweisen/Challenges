@@ -2,9 +2,9 @@
   "syntax": "Please use §e/{0}",
   "player-command": "You must be a player!",
   "no-permission": "You §cdon't §7have permissions Rechte to do this",
-  "enabled": "§8➟ §aActivated",
-  "disabled": "§8➟ §cDeactivated",
-  "customize": "§8➟ §6Customize",
+  "enabled": "§aActivated",
+  "disabled": "§cDeactivated",
+  "customize": "§6Customize",
   "navigate-back": "§8« §7Back",
   "navigate-next": "§8» §7Next",
   "seconds": "seconds",
@@ -62,6 +62,8 @@
   "player-config-loaded": "Your settings have been loaded §asuccessfully",
   "player-config-saved": "Your settings have been saved §asuccessfully",
   "player-config-reset": "The settings were §asuccessfully §7reset",
+
+  "item-setting-info": "§8➟ {0}",
 
   "stat-dragon-killed": "Dragons killed",
   "stat-deaths": "Deaths",
@@ -149,7 +151,7 @@
   "random-challenge-enabled": "The challenge §e{0} §7has been §aactivated",
   "all-items-skipped": "Item §e{0} §7skipped",
   "all-items-already-finished": "All items has been already found",
-  "all-items-found": "Item §e{0} §7registered",
+  "all-items-found": "Item §e{0} §7registered by §e{1}",
   "boss-kill": "The §e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
   "endergames-teleport": "Swapped with §e{0}",
   "force-height-fail": "§e{0} §7was on the §cwrong §7height §8(§e{1}§8)",
@@ -162,6 +164,7 @@
   "force-mob-success": "§e{0} §7killed the mob §e{1}",
   "force-item-fail": "Item §e{0} §chasn't benn found",
   "force-item-success": "§e{0} §afound §7the item §e{1}",
+  "new-effect": "Effect §e{0} §8➔ §e{1}",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -216,6 +219,7 @@
   "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
   "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
+  "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -869,6 +873,11 @@
     "If a *Mob* gets *killed* by a player",
     "all mobs of the *same type* will be",
     "*teleported* to its *death point*"
+  ],
+  "item-ice-floor-challenge": [
+    "§bIce floor",
+    "*Air* will be replaced in a",
+    "*3x3* area with *packed ice*"
   ],
 
 
