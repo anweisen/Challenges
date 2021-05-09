@@ -98,7 +98,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
-		if (args.length < 1) return new ArrayList<>();
+		if (args.length > 1) return new ArrayList<>();
 		return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
 	}
 
