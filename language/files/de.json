@@ -148,7 +148,7 @@
   "random-challenge-enabled": "Die Challenge §e{0} §7wurde §aaktiviert",
   "all-items-skipped": "Item §e{0} §7geskippt",
   "all-items-already-finished": "Es wurden bereits alle Items gefunden",
-  "all-items-found": "Das Item §e{0} §7wurde registriert",
+  "all-items-found": "Das Item §e{0} §7wurde von §e{1} §7registriert",
   "boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
   "endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
   "force-height-fail": "§e{0} §7war auf der §cfalschen Höhe §8(§e{1}§8)",
@@ -161,6 +161,7 @@
   "force-mob-success": "§e{0} §7hat das Mob §e{1} §agetötet",
   "force-item-fail": "Das Item §e{0} §7wurde §cnicht gefunden",
   "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
+  "new-effect": "Effekt §e{0} §8➔ §e{1}",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
