@@ -6,6 +6,7 @@ import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -120,10 +121,18 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		String path = player.getUniqueId().toString();
 		Document effects = getGameStateData().getDocument(path);
 
+		int amplifier = 1;
 		if (!effects.contains(potionEffectType.getName())) {
 			effects.set(potionEffectType.getName(), 1);
 		} else {
-			effects.set(potionEffectType.getName(), effects.getInt(potionEffectType.getName()) + 1);
+			amplifier = effects.getInt(potionEffectType.getName()) + 1;
+			effects.set(potionEffectType.getName(), amplifier);
+		}
+
+		if (effectsToEveryone()) {
+			Message.forName("new-effect").broadcast(Prefix.CHALLENGES, potionEffectType.getName(), amplifier);
+		} else {
+			Message.forName("new-effect").send(player, Prefix.CHALLENGES, potionEffectType.getName(), amplifier);
 		}
 
 		getGameStateData().set(path, effects);
@@ -186,8 +195,6 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 					}
 				}
 			}
-
-
 
 		}
 
