@@ -37,7 +37,7 @@ public final class ChallengeTimer {
 	public ChallengeTimer() {
 
 		specificStartSounds = Challenges.getInstance().getConfigDocument().getBoolean("enable-specific-start-sounds");
-		defaultStartSound = Challenges.getInstance().getConfigDocument().getBoolean("enable-default-start-sound");
+		defaultStartSound = Challenges.getInstance().getConfigDocument().getBoolean("enable-default-start-sounds");
 
 		// Load format + messages
 		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
