@@ -27,7 +27,7 @@ public class AlwaysRunningChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.COBBLESTONE_SLAB, Message.forName("item-always-running-challenge"));
+		return new ItemBuilder(Material.CARROT_ON_A_STICK, Message.forName("item-always-running-challenge"));
 	}
 
 	@ScheduledTask(ticks = 1)
