@@ -244,4 +244,14 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	}
 
+	@Override
+	public void loadGameState(@Nonnull Document document) {
+		super.loadGameState(document);
+		broadcast(player -> {
+			for (PotionEffect potionEffect : player.getActivePotionEffects()) {
+				player.removePotionEffect(potionEffect.getType());
+			}
+		});
+		updateEffects();
+	}
 }
