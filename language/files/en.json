@@ -889,6 +889,14 @@
     "§dWither",
     "Kill a *Wither* to win"
   ],
+  "item-iron-golem-goal": [
+    "§bIron Golem",
+    "Kill an *Iron Golem* to win"
+  ],
+  "item-snow-golem-goal": [
+    "§bSnowman",
+    "Kill a *Snowman* to win"
+  ],
   "item-elder-guardian-goal": [
     "§bElder Guardian",
     "Kill an *Elder Guardian* to win"

@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.type;
 
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import org.bukkit.Bukkit;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -22,7 +21,7 @@ public abstract class KillEntityGoal extends SettingGoal {
 
 	protected final EntityType entity;
 	protected final Environment environment;
-	protected boolean oneWinner = true;
+	protected boolean oneWinner = true, killerNeeded = false;
 	protected Player winner;
 
 	public KillEntityGoal(@Nonnull EntityType entity) {
@@ -54,7 +53,12 @@ public abstract class KillEntityGoal extends SettingGoal {
 		LivingEntity entity = event.getEntity();
 		if (entity.getType() != this.entity) return;
 		if (environment != null && event.getEntity().getWorld().getEnvironment() != environment) return;
-		if (oneWinner) winner = event.getEntity().getKiller();
+		if (oneWinner) {
+			winner = event.getEntity().getKiller();
+			if (killerNeeded && winner == null) {
+				return;
+			}
+		}
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 	}
 

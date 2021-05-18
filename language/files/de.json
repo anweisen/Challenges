@@ -218,7 +218,7 @@
   "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
   "bossbar-tsunami-water": "§8» §7Wasserhöhe: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
-  "bossbar-ice-floor": "§8» §bEisboden §8┃ {0}",
+  "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -899,6 +899,14 @@
   "item-elder-guardian-goal": [
     "§bElder Guardian",
     "Töte einen *Elder Guardian* um zu gewinnen"
+  ],
+  "item-iron-golem-goal": [
+    "§bEisen Golem",
+    "Tote einen *Eisen Golem* um zu gewinnen"
+  ],
+  "item-snow-golem-goal": [
+    "§bSchneemann",
+    "Tote einen *Schneemann* um zu gewinnen"
   ],
   "item-most-deaths-goal": [
     "§6Meiste Tode",
