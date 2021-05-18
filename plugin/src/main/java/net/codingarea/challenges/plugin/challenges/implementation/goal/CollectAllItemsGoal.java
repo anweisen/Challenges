@@ -39,8 +39,10 @@ import java.util.List;
 @Since("2.0")
 public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
+
 	private final int totalItemsCount;
 	private SeededRandomWrapper random;
+	private List<Material> allItemsToFind;
 	private List<Material> itemsToFind;
 	private Material currentItem;
 
@@ -57,10 +59,11 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 	}
 
 	private void reloadItemsToFind() {
-		itemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
-		itemsToFind.removeIf(material -> !material.isItem());
-		itemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
-		Collections.shuffle(itemsToFind, random);
+		allItemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
+		allItemsToFind.removeIf(material -> !material.isItem());
+		allItemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
+		Collections.shuffle(allItemsToFind, random);
+		itemsToFind = new ArrayList<>(allItemsToFind);
 		nextItem();
 
 		if (isEnabled())
@@ -115,6 +118,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onClick(@Nonnull PlayerInventoryClickEvent event) {
+		if (event.isCancelled()) return;
 		ItemStack item = event.getCurrentItem();
 		if (item == null) return;
 		handleNewItem(item.getType(), event.getPlayer());
@@ -167,6 +171,18 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
 	public Material getCurrentItem() {
 		return currentItem;
+	}
+
+	public List<Material> getItemsToFind() {
+		return itemsToFind;
+	}
+
+	public List<Material> getAllItemsToFind() {
+		return allItemsToFind;
+	}
+
+	public int getTotalItemsCount() {
+		return totalItemsCount;
 	}
 
 }
