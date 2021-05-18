@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.SlottedMenuPosition;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
@@ -61,6 +62,7 @@ public class InvseeCommand implements PlayerCommand, Listener {
 		}
 
 		player.openInventory(getInventory(target));
+		MenuPosition.set(player, new SlottedMenuPosition());
 		Message.forName("command-invsee-open").send(player, Prefix.CHALLENGES, NameHelper.getName(target));
 	}
 
