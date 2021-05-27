@@ -6,12 +6,6 @@ import de.dytanic.cloudnet.driver.permission.IPermissionManagement;
 import de.dytanic.cloudnet.driver.permission.IPermissionUser;
 import de.dytanic.cloudnet.ext.bridge.BridgeHelper;
 import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
-import net.anweisen.utilities.commons.config.Document;
-import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
-import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -45,8 +39,14 @@ public final class CloudNetSupport implements CloudSupport {
 	}
 
 	@Override
-	public void setIngame() {
+	public void startNewService() {
 		BukkitCloudNetHelper.changeToIngame();
+		BridgeHelper.updateServiceInfo();
+	}
+
+	@Override
+	public void setIngame() {
+		BukkitCloudNetHelper.setState("INGAME");
 		BridgeHelper.updateServiceInfo();
 	}
 

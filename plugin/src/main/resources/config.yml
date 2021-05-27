@@ -134,7 +134,8 @@ drop-items-on-end: false
 cloud-support:
   type: none
   name-rank-colors: true
-  start-new-service: false
+  set-ingame: false
+  start-new-service: false # This will only be available if set-ingame is enabled as well
   reset-to-lobby: false # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY, this will only be used if start-new-service is enabled as well
 
 # This will require a database connection

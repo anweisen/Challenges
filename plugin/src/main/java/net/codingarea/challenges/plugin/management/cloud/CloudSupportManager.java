@@ -29,6 +29,7 @@ public final class CloudSupportManager implements Listener {
 	private final boolean startNewService;
 	private final boolean nameSupport;
 	private final boolean resetToLobby;
+	private final boolean setIngame;
 	private final String type;
 
 	private CloudSupport support;
@@ -39,6 +40,7 @@ public final class CloudSupportManager implements Listener {
 		startNewService = config.getBoolean("start-new-service");
 		nameSupport = config.getBoolean("name-rank-colors");
 		resetToLobby = config.getBoolean("reset-to-lobby");
+		setIngame = config.getBoolean("set-ingame");
 		type = config.getString("type", "none");
 		Logger.debug("Detected cloud support type '{}'", type);
 
@@ -108,12 +110,15 @@ public final class CloudSupportManager implements Listener {
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
-	public void setIngame() {
-		if (!startNewService) return;
+	public void setIngameAndStartService() {
+		if (!setIngame) return;
 		if (support == null) return;
 
 		try {
 			support.setIngame();
+
+			if (startNewService)
+				support.startNewService();
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to set to ingame with cloud support '{}', missing dependencies", type);
 		}
