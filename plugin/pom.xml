@@ -73,7 +73,7 @@
 		</repository>
 
 		<repository>
-			<id>anweisen</id>
+			<id>github</id>
 			<url>https://maven.pkg.github.com/anweisen/*</url>
 		</repository>
 
