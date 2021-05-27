@@ -97,6 +97,7 @@
   "command-heal-healed-others": "You healed §e{0} player/s",
   "command-gamemode-gamemode-changed": "Your gamemode has been changed to §e{0}",
   "command-gamemode-gamemode-changed-others": "The gamemode of §e{1} §7player/s has been changed to §e{0}",
+  "command-village-search": "A village is being searched..",
   "command-village-teleport": "You have been §ateleported to a village",
   "command-village-not-found": "§cNo §7new village was found",
   "command-weather-set-clear": "Weather was changed to §eclear",

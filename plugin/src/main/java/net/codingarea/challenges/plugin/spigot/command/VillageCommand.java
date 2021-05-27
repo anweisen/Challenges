@@ -21,6 +21,7 @@ public class VillageCommand implements PlayerCommand {
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 		player.setNoDamageTicks(10);
+		Message.forName("command-village-search").send(player, Prefix.CHALLENGES);
 
 		Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
 
@@ -34,11 +35,11 @@ public class VillageCommand implements PlayerCommand {
 			village.getChunk().load(true);
 
 			Location finalVillage = village;
-			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
+			Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
 				player.teleport(finalVillage);
 				SoundSample.TELEPORT.play(player);
 				Message.forName("command-village-teleport").send(player, Prefix.CHALLENGES);
-			});
+			}, 20 /* run after 1 second to give the chunks/world time to load/generate */ );
 
 		});
 
