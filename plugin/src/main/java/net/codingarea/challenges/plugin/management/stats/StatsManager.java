@@ -36,7 +36,7 @@ public final class StatsManager implements Listener {
 
 	public StatsManager() {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats");
-		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
+		noStatsAfterCheating = enabled && Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
 	public void register() {

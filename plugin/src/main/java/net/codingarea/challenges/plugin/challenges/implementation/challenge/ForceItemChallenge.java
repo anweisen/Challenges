@@ -86,7 +86,7 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-item-failed").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(item));
+		Message.forName("force-item-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(item));
 	}
 
 	@Override
@@ -104,17 +104,17 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 		items.removeIf(material -> material.name().contains("SHULKER"));
 		Utils.removeEnums(items, "ELYTRA", "NETHER_STAR");
 
-		item = RandomizeUtils.choose(random, items);
+		item = random.choose(items);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 5*60, 8*60);
+		return random.range(5 * 60, 8 * 60);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

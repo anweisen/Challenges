@@ -1,12 +1,11 @@
 package net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration;
 
+import net.anweisen.utilities.commons.common.IRandom;
 import org.bukkit.block.Block;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
-import java.util.Random;
 
-import static net.codingarea.challenges.plugin.utils.misc.RandomizeUtils.choose;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -17,7 +16,7 @@ public class RandomJumpGenerator implements IJumpGenerator {
 	@Nonnull
 	@Override
 	@CheckReturnValue
-	public Block next(@Nonnull Random random, @Nonnull Block startingPoint, boolean includeFourBlockJumps, boolean includeUpGoing) {
+	public Block next(@Nonnull IRandom random, @Nonnull Block startingPoint, boolean includeFourBlockJumps, boolean includeUpGoing) {
 
 		int layer = random.nextInt(includeUpGoing ? 3 : 2) - 1;
 		int range = layer == 0 ? 4 : 3;
@@ -25,7 +24,7 @@ public class RandomJumpGenerator implements IJumpGenerator {
 		int mainDirection = random.nextInt(range * 2) - range;
 		int mainDirectionValue = Math.abs(mainDirection);
 		if (mainDirectionValue < 2) {
-			mainDirection = choose(random, -range, range);
+			mainDirection = random.choose(-range, range);
 			mainDirectionValue = Math.abs(mainDirection);
 		}
 
@@ -34,22 +33,22 @@ public class RandomJumpGenerator implements IJumpGenerator {
 
 	}
 
-	protected int determineSecondDirection(@Nonnull Random random, int mainDirection, int range) {
+	protected int determineSecondDirection(@Nonnull IRandom random, int mainDirection, int range) {
 		if (mainDirection == range || mainDirection == range - 1) {
-			return choose(random, -1, 0, 1);
+			return random.choose(-1, 0, 1);
 		} else if (mainDirection == range - 2) {
-			return choose(random, -2, -1, 0, 1, 2);
+			return random.choose(-2, -1, 0, 1, 2);
 		} else if (mainDirection == range - 3) {
-			return choose(random, -3, -2, -1, 0, 1, 2, 3);
+			return random.choose(-3, -2, -1, 0, 1, 2, 3);
 		} else if (mainDirection == range - 4 || mainDirection == range - 5) {
-			return choose(random, -4, -3, -2, -1, 0, 1, 2, 3, 4);
+			return random.choose(-4, -3, -2, -1, 0, 1, 2, 3, 4);
 		}
 		throw new IllegalArgumentException("Could not determine second direction for main direction " + mainDirection + ", range " + range);
 	}
 
 	@Nonnull
 	@CheckReturnValue
-	protected Block translate(@Nonnull Block startingPoint, @Nonnull Random random, int layer, int mainDirection, int secondDirection) {
+	protected Block translate(@Nonnull Block startingPoint, @Nonnull IRandom random, int layer, int mainDirection, int secondDirection) {
 
 		boolean intoX = random.nextBoolean();
 

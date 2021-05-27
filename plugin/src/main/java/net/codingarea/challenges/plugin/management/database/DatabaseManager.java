@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.management.database;
 
 import net.anweisen.utilities.commons.common.Tuple;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.logging.LoggingExceptionHandler;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;

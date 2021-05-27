@@ -44,8 +44,8 @@ public final class LanguageLoader extends ContentLoader {
 	}
 
 	private void loadDefault() {
-		init();
 		download();
+		init();
 		read();
 	}
 
@@ -68,17 +68,19 @@ public final class LanguageLoader extends ContentLoader {
 		try {
 
 			JsonArray languages = parser.parse(IOUtils.toString(getGitHubUrl("language/languages.json"))).getAsJsonArray();
+			Logger.debug("Fetched languages {}", languages);
 			for (JsonElement element : languages) {
 				try {
 					String name = element.getAsString();
 					String url = getGitHubUrl("language/files/" + name + ".json");
 
-					JsonObject language = parser.parse(IOUtils.toString(url)).getAsJsonObject();
+					Document language = Document.parseJson(IOUtils.toString(url));
 					File file = getMessageFile(name, "json");
 
-					verifyLanguage(language, file);
-
+					Logger.debug("Writing language {} to {}", name, file);
+					verifyLanguage(language, file, name);
 				} catch (Exception ex) {
+					ex.printStackTrace();
 					Logger.error("Could not download language for {}. {}: {}", element, ex.getClass().getSimpleName(), ex.getMessage());
 				}
 			}
@@ -88,23 +90,16 @@ public final class LanguageLoader extends ContentLoader {
 		}
 	}
 
-	private void verifyLanguage(@Nonnull JsonObject download, @Nonnull File file) throws IOException {
-
-		if (!file.exists()) {
-			FileUtils.createFilesIfNecessary(file);
-			new GsonDocument(download).save(file);
-			return;
-		}
-
-		JsonObject existing = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
-		for (Entry<String, JsonElement> entry : download.entrySet()) {
-			if (!existing.has(entry.getKey())) {
-				Logger.debug("Overwriting message {} in {} with {}", entry.getKey(), FileUtils.getFileName(file), String.valueOf(entry.getValue()).replace("\"", "§r\""));
-				existing.add(entry.getKey(), entry.getValue());
+	private void verifyLanguage(@Nonnull Document download, @Nonnull File file, @Nonnull String name) throws IOException {
+		Document existing = Document.readJsonFile(file);
+		FileUtils.createFilesIfNecessary(file);
+		download.forEach((key, value) -> {
+			if (!existing.contains(key)) {
+				Logger.debug("Overwriting message {} in {} with {}", key, name, String.valueOf(value).replace("\"", "§r\""));
+				existing.set(key, value);
 			}
-		}
-		new GsonDocument(existing).save(file);
-
+		});
+		existing.saveToFile(file);
 	}
 
 	private void read() {
@@ -120,7 +115,7 @@ public final class LanguageLoader extends ContentLoader {
 			}
 
 			int messages = 0;
-			JsonObject read = new JsonParser().parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
+			JsonObject read = parser.parse(FileUtils.newBufferedReader(file)).getAsJsonObject();
 			for (Entry<String, JsonElement> entry : read.entrySet()) {
 				Message message = Message.forName(entry.getKey());
 				JsonElement element = entry.getValue();

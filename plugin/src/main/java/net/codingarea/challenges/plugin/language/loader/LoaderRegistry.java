@@ -63,6 +63,9 @@ public final class LoaderRegistry {
 	private void handleCompleteLoading(@Nonnull Class<? extends ContentLoader> classOfLoader) {
 		Logger.debug("{} finished loading. {} loader(s) left", classOfLoader.getSimpleName(), loading);
 
+		if (loading.get() == 0)
+			Logger.info("All loaders finished loading");
+
 		if (Challenges.getInstance().isEnabled()) {
 			Subscribers subscribers = this.subscribers.get(classOfLoader);
 			if (subscribers == null) return;

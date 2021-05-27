@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import org.bukkit.entity.Player;
@@ -18,7 +19,7 @@ public abstract class AbstractForceChallenge extends TimedChallenge {
 	public static final int WAITING = 0,
 							COUNTDOWN = 1;
 
-	protected final Random random = new Random();
+	protected final IRandom random = IRandom.create();
 
 	private int state = WAITING;
 

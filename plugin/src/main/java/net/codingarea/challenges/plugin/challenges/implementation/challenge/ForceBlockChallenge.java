@@ -101,17 +101,17 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 				.filter(Material::isBlock)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.toArray(length -> new Material[length]);
-		block = RandomizeUtils.choose(random, materials);
+		block = random.choose(materials);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 4*60, 6*60);
+		return random.range(4 * 60, 6 * 60);
 	}
 
 }

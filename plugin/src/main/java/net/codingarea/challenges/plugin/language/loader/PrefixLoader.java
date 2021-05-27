@@ -22,17 +22,19 @@ public final class PrefixLoader extends ContentLoader {
 			FileUtils.createFilesIfNecessary(file);
 
 			Document document = new PropertiesDocument(file);
+			boolean changed = false;
 
 			for (Prefix prefix : Prefix.values()) {
 				if (!document.contains(prefix.getName())) {
 					document.set(prefix.getName(), prefix.toString());
+					changed = true;
 					continue;
 				}
 
 				prefix.setValue(document.getString(prefix.getName()));
 			}
 
-			document.save(file);
+			if (changed) document.saveToFile(file);
 			Logger.info("Successfully loaded {} prefixes from config file", Prefix.values().size());
 
 		} catch (Exception ex) {

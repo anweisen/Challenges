@@ -94,19 +94,19 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 		List<EntityType> entities = new ArrayList<>(Arrays.asList(EntityType.values()));
 		entities.removeIf(type -> !type.isSpawnable());
 		entities.removeIf(type -> !type.isAlive());
-		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER", "WITHER");
+		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER", "WITHER", "GIANT");
 
-		entity = RandomizeUtils.choose(random, entities);
+		entity = random.choose(entities);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 5*60, 8*60);
+		return random.range(5 * 60, 8 * 60);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -35,4 +35,8 @@ public final class Logger {
 		getInstance().debug(message, args);
 	}
 
+	public static void trace(@Nullable Object message, @Nonnull Object... args) {
+		getInstance().trace(message, args);
+	}
+
 }

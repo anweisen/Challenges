@@ -31,7 +31,7 @@ public final class ItemUtils {
 		if (BukkitReflectionUtils.isAir(material)) return false;
 		if (name.endsWith("_SPAWN_EGG")) return false;
 		if (name.startsWith("INFESTED_")) return false;
-		if (name.startsWith("LEGACY_")) return false;
+		if (name.startsWith("LEGACY_")) return false; // legacy items should not be obtainable
 		switch (name) { // Use name instead of enum its self, to prevent NoSuchFieldErrors in older versions where this specific enum does not exist
 			case "CHAIN_COMMAND_BLOCK":
 			case "REPEATING_COMMAND_BLOCK":
@@ -53,6 +53,10 @@ public final class ItemUtils {
 			case "LARGE_FERN":
 			case "TALL_GRASS":
 			case "TALL_SEAGRASS":
+			case "PATH_BLOCK":
+			case "CHORUS_PLANT":
+			case "PETRIFIED_OAK_SLAB":
+			case "FARMLAND":
 				return false;
 		}
 

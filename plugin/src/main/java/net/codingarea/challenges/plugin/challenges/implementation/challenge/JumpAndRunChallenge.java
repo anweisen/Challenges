@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
@@ -39,7 +40,7 @@ import static net.codingarea.challenges.plugin.utils.misc.RandomizeUtils.choose;
  */
 public class JumpAndRunChallenge extends WorldDependentChallenge {
 
-	private final Random random = new Random();
+	private final IRandom random = IRandom.create();
 	private final List<UUID> lastPlayers = new ArrayList<>();
 
 	private int jumps = 4;
@@ -101,7 +102,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, 60 * getValue(), 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@Override
@@ -161,7 +162,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 			players = new ArrayList<>(Bukkit.getOnlinePlayers());
 			lastPlayers.clear();
 		}
-		return choose(random, players);
+		return random.choose(players);
 	}
 
 	protected void finishJumpAndRun() {

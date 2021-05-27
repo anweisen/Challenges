@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
@@ -29,7 +30,7 @@ import java.util.Random;
  */
 public class WaterMLGChallenge extends WorldDependentChallenge {
 
-	private final Random random = new Random();
+	private final IRandom random = IRandom.create();
 
 	public WaterMLGChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
@@ -54,7 +55,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, 60 * getValue(), 10);
+		return random.around(getValue() * 60, 10);
 	}
 
 	@Override

@@ -39,14 +39,14 @@ public class AnvilRainChallenge extends MenuSetting {
 						value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
 						1,
 						30,
-						15
+						7
 				)
 		);
 		registerSetting("count", new NumberSubSetting(
 						() -> new ItemBuilder(Material.FLINT, Message.forName("item-anvil-rain-count-challenge")),
 						1,
 						30,
-						15
+						8
 				)
 		);
 		registerSetting("range", new NumberSubSetting(

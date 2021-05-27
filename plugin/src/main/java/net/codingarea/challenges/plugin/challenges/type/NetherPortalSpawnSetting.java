@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.commons.config.Document;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.CollectAllItemsGoal;
 import net.codingarea.challenges.plugin.language.Message;
 import net.codingarea.challenges.plugin.language.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -80,17 +79,17 @@ public abstract class NetherPortalSpawnSetting extends OneEnabledSetting {
 				return entry.getValue();
 		}
 
-		// Find next fortress
-		Location fortress = nether.locateNearestStructure(new Location(nether, 0, 100, 0), structureType, 10000, false);
-		if (fortress == null) return null;
+		// Find next structure
+		Location structure = nether.locateNearestStructure(new Location(nether, 0, 100, 0), structureType, 10000, false);
+		if (structure == null) return null;
 
-		// Look if there's already a portal to this fortress
+		// Look if there's already a portal to this structure
 		for (Entry<Location, Location> entry : netherPortalsByOverworldPortals.entrySet()) {
-			if (fortress.distance(entry.getValue()) < 100)
+			if (structure.distance(entry.getValue()) < 100)
 				return entry.getValue();
 		}
 
-		Location target = findNearestFortressPart(fortress.clone());
+		Location target = findNearestStructurePart(structure.clone());
 		netherPortalsByOverworldPortals.put(overworldPortal, target);
 		return target;
 
@@ -107,7 +106,7 @@ public abstract class NetherPortalSpawnSetting extends OneEnabledSetting {
 
 
 	@Nullable
-	private Location findNearestFortressPart(@Nonnull Location structure) {
+	private Location findNearestStructurePart(@Nonnull Location structure) {
 
 		Chunk chunk = structure.getChunk();
 		for (int x = 0; x < 16; x++) {
@@ -169,12 +168,6 @@ public abstract class NetherPortalSpawnSetting extends OneEnabledSetting {
 			}
 		}
 
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.NETHER_BRICK_STAIRS, Message.forName("item-fortress-spawn-setting"));
 	}
 
 	@Override
