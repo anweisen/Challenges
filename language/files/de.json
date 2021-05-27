@@ -887,6 +887,11 @@
     "Unter dir wird *Luft* zu einem",
     "*3x3* Boden aus *Eis*"
   ],
+  "item-blocks-disappear-time-challenge": [
+    "§fBlöcke verschwinden nach Zeit",
+    "Blöcke die du *platzierst*, *verschwinden*",
+    "nach ein *paar Sekunden* wieder"
+  ],
 
 
   "item-dragon-goal": [

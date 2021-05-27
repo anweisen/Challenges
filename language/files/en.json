@@ -880,6 +880,11 @@
     "*Air* will be replaced in a",
     "*3x3* area with *packed ice*"
   ],
+  "item-blocks-disappear-time-challenge": [
+    "§fBlocks disappear after time",
+    "Placed *blocks*, will *disappear*",
+    "after a *few seconds*"
+  ],
 
 
   "item-dragon-goal": [

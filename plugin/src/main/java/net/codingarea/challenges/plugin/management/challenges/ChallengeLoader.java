@@ -136,6 +136,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(WaterAllergyChallenge.class);
 		register(InvertHealthChallenge.class);
 		register(IceFloorChallenge.class);
+		register(BlocksDisappearAfterTimeChallenge.class);
 
 
 		// Goal
