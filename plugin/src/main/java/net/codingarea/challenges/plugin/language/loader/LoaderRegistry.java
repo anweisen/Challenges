@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class LoaderRegistry {
 
-	private class Subscribers {
+	private static class Subscribers {
 
 		private final Class<? extends ContentLoader> loader;
 		private final Collection<Runnable> actions = new ArrayList<>(1);
