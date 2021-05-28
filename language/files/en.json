@@ -876,12 +876,12 @@
     "*teleported* to its *death point*"
   ],
   "item-ice-floor-challenge": [
-    "§bIce floor",
+    "§bIce Floor",
     "*Air* will be replaced in a",
     "*3x3* area with *packed ice*"
   ],
   "item-blocks-disappear-time-challenge": [
-    "§fBlocks disappear after time",
+    "§fBlocks Disappear After Time",
     "Placed *blocks*, will *disappear*",
     "after a *few seconds*"
   ],
