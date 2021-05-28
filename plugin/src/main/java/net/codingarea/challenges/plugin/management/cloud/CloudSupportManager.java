@@ -136,6 +136,10 @@ public final class CloudSupportManager implements Listener {
 		}
 	}
 
+	public String getType() {
+		return type;
+	}
+
 	protected boolean isEnabled() {
 		return support != null;
 	}

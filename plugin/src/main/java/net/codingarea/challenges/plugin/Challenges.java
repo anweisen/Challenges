@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin;
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.codingarea.challenges.plugin.language.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
+import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
@@ -54,6 +55,7 @@ public final class Challenges extends BukkitModule {
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
 	private LoaderRegistry loaderRegistry;
+	private MetricsLoader metricsLoader;
 
 	private boolean validationFailed = false;
 
@@ -108,6 +110,7 @@ public final class Challenges extends BukkitModule {
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
+		metricsLoader = new MetricsLoader();
 
 	}
 
@@ -128,6 +131,7 @@ public final class Challenges extends BukkitModule {
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
+		metricsLoader.load();
 
 		loaderRegistry.enable();
 
