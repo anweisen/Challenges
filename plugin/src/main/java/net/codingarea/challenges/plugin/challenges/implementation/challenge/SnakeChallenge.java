@@ -83,7 +83,7 @@ public class SnakeChallenge extends Setting {
 
 		if (blocks.contains(to)) {
 			Message.forName("snake-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-			event.getPlayer().damage(event.getPlayer().getHealth());
+			kill(event.getPlayer());
 			return;
 		}
 
