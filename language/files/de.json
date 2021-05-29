@@ -1,5 +1,8 @@
 {
   "syntax": "Bitte nutze §e/{0}",
+  "reload": "Challenges Plugin wird neu geladen...",
+  "reload-failed": "Ein §cFehler §7ist während dem reload aufgetreten",
+  "reload-success": "Challenges Plugin wurde §aerfolgreich §7neu geladen",
   "player-command": "Dazu musst du ein Spieler sein!",
   "no-permission": "Dazu hast du §ckeine §7Rechte",
   "enabled": "§aAktiviert",
