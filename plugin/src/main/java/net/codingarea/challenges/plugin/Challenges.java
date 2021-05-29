@@ -93,7 +93,10 @@ public final class Challenges extends BukkitModule {
 		configManager.loadConfigs();
 
 		loaderRegistry = new LoaderRegistry(
-				new LanguageLoader(), new PrefixLoader(), new UpdateLoader(), new ServiceLoader()
+				new LanguageLoader(),
+				new PrefixLoader(),
+				new UpdateLoader(),
+				new ServiceLoader()
 		);
 
 		databaseManager = new DatabaseManager();
@@ -139,6 +142,7 @@ public final class Challenges extends BukkitModule {
 
 	private void registerCommands() {
 		registerCommand(new HelpCommand(), "help");
+		registerCommand(new ReloadCommand(), "creload");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
 		registerCommand(new ForwardingCommand("timer start"), "start");

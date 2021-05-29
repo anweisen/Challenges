@@ -23,6 +23,11 @@ commands:
       - "hilfe"
       - "h"
       - "info"
+  creload:
+    usage: "/creload"
+    description: "Reloads the Challenges plugin"
+    aliases:
+      - "cr"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
