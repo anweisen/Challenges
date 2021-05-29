@@ -243,7 +243,6 @@ public class Metrics {
       // frequency!
       // WARNING: Modifying this code will get your plugin banned on bStats. Just don't do it!
       long initialDelay = (long) (1000 * 60 * (3 + Math.random() * 3));
-//      long initialDelay = 10000;
       long secondDelay = (long) (1000 * 60 * (Math.random() * 30));
       scheduler.schedule(submitTask, initialDelay, TimeUnit.MILLISECONDS);
       scheduler.scheduleAtFixedRate(

@@ -63,7 +63,7 @@ public class MessageImpl implements Message {
 		if (value instanceof String)            return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getLore();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return new String[] { Message.NULL};
+		return new String[] { Message.NULL };
 	}
 
 	@Nonnull

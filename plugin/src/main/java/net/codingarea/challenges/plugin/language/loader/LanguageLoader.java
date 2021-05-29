@@ -1,15 +1,17 @@
 package net.codingarea.challenges.plugin.language.loader;
 
-import com.google.gson.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import net.anweisen.utilities.commons.common.IOUtils;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.anweisen.utilities.commons.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -32,8 +34,10 @@ public final class LanguageLoader extends ContentLoader {
 
 	@Override
 	protected void load() {
+
 		Document config = Challenges.getInstance().getConfigDocument();
 		if (config.contains(DIRECT_FILE_PATH)) {
+			language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
 			String path = config.getString(DIRECT_FILE_PATH);
 			Logger.info("Using direct language file '{}'", path);
 			readLanguage(new File(path));
@@ -142,5 +146,8 @@ public final class LanguageLoader extends ContentLoader {
 		return loaded;
 	}
 
+	public String getLanguage() {
+		return language;
+	}
 
 }

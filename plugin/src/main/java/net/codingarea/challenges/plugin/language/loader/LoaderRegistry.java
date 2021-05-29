@@ -104,4 +104,9 @@ public final class LoaderRegistry {
 		}
 	}
 
+	public <T extends ContentLoader> T getFirstRegistryLoaderByClass(@Nonnull Class<T> clazz) {
+		ContentLoader loader = loaders.stream().filter(contentLoader -> contentLoader.getClass().equals(clazz)).findFirst().orElse(null);
+		if (loader == null) return null;
+		return (T) loader;
+	}
 }
