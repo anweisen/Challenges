@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.bstats.Metrics.AdvancedPie;
 import net.codingarea.challenges.plugin.management.bstats.Metrics.SimplePie;
 import net.codingarea.challenges.plugin.management.bstats.Metrics.SingleLineChart;
+import net.codingarea.challenges.plugin.utils.misc.MemoryConverter;
 
 import java.util.HashMap;
 
@@ -34,8 +35,7 @@ public class MetricsLoader {
 	}
 
 	private int getMemory() {
-		float maxMemory = (float) Runtime.getRuntime().maxMemory() / 100000000;
-		return (int) Math.ceil(maxMemory);
+		return MemoryConverter.getGB(Runtime.getRuntime().maxMemory());
 	}
 
 }
