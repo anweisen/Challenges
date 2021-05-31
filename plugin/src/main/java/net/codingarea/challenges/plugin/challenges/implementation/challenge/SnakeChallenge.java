@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 public class SnakeChallenge extends Setting {
 
-	private ArrayList<Block> blocks = new ArrayList<>();
+	private final ArrayList<Block> blocks = new ArrayList<>();
 
 	public SnakeChallenge() {
 		super(MenuType.CHALLENGES);
@@ -73,11 +73,11 @@ public class SnakeChallenge extends Setting {
 		if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
 		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 
-		Block from = event.getFrom().clone().subtract(0, 0.15, 0).getBlock();
+		Block from = event.getFrom().clone().subtract(0, 1, 0).getBlock();
 		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
 
 		if (from.getType().isSolid()) {
-			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())));
+			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())), false);
 			blocks.add(from);
 		}
 
