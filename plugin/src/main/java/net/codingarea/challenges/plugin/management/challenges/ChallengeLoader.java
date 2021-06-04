@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
+import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
 import org.bukkit.Material;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -167,7 +167,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		registerDamageRule("magic",     Material.BREWING_STAND,             DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
 
 		// Material Rules
-		registerMaterialRule("§cArmor", "Armor", ItemUtils.getArmor());
+		registerMaterialRule("§cArmor", "Armor", ArmorUtils.getArmor());
 		registerMaterialRule("§6Golden Apple", "Golden Apple", Material.GOLDEN_APPLE, Material.ENCHANTED_GOLDEN_APPLE);
 		registerMaterialRule("§6Crafting Table", "Crafting Table", Material.CRAFTING_TABLE);
 		registerMaterialRule("§6Chest", "Chest", Material.CHEST);

@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
 import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
+import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.commons.misc.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -47,12 +48,12 @@ public final class Utils {
 	public static UUID fetchUUID(@Nonnull String name) throws IOException {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
 		String content = IOUtils.toString(new URL(url));
-		GsonDocument document = new GsonDocument(content);
+		Document document = Document.parseJson(content);
 		return Optional.ofNullable(matchUUID(document.getString("id"))).orElseThrow(() -> new IOException());
 	}
 
 	@Nullable
-	private static UUID matchUUID(@Nullable String uuid) {
+	public static UUID matchUUID(@Nullable String uuid) {
 		if (uuid == null) return null;
 		Pattern pattern = Pattern.compile("(\\w{8})(\\w{4})(\\w{4})(\\w{4})(\\w{12})");
 		return UUID.fromString(pattern.matcher(uuid).replaceAll("$1-$2-$3-$4-$5"));
@@ -61,24 +62,13 @@ public final class Utils {
 	@Nullable
 	@CheckReturnValue
 	public static Material getMaterial(@Nullable String name) {
-		return getEnum(Material.class, name);
+		return ReflectionUtils.getEnumOrNull(name, Material.class);
 	}
-
 
 	@Nullable
 	@CheckReturnValue
 	public static EntityType getEntityType(@Nullable String name) {
-		return getEnum(EntityType.class, name);
-	}
-
-	@Nullable
-	@CheckReturnValue
-	public static <E extends Enum<E>> E getEnum(@Nonnull Class<E> enun, @Nullable String name) {
-		try {
-			return Enum.valueOf(enun, name);
-		} catch (Throwable ex) {
-			return null;
-		}
+		return ReflectionUtils.getEnumOrNull(name, EntityType.class);
 	}
 
 	public static <T extends Enum<?>> void removeEnums(@Nonnull Collection<T> collection, @Nonnull String... names) {

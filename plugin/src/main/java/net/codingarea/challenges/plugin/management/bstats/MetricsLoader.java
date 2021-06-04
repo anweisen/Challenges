@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.management.bstats;
 
+import net.anweisen.utilities.bukkit.utils.bstats.Metrics;
+import net.anweisen.utilities.bukkit.utils.bstats.chart.AdvancedPie;
+import net.anweisen.utilities.bukkit.utils.bstats.chart.SimplePie;
+import net.anweisen.utilities.bukkit.utils.bstats.chart.SingleLineChart;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.loader.LanguageLoader;
-import net.codingarea.challenges.plugin.management.bstats.Metrics.AdvancedPie;
-import net.codingarea.challenges.plugin.management.bstats.Metrics.SimplePie;
-import net.codingarea.challenges.plugin.management.bstats.Metrics.SingleLineChart;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.utils.misc.MemoryConverter;
 
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class MetricsLoader {
 		Challenges plugin = Challenges.getInstance();
 
 		Metrics metrics = new Metrics(plugin, 11494);
-		metrics.addCustomChart(new SimplePie("language", () -> Challenges.getInstance().getLoaderRegistry().getFirstRegistryLoaderByClass(LanguageLoader.class).getLanguage()));
+		metrics.addCustomChart(new SimplePie("language", () -> Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class).getLanguage()));
 		metrics.addCustomChart(new SimplePie("cloudType", () -> StringUtils.getEnumName(plugin.getCloudSupportManager().getType())));
 		metrics.addCustomChart(new SimplePie("databaseType", () -> StringUtils.getEnumName(plugin.getDatabaseManager().getType())));
 		metrics.addCustomChart(new SingleLineChart("totalMemory", this::getMemory));

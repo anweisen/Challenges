@@ -39,7 +39,7 @@ public abstract class SettingModifier extends Modifier {
 	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 		if (info.isUpperItemClick() || !enabled) {
 			setEnabled(!enabled);
-			SoundSample.playEnablingSound(info.getPlayer(), enabled);
+			SoundSample.playStatusSound(info.getPlayer(), enabled);
 			playStatusUpdateTitle();
 		} else {
 			super.handleClick(info);

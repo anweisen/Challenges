@@ -5,8 +5,8 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifierCollectionGoal;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -14,7 +14,6 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -57,7 +56,7 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 		if (!newNether && info.isLowerItemClick() && enabled) {
 			setEnabled(false);
-			SoundSample.playEnablingSound(info.getPlayer(), enabled);
+			SoundSample.playStatusSound(info.getPlayer(), enabled);
 			playStatusUpdateTitle();
 		} else {
 			super.handleClick(info);

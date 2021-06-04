@@ -2,8 +2,8 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -77,7 +77,7 @@ public class SnakeChallenge extends Setting {
 		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
 
 		if (from.getType().isSolid()) {
-			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())));
+			from.setType(BlockUtils.getTerracotta(getPlayersColor(event.getPlayer())));
 			blocks.add(from);
 		}
 
@@ -98,7 +98,7 @@ public class SnakeChallenge extends Setting {
 
 	}
 
-	public int getPlayersWoolIndex(Player player) {
+	public int getPlayersColor(Player player) {
 		int i = 0;
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 			i++;

@@ -1,9 +1,9 @@
-package net.codingarea.challenges.plugin.language.loader;
+package net.codingarea.challenges.plugin.content.loader;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.document.PropertiesDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import java.io.File;

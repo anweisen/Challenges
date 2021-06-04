@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.management.cloud;
+package net.codingarea.challenges.plugin.management.cloud.support;
 
 import de.dytanic.cloudnet.driver.CloudNetDriver;
 import de.dytanic.cloudnet.driver.permission.IPermissionGroup;
@@ -6,6 +6,7 @@ import de.dytanic.cloudnet.driver.permission.IPermissionManagement;
 import de.dytanic.cloudnet.driver.permission.IPermissionUser;
 import de.dytanic.cloudnet.ext.bridge.BridgeHelper;
 import de.dytanic.cloudnet.ext.bridge.bukkit.BukkitCloudNetHelper;
+import net.codingarea.challenges.plugin.management.cloud.CloudSupport;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -41,7 +42,6 @@ public final class CloudNetSupport implements CloudSupport {
 	@Override
 	public void startNewService() {
 		BukkitCloudNetHelper.changeToIngame();
-		BridgeHelper.updateServiceInfo();
 	}
 
 	@Override

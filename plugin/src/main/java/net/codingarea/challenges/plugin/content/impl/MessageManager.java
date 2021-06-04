@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.language.management;
+package net.codingarea.challenges.plugin.content.impl;
 
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;

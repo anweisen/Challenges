@@ -98,7 +98,8 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 				.replace("setting", "")
 				.replace("challenge", "")
 				.replace("modifier", "")
-				.replace("goal", ""));
+				.replace("goal", "")
+		);
 	}
 
 	@Override

@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin;
 
-import net.codingarea.challenges.plugin.language.loader.ContentLoader;
+import net.codingarea.challenges.plugin.content.loader.ContentLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.Material;

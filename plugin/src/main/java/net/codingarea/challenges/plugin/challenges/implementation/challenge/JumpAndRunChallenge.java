@@ -7,8 +7,8 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
@@ -19,7 +19,6 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
@@ -31,8 +30,6 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
-
-import static net.codingarea.challenges.plugin.utils.misc.RandomizeUtils.choose;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -149,7 +146,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 			Material.COBBLESTONE_WALL,
 			Material.SPRUCE_FENCE
 		};
-		return materials[random.nextInt(materials.length)];
+		return random.choose(materials);
 	}
 
 	@Nonnull

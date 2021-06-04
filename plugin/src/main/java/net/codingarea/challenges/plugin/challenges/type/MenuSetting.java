@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.type;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
-import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.EmptyMenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.positions.EmptyMenuPosition;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
@@ -308,7 +308,7 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public final void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 			this.setEnabled(!enabled);
-			SoundSample.playEnablingSound(info.getPlayer(), enabled);
+			SoundSample.playStatusSound(info.getPlayer(), enabled);
 		}
 
 		@Override
@@ -552,7 +552,7 @@ public abstract class MenuSetting extends Setting {
 		public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 			if (info.isUpperItemClick() || !enabled) {
 				this.setEnabled(!enabled);
-				SoundSample.playEnablingSound(info.getPlayer(), enabled);
+				SoundSample.playStatusSound(info.getPlayer(), enabled);
 			} else {
 				super.handleClick(info);
 			}

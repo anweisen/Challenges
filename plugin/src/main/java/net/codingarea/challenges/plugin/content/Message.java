@@ -1,11 +1,15 @@
-package net.codingarea.challenges.plugin.language;
+package net.codingarea.challenges.plugin.content;
 
-import net.codingarea.challenges.plugin.language.management.MessageManager;
+import net.anweisen.utilities.commons.common.IRandom;
+import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Random;
 
 /**
@@ -15,12 +19,22 @@ import java.util.Random;
 public interface Message {
 
 	String NULL = "§r§fN/A";
+	Collection<String> UNKNOWN_MESSAGES = new ArrayList<>();
+
+	static String unknown(@Nonnull String name) {
+		if (!UNKNOWN_MESSAGES.contains(name)) {
+			UNKNOWN_MESSAGES.add(name);
+			Logger.warn("Tried accessing unknown messages '{}'", name);
+		}
+
+		return NULL;
+	}
 
 	@Nonnull
 	String asString(@Nonnull Object... args);
 
 	@Nonnull
-	String asRandomString(@Nonnull Random random, @Nonnull Object... args);
+	String asRandomString(@Nonnull IRandom random, @Nonnull Object... args);
 
 	@Nonnull
 	String asRandomString(@Nonnull Object... args);
@@ -33,11 +47,11 @@ public interface Message {
 
 	void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
 	void sendRandom(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
-	void sendRandom(@Nonnull Random random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+	void sendRandom(@Nonnull IRandom random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args);
 	void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args);
-	void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args);
+	void broadcastRandom(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcastTitle(@Nonnull Object... args);
 	void sendTitle(@Nonnull Player player, @Nonnull Object... args);

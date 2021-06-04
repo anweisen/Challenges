@@ -65,8 +65,8 @@ public final class BlockUtils {
 		return list;
 	}
 
-	public static Material getTerracotta(int subid) {
-		switch (subid) {
+	public static Material getTerracotta(int subId) {
+		switch (subId) {
 			case 2:  return Material.ORANGE_TERRACOTTA;
 			case 3:  return Material.MAGENTA_TERRACOTTA;
 			case 4:  return Material.LIGHT_BLUE_TERRACOTTA;

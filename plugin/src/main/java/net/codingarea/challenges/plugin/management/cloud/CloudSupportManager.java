@@ -4,6 +4,7 @@ import net.anweisen.utilities.commons.common.WrappedException;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.cloud.support.CloudNetSupport;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -46,7 +47,7 @@ public final class CloudSupportManager implements Listener {
 
 		if (type.equals("none")) return;
 
-		loadSupport(type);
+		support =   loadSupport(type);
 		ChallengeAPI.registerScheduler(this);
 		Challenges.getInstance().registerListener(this);
 
@@ -57,12 +58,10 @@ public final class CloudSupportManager implements Listener {
 		cachedColoredNames.remove(event.getPlayer().getUniqueId());
 	}
 
-	private void loadSupport(@Nonnull String name) {
+	private CloudSupport loadSupport(@Nonnull String name) {
 		switch (name) {
-			default: return;
-			case "cloudnet":
-				support = new CloudNetSupport();
-				break;
+			default:            return null;
+			case "cloudnet":    return new CloudNetSupport();
 		}
 	}
 

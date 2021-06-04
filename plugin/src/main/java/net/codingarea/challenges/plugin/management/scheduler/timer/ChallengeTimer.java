@@ -5,8 +5,8 @@ import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.config.FileDocument;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.Goal;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -36,11 +36,12 @@ public final class ChallengeTimer {
 
 	public ChallengeTimer() {
 
-		specificStartSounds = Challenges.getInstance().getConfigDocument().getBoolean("enable-specific-start-sounds");
-		defaultStartSound = Challenges.getInstance().getConfigDocument().getBoolean("enable-default-start-sounds");
+		Document pluginConfig = Challenges.getInstance().getConfigDocument();
+		specificStartSounds = pluginConfig.getBoolean("enable-specific-start-sounds");
+		defaultStartSound = pluginConfig.getBoolean("enable-default-start-sounds");
 
 		// Load format + messages
-		Document timerConfig = Challenges.getInstance().getConfigDocument().getDocument("timer");
+		Document timerConfig = pluginConfig.getDocument("timer");
 		stoppedMessage = timerConfig.getString("stopped-message", "");
 		upMessage = timerConfig.getString("count-up-message", "");
 		downMessage = timerConfig.getString("count-down-message", "");

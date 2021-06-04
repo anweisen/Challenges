@@ -3,10 +3,9 @@ package net.codingarea.challenges.plugin.spigot.command;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
-import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.EmptyMenuPosition;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.stats.LeaderboardInfo;
@@ -104,7 +103,7 @@ public class StatsCommand implements PlayerCommand {
 		LeaderboardInfo info = Challenges.getInstance().getStatsManager().getLeaderboardInfo(uuid);
 		createInventory(stats, info, inventory, StatsHelper.getSlots(2));
 
-		MenuPosition.set(player, new EmptyMenuPosition());
+		MenuPosition.setEmpty(player);
 		inventory.open(player, Challenges.getInstance());
 
 		submitTimeByPlayer.remove(player);

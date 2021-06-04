@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
-import net.codingarea.challenges.plugin.language.loader.*;
+import net.codingarea.challenges.plugin.content.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
@@ -141,6 +141,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void registerCommands() {
+		registerCommand(new ReloadCommand(), "cr");
 		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ReloadCommand(), "creload");
 		registerCommand(new ChallengesCommand(), "challenges");

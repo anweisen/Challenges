@@ -56,7 +56,7 @@ public abstract class SettingModifierGoal extends SettingModifier implements Goa
 			ChallengeHelper.handleModifierClick(info, this);
 		} else {
 			setEnabled(!isEnabled());
-			SoundSample.playEnablingSound(info.getPlayer(), isEnabled());
+			SoundSample.playStatusSound(info.getPlayer(), isEnabled());
 			playStatusUpdateTitle();
 		}
 	}

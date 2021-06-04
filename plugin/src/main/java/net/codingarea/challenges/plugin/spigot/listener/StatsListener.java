@@ -115,9 +115,8 @@ public class StatsListener implements Listener {
 
 		incrementStatistic(player, Statistic.ENTITY_KILLS, 1);
 		if (entity instanceof EnderDragon && entity.getWorld().getEnvironment() == Environment.THE_END) {
-			for (Player damager : dragonDamager) {
-				incrementStatistic(damager, Statistic.DRAGON_KILLED, 1);
-			}
+			dragonDamager.forEach(damager -> incrementStatistic(damager, Statistic.DRAGON_KILLED, 1));
+			dragonDamager.clear();
 		}
 	}
 

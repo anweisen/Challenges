@@ -7,7 +7,7 @@ import net.anweisen.utilities.commons.version.Version;
 import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -128,7 +128,7 @@ public final class SettingsMenu {
 
 	private boolean isNew(@Nonnull IChallenge challenge) {
 		Version version = Challenges.getInstance().getVersion();
-		Version since   = VersionInfo.getSince(challenge);
+		Version since   = Version.getAnnotatedSince(challenge);
 		return since.isNewerOrEqualThan(version);
 	}
 
