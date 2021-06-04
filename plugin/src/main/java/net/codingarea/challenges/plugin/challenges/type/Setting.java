@@ -32,7 +32,7 @@ public abstract class Setting extends AbstractChallenge {
 	@Override
 	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
 		setEnabled(!enabled);
-		SoundSample.playEnablingSound(event.getPlayer(), enabled);
+		SoundSample.playStatusSound(event.getPlayer(), enabled);
 		playStatusUpdateTitle();
 	}
 

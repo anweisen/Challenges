@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -90,6 +91,11 @@ public final class ColorConversions {
 				.min((o1, o2) -> (int) ((calculateDifferenceBetweenColors(color, o1.getValue()) - calculateDifferenceBetweenColors(color, o2.getValue())) * 100))
 				.orElseThrow(() -> new IllegalStateException("Could not find a ChatColor for the given input"))
 				.getKey();
+	}
+
+	@Nonnull
+	public static Color convertChatColorToAwtColor(@Nonnull ChatColor color) {
+		return Optional.ofNullable(colorsByChatColor.get(color)).orElseThrow(() -> new IllegalStateException("Could not find a color for ChatColor." + color.name()));
 	}
 
 	@Nonnull

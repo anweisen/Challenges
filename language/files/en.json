@@ -1,10 +1,13 @@
 {
   "syntax": "Please use §e/{0}",
+  "reload": "Challenges Plugin is reloading...",
+  "reload-failed": "An §cerror &7occurred while reloading the plugin",
+  "reload-success": "Challenges Plugin §asuccessfully §7reloaded",
   "player-command": "You must be a player!",
   "no-permission": "You §cdon't §7have permissions Rechte to do this",
-  "enabled": "§8➟ §aActivated",
-  "disabled": "§8➟ §cDeactivated",
-  "customize": "§8➟ §6Customize",
+  "enabled": "§aActivated",
+  "disabled": "§cDeactivated",
+  "customize": "§6Customize",
   "navigate-back": "§8« §7Back",
   "navigate-next": "§8» §7Next",
   "seconds": "seconds",
@@ -63,6 +66,8 @@
   "player-config-saved": "Your settings have been saved §asuccessfully",
   "player-config-reset": "The settings were §asuccessfully §7reset",
 
+  "item-setting-info": "§8➟ {0}",
+
   "stat-dragon-killed": "Dragons killed",
   "stat-deaths": "Deaths",
   "stat-entity-kills": "Kills",
@@ -95,13 +100,14 @@
   "command-heal-healed-others": "You healed §e{0} player/s",
   "command-gamemode-gamemode-changed": "Your gamemode has been changed to §e{0}",
   "command-gamemode-gamemode-changed-others": "The gamemode of §e{1} §7player/s has been changed to §e{0}",
+  "command-village-search": "A village is being searched..",
   "command-village-teleport": "You have been §ateleported to a village",
   "command-village-not-found": "§cNo §7new village was found",
   "command-weather-set-clear": "Weather was changed to §eclear",
   "command-weather-set-rain": "Weather was changed to §erainy",
   "command-weather-set-thunder": "Weather was changed to §ethundery",
   "command-invsee-open": "Inventory of §e{0} §7opened",
-  "command-enderchest-open": "§5Enderchest §7opened",
+  "command-enderchest-open": "You opened your §5Enderchest",
   "command-difficulty-change": "Difficulty changed to §e{0}",
   "command-difficulty-current": "Current difficulty is §e{0}",
   "command-search-nothing": "§e{0} §7is not dropped by any special block",
@@ -149,7 +155,7 @@
   "random-challenge-enabled": "The challenge §e{0} §7has been §aactivated",
   "all-items-skipped": "Item §e{0} §7skipped",
   "all-items-already-finished": "All items has been already found",
-  "all-items-found": "Item §e{0} §7registered",
+  "all-items-found": "Item §e{0} §7registered by §e{1}",
   "boss-kill": "The §e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
   "endergames-teleport": "Swapped with §e{0}",
   "force-height-fail": "§e{0} §7was on the §cwrong §7height §8(§e{1}§8)",
@@ -162,6 +168,7 @@
   "force-mob-success": "§e{0} §7killed the mob §e{1}",
   "force-item-fail": "Item §e{0} §chasn't benn found",
   "force-item-success": "§e{0} §afound §7the item §e{1}",
+  "new-effect": "Effect §e{0} §8➔ §e{1}",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -216,6 +223,7 @@
   "bossbar-force-item-instruction": "§8» §7Item §e{0} §8┃ §a{1}",
   "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
+  "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -574,7 +582,7 @@
   "item-randomized-hp-challenge": [
     "§4Randomized HP",
     "The *health* of all mobs",
-    "are randomized"
+    "is randomized"
   ],
   "item-snake-challenge": [
     "§9Snake",
@@ -870,6 +878,16 @@
     "all mobs of the *same type* will be",
     "*teleported* to its *death point*"
   ],
+  "item-ice-floor-challenge": [
+    "§bIce Floor",
+    "*Air* will be replaced in a",
+    "*3x3* area with *packed ice*"
+  ],
+  "item-blocks-disappear-time-challenge": [
+    "§fBlocks Disappear After Time",
+    "Placed *blocks*, will *disappear*",
+    "after a *few seconds*"
+  ],
 
 
   "item-dragon-goal": [
@@ -879,6 +897,14 @@
   "item-wither-goal": [
     "§dWither",
     "Kill a *Wither* to win"
+  ],
+  "item-iron-golem-goal": [
+    "§bIron Golem",
+    "Kill an *Iron Golem* to win"
+  ],
+  "item-snow-golem-goal": [
+    "§bSnowman",
+    "Kill a *Snowman* to win"
   ],
   "item-elder-guardian-goal": [
     "§bElder Guardian",

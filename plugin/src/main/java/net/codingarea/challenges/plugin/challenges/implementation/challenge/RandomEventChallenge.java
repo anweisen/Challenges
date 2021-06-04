@@ -2,14 +2,14 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.commons.annotations.Since;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -40,7 +40,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	private final Random random = new Random();
+	private final IRandom random = IRandom.create();
 	private final Event[] events;
 
 	public RandomEventChallenge() {
@@ -75,13 +75,13 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected void onTimeActivation() {
 		restartTimer();
-		Event event = RandomizeUtils.choose(random, events);
+		Event event = random.choose(events);
 		Logger.debug("Running random event {}", event.getClass().getSimpleName());
 		event.getActivationMessage().broadcastRandom(random, Prefix.CHALLENGES);
 		broadcastFiltered(event::run);
@@ -112,9 +112,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			EntityType type = RandomizeUtils.choose(random,
-				EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF
-			);
+			EntityType type = random.choose(EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF);
 
 			for (int i = 0; i < random.nextInt(5) + 5; i++) {
 				Location randomLocation = player.getLocation().add(random.nextInt(10) - 5, -10, random.nextInt(10 - 5));

@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.language;
+package net.codingarea.challenges.plugin.content;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;

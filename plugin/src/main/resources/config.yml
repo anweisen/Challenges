@@ -61,6 +61,7 @@ design:
   empty-line-underneath: true
 
 # The size stands for the amount of rows in the backpack inventory
+# Value can be between 1-6
 backpack-size: 3
 
 # Players with the permission 'challenges.gui' will have items in their hotbar
@@ -133,13 +134,14 @@ drop-items-on-end: false
 cloud-support:
   type: none
   name-rank-colors: true
-  start-new-service: false
+  set-ingame: false
+  start-new-service: false # This will only be available if set-ingame is enabled as well
   reset-to-lobby: false # When the timer was stared once and is paused again, the gamestate will be set back to LOBBY, this will only be used if start-new-service is enabled as well
 
 # This will require a database connection
 save-player-configs: false
 save-player-stats: false
-no-stats-after-cheating: true
+no-stats-after-cheating: false
 
 # Debug messages will be shown in the console.
 # You should enable this setting when reporting an issue.

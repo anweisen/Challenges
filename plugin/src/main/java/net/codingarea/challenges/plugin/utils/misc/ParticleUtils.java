@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import org.apache.commons.lang.Validate;
 import org.bukkit.*;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -45,7 +44,7 @@ public final class ParticleUtils {
 
 	private static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, int points, double radius, double height, @Nonnull BiConsumer<World, Location> player) {
 		for (double y = 0, i = 0; y < height; y += .25, i++) {
-			final double Y = y; // Make final copy
+			final double Y = y;
 			Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
 				spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, player);
 			}, (long) i);

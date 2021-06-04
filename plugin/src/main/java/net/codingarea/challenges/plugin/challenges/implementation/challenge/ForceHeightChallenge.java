@@ -4,14 +4,13 @@ import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -90,17 +89,17 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 	@Override
 	protected void chooseForcing() {
 		World world = Bukkit.getWorlds().get(0);
-		height = RandomizeUtils.randomInRange(random, BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
+		height = random.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 3*60 + 30, 5*60);
+		return random.range(3 * 60 + 30, 5 * 60);
 	}
 
 }

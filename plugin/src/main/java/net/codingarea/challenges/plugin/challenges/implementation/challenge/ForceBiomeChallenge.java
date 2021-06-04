@@ -5,14 +5,13 @@ import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Biome;
 import org.bukkit.boss.BarColor;
@@ -95,12 +94,12 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 				.filter(biome -> !biome.name().contains("VOID"))
 				.toArray(length -> new Biome[length]);
 
-		biome = RandomizeUtils.choose(random, biomes);
+		biome = random.choose(biomes);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomAround(random, getRarity(biome) * 60 * 6, 60);
+		return random.around(getRarity(biome) * 60 * 6, 60);
 	}
 
 	private int getRarity(@Nonnull Biome biome) {
@@ -123,7 +122,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60 * 3, 60);
+		return random.around(getValue() * 60 * 3, 60);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

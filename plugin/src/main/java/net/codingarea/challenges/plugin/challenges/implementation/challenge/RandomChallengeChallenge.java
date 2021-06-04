@@ -1,14 +1,14 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.annotations.Since;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.*;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -24,7 +24,7 @@ import java.util.Random;
 @Since("2.0")
 public class RandomChallengeChallenge extends TimedChallenge {
 
-	private final Random random = new Random();
+	private final IRandom random = IRandom.create();
 
 	private AbstractChallenge lastUsed;
 
@@ -98,7 +98,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 
-		AbstractChallenge challenge = (AbstractChallenge) RandomizeUtils.choose(random, challenges);
+		AbstractChallenge challenge = (AbstractChallenge) random.choose(challenges);
 		String name = ChallengeHelper.getColoredChallengeName(challenge);
 		Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
 
@@ -121,7 +121,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		if (enabled && challenge instanceof TimedChallenge) {
 			TimedChallenge timedChallenge = (TimedChallenge) challenge;
 			if (timedChallenge.isTimerRunning()) {
-				int seconds = RandomizeUtils.randomInRange(random, 10, 20);
+				int seconds = random.range(10, 20);
 				if (seconds < timedChallenge.getSecondsLeftUntilNextActivation())
 					timedChallenge.shortCountDownTo(seconds);
 			}

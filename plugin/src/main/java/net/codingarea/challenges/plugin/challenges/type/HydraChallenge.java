@@ -4,9 +4,11 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Particle;
-import org.bukkit.entity.*;
+import org.bukkit.entity.EnderDragon;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
@@ -32,6 +34,7 @@ public abstract class HydraChallenge extends Setting {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onEntityDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
 		if (!shouldExecuteEffect()) return;
+		if (!(event.getDamager() instanceof Player)) return;
 		if (event.getEntity() instanceof EnderDragon || event.getEntity() instanceof Player) return;
 		if (!(event.getEntity() instanceof LivingEntity)) return;
 		LivingEntity entity = (LivingEntity) event.getEntity();

@@ -1,22 +1,19 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.annotations.Since;
+import net.anweisen.utilities.commons.common.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
-import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Arrays;
-import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -25,7 +22,7 @@ import java.util.Random;
 @Since("2.0")
 public class RandomItemChallenge extends TimedChallenge {
 
-	private final Random random = new Random();
+	private final IRandom random = IRandom.create();
 
 	public RandomItemChallenge() {
 		super(MenuType.CHALLENGES, 1,60, 30, false);
@@ -58,14 +55,10 @@ public class RandomItemChallenge extends TimedChallenge {
 		restartTimer();
 
 		Material[] materials = Arrays.stream(Material.values())
-				.filter(ItemUtils::isObtainableInSurvival)
 				.filter(Material::isItem)
 				.toArray(Material[]::new);
 
-		Player player = Bukkit.getOnlinePlayers().toArray(new Player[0])[random.nextInt(Bukkit.getOnlinePlayers().size())];
-		int materialIndex = random.nextInt(materials.length);
-		Material material = materials[materialIndex];
-		InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(material));
+		broadcastFiltered(player -> InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(materials))));
 
 	}
 

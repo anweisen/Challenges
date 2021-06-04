@@ -3,14 +3,13 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Material;
@@ -94,19 +93,19 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 		List<EntityType> entities = new ArrayList<>(Arrays.asList(EntityType.values()));
 		entities.removeIf(type -> !type.isSpawnable());
 		entities.removeIf(type -> !type.isAlive());
-		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER", "WITHER");
+		Utils.removeEnums(entities, "ENDER_DRAGON", "ILLUSIONER", "ARMOR_STAND", "ZOMBIE_HORSE", "SKELETON_HORSE", "SHULKER", "WITHER", "GIANT");
 
-		entity = RandomizeUtils.choose(random, entities);
+		entity = random.choose(entities);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 5*60, 8*60);
+		return random.range(5 * 60, 8 * 60);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

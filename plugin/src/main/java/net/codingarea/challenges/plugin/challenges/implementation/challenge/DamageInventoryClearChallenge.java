@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -11,6 +11,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 import javax.annotation.Nonnull;
 
@@ -28,6 +29,7 @@ public class DamageInventoryClearChallenge extends SettingModifier {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!shouldExecuteEffect()) return;
+		if (event.getFinalDamage() <= 0 && event.getDamage(DamageModifier.ABSORPTION) >= 0) return;
 
 		if (getValue() == 1) {
 			Bukkit.getOnlinePlayers().forEach(player -> player.getInventory().clear());

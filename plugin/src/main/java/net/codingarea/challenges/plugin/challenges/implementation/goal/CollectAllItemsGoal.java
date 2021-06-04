@@ -1,20 +1,21 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.commons.annotations.Since;
 import net.anweisen.utilities.commons.common.SeededRandomWrapper;
 import net.anweisen.utilities.commons.config.Document;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.SettingGoal;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
+import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -38,8 +39,10 @@ import java.util.List;
 @Since("2.0")
 public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
+
 	private final int totalItemsCount;
 	private SeededRandomWrapper random;
+	private List<Material> allItemsToFind;
 	private List<Material> itemsToFind;
 	private Material currentItem;
 
@@ -56,10 +59,11 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 	}
 
 	private void reloadItemsToFind() {
-		itemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
-		itemsToFind.removeIf(material -> !material.isItem());
-		itemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
-		Collections.shuffle(itemsToFind, random);
+		allItemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
+		allItemsToFind.removeIf(material -> !material.isItem());
+		allItemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
+		Collections.shuffle(allItemsToFind, random);
+		itemsToFind = new ArrayList<>(allItemsToFind);
 		nextItem();
 
 		if (isEnabled())
@@ -114,15 +118,16 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onClick(@Nonnull PlayerInventoryClickEvent event) {
+		if (event.isCancelled()) return;
 		ItemStack item = event.getCurrentItem();
 		if (item == null) return;
-		handleNewItem(item.getType());
+		handleNewItem(item.getType(), event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onPickUp(@Nonnull PlayerPickupItemEvent event) {
 		Material material = event.getItem().getItemStack().getType();
-		handleNewItem(material);
+		handleNewItem(material, event.getPlayer());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -130,14 +135,14 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 			Material material = item.getType();
-			handleNewItem(material);
+			handleNewItem(material, event.getPlayer());
 		}, 1);
 	}
 
-	protected void handleNewItem(@Nullable Material material) {
+	protected void handleNewItem(@Nullable Material material, @Nonnull Player player) {
 		if (!shouldExecuteEffect()) return;
 		if (currentItem != material) return;
-		Message.forName("all-items-found").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(currentItem));
+		Message.forName("all-items-found").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(currentItem), NameHelper.getName(player));
 		SoundSample.PLING.broadcast();
 		nextItem();
 		bossbar.update();
@@ -162,6 +167,22 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 		super.writeGameState(document);
 		document.set("seed", random.getSeed());
 		document.set("found", totalItemsCount - itemsToFind.size());
+	}
+
+	public Material getCurrentItem() {
+		return currentItem;
+	}
+
+	public List<Material> getItemsToFind() {
+		return itemsToFind;
+	}
+
+	public List<Material> getAllItemsToFind() {
+		return allItemsToFind;
+	}
+
+	public int getTotalItemsCount() {
+		return totalItemsCount;
 	}
 
 }

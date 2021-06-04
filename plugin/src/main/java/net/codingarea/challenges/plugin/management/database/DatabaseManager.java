@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.management.database;
 
 import net.anweisen.utilities.commons.common.Tuple;
 import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.logging.LoggingExceptionHandler;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
@@ -28,7 +27,9 @@ import java.util.Map;
 public final class DatabaseManager {
 
 	private final Map<String, Tuple<String, JavaPlugin>> registry = new HashMap<>();
+	private String type;
 	private Database database;
+
 	{
 		// Database types supported by default
 		registerDatabase("sqlite", SQLiteDatabase.class, Challenges.getInstance());
@@ -38,7 +39,7 @@ public final class DatabaseManager {
 	public void enable() {
 		Document document = Challenges.getInstance().getConfigDocument().getDocument("database");
 
-		String type = document.getString("type", "none").toLowerCase();
+		type = document.getString("type", "none").toLowerCase();
 		if ("none".equals(type)) return;
 
 		// Check dependencies
@@ -116,6 +117,10 @@ public final class DatabaseManager {
 
 	public Database getDatabase() {
 		return database;
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	private boolean checkDependencies(@Nonnull String... classes) {

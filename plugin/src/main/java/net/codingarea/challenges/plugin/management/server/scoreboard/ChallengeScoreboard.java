@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Bukkit;

@@ -4,7 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.SettingGoal;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -42,6 +42,7 @@ public class FinishRaidGoal extends SettingGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onRaidFinish(@Nonnull RaidFinishEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (event.getRaid().getStatus() != RaidStatus.VICTORY) return;
 		this.winners = event.getWinners();
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);

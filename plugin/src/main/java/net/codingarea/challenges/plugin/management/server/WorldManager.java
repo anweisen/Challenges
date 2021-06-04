@@ -5,7 +5,7 @@ import net.anweisen.utilities.commons.config.FileDocument;
 import net.anweisen.utilities.commons.misc.FileUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -181,18 +181,26 @@ public final class WorldManager {
 	}
 
 	private void loadExtraWorld() {
-		if (!Challenges.getInstance().isReload())
+		if (!Challenges.getInstance().isReloaded())
 			deleteWorld("challenges-extra");
 
-		world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
-		if (world == null) return;
-		world.setSpawnFlags(false, false);
-		setGameRule("doMobSpawning", false);
-		setGameRule("doTraderSpawning", false);
-		setGameRule("doWeatherCycle", false);
-		setGameRule("doDaylightCycle", false);
-		setGameRule("disableRaids", false);
-		setGameRule("mobGriefing", false);
+		try {
+			world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
+			if (world == null) return;
+			world.setSpawnFlags(false, false);
+			disableGameRule("doMobSpawning");
+			disableGameRule("doTraderSpawning");
+			disableGameRule("doWeatherCycle");
+			disableGameRule("doDaylightCycle");
+			disableGameRule("disableRaids");
+			disableGameRule("mobGriefing");
+
+		} catch (Exception ex) {
+			Logger.error("Could not load extra world!", ex);
+			Logger.error("Probably the server version or server system was changed and the old world is not compatible with it");
+			Logger.error("Please delete all worlds and try again!");
+			return;
+		}
 
 		teleportPlayersOutOfExtraWorld();
 	}
@@ -209,10 +217,10 @@ public final class WorldManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	private <T> void setGameRule(@Nonnull String name, @Nonnull T value) {
-		GameRule<T> gamerule = (GameRule<T>) GameRule.getByName(name);
+	private void disableGameRule(@Nonnull String name) {
+		GameRule<Boolean> gamerule = (GameRule<Boolean>) GameRule.getByName(name);
 		if (gamerule == null) return;
-		world.setGameRule(gamerule, value);
+		world.setGameRule(gamerule, false);
 	}
 
 	private void executeWorldResetIfNecessary() {

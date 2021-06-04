@@ -16,13 +16,22 @@ description: |
   You can find more information on our discord: https://discord.gg/74Ay5zF.
 
 commands:
+  cr:
+    usage: "/cr"
+    description: "Reloads the plugin"
+    permission: "challenges.reload"
   help:
     usage: "/help"
-    description: "Provides with some information for this plugin"
+    description: "Provides you with some information of this plugin"
     aliases:
       - "hilfe"
       - "h"
       - "info"
+  creload:
+    usage: "/creload"
+    description: "Reloads the Challenges plugin"
+    aliases:
+      - "cr"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"

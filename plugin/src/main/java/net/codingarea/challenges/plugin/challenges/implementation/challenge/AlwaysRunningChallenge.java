@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -27,7 +27,7 @@ public class AlwaysRunningChallenge extends Setting {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.COBBLESTONE_SLAB, Message.forName("item-always-running-challenge"));
+		return new ItemBuilder(Material.CARROT_ON_A_STICK, Message.forName("item-always-running-challenge"));
 	}
 
 	@ScheduledTask(ticks = 1)

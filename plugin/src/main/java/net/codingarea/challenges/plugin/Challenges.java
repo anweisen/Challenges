@@ -1,8 +1,9 @@
 package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
-import net.codingarea.challenges.plugin.language.loader.*;
+import net.codingarea.challenges.plugin.content.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
+import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
@@ -54,6 +55,7 @@ public final class Challenges extends BukkitModule {
 	private MenuManager menuManager;
 	private ChallengeTimer timer;
 	private LoaderRegistry loaderRegistry;
+	private MetricsLoader metricsLoader;
 
 	private boolean validationFailed = false;
 
@@ -91,7 +93,10 @@ public final class Challenges extends BukkitModule {
 		configManager.loadConfigs();
 
 		loaderRegistry = new LoaderRegistry(
-				new LanguageLoader(), new PrefixLoader(), new UpdateLoader(), new ServiceLoader()
+				new LanguageLoader(),
+				new PrefixLoader(),
+				new UpdateLoader(),
+				new ServiceLoader()
 		);
 
 		databaseManager = new DatabaseManager();
@@ -108,6 +113,7 @@ public final class Challenges extends BukkitModule {
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
+		metricsLoader = new MetricsLoader();
 
 	}
 
@@ -128,13 +134,16 @@ public final class Challenges extends BukkitModule {
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
+		metricsLoader.load();
 
 		loaderRegistry.enable();
 
 	}
 
 	private void registerCommands() {
+		registerCommand(new ReloadCommand(), "cr");
 		registerCommand(new HelpCommand(), "help");
+		registerCommand(new ReloadCommand(), "creload");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
 		registerCommand(new ForwardingCommand("timer start"), "start");

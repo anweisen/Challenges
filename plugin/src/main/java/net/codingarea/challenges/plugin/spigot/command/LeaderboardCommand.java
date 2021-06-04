@@ -3,11 +3,10 @@ package net.codingarea.challenges.plugin.spigot.command;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
-import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.EmptyMenuPosition;
-import net.anweisen.utilities.bukkit.utils.menu.MenuPosition.SlottedMenuPosition;
+import net.anweisen.utilities.bukkit.utils.menu.positions.SlottedMenuPosition;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.stats.PlayerStats;
@@ -73,7 +72,7 @@ public class LeaderboardCommand implements PlayerCommand {
 
 	private void openMenu(@Nonnull Player player, @Nonnull Statistic statistic, int page, boolean openInstant) {
 		loadingInventory.open(player, Challenges.getInstance());
-		MenuPosition.set(player, new EmptyMenuPosition());
+		MenuPosition.setEmpty(player);
 		Challenges.getInstance().runAsync(() -> openMenu0(player, statistic, page, openInstant));
 	}
 
@@ -108,7 +107,7 @@ public class LeaderboardCommand implements PlayerCommand {
 			inventory.cloneLastAndAdd().setItem(slot, item.hideAttributes());
 
 			position.setAction(slot, () -> {
-				MenuPosition.set(player, new EmptyMenuPosition());
+				MenuPosition.setEmpty(player);
 				loadingInventory.open(player, Challenges.getInstance());
 				player.performCommand("stats " + stats.getPlayerName());
 			});

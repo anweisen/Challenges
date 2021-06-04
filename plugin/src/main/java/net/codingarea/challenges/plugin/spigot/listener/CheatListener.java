@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
@@ -25,7 +25,8 @@ public class CheatListener implements Listener {
 	public CheatListener() {
 		Bukkit.getOnlinePlayers().stream()
 				.filter(player -> player.getGameMode() == GameMode.CREATIVE)
-				.findFirst().ifPresent(player -> handleCheatsDetected(player));
+				.findFirst().ifPresent(player -> handleCheatsDetected(player)
+		);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

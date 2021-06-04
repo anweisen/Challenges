@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.utils.item;
 
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
 import org.bukkit.Material;
 
@@ -35,17 +35,17 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder enabled() {
-		return new ItemBuilder(Material.LIME_DYE).setName(Message.forName("enabled")).hideAttributes();
+		return new ItemBuilder(Material.LIME_DYE).setName(getTitle("enabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(Message.forName("disabled")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(getTitle("disabled")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(Message.forName("customize")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.SIGN).setName(getTitle("customize")).hideAttributes();
 	}
 
 	@Nonnull
@@ -59,17 +59,19 @@ public final class DefaultItem {
 	}
 
 	@Nonnull
-	public static String name(@Nonnull String name) {
-		return "§8➟ " + name;
-	}
-
 	public static ItemBuilder create(@Nonnull Material material, @Nonnull String name) {
-		return new ItemBuilder(material, name(name));
+		return new ItemBuilder(material, getTitle(name));
 	}
 
+	@Nonnull
 	public static ItemBuilder create(@Nonnull Material material, @Nonnull Message message) {
 		ItemBuilder itemBuilder = new ItemBuilder(material, message);
-		return itemBuilder.setName(name(itemBuilder.getName()));
+		return itemBuilder.setName(getTitle(itemBuilder.getName()));
+	}
+
+	@Nonnull
+	private static String getTitle(@Nonnull String messageName) {
+		return Message.forName("item-setting-info").asString(Message.forName(messageName));
 	}
 
 }

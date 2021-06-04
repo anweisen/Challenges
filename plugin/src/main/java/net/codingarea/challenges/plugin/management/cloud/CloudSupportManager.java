@@ -4,6 +4,7 @@ import net.anweisen.utilities.commons.common.WrappedException;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.management.cloud.support.CloudNetSupport;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
@@ -29,6 +30,7 @@ public final class CloudSupportManager implements Listener {
 	private final boolean startNewService;
 	private final boolean nameSupport;
 	private final boolean resetToLobby;
+	private final boolean setIngame;
 	private final String type;
 
 	private CloudSupport support;
@@ -39,12 +41,13 @@ public final class CloudSupportManager implements Listener {
 		startNewService = config.getBoolean("start-new-service");
 		nameSupport = config.getBoolean("name-rank-colors");
 		resetToLobby = config.getBoolean("reset-to-lobby");
+		setIngame = config.getBoolean("set-ingame");
 		type = config.getString("type", "none");
 		Logger.debug("Detected cloud support type '{}'", type);
 
 		if (type.equals("none")) return;
 
-		loadSupport(type);
+		support =   loadSupport(type);
 		ChallengeAPI.registerScheduler(this);
 		Challenges.getInstance().registerListener(this);
 
@@ -55,12 +58,10 @@ public final class CloudSupportManager implements Listener {
 		cachedColoredNames.remove(event.getPlayer().getUniqueId());
 	}
 
-	private void loadSupport(@Nonnull String name) {
+	private CloudSupport loadSupport(@Nonnull String name) {
 		switch (name) {
-			default: return;
-			case "cloudnet":
-				support = new CloudNetSupport();
-				break;
+			default:            return null;
+			case "cloudnet":    return new CloudNetSupport();
 		}
 	}
 
@@ -108,12 +109,15 @@ public final class CloudSupportManager implements Listener {
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
-	public void setIngame() {
-		if (!startNewService) return;
+	public void setIngameAndStartService() {
+		if (!setIngame) return;
 		if (support == null) return;
 
 		try {
 			support.setIngame();
+
+			if (startNewService)
+				support.startNewService();
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to set to ingame with cloud support '{}', missing dependencies", type);
 		}
@@ -129,6 +133,10 @@ public final class CloudSupportManager implements Listener {
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to set to lobby with cloud support '{}', missing dependencies", type);
 		}
+	}
+
+	public String getType() {
+		return type;
 	}
 
 	protected boolean isEnabled() {

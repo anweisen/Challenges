@@ -5,7 +5,8 @@ import net.anweisen.utilities.commons.common.Tuple;
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -20,6 +21,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
@@ -99,7 +101,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerDamage(@Nonnull EntityDamageEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getFinalDamage() <= 0) return;
+		if (event.getFinalDamage() <= 0 && event.getDamage(DamageModifier.ABSORPTION) >= 0) return;
 		if (!(event.getEntity() instanceof Player)) return;
 		Player player = (Player) event.getEntity();
 		if (ignorePlayer(player)) return;
@@ -120,10 +122,18 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		String path = player.getUniqueId().toString();
 		Document effects = getGameStateData().getDocument(path);
 
+		int amplifier = 1;
 		if (!effects.contains(potionEffectType.getName())) {
 			effects.set(potionEffectType.getName(), 1);
 		} else {
-			effects.set(potionEffectType.getName(), effects.getInt(potionEffectType.getName()) + 1);
+			amplifier = effects.getInt(potionEffectType.getName()) + 1;
+			effects.set(potionEffectType.getName(), amplifier);
+		}
+
+		if (effectsToEveryone()) {
+			Message.forName("new-effect").broadcast(Prefix.CHALLENGES, potionEffectType.getName(), amplifier);
+		} else {
+			Message.forName("new-effect").send(player, Prefix.CHALLENGES, potionEffectType.getName(), amplifier);
 		}
 
 		getGameStateData().set(path, effects);
@@ -187,8 +197,6 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 				}
 			}
 
-
-
 		}
 
 		effects.forEach(tuple -> {
@@ -237,4 +245,14 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	}
 
+	@Override
+	public void loadGameState(@Nonnull Document document) {
+		super.loadGameState(document);
+		broadcast(player -> {
+			for (PotionEffect potionEffect : player.getActivePotionEffects()) {
+				player.removePotionEffect(potionEffect.getType());
+			}
+		});
+		updateEffects();
+	}
 }

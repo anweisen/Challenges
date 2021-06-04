@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.MenuSetting;
-import net.codingarea.challenges.plugin.language.Message;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
@@ -39,14 +39,14 @@ public class AnvilRainChallenge extends MenuSetting {
 						value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
 						1,
 						30,
-						15
+						7
 				)
 		);
 		registerSetting("count", new NumberSubSetting(
 						() -> new ItemBuilder(Material.FLINT, Message.forName("item-anvil-rain-count-challenge")),
 						1,
 						30,
-						15
+						8
 				)
 		);
 		registerSetting("range", new NumberSubSetting(

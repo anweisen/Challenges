@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.language.loader;
+package net.codingarea.challenges.plugin.content.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
@@ -14,7 +14,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class LoaderRegistry {
 
-	private class Subscribers {
+	private static class Subscribers {
 
 		private final Class<? extends ContentLoader> loader;
 		private final Collection<Runnable> actions = new ArrayList<>(1);
@@ -63,6 +63,9 @@ public final class LoaderRegistry {
 	private void handleCompleteLoading(@Nonnull Class<? extends ContentLoader> classOfLoader) {
 		Logger.debug("{} finished loading. {} loader(s) left", classOfLoader.getSimpleName(), loading);
 
+		if (loading.get() == 0)
+			Logger.info("All loaders finished loading");
+
 		if (Challenges.getInstance().isEnabled()) {
 			Subscribers subscribers = this.subscribers.get(classOfLoader);
 			if (subscribers == null) return;
@@ -101,4 +104,10 @@ public final class LoaderRegistry {
 		}
 	}
 
+	@SuppressWarnings("unchecked")
+	public <T extends ContentLoader> T getFirstLoaderByClass(@Nonnull Class<T> clazz) {
+		ContentLoader loader = loaders.stream().filter(contentLoader -> contentLoader.getClass().equals(clazz)).findFirst().orElse(null);
+		if (loader == null) return null;
+		return (T) loader;
+	}
 }

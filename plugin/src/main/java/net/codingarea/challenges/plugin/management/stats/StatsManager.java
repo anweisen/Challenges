@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.management.stats;
 
-import net.anweisen.utilities.commons.common.debug.TimingsHelper;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -36,7 +35,7 @@ public final class StatsManager implements Listener {
 
 	public StatsManager() {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats");
-		noStatsAfterCheating = Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
+		noStatsAfterCheating = enabled && Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
 	public void register() {

@@ -5,8 +5,8 @@ import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -98,7 +98,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String alias, @Nonnull String[] args) {
-		if (args.length < 1) return new ArrayList<>();
+		if (args.length > 1) return new ArrayList<>();
 		return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
 	}
 

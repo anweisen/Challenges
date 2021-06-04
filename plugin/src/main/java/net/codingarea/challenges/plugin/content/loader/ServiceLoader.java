@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.language.loader;
+package net.codingarea.challenges.plugin.content.loader;
 
 import net.anweisen.utilities.commons.common.IOUtils;
 import net.anweisen.utilities.commons.config.Document;

@@ -1,18 +1,17 @@
-package net.codingarea.challenges.plugin.language.management;
+package net.codingarea.challenges.plugin.content.impl;
 
+import net.anweisen.utilities.commons.common.IRandom;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.language.ItemDescription;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.ItemDescription;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
@@ -44,32 +43,32 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String asRandomString(@Nonnull Object... args) {
-		return asRandomString(ThreadLocalRandom.current(), args);
+		return asRandomString(defaultRandom(), args);
 	}
 
 	@Nonnull
 	@Override
-	public String asRandomString(@Nonnull Random random, @Nonnull Object... args) {
+	public String asRandomString(@Nonnull IRandom random, @Nonnull Object... args) {
 		String[] array = asArray(args);
-		if (array.length == 0) return Message.NULL;
-		return RandomizeUtils.choose(random, array);
+		if (array.length == 0) return Message.unknown(name);
+		return random.choose(array);
 	}
 
 	@Nonnull
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
-		if (value == null)                      return new String[] { Message.NULL};
+		if (value == null)                      return new String[] { Message.unknown(name) };
 		if (value instanceof String[])          return StringUtils.format((String[]) value, args);
 		if (value instanceof String)            return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getLore();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return new String[] { Message.NULL};
+		return new String[] { Message.NULL };
 	}
 
 	@Nonnull
 	@Override
 	public ItemDescription asItemDescription(@Nonnull Object... args) {
-		if (value == null)                      return ItemDescription.empty();
+		if (value == null)                      { Message.unknown(name); return ItemDescription.empty(); }
 		if (value instanceof ItemDescription)   return (ItemDescription) value;
 		return new ItemDescription(asArray(args));
 	}
@@ -85,7 +84,7 @@ public class MessageImpl implements Message {
 	}
 
 	@Override
-	public void sendRandom(@Nonnull Random random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
+	public void sendRandom(@Nonnull IRandom random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
 		doSendLine(target::sendMessage, prefix, asRandomString(random, args));
 	}
 
@@ -100,7 +99,7 @@ public class MessageImpl implements Message {
 	}
 
 	@Override
-	public void broadcastRandom(@Nonnull Random random, @Nonnull Prefix prefix, @Nonnull Object... args) {
+	public void broadcastRandom(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args) {
 		doSendLine(Bukkit::broadcastMessage, prefix, asRandomString(random, args));
 	}
 
@@ -170,8 +169,9 @@ public class MessageImpl implements Message {
 		return asString();
 	}
 
-	protected static Random defaultRandom() {
-		return ThreadLocalRandom.current();
+	@Nonnull
+	protected static IRandom defaultRandom() {
+		return IRandom.threadLocal();
 	}
 
 }

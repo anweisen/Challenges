@@ -2,8 +2,8 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.commons.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.Setting;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -29,7 +29,7 @@ import java.util.stream.Collectors;
  */
 public class SnakeChallenge extends Setting {
 
-	private ArrayList<Block> blocks = new ArrayList<>();
+	private final ArrayList<Block> blocks = new ArrayList<>();
 
 	public SnakeChallenge() {
 		super(MenuType.CHALLENGES);
@@ -73,17 +73,17 @@ public class SnakeChallenge extends Setting {
 		if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
 		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
 
-		Block from = event.getFrom().clone().subtract(0, 0.15, 0).getBlock();
+		Block from = event.getFrom().clone().subtract(0, 1, 0).getBlock();
 		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
 
 		if (from.getType().isSolid()) {
-			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())));
+			from.setType(BlockUtils.getTerracotta(getPlayersColor(event.getPlayer())), false);
 			blocks.add(from);
 		}
 
 		if (blocks.contains(to)) {
 			Message.forName("snake-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-			event.getPlayer().damage(event.getPlayer().getHealth());
+			kill(event.getPlayer());
 			return;
 		}
 
@@ -98,7 +98,7 @@ public class SnakeChallenge extends Setting {
 
 	}
 
-	public int getPlayersWoolIndex(Player player) {
+	public int getPlayersColor(Player player) {
 		int i = 0;
 		for (Player currentPlayer : Bukkit.getOnlinePlayers()) {
 			i++;

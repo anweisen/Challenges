@@ -17,66 +17,8 @@
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<utilities.version>1.2.8</utilities.version>
 	</properties>
-
-	<build>
-
-		<sourceDirectory>src/main/java</sourceDirectory>
-
-		<plugins>
-
-			<!-- Compiler declaration -->
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.8.0</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-				</configuration>
-			</plugin>
-
-			<!-- Plugin for sources -->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>3.2.1</version>
-				<executions>
-					<execution>
-						<id>attach-sources</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-
-		</plugins>
-
-	</build>
-
-	<repositories>
-
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
-
-		<repository>
-			<id>releases</id>
-			<url>https://repo.cloudnetservice.eu/repository/releases/</url>
-		</repository>
-
-		<repository>
-			<id>minecraft-repo</id>
-			<url>https://libraries.minecraft.net/</url>
-		</repository>
-
-		<repository>
-			<id>github</id>
-			<url>https://maven.pkg.github.com/anweisen/*</url>
-		</repository>
-
-	</repositories>
 
 	<dependencies>
 
@@ -124,26 +66,85 @@
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>bukkit-utils</artifactId>
-			<version>1.2.4</version>
+			<version>${utilities.version}</version>
 		</dependency>
 
 		<!-- Database API -->
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-api</artifactId>
-			<version>1.2.4</version>
+			<version>${utilities.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>net.anweisen.utilities</groupId>
 			<artifactId>database-sql</artifactId>
-			<version>1.2.4</version>
+			<version>${utilities.version}</version>
 		</dependency>
 
 	</dependencies>
 
+	<repositories>
+
+		<repository>
+			<id>spigot-repo</id>
+			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+		</repository>
+
+		<repository>
+			<id>releases</id>
+			<url>https://repo.cloudnetservice.eu/repository/releases/</url>
+		</repository>
+
+		<repository>
+			<id>minecraft-repo</id>
+			<url>https://libraries.minecraft.net/</url>
+		</repository>
+
+		<repository>
+			<id>github</id>
+			<url>https://maven.pkg.github.com/anweisen/*</url>
+		</repository>
+
+	</repositories>
+
+	<build>
+
+		<sourceDirectory>src/main/java</sourceDirectory>
+
+		<plugins>
+
+			<!-- Compiler declaration -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.8.0</version>
+				<configuration>
+					<source>1.8</source>
+					<target>1.8</target>
+				</configuration>
+			</plugin>
+
+			<!-- Plugin for sources -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+		</plugins>
+
+	</build>
+
     <distributionManagement>
         <repository>
-            <id>github-anweisen</id>
+            <id>anweisen</id>
             <name>GitHub anweisen Apache Maven Packages</name>
             <url>https://maven.pkg.github.com/anweisen/Challenges</url>
         </repository>

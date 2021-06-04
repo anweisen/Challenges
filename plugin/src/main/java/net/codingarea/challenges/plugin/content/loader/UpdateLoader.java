@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.language.loader;
+package net.codingarea.challenges.plugin.content.loader;
 
 import net.anweisen.utilities.commons.common.IOUtils;
 import net.anweisen.utilities.commons.version.Version;
@@ -6,6 +6,7 @@ import net.anweisen.utilities.commons.version.VersionInfo;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.Logger;
 
+import javax.annotation.Nullable;
 import java.net.URL;
 
 /**
@@ -18,6 +19,7 @@ public final class UpdateLoader extends ContentLoader {
 
 	private static boolean newestPluginVersion = true;
 	private static boolean newestConfigVersion = true;
+	private static Version latestVersion;
 
 	@Override
 	protected void load() {
@@ -25,11 +27,11 @@ public final class UpdateLoader extends ContentLoader {
 			URL url = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID);
 			String response = IOUtils.toString(url);
 			Version plugin = Challenges.getInstance().getVersion();
-			Version latest = VersionInfo.parse(response);
-			Version config = VersionInfo.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
+			Version config = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
+			latestVersion = Version.parse(response);
 
-			if (latest.isNewerThan(plugin)) {
-				Logger.info("A new version of Challenges is available: {}, you have {}", latest, plugin);
+			if (latestVersion.isNewerThan(plugin)) {
+				Logger.info("A new version of Challenges is available: {}, you have {}", latestVersion, plugin);
 				newestPluginVersion = false;
 			}
 			if (plugin.isNewerThan(config)) {
@@ -48,6 +50,11 @@ public final class UpdateLoader extends ContentLoader {
 
 	public static boolean isNewestPluginVersion() {
 		return newestPluginVersion;
+	}
+
+	@Nullable
+	public static Version getLatestVersion() {
+		return latestVersion;
 	}
 
 }

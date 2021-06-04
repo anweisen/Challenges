@@ -1,17 +1,16 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.language.Message;
-import net.codingarea.challenges.plugin.language.Prefix;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.ItemUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.codingarea.challenges.plugin.utils.misc.RandomizeUtils;
 import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
@@ -101,17 +100,17 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 				.filter(Material::isBlock)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.toArray(length -> new Material[length]);
-		block = RandomizeUtils.choose(random, materials);
+		block = random.choose(materials);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return RandomizeUtils.randomAround(random, getValue() * 60, 30);
+		return random.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return RandomizeUtils.randomInRange(random, 4*60, 6*60);
+		return random.range(4 * 60, 6 * 60);
 	}
 
 }
