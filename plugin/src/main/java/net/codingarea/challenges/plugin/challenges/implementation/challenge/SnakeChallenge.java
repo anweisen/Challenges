@@ -77,7 +77,7 @@ public class SnakeChallenge extends Setting {
 		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
 
 		if (from.getType().isSolid()) {
-			from.setType(BlockUtils.getTerracotta(getPlayersWoolIndex(event.getPlayer())), false);
+			from.setType(BlockUtils.getTerracotta(getPlayersColor(event.getPlayer())), false);
 			blocks.add(from);
 		}
 
