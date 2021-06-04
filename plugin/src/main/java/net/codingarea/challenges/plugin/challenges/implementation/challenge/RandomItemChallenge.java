@@ -58,7 +58,7 @@ public class RandomItemChallenge extends TimedChallenge {
 				.filter(Material::isItem)
 				.toArray(Material[]::new);
 
-		broadcastIgnored(player -> InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(materials))));
+		broadcastFiltered(player -> InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(materials))));
 
 	}
 
