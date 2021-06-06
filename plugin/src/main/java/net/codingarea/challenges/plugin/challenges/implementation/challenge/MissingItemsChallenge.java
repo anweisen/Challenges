@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.commons.annotations.Since;
 import net.anweisen.utilities.commons.common.IRandom;
 import net.anweisen.utilities.commons.common.Tuple;
 import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
@@ -40,6 +41,7 @@ import java.util.stream.Collectors;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
+@Since("2.0")
 public class MissingItemsChallenge extends TimedChallenge implements PlayerCommand {
 
 	private final IRandom random = IRandom.create();
