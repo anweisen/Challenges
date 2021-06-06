@@ -87,6 +87,11 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	@Override
 	protected void onTimeActivation() {
 		broadcastFiltered(this::startGuessingGame);
+
+		if (inventories.isEmpty()) {
+			restartTimer();
+		}
+
 	}
 
 	private void startGuessingGame(@Nonnull Player player) {
@@ -101,6 +106,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 				if (timeLeft == 0) {
 					Tuple<Inventory, MenuPosition> tuple = inventories.remove(player.getUniqueId());
 					tuple.getSecond().handleClick(new MenuClickInfo(player, tuple.getFirst(), false, false, -1));
+					cancel();
 				} else if (timeLeft <= 5) {
 					new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, (float) (timeLeft - 1) / 10 + 1).play(player);
 				}
