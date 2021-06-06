@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -22,6 +23,7 @@ import java.util.Map;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
+@Since("2.0")
 public class BlocksDisappearAfterTimeChallenge extends SettingModifier {
 
 	private final Map<Block, BukkitTask> tasks = new HashMap<>();
