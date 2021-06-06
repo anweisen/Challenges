@@ -68,13 +68,17 @@ public class TimberSetting extends SettingModifier {
 
 		Bukkit.getScheduler().runTaskTimer(plugin, timer -> {
 			for (int i = 0; i < 2; i++) {
-				Block block = treeBlocks.get(index[0]);
-				breakBlock(block, item);
+				try {
+					Block block = treeBlocks.get(index[0]);
+					breakBlock(block, item);
 
-				index[0]++;
-				if (index[0] >= treeBlocks.size()) {
+					index[0]++;
+					if (index[0] >= treeBlocks.size()) {
+						timer.cancel();
+						return;
+					}
+				} catch (Exception ex) {
 					timer.cancel();
-					return;
 				}
 			}
 		}, 0, 1);
