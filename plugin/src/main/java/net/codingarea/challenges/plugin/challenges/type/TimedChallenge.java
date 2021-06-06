@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public abstract class TimedChallenge extends SettingModifier {
 
 	private final boolean runAsync;
-	private int secondsUntilActivation;
+	protected int secondsUntilActivation;
 	private int originalSecondsUntilActivation;
 	private boolean timerStatus = false;
 	private boolean startedBefore = false;
