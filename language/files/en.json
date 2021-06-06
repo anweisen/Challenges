@@ -169,8 +169,8 @@
   "force-item-fail": "Item §e{0} §chasn't benn found",
   "force-item-success": "§e{0} §afound §7the item §e{1}",
   "new-effect": "Effect §e{0} §8➔ §e{1}",
-  "memory-inventory": "{0}Which item is missing?",
-  "memory-inventory-open": "§8[§aOpen GUI§8]",
+  "missing-items-inventory": "{0}Which item is missing?",
+  "missing-items-inventory-open": "§8[§aOpen GUI§8]",
 
   "random-event-speed": [
     "Sonic? Is it you?",
