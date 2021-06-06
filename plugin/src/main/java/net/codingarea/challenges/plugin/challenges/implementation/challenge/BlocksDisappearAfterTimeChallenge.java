@@ -14,6 +14,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,6 +34,12 @@ public class BlocksDisappearAfterTimeChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.STRING, Message.forName("item-blocks-disappear-time-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-time-seconds-description").asArray(getValue());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
