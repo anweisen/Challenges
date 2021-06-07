@@ -95,6 +95,8 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	}
 
 	private void startGuessingGame(@Nonnull Player player) {
+		SoundSample.PLOP.play(player);
+
 		BukkitTask task = new BukkitRunnable() {
 
 			int timeLeft = (int) (2.5 * 60);
@@ -116,7 +118,10 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 		}.runTaskTimer(plugin, 0, 20);
 
 		openGuessingInventory(player, unused -> {
-			if (secondsUntilActivation == 0) restartTimer();
+			if (!anyRunningGame()) {
+				inventories.clear();
+				restartTimer();
+			}
 			task.cancel();
 		});
 
@@ -130,14 +135,12 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 		ItemStack targetItem = player.getInventory().getItem(targetSlot);
 		if (targetItem == null) return;
 		Tuple<Inventory, Integer> tuple = generateMemoryInventory(targetItem);
-		player.openInventory(tuple.getFirst());
-		SoundSample.OPEN.play(player);
 
 		Tuple<Inventory, MenuPosition> inventoryTuple = new Tuple<>(tuple.getFirst(), menuClickInfo -> {
 			InventoryUtils.giveItem(player, targetItem);
+			inventories.remove(player.getUniqueId());
 			onFinish.accept(null);
 			if (menuClickInfo.getSlot() == tuple.getSecond()) {
-				inventories.remove(player.getUniqueId());
 				SoundSample.LEVEL_UP.play(player);
 				player.closeInventory();
 			} else {
@@ -147,7 +150,6 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 		});
 		inventories.put(player.getUniqueId(), inventoryTuple);
 
-		openGameInventory(player);
 		player.getInventory().setItem(targetSlot, null);
 
 		sendInfoText(player);
@@ -224,6 +226,10 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 			SoundSample.BASS_OFF.play(player);
 		}
 
+	}
+
+	private boolean anyRunningGame() {
+		return inventories.keySet().stream().anyMatch(uuid -> Bukkit.getOfflinePlayer(uuid).isOnline());
 	}
 
 }
