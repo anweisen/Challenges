@@ -140,6 +140,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlocksDisappearAfterTimeChallenge.class);
 
 		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
+		register(DamagePerItemChallenge.class);
 
 
 		// Goal

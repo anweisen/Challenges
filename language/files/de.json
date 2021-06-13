@@ -908,6 +908,12 @@
     "Alle paar Minuten *verschwindet* ein *Item* aus",
     "deinem *Inventar* und du musst *erraten* welches"
   ],
+  "item-damage-item-challenge": [
+    "§cSchaden Pro Item",
+    "Wenn du ein *Item aufhebst* oder es",
+    "in deinem Inventar *anklickst* erleidest",
+    "du *0,5 ❤* multipliziert mit der Anzahl Schaden"
+  ],
 
 
   "item-dragon-goal": [

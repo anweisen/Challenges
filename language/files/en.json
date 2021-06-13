@@ -900,6 +900,12 @@
     "Every few minutes a *random item disappears* from",
     "your *inventory* and you have to *guess* which it was"
   ],
+  "item-damage-item-challenge": [
+    "§cDamage Per Item",
+    "When you *pickup* or *click* an item",
+    "in your *inventory* you take the",
+    "*amount* of the items as *damage*"
+  ],
 
 
   "item-dragon-goal": [
