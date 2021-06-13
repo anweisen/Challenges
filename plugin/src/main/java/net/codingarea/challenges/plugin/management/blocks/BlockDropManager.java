@@ -22,10 +22,10 @@ public final class BlockDropManager {
 
 		private DropPriority() {}
 
-		public static final byte    CUT_CLEAN = 10,
-									RANDOMIZER = 5,
-									CHANCE = -128;
-
+		public static final byte
+				CUT_CLEAN = 10,
+				RANDOMIZER = 5,
+				CHANCE = -128;
 	}
 
 	private static abstract class RegisteredOptions<T> {

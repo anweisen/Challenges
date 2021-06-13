@@ -254,8 +254,13 @@ public final class Challenges extends BukkitModule {
 		return titleManager;
 	}
 
+	@Nonnull
 	public LoaderRegistry getLoaderRegistry() {
 		return loaderRegistry;
+	}
+
+	public static boolean isDevelopmentBuild() {
+		return true;
 	}
 
 }
