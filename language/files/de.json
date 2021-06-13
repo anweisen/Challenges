@@ -497,6 +497,11 @@
     "Das *alte 1.8 PvP System* wird genutzt",
     "Es gibt keinen *Attack Cooldown*"
   ],
+  "item-totem-save-setting": [
+    "§6Challenge Tot Rettung",
+    "Wenn du durch eine Challenge *instant*",
+    "*stirbst*, können *Totems* dich retten"
+  ],
 
 
   "item-traffic-light-challenge": [

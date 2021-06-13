@@ -498,6 +498,12 @@
     "The *old 1.8 PvP System* will be used",
     "There will be no *attack damage cooldown*"
   ],
+  "item-totem-save-setting": [
+    "§6Challenge Death Rescue",
+    "If you *instant die* from a *challenge*",
+    "*totems* can *rescue* you"
+  ],
+
 
   "item-traffic-light-challenge": [
     "§cTraffic Light Challenge",
