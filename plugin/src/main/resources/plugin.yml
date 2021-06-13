@@ -36,6 +36,7 @@ commands:
     description: "Reloads the Challenges plugin"
     aliases:
       - "cr"
+      - "crl"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
