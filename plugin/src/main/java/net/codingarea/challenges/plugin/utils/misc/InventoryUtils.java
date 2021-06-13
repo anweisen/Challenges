@@ -7,6 +7,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Item;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -153,6 +154,10 @@ public final class InventoryUtils {
 		int slot = InventoryUtils.getRandomFullSlot(inventory);
 		if (slot == -1) return;
 		inventory.setItem(slot, null);
+	}
+
+	public static void giveItem(@Nonnull Player player, @Nonnull ItemStack itemStack) {
+		giveItem(player.getInventory(), player.getLocation(), itemStack);
 	}
 
 	public static void giveItem(@Nonnull Inventory inventory, @Nonnull Location locationToDrop, @Nonnull ItemStack itemStack) {

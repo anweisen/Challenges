@@ -67,7 +67,7 @@ public class TimberSetting extends SettingModifier {
 		final int[] index = { 0 };
 
 		Bukkit.getScheduler().runTaskTimer(plugin, timer -> {
-			for (int i = 0; i < 2; i++) {
+			for (int i = 0; i < 2 && !treeBlocks.isEmpty(); i++) {
 				Block block = treeBlocks.get(index[0]);
 				breakBlock(block, item);
 

@@ -183,3 +183,6 @@ commands:
     usage: "/skipitem"
     description: "Skips the current item of the collect all items goal"
     permission: "challenges.manage.current"
+  openmemoryinventory:
+    usage: "/openMemoryInventory"
+    description: "Reopens the memory inventory"

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.commons.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -14,6 +15,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.scheduler.BukkitTask;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,7 @@ import java.util.Map;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
+@Since("2.0")
 public class BlocksDisappearAfterTimeChallenge extends SettingModifier {
 
 	private final Map<Block, BukkitTask> tasks = new HashMap<>();
@@ -33,6 +36,12 @@ public class BlocksDisappearAfterTimeChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.STRING, Message.forName("item-blocks-disappear-time-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-time-seconds-description").asArray(getValue());
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -168,6 +168,8 @@
   "force-item-fail": "Das Item §e{0} §7wurde §cnicht gefunden",
   "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
   "new-effect": "Effekt §e{0} §8➔ §e{1}",
+  "missing-items-inventory": "{0}Welches Item fehlt?",
+  "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -894,6 +896,17 @@
     "§fBlöcke verschwinden nach Zeit",
     "Blöcke die du *platzierst*, *verschwinden*",
     "nach ein *paar Sekunden* wieder"
+  ],
+  "item-missing-items-challenge": [
+    "§9Items Fehlen",
+    "Alle paar Minuten *verschwindet* ein *Item* aus",
+    "deinem *Inventar* und du musst *erraten* welches"
+  ],
+  "item-damage-item-challenge": [
+    "§cSchaden Pro Item",
+    "Wenn du ein *Item aufhebst* oder es",
+    "in deinem Inventar *anklickst* erleidest",
+    "du *0,5 ❤* multipliziert mit der Anzahl Schaden"
   ],
 
 

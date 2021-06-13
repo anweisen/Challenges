@@ -86,7 +86,7 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 	private void applyRandomEffect(@Nonnull Player player) {
 		PotionEffectType effect = getNewRandomEffect(player);
 		if (effect == null) return;
-		applyEffect(effect);
+		applyEffect(player, effect);
 	}
 
 	@Nullable
@@ -98,10 +98,6 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		possibleEffects.remove(PotionEffectType.HEAL);
 		possibleEffects.remove(PotionEffectType.HARM);
 		return possibleEffects.get(random.nextInt(possibleEffects.size()));
-	}
-
-	private void applyEffect(@Nonnull PotionEffectType effectType) {
-		Bukkit.getOnlinePlayers().forEach(player -> applyEffect(player, effectType));
 	}
 
 	private void applyEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType) {

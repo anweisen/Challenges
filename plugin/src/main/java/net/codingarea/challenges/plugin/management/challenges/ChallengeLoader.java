@@ -138,6 +138,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(IceFloorChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
 
+		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
+		register(DamagePerItemChallenge.class);
+
 
 		// Goal
 		register(KillEnderDragonGoal.class);
