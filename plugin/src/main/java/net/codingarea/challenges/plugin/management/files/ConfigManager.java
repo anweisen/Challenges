@@ -1,11 +1,10 @@
 package net.codingarea.challenges.plugin.management.files;
 
-import net.anweisen.utilities.commons.config.FileDocument;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
-import net.anweisen.utilities.commons.config.document.wrapper.FileDocumentWrapper;
-import net.anweisen.utilities.commons.misc.FileUtils;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.config.FileDocument;
+import net.anweisen.utilities.common.config.document.GsonDocument;
+import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,7 +36,7 @@ public final class ConfigManager {
 		try {
 			File file = Challenges.getInstance().getDataFile(filename);
 			FileUtils.createFilesIfNecessary(file);
-			return FileDocument.read(GsonDocument.class, file);
+			return FileDocument.readJsonFile(file);
 		} catch (Exception ex) {
 			Logger.error("Could not load config '{}': {}", filename, ex);
 			return null;

@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
-import net.anweisen.utilities.commons.misc.NumberFormatter;
+import net.anweisen.utilities.common.collection.NumberFormatter;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.Goal;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard.ScoreboardInstance;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -27,7 +27,7 @@ public final class GoalHelper {
 
 	private GoalHelper() {}
 
-	public static void handleSetEnabled(@Nonnull Goal goal, boolean enabled) {
+	public static void handleSetEnabled(@Nonnull IGoal goal, boolean enabled) {
 		if (Challenges.getInstance().getChallengeManager().getCurrentGoal() != goal && enabled) {
 			Challenges.getInstance().getChallengeManager().setCurrentGoal(goal);
 		} else if (Challenges.getInstance().getChallengeManager().getCurrentGoal() == goal && !enabled) {

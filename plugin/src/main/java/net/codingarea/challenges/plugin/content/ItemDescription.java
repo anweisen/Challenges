@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.content;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.misc.ColorConversions;
 import org.bukkit.ChatColor;
@@ -37,9 +37,9 @@ public final class ItemDescription {
 	public ItemDescription(@Nonnull String[] description) {
 		if (description.length == 0) throw new IllegalArgumentException("Invalid item description: Cannot be empty");
 
-		name = "§8» " + description[0];
 		originalName = description[0];
-		colors = determineColors(description[0]);
+		name = "§8» " + originalName;
+		colors = determineColors(originalName);
 
 		List<String> loreOutput = new ArrayList<>();
 		fillLore(description, loreOutput);

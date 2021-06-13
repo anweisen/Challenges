@@ -17,16 +17,17 @@ public class ReloadCommand implements SenderCommand {
 
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
-		Message.forName("reload").send(sender, Prefix.CHALLENGES);
+		Message.forName("reload").broadcast(Prefix.CHALLENGES);
 		try {
-			Bukkit.getPluginManager().disablePlugin(Challenges.getInstance());
-			Challenges.getInstance().onLoad();
-			Bukkit.getPluginManager().enablePlugin(Challenges.getInstance());
+			Challenges plugin = Challenges.getInstance();
+			Bukkit.getPluginManager().disablePlugin(plugin);
+			plugin.onLoad();
+			Bukkit.getPluginManager().enablePlugin(plugin);
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			Message.forName("reload-failed").send(sender, Prefix.CHALLENGES);
+			Message.forName("reload-failed").broadcast(Prefix.CHALLENGES);
 		}
-		Message.forName("reload-success").send(sender, Prefix.CHALLENGES);
+		Message.forName("reload-success").broadcast(Prefix.CHALLENGES);
 	}
 
 }

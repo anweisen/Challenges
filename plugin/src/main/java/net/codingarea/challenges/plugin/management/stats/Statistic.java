@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.stats;
 
-import net.anweisen.utilities.commons.misc.NumberFormatter;
+import net.anweisen.utilities.common.collection.NumberFormatter;
 
 import javax.annotation.Nonnull;
 import java.util.function.Function;

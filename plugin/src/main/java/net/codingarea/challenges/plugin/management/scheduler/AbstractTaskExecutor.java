@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;

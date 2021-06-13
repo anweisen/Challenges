@@ -8,7 +8,7 @@ import net.codingarea.challenges.plugin.challenges.implementation.damage.DamageR
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.event.Listener;
@@ -59,8 +59,8 @@ public class ModuleChallengeLoader {
 				RequireVersion annotation = classOfChallenge.getAnnotation(RequireVersion.class);
 				MinecraftVersion minVersion = annotation.value();
 
-				if (!Challenges.getInstance().getServerVersion().isNewerOrEqualThan(minVersion)) {
-					Logger.debug("Did not register challenge {}, requires version {}, server running on {}", classOfChallenge.getSimpleName(), minVersion, Challenges.getInstance().getServerVersion());
+				if (!MinecraftVersion.current().isNewerOrEqualThan(minVersion)) {
+					Logger.debug("Did not register challenge {}, requires version {}, server running on {}", classOfChallenge.getSimpleName(), minVersion, MinecraftVersion.current());
 					return;
 				}
 			}

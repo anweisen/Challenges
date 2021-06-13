@@ -4,7 +4,7 @@ import net.anweisen.utilities.bukkit.utils.bstats.Metrics;
 import net.anweisen.utilities.bukkit.utils.bstats.chart.AdvancedPie;
 import net.anweisen.utilities.bukkit.utils.bstats.chart.SimplePie;
 import net.anweisen.utilities.bukkit.utils.bstats.chart.SingleLineChart;
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.utils.misc.MemoryConverter;
@@ -17,7 +17,7 @@ import java.util.HashMap;
  */
 public class MetricsLoader {
 
-	public void load() {
+	public void start() {
 		Challenges plugin = Challenges.getInstance();
 
 		Metrics metrics = new Metrics(plugin, 11494);

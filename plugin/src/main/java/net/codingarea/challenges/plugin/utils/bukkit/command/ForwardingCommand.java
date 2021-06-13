@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.command;
 
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

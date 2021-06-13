@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.RandomizerSetting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
@@ -14,7 +14,6 @@ import org.bukkit.Material;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -39,11 +38,11 @@ public class BlockRandomizerChallenge extends RandomizerSetting {
 
 		List<Material> blocks = new ArrayList<>(Arrays.asList(Material.values()));
 		blocks.removeIf(material -> !ItemUtils.isObtainableInSurvival(material) || !material.isBlock() || BukkitReflectionUtils.isAir(material));
-		Collections.shuffle(blocks, random);
+		random.shuffle(blocks);
 
 		List<Material> drops = new ArrayList<>(Arrays.asList(Material.values()));
 		drops.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
-		Collections.shuffle(drops, random);
+		random.shuffle(drops);
 
 		while (!blocks.isEmpty()) {
 			Material block = blocks.remove(0);

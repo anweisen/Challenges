@@ -2,8 +2,8 @@ package net.codingarea.challenges.plugin.utils.item;
 
 import net.anweisen.utilities.bukkit.utils.item.BannerPattern;
 import net.anweisen.utilities.bukkit.utils.misc.GameProfileUtils;
-import net.anweisen.utilities.commons.annotations.DeprecatedSince;
-import net.anweisen.utilities.commons.annotations.ReplaceWith;
+import net.anweisen.utilities.common.annotations.DeprecatedSince;
+import net.anweisen.utilities.common.annotations.ReplaceWith;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
@@ -78,146 +78,122 @@ public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBu
 
 	@Nonnull
 	public ItemBuilder setLore(@Nonnull List<String> lore) {
-		super.setLore(lore);
-		return this;
+		return (ItemBuilder) super.setLore(lore);
 	}
 
 	@Nonnull
 	public ItemBuilder setLore(@Nonnull String... lore) {
-		super.setLore(lore);
-		return this;
+		return (ItemBuilder) super.setLore(lore);
 	}
 
 	@Nonnull
 	public ItemBuilder appendLore(@Nonnull String... lore) {
-		super.appendLore(lore);
-		return this;
+		return (ItemBuilder) super.appendLore(lore);
 	}
 
 	@Nonnull
 	public ItemBuilder appendLore(@Nonnull Collection<String> lore) {
-		super.appendLore(lore);
-		return this;
+		return (ItemBuilder) super.appendLore(lore);
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nullable String name) {
-		super.setName(name);
-		return this;
+		return (ItemBuilder) super.setName(name);
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nullable Object name) {
-		super.setName(name);
-		return this;
+		return (ItemBuilder) super.setName(name);
 	}
 
 	@Nonnull
 	public ItemBuilder setName(@Nonnull String... content) {
-		super.setName(content);
-		return this;
+		return (ItemBuilder) super.setName(content);
 	}
 
 	@Nonnull
 	public ItemBuilder appendName(@Nullable Object sequence) {
-		super.appendName(sequence);
-		return this;
+		return (ItemBuilder) super.appendName(sequence);
 	}
 
 	@Nonnull
 	public ItemBuilder name(@Nullable Object name) {
-		super.name(name);
-		return this;
+		return (ItemBuilder) super.name(name);
 	}
 
 	@Nonnull
 	public ItemBuilder name(@Nonnull String... content) {
-		super.name(content);
-		return this;
+		return (ItemBuilder) super.name(content);
 	}
 
 	@Nonnull
 	public ItemBuilder addEnchantment(@Nonnull Enchantment enchantment, int level) {
-		super.addEnchantment(enchantment, level);
-		return this;
+		return (ItemBuilder) super.addEnchantment(enchantment, level);
 	}
 
 	@Nonnull
 	public ItemBuilder enchant(@Nonnull Enchantment enchantment, int level) {
-		super.enchant(enchantment, level);
-		return this;
+		return (ItemBuilder) super.enchant(enchantment, level);
 	}
 
 	@Nonnull
 	public ItemBuilder addFlag(@Nonnull ItemFlag... flags) {
-		super.addFlag(flags);
-		return this;
+		return (ItemBuilder) super.addFlag(flags);
 	}
 
 	@Nonnull
 	public ItemBuilder removeFlag(@Nonnull ItemFlag... flags) {
-		super.removeFlag(flags);
-		return this;
+		return (ItemBuilder) super.removeFlag(flags);
 	}
 
 	@Nonnull
 	public ItemBuilder hideAttributes() {
-		super.hideAttributes();
-		return this;
+		return (ItemBuilder) super.hideAttributes();
 	}
 
 	@Nonnull
 	public ItemBuilder showAttributes() {
-		super.showAttributes();
-		return this;
+		return (ItemBuilder) super.showAttributes();
 	}
 
 	@Nonnull
 	public ItemBuilder setUnbreakable(boolean unbreakable) {
-		super.setUnbreakable(unbreakable);
-		return this;
+		return (ItemBuilder) super.setUnbreakable(unbreakable);
 	}
 
 	@Nonnull
 	public ItemBuilder unbreakable() {
-		super.unbreakable();
-		return this;
+		return (ItemBuilder) super.unbreakable();
 	}
 
 	@Nonnull
 	public ItemBuilder breakable() {
-		super.breakable();
-		return this;
+		return (ItemBuilder) super.breakable();
 	}
 
 	@Nonnull
 	public ItemBuilder setAmount(int amount) {
-		super.setAmount(amount);
-		return this;
+		return (ItemBuilder) super.setAmount(amount);
 	}
 
 	@Nonnull
 	public ItemBuilder amount(int amount) {
-		super.amount(amount);
-		return this;
+		return (ItemBuilder) super.amount(amount);
 	}
 
 	@Nonnull
 	public ItemBuilder setDamage(int damage) {
-		super.setDamage(damage);
-		return this;
+		return (ItemBuilder) super.setDamage(damage);
 	}
 
 	@Nonnull
 	public ItemBuilder damage(int damage) {
-		super.damage(damage);
-		return this;
+		return (ItemBuilder) super.damage(damage);
 	}
 
 	@Nonnull
 	public ItemBuilder setType(@Nonnull Material material) {
-		super.setType(material);
-		return this;
+		return (ItemBuilder) super.setType(material);
 	}
 
 	@Nonnull

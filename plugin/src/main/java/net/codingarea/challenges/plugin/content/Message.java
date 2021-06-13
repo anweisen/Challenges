@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.content;
 
-import net.anweisen.utilities.commons.common.IRandom;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.content.impl.MessageManager;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -10,7 +10,6 @@ import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen

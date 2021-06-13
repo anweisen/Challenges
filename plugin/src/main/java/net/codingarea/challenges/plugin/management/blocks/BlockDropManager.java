@@ -1,9 +1,8 @@
 package net.codingarea.challenges.plugin.management.blocks;
 
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;

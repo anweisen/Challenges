@@ -1,14 +1,14 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IModifier;
-import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -32,6 +32,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 public final class ChallengeHelper {
@@ -81,11 +82,10 @@ public final class ChallengeHelper {
 
 	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool, @Nullable Inventory targetInventory) {
 
-		BlockDropManager dropManager = Challenges.getInstance().getBlockDropManager();
-		if (!dropManager.getDropChance(block.getType()).getAsBoolean()) return;
-		boolean putIntoInventory = dropManager.getItemsDirectIntoInventory() && targetInventory != null;
+		if (!ChallengeAPI.getDropChance(block.getType())) return;
+		boolean putIntoInventory = ChallengeAPI.getItemsDirectIntoInventory() && targetInventory != null;
 
-		List<Material> customDrops = dropManager.getCustomDrops(block.getType());
+		List<Material> customDrops = ChallengeAPI.getCustomDrops(block.getType());
 		Location location = block.getLocation().clone().add(0.5, 0, 0.5);
 		if (!customDrops.isEmpty()) {
 			if (putIntoInventory) {

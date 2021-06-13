@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.codingarea.challenges.plugin.challenges.type.abstraction.HydraChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -12,7 +13,7 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class HydraNormalChallenge extends net.codingarea.challenges.plugin.challenges.type.HydraChallenge {
+public class HydraNormalChallenge extends HydraChallenge {
 
 	public HydraNormalChallenge() {
 		super(MenuType.CHALLENGES);

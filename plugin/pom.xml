@@ -4,20 +4,20 @@
 		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<artifactId>plugin</artifactId>
-	<version>2.0</version>
-
 	<parent>
 		<groupId>net.codingarea.challenges</groupId>
 		<artifactId>root</artifactId>
 		<version>2.0</version>
 	</parent>
 
+	<artifactId>plugin</artifactId>
+	<version>2.0</version>
+	<url>https://github.com/anweisen/Challenges</url>
+
 	<properties>
 		<maven.compiler.source>8</maven.compiler.source>
 		<maven.compiler.target>8</maven.compiler.target>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<utilities.version>1.2.8</utilities.version>
 	</properties>
 
 	<dependencies>
@@ -32,14 +32,8 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.16.5-R0.1-SNAPSHOT</version>
+			<version>${spigot.version}</version>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongodb-driver</artifactId>
-			<version>3.12.7</version>
 		</dependency>
 
 		<dependency>
@@ -54,7 +48,6 @@
 			<version>3.3.0-RELEASE</version>
 			<scope>provided</scope>
 		</dependency>
-
 		<dependency>
 			<groupId>de.dytanic.cloudnet</groupId>
 			<artifactId>cloudnet-bridge</artifactId>

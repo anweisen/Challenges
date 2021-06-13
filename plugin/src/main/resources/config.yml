@@ -54,15 +54,12 @@ ignore-players:
 
 challenge-settings:
   position-particle-lines: true
+  backpack-size: 3 # The size of the backpack in rows between 1-6
 
 # This will change the item design in the challenges menu
 design:
   empty-line-above: true
   empty-line-underneath: true
-
-# The size stands for the amount of rows in the backpack inventory
-# Value can be between 1-6
-backpack-size: 3
 
 # Players with the permission 'challenges.gui' will have items in their hotbar
 # while the timer is paused, for controlling some settings.
@@ -145,7 +142,7 @@ no-stats-after-cheating: false
 
 # Debug messages will be shown in the console.
 # You should enable this setting when reporting an issue.
-# This may also enable experimental settings which aren't stable yet.
+# This may also enable experimental settings
 dev-mode: false
 
 database:

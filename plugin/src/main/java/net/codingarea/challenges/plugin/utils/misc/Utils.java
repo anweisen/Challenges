@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.ReflectionUtils;
+import net.anweisen.utilities.common.collection.IOUtils;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.misc.ReflectionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -17,20 +17,12 @@ import java.util.regex.Pattern;
 
 /**
  * @author anweisen | https://github.com/anweisen
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
 public final class Utils {
 
 	private Utils() {}
-
-	public static boolean isSpigot() {
-		try {
-			Bukkit.spigot();
-			return true;
-		} catch (NoSuchMethodError ex) {
-			return false;
-		}
-	}
 
 	@Nonnull
 	public static List<String> filterRecommendations(@Nonnull String argument, @Nonnull String... recommendations) {

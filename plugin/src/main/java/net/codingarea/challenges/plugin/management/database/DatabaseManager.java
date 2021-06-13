@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.database;
 
-import net.anweisen.utilities.commons.common.Tuple;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
@@ -9,7 +9,7 @@ import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
 import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;

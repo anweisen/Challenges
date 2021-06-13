@@ -17,6 +17,7 @@
   "hours": "Stunden",
   "hour": "Stunde",
   "amplifier": "Stärke",
+  "open": "Öffnen",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -490,6 +491,11 @@
     "§cGeteilte Herzen",
     "Stellt ein, ob sich *alle*",
     "*Spieler* eine *Gesundheit teilen*"
+  ],
+  "item-old-pvp-setting": [
+    "§b1.8 PvP",
+    "Das *alte 1.8 PvP System* wird genutzt",
+    "Es gibt keinen *Attack Cooldown*"
   ],
 
 

@@ -4,10 +4,10 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.IRandom;
-import net.anweisen.utilities.commons.common.Tuple;
-import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.IRandom;
+import net.anweisen.utilities.common.collection.Tuple;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -45,8 +45,8 @@ import java.util.stream.Collectors;
 public class MissingItemsChallenge extends TimedChallenge implements PlayerCommand {
 
 	private final IRandom random = IRandom.create();
-	List<Material> materials;
 	private final Map<UUID, Tuple<Inventory, MenuPosition>> inventories = new HashMap<>();
+	private List<Material> materials;
 
 	public MissingItemsChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
@@ -76,7 +76,10 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	@Override
 	protected void onEnable() {
-		materials = Arrays.stream(Material.values()).filter(Material::isItem).filter(ItemUtils::isObtainableInSurvival).collect(Collectors.toList());
+		materials = Arrays.stream(Material.values())
+				.filter(Material::isItem)
+				.filter(ItemUtils::isObtainableInSurvival)
+				.collect(Collectors.toList());
 	}
 
 	@Override
@@ -164,7 +167,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 		TextComponent clickComponent = new TextComponent(openMessage);
 		clickComponent.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/openmemoryinventory"));
-		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§2§l✔ §8┃ §7/openMemoryInventory")));
+		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§2§l✔ §8┃ §7" + Message.forName("open").asString())));
 
 		messageComponent.addExtra(clickComponent);
 		player.spigot().sendMessage(messageComponent);
@@ -200,8 +203,8 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	private ItemStack getRandomItem(@Nonnull ItemStack blacklisted) {
 		if (materials == null) onEnable();
-		Material material = random.choose(materials);
 
+		Material material = random.choose(materials);
 		ItemStack itemStack = new ItemStack(material);
 
 		if (itemStack.getItemMeta() instanceof Damageable && 1 < material.getMaxDurability()) {
@@ -219,13 +222,11 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
-
 		if (openGameInventory(player)) {
 			SoundSample.OPEN.play(player);
 		} else {
 			SoundSample.BASS_OFF.play(player);
 		}
-
 	}
 
 	private boolean anyRunningGame() {

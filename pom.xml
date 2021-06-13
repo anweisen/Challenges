@@ -15,9 +15,14 @@
 		<module>mongo-connector</module>
 	</modules>
 
+	<properties>
+		<utilities.version>1.3.0</utilities.version>
+		<spigot.version>1.17-R0.1-SNAPSHOT</spigot.version>
+	</properties>
+
 	<distributionManagement>
 		<repository>
-			<id>github</id>
+			<id>anweisen</id>
 			<name>GitHub anweisen Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/anweisen/Utilities</url>
 		</repository>

@@ -2,12 +2,12 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.SeededRandomWrapper;
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.SeededRandomWrapper;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.SettingGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;

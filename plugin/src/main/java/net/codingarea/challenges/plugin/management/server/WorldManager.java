@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.FileDocument;
-import net.anweisen.utilities.commons.misc.FileUtils;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.config.FileDocument;
+import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.*;
 import org.bukkit.command.CommandSender;

@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.anweisen.utilities.common.annotations.Since;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -29,7 +29,6 @@ public class StoneSightChallenge extends Setting {
 	public StoneSightChallenge() {
 		super(MenuType.CHALLENGES);
 	}
-
 
 	@Nonnull
 	@Override

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.logging;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
@@ -18,7 +19,9 @@ public final class ConsolePrint {
 		log("=============================================================================================");
 		log("");
 		log("Your server does NOT run an instance of spigot (Your server: " + Bukkit.getVersion() + ")");
-		log("Please use an instance of spigot to support all features!");
+		log("Please use an instance of spigot or paper to be able to use this plugin!");
+		log("");
+		log("Paper Download: https://papermc.io/downloads");
 		log("");
 		log("=============================================================================================");
 		log("");

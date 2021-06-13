@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.annotations.Since;
+import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.MaxHealthSetting;
-import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
-import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;

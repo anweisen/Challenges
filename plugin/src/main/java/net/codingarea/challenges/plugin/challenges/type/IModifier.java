@@ -8,11 +8,17 @@ import javax.annotation.Nonnegative;
  */
 public interface IModifier {
 
-	@Nonnegative int getValue();
-	@Nonnegative int getMinValue();
-	@Nonnegative int getMaxValue();
+	@Nonnegative
+	int getValue();
+
+	@Nonnegative
+	int getMinValue();
+
+	@Nonnegative
+	int getMaxValue();
 
 	void setValue(int value);
+
 	void playValueChangeTitle();
 
 }

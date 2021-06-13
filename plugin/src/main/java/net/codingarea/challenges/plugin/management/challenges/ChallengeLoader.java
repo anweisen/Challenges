@@ -55,6 +55,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoOffhandSetting.class);
 		register(ImmediateRespawnSetting.class);
 		register(SlotLimitSetting.class);
+		register(OldPvPSetting.class);
 
 
 		// Challenges

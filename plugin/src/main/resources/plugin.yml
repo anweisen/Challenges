@@ -5,7 +5,7 @@ authors:
   - anweisen
   - KxmischesDomi
 database: true
-website: "coding-area.net"
+website: coding-area.net
 api-version: 1.13
 main: net.codingarea.challenges.plugin.Challenges
 load: POSTWORLD
@@ -14,6 +14,10 @@ softdepend:
 description: |
   This plugin provides you with loads of challenges for beating minecraft or cometing with your friends.
   You can find more information on our discord: https://discord.gg/74Ay5zF.
+
+require:
+  spigot: true
+  version: 1.13
 
 commands:
   cr:

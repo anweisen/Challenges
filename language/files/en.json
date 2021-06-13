@@ -17,6 +17,7 @@
   "hours": "hours",
   "hour": "hour",
   "amplifier": "amplifier",
+  "open": "Open",
   "timer-counting-up": "§8» §7Timer counting §aup",
   "timer-counting-down": "§8» §7Timer counting §cdown",
   "timer-is-paused": "§8» §7Timer §cpaused",
@@ -492,7 +493,11 @@
     "Sets whether *all players*",
     "share the same *health*"
   ],
-
+  "item-old-pvp-setting": [
+    "§b1.8 PvP",
+    "The *old 1.8 PvP System* will be used",
+    "There will be no *attack damage cooldown*"
+  ],
 
   "item-traffic-light-challenge": [
     "§cTraffic Light Challenge",

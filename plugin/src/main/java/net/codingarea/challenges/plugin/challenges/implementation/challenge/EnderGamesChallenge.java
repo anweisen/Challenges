@@ -1,15 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.IRandom;
-import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.IRandom;
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

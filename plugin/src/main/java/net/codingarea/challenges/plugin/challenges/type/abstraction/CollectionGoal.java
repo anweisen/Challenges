@@ -1,10 +1,10 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
@@ -24,12 +24,12 @@ public abstract class CollectionGoal extends SettingGoal {
 	private final Map<UUID, List<String>> collections = new HashMap<>();
 	protected Object[] target;
 
-	public CollectionGoal(@Nonnull Object... target) {
+	public CollectionGoal(@Nonnull Object[] target) {
 		super();
 		this.target = target;
 	}
 
-	public CollectionGoal(boolean enabledByDefault, @Nonnull Object... target) {
+	public CollectionGoal(boolean enabledByDefault, @Nonnull Object[] target) {
 		super(enabledByDefault);
 		this.target = target;
 	}

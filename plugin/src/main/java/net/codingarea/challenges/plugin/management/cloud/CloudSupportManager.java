@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.cloud;
 
-import net.anweisen.utilities.commons.common.WrappedException;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.collection.WrappedException;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.cloud.support.CloudNetSupport;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -1,9 +1,7 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -17,12 +15,12 @@ import javax.annotation.Nonnull;
  */
 public abstract class SettingModifierCollectionGoal extends ModifierCollectionGoal {
 
-	public SettingModifierCollectionGoal(@Nonnull MenuType menu, int min, int max, @Nonnull Object... target) {
-		super(menu, min, max, target);
+	public SettingModifierCollectionGoal(int min, int max, @Nonnull Object... target) {
+		super(min, max, target);
 	}
 
-	public SettingModifierCollectionGoal(@Nonnull MenuType menu, int min, int max, int defaultValue, @Nonnull Object... target) {
-		super(menu, min, max, defaultValue, target);
+	public SettingModifierCollectionGoal(int min, int max, int defaultValue, @Nonnull Object... target) {
+		super(min, max, defaultValue, target);
 	}
 
 	@Override

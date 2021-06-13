@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.Tuple;
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -13,7 +13,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.TriConsumer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -230,10 +230,8 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == GLOBAL_EFFECT) return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone")
-				.appendLore("", Message.forName("item-permanent-effect-target-everyone-description").toString());
-		return DefaultItem.create(Material.CHEST, "§6Only active player")
-				.appendLore("", Message.forName("item-permanent-effect-target-player-description").toString());
+		if (getValue() == GLOBAL_EFFECT) return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone").appendLore("", Message.forName("item-permanent-effect-target-everyone-description").asString());
+		return DefaultItem.create(Material.CHEST, "§6Only active player").appendLore("", Message.forName("item-permanent-effect-target-player-description").asString());
 	}
 
 	@Override
@@ -243,7 +241,6 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		} else {
 			ChallengeHelper.playChangeChallengeValueTitle(this, "§6Only active player");
 		}
-
 	}
 
 	@Override

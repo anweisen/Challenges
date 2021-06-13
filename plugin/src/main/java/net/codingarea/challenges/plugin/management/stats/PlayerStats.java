@@ -1,8 +1,7 @@
 package net.codingarea.challenges.plugin.management.stats;
 
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.config.Document;
 
 import javax.annotation.Nonnull;
 import java.util.EnumMap;
@@ -41,7 +40,7 @@ public class PlayerStats {
 
 	@Nonnull
 	public Document asDocument() {
-		Document document = new GsonDocument();
+		Document document = Document.newJsonDocument();
 		for (Entry<Statistic, Double> entry : values.entrySet()) {
 			document.set(entry.getKey().name(), entry.getValue());
 		}
