@@ -17,6 +17,9 @@
 #                                                               #
 # You can find the source code at                               #
 # https://github.com/anweisen/Challenges                        #
+#                                                               #
+# Download at plugin at                                         #
+# https://www.spigotmc.org/resources/80548                      #
 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 
 # The config-version is even with the version of the plugin.
@@ -148,7 +151,7 @@ dev-mode: false
 database:
   # Available database types:
   # - mysql
-  # - mongodb
+  # - mongodb (requires https://www.spigotmc.org/resources/93296)
   # - sqlite
   # Enter "none" to disable
   # Fill in the credentials below for the desired database
