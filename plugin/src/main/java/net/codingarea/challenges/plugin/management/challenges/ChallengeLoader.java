@@ -32,6 +32,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(SplitHealthSetting.class);
 		register(DamageDisplaySetting.class);
 		register(PregameMovementSetting.class);
+
 		register(DeathMessageSetting.class);
 		register(HealthDisplaySetting.class);
 		registerWithCommand(PositionSetting.class, "position");
@@ -39,6 +40,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(PlayerGlowSetting.class);
 		register(SoupSetting.class);
 		register(NoHungerSetting.class);
+
 		register(NoItemDamageSetting.class);
 		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
@@ -47,6 +49,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(PvPSetting.class);
 		register(NoHitDelaySetting.class);
 		registerWithCommand(TopCommandSetting.class, "top");
+
 		register(MaxHealthSetting.class);
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
@@ -54,8 +57,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BastionSpawnSetting.class);
 		register(NoOffhandSetting.class);
 		register(ImmediateRespawnSetting.class);
+
 		register(SlotLimitSetting.class);
 		register(OldPvPSetting.class);
+		register(TotemSaveDeathSetting.class);
 
 
 		// Challenges

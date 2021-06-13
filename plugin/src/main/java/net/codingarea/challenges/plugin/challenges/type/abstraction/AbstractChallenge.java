@@ -31,6 +31,7 @@ import java.util.function.Consumer;
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	protected static final Challenges plugin = Challenges.getInstance();
+	protected static boolean inInstantKill = false;
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
@@ -129,12 +130,15 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	protected final void kill(@Nonnull Player player) {
+
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
 			return;
 		}
 
+		inInstantKill = true;
 		player.damage(player.getHealth());
+		inInstantKill = false;
 	}
 
 	protected final void kill(@Nonnull Player player, int delay) {
