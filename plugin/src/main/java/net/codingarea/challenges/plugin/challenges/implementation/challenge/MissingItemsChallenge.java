@@ -16,11 +16,11 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.ClickEvent.Action;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.hover.content.Text;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.Sound;
@@ -98,7 +98,6 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	}
 
 	private void startGuessingGame(@Nonnull Player player) {
-		SoundSample.PLOP.play(player);
 
 		BukkitTask task = new BukkitRunnable() {
 
@@ -108,19 +107,24 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 			public void run() {
 				timeLeft--;
 
+				if (!inventories.containsKey(player.getUniqueId())) {
+					cancel();
+					return;
+				}
+
 				if (timeLeft == 0) {
+					cancel();
 					Tuple<Inventory, MenuPosition> tuple = inventories.remove(player.getUniqueId());
 					tuple.getSecond().handleClick(new MenuClickInfo(player, tuple.getFirst(), false, false, -1));
-					cancel();
 				} else if (timeLeft <= 5) {
 					new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, (float) (timeLeft - 1) / 10 + 1).play(player);
 				}
 
 			}
 
-		}.runTaskTimer(plugin, 0, 20);
+		}.runTaskTimer(plugin, 20, 20);
 
-		openGuessingInventory(player, unused -> {
+		createGuessingInventory(player, unused -> {
 			if (!anyRunningGame()) {
 				inventories.clear();
 				restartTimer();
@@ -130,10 +134,12 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	}
 
-	private void openGuessingInventory(@Nonnull Player player, Consumer<Void> onFinish) {
+	private void createGuessingInventory(@Nonnull Player player, Consumer<Void> onFinish) {
 
 		int targetSlot = InventoryUtils.getRandomFullSlot(player.getInventory());
 		if (targetSlot == -1) return;
+
+		SoundSample.PLOP.play(player);
 
 		ItemStack targetItem = player.getInventory().getItem(targetSlot);
 		if (targetItem == null) return;
@@ -167,7 +173,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 		TextComponent clickComponent = new TextComponent(openMessage);
 		clickComponent.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/openmemoryinventory"));
-		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new Text("§2§l✔ §8┃ §7" + Message.forName("open").asString())));
+		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Collections.singletonList(new TextComponent("§2§l✔ §8┃ §7" + Message.forName("open").asString())).toArray(new BaseComponent[0]))));
 
 		messageComponent.addExtra(clickComponent);
 		player.spigot().sendMessage(messageComponent);
