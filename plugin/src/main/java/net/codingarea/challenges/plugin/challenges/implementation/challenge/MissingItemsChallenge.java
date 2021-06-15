@@ -173,7 +173,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 		TextComponent clickComponent = new TextComponent(openMessage);
 		clickComponent.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/openmemoryinventory"));
-		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Collections.singletonList(new TextComponent("§2§l✔ §8┃ §7" + Message.forName("open").asString())).toArray(new BaseComponent[0]))));
+		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Collections.singletonList(new TextComponent("§2§l✔ §8┃ §7" + Message.forName("open").asString())).toArray(new BaseComponent[0])));
 
 		messageComponent.addExtra(clickComponent);
 		player.spigot().sendMessage(messageComponent);
