@@ -2,14 +2,14 @@ package net.codingarea.challenges.plugin.management.server;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.Goal;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -69,7 +69,7 @@ public final class ServerManager {
 			return;
 		}
 
-		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
+		IGoal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 		List<Player> winners = new LinkedList<>();
 		if (currentGoal != null && endCause.isWinnable())
 			currentGoal.getWinnersOnEnd(winners);

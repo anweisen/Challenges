@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;

@@ -1,10 +1,10 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.bukkit.utils.menu.positions.EmptyMenuPosition;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.SettingsMenu;
@@ -115,13 +115,13 @@ public abstract class MenuSetting extends Setting {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
-		if (event.isUpperItemClick()) {
-			super.handleClick(event);
-		} else if (isEnabled() && !event.isRightClick()) {
-			openMenu(event);
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
+		if (info.isUpperItemClick()) {
+			super.handleClick(info);
+		} else if (isEnabled() && !info.isRightClick()) {
+			openMenu(info);
 		} else {
-			super.handleClick(event);
+			super.handleClick(info);
 		}
 	}
 

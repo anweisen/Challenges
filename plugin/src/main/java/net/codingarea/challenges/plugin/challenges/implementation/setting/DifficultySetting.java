@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
-import net.anweisen.utilities.commons.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -112,7 +112,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 		}
 
 		setValue(difficulty);
-		Message.forName("command-difficulty-change").send(sender, Prefix.CHALLENGES, getDifficultyName());
+		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyName());
 
 	}
 

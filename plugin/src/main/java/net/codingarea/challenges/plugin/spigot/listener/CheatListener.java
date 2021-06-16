@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;

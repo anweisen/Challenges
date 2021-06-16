@@ -1,9 +1,13 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.IRandom;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.*;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -15,7 +19,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
 
 /**
  * @author anweisen | https://github.com/anweisen

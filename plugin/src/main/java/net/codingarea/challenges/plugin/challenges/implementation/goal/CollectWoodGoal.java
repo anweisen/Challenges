@@ -2,12 +2,11 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.SettingModifierCollectionGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifierCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
@@ -27,14 +26,14 @@ import javax.annotation.Nonnull;
  */
 public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
-	private static final boolean newNether = Challenges.getInstance().getServerVersion().isNewerOrEqualThan(MinecraftVersion.V1_16);
+	private static final boolean newNether = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_16);
 	private static final int
 			OVERWORLD = 1,
 			NETHER = 2,
 			BOTH = 3;
 
 	public CollectWoodGoal() {
-		super(MenuType.GOAL, 1, newNether ? 3 : 1);
+		super(1, newNether ? 3 : 1);
 	}
 
 	@Nonnull

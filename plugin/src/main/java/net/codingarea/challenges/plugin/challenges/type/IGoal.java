@@ -14,14 +14,14 @@ import java.util.List;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public interface Goal extends IChallenge {
+public interface IGoal extends IChallenge {
 
 	/**
 	 * Enabled / disabled this goal.
-	 * This must to call {@link ChallengeManager#setCurrentGoal(Goal)} with
+	 * This must to call {@link ChallengeManager#setCurrentGoal(IGoal)} with
 	 * {@code this} if {@code enabled} is {@code true} or {@code null} if {@code enabled} is {@code false} and this goal is the current.
 	 * This can be checked by comparing {@link ChallengeManager#getCurrentGoal()} to {@code this}.
-	 * You may just call {@link GoalHelper#handleSetEnabled(Goal, boolean)} with {@code this}, {@code enabled}
+	 * You may just call {@link GoalHelper#handleSetEnabled(IGoal, boolean)} with {@code this}, {@code enabled}
 	 */
 	void setEnabled(boolean enabled);
 

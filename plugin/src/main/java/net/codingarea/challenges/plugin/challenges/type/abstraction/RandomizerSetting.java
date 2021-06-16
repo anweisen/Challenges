@@ -1,7 +1,8 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import net.anweisen.utilities.commons.common.SeededRandomWrapper;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.collection.IRandom;
+import net.anweisen.utilities.common.collection.SeededRandomWrapper;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 
 import javax.annotation.Nonnull;
@@ -12,7 +13,7 @@ import javax.annotation.Nonnull;
  */
 public abstract class RandomizerSetting extends Setting {
 
-	protected SeededRandomWrapper random = new SeededRandomWrapper();
+	protected IRandom random = IRandom.create();
 
 	public RandomizerSetting(@Nonnull MenuType menu) {
 		super(menu);
@@ -46,7 +47,7 @@ public abstract class RandomizerSetting extends Setting {
 		long seed = document.getLong("seed");
 		if (seed == random.getSeed()) return;
 
-		random = new SeededRandomWrapper(seed);
+		random = IRandom.create(seed);
 
 		if (!isEnabled()) return;
 		reloadRandomization();

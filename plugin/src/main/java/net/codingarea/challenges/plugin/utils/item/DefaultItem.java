@@ -35,17 +35,17 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder enabled() {
-		return new ItemBuilder(Material.LIME_DYE).setName(getTitle("enabled")).hideAttributes();
+		return new ItemBuilder(Material.LIME_DYE).setName(getTitle(Message.forName("enabled"))).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(getTitle("disabled")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(getTitle(Message.forName("disabled"))).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(getTitle("customize")).hideAttributes();
+		return new ItemBuilder(MaterialWrapper.SIGN).setName(getTitle(Message.forName("customize"))).hideAttributes();
 	}
 
 	@Nonnull
@@ -66,12 +66,17 @@ public final class DefaultItem {
 	@Nonnull
 	public static ItemBuilder create(@Nonnull Material material, @Nonnull Message message) {
 		ItemBuilder itemBuilder = new ItemBuilder(material, message);
-		return itemBuilder.setName(getTitle(itemBuilder.getName()));
+		return itemBuilder.setName(getTitle(message));
 	}
 
 	@Nonnull
-	private static String getTitle(@Nonnull String messageName) {
-		return Message.forName("item-setting-info").asString(Message.forName(messageName));
+	private static String getTitle(@Nonnull Message message) {
+		return getTitle(message.asString());
+	}
+
+	@Nonnull
+	private static String getTitle(@Nonnull String text) {
+		return Message.forName("item-setting-info").asString(text);
 	}
 
 }

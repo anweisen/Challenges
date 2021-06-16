@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.FileDocument;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.config.FileDocument;
+import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.Goal;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -24,7 +24,7 @@ public final class ChallengeManager {
 
 	private final List<IChallenge> challenges = new LinkedList<>();
 
-	private Goal currentGoal;
+	private IGoal currentGoal;
 
 	@Nonnull
 	public List<IChallenge> getChallenges() {
@@ -148,13 +148,13 @@ public final class ChallengeManager {
 	}
 
 	@Nullable
-	public Goal getCurrentGoal() {
+	public IGoal getCurrentGoal() {
 		return currentGoal;
 	}
 
-	public void setCurrentGoal(@Nullable Goal goal) {
+	public void setCurrentGoal(@Nullable IGoal goal) {
 
-		Goal oldGoal = currentGoal;
+		IGoal oldGoal = currentGoal;
 		currentGoal = goal;
 
 		if (oldGoal != null)

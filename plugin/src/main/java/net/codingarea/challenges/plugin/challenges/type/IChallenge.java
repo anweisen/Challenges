@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -69,7 +69,7 @@ public interface IChallenge {
 	@Nonnull
 	ItemStack getSettingsItem();
 
-	void handleClick(@Nonnull ChallengeMenuClickInfo event);
+	void handleClick(@Nonnull ChallengeMenuClickInfo info);
 
 	void writeGameState(@Nonnull Document document);
 	void loadGameState(@Nonnull Document document);

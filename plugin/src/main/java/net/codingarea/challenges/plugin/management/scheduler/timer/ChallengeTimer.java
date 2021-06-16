@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.FileDocument;
+import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.config.FileDocument;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.Goal;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
@@ -111,7 +111,7 @@ public final class ChallengeTimer {
 				player.setGameMode(GameMode.SURVIVAL);
 		}
 
-		Goal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
+		IGoal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 		if (currentGoal != null && specificStartSounds) {
 			currentGoal.getStartSound().broadcast();
 		} else if (defaultStartSound) {

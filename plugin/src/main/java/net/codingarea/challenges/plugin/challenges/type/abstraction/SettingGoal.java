@@ -1,6 +1,7 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 
@@ -11,7 +12,7 @@ import javax.annotation.Nullable;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public abstract class SettingGoal extends Setting implements Goal {
+public abstract class SettingGoal extends Setting implements IGoal {
 
 	public SettingGoal() {
 		super(MenuType.GOAL);

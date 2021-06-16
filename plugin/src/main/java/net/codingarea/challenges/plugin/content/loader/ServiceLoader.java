@@ -1,11 +1,11 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.GsonDocument;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
+import net.anweisen.utilities.common.collection.IOUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
@@ -43,28 +43,28 @@ public final class ServiceLoader extends ContentLoader {
 			connection.setRequestProperty("Accept", "*/*");
 			connection.setRequestProperty("Content-Type", "application/json");
 
-			String request = new GsonDocument()
-					.set("address", new GsonDocument()
+			String request = Document.newJsonDocument()
+					.set("address", Document.newJsonDocument()
 						.set("ip", Inet4Address.getLocalHost().getHostAddress())
 						.set("port", Bukkit.getPort())
-					).set("plugin", new GsonDocument()
-						.set("version", Challenges.getInstance().getVersion().toString())
+					).set("plugin", Document.newJsonDocument()
+						.set("version", Challenges.getInstance().getVersion().format())
 						.set("language", Challenges.getInstance().getConfigDocument().getString("language"))
 						.set("database", Challenges.getInstance().getConfigDocument().getString("database.type"))
 						.set("cloud-support", Challenges.getInstance().getConfigDocument().getString("cloud-support.type"))
-					).set("server", new GsonDocument()
+					).set("server", Document.newJsonDocument()
 						.set("bound-ip", Bukkit.getIp())
 						.set("name", Bukkit.getName())
 						.set("version", Bukkit.getVersion())
-						.set("minecraft-version", Challenges.getInstance().getServerVersion().toString())
+						.set("minecraft-version", MinecraftVersion.current().format())
 						.set("bukkit-version", Bukkit.getBukkitVersion())
-						.set("whitelist", new GsonDocument()
+						.set("whitelist", Document.newJsonDocument()
 							.set("enabled", Bukkit.hasWhitelist())
 							.set("size", Bukkit.getWhitelistedPlayers().size())
 						).set("motd", Bukkit.getMotd())
 						.set("plugins", Arrays.stream(Bukkit.getPluginManager().getPlugins())
 								.map(Plugin::getDescription)
-								.map(description -> new GsonDocument()
+								.map(description -> Document.newJsonDocument()
 										.set("name", description.getName())
 										.set("version", description.getVersion())
 										.set("authors", description.getAuthors())
@@ -84,12 +84,12 @@ public final class ServiceLoader extends ContentLoader {
 				response.append(responseLine.trim());
 			}
 
-			Document document = new GsonDocument(response.toString());
+			Document document = Document.parseJson(response.toString());
 			Logger.debug("Received response {} from coding-area monitoring services", document);
 
 			if (document.getBoolean("blocked")) {
-				Challenges.getInstance().setValidationFailed();
-				Challenges.getInstance().disable();
+				Challenges.getInstance().setRequirementsFailed();
+				Challenges.getInstance().disablePlugin();
 				ConsolePrint.accessBlocked();
 			}
 

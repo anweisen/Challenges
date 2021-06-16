@@ -1,10 +1,10 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.challenges.type.IModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 
 import javax.annotation.Nonnegative;
@@ -21,12 +21,12 @@ public abstract class ModifierCollectionGoal extends CollectionGoal implements I
 	private final int defaultValue;
 	private int value;
 
-	public ModifierCollectionGoal(@Nonnull MenuType menu, int min, int max, @Nonnull Object... target) {
-		this(menu, min, max, min, target);
+	public ModifierCollectionGoal(int min, int max, @Nonnull Object[] target) {
+		this(min, max, min, target);
 	}
 
-	public ModifierCollectionGoal(@Nonnull MenuType menu, int min, int max, int defaultValue, @Nonnull Object... target) {
-		super(menu, target);
+	public ModifierCollectionGoal(int min, int max, int defaultValue, @Nonnull Object[] target) {
+		super(target);
 		if (max < min) throw new IllegalArgumentException("max < min");
 		if (min < 0) throw new IllegalArgumentException("min < 0");
 		if (defaultValue > max) throw new IllegalArgumentException("defaultValue > max");

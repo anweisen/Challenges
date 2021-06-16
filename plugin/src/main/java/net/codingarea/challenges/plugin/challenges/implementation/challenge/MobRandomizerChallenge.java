@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.annotations.Since;
-import net.codingarea.challenges.plugin.challenges.type.RandomizerSetting;
+import net.anweisen.utilities.common.annotations.Since;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
@@ -91,7 +91,7 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	protected void reloadRandomization() {
 		List<EntityType> entityTypes = getSpawnAbleEntities();
 		List<EntityType> randomEntityTypes = new ArrayList<>(entityTypes);
-		Collections.shuffle(randomEntityTypes, random);
+		random.shuffle(randomEntityTypes);
 
 		for (int i = 0; i < entityTypes.size(); i++) {
 			EntityType type = entityTypes.get(i);

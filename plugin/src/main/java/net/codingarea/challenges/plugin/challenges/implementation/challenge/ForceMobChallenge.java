@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.CompletableForceChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -11,7 +12,6 @@ import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBo
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import net.anweisen.utilities.commons.misc.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.EntityType;

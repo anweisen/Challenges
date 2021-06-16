@@ -21,7 +21,6 @@ import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
 import net.codingarea.challenges.plugin.utils.bukkit.command.ForwardingCommand;
-import net.codingarea.challenges.plugin.utils.bukkit.validator.ServerValidator;
 
 import javax.annotation.Nonnull;
 
@@ -57,34 +56,18 @@ public final class Challenges extends BukkitModule {
 	private LoaderRegistry loaderRegistry;
 	private MetricsLoader metricsLoader;
 
-	private boolean validationFailed = false;
-
 	@Override
-	public void onLoad() {
-		instance = this;
-		super.onLoad();
-
-		if (validationFailed = (ServerValidator.validate() || validationFailed)) return; // Handle in enable
-
+	protected void handleLoad() {
 		createManagers();
 		loadManagers();
-
 	}
 
 	@Override
-	public void onEnable() {
-		if (validationFailed) {
-			disable();
-			return;
-		}
-
-		super.onEnable();
-
+	protected void handleEnable() {
 		enableManagers();
 
 		registerCommands();
 		registerListeners();
-
 	}
 
 	private void createManagers() {
@@ -118,15 +101,12 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void loadManagers() {
-
 		loaderRegistry.load();
 		challengeLoader.load();
 		worldManager.load();
-
 	}
 
 	private void enableManagers() {
-
 		databaseManager.enable();
 		worldManager.enable();
 		timer.loadSession();
@@ -134,10 +114,9 @@ public final class Challenges extends BukkitModule {
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
-		metricsLoader.load();
+		metricsLoader.start();
 
 		loaderRegistry.enable();
-
 	}
 
 	private void registerCommands() {
@@ -186,9 +165,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	@Override
-	public void onDisable() {
-		super.onDisable();
-
+	protected void handleDisable() {
 		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
 
 		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
@@ -205,10 +182,6 @@ public final class Challenges extends BukkitModule {
 				challengeManager.saveGamestate(false);
 			challengeManager.clearChallengeCache();
 		}
-	}
-
-	public final void setValidationFailed() {
-		validationFailed = true;
 	}
 
 	@Nonnull
@@ -281,8 +254,13 @@ public final class Challenges extends BukkitModule {
 		return titleManager;
 	}
 
+	@Nonnull
 	public LoaderRegistry getLoaderRegistry() {
 		return loaderRegistry;
+	}
+
+	public static boolean isDevelopmentBuild() {
+		return true;
 	}
 
 }

@@ -1,11 +1,10 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
-import net.anweisen.utilities.commons.misc.ReflectionUtils;
+import net.anweisen.utilities.common.misc.ReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.lang.reflect.Method;

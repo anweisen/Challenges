@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
-import net.codingarea.challenges.plugin.challenges.type.Modifier;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;

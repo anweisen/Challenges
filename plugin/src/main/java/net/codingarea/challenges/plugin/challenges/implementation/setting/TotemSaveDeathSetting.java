@@ -1,38 +1,39 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerItemDamageEvent;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityResurrectEvent;
 
 import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0
  */
-public class NoItemDamageSetting extends Setting {
+@Since("2.0")
+public class TotemSaveDeathSetting extends Setting {
 
-	public NoItemDamageSetting() {
+	public TotemSaveDeathSetting() {
 		super(MenuType.SETTINGS);
-	}
-
-	@EventHandler
-	public void onItemDamage(PlayerItemDamageEvent event) {
-		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
-
-		event.setCancelled(true);
-		event.getPlayer().updateInventory();
 	}
 
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.ANVIL, Message.forName("item-no-item-damage-setting"));
+		return new ItemBuilder(Material.TOTEM_OF_UNDYING, Message.forName("item-totem-save-setting"));
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onEntityResurrect(@Nonnull EntityResurrectEvent event) {
+		if (inInstantKill && !isEnabled()) {
+			event.setCancelled(true);
+		}
 	}
 
 }

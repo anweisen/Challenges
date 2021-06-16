@@ -1,11 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.common.IRandom;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.collection.IRandom;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.AbstractChallenge;
-import net.codingarea.challenges.plugin.challenges.type.WorldDependentChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.WorldDependentChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;

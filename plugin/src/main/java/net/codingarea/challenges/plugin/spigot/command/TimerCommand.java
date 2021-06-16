@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;

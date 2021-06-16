@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;

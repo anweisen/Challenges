@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import org.bukkit.entity.Player;

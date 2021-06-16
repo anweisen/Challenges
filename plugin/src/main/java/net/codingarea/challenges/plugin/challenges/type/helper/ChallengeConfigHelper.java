@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 
 import javax.annotation.CheckReturnValue;
@@ -10,7 +10,9 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public class ChallengeConfigHelper {
+public final class ChallengeConfigHelper {
+
+	private ChallengeConfigHelper() {}
 
 	private static final Document settingsDocument;
 

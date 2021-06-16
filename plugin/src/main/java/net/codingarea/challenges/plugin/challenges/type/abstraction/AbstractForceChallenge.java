@@ -1,13 +1,12 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.common.IRandom;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 import java.util.function.BiConsumer;
 
 /**

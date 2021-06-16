@@ -17,6 +17,7 @@
   "hours": "Stunden",
   "hour": "Stunde",
   "amplifier": "Stärke",
+  "open": "Öffnen",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -491,6 +492,16 @@
     "Stellt ein, ob sich *alle*",
     "*Spieler* eine *Gesundheit teilen*"
   ],
+  "item-old-pvp-setting": [
+    "§b1.8 PvP",
+    "Das *alte 1.8 PvP System* wird genutzt",
+    "Es gibt keinen *Attack Cooldown*"
+  ],
+  "item-totem-save-setting": [
+    "§6Challenge Tot Rettung",
+    "Wenn du durch eine Challenge *instant*",
+    "*stirbst*, können *Totems* dich retten"
+  ],
 
 
   "item-traffic-light-challenge": [
@@ -906,7 +917,7 @@
     "§cSchaden Pro Item",
     "Wenn du ein *Item aufhebst* oder es",
     "in deinem Inventar *anklickst* erleidest",
-    "du *0,5 ❤* multipliziert mit der Anzahl Schaden"
+    "du *0,5 ❤* multipliziert mit der Anzahl Items"
   ],
 
 

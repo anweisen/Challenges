@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.content.loader;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.util.*;

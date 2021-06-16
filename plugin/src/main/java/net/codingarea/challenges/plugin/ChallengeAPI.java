@@ -73,6 +73,10 @@ public final class ChallengeAPI {
 		return Challenges.getInstance().getBlockDropManager().getDropChance(block).getAsBoolean();
 	}
 
+	public static boolean getItemsDirectIntoInventory() {
+		return Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+	}
+
 	@Nonnull
 	public static String formatTime(long seconds) {
 		return Challenges.getInstance().getChallengeTimer().getFormat().format(seconds);

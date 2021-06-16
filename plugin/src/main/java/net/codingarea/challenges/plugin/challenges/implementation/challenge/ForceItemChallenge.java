@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.misc.StringUtils;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.CompletableForceChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;

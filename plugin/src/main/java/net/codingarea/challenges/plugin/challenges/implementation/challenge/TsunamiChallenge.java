@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.TimedChallenge;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;

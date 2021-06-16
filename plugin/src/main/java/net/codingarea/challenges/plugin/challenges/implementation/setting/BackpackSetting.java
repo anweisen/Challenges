@@ -1,10 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -39,7 +39,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 
 	public BackpackSetting() {
 		super(MenuType.SETTINGS, 1, 2, SHARED);
-		size = Math.max(Math.min(Challenges.getInstance().getConfigDocument().getInt("backpack-size") * 9, 6*9), 9);
+		size = Math.max(Math.min(ChallengeConfigHelper.getSettingsDocument().getInt("backpack-size") * 9, 6*9), 9);
 		sharedBackpack = createInventory("§5Team Backpack");
 	}
 
@@ -115,12 +115,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 		for (String key : document.keys()) {
 			try {
 				int index = Integer.parseInt(key);
-				ItemStack item;
-				try {
-					item = document.getSerializable(key, ItemStack.class);
-				} catch (Exception ex) {
-					item = ItemStack.deserialize(((Map<String, Object>) document.getObject(key)));
-				}
+				ItemStack item = document.getSerializable(key, ItemStack.class);
 				inventory.setItem(index, item);
 			} catch (Exception ex) {
 			}

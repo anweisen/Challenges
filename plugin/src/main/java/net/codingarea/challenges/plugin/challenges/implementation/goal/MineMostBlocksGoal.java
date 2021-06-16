@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
-import net.codingarea.challenges.plugin.challenges.type.PointsGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;

@@ -1,10 +1,9 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import net.anweisen.utilities.commons.common.IOUtils;
-import net.anweisen.utilities.commons.version.Version;
-import net.anweisen.utilities.commons.version.VersionInfo;
+import net.anweisen.utilities.common.collection.IOUtils;
+import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import javax.annotation.Nullable;
 import java.net.URL;

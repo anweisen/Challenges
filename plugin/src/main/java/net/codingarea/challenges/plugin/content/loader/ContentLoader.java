@@ -21,8 +21,9 @@ public abstract class ContentLoader {
 		return new File(getMessagesFolder(), name + "." + extension);
 	}
 
+	@Nonnull
 	protected final String getGitHubUrl(@Nonnull String path) {
-		return "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() ? "development" : "master") + "/" + path;
+		return "https://raw.githubusercontent.com/anweisen/Challenges/" + (Challenges.getInstance().isDevMode() || Challenges.isDevelopmentBuild() ? "development" : "master") + "/" + path;
 	}
 
 	protected abstract void load();

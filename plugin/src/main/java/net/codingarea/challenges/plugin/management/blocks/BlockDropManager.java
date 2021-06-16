@@ -1,9 +1,8 @@
 package net.codingarea.challenges.plugin.management.blocks;
 
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -23,10 +22,10 @@ public final class BlockDropManager {
 
 		private DropPriority() {}
 
-		public static final byte    CUT_CLEAN = 10,
-									RANDOMIZER = 5,
-									CHANCE = -128;
-
+		public static final byte
+				CUT_CLEAN = 10,
+				RANDOMIZER = 5,
+				CHANCE = -128;
 	}
 
 	private static abstract class RegisteredOptions<T> {

@@ -1,7 +1,7 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -30,9 +30,9 @@ public abstract class Setting extends AbstractChallenge {
 	}
 
 	@Override
-	public void handleClick(@Nonnull ChallengeMenuClickInfo event) {
+	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
 		setEnabled(!enabled);
-		SoundSample.playStatusSound(event.getPlayer(), enabled);
+		SoundSample.playStatusSound(info.getPlayer(), enabled);
 		playStatusUpdateTitle();
 	}
 

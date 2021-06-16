@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.codingarea.challenges.plugin.challenges.type.RandomizerSetting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -37,11 +37,11 @@ public class CraftingRandomizerChallenge extends RandomizerSetting {
 
 		List<Material> from = new ArrayList<>(Arrays.asList(Material.values()));
 		from.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
-		Collections.shuffle(from, random);
+		random.shuffle(from);
 
 		List<Material> to = new ArrayList<>(Arrays.asList(Material.values()));
 		to.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
-		Collections.shuffle(to, random);
+		random.shuffle(to);
 
 		while (!from.isEmpty()) {
 			Material item = from.remove(0);

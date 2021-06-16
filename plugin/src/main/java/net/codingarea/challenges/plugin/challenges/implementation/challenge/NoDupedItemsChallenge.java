@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.commons.annotations.Since;
-import net.anweisen.utilities.commons.common.Triple;
-import net.anweisen.utilities.commons.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.type.Setting;
+import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.Triple;
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;

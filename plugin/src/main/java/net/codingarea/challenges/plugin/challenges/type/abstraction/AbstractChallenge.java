@@ -1,8 +1,9 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import net.anweisen.utilities.commons.config.Document;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
@@ -30,6 +31,7 @@ import java.util.function.Consumer;
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	protected static final Challenges plugin = Challenges.getInstance();
+	protected static boolean inInstantKill = false;
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
@@ -128,12 +130,15 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	protected final void kill(@Nonnull Player player) {
+
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
 			return;
 		}
 
+		inInstantKill = true;
 		player.damage(player.getHealth());
+		inInstantKill = false;
 	}
 
 	protected final void kill(@Nonnull Player player, int delay) {

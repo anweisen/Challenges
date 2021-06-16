@@ -6,7 +6,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ChallengeStatusPolicy;
 import net.codingarea.challenges.plugin.spigot.listener.StatsListener;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -33,6 +33,9 @@ public final class StatsManager implements Listener {
 
 	private final Map<UUID, PlayerStats> cache = new ConcurrentHashMap<>();
 
+	private List<PlayerStats> cachedLeaderboard;
+	private long leaderboardCacheTimestamp;
+
 	public StatsManager() {
 		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-stats");
 		noStatsAfterCheating = enabled && Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
@@ -55,8 +58,7 @@ public final class StatsManager implements Listener {
 
 	@EventHandler(priority = EventPriority.MONITOR)
 	public void onJoin(@Nonnull PlayerJoinEvent event) {
-		// Cache stats
-		getStats(event.getPlayer());
+		getStats(event.getPlayer()); // Cache stats
 	}
 
 	@ScheduledTask(ticks = 30 * 20, challengePolicy = ChallengeStatusPolicy.ALWAYS)
@@ -115,6 +117,16 @@ public final class StatsManager implements Listener {
 
 	@Nonnull
 	private List<PlayerStats> getAllStats() throws DatabaseException {
+		if (cachedLeaderboard != null && System.currentTimeMillis() - leaderboardCacheTimestamp < 3*60*1000) {
+			return cachedLeaderboard;
+		}
+
+		leaderboardCacheTimestamp = System.currentTimeMillis();
+		return cachedLeaderboard = getAllStats0();
+	}
+
+	@Nonnull
+	private List<PlayerStats> getAllStats0() throws DatabaseException {
 		return Challenges.getInstance().getDatabaseManager().getDatabase()
 				.query("challenges")
 				.select("uuid", "stats", "name")

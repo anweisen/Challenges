@@ -1,10 +1,9 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import net.anweisen.utilities.commons.config.Document;
-import net.anweisen.utilities.commons.config.document.PropertiesDocument;
-import net.anweisen.utilities.commons.misc.FileUtils;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.config.FileDocument;
+import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.codingarea.challenges.plugin.utils.logging.Logger;
 
 import java.io.File;
 
@@ -21,7 +20,7 @@ public final class PrefixLoader extends ContentLoader {
 			File file = getMessageFile("prefix", "properties");
 			FileUtils.createFilesIfNecessary(file);
 
-			Document document = new PropertiesDocument(file);
+			FileDocument document = FileDocument.readPropertiesFile(file);
 			boolean changed = false;
 
 			for (Prefix prefix : Prefix.values()) {
@@ -34,7 +33,7 @@ public final class PrefixLoader extends ContentLoader {
 				prefix.setValue(document.getString(prefix.getName()));
 			}
 
-			if (changed) document.saveToFile(file);
+			if (changed) document.save();
 			Logger.info("Successfully loaded {} prefixes from config file", Prefix.values().size());
 
 		} catch (Exception ex) {

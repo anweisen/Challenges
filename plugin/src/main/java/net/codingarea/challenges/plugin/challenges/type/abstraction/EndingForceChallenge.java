@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.type;
+package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;

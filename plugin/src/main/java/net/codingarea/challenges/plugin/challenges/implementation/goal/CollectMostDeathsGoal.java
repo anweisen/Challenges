@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.commons.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.type.CollectionGoal;
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.CollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 public class CollectMostDeathsGoal extends CollectionGoal {
 
 	public CollectMostDeathsGoal() {
-		super((Object[]) DamageCause.values());
+		super(DamageCause.values());
 	}
 
 	@Nonnull
