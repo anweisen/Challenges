@@ -120,9 +120,8 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void registerCommands() {
-		registerCommand(new ReloadCommand(), "cr");
-		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ReloadCommand(), "creload");
+		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
 		registerCommand(new ForwardingCommand("timer start"), "start");

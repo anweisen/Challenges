@@ -20,10 +20,12 @@ require:
   version: 1.13
 
 commands:
-  cr:
-    usage: "/cr"
+  creload:
+    usage: "/creload"
     description: "Reloads the plugin"
     permission: "challenges.reload"
+    aliases:
+      - "crl"
   help:
     usage: "/help"
     description: "Provides you with some information of this plugin"
@@ -31,12 +33,6 @@ commands:
       - "hilfe"
       - "h"
       - "info"
-  creload:
-    usage: "/creload"
-    description: "Reloads the Challenges plugin"
-    aliases:
-      - "cr"
-      - "crl"
   reset:
     usage: "/reset [confirm]"
     description: "Resets the world and stops/restarts the server"
