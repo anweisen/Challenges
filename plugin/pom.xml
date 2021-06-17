@@ -74,6 +74,13 @@
 			<version>${utilities.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>de.dytanic.cloudnet</groupId>
+			<artifactId>cloudnet-api-bridge</artifactId>
+			<version>2.1.17</version>
+			<scope>provided</scope>
+		</dependency>
+
 	</dependencies>
 
 	<repositories>
@@ -96,6 +103,11 @@
 		<repository>
 			<id>github</id>
 			<url>https://maven.pkg.github.com/anweisen/*</url>
+		</repository>
+
+		<repository>
+			<id>cloudnet</id>
+			<url>https://cloudnetservice.eu/repositories/</url>
 		</repository>
 
 	</repositories>

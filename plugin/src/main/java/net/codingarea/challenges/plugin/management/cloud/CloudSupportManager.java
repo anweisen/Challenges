@@ -4,7 +4,8 @@ import net.anweisen.utilities.common.collection.WrappedException;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.management.cloud.support.CloudNetSupport;
+import net.codingarea.challenges.plugin.management.cloud.support.CloudNet2Support;
+import net.codingarea.challenges.plugin.management.cloud.support.CloudNet3Support;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
@@ -26,6 +27,7 @@ import java.util.UUID;
 public final class CloudSupportManager implements Listener {
 
 	private final Map<UUID, String> cachedColoredNames = new HashMap<>();
+	private static boolean startedNewService = false;
 
 	private final boolean startNewService;
 	private final boolean nameSupport;
@@ -47,7 +49,7 @@ public final class CloudSupportManager implements Listener {
 
 		if (type.equals("none")) return;
 
-		support =   loadSupport(type);
+		support =  loadSupport(type);
 		ChallengeAPI.registerScheduler(this);
 		Challenges.getInstance().registerListener(this);
 
@@ -60,8 +62,9 @@ public final class CloudSupportManager implements Listener {
 
 	private CloudSupport loadSupport(@Nonnull String name) {
 		switch (name) {
-			default:            return null;
-			case "cloudnet":    return new CloudNetSupport();
+			default: return null;
+			case "cloudnet": case "cloudnet3": return new CloudNet3Support();
+			case "cloudnet2": return new CloudNet2Support();
 		}
 	}
 
@@ -116,8 +119,9 @@ public final class CloudSupportManager implements Listener {
 		try {
 			support.setIngame();
 
-			if (startNewService)
+			if (startNewService && !startedNewService)
 				support.startNewService();
+				startedNewService = true;
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to set to ingame with cloud support '{}', missing dependencies", type);
 		}

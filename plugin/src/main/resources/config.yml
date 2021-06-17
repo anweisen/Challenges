@@ -129,8 +129,10 @@ set-spectator-on-win: false
 # The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
 drop-items-on-end: false
 
-# We currently support:
-# - cloudnet (only cloudnet v3)
+# We currently support: (API Versions)
+# - cloudnet (Always lastest cloudnet version)
+# - cloudnet3 (3.3)
+# - cloudnet2 (2.1.17)
 cloud-support:
   type: none
   name-rank-colors: true
