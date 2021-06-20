@@ -76,6 +76,14 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		clearEffects();
 	}
 
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onConsume(@Nonnull PlayerItemConsumeEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		if (event.getItem().getType() != Material.MILK_BUCKET) return;
+		Bukkit.getScheduler().runTask(plugin, this::updateEffects);
+	}
+
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
 		if (!shouldExecuteEffect()) return;
@@ -230,16 +238,16 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == GLOBAL_EFFECT) return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone").appendLore("", Message.forName("item-permanent-effect-target-everyone-description").asString());
-		return DefaultItem.create(Material.CHEST, "§6Only active player").appendLore("", Message.forName("item-permanent-effect-target-player-description").asString());
+		if (getValue() == GLOBAL_EFFECT) return DefaultItem.create(Material.ENDER_CHEST, Message.forName("everyone").asString()).appendLore("", Message.forName("item-permanent-effect-target-everyone-description").asString());
+		return DefaultItem.create(Material.CHEST, Message.forName("player").asString()).appendLore("", Message.forName("item-permanent-effect-target-player-description").asString());
 	}
 
 	@Override
 	public void playValueChangeTitle() {
 		if (GLOBAL_EFFECT == getValue()) {
-			ChallengeHelper.playChangeChallengeValueTitle(this, "§5Everyone");
+			ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("everyone").asString());
 		} else {
-			ChallengeHelper.playChangeChallengeValueTitle(this, "§6Only active player");
+			ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("player").asString());
 		}
 	}
 
@@ -253,4 +261,5 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		});
 		updateEffects();
 	}
+
 }

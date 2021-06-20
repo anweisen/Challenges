@@ -19,7 +19,7 @@
   "amplifier": "amplifier",
   "open": "Open",
   "everyone": "§5Everyone",
-  "player": "§6Player",
+  "player": "§6Only active player",
   "timer-counting-up": "§8» §7Timer counting §aup",
   "timer-counting-down": "§8» §7Timer counting §cdown",
   "timer-is-paused": "§8» §7Timer §cpaused",
