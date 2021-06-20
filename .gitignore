@@ -30,7 +30,9 @@
 **/src/test
 
 # Compiled files
-**/out
-**/target
+.gradle/
+**/.gradle/
+**/build
 *.class
 *.jar
+*.iml
