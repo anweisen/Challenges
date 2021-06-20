@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ExternalStorageConfigurationManager" enabled="true" />
+  <component name="FrameworkDetectionExcludesConfiguration">
+    <file type="web" url="file://$PROJECT_DIR$" />
+  </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/ChallengesPlugin/pom.xml" />
-        <option value="$PROJECT_DIR$/mongo-connector/pom.xml" />
-        <option value="$PROJECT_DIR$/plugin/pom.xml" />
       </list>
     </option>
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="javax.annotations.Nullable" />
-    <option name="myDefaultNotNull" value="javax.annotation.Nonnull" />
+    <option name="myDefaultNotNull" value="org.jetbrains.annotations.NotNull" />
     <option name="myNullables">
       <value>
         <list size="14">
@@ -34,7 +36,7 @@
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="13">
+        <list size="14">
           <item index="0" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="1" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
@@ -48,11 +50,16 @@
           <item index="10" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
           <item index="11" class="java.lang.String" itemvalue="io.reactivex.annotations.NonNull" />
           <item index="12" class="java.lang.String" itemvalue="io.reactivex.rxjava3.annotations.NonNull" />
+          <item index="13" class="java.lang.String" itemvalue="lombok.NonNull" />
         </list>
       </value>
     </option>
+    <instrumentedNotNulls>
+      <option value="javax.annotation.Nonnull" />
+      <option value="org.jetbrains.annotations.NotNull" />
+    </instrumentedNotNulls>
   </component>
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_1_8" project-jdk-name="16" project-jdk-type="JavaSDK">
     <output url="file://$PROJECT_DIR$/out" />
   </component>
 </project>
