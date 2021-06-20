@@ -21,6 +21,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -183,6 +185,10 @@ public final class ChallengeHelper {
 	@Nonnull
 	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int range) {
 		return getTimeRangeSettingsDescription(modifier, 1, range);
+	}
+
+	public static boolean finalDamageNull(@Nonnull EntityDamageEvent event) {
+		return event.getFinalDamage() <= 0 && event.getDamage(DamageModifier.ABSORPTION) >= 0;
 	}
 
 }

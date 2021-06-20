@@ -18,6 +18,8 @@
   "hour": "Stunde",
   "amplifier": "Stärke",
   "open": "Öffnen",
+  "everyone": "§5Jeder",
+  "player": "§6Spieler",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -825,7 +827,7 @@
     "§5Ender Games",
     "Alle *paar Minuten* wirst du",
     "mit einem *zufälligem Entity* aus",
-    "einem *200 Block* radius *getauscht*"
+    "einem *200 Block* Radius *getauscht*"
   ],
   "item-random-event-challenge": [
     "§6Random Events",
@@ -918,6 +920,11 @@
     "Wenn du ein *Item aufhebst* oder es",
     "in deinem Inventar *anklickst* erleidest",
     "du *0,5 ❤* multipliziert mit der Anzahl Items"
+  ],
+  "item-damage-teleport-challenge": [
+    "§cSchaden Random Teleport",
+    "Du wirst *zufällig Teleportiert*",
+    "wenn du *Schaden* erleidest"
   ],
 
 
