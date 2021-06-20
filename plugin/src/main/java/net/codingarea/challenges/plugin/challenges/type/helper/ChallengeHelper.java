@@ -101,6 +101,7 @@ public final class ChallengeHelper {
 
 		if (putIntoInventory) {
 			block.getDrops(tool).forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
+			block.setType(Material.AIR);
 			return;
 		}
 
