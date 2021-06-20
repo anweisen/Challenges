@@ -63,7 +63,7 @@ public final class CloudSupportManager implements Listener {
 	private CloudSupport loadSupport(@Nonnull String name) {
 		switch (name) {
 			default: return null;
-			case "cloudnet": case "cloudnet3": return new CloudNet3Support();
+			case "cloudnet": case "cloudnet3.3": return new CloudNet3Support();
 			case "cloudnet2": return new CloudNet2Support();
 		}
 	}
