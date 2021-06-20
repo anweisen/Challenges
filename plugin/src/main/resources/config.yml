@@ -131,7 +131,7 @@ drop-items-on-end: false
 
 # We currently support: (API Versions)
 # - cloudnet (Always lastest cloudnet version)
-# - cloudnet3.3 (3.3)
+# - cloudnet3 (3.3)
 # - cloudnet2 (2.1.17)
 cloud-support:
   type: none
