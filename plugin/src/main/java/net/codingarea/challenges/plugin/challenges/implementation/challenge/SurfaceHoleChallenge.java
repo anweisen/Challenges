@@ -24,7 +24,7 @@ import java.util.List;
 public class SurfaceHoleChallenge extends SettingModifier {
 
 	public SurfaceHoleChallenge() {
-		super(MenuType.CHALLENGES, 1, 15);
+		super(MenuType.CHALLENGES, 1, 60, 30);
 	}
 
 	@EventHandler
