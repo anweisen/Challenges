@@ -1,13 +1,16 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -80,6 +83,11 @@ public abstract class PointsGoal extends SettingGoal {
 
 	protected void collect(@Nonnull Player player, int amount) {
 		points.compute(player.getUniqueId(), (uuid, points) -> points == null ? amount : points + amount);
+		scoreboard.update();
+	}
+
+	protected void setPoints(@Nonnull UUID uuid, int amount) {
+		points.put(uuid, amount);
 		scoreboard.update();
 	}
 

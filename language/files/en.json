@@ -987,6 +987,11 @@
     "§6Finish Raid",
     "The first player that wins a raid wins"
   ],
+  "item-most-emeralds-goal": [
+    "§2Most Emeralds",
+    "The player with the *most*",
+    "*emeralds* wins"
+  ],
 
 
   "item-damage-rule-fire": [

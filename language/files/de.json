@@ -999,6 +999,11 @@
     "Der erste Spieler, der einen *Raid*",
     "*abschließt*, gewinnt"
   ],
+  "item-most-emeralds-goal": [
+    "§2Meisten Emeralds",
+    "Der Spieler mit den *meisten*",
+    "*Emeralds* gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
