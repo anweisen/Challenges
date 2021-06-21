@@ -74,7 +74,7 @@ public final class ChallengeAPI {
 	}
 
 	public static boolean getItemsDirectIntoInventory() {
-		return Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+		return Challenges.getInstance().getBlockDropManager().isItemsDirectIntoInventory();
 	}
 
 	@Nonnull

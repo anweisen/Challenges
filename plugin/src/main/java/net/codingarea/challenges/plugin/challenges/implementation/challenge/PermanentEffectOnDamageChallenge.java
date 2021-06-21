@@ -55,7 +55,10 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	@Override
 	protected void onEnable() {
-		if (!shouldExecuteEffect()) return;
+		if (!shouldExecuteEffect()) {
+			clearEffects();
+			return;
+		}
 		updateEffects();
 	}
 

@@ -110,7 +110,7 @@ public final class ChallengeHelper {
 	}
 
 	public static void dropItem(@Nonnull ItemStack itemStack, @Nonnull Location dropLocation, @Nonnull Inventory inventory) {
-		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().isItemsDirectIntoInventory();
 
 		if (directIntoInventory) {
 			InventoryUtils.dropOrGiveItem(inventory, dropLocation, itemStack);

@@ -21,7 +21,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -59,10 +58,6 @@ public class CutCleanSetting extends MenuSetting {
 		return getSetting("items->inventory").getAsBoolean();
 	}
 
-	protected boolean directIntoInventory(@Nonnull Inventory inventory) {
-		return getSetting("items->inventory").getAsBoolean() && inventory.firstEmpty() != -1;
-	}
-
 	private class DirectIntoInventorySubSetting extends BooleanSubSetting {
 
 		public DirectIntoInventorySubSetting(@Nonnull Supplier<ItemBuilder> item) {
@@ -72,7 +67,6 @@ public class CutCleanSetting extends MenuSetting {
 		@Nonnull
 		@Override
 		public BooleanSubSetting setEnabled(boolean enabled) {
-			Challenges.getInstance().getBlockDropManager().setItemsDirectIntoInventory(enabled);
 			return super.setEnabled(enabled);
 		}
 
