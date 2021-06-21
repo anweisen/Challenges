@@ -173,6 +173,7 @@
   "new-effect": "Effekt §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Welches Item fehlt?",
   "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
+  "loops-cleared": "§e{0} §7Loops abgebrochen",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -925,6 +926,11 @@
     "§cSchaden Random Teleport",
     "Du wirst *zufällig Teleportiert*",
     "wenn du *Schaden* erleidest"
+  ],
+  "item-loop-challenge": [
+    "§6Wiederholungs Challenge",
+    "Verschiedene Aktionen *wiederholen* sich",
+    "unendlich oft bis ein Spieler *schleicht*"
   ],
 
 

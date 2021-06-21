@@ -147,7 +147,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
 		register(DamagePerItemChallenge.class);
 		register(DamageTeleportChallenge.class);
-
+		register(LoopChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

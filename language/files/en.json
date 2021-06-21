@@ -174,6 +174,7 @@
   "new-effect": "Effect §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Which item is missing?",
   "missing-items-inventory-open": "§8[§aOpen GUI§8]",
+  "loops-cleared": "§e{0} §7Loops cancelled",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -918,6 +919,11 @@
     "§cDamage Random Teleport",
     "You'll be teleported randomly",
     "when you take damage"
+  ],
+  "item-loop-challenge": [
+    "§6Loop Challenge",
+    "Certain actions are *looped*",
+    "until a player *sneaks*"
   ],
 
 
