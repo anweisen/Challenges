@@ -21,9 +21,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.0.2
  */
-@Since("2.1")
+@Since("2.0.2")
 public class DamageTeleportChallenge extends SettingModifier {
 
 	private static final int PLAYER = 1, EVERYONE = 2;
