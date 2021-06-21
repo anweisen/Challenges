@@ -925,6 +925,11 @@
     "Certain actions are *looped*",
     "until a player *sneaks*"
   ],
+  "item-uncraft-challenge": [
+    "§6Items Crafting Back",
+    "*Items* in your inventory are",
+    "*crafting* back all few seconds"
+  ],
 
 
   "item-dragon-goal": [

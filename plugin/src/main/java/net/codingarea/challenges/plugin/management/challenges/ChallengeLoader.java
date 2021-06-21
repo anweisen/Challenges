@@ -148,6 +148,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DamagePerItemChallenge.class);
 		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
+		register(ItemsCraftingBackChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
