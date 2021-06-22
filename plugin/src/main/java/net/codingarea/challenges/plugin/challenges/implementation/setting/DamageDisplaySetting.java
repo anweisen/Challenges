@@ -37,7 +37,7 @@ public class DamageDisplaySetting extends Setting {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled()) return;
 		if (!(event.getEntity() instanceof Player)) return;
-		if (ChallengeHelper.finalDamageNull(event)) return;
+		if (ChallengeHelper.finalDamageIsNull(event)) return;
 
 		double damage = event.getFinalDamage();
 		String damageDisplay = damage >= 1000 ? "∞" : Display.HEARTS.formatChat(damage);

@@ -930,6 +930,11 @@
     "*Items* in your inventory are",
     "*crafting* back all few seconds"
   ],
+  "item-freeze-challenge": [
+    "§bFreeze Challenge",
+    "For each heart of *damage*, you'll be",
+    "*frozen* for a certain time"
+  ],
 
 
   "item-dragon-goal": [

@@ -28,7 +28,7 @@ public class DamageInventoryClearChallenge extends SettingModifier {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!shouldExecuteEffect()) return;
-		if (ChallengeHelper.finalDamageNull(event)) return;
+		if (ChallengeHelper.finalDamageIsNull(event)) return;
 
 		if (getValue() == 1) {
 			Bukkit.getOnlinePlayers().forEach(player -> player.getInventory().clear());

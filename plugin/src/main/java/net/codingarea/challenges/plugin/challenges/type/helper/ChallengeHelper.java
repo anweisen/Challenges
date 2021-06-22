@@ -188,8 +188,12 @@ public final class ChallengeHelper {
 		return getTimeRangeSettingsDescription(modifier, 1, range);
 	}
 
-	public static boolean finalDamageNull(@Nonnull EntityDamageEvent event) {
-		return event.getFinalDamage() <= 0 && event.getDamage(DamageModifier.ABSORPTION) >= 0;
+	public static boolean finalDamageIsNull(@Nonnull EntityDamageEvent event) {
+		return getFinalDamage(event) == 0;
+	}
+
+	public static double getFinalDamage(@Nonnull EntityDamageEvent event) {
+		return event.getFinalDamage() + event.getDamage(DamageModifier.ABSORPTION);
 	}
 
 }

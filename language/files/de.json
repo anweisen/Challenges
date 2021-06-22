@@ -937,6 +937,11 @@
     "Alle *Items* in deinem Inventar *Craften*",
     "sich alle paar Sekunden *zurück*"
   ],
+  "item-freeze-challenge": [
+    "§bFreeze Challenge",
+    "Für *jedes Herz* dass du *Schaden* erleidest kannst",
+    "du dich für eine bestimmte Zeit *nicht bewegen*"
+  ],
 
 
   "item-dragon-goal": [
