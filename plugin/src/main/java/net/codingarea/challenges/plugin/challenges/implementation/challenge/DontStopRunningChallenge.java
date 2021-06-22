@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -21,8 +22,9 @@ import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.0.2
  */
+@Since("2.0.2")
 public class DontStopRunningChallenge extends SettingModifier {
 
 	private final Map<Player, Integer> playerStandingCount = new HashMap<>();
