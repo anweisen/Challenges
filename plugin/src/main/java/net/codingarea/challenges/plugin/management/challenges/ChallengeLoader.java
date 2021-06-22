@@ -67,18 +67,18 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomChallengeChallenge.class);
 		register(RandomizedHPChallenge.class);
 		register(OneDurabilityChallenge.class);
-		register(OnlyDirtChallenge.class);
 		register(NoTradingChallenge.class);
 		register(NoExpChallenge.class);
 		register(WaterMLGChallenge.class);
-
 		register(HungerPerBlockChallenge.class);
+
 		register(DamagePerBlockChallenge.class);
 		register(SneakDamageChallenge.class);
 		register(JumpDamageChallenge.class);
 		register(BlockBreakDamageChallenge.class);
 		register(BlockPlaceDamageChallenge.class);
 		register(AdvancementDamageChallenge.class);
+		register(DamagePerItemChallenge.class);
 
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
@@ -132,9 +132,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NewEntityOnJumpChallenge.class);
 		register(AllMobsToDeathPoint.class);
 		register(EnderGamesChallenge.class);
-		register(InvisibleMobsChallenge.class);
 		register(MobSightDamageChallenge.class);
 		register(StoneSightChallenge.class);
+		register(OnlyDirtChallenge.class);
 
 		register(InfectionChallenge.class);
 		register(PermanentEffectOnDamageChallenge.class);
@@ -144,9 +144,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(IceFloorChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
 
+		register(InvisibleMobsChallenge.class);
 		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
 		register(DontStopRunningChallenge.class);
-		register(DamagePerItemChallenge.class);
 		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
 		register(ItemsCraftingBackChallenge.class);
