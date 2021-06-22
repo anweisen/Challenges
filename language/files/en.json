@@ -175,6 +175,7 @@
   "missing-items-inventory": "{0}Which item is missing?",
   "missing-items-inventory-open": "§8[§aOpen GUI§8]",
   "loops-cleared": "§e{0} §7Loops cancelled",
+  "stopped-moving": "§e{0} §7hasn't moved for too long",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -935,7 +936,11 @@
     "For each heart of *damage*, you'll be",
     "*frozen* for a certain time"
   ],
-
+  "item-dont-stop-running-challenge": [
+    "§9Nicht aufhören zu laufen",
+    "Du darfst nur eine bestimmte *Zeit*",
+    "*stehen* bevor du *stirbst*"
+  ],
 
   "item-dragon-goal": [
     "§5Ender Dragon",

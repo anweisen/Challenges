@@ -174,6 +174,7 @@
   "missing-items-inventory": "{0}Welches Item fehlt?",
   "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
   "loops-cleared": "§e{0} §7Loops abgebrochen",
+  "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -941,6 +942,11 @@
     "§bFreeze Challenge",
     "Für *jedes Herz* dass du *Schaden* erleidest kannst",
     "du dich für eine bestimmte Zeit *nicht bewegen*"
+  ],
+  "item-dont-stop-running-challenge": [
+    "§9Dont stop running",
+    "You are only allowed to +stand*",
+    "a certain *time* before you *die*"
   ],
 
 
