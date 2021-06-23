@@ -55,7 +55,6 @@ public class DontStopRunningChallenge extends SettingModifier {
 
 		broadcastFiltered(player -> {
 			Integer count = playerStandingCount.getOrDefault(player, 0);
-			Bukkit.broadcastMessage(count + "");
 			if (count >= getValue()) {
 				Message.forName("stopped-moving").broadcast(Prefix.CHALLENGES, NameHelper.getName(player));
 				playerStandingCount.remove(player);
