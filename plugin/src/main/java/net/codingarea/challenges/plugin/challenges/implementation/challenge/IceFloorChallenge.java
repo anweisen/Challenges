@@ -86,11 +86,12 @@ public class IceFloorChallenge extends Setting {
 		if (!shouldExecuteEffect()) return;
 		if (!event.isSneaking()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (ignoredPlayers.contains(event.getPlayer())) ignoredPlayers.remove(event.getPlayer());
-		else {
-			ignoredPlayers.add(event.getPlayer());
+		if (ignoredPlayers.contains(event.getPlayer())) {
+			ignoredPlayers.remove(event.getPlayer());
 			event.getPlayer().setVelocity(new Vector(0, 0, 0));
 			createIceFloorForPlayer(event.getPlayer());
+		} else {
+			ignoredPlayers.add(event.getPlayer());
 		}
 		bossbar.update(event.getPlayer());
 	}
