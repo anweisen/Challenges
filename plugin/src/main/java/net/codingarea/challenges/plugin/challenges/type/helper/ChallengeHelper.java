@@ -78,11 +78,11 @@ public final class ChallengeHelper {
 		return description.getOriginalName();
 	}
 
-	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {
+	public static void breakBlock(@Nonnull Block block, @Nullable ItemStack tool) {
 		breakBlock(block, tool, null);
 	}
 
-	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool, @Nullable Inventory targetInventory) {
+	public static void breakBlock(@Nonnull Block block, @Nullable ItemStack tool, @Nullable Inventory targetInventory) {
 
 		if (!ChallengeAPI.getDropChance(block.getType())) return;
 		boolean putIntoInventory = ChallengeAPI.getItemsDirectIntoInventory() && targetInventory != null;
