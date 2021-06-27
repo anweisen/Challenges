@@ -64,7 +64,7 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	@ScheduledTask(ticks = 20, worldPolicy = ExtraWorldPolicy.ALWAYS)
-	public final void onSecond() {
+	public final void handleTimedChallengeSecond() {
 
 		if (!startedBefore)
 			restartTimer();
