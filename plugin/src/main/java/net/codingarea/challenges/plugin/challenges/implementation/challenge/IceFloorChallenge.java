@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -15,6 +16,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
@@ -74,7 +76,10 @@ public class IceFloorChallenge extends Setting {
 			for (int z = -1; z <= 1; z++) {
 				Location iceLocation = middleBlock.getLocation().add(x, 0, z);
 				Block iceBlock = iceLocation.getBlock();
-				if (!BukkitReflectionUtils.isAir(iceBlock.getType())) continue;
+				if (iceBlock.getType().isSolid()) continue;
+				if (!BukkitReflectionUtils.isAir(iceBlock.getType())) {
+					ChallengeHelper.breakBlock(iceBlock, new ItemStack(Material.AIR));
+				}
 				iceBlock.setType(Material.PACKED_ICE);
 			}
 		}
