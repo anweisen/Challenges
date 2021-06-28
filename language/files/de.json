@@ -230,6 +230,7 @@
   "bossbar-tsunami-water": "§8» §7Wasserhöhe: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
+  "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",

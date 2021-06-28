@@ -231,6 +231,7 @@
   "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
   "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
+  "bossbar-dont-stop-running": "§8» §7Move in §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",

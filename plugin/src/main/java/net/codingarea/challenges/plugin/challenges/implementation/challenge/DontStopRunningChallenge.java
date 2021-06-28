@@ -8,8 +8,8 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -27,10 +27,34 @@ import java.util.Map;
 @Since("2.0.2")
 public class DontStopRunningChallenge extends SettingModifier {
 
+	private static final int YELLOW = 5, RED = 3;
+
 	private final Map<Player, Integer> playerStandingCount = new HashMap<>();
 
 	public DontStopRunningChallenge() {
-		super(MenuType.CHALLENGES, 3, 20);
+		super(MenuType.CHALLENGES, 3, 30, 10);
+	}
+
+	@Override
+	protected void onEnable() {
+		bossbar.setContent((bossbar, player) -> {
+			int count = playerStandingCount.getOrDefault(player, 1);
+			int timeLeft = getValue() - count + 1;
+
+			if (count <= RED) bossbar.setColor(BarColor.RED);
+			else if (count <= YELLOW) bossbar.setColor(BarColor.YELLOW);
+			else bossbar.setColor(BarColor.GREEN);
+
+			String time = "§e" + timeLeft + " §7" + (timeLeft == 1 ? Message.forName("second").asString() : Message.forName("seconds").asString());
+
+			bossbar.setTitle(Message.forName("bossbar-dont-stop-running").asString(time));
+		});
+		bossbar.show();
+	}
+
+	@Override
+	protected void onDisable() {
+		bossbar.hide();
 	}
 
 	@Nonnull
@@ -43,6 +67,7 @@ public class DontStopRunningChallenge extends SettingModifier {
 	public void onSecond() {
 		removeOfflinePlayers();
 		countUpOrKillEveryone();
+		bossbar.update();
 	}
 
 	private void removeOfflinePlayers() {
