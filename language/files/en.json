@@ -236,7 +236,7 @@
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
   "subtitle-time-minutes": "§e{0} §7minutes",
-  "subtitle-pickup-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "Stärke §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -325,7 +325,7 @@
   "item-heart-damage-description": "§8» §7Damage: §e{0} §c❤",
   "item-max-health-description": "§8» §7Max health: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
-  "item-pickup-launcher-description": "§8» §7Strength: §e{0}",
+  "item-launcher-description": "§8» §7Strength: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Only the active players gets the effect",
   "item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
 
@@ -878,7 +878,7 @@
     "You *cannot stop* to *walk forwards*"
   ],
   "item-pickup-launch-challenge": [
-    "§cPickup Launcher",
+    "§cPickup Boost",
     "When you *pick up* an *item*",
     "you will be *launched* into the air"
   ],
@@ -941,6 +941,11 @@
     "§9Nicht aufhören zu laufen",
     "Du darfst nur eine bestimmte *Zeit*",
     "*stehen* bevor du *stirbst*"
+  ],
+  "item-consume-launch-challenge": [
+    "§cConsume Boost",
+    "When you *eat* an *item*",
+    "you will be *launched* into the air"
   ],
 
   "item-dragon-goal": [

@@ -123,7 +123,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomItemChallenge.class);
 		register(RandomEventChallenge.class);
 		register(NoMoveMouseChallenge.class);
-		register(PickupItemLaunchChallenge.class);
+		register(FreezeChallenge.class);
 		register(HigherJumpsChallenge.class);
 		register(AlwaysRunningChallenge.class);
 		register(OnlyDownChallenge.class);
@@ -149,8 +149,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(DontStopRunningChallenge.class);
 		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
+		register(PickupItemLaunchChallenge.class);
+		register(FoodLaunchChallenge.class);
+
 		register(ItemsCraftingBackChallenge.class);
-		register(FreezeChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

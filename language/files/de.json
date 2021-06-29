@@ -235,7 +235,7 @@
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
   "subtitle-time-minutes": "§e{0} §7Minuten",
-  "subtitle-pickup-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "Stärke §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -324,7 +324,7 @@
   "item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
   "item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
-  "item-pickup-launcher-description": "§8» §7Stärke: §e{0}",
+  "item-launcher-description": "§8» §7Stärke: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
   "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 
@@ -884,7 +884,7 @@
     "Du kannst *nicht aufhören* vorwärts zu laufen"
   ],
   "item-pickup-launch-challenge": [
-    "§cPickup Launcher",
+    "§cPickup Boost",
     "Wenn du ein *Item aufhebst*",
     "dann wirst du *in die Luft* geschleudert"
   ],
@@ -948,6 +948,11 @@
     "§9Dont stop running",
     "You are only allowed to +stand*",
     "a certain *time* before you *die*"
+  ],
+  "item-consume-launch-challenge": [
+    "§cEssens Boost",
+    "Wenn du ein *Item isst*",
+    "dann wirst du *in die Luft* geschleudert"
   ],
 
 
