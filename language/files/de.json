@@ -886,7 +886,7 @@
   "item-pickup-launch-challenge": [
     "§cPickup Boost",
     "Wenn du ein *Item aufhebst*",
-    "dann wirst du *in die Luft* geschleudert"
+    "wirst du *in die Luft* geschleudert"
   ],
   "item-tsunami-challenge": [
     "§9Tsunami",
@@ -952,7 +952,7 @@
   "item-consume-launch-challenge": [
     "§cEssens Boost",
     "Wenn du ein *Item isst*",
-    "dann wirst du *in die Luft* geschleudert"
+    "wirst du *in die Luft* geschleudert"
   ],
 
 
