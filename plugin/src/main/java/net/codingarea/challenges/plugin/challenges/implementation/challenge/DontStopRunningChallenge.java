@@ -41,8 +41,8 @@ public class DontStopRunningChallenge extends SettingModifier {
 			int count = playerStandingCount.getOrDefault(player, 1);
 			int timeLeft = getValue() - count + 1;
 
-			if (count <= RED) bossbar.setColor(BarColor.RED);
-			else if (count <= YELLOW) bossbar.setColor(BarColor.YELLOW);
+			if (timeLeft <= RED) bossbar.setColor(BarColor.RED);
+			else if (timeLeft <= YELLOW) bossbar.setColor(BarColor.YELLOW);
 			else bossbar.setColor(BarColor.GREEN);
 
 			String time = "§e" + timeLeft + " §7" + (timeLeft == 1 ? Message.forName("second").asString() : Message.forName("seconds").asString());
