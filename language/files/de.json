@@ -49,7 +49,7 @@
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "Eine neue Version der §eChallengesconfig §7ist verfügbar",
+  "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [

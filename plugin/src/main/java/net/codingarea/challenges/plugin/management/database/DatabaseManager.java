@@ -82,7 +82,7 @@ public final class DatabaseManager {
 	private void connect() {
 		Challenges.getInstance().runAsync(() -> {
 			database.connectSafely();
-			database.createTableIfNotExistsSafely("challenges",
+			database.createTableSafely("challenges",
 					new SQLColumn("uuid", "varchar", 36),
 					new SQLColumn("name", "varchar", 16),
 					new SQLColumn("textures", "varchar", 265),
