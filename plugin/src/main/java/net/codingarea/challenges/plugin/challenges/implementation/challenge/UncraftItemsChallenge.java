@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.content.Message;
@@ -21,9 +22,9 @@ import java.util.List;
  * @since 2.0.2
  */
 @Since("2.0.2")
-public class ItemsCraftingBackChallenge extends TimedChallenge {
+public class UncraftItemsChallenge extends TimedChallenge {
 
-	public ItemsCraftingBackChallenge() {
+	public UncraftItemsChallenge() {
 		super(MenuType.CHALLENGES, 5, 60, 20);
 	}
 
@@ -121,6 +122,10 @@ public class ItemsCraftingBackChallenge extends TimedChallenge {
 		} else if (recipe instanceof FurnaceRecipe) {
 			FurnaceRecipe furnace = (FurnaceRecipe) recipe;
 			ingredients.add(furnace.getInput());
+		} else if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_14) && recipe instanceof SmithingRecipe) {
+			SmithingRecipe smithing = (SmithingRecipe) recipe;
+			ingredients.add(smithing.getBase().getItemStack());
+			ingredients.add(smithing.getAddition().getItemStack());
 		}
 
 		return ingredients;
