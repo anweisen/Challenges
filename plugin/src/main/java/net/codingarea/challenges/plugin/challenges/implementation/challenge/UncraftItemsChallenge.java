@@ -64,12 +64,20 @@ public class UncraftItemsChallenge extends TimedChallenge {
 			if (item == null) continue;
 			List<Recipe> recipes = Bukkit.getRecipesFor(new ItemStack(item.getType()));
 			if (recipes.isEmpty()) continue;
-			Recipe recipe = recipes.get(0);
-			ItemStack[] ingredients = getIngredientsOfRecipe(recipe).toArray(new ItemStack[0]);
 
-			if (canCraft(recipes, item.getType())) {
-				continue;
+			Recipe recipe = null;
+			for (Recipe currentRecipe : recipes) {
+
+				if (canCraft(recipes, item.getType())) {
+					continue;
+				}
+
+				recipe = currentRecipe;
 			}
+
+			if (recipe == null) continue;
+
+			ItemStack[] ingredients = getIngredientsOfRecipe(recipe).toArray(new ItemStack[0]);
 
 			for (int i = 0; i < item.getAmount() / recipe.getResult().getAmount(); i++) {
 				for (ItemStack ingredient : ingredients) {
