@@ -626,7 +626,9 @@
     "§cHydra Plus",
     "If you kill a *mob* it",
     "spawns *twice* as many",
-    "times as the *previous* time"
+    "times as the *previous* time",
+    "",
+    "Maximum are *512* Mobs each time"
   ],
   "item-floor-lava-challenge": [
     "§6The Floor Is Lava",

@@ -624,7 +624,9 @@
     "§cHydra Plus",
     "Wenn du einen *Mob* tötest",
     "spawnen *doppelt* so viele",
-    "wie beim *vorherigen* mal"
+    "wie beim *vorherigen* mal",
+    "",
+    "Maximum beträgt *512* Mobs gleichzeitig"
   ],
   "item-floor-lava-challenge": [
     "§6Der Boden ist Lava",
