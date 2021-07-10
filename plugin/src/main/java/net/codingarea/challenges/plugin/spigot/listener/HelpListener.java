@@ -35,9 +35,10 @@ public class HelpListener implements Listener {
 		Player sender = event.getPlayer();
 
 		sender.sendMessage(Prefix.CHALLENGES + "§7This server is running §e§lChallenges §ev" + Challenges.getInstance().getVersion());
+		sender.sendMessage(Prefix.CHALLENGES + "");
 		sender.sendMessage(Prefix.CHALLENGES + "§7Made by §eCodingArea §8(§eanweisen §7& §eKxmischesDomi§8)");
 		sender.sendMessage(Prefix.CHALLENGES + "§7Visit the source at §egithub.com/anweisen/Challenges");
-		sender.sendMessage(Prefix.CHALLENGES + "§7Download at §ewww.spigotmc.org/resources/80548");
+		sender.sendMessage(Prefix.CHALLENGES + "§7Download at §espigotmc.org/resources/80548");
 		sender.sendMessage(Prefix.CHALLENGES + "§7For more join our discord §ediscord.gg/74Ay5zF");
 
 	}
