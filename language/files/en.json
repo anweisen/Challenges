@@ -4,7 +4,7 @@
   "reload-failed": "An §cerror &7occurred while reloading the plugin",
   "reload-success": "Challenges Plugin §asuccessfully §7reloaded",
   "player-command": "You must be a player!",
-  "no-permission": "You §cdon't §7have permissions Rechte to do this",
+  "no-permission": "You §cdon't §7have permissions to do this",
   "enabled": "§aActivated",
   "disabled": "§cDeactivated",
   "customize": "§6Customize",
@@ -26,7 +26,7 @@
   "timer-is-running": "§8» §7Timer §astarted",
   "confirm-reset": "Confirm reset with §e/{0}",
   "no-fresh-reset": [
-    "Der Server §ccan't §7be reset yet",
+    "The Server §ccan't §7be reset yet",
     "The Challenge §chasn't been §7started"
   ],
   "new-challenge": "§a§lNew!",
@@ -49,7 +49,7 @@
     "A new version of §e§lChallenges §7is available",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "A new version of the §econfig §7ist available",
+  "deprecated-config-version": "A new version of the §econfig §7is available",
   "join-message": "§e{0} §7has §ajoined §7the server",
   "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [
