@@ -110,7 +110,7 @@ public abstract class MenuSetting extends Setting {
 		Challenges.getInstance().registerListener(setting);
 	}
 
-	protected final SubSetting getSetting(@Nonnull String name) {
+	public final SubSetting getSetting(@Nonnull String name) {
 		return settings.get(name);
 	}
 

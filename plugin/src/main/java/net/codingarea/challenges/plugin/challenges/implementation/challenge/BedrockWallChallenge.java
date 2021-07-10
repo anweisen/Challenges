@@ -23,7 +23,7 @@ import java.util.List;
 public class BedrockWallChallenge extends SettingModifier {
 
 	public BedrockWallChallenge() {
-		super(MenuType.CHALLENGES, 1, 15);
+		super(MenuType.CHALLENGES, 1, 60, 30);
 	}
 
 	@EventHandler

@@ -37,12 +37,12 @@ public class PickupItemLaunchChallenge extends SettingModifier {
     @Nullable
     @Override
     protected String[] getSettingsDescription() {
-        return Message.forName("item-pickup-launcher-description").asArray(getValue());
+        return Message.forName("item-launcher-description").asArray(getValue());
     }
 
     @Override
     public void playValueChangeTitle() {
-        ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("subtitle-pickup-launcher-description").asString(getValue()));
+        ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("subtitle-launcher-description").asString(getValue()));
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

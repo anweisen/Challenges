@@ -1,6 +1,9 @@
 package net.codingarea.challenges.plugin.management.blocks;
 
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.challenges.implementation.setting.CutCleanSetting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting.SubSetting;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.inventory.ItemStack;
@@ -61,7 +64,7 @@ public final class BlockDropManager {
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 	private final Map<Material, RegisteredChance> chance = new HashMap<>();
 
-	private boolean itemsDirectIntoInventory;
+	private SubSetting directInventorySetting;
 
 	@Nonnull
 	public Collection<ItemStack> getDrops(@Nonnull Block block) {
@@ -154,12 +157,9 @@ public final class BlockDropManager {
 		return Collections.unmodifiableMap(drops);
 	}
 
-	public boolean getItemsDirectIntoInventory() {
-		return itemsDirectIntoInventory;
-	}
-
-	public void setItemsDirectIntoInventory(boolean itemsDirectIntoInventory) {
-		this.itemsDirectIntoInventory = itemsDirectIntoInventory;
+	public boolean isItemsDirectIntoInventory() {
+		if (directInventorySetting == null) directInventorySetting = AbstractChallenge.getFirstInstance(CutCleanSetting.class).getSetting("items->inventory");
+		return directInventorySetting.isEnabled();
 	}
 
 }

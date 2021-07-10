@@ -18,6 +18,8 @@
   "hour": "Stunde",
   "amplifier": "Stärke",
   "open": "Öffnen",
+  "everyone": "§5Alle",
+  "player": "§6Aktiver Spieler",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -47,7 +49,7 @@
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "Eine neue Version der §eChallengesconfig §7ist verfügbar",
+  "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [
@@ -123,7 +125,7 @@
   "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
   "command-fly-toggled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
   "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
-  "command-gamestate-reset": "Der Gamestate wurde §azurück gesetzt",
+  "command-gamestate-reset": "Der Gamestate wurde §azurückgesetzt",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
@@ -171,6 +173,8 @@
   "new-effect": "Effekt §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Welches Item fehlt?",
   "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
+  "loops-cleared": "§e{0} §7Loops abgebrochen",
+  "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -226,11 +230,12 @@
   "bossbar-tsunami-water": "§8» §7Wasserhöhe: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
+  "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
   "subtitle-time-minutes": "§e{0} §7Minuten",
-  "subtitle-pickup-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "Stärke §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -319,7 +324,7 @@
   "item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
   "item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
-  "item-pickup-launcher-description": "§8» §7Stärke: §e{0}",
+  "item-launcher-description": "§8» §7Stärke: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
   "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 
@@ -619,7 +624,9 @@
     "§cHydra Plus",
     "Wenn du einen *Mob* tötest",
     "spawnen *doppelt* so viele",
-    "wie beim *vorherigen* mal"
+    "wie beim *vorherigen* mal",
+    "",
+    "Maximum beträgt *512* Mobs gleichzeitig"
   ],
   "item-floor-lava-challenge": [
     "§6Der Boden ist Lava",
@@ -825,7 +832,7 @@
     "§5Ender Games",
     "Alle *paar Minuten* wirst du",
     "mit einem *zufälligem Entity* aus",
-    "einem *200 Block* radius *getauscht*"
+    "einem *200 Block* Radius *getauscht*"
   ],
   "item-random-event-challenge": [
     "§6Random Events",
@@ -879,9 +886,9 @@
     "Du kannst *nicht aufhören* vorwärts zu laufen"
   ],
   "item-pickup-launch-challenge": [
-    "§cPickup Launcher",
+    "§cPickup Boost",
     "Wenn du ein *Item aufhebst*",
-    "dann wirst du *in die Luft* geschleudert"
+    "wirst du *in die Luft* geschleudert"
   ],
   "item-tsunami-challenge": [
     "§9Tsunami",
@@ -914,10 +921,40 @@
     "deinem *Inventar* und du musst *erraten* welches"
   ],
   "item-damage-item-challenge": [
-    "§cSchaden Pro Item",
+    "§cSchaden pro Item",
     "Wenn du ein *Item aufhebst* oder es",
     "in deinem Inventar *anklickst* erleidest",
     "du *0,5 ❤* multipliziert mit der Anzahl Items"
+  ],
+  "item-damage-teleport-challenge": [
+    "§cSchaden Random Teleport",
+    "Du wirst *zufällig Teleportiert*",
+    "wenn du *Schaden* erleidest"
+  ],
+  "item-loop-challenge": [
+    "§6Wiederholungs Challenge",
+    "Verschiedene Aktionen *wiederholen* sich",
+    "unendlich oft bis ein Spieler *schleicht*"
+  ],
+  "item-uncraft-challenge": [
+    "§6Items Craften sich zurück",
+    "Alle *Items* in deinem Inventar *Craften*",
+    "sich alle paar Sekunden *zurück*"
+  ],
+  "item-freeze-challenge": [
+    "§bFreeze Challenge",
+    "Für *jedes Herz* dass du *Schaden* erleidest kannst",
+    "du dich für eine bestimmte Zeit *nicht bewegen*"
+  ],
+  "item-dont-stop-running-challenge": [
+    "§9Dont stop running",
+    "You are only allowed to +stand*",
+    "a certain *time* before you *die*"
+  ],
+  "item-consume-launch-challenge": [
+    "§cEssens Boost",
+    "Wenn du ein *Item isst*",
+    "wirst du *in die Luft* geschleudert"
   ],
 
 
@@ -985,6 +1022,11 @@
     "§6Raid Gewinnen",
     "Der erste Spieler, der einen *Raid*",
     "*abschließt*, gewinnt"
+  ],
+  "item-most-emeralds-goal": [
+    "§2Meisten Emeralds",
+    "Der Spieler mit den *meisten*",
+    "*Emeralds* gewinnt"
   ],
 
 

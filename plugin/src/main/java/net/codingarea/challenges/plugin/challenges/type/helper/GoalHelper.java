@@ -35,6 +35,7 @@ public final class GoalHelper {
 		}
 	}
 
+	@Nonnull
 	public static SortedMap<Integer, List<Player>> createLeaderboardFromPoints(@Nonnull Map<Player, Integer> points) {
 		SortedMap<Integer, List<Player>> leaderboard = new TreeMap<>(Collections.reverseOrder());
 		for (Entry<Player, Integer> entry : points.entrySet()) {
@@ -44,8 +45,8 @@ public final class GoalHelper {
 		return leaderboard;
 	}
 
+	@Nonnull
 	public static <V> Map<Player, Integer> createPointsFromValues(@Nonnull AtomicInteger mostPoints, @Nonnull Map<UUID, V> map, @Nonnull ToIntBiFunction<UUID, V> mapper, boolean zeros) {
-
 		Map<Player, Integer> result = new HashMap<>();
 		if (zeros) Bukkit.getOnlinePlayers().forEach(player -> result.put(player, 0));
 		for (Entry<UUID, V> entry : map.entrySet()) {
@@ -54,10 +55,10 @@ public final class GoalHelper {
 			int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
 			if (points == 0) continue;
 
-			if (points >= mostPoints.get()) {
+			result.put(player, points);
+
+			if (points >= mostPoints.get())
 				mostPoints.set(points);
-				result.put(player, points);
-			}
 		}
 		return result;
 	}

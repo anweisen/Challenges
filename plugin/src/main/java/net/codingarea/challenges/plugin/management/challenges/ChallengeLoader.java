@@ -67,18 +67,18 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomChallengeChallenge.class);
 		register(RandomizedHPChallenge.class);
 		register(OneDurabilityChallenge.class);
-		register(OnlyDirtChallenge.class);
 		register(NoTradingChallenge.class);
 		register(NoExpChallenge.class);
 		register(WaterMLGChallenge.class);
-
 		register(HungerPerBlockChallenge.class);
+
 		register(DamagePerBlockChallenge.class);
 		register(SneakDamageChallenge.class);
 		register(JumpDamageChallenge.class);
 		register(BlockBreakDamageChallenge.class);
 		register(BlockPlaceDamageChallenge.class);
 		register(AdvancementDamageChallenge.class);
+		register(DamagePerItemChallenge.class);
 
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
@@ -123,7 +123,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RandomItemChallenge.class);
 		register(RandomEventChallenge.class);
 		register(NoMoveMouseChallenge.class);
-		register(PickupItemLaunchChallenge.class);
+		register(FreezeChallenge.class);
 		register(HigherJumpsChallenge.class);
 		register(AlwaysRunningChallenge.class);
 		register(OnlyDownChallenge.class);
@@ -132,9 +132,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NewEntityOnJumpChallenge.class);
 		register(AllMobsToDeathPoint.class);
 		register(EnderGamesChallenge.class);
-		register(InvisibleMobsChallenge.class);
 		register(MobSightDamageChallenge.class);
 		register(StoneSightChallenge.class);
+		register(OnlyDirtChallenge.class);
 
 		register(InfectionChallenge.class);
 		register(PermanentEffectOnDamageChallenge.class);
@@ -144,9 +144,15 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(IceFloorChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
 
-		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
-		register(DamagePerItemChallenge.class);
+		register(InvisibleMobsChallenge.class);
+		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
+		register(DontStopRunningChallenge.class);
+		register(DamageTeleportChallenge.class);
+		register(LoopChallenge.class);
+		register(PickupItemLaunchChallenge.class);
+		register(FoodLaunchChallenge.class);
 
+		register(UncraftItemsChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
@@ -164,6 +170,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
 		register(FinishRaidGoal.class);
+		register(MostEmeraldsGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);

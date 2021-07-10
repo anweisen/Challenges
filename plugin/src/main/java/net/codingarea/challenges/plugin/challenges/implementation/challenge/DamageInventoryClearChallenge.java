@@ -11,7 +11,6 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 
 import javax.annotation.Nonnull;
 
@@ -29,7 +28,7 @@ public class DamageInventoryClearChallenge extends SettingModifier {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
 		if (!shouldExecuteEffect()) return;
-		if (event.getFinalDamage() <= 0 && event.getDamage(DamageModifier.ABSORPTION) >= 0) return;
+		if (ChallengeHelper.finalDamageIsNull(event)) return;
 
 		if (getValue() == 1) {
 			Bukkit.getOnlinePlayers().forEach(player -> player.getInventory().clear());
@@ -41,23 +40,23 @@ public class DamageInventoryClearChallenge extends SettingModifier {
 
 	@Nonnull
 	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.CHEST, Message.forName("item-damage-inv-clear-challenge"));
+	}
+
+	@Nonnull
+	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == 1) {
-			return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
+			return DefaultItem.create(Material.ENDER_CHEST, Message.forName("everyone"));
 		} else {
-			return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+			return DefaultItem.create(Material.PLAYER_HEAD, Message.forName("player"));
 		}
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 0 ? "§5Everyone" : "§6Player");
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.CHEST, Message.forName("item-damage-inv-clear-challenge"));
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 0 ? Message.forName("everyone").asString() : Message.forName("player").asString());
 	}
 
 }

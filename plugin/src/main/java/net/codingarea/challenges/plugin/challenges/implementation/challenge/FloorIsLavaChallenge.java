@@ -20,7 +20,7 @@ import javax.annotation.Nullable;
 public class FloorIsLavaChallenge extends SettingModifier {
 
 	public FloorIsLavaChallenge() {
-		super(MenuType.CHALLENGES, 1, 15);
+		super(MenuType.CHALLENGES, 1, 60, 30);
 	}
 
 	@EventHandler

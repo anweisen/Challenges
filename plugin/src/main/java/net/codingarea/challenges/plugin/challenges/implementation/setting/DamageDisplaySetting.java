@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -36,9 +37,9 @@ public class DamageDisplaySetting extends Setting {
 	public void onDamage(@Nonnull EntityDamageEvent event) {
 		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled()) return;
 		if (!(event.getEntity() instanceof Player)) return;
-		double damage = event.getFinalDamage();
-		if (damage <= 0) return;
+		if (ChallengeHelper.finalDamageIsNull(event)) return;
 
+		double damage = event.getFinalDamage();
 		String damageDisplay = damage >= 1000 ? "∞" : Display.HEARTS.formatChat(damage);
 		Message.forName("player-damage-display").broadcast(Prefix.DAMAGE, NameHelper.getName((Player) event.getEntity()), damageDisplay, getCause(event));
 	}

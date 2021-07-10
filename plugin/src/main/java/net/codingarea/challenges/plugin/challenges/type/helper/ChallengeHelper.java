@@ -21,6 +21,8 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
@@ -76,11 +78,11 @@ public final class ChallengeHelper {
 		return description.getOriginalName();
 	}
 
-	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool) {
+	public static void breakBlock(@Nonnull Block block, @Nullable ItemStack tool) {
 		breakBlock(block, tool, null);
 	}
 
-	public static void breakBlock(@Nonnull Block block, @Nonnull ItemStack tool, @Nullable Inventory targetInventory) {
+	public static void breakBlock(@Nonnull Block block, @Nullable ItemStack tool, @Nullable Inventory targetInventory) {
 
 		if (!ChallengeAPI.getDropChance(block.getType())) return;
 		boolean putIntoInventory = ChallengeAPI.getItemsDirectIntoInventory() && targetInventory != null;
@@ -99,6 +101,7 @@ public final class ChallengeHelper {
 
 		if (putIntoInventory) {
 			block.getDrops(tool).forEach(drop -> InventoryUtils.dropOrGiveItem(targetInventory, location, drop));
+			block.setType(Material.AIR);
 			return;
 		}
 
@@ -107,7 +110,7 @@ public final class ChallengeHelper {
 	}
 
 	public static void dropItem(@Nonnull ItemStack itemStack, @Nonnull Location dropLocation, @Nonnull Inventory inventory) {
-		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().getItemsDirectIntoInventory();
+		boolean directIntoInventory = Challenges.getInstance().getBlockDropManager().isItemsDirectIntoInventory();
 
 		if (directIntoInventory) {
 			InventoryUtils.dropOrGiveItem(inventory, dropLocation, itemStack);
@@ -183,6 +186,14 @@ public final class ChallengeHelper {
 	@Nonnull
 	public static String[] getTimeRangeSettingsDescription(@Nonnull Modifier modifier, @Nonnegative int range) {
 		return getTimeRangeSettingsDescription(modifier, 1, range);
+	}
+
+	public static boolean finalDamageIsNull(@Nonnull EntityDamageEvent event) {
+		return getFinalDamage(event) == 0;
+	}
+
+	public static double getFinalDamage(@Nonnull EntityDamageEvent event) {
+		return event.getFinalDamage() + event.getDamage(DamageModifier.ABSORPTION);
 	}
 
 }

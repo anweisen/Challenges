@@ -28,6 +28,7 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	private final Map<EntityType, EntityType> inverseRandomizer = new HashMap<>();
 
 	private boolean inSpawn = false;
+	private boolean initialSpawn = false;
 
 	public MobRandomizerChallenge() {
 		super(MenuType.CHALLENGES);
@@ -37,7 +38,9 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	protected void onEnable() {
 		super.onEnable();
 		if (!shouldExecuteEffect()) return;
+		initialSpawn = true;
 		loadAllEntities();
+		initialSpawn = false;
 	}
 
 	@Override
@@ -124,7 +127,7 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 		EntityType type = entityRandomizer.get(event.getEntityType());
 		Location location = event.getLocation();
 		if (location.getWorld() == null) return;
-		if (!maySpawn(type, location.getWorld())) return;
+		if (!initialSpawn && !maySpawn(type, location.getWorld())) return;
 		inSpawn = true;
 		event.getEntity().getWorld().spawnEntity(location, type);
 		inSpawn = false;

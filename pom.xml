@@ -6,9 +6,10 @@
 
 	<groupId>net.codingarea.challenges</groupId>
 	<artifactId>root</artifactId>
-	<version>2.0</version>
+	<version>2.0.2</version>
 	<packaging>pom</packaging>
 	<name>root</name>
+	<url>https://github.com/anweisen/Challenges</url>
 
 	<modules>
 		<module>plugin</module>
@@ -16,7 +17,7 @@
 	</modules>
 
 	<properties>
-		<utilities.version>1.3.0</utilities.version>
+		<utilities.version>1.3.1</utilities.version>
 		<spigot.version>1.17-R0.1-SNAPSHOT</spigot.version>
 	</properties>
 
@@ -24,7 +25,7 @@
 		<repository>
 			<id>anweisen</id>
 			<name>GitHub anweisen Apache Maven Packages</name>
-			<url>https://maven.pkg.github.com/anweisen/Utilities</url>
+			<url>https://maven.pkg.github.com/anweisen/Challenges</url>
 		</repository>
 	</distributionManagement>
 

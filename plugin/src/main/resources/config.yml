@@ -25,7 +25,7 @@
 # The config-version is even with the version of the plugin.
 # You will be notified, when this version is older than the of the plugin.
 # We recommend regenerating the config to get access to new features / settings.
-config-version: "2.0.1"
+config-version: "2.0.2"
 
 # Currently supported by default
 # - en (English)
@@ -109,6 +109,9 @@ confirm-reset: true
 # The /reset command can be executed when the server is fresh, what means the timer was never started before
 enable-fresh-reset: true
 
+# Restores all settings and disables all challenges on reset when activated
+restore-defaults-on-reset: false
+
 # This will pause the timer / reset the world if the last one leaves the server and the timer was started before
 pause-on-last-leave: true
 reset-on-last-leave: false
@@ -129,8 +132,10 @@ set-spectator-on-win: false
 # The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
 drop-items-on-end: false
 
-# We currently support:
-# - cloudnet (only cloudnet v3)
+# We currently support: (API Versions)
+# - cloudnet (Always lastest cloudnet version)
+# - cloudnet3 (3.3)
+# - cloudnet2 (2.1.17)
 cloud-support:
   type: none
   name-rank-colors: true

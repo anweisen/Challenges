@@ -4,7 +4,7 @@
   "reload-failed": "An §cerror &7occurred while reloading the plugin",
   "reload-success": "Challenges Plugin §asuccessfully §7reloaded",
   "player-command": "You must be a player!",
-  "no-permission": "You §cdon't §7have permissions Rechte to do this",
+  "no-permission": "You §cdon't §7have permissions to do this",
   "enabled": "§aActivated",
   "disabled": "§cDeactivated",
   "customize": "§6Customize",
@@ -18,13 +18,15 @@
   "hour": "hour",
   "amplifier": "amplifier",
   "open": "Open",
+  "everyone": "§5Everyone",
+  "player": "§6Only active player",
   "timer-counting-up": "§8» §7Timer counting §aup",
   "timer-counting-down": "§8» §7Timer counting §cdown",
   "timer-is-paused": "§8» §7Timer §cpaused",
   "timer-is-running": "§8» §7Timer §astarted",
   "confirm-reset": "Confirm reset with §e/{0}",
   "no-fresh-reset": [
-    "Der Server §ccan't §7be reset yet",
+    "The Server §ccan't §7be reset yet",
     "The Challenge §chasn't been §7started"
   ],
   "new-challenge": "§a§lNew!",
@@ -47,7 +49,7 @@
     "A new version of §e§lChallenges §7is available",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "A new version of the §econfig §7ist available",
+  "deprecated-config-version": "A new version of the §econfig §7is available",
   "join-message": "§e{0} §7has §ajoined §7the server",
   "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [
@@ -172,6 +174,8 @@
   "new-effect": "Effect §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Which item is missing?",
   "missing-items-inventory-open": "§8[§aOpen GUI§8]",
+  "loops-cleared": "§e{0} §7Loops cancelled",
+  "stopped-moving": "§e{0} §7hasn't moved for too long",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -227,11 +231,12 @@
   "bossbar-tsunami-water": "§8» §7Waterheight: §9{0}",
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
   "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
+  "bossbar-dont-stop-running": "§8» §7Move in §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
   "subtitle-time-minutes": "§e{0} §7minutes",
-  "subtitle-pickup-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "Stärke §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -320,7 +325,7 @@
   "item-heart-damage-description": "§8» §7Damage: §e{0} §c❤",
   "item-max-health-description": "§8» §7Max health: §e{0} §c❤",
   "item-chance-description": "§8» §7Chance: §e{0}%",
-  "item-pickup-launcher-description": "§8» §7Strength: §e{0}",
+  "item-launcher-description": "§8» §7Strength: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Only the active players gets the effect",
   "item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
 
@@ -621,7 +626,9 @@
     "§cHydra Plus",
     "If you kill a *mob* it",
     "spawns *twice* as many",
-    "times as the *previous* time"
+    "times as the *previous* time",
+    "",
+    "Maximum are *512* Mobs each time"
   ],
   "item-floor-lava-challenge": [
     "§6The Floor Is Lava",
@@ -873,7 +880,7 @@
     "You *cannot stop* to *walk forwards*"
   ],
   "item-pickup-launch-challenge": [
-    "§cPickup Launcher",
+    "§cPickup Boost",
     "When you *pick up* an *item*",
     "you will be *launched* into the air"
   ],
@@ -912,7 +919,36 @@
     "in your *inventory* you take the",
     "*amount* of the items as *damage*"
   ],
-
+  "item-damage-teleport-challenge": [
+    "§cDamage Random Teleport",
+    "You'll be teleported randomly",
+    "when you take damage"
+  ],
+  "item-loop-challenge": [
+    "§6Loop Challenge",
+    "Certain actions are *looped*",
+    "until a player *sneaks*"
+  ],
+  "item-uncraft-challenge": [
+    "§6Items Crafting Back",
+    "*Items* in your inventory are",
+    "*crafting* back all few seconds"
+  ],
+  "item-freeze-challenge": [
+    "§bFreeze Challenge",
+    "For each heart of *damage*, you'll be",
+    "*frozen* for a certain time"
+  ],
+  "item-dont-stop-running-challenge": [
+    "§9Nicht aufhören zu laufen",
+    "Du darfst nur eine bestimmte *Zeit*",
+    "*stehen* bevor du *stirbst*"
+  ],
+  "item-consume-launch-challenge": [
+    "§cConsume Boost",
+    "When you *eat* an *item*",
+    "you will be *launched* into the air"
+  ],
 
   "item-dragon-goal": [
     "§5Ender Dragon",
@@ -973,6 +1009,11 @@
   "item-finish-raid-goal": [
     "§6Finish Raid",
     "The first player that wins a raid wins"
+  ],
+  "item-most-emeralds-goal": [
+    "§2Most Emeralds",
+    "The player with the *most*",
+    "*emeralds* wins"
   ],
 
 

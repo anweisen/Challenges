@@ -16,7 +16,7 @@ import java.util.UUID;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
-public final class CloudNetSupport implements CloudSupport {
+public final class CloudNet3Support implements CloudSupport {
 
 	@Nonnull
 	@Override
@@ -29,6 +29,7 @@ public final class CloudNetSupport implements CloudSupport {
 	public String getColoredName(@Nonnull UUID uuid) {
 		IPermissionManagement management = CloudNetDriver.getInstance().getPermissionManagement();
 		IPermissionUser user = management.getUser(uuid);
+		if (user == null) return "Unknown CloudPlayer";
 		IPermissionGroup group = management.getHighestPermissionGroup(user);
 		String color = group.getColor();
 		return color.replace('&', '§') + user.getName();

@@ -57,6 +57,11 @@
       <option name="url" value="https://hub.spigotmc.org/nexus/content/repositories/snapshots/" />
     </remote-repository>
     <remote-repository>
+      <option name="id" value="cloudnet" />
+      <option name="name" value="cloudnet" />
+      <option name="url" value="https://cloudnetservice.eu/repositories/" />
+    </remote-repository>
+    <remote-repository>
       <option name="id" value="github-codingarea" />
       <option name="name" value="github-codingarea" />
       <option name="url" value="https://maven.pkg.github.com/coding-area-net/*" />

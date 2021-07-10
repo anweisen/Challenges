@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
+import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.content.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
@@ -58,8 +59,17 @@ public final class Challenges extends BukkitModule {
 
 	@Override
 	protected void handleLoad() {
+		checkConfig();
 		createManagers();
 		loadManagers();
+	}
+
+	private void checkConfig() {
+		if (getConfigDocument().getVersion("config-version", Version.parse("1.0")).isOlderThan(Version.parse("2.0"))) {
+			saveResource("config.yml", true);
+			reloadConfig();
+			getLogger().info("A deprecated config was found and replaced with a new one");
+		}
 	}
 
 	@Override
@@ -120,9 +130,8 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void registerCommands() {
-		registerCommand(new ReloadCommand(), "cr");
-		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ReloadCommand(), "creload");
+		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
 		registerCommand(new ForwardingCommand("timer start"), "start");
@@ -160,13 +169,15 @@ public final class Challenges extends BukkitModule {
 				new ExtraWorldRestrictionListener(),
 				new CheatListener(),
 				new BlockDropListener(),
-				new CustomEventListener()
+				new CustomEventListener(),
+				new HelpListener()
 		);
 	}
 
 	@Override
 	protected void handleDisable() {
 		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
+		boolean restoreDefaultsOnReset = getConfigDocument().getBoolean("restore-defaults-on-reset");
 
 		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
 		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
@@ -177,9 +188,14 @@ public final class Challenges extends BukkitModule {
 
 		if (challengeManager != null) {
 			challengeManager.shutdownChallenges();
+			if (shutdownBecauseOfReset && restoreDefaultsOnReset) {
+				challengeManager.restoreDefaults();
+			}
 			challengeManager.saveLocalSettings(false);
-			if (!shutdownBecauseOfReset)
+
+			if (!shutdownBecauseOfReset) {
 				challengeManager.saveGamestate(false);
+			}
 			challengeManager.clearChallengeCache();
 		}
 	}

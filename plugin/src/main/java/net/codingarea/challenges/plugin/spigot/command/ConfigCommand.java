@@ -22,10 +22,10 @@ import java.util.List;
  */
 public class ConfigCommand implements PlayerCommand, Completer {
 
-	private final boolean enabled;
+	private final boolean savePlayerConfigs;
 
 	public ConfigCommand() {
-		enabled = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
+		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
 	}
 
 	@Override
@@ -41,7 +41,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 			case "restore":
 				Challenges.getInstance().getChallengeManager().restoreDefaults();
 				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
-				if (!enabled) break;
+				if (!savePlayerConfigs) break;
 			case "save":
 				if (!checkEnabled(player)) return;
 				Challenges.getInstance().getChallengeManager().saveSettings(player);
@@ -64,7 +64,7 @@ public class ConfigCommand implements PlayerCommand, Completer {
 	}
 
 	private boolean checkEnabled(@Nonnull Player player) {
-		if (!enabled || !Challenges.getInstance().getDatabaseManager().isConnected()) {
+		if (!savePlayerConfigs || !Challenges.getInstance().getDatabaseManager().isConnected()) {
 			Message.forName("feature-disabled").send(player, Prefix.CHALLENGES);
 			SoundSample.BASS_OFF.play(player);
 			return false;
