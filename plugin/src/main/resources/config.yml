@@ -109,6 +109,9 @@ confirm-reset: true
 # The /reset command can be executed when the server is fresh, what means the timer was never started before
 enable-fresh-reset: true
 
+# Restores all settings and disables all challenges on reset when activated
+restore-defaults-on-reset: false
+
 # This will pause the timer / reset the world if the last one leaves the server and the timer was started before
 pause-on-last-leave: true
 reset-on-last-leave: false

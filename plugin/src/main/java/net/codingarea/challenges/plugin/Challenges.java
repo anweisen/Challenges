@@ -176,6 +176,7 @@ public final class Challenges extends BukkitModule {
 	@Override
 	protected void handleDisable() {
 		boolean shutdownBecauseOfReset = worldManager != null && worldManager.isShutdownBecauseOfReset();
+		boolean restoreDefaultsOnReset = getConfigDocument().getBoolean("restore-defaults-on-reset");
 
 		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
 		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
@@ -186,9 +187,14 @@ public final class Challenges extends BukkitModule {
 
 		if (challengeManager != null) {
 			challengeManager.shutdownChallenges();
+			if (shutdownBecauseOfReset && restoreDefaultsOnReset) {
+				challengeManager.restoreDefaults();
+			}
 			challengeManager.saveLocalSettings(false);
-			if (!shutdownBecauseOfReset)
+
+			if (!shutdownBecauseOfReset) {
 				challengeManager.saveGamestate(false);
+			}
 			challengeManager.clearChallengeCache();
 		}
 	}
