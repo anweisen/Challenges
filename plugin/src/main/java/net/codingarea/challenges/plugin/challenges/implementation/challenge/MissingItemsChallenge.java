@@ -124,7 +124,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 		}.runTaskTimer(plugin, 20, 20);
 
-		createGuessingInventory(player, unused -> {
+		createMissingItemsInventory(player, unused -> {
 			if (!anyRunningGame()) {
 				inventories.clear();
 				restartTimer();
@@ -134,7 +134,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	}
 
-	private void createGuessingInventory(@Nonnull Player player, Consumer<Void> onFinish) {
+	private void createMissingItemsInventory(@Nonnull Player player, Consumer<Void> onFinish) {
 
 		int targetSlot = InventoryUtils.getRandomFullSlot(player.getInventory());
 		if (targetSlot == -1) return;
@@ -143,7 +143,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 		ItemStack targetItem = player.getInventory().getItem(targetSlot);
 		if (targetItem == null) return;
-		Tuple<Inventory, Integer> tuple = generateMemoryInventory(targetItem);
+		Tuple<Inventory, Integer> tuple = generateMissingItemsInventory(targetItem);
 
 		Tuple<Inventory, MenuPosition> inventoryTuple = new Tuple<>(tuple.getFirst(), menuClickInfo -> {
 			InventoryUtils.giveItem(player, targetItem);
@@ -172,7 +172,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 		TextComponent messageComponent = new TextComponent(Prefix.CHALLENGES + message + " ");
 
 		TextComponent clickComponent = new TextComponent(openMessage);
-		clickComponent.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/openmemoryinventory"));
+		clickComponent.setClickEvent(new ClickEvent(Action.RUN_COMMAND, "/openmissingitems"));
 		clickComponent.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, Collections.singletonList(new TextComponent("§2§l✔ §8┃ §7" + Message.forName("open").asString())).toArray(new BaseComponent[0])));
 
 		messageComponent.addExtra(clickComponent);
@@ -187,7 +187,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 		return true;
 	}
 
-	private Tuple<Inventory, Integer> generateMemoryInventory(@Nonnull ItemStack itemStack) {
+	private Tuple<Inventory, Integer> generateMissingItemsInventory(@Nonnull ItemStack itemStack) {
 		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString("§9")));
 
 		int targetSlot = random.nextInt(inventory.getSize());

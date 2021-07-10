@@ -145,7 +145,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlocksDisappearAfterTimeChallenge.class);
 
 		register(InvisibleMobsChallenge.class);
-		registerWithCommand(MissingItemsChallenge.class, "openmemoryinventory");
+		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
 		register(DontStopRunningChallenge.class);
 		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
