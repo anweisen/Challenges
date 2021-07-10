@@ -31,7 +31,7 @@ public class FoodLaunchChallenge extends SettingModifier {
 	@NotNull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.BOW, Message.forName("item-consume-launch-challenge"));
+		return new ItemBuilder(Material.CAKE, Message.forName("item-consume-launch-challenge"));
 	}
 
 	@Nullable

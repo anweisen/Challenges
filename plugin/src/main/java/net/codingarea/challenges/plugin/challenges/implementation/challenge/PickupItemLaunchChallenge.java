@@ -31,7 +31,7 @@ public class PickupItemLaunchChallenge extends SettingModifier {
     @NotNull
     @Override
     public ItemBuilder createDisplayItem() {
-        return new ItemBuilder(Material.CAKE, Message.forName("item-pickup-launch-challenge"));
+        return new ItemBuilder(Material.BOW, Message.forName("item-pickup-launch-challenge"));
     }
 
     @Nullable
