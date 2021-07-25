@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;

@@ -16,7 +16,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

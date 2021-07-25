@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
-import net.codingarea.challenges.plugin.Challenges;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
