@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.challenges.CustomChallengesLoader;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
 import net.codingarea.challenges.plugin.management.files.ConfigManager;
@@ -44,6 +45,7 @@ public final class Challenges extends BukkitModule {
 	private ChallengeManager challengeManager;
 	private BlockDropManager blockDropManager;
 	private ChallengeLoader challengeLoader;
+	private CustomChallengesLoader customChallengesLoader;
 	private DatabaseManager databaseManager;
 	private CloudSupportManager cloudSupportManager;
 	private ServerManager serverManager;
@@ -103,6 +105,7 @@ public final class Challenges extends BukkitModule {
 		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
 		challengeLoader = new ChallengeLoader();
+		customChallengesLoader = new CustomChallengesLoader();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
@@ -198,6 +201,10 @@ public final class Challenges extends BukkitModule {
 			}
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public CustomChallengesLoader getCustomChallengesLoader() {
+		return customChallengesLoader;
 	}
 
 	@Nonnull

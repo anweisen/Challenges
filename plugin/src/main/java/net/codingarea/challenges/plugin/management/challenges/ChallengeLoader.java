@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.challenges;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.quiz.QuizChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
@@ -153,6 +154,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(FoodLaunchChallenge.class);
 
 		register(UncraftItemsChallenge.class);
+		registerWithCommand(QuizChallenge.class, "guess");
 
 		// Goal
 		register(KillEnderDragonGoal.class);

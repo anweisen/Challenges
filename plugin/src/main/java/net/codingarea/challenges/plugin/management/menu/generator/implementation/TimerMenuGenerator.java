@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.management.menu;
+package net.codingarea.challenges.plugin.management.menu.generator.implementation;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
@@ -7,6 +7,9 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -26,10 +29,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @author anweisen | https://github.com/anweisen
- * @since 2.0
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
+ * @since 2.1
  */
-public final class TimerMenu {
+public class TimerMenuGenerator extends MenuGenerator {
 
 	public static final int SIZE = 5*9;
 	public static final int[] NAVIGATION_SLOTS = { 36, 44 };
@@ -41,12 +44,7 @@ public final class TimerMenu {
 
 	private final List<Inventory> inventories = new ArrayList<>();
 
-	public TimerMenu() {
-		createNewInventory(0);
-		createNewInventory(1);
-		setNavigation();
-		updateInventories();
-
+	public TimerMenuGenerator() {
 		ChallengeAPI.registerScheduler(this);
 	}
 
@@ -122,14 +120,6 @@ public final class TimerMenu {
 
 	private void setNavigation() {
 		InventoryUtils.setNavigationItemsToInventory(inventories, NAVIGATION_SLOTS);
-	}
-
-	public void open(@Nonnull Player player, int page) {
-		if (inventories.isEmpty()) return; // This should normally never happen
-		if (page >= inventories.size()) page = inventories.size() - 1;
-		Inventory inventory = inventories.get(page);
-		MenuPosition.set(player, new TimerMenuPosition(page));
-		player.openInventory(inventory);
 	}
 
 	private class TimerMenuPosition implements MenuPosition {
@@ -215,6 +205,24 @@ public final class TimerMenu {
 			return player.hasPermission("challenges.timer");
 		}
 
+	}
+
+	@Override
+	public void generateInventories() {
+		createNewInventory(0);
+		createNewInventory(1);
+		setNavigation();
+		updateInventories();
+	}
+
+	@Override
+	public List<Inventory> getInventories() {
+		return inventories;
+	}
+
+	@Override
+	public MenuPosition getMenuPosition(int page) {
+		return new TimerMenuPosition(page);
 	}
 
 }

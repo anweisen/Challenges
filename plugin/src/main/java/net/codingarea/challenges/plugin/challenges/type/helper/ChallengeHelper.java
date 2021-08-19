@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -42,7 +43,7 @@ public final class ChallengeHelper {
 	private ChallengeHelper() {}
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
-		Challenges.getInstance().getMenuManager().getMenu(challenge.getType()).updateItem(challenge);
+		challenge.getType().executeWithGenerator(SettingsMenuGenerator.class, gen -> gen.updateItem(challenge));
 	}
 
 	public static boolean canInstaKillOnEnable(@Nonnull IChallenge challenge) {

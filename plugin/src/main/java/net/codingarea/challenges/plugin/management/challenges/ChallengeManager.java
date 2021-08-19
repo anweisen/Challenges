@@ -78,6 +78,8 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void loadSettings(@Nonnull Document config) {
+		Challenges.getInstance().getCustomChallengesLoader().onSettingsLoad(config);
+
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();
 			if (!config.contains(name)) continue;
