@@ -154,7 +154,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(FoodLaunchChallenge.class);
 
 		register(UncraftItemsChallenge.class);
-		registerWithCommand(QuizChallenge.class, "guess");
 
 		// Goal
 		register(KillEnderDragonGoal.class);
