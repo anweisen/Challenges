@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.spigot.events;
 
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryAction;
 import org.bukkit.event.inventory.InventoryClickEvent;

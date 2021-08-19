@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.utils.misc;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.ReflectionUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 
