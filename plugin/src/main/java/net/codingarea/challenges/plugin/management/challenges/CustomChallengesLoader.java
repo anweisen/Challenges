@@ -13,8 +13,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 
 import javax.annotation.Nonnull;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -23,35 +22,55 @@ import java.util.stream.Collectors;
  */
 public class CustomChallengesLoader extends ModuleChallengeLoader {
 
-	private final List<CustomChallenge> customChallenges = new LinkedList<>();
+	private final Map<UUID, CustomChallenge> customChallenges = new HashMap<>();
 
 	public CustomChallengesLoader() {
 		super(Challenges.getInstance());
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull Material displayItem, @Nonnull ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
-		CustomChallenge challenge = new CustomChallenge(MenuType.CUSTOM, displayItem, condition, subConditions, action, subActions);
-		registerCustomChallenge(challenge);
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, @Nonnull Material material, @Nonnull String name, @Nonnull ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
+		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
+		if (!customChallenges.containsKey(uuid)) {
+			customChallenges.put(uuid, challenge);
+			challenge.setEnabled(true);
+		} else {
+			challenge.applySettings(material, name, condition, subConditions, action, subActions);
+		}
+		generateCustomChallenge(challenge, false);
 		return challenge;
+	}
+
+	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
+		CustomChallenge challenge = customChallenges.remove(uuid);
+		generateCustomChallenge(challenge, true);
 	}
 
 	public void onSettingsLoad(@Nonnull Document document) {
 
 	}
 
-	private void registerCustomChallenge(@Nonnull CustomChallenge challenge) {
-		customChallenges.add(challenge);
-		register(challenge);
-
+	private void generateCustomChallenge(CustomChallenge challenge, boolean deleted) {
 		MenuGenerator generator = challenge.getType().getMenuGenerator();
 		if (generator instanceof ChallengeMenuGenerator) {
-			((ChallengeMenuGenerator) generator).addChallengeToCache(challenge);
-			generator.generateInventories();
+			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) generator;
+			if (deleted) {
+				menuGenerator.removeChallengeFromCache(challenge);
+				generator.generateInventories();
+			} else {
+				if (!menuGenerator.isInChallengeCache(challenge)) {
+					menuGenerator.addChallengeToCache(challenge);
+					generator.generateInventories();
+					register(challenge);
+				} else {
+					menuGenerator.updateItem(challenge);
+				}
+
+			}
 		}
 	}
 
 	public List<CustomChallenge> getCustomChallengesByCondition(@Nonnull IChallengeCondition condition) {
-		return customChallenges.stream().filter(customChallenge -> customChallenge.getCondition().getCondition() == condition).collect(Collectors.toList());
+		return customChallenges.values().stream().filter(customChallenge -> customChallenge.getCondition().getCondition() == condition).collect(Collectors.toList());
 	}
 
 	public void executeCondition(@Nonnull IChallengeCondition condition, @Nonnull Entity entity, String... data) {

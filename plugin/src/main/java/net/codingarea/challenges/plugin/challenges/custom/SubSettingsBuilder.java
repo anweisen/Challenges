@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.custom;
 
 import org.bukkit.inventory.ItemStack;
 
-import java.util.Map;
 import java.util.TreeMap;
 import java.util.function.Consumer;
 
@@ -46,7 +45,7 @@ public class SubSettingsBuilder {
 //		subSettings.add(builder.getSettings());
 //	}
 
-	public Map<String, ItemStack> getSettings() {
+	public TreeMap<String, ItemStack> getSettings() {
 		return settings;
 	}
 

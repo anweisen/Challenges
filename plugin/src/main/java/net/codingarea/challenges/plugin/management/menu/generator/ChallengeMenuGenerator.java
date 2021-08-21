@@ -82,10 +82,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 		int slot = index - getSlots().length * page;
 
 		Inventory inventory = getInventories().get(page + startPage);
-		setChallengeItems(inventory, challenge, slot);
+		setSettingsItems(inventory, challenge, slot);
 	}
 
-	public void setChallengeItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
+	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
 		inventory.setItem(getSlots()[topSlot], getDisplayItem(challenge));
 		inventory.setItem(getSlots()[topSlot] + 9, getSettingsItem(challenge));
 	}
@@ -94,12 +94,20 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 		this.challenges.clear();
 	}
 
+	public boolean isInChallengeCache(@Nonnull IChallenge challenge) {
+		return challenges.contains(challenge);
+	}
+
 	public void addChallengeToCache(@Nonnull IChallenge challenge) {
 		if (isNew(challenge) && Challenges.getInstance().getMenuManager().isDisplayNewInFront()) {
 			challenges.add(countNewChallenges(), challenge);
 		} else {
 			challenges.add(challenge);
 		}
+	}
+
+	public void removeChallengeFromCache(@Nonnull IChallenge challenge) {
+		challenges.remove(challenge);
 	}
 
 	protected ItemStack getDisplayItem(@Nonnull IChallenge challenge) {

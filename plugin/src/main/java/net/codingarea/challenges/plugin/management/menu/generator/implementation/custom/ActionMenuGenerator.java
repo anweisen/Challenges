@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -72,7 +71,7 @@ public class ActionMenuGenerator extends ChooseItemGenerator implements IParentC
 		open(player, 0);
 	}
 
-	public static Map<String, ItemStack> getConditionItems() {
+	public static TreeMap<String, ItemStack> getConditionItems() {
 		TreeMap<String, ItemStack> map = new TreeMap<>();
 
 		for (ChallengeAction value : ChallengeAction.values()) {

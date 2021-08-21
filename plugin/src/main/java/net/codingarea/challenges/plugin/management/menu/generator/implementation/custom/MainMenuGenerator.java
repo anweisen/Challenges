@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.menu.generator.implementatio
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -33,8 +34,10 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	public void executeClickAction(@Nonnull IChallenge challenge, @Nonnull MenuClickInfo info, int itemIndex) {
 		if (itemIndex == 0 || itemIndex == 2) {
 			challenge.handleClick(new ChallengeMenuClickInfo(info, itemIndex == 0));
-		} else {
-			info.getPlayer().sendMessage("Du bist cool");
+		} else if (challenge instanceof CustomChallenge) {
+			InfoMenuGenerator infoMenuGenerator = new InfoMenuGenerator((CustomChallenge) challenge);
+			infoMenuGenerator.open(info.getPlayer(), 0);
+			SoundSample.CLICK.play(info.getPlayer());
 		}
 	}
 
@@ -57,7 +60,7 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	}
 
 	@Override
-	public void setChallengeItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
+	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
 		inventory.setItem(getSlots()[topSlot], getDisplayItem(challenge));
 		inventory.setItem(getSlots()[topSlot] + 9, DefaultItem.customize().build());
 		inventory.setItem(getSlots()[topSlot] + 18, getSettingsItem(challenge));

@@ -2,12 +2,12 @@ package net.codingarea.challenges.plugin.management.menu.generator.implementatio
 
 import com.google.common.collect.Lists;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeCondition;
-import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
@@ -28,22 +28,25 @@ import java.util.*;
  */
 public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGenerator {
 
-	public static final int DELETE_SLOT = 19;
-	public static final int SAVE_SLOT = 25;
-	public static final int CONDITION_SLOT = 21;
-	public static final int ACTION_SLOT = 23;
+	public static final int DELETE_SLOT = 19, SAVE_SLOT = 25, CONDITION_SLOT = 21, ACTION_SLOT = 23, MATERIAL_SLOT = 14, NAME_SLOT = 12;
+	private final UUID uuid;
+	private String name;
+	private Material material;
 	private ChallengeCondition condition;
 	private String[] subConditions;
 	private ChallengeAction action;
 	private String[] subActions;
-	private UUID uuid;
 	private Inventory inventory;
+	private boolean inNaming;
 
-	public InfoMenuGenerator(ChallengeCondition condition, ChallengeAction action, UUID uuid, String... subCondition) {
-		this.condition = condition;
-		this.subConditions = subCondition;
-		this.action = action;
-		this.uuid = uuid;
+	public InfoMenuGenerator(CustomChallenge customChallenge) {
+		this.uuid = customChallenge.getUniqueId();
+		this.material = customChallenge.getMaterial();
+		this.name = customChallenge.getDisplayName();
+		this.condition = customChallenge.getCondition();
+		this.subConditions = customChallenge.getSubConditions();
+		this.action = customChallenge.getAction();
+		this.subActions = customChallenge.getSubActions();
 	}
 
 	public InfoMenuGenerator() {
@@ -51,6 +54,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.action = null;
 		this.subConditions = new String[0];
 		this.uuid = UUID.randomUUID();
+		this.inNaming = false;
 	}
 
 	@Override
@@ -63,6 +67,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		inventory.setItem(CONDITION_SLOT, new ItemBuilder(Material.WITHER_SKELETON_SKULL, "§6Condition").build());
 		inventory.setItem(ACTION_SLOT, new ItemBuilder(Material.NETHER_STAR, "§cAction").build());
 
+		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(Material.BRICKS, "§cMaterial").build());
+		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, "§6Name Challenge").build());
+
 		InventoryUtils.setNavigationItems(inventory, new int[]{36}, true, InventorySetter.INVENTORY, 0, 1);
 	}
 
@@ -73,38 +80,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	@Override
 	public MenuPosition getMenuPosition(int page) {
-		return info -> {
-			if (InventoryUtils.handleNavigationClicking(this, new int[]{36}, page, info)) {
-				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0);
-				return;
-			}
-
-			Player player = info.getPlayer();
-
-			switch (info.getSlot()) {
-				default:
-					SoundSample.CLICK.play(player);
-					break;
-				case DELETE_SLOT:
-					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
-					SoundSample.BREAK.play(player);
-					break;
-				case SAVE_SLOT:
-					save();
-					SoundSample.LEVEL_UP.play(player);
-					break;
-				case CONDITION_SLOT:
-					ConditionMenuGenerator conditionMenuGenerator = new ConditionMenuGenerator(this);
-					conditionMenuGenerator.open(player, 0);
-					SoundSample.CLICK.play(player);
-					break;
-				case ACTION_SLOT:
-					ActionMenuGenerator actionMenuGenerator = new ActionMenuGenerator(this);
-					actionMenuGenerator.open(player, 0);
-					SoundSample.CLICK.play(player);
-					break;
-			}
-		};
+		return new InfoMenuPosition(page, this);
 	}
 
 	@Override
@@ -143,7 +119,15 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				}
 
 				break;
+
+			case "material":
+				material = Material.valueOf(data[1]);
+				break;
 		}
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	@Override
@@ -152,10 +136,85 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	}
 
 	public void save() {
-		Bukkit.broadcastMessage("Save: " + " (Condition: " + condition + ", SubCondition: " + Arrays.toString(subConditions) + ") (Action: " + action + ", SubAction: " + Arrays.toString(subActions) + ")");
-		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(Material.BARRIER, condition, subConditions, action, subActions);
-		challenge.setEnabled(true);
-		ChallengeHelper.updateItems(challenge);
+		Bukkit.broadcastMessage(toString());
+		Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions);
+	}
+
+	public boolean isInNaming() {
+		return inNaming;
+	}
+
+	@Override
+	public String toString() {
+		return "InfoMenuGenerator{" +
+				"uuid=" + uuid +
+				", name='" + name + "§r" + '\'' +
+				", material=" + material +
+				", condition=" + condition +
+				", subConditions=" + Arrays.toString(subConditions) +
+				", action=" + action +
+				", subActions=" + Arrays.toString(subActions) +
+				'}';
+	}
+
+	public class InfoMenuPosition implements MenuPosition {
+
+		private final int page;
+		private final InfoMenuGenerator generator;
+
+		public InfoMenuPosition(int page, InfoMenuGenerator generator) {
+			this.page = page;
+			this.generator = generator;
+		}
+
+		@Override
+		public void handleClick(@Nonnull MenuClickInfo info) {
+			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36}, page, info)) {
+				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0);
+				return;
+			}
+
+			Player player = info.getPlayer();
+
+			switch (info.getSlot()) {
+				default:
+					SoundSample.CLICK.play(player);
+					break;
+				case DELETE_SLOT:
+					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+					Challenges.getInstance().getCustomChallengesLoader().unregisterCustomChallenge(uuid);
+					SoundSample.BREAK.play(player);
+					break;
+				case SAVE_SLOT:
+					save();
+					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+					SoundSample.LEVEL_UP.play(player);
+					break;
+				case CONDITION_SLOT:
+					ConditionMenuGenerator conditionMenuGenerator = new ConditionMenuGenerator(generator);
+					conditionMenuGenerator.open(player, 0);
+					SoundSample.CLICK.play(player);
+					break;
+				case ACTION_SLOT:
+					ActionMenuGenerator actionMenuGenerator = new ActionMenuGenerator(generator);
+					actionMenuGenerator.open(player, 0);
+					SoundSample.CLICK.play(player);
+					break;
+				case NAME_SLOT:
+					inNaming = true;
+					player.closeInventory();
+					break;
+				case MATERIAL_SLOT:
+					MaterialMenuGenerator materialMenuGenerator = new MaterialMenuGenerator(generator);
+					materialMenuGenerator.open(player, 0);
+					SoundSample.CLICK.play(player);
+					break;
+			}
+		}
+
+		public InfoMenuGenerator getGenerator() {
+			return generator;
+		}
 	}
 
 }

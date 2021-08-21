@@ -12,7 +12,7 @@ import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
-import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -20,9 +20,9 @@ import java.util.Map;
  */
 public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
-	private final Map<String, ItemStack> items;
+	private final TreeMap<String, ItemStack> items;
 
-	public ChooseItemGenerator(Map<String, ItemStack> items) {
+	public ChooseItemGenerator(TreeMap<String, ItemStack> items) {
 		this.items = items;
 	}
 

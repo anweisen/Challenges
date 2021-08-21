@@ -8,7 +8,6 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -54,7 +53,7 @@ public class ConditionMenuGenerator extends ChooseItemGenerator implements IPare
 	public void onItemClick(Player player, String key) {
 		this.condition = ChallengeCondition.valueOf(key);
 
-		if (condition.getSubSettingsBuilder().hasSettings()) {
+		if (ChallengeCondition.valueOf(key).getSubSettingsBuilder().hasSettings()) {
 			ConditionSubMenuGenerator generator = new ConditionSubMenuGenerator(this, condition);
 			generator.open(player, 0);
 
@@ -74,7 +73,7 @@ public class ConditionMenuGenerator extends ChooseItemGenerator implements IPare
 		open(player, 0);
 	}
 
-	public static Map<String, ItemStack> getConditionItems() {
+	public static TreeMap<String, ItemStack> getConditionItems() {
 		TreeMap<String, ItemStack> map = new TreeMap<>();
 
 		for (ChallengeCondition value : ChallengeCondition.values()) {

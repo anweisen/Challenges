@@ -173,7 +173,8 @@ public final class Challenges extends BukkitModule {
 				new CheatListener(),
 				new BlockDropListener(),
 				new CustomEventListener(),
-				new HelpListener()
+				new HelpListener(),
+				new CustomChallengeNamingListener()
 		);
 	}
 
