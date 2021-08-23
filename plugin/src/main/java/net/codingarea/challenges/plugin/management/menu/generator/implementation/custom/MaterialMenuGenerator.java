@@ -1,0 +1,51 @@
+package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
+
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
+import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
+import org.bukkit.Material;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.TreeMap;
+
+/**
+ * @author KxmischesDomi | https://github.com/kxmischesdomi
+ * @since 2.1
+ */
+public class MaterialMenuGenerator extends ChooseItemGenerator {
+
+	private final IParentCustomGenerator parent;
+
+	public MaterialMenuGenerator(IParentCustomGenerator parent) {
+		super(createMaterialsMap());
+		this.parent = parent;
+	}
+
+	@Override
+	public String[] getSubTitles(int page) {
+		return new String[]{ "Create", "Material" };
+	}
+
+	@Override
+	public void onItemClick(Player player, String key) {
+		parent.accept(player, "material", key);
+	}
+
+	@Override
+	public void onBackToMenuItemClick(Player player) {
+		parent.decline(player);
+	}
+
+	public static TreeMap<String, ItemStack> createMaterialsMap() {
+		TreeMap<String, ItemStack> map = new TreeMap<>();
+
+		for (Material material : Material.values()) {
+			if (BukkitReflectionUtils.isAir(material)) continue;
+			if (!material.isItem()) continue;
+			map.put(material.name(), new ItemStack(material));
+		}
+
+		return map;
+	}
+
+}
