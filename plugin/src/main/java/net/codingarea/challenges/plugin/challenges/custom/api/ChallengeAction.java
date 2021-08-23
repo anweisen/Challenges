@@ -11,9 +11,14 @@ import java.util.Random;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1
  */
-public enum ChallengeAction {
+public enum ChallengeAction implements IChallengeEnum {
 
-	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random_mob", IChallengeAction.SPAWN_RANDOM_MOB, createTargetSettingsBuilder())
+	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random_mob", IChallengeAction.SPAWN_RANDOM_MOB, createTargetSettingsBuilder()),
+	DAMAGE(Material.FERMENTED_SPIDER_EYE, "damage", IChallengeAction.DAMAGE, createTargetSettingsBuilder().createChild().fill(builder -> {
+		for (int i = 1; i < 20; i++) {
+			builder.addSetting(i + "", new ItemBuilder(Material.RED_DYE, "§7" + (i / 2f) + " §c❤").setAmount(i).build());
+		}
+	}).build())
 	;
 
 	public static final Random random = new Random();

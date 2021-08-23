@@ -11,16 +11,16 @@ import java.util.function.Consumer;
  */
 public class SubSettingsBuilder {
 
-//	private final SubSettingsBuilder parent;
-//	private final List<Map<String, Material>> subSettings = new ArrayList<>();
 	private final TreeMap<String, ItemStack> settings = new TreeMap<>();
+	private final SubSettingsBuilder parent;
+	private SubSettingsBuilder child;
 
 	private SubSettingsBuilder() {
-//		this.parent = null;
+		parent = null;
 	}
 
 	private SubSettingsBuilder(SubSettingsBuilder parent) {
-//		this.parent = parent;
+		this.parent = parent;
 	}
 
 	public SubSettingsBuilder addSetting(String key, ItemStack value) {
@@ -37,34 +37,26 @@ public class SubSettingsBuilder {
 		return !settings.isEmpty();
 	}
 
-//	public boolean hasSubSettings() {
-//		return !subSettings.isEmpty();
-//	}
-//
-//	private void addSubSetting(SubSettingsBuilder builder) {
-//		subSettings.add(builder.getSettings());
-//	}
-
 	public TreeMap<String, ItemStack> getSettings() {
 		return settings;
 	}
 
-//	public List<Map<String, Material>> getSubSettings() {
-//		return subSettings;
-//	}
+	public SubSettingsBuilder getParent() {
+		return parent;
+	}
 
-//	public SubSettingsBuilder build() {
+	public SubSettingsBuilder getChild() {
+		return child;
+	}
 
-//		if (parent != null) {
-//			parent.addSubSetting(this);
-//		}
-//
-//		return parent != null ? parent : this;
-//	}
-//
-//	public SubSettingsBuilder createSubSetting() {
-//		return new SubSettingsBuilder(this);
-//	}
+	public SubSettingsBuilder build() {
+		return parent == null ? this : parent.build();
+	}
+
+	public SubSettingsBuilder createChild() {
+		this.child = new SubSettingsBuilder(this);
+		return child;
+	}
 
 	public static SubSettingsBuilder create() {
 		return new SubSettingsBuilder();

@@ -19,7 +19,7 @@ import java.util.function.Supplier;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1
  */
-public enum ChallengeCondition {
+public enum ChallengeCondition implements IChallengeEnum {
 
 	PLAYER_JUMP(Material.RABBIT_FOOT, "jump", new PlayerJumpCondition(), PlayerChallengeAction.class),
 	PLAYER_SNEAK(Material.SANDSTONE_SLAB, "sneak", new PlayerSneakCondition()),

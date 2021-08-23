@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -19,9 +20,8 @@ public interface IChallengeAction {
 
 	public static final Random random = new Random();
 
-	static IChallengeAction SPAWN_RANDOM_MOB = (entity, strings) -> {
+	IChallengeAction SPAWN_RANDOM_MOB = (entity, strings) -> {
 		for (Entity target : getTargets(entity, strings, 0)) {
-			System.out.println(target.toString());
 			for (int i = 0; i < 100; i++) {
 				EntityType value = EntityType.values()[random.nextInt(EntityType.values().length)];
 				if (value.isSpawnable()) {
@@ -30,6 +30,14 @@ public interface IChallengeAction {
 					} catch (Exception ex) { }
 					break;
 				}
+			}
+		}
+	};
+	IChallengeAction DAMAGE = (entity, strings) -> {
+		for (Entity target : getTargets(entity, strings, 0)) {
+			int damage = Integer.parseInt(strings[1]);
+			if (target instanceof LivingEntity) {
+				((LivingEntity) target).damage(damage);
 			}
 		}
 	};
