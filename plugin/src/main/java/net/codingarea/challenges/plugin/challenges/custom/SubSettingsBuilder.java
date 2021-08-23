@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom;
 
 import org.bukkit.inventory.ItemStack;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.function.Consumer;
 
 /**
@@ -11,7 +11,7 @@ import java.util.function.Consumer;
  */
 public class SubSettingsBuilder {
 
-	private final TreeMap<String, ItemStack> settings = new TreeMap<>();
+	private final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
 	private final SubSettingsBuilder parent;
 	private SubSettingsBuilder child;
 
@@ -37,7 +37,7 @@ public class SubSettingsBuilder {
 		return !settings.isEmpty();
 	}
 
-	public TreeMap<String, ItemStack> getSettings() {
+	public LinkedHashMap<String, ItemStack> getSettings() {
 		return settings;
 	}
 

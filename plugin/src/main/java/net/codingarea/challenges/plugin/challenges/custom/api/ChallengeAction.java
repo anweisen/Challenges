@@ -55,6 +55,11 @@ public enum ChallengeAction implements IChallengeEnum {
 		return subSettingsBuilder;
 	}
 
+	@Override
+	public IChallengeEnum[] getValues() {
+		return values();
+	}
+
 	public static SubSettingsBuilder createTargetSettingsBuilder() {
 		return SubSettingsBuilder.create()
 				.addSetting("current", new ItemBuilder(Material.SKELETON_SKULL, "§7Current Entity").build())

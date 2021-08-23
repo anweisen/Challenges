@@ -4,7 +4,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGene
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -15,7 +15,7 @@ public class SubSettingMenuGenerator extends ChooseItemGenerator {
 	private final IParentCustomGenerator parent;
 	private final String title;
 
-	public SubSettingMenuGenerator(IParentCustomGenerator parent, TreeMap<String, ItemStack> map, String title) {
+	public SubSettingMenuGenerator(IParentCustomGenerator parent, LinkedHashMap<String, ItemStack> map, String title) {
 		super(map);
 		this.title = title;
 		this.parent = parent;

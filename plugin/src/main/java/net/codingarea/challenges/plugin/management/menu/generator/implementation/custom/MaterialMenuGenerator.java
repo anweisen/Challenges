@@ -6,7 +6,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -36,8 +36,8 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 		parent.decline(player);
 	}
 
-	public static TreeMap<String, ItemStack> createMaterialsMap() {
-		TreeMap<String, ItemStack> map = new TreeMap<>();
+	public static LinkedHashMap<String, ItemStack> createMaterialsMap() {
+		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
 		for (Material material : Material.values()) {
 			if (BukkitReflectionUtils.isAir(material)) continue;

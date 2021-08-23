@@ -191,11 +191,11 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.LEVEL_UP.play(player);
 					break;
 				case CONDITION_SLOT:
-					new SettingMenuGenerator(generator, "condition", "Condition", ChallengeCondition::valueOf).open(player, 0);
+					new SettingMenuGenerator(generator, "condition", "Condition", ChallengeCondition.ENTITY_DEATH.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
-					new SettingMenuGenerator(generator, "action", "Action", ChallengeAction::valueOf).open(player, 0);
+					new SettingMenuGenerator(generator, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:

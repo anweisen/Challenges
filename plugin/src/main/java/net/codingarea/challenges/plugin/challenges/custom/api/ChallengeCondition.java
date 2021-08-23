@@ -79,6 +79,11 @@ public enum ChallengeCondition implements IChallengeEnum {
 		return message;
 	}
 
+	@Override
+	public IChallengeEnum[] getValues() {
+		return values();
+	}
+
 	public IChallengeCondition getCondition() {
 		return condition;
 	}

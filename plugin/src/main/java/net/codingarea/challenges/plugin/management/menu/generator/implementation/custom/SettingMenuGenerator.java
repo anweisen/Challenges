@@ -1,16 +1,14 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
 import net.codingarea.challenges.plugin.challenges.custom.SubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.api.IChallengeEnum;
 import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
-import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.TreeMap;
+import java.util.LinkedHashMap;
 import java.util.function.Function;
 
 /**
@@ -27,8 +25,8 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	private SubSettingsBuilder subSettingsBuilder;
 	ArrayList<String> subSettings;
 
-	public SettingMenuGenerator(IParentCustomGenerator parent, String key, String title, Function<String, IChallengeEnum> enumGetter) {
-		super(getConditionItems());
+	public SettingMenuGenerator(IParentCustomGenerator parent, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeEnum> enumGetter) {
+		super(items);
 		this.parent = parent;
 		this.key = key;
 		this.title = title;
@@ -98,16 +96,6 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	public void decline(Player player) {
 		if (setting != null) this.subSettings = new ArrayList<>(Arrays.asList(key, setting.name()));
 		open(player, 0);
-	}
-
-	public static TreeMap<String, ItemStack> getConditionItems() {
-		TreeMap<String, ItemStack> map = new TreeMap<>();
-
-		for (ChallengeAction value : ChallengeAction.values()) {
-			map.put(value.name(), new ItemBuilder(value.getMaterial(), value.getMessage()).build());
-		}
-
-		return map;
 	}
 
 }
