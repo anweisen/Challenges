@@ -13,9 +13,9 @@ import java.util.Random;
  */
 public enum ChallengeAction implements IChallengeEnum {
 
-	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random_mob", IChallengeAction.SPAWN_RANDOM_MOB, createTargetSettingsBuilder()),
+	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random-mob", IChallengeAction.SPAWN_RANDOM_MOB, createTargetSettingsBuilder()),
 	DAMAGE(Material.FERMENTED_SPIDER_EYE, "damage", IChallengeAction.DAMAGE, createTargetSettingsBuilder().createChild().fill(builder -> {
-		for (int i = 1; i < 20; i++) {
+		for (int i = 1; i < 21; i++) {
 			builder.addSetting(i + "", new ItemBuilder(Material.RED_DYE, "§7" + (i / 2f) + " §c❤").setAmount(i).build());
 		}
 	}).build())
@@ -30,7 +30,7 @@ public enum ChallengeAction implements IChallengeEnum {
 
 	ChallengeAction(Material material, String messageSuffix, IChallengeAction action, SubSettingsBuilder subSettingsBuilder) {
 		this.material = material;
-		this.message = "custom.condition." + messageSuffix;
+		this.message = "custom-action-" + messageSuffix;
 		this.action = action;
 		this.subSettingsBuilder = subSettingsBuilder;
 	}

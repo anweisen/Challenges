@@ -40,7 +40,7 @@ public enum ChallengeCondition implements IChallengeEnum {
 
 	ChallengeCondition(Material material, String messageSuffix, IChallengeCondition condition, Class<? extends IChallengeAction> actionClassTarget, SubSettingsBuilder subSettingsBuilder) {
 		this.material = material;
-		this.message = "custom.condition." + messageSuffix;
+		this.message = "custom-condition-" + messageSuffix;
 		this.condition = condition;
 		this.subSettingsBuilder = subSettingsBuilder;
 		this.actionClassTarget = actionClassTarget;
