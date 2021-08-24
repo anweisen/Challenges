@@ -137,7 +137,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	public void save() {
 		Bukkit.broadcastMessage(toString());
-		Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions);
+		Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, true);
 	}
 
 	public boolean isInNaming() {

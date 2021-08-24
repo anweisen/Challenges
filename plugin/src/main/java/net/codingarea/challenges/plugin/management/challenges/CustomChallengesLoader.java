@@ -13,7 +13,10 @@ import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -28,7 +31,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public void registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
+	public void registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions, boolean generate) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
@@ -36,7 +39,11 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		} else {
 			challenge.applySettings(material, name, condition, subConditions, action, subActions);
 		}
-		generateCustomChallenge(challenge, false);
+		if (generate) generateCustomChallenge(challenge, false);
+	}
+
+	public void deleteCustomChallenge(@Nonnull UUID uuid) {
+		unregisterCustomChallenge(uuid);
 	}
 
 	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
@@ -45,6 +52,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	}
 
 	public void onSettingsLoad(@Nonnull Document document) {
+		customChallenges.clear();
 
 		for (String key : document.keys()) {
 			if (key.startsWith("custom-")) {
@@ -59,7 +67,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 					ChallengeAction action = doc.getEnum("action", ChallengeAction.class);
 					String[] subActions = doc.getStringArray("subActions");
 
-					registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions);
+					registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
 
 				} catch (Exception exception) {
 					new Exception("Something went wrong while initializing custom challenge " + key + " :: " + exception.getMessage(), exception).printStackTrace();
@@ -69,6 +77,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 
 		}
 
+		MenuType.CUSTOM.getMenuGenerator().generateInventories();
 	}
 
 	private void generateCustomChallenge(CustomChallenge challenge, boolean deleted) {

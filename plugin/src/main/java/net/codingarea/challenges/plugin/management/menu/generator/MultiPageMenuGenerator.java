@@ -54,6 +54,8 @@ public abstract class MultiPageMenuGenerator extends MenuGenerator {
 			addNavigationItems(inventories.get(i), i);
 		}
 
+		reopenInventoryForPlayers();
+
 	}
 
 	@Override

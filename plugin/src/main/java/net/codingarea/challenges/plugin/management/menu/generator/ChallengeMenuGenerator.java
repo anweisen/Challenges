@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
+import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -48,7 +49,7 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	public MenuPosition getMenuPosition(int page) {
-		return new ChallengeMenuPosition(page);
+		return new ChallengeMenuPositionGenerator(this, page);
 	}
 
 	@Override
@@ -153,12 +154,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 	}
 
 
-	private class ChallengeMenuPosition implements MenuPosition {
+	private class ChallengeMenuPositionGenerator extends GeneratorMenuPosition {
 
-		private final int page;
-
-		public ChallengeMenuPosition(int page) {
-			this.page = page;
+		public ChallengeMenuPositionGenerator(MenuGenerator generator, int page) {
+			super(generator, page);
 		}
 
 		@Override

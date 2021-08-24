@@ -1,10 +1,12 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -28,34 +30,40 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	public MenuPosition getMenuPosition(int page) {
-		return info -> {
-			if (InventoryUtils.handleNavigationClicking(this, getNavigationSlots(page), page, info)) {
-				onBackToMenuItemClick(info.getPlayer());
-				return;
+		return new GeneratorMenuPosition(this, page) {
+
+			@Override
+			public void handleClick(@Nonnull MenuClickInfo info) {
+
+				if (InventoryUtils.handleNavigationClicking(generator, getNavigationSlots(page), page, info)) {
+					onBackToMenuItemClick(info.getPlayer());
+					return;
+				}
+
+				int slot = info.getSlot();
+				int index = getItemsPerPage() * page + slot - 10;
+
+				if (slot > 18) index -= 2;
+				if (slot > 27) index -= 2;
+
+				if (index >= items.size()) {
+					SoundSample.CLICK.play(info.getPlayer());
+					return;
+				}
+
+				String[] array = items.keySet().toArray(new String[0]);
+
+				if (index >= array.length || isSideSlot(slot) || isTopOrBottomSlot(slot)) {
+					SoundSample.CLICK.play(info.getPlayer());
+					return;
+				}
+
+				String key = array[index];
+
+				onItemClick(info.getPlayer(), key);
+				SoundSample.LEVEL_UP.play(info.getPlayer());
+
 			}
-
-			int slot = info.getSlot();
-			int index = getItemsPerPage() * page + slot - 10;
-
-			if (slot > 18) index -= 2;
-			if (slot > 27) index -= 2;
-
-			if (index >= items.size()) {
-				SoundSample.CLICK.play(info.getPlayer());
-				return;
-			}
-
-			String[] array = items.keySet().toArray(new String[0]);
-
-			if (index >= array.length || isSideSlot(slot) || isTopOrBottomSlot(slot)) {
-				SoundSample.CLICK.play(info.getPlayer());
-				return;
-			}
-
-			String key = array[index];
-
-			onItemClick(info.getPlayer(), key);
-			SoundSample.LEVEL_UP.play(info.getPlayer());
 		};
 	}
 
