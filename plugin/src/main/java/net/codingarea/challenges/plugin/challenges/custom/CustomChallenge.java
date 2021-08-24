@@ -72,7 +72,7 @@ public class CustomChallenge extends Setting {
 	public void writeSettings(@Nonnull Document document) {
 		super.writeSettings(document);
 
-		document.set("material", material.name());
+		document.set("material", material == null ? null : material.name());
 		document.set("name", name);
 		document.set("condition", condition == null ? null : condition.name());
 		document.set("subConditions", subConditions);
