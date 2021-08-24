@@ -28,7 +28,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, @Nonnull Material material, @Nonnull String name, @Nonnull ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
+	public void registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
@@ -37,7 +37,6 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 			challenge.applySettings(material, name, condition, subConditions, action, subActions);
 		}
 		generateCustomChallenge(challenge, false);
-		return challenge;
 	}
 
 	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
@@ -46,6 +45,29 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	}
 
 	public void onSettingsLoad(@Nonnull Document document) {
+
+		for (String key : document.keys()) {
+			if (key.startsWith("custom-")) {
+				try {
+					Document doc = document.getDocument(key);
+
+					UUID uuid = UUID.fromString(key.replaceFirst("custom-", ""));
+					String name = doc.getString("name");
+					Material material = doc.getEnum("material", Material.class);
+					ChallengeCondition condition = doc.getEnum("condition", ChallengeCondition.class);
+					String[] subConditions = doc.getStringArray("subConditions");
+					ChallengeAction action = doc.getEnum("action", ChallengeAction.class);
+					String[] subActions = doc.getStringArray("subActions");
+
+					registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions);
+
+				} catch (Exception exception) {
+					new Exception("Something went wrong while initializing custom challenge " + key + " :: " + exception.getMessage(), exception).printStackTrace();
+				}
+
+			}
+
+		}
 
 	}
 

@@ -71,6 +71,13 @@ public class CustomChallenge extends Setting {
 	@Override
 	public void writeSettings(@Nonnull Document document) {
 		super.writeSettings(document);
+
+		document.set("material", material.name());
+		document.set("name", name);
+		document.set("condition", condition == null ? null : condition.name());
+		document.set("subConditions", subConditions);
+		document.set("action", action == null ? null : action.name());
+		document.set("subActions", subActions);
 	}
 
 	@Nullable
@@ -120,7 +127,7 @@ public class CustomChallenge extends Setting {
 	@Nonnull
 	@Override
 	public String getName() {
-		return uuid.toString();
+		return "custom-" + uuid.toString();
 	}
 
 	public String[] getSubConditions() {
