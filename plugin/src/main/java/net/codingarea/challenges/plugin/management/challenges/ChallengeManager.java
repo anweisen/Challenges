@@ -1,13 +1,13 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -34,6 +34,10 @@ public final class ChallengeManager {
 	public void register(@Nonnull IChallenge challenge) {
 		if (!challenge.getType().isUsable()) throw new IllegalArgumentException("Invalid MenuType");
 		challenges.add(challenge);
+	}
+
+	public void unregister(@Nonnull IChallenge challenge) {
+		challenges.remove(challenge);
 	}
 
 	public void shutdownChallenges() {
@@ -78,7 +82,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void loadSettings(@Nonnull Document config) {
-		Challenges.getInstance().getCustomChallengesLoader().onSettingsLoad(config);
+		Challenges.getInstance().getCustomChallengesLoader().loadSettings(config);
 
 		for (IChallenge challenge : challenges) {
 			String name = challenge.getName();

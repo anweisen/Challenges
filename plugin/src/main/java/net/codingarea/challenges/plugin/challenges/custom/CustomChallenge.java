@@ -64,11 +64,6 @@ public class CustomChallenge extends Setting {
 	}
 
 	@Override
-	public void loadSettings(@Nonnull Document document) {
-		super.loadSettings(document);
-	}
-
-	@Override
 	public void writeSettings(@Nonnull Document document) {
 		super.writeSettings(document);
 
@@ -78,6 +73,11 @@ public class CustomChallenge extends Setting {
 		document.set("subConditions", subConditions);
 		document.set("action", action == null ? null : action.name());
 		document.set("subActions", subActions);
+	}
+
+	@Override
+	public void restoreDefaults() {
+		super.restoreDefaults();
 	}
 
 	@Nullable
@@ -136,6 +136,19 @@ public class CustomChallenge extends Setting {
 
 	public String[] getSubActions() {
 		return subActions;
+	}
+
+	@Override
+	public String toString() {
+		return "CustomChallenge{" +
+				"uuid=" + uuid +
+				", material=" + material +
+				", name='" + name + '\'' +
+				", condition=" + condition +
+				", subConditions=" + Arrays.toString(subConditions) +
+				", action=" + action +
+				", subActions=" + Arrays.toString(subActions) +
+				'}';
 	}
 
 }

@@ -84,7 +84,7 @@ public enum ChallengeCondition implements IChallengeEnum {
 		return values();
 	}
 
-	public IChallengeCondition getCondition() {
+	public IChallengeCondition getConditionInterface() {
 		return condition;
 	}
 

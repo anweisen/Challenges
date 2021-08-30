@@ -8,6 +8,7 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.function.Function;
 
@@ -23,7 +24,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	private final Function<String, IChallengeEnum> enumGetter;
 	private IChallengeEnum setting;
 	private SubSettingsBuilder subSettingsBuilder;
-	ArrayList<String> subSettings;
+	private ArrayList<String> subSettings;
 
 	public SettingMenuGenerator(IParentCustomGenerator parent, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeEnum> enumGetter) {
 		super(items);
@@ -31,7 +32,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 		this.key = key;
 		this.title = title;
 		this.enumGetter = enumGetter;
-		this.subSettings = new ArrayList<>(Arrays.asList(key));
+		this.subSettings = new ArrayList<>(Collections.singletonList(key));
 	}
 
 	@Override
@@ -70,7 +71,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 		if (subSettings.size() == 1) subSettings.add(setting.name());
 
 		if (!openSubSettingsMenu(player)) {
-			parent.accept(player, key, setting.name());
+			parent.accept(player, this.key, setting.name());
 		}
 
 	}

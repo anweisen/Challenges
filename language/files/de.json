@@ -1073,5 +1073,26 @@
     "{0}",
     "Stellt ein ob *{1}*",
     "genutzt werden *kann*"
+  ],
+
+  "custom-not-deleted": "Diese Challenge existiert noch §cnicht§7!",
+
+  "custom-main-view-challenges": "§6Challenges Ansehen",
+  "custom-main-create-challenge": "§aChallenge Erstellen",
+
+  "custom-info-delete": "§cChallenge Löschen",
+  "custom-info-save": "§aChallenge Speichern",
+
+  "custom-info-condition": "§cChallenge Bedingung",
+  "custom-info-action": "§bChallenge Aktion",
+
+  "custom-info-material": "§6Challenge Item",
+  "custom-info-name": "§6Challenge Name",
+
+
+  "custom-action-damage": [
+    "§cSchaden",
+    "Füge Entities Schaden zu"
   ]
+
 }

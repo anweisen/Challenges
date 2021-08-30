@@ -8,6 +8,8 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeCondition;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
@@ -62,15 +64,23 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 5*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Create"));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 
-		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, "§cDelete").build());
-		inventory.setItem(SAVE_SLOT, new ItemBuilder(Material.LIME_DYE, "§aSave").build());
-		inventory.setItem(CONDITION_SLOT, new ItemBuilder(Material.WITHER_SKELETON_SKULL, "§6Condition").build());
-		inventory.setItem(ACTION_SLOT, new ItemBuilder(Material.NETHER_STAR, "§cAction").build());
-
-		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(Material.BRICKS, "§cMaterial").build());
-		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, "§6Name Challenge").build());
+		updateItems();
 
 		InventoryUtils.setNavigationItems(inventory, new int[]{36}, true, InventorySetter.INVENTORY, 0, 1);
+	}
+
+	public void updateItems() {
+		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("custom-info-delete")).build());
+		inventory.setItem(SAVE_SLOT, new ItemBuilder(Material.LIME_DYE, Message.forName("custom-info-save")).build());
+
+		inventory.setItem(CONDITION_SLOT, new ItemBuilder(Material.WITHER_SKELETON_SKULL, Message.forName("custom-info-condition"))
+				.appendLore("§7Currently §8» §e" + (condition != null ? Message.forName(condition.getMessage()) : "None")).build());
+		inventory.setItem(ACTION_SLOT, new ItemBuilder(Material.NETHER_STAR, Message.forName("custom-info-action"))
+				.appendLore("§7Currently §8» §e" + (action != null ? Message.forName(action.getMessage()) : "None")).build());
+
+		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(material == null ? Material.BRICKS : material, Message.forName("custom-info-material")).build());
+		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("custom-info-name"))
+				.appendLore("§7Currently §8» §e" + name).build());
 	}
 
 	@Override
@@ -122,12 +132,16 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 			case "material":
 				material = Material.valueOf(data[1]);
+				updateItems();
 				break;
 		}
+
+		updateItems();
 	}
 
 	public void setName(String name) {
 		this.name = name;
+		updateItems();
 	}
 
 	@Override
@@ -135,9 +149,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		open(player, 0);
 	}
 
-	public void save() {
-		Bukkit.broadcastMessage(toString());
-		Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, true);
+	public CustomChallenge save() {
+		return Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, true);
 	}
 
 	public boolean isInNaming() {
@@ -181,8 +194,12 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.CLICK.play(player);
 					break;
 				case DELETE_SLOT:
+					if (!Challenges.getInstance().getCustomChallengesLoader().unregisterCustomChallenge(uuid)) {
+						Message.forName("custom-not-deleted").send(player, Prefix.CUSTOM);
+						SoundSample.BASS_OFF.play(player);
+						break;
+					}
 					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
-					Challenges.getInstance().getCustomChallengesLoader().unregisterCustomChallenge(uuid);
 					SoundSample.BREAK.play(player);
 					break;
 				case SAVE_SLOT:

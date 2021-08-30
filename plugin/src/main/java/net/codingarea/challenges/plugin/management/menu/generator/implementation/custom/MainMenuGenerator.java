@@ -4,6 +4,8 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -26,8 +28,13 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	public static final int VIEW_SLOT = 21;
 	public static final int CREATE_SLOT = 23;
 
-	public MainMenuGenerator(int startPage) {
-		super(startPage);
+	public MainMenuGenerator() {
+		super(1);
+	}
+
+	@Override
+	protected String getTitle(int page) {
+		return page != 0 ? super.getTitle(page - 1) : InventoryTitleManager.getTitle(getMenuType(), "Menu");
 	}
 
 	@Override
@@ -44,8 +51,8 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	@Override
 	public void generatePage(@Nonnull Inventory inventory, int page) {
 		if (page == 0) {
-			inventory.setItem(VIEW_SLOT, new ItemBuilder(Material.BOOK, "§6View Challenges").build());
-			inventory.setItem(CREATE_SLOT, new ItemBuilder(Material.WRITABLE_BOOK, "§aCreate Challenge").build());
+			inventory.setItem(VIEW_SLOT, new ItemBuilder(Material.BOOK, Message.forName("custom-main-view-challenges")).build());
+			inventory.setItem(CREATE_SLOT, new ItemBuilder(Material.WRITABLE_BOOK, Message.forName("custom-main-create-challenge")).build());
 		}
 	}
 

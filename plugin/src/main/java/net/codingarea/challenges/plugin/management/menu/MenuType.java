@@ -20,7 +20,7 @@ public enum MenuType {
 	ITEMS_BLOCKS("Items & Blocks", new SettingsMenuGenerator()),
 	CHALLENGES("Challenges", new SettingsMenuGenerator()),
 	SETTINGS("Settings", new SettingsMenuGenerator()),
-	CUSTOM("Custom", new MainMenuGenerator(1));
+	CUSTOM("Custom", new MainMenuGenerator());
 
 	private final String name;
 	private final MenuGenerator menuGenerator;

@@ -31,27 +31,28 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public void registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions, boolean generate) {
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions, boolean generate) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
+			register(challenge);
 			challenge.setEnabled(true);
 		} else {
 			challenge.applySettings(material, name, condition, subConditions, action, subActions);
 		}
-		if (generate) generateCustomChallenge(challenge, false);
+		generateCustomChallenge(challenge, false, generate);
+		return challenge;
 	}
 
-	public void deleteCustomChallenge(@Nonnull UUID uuid) {
-		unregisterCustomChallenge(uuid);
-	}
-
-	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
+	public boolean unregisterCustomChallenge(@Nonnull UUID uuid) {
 		CustomChallenge challenge = customChallenges.remove(uuid);
-		generateCustomChallenge(challenge, true);
+		if (challenge == null) return false;
+		unregister(challenge);
+		generateCustomChallenge(challenge, true, true);
+		return true;
 	}
 
-	public void onSettingsLoad(@Nonnull Document document) {
+	public void loadSettings(@Nonnull Document document) {
 		customChallenges.clear();
 
 		for (String key : document.keys()) {
@@ -70,7 +71,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 					registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
 
 				} catch (Exception exception) {
-					new Exception("Something went wrong while initializing custom challenge " + key + " :: " + exception.getMessage(), exception).printStackTrace();
+					Challenges.getInstance().getLogger().error("Something went wrong while initializing custom challenge {} :: {}", key, exception.getMessage());
 				}
 
 			}
@@ -80,18 +81,17 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		MenuType.CUSTOM.getMenuGenerator().generateInventories();
 	}
 
-	private void generateCustomChallenge(CustomChallenge challenge, boolean deleted) {
+	private void generateCustomChallenge(CustomChallenge challenge, boolean deleted, boolean generate) {
 		MenuGenerator generator = challenge.getType().getMenuGenerator();
 		if (generator instanceof ChallengeMenuGenerator) {
 			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) generator;
 			if (deleted) {
 				menuGenerator.removeChallengeFromCache(challenge);
-				generator.generateInventories();
+				if (generate) generator.generateInventories();
 			} else {
 				if (!menuGenerator.isInChallengeCache(challenge)) {
 					menuGenerator.addChallengeToCache(challenge);
-					generator.generateInventories();
-					register(challenge);
+					if (generate) generator.generateInventories();
 				} else {
 					menuGenerator.updateItem(challenge);
 				}
@@ -101,7 +101,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	}
 
 	public List<CustomChallenge> getCustomChallengesByCondition(@Nonnull IChallengeCondition condition) {
-		return customChallenges.values().stream().filter(customChallenge -> customChallenge.getCondition().getCondition() == condition).collect(Collectors.toList());
+		return customChallenges.values().stream().filter(customChallenge -> customChallenge.getCondition() != null && customChallenge.getCondition().getConditionInterface() == condition).collect(Collectors.toList());
 	}
 
 	public void executeCondition(@Nonnull IChallengeCondition condition, @Nonnull Entity entity, String... data) {
