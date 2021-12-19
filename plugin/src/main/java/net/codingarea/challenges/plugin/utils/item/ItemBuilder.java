@@ -22,7 +22,9 @@ import org.bukkit.potion.PotionEffect;
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen

@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.content;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.content.impl.MessageManager;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 

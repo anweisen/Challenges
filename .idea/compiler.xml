@@ -10,9 +10,5 @@
         <module name="MongoConnector" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="ChallengesPlugin" target="1.8" />
-      <module name="MongoConnector" target="1.8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

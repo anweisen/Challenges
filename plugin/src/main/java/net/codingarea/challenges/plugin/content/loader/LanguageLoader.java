@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.FileUtils;
@@ -11,7 +12,6 @@ import net.anweisen.utilities.common.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import javax.annotation.Nonnull;
 import java.io.File;
