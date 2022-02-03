@@ -28,11 +28,11 @@ public final class StatsHelper {
 	public static void setAccent(@Nonnull AnimatedInventory inventory, int row) {
 		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
 		int offset = row * 9;
-		inventory.cloneLastAndAdd().setAccent(0  + offset,  8 + offset);
-		inventory.cloneLastAndAdd().setAccent(1  + offset,  7 + offset);
-		inventory.cloneLastAndAdd().setAccent(10 + offset, 16 + offset);
-		inventory.cloneLastAndAdd().setAccent(11 + offset, 15 + offset);
-		inventory.cloneLastAndAdd().setAccent(12 + offset, 14 + offset);
+		inventory.cloneLastAndAdd().setAccent(offset,      offset + 8);
+		inventory.cloneLastAndAdd().setAccent(offset + 1,  offset + 7);
+		inventory.cloneLastAndAdd().setAccent(offset + 10, offset + 16);
+		inventory.cloneLastAndAdd().setAccent(offset + 11, offset + 15);
+		inventory.cloneLastAndAdd().setAccent(offset + 12, offset + 14);
 	}
 
 	@Nonnull
