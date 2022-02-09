@@ -335,7 +335,7 @@
   ],
   "item-one-life-setting": [
     "§cOne Teamlife",
-    "*Everyone* dies when *one dies*"
+    "*Everyone* dies when *one player dies*"
   ],
   "item-respawn-setting": [
     "§4Respawn",
@@ -525,7 +525,7 @@
   ],
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
-    "When an *Entity* spawns, *another one* spawns"
+    "When an *Entity* spawns, it spawns *twice*"
   ],
   "item-damage-block-challenge": [
     "§4Damage per Block",
@@ -549,13 +549,13 @@
   ],
   "item-bedrock-path-challenge": [
     "§7Bedrock Path",
-    "*Under you* spawns *bedrock*",
+    "*Bedrock *generates* under you*",
     "the whole time"
   ],
   "item-bedrock-walls-challenge": [
     "§7Bedrock Walls",
     "Huge *walls of bedrock*",
-    "are *spawning* behind you"
+    "are *generating* behind you"
   ],
   "item-surface-hole-challenge": [
     "§cSurface Hole",
@@ -589,7 +589,7 @@
   "item-invert-health-challenge": [
     "§cInvert Health",
     "Every few minutes the *hearts are inverted*.",
-    "If you have *8 hearts* then you have *2 hearts*",
+    "If you have *8 hearts*, you will have *2 hearts*",
     "and the other way around"
   ],
   "item-jump-and-run-challenge": [
@@ -638,7 +638,7 @@
   "item-only-dirt-challenge": [
     "§cOnly Dirt",
     "You must stay on *dirt*",
-    "else you will *die*"
+    "otherwise you will *die*"
   ],
   "item-food-once-challenge": [
     "§cFood Once",
@@ -682,7 +682,8 @@
   "item-no-duped-items-challenge": [
     "§6No Duped Items",
     "Players are *not allowed* to have",
-    "the *same item* in their *inventories*"
+    "the *same item* in their *inventories*",
+    "at the same time"
   ],
   "item-infection-challenge": [
     "§aInfection Challenge",
@@ -753,7 +754,7 @@
     "§cRandom Item Swapping",
     "Every few seconds a *random item*",
     "will be *swapped* with *another item*",
-    "from your *inventory*"
+    "in your *inventory*"
   ],
   "item-random-removing-challenge": [
     "§cRandom Item Removing",
@@ -920,7 +921,7 @@
     "*amount* of the items as *damage*"
   ],
   "item-damage-teleport-challenge": [
-    "§cDamage Random Teleport",
+    "§cRandom Teleport On Damage",
     "You'll be teleported randomly",
     "when you take damage"
   ],
