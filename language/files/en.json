@@ -40,7 +40,7 @@
   "timer-already-paused": "The timer is §calready paused",
   "timer-mode-set-down": "The timer is counting §cdown",
   "timer-mode-set-up": "The timer is counting §aup",
-  "no-database-connection": "There is §cno §7Database connection",
+  "no-database-connection": "There is §cno §7database connection",
   "fetching-data": "Data is being retrieved..",
   "undefined": "undefined",
   "no-such-material": "This material doesn't exist",
@@ -169,7 +169,7 @@
   "force-biome-success": "§e{0} §7found the biome §e{1}",
   "force-mob-fail": "The mob §e{0} §chasn't been killed",
   "force-mob-success": "§e{0} §7killed the mob §e{1}",
-  "force-item-fail": "Item §e{0} §chasn't benn found",
+  "force-item-fail": "Item §e{0} §chasn't been found",
   "force-item-success": "§e{0} §afound §7the item §e{1}",
   "new-effect": "Effect §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Which item is missing?",
@@ -343,7 +343,7 @@
   ],
   "item-death-message-setting": [
     "§6Death messages",
-    "Toggles *Death messages*"
+    "Toggles *death messages*"
   ],
   "item-pvp-setting": [
     "§9PvP"
@@ -446,7 +446,7 @@
   ],
   "item-no-item-damage-setting": [
     "§5No Item Damage",
-    "*Items* area *unbreakable*"
+    "*Items* are *unbreakable*"
   ],
   "top-command-setting": [
     "§dTop Command",
@@ -470,7 +470,7 @@
   ],
   "item-regeneration-setting": [
     "§cRegeneration",
-    "Sets *wheter* and",
+    "Sets *whether* and",
     "*how* to *regenerate*"
   ],
   "item-immediate-respawn-setting": [
@@ -595,7 +595,7 @@
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
     "Every *few minutes* you have to do a random",
-    "*jump and run*, which gets *harder* everytime"
+    "*jump and run* which gets *harder* every time"
   ],
   "item-randomized-hp-challenge": [
     "§4Randomized HP",
@@ -667,7 +667,7 @@
   "item-mob-transformation-challenge": [
     "§cMob Transformation",
     "When you hit a mob, it *turns*",
-    " into the last mob *you* hit"
+    "into the last mob *you* hit"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
@@ -777,7 +777,7 @@
   ],
   "item-random-effect-time-challenge": [
     "§6Interval",
-    "The *interval*, you get the *effect* in"
+    "The *interval* you get the *effect* in"
   ],
   "item-random-effect-length-challenge": [
     "§6Length",
@@ -785,7 +785,7 @@
   ],
   "item-random-effect-amplifier-challenge": [
     "§6Amplifier",
-    "The *amplifier*, the effect has"
+    "The *amplifier* the effect has"
   ],
   "item-permanent-effect-on-damage-challenge": [
     "§6Permanent Effects",
@@ -893,7 +893,7 @@
     "Should be played with a *few people*!"
   ],
   "item-all-mobs-to-death-position-challenge": [
-    "§cAlle Mobs To Death Point",
+    "§cAll Mobs To Death Point",
     "If a *Mob* gets *killed* by a player",
     "all mobs of the *same type* will be",
     "*teleported* to its *death point*"
@@ -983,7 +983,7 @@
     "Who survived until the end wins"
   ],
   "item-mine-most-blocks-goal": [
-    "§eMobs Blocks",
+    "§eMost Blocks",
     "Who *breaks* the most *blocks* wins"
   ],
   "item-most-xp-goal": [
