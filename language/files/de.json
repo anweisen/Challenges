@@ -947,9 +947,9 @@
     "du dich für eine bestimmte Zeit *nicht bewegen*"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Dont stop running",
-    "You are only allowed to +stand*",
-    "a certain *time* before you *die*"
+    "§9Nicht stehen bleiben",
+    "Du darfst nur eine bestimmte Zeit",
+    "*stehen bleiben* bevor du *stirbst*"
   ],
   "item-consume-launch-challenge": [
     "§cEssens Boost",
