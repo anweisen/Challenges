@@ -1,7 +1,7 @@
 {
   "syntax": "Bitte nutze §e/{0}",
   "reload": "Challenges Plugin wird neu geladen...",
-  "reload-failed": "Ein §cFehler §7ist während dem reload aufgetreten",
+  "reload-failed": "Ein §cFehler §7ist während dem Reload aufgetreten",
   "reload-success": "Challenges Plugin wurde §aerfolgreich §7neu geladen",
   "player-command": "Dazu musst du ein Spieler sein!",
   "no-permission": "Dazu hast du §ckeine §7Rechte",
@@ -26,7 +26,7 @@
   "timer-is-running": "§8» §7Timer ist §agestartet",
   "confirm-reset": "Bestätige den Reset mit §e/{0}",
   "no-fresh-reset": [
-    "Der Server kann §cnicht resetet §7werden",
+    "Der Server kann §cnicht resettet §7werden",
     "Die Challenge wurde §cnoch nicht §7gestartet"
   ],
   "new-challenge": "§a§lNeu!",
@@ -172,7 +172,7 @@
   "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
   "new-effect": "Effekt §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Welches Item fehlt?",
-  "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
+  "missing-items-inventory-open": "§8[§aGUI öffnen§8]",
   "loops-cleared": "§e{0} §7Loops abgebrochen",
   "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 
@@ -349,21 +349,21 @@
   ],
   "item-max-health-setting": [
     "§cMaximale Herzen",
-    "Stellt ein wie viele",
+    "Stellt ein, wie viele",
     "Herzen man hat"
   ],
   "item-soup-setting": [
     "§cSuppen Heilung",
-    "Wenn du eine *Pilzsuppe Suppe* benutzt",
+    "Wenn du eine *Pilzsuppe Suppe* benutzt,",
     "wirst du um *4 Herzen* geheilt"
   ],
   "item-damage-setting": [
     "§cDamage Multiplier",
-    "Schaden den du nimmst wird *multipliziert*"
+    "Schaden, den du nimmst, wird *multipliziert*"
   ],
   "item-damage-display-setting": [
     "§eDamage Display",
-    "Es wird im Chat angezeigt",
+    "Es wird im Chat angezeigt,",
     "wenn jemand *Schaden* bekommt"
   ],
   "item-health-display-setting": [
@@ -378,12 +378,12 @@
   ],
   "item-backpack-setting": [
     "§6Backpack",
-    "Erlaubt es dir *deinen Backpack* oder den",
+    "Erlaubt es dir, *deinen Backpack* oder den",
     "*Team Backpack* mit */backpack* zu öffnen"
   ],
   "item-cut-clean-setting": [
     "§9CutClean",
-    "Verschiedene *Einstellungen* die",
+    "Verschiedene *Einstellungen*, die",
     "das *Farmen* von Items *einfacher* machen"
   ],
   "item-cut-clean-gold-setting": [
@@ -408,7 +408,7 @@
   ],
   "item-cut-clean-inventory-setting": [
     "§6Direkt ins Inventar",
-    "*Items* werden *anstatt gedroppt* zu werden,",
+    "*Items* werden, *anstatt gedroppt* zu werden,",
     "*direkt* ins *Inventar* hinzugefügt"
   ],
   "item-cut-clean-food-setting": [
@@ -455,12 +455,12 @@
   ],
   "item-fortress-spawn-setting": [
     "§cFestungs Spawn",
-    "Wenn du in den *Nether* gehst",
+    "Wenn du in den *Nether* gehst,",
     "spawnst du immer in einer *Festung*"
   ],
   "item-bastion-spawn-setting": [
     "§cBastions Spawn",
-    "Wenn du in den *Nether* gehst",
+    "Wenn du in den *Nether* gehst,",
     "spawnst du immer in einer *Bastion*"
   ],
   "item-no-offhand-setting": [
@@ -469,17 +469,17 @@
   ],
   "item-regeneration-setting": [
     "§cRegeneration",
-    "Stellt ein *ob* und",
+    "Stellt ein, *ob* und",
     "*wie* man *regeneriert*"
   ],
   "item-immediate-respawn-setting": [
     "§6Direkter Respawn",
-    "Wenn du stirbst *respawnst* du *automatisch*",
+    "Wenn du stirbst, *respawnst* du *automatisch,*",
     "ohne den *Death Screen* zu sehen"
   ],
   "item-slot-limit-setting": [
     "§4Inventar Slots",
-    "Stellt ein wie viele *Inventar*",
+    "Stellt ein, wie viele *Inventar*",
     "*Slots* nutzbar sind"
   ],
   "item-death-position-setting": [
@@ -520,7 +520,7 @@
   ],
   "item-crafting-randomizer-challenge": [
     "§6Crafting Randomizer",
-    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
+    "Wenn du *etwas craftest*, bekommst du ein *zufälliges Item*"
   ],
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
@@ -529,17 +529,17 @@
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
     "Du bekommst *Schaden* durch",
-    "jeden *Block* den du gehst"
+    "jeden *Block*, den du gehst"
   ],
   "item-hunger-block-challenge": [
     "§6Hunger pro Block",
     "Du bekommst *Hunger* durch",
-    "jeden *Block* den du gehst"
+    "jeden *Block*, den du gehst"
   ],
   "item-stone-sight-challenge": [
     "§fStein Blick",
-    "*Mobs* denen du in die *Augen*",
-    "*schaust* werden zu *Stein*"
+    "*Mobs*, denen du in die *Augen*",
+    "*schaust*, werden zu *Stein*"
   ],
   "item-no-mob-sight-challenge": [
     "§cMob Blick Schaden",
@@ -607,7 +607,7 @@
   ],
   "item-reversed-damage-challenge": [
     "§cReversed Damage",
-    "Wenn du Entities *schlägst* oder *abschießt*",
+    "Wenn du Entities *schlägst* oder *abschießt*,",
     "bekommst du den *gleichen Schaden*"
   ],
   "item-duped-spawning-challenge": [
@@ -617,12 +617,12 @@
   ],
   "item-hydra-challenge": [
     "§5Hydra",
-    "Wenn du einen *Mob* tötest",
+    "Wenn du einen *Mob* tötest,",
     "spawnen *zwei* neue"
   ],
   "item-hydra-plus-challenge": [
     "§cHydra Plus",
-    "Wenn du einen *Mob* tötest",
+    "Wenn du einen *Mob* tötest,",
     "spawnen *doppelt* so viele",
     "wie beim *vorherigen* mal",
     "",
@@ -645,7 +645,7 @@
   ],
   "item-chunk-deconstruction-challenge": [
     "§bChunk Deconstruction",
-    "*Chunks*, in denen sich Spieler befinden",
+    "*Chunks*, in denen sich Spieler befinden,",
     "*bauen* sich von *oben* aus ab"
   ],
   "item-one-durability-challenge": [
@@ -664,8 +664,8 @@
   ],
   "item-mob-transformation-challenge": [
     "§cMob Verwandlung",
-    "Wenn du einen Mob schlägst *verwandelt* sich",
-    "dieser in den *letzen Mob* den du *geschlagen* hast"
+    "Wenn du einen Mob schlägst, *verwandelt* sich",
+    "dieser in den *letzen Mob*, den du *geschlagen* hast"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
@@ -684,34 +684,34 @@
   ],
   "item-infection-challenge": [
     "§aInfection Challenge",
-    "Du musst *2 Blöcke* abstand von allen ",
+    "Du musst *2 Blöcke* Abstand von allen ",
     "*Mobs* halten oder du wirst *krank*"
   ],
   "item-only-down-challenge": [
     "§cNur nach Unten",
     "Wenn du *einen Block* nach",
-    "*oben* gehst *stirbst* du"
+    "*oben* gehst, *stirbst* du"
   ],
   "item-advancement-damage-challenge": [
     "§cAdvancement Schaden",
     "Du bekommst für jedes neue *Advancement*",
-    "die gesetze Anzahl *schaden*"
+    "die gesetze Anzahl *Schaden*"
   ],
   "item-all-blocks-disappear-challenge": [
     "§cAlle Blöcke Verschwinden",
     "Bei verschiedenen *Interaktionen*",
     "verschwinden alle *Blöcke* im *Chunk*",
-    "eines *betimmten types*"
+    "eines *betimmten Types*"
   ],
   "item-all-blocks-disappear-break-challenge": [
     "§bBeim Abbauen",
     "Wenn du einen Block *abbaust*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "*alle Blöcke* des *selben Types zerstört*"
   ],
   "item-all-blocks-disappear-place-challenge": [
     "§bBeim Platzieren",
     "Wenn du einen Block *platzierst*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "*alle Blöcke* des *selben Types zerstört*"
   ],
   "item-water-allergy-challenge": [
     "§9Wasserallergie",
@@ -760,14 +760,14 @@
     "*Item* aus deinem Inventar *gelöscht*"
   ],
   "item-death-on-fall-challenge": [
-    "§fTot bei Fallschaden",
-    "Wenn du *Fallschaden* erleidest",
+    "§fTod bei Fallschaden",
+    "Wenn du *Fallschaden* erleidest,",
     "*stirbst* du sofort"
   ],
   "item-zero-hearts-challenge": [
     "§6Null Herzen",
     "Nach einer *Schutzzeit* musst du",
-    "dauerhaft absorption bekommen"
+    "dauerhaft Absorption bekommen"
   ],
   "item-random-effect-challenge": [
     "§6Random Effekte",
@@ -776,7 +776,7 @@
   ],
   "item-random-effect-time-challenge": [
     "§6Intervall",
-    "Der *Intervall*, in dem man",
+    "Das *Intervall*, in dem man",
     "einen *Effekt* erhält"
   ],
   "item-random-effect-length-challenge": [
@@ -791,8 +791,8 @@
   ],
   "item-permanent-effect-on-damage-challenge": [
     "§6Permanente Effekte",
-    "Du bekommst immer wenn du *Schaden*",
-    "erleidest einen *zufälligen Effekt*"
+    "Du bekommst immer, wenn du *Schaden*",
+    "erleidest, einen *zufälligen Effekt*"
   ],
   "item-random-challenge-challenge": [
     "§cRandom Challenge",
@@ -805,7 +805,7 @@
   ],
   "item-anvil-rain-time-challenge": [
     "§6Intervall",
-    "Der *Intervall*, in",
+    "Das *Intervall*, in",
     "dem *Ambosse* spawnen"
   ],
   "item-anvil-rain-range-challenge": [
@@ -815,7 +815,7 @@
   ],
   "item-anvil-rain-count-challenge": [
     "§6Anzahl",
-    "Die *Anzahl*, an *Ambossen*",
+    "Die *Anzahl*, an *Ambossen*,",
     "die in einem *Chunk* spawnen"
   ],
   "item-anvil-rain-damage-challenge": [
@@ -836,18 +836,18 @@
   ],
   "item-random-event-challenge": [
     "§6Random Events",
-    "Alle *paar Minuten* wird ein von",
+    "Alle *paar Minuten* wird eines von",
     "*{0} random Events* aktiviert"
   ],
   "item-block-chunk-item-remove-challenge": [
     "§6Movement Item Remove",
-    "Es wird für jeden *Block* / *Chunk*",
-    "den du dich *fortbewegst* ein Item,",
-    "aus deinem Inventar, *gelöscht*"
+    "Es wird für jeden *Block* / *Chunk*,",
+    "den du dich *fortbewegst*, ein Item",
+    "aus deinem Inventar *gelöscht*"
   ],
   "item-higher-jumps-challenge": [
     "§aHigher Jumps",
-    "*Umso öfter* du springst",
+    "*Umso öfter* du springst,",
     "*desto höher* springst du"
   ],
   "item-force-height-challenge": [
@@ -883,16 +883,16 @@
   ],
   "item-always-running-challenge": [
     "§cAlways Running",
-    "Du kannst *nicht aufhören* vorwärts zu laufen"
+    "Du kannst *nicht aufhören*, vorwärts zu laufen"
   ],
   "item-pickup-launch-challenge": [
     "§cPickup Boost",
-    "Wenn du ein *Item aufhebst*",
+    "Wenn du ein *Item aufhebst*,",
     "wirst du *in die Luft* geschleudert"
   ],
   "item-tsunami-challenge": [
     "§9Tsunami",
-    "In einem *gesetztem Interval*",
+    "In einem *gesetztem Intervall*",
     "*steigt* das *Wasser* in der *Overworld*",
     "und die *Lava* in im *Nether*",
     "",
@@ -912,38 +912,38 @@
   ],
   "item-blocks-disappear-time-challenge": [
     "§fBlöcke verschwinden nach Zeit",
-    "Blöcke die du *platzierst*, *verschwinden*",
+    "Blöcke, die du *platzierst*, *verschwinden*",
     "nach ein *paar Sekunden* wieder"
   ],
   "item-missing-items-challenge": [
     "§9Items Fehlen",
     "Alle paar Minuten *verschwindet* ein *Item* aus",
-    "deinem *Inventar* und du musst *erraten* welches"
+    "deinem *Inventar* und du musst *erraten*, welches"
   ],
   "item-damage-item-challenge": [
     "§cSchaden pro Item",
     "Wenn du ein *Item aufhebst* oder es",
     "in deinem Inventar *anklickst* erleidest",
-    "du *0,5 ❤* multipliziert mit der Anzahl Items"
+    "du *0,5 ❤* multipliziert mit der Anzahl der Items"
   ],
   "item-damage-teleport-challenge": [
     "§cSchaden Random Teleport",
-    "Du wirst *zufällig Teleportiert*",
+    "Du wirst *zufällig teleportiert*,",
     "wenn du *Schaden* erleidest"
   ],
   "item-loop-challenge": [
     "§6Wiederholungs Challenge",
     "Verschiedene Aktionen *wiederholen* sich",
-    "unendlich oft bis ein Spieler *schleicht*"
+    "unendlich oft, bis ein Spieler *schleicht*"
   ],
   "item-uncraft-challenge": [
     "§6Items Craften sich zurück",
-    "Alle *Items* in deinem Inventar *Craften*",
+    "Alle *Items* in deinem Inventar *craften*",
     "sich alle paar Sekunden *zurück*"
   ],
   "item-freeze-challenge": [
     "§bFreeze Challenge",
-    "Für *jedes Herz* dass du *Schaden* erleidest kannst",
+    "Für *jedes Herz*, das du *Schaden* erleidest, kannst",
     "du dich für eine bestimmte Zeit *nicht bewegen*"
   ],
   "item-dont-stop-running-challenge": [
@@ -953,7 +953,7 @@
   ],
   "item-consume-launch-challenge": [
     "§cEssens Boost",
-    "Wenn du ein *Item isst*",
+    "Wenn du ein *Item isst*,",
     "wirst du *in die Luft* geschleudert"
   ],
 
@@ -971,8 +971,8 @@
     "Töte einen *Elder Guardian* um zu gewinnen"
   ],
   "item-iron-golem-goal": [
-    "§bEisen Golem",
-    "Tote einen *Eisen Golem* um zu gewinnen"
+    "§bEisengolem",
+    "Töte einen *Eisengolem* um zu gewinnen"
   ],
   "item-snow-golem-goal": [
     "§bSchneemann",
@@ -980,7 +980,7 @@
   ],
   "item-most-deaths-goal": [
     "§6Meiste Tode",
-    "Wer die meisten *verschiedene Tode*",
+    "Wer die meisten *verschiedenen Tode*",
     "sammelt, *gewinnt*"
   ],
   "item-most-items-goal": [
@@ -994,15 +994,15 @@
   ],
   "item-mine-most-blocks-goal": [
     "§eMeisten Blöcke",
-    "Wer die *meisten Blöcke* abbaut gewinnt"
+    "Wer die *meisten Blöcke* abbaut, gewinnt"
   ],
   "item-most-xp-goal": [
     "§aMeiste XP",
-    "Wer die meiste *XP sammelt* gewinnt"
+    "Wer die meiste *XP sammelt*, gewinnt"
   ],
   "item-first-one-to-die-goal": [
     "§cErster Tod",
-    "Wer als *erstes stirbt* gewinnt"
+    "Wer als *erstes stirbt*, gewinnt"
   ],
   "item-collect-wood-goal": [
     "§6Holzarten Sammeln",
@@ -1012,11 +1012,11 @@
   "item-all-bosses-goal": [
     "§bAlle Bosse",
     "Es müssen *alle Bosse* einmal",
-    "*getötet* werden um zu *gewinnen*"
+    "*getötet* werden, um zu *gewinnen*"
   ],
   "item-all-items-goal": [
     "§2Alle Items",
-    "Finde *alle Items* die es *in Minecraft gibt*"
+    "Finde *alle Items*, die es *in Minecraft gibt*"
   ],
   "item-finish-raid-goal": [
     "§6Raid Gewinnen",
@@ -1032,46 +1032,46 @@
 
   "item-damage-rule-fire": [
     "§6Feuer Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Lava* und *Feuer* bekommen kannst"
   ],
   "item-damage-rule-attack": [
     "§3Attack Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Nahkampfangriffe von Entities* bekommen kannst"
   ],
   "item-damage-rule-projectile": [
     "§6Projectile Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Projektile* bekommen kannst"
   ],
   "item-damage-rule-fall": [
     "§fFall Damage",
-    "Stellt ein ob du *Fallschaden* bekommen kannst"
+    "Stellt ein, ob du *Fallschaden* bekommen kannst"
   ],
   "item-damage-rule-explosion": [
     "§cExplosion Damage",
-    "Stellt ein ob du *Explosions Schaden* bekommen kannst"
+    "Stellt ein, ob du *Explosions Schaden* bekommen kannst"
   ],
   "item-damage-rule-drowning": [
     "§9Drowning Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Ertrinken* bekommen kannst"
   ],
   "item-damage-rule-block": [
     "§eBlock Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Fallende Blöcke* bekommen kannst"
   ],
   "item-damage-rule-magic": [
     "§5Magic Damage",
-    "Stellt ein ob du Schaden durch",
+    "Stellt ein, ob du Schaden durch",
     "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
   ],
 
   "item-block-material": [
     "{0}",
-    "Stellt ein ob *{1}*",
+    "Stellt ein, ob *{1}*",
     "genutzt werden *kann*"
   ]
 }
