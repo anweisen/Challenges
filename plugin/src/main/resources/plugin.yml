@@ -187,3 +187,6 @@ commands:
   openmissingitems:
     usage: "/openmissingitems"
     description: "Reopens the missing items inventory"
+  guess:
+    usage: "/guess <answer>"
+    description: "Used to guess at quiz challenge"
