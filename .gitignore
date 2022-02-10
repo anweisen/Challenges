@@ -10,3 +10,4 @@
 **/target
 *.class
 *.jar
+*.iml
