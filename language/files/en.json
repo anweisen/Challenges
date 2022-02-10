@@ -217,6 +217,7 @@
   "bossbar-random-challenge-waiting": "§8» §7Waiting for new challenge..",
   "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
   "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
+  "bossbar-all-items-current-max": "§8» §f{0} §8┃ §7#{1} §8/ §7{2}",
   "bossbar-all-items-finished": "§8» §7All items found",
   "bossbar-force-height-waiting": "§8» §7Waiting for next height..",
   "bossbar-force-height-instruction": "§8» §7Height §e{0} §8┃ §a{1}",
@@ -232,6 +233,9 @@
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
   "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Move in §8┃ §e{0}",
+  "bossbar-quiz-waiting": "§8» §7Waiting for new question..",
+  "bossbar-quiz-question": "§8» §7New Question! §8┃ {0}",
+  "bossbar-quiz-question-other": "§8» §e{1} §7is being asked! §8┃ {0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
