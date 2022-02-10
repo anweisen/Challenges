@@ -85,7 +85,7 @@ public final class DatabaseManager {
 			database.createTableSafely("challenges",
 					new SQLColumn("uuid", "varchar", 36),
 					new SQLColumn("name", "varchar", 16),
-					new SQLColumn("textures", "varchar", 265),
+					new SQLColumn("textures", "varchar", 500),
 					new SQLColumn("stats", "varchar", 1500),
 					new SQLColumn("config", "varchar", 7500)
 			);

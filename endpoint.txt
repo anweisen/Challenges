@@ -1,1 +1,1 @@
-http://api.coding-area.net/challenges/service
+localhost

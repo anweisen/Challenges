@@ -40,7 +40,7 @@
   "timer-already-paused": "The timer is §calready paused",
   "timer-mode-set-down": "The timer is counting §cdown",
   "timer-mode-set-up": "The timer is counting §aup",
-  "no-database-connection": "There is §cno §7Database connection",
+  "no-database-connection": "There is §cno §7database connection",
   "fetching-data": "Data is being retrieved..",
   "undefined": "undefined",
   "no-such-material": "This material doesn't exist",
@@ -125,8 +125,8 @@
   "command-fly-enabled": "You can fly §anow",
   "command-fly-disabled": "You can §cno longer §7fly",
   "command-fly-toggled-others": "You toggled §efly §7for §e{0} §7player/s",
-  "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
-  "command-gamestate-reset": "Der Gamestate wurde §azurück gesetzt",
+  "command-gamestate-reload": "The gamestate was §areloaded",
+  "command-gamestate-reset": "The gamestate was §areset",
 
   "traffic-light-challenge-fail": "§e{0} §7went over §cred",
   "player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",
@@ -143,7 +143,7 @@
   "top-to-overworld": "You have been teleported to the §eoverworld",
   "top-to-surface": "You have been teleported to the §etop",
   "jnr-countdown": "Next §6JumpAndRun §7in §e{0} seconds",
-  "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eone second",
+  "jnr-countdown-one": "Next §6JumpAndRun §7in §eone second",
   "jnr-finished": "§e{0} §afinished §7the §6JumpAndRun",
   "snake-failed": "§e{0} §7stepped over the §9line",
   "only-dirt-failed": "§e{0} §7did not stand on dirt",
@@ -169,7 +169,7 @@
   "force-biome-success": "§e{0} §7found the biome §e{1}",
   "force-mob-fail": "The mob §e{0} §chasn't been killed",
   "force-mob-success": "§e{0} §7killed the mob §e{1}",
-  "force-item-fail": "Item §e{0} §chasn't benn found",
+  "force-item-fail": "Item §e{0} §chasn't been found",
   "force-item-success": "§e{0} §afound §7the item §e{1}",
   "new-effect": "Effect §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Which item is missing?",
@@ -240,7 +240,7 @@
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
   "subtitle-time-minutes": "§e{0} §7minutes",
-  "subtitle-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "Power §e{0}",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -335,11 +335,11 @@
 
   "item-difficulty-setting": [
     "§aDifficulty",
-    "Sets the *Difficulty* ein"
+    "Sets the *Difficulty*"
   ],
   "item-one-life-setting": [
     "§cOne Teamlife",
-    "*Everyone* dies when *one dies*"
+    "*Everyone* dies when *one player dies*"
   ],
   "item-respawn-setting": [
     "§4Respawn",
@@ -347,7 +347,7 @@
   ],
   "item-death-message-setting": [
     "§6Death messages",
-    "Toggles *Death messages*"
+    "Toggles *death messages*"
   ],
   "item-pvp-setting": [
     "§9PvP"
@@ -450,7 +450,7 @@
   ],
   "item-no-item-damage-setting": [
     "§5No Item Damage",
-    "*Items* area *unbreakable*"
+    "*Items* are *unbreakable*"
   ],
   "top-command-setting": [
     "§dTop Command",
@@ -459,7 +459,7 @@
     "with /top"
   ],
   "item-fortress-spawn-setting": [
-    "§cFestungs Spawn",
+    "§cFortress Spawn",
     "When you go into the *nether*",
     "you will always spawn in a *fortress*"
   ],
@@ -474,7 +474,7 @@
   ],
   "item-regeneration-setting": [
     "§cRegeneration",
-    "Sets *wheter* and",
+    "Sets *whether* and",
     "*how* to *regenerate*"
   ],
   "item-immediate-respawn-setting": [
@@ -529,7 +529,7 @@
   ],
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
-    "When an *Entity* spawns, *another one* spawns"
+    "When an *Entity* spawns, it spawns *twice*"
   ],
   "item-damage-block-challenge": [
     "§4Damage per Block",
@@ -548,18 +548,18 @@
   ],
   "item-no-mob-sight-challenge": [
     "§cMob Sight Damage",
-    "Wenn du einen *Mob* in die *Augen*",
-    "*schaust*, erleidest du *Schaden*"
+    "When you look into the *eyes* of an",
+    "*entity*, you get *damage*"
   ],
   "item-bedrock-path-challenge": [
     "§7Bedrock Path",
-    "*Under you* spawns *bedrock*",
+    "*Bedrock *generates* under you*",
     "the whole time"
   ],
   "item-bedrock-walls-challenge": [
     "§7Bedrock Walls",
     "Huge *walls of bedrock*",
-    "are *spawning* behind you"
+    "are *generating* behind you"
   ],
   "item-surface-hole-challenge": [
     "§cSurface Hole",
@@ -572,7 +572,7 @@
     "when a *player* takes damage"
   ],
   "item-no-trading-challenge": [
-    "§2Kein Handeln",
+    "§2No Trading",
     "You *cannot* trade",
     "with villagers"
   ],
@@ -587,19 +587,19 @@
     "will *take* the set amount of *damage*"
   ],
   "item-no-exp-challenge": [
-    "§aKeine XP",
+    "§aNo EXP",
     "If you pickup *EXP* you die"
   ],
   "item-invert-health-challenge": [
     "§cInvert Health",
     "Every few minutes the *hearts are inverted*.",
-    "If you have *8 hearts* then you have *2 hearts*",
+    "If you have *8 hearts*, you will have *2 hearts*",
     "and the other way around"
   ],
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
     "Every *few minutes* you have to do a random",
-    "*jump and run*, which gets *harder* everytime"
+    "*jump and run* which gets *harder* every time"
   ],
   "item-randomized-hp-challenge": [
     "§4Randomized HP",
@@ -642,12 +642,12 @@
   "item-only-dirt-challenge": [
     "§cOnly Dirt",
     "You must stay on *dirt*",
-    "else you will *die*"
+    "otherwise you will *die*"
   ],
   "item-food-once-challenge": [
     "§cFood Once",
-    "Du kannst jeden *Essen*",
-    "nur einmal *essen*"
+    "Each *food* can be*",
+    "*eaten* only once"
   ],
   "item-chunk-deconstruction-challenge": [
     "§bChunk Deconstruction",
@@ -655,7 +655,7 @@
     "*break* down from *above*"
   ],
   "item-one-durability-challenge": [
-    "§4Eine Haltbarkeit",
+    "§4One Durability",
     "Items are *destroyed* after one *use*"
   ],
   "item-low-drop-rate-challenge": [
@@ -671,7 +671,7 @@
   "item-mob-transformation-challenge": [
     "§cMob Transformation",
     "When you hit a mob, it *turns*",
-    " into the last mob *you* hit"
+    "into the last mob *you* hit"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
@@ -686,7 +686,8 @@
   "item-no-duped-items-challenge": [
     "§6No Duped Items",
     "Players are *not allowed* to have",
-    "the *same item* in their *inventories*"
+    "the *same item* in their *inventories*",
+    "at the same time"
   ],
   "item-infection-challenge": [
     "§aInfection Challenge",
@@ -754,13 +755,13 @@
     "will be *dropped* from your *inventory*"
   ],
   "item-random-swapping-challenge": [
-    "§cZufälliges Item Mischen",
+    "§cRandom Item Swapping",
     "Every few seconds a *random item*",
     "will be *swapped* with *another item*",
-    "from your *inventory*"
+    "in your *inventory*"
   ],
   "item-random-removing-challenge": [
-    "§cZufälliges Item Löschen",
+    "§cRandom Item Removing",
     "Every few seconds a *random item*",
     "will be *removed* from your *inventory*"
   ],
@@ -770,7 +771,7 @@
     "you take *fall damage*"
   ],
   "item-zero-hearts-challenge": [
-    "§6Null Herzen",
+    "§6Zero Hearts",
     "After a *protection time* you have to",
     "get *absorption permanently* else you will die"
   ],
@@ -781,7 +782,7 @@
   ],
   "item-random-effect-time-challenge": [
     "§6Interval",
-    "The *interval*, you get the *effect* in"
+    "The *interval* you get the *effect* in"
   ],
   "item-random-effect-length-challenge": [
     "§6Length",
@@ -789,7 +790,7 @@
   ],
   "item-random-effect-amplifier-challenge": [
     "§6Amplifier",
-    "The *amplifier*, the effect has"
+    "The *amplifier* the effect has"
   ],
   "item-permanent-effect-on-damage-challenge": [
     "§6Permanent Effects",
@@ -897,7 +898,7 @@
     "Should be played with a *few people*!"
   ],
   "item-all-mobs-to-death-position-challenge": [
-    "§cAlle Mobs To Death Point",
+    "§cAll Mobs To Death Point",
     "If a *Mob* gets *killed* by a player",
     "all mobs of the *same type* will be",
     "*teleported* to its *death point*"
@@ -924,7 +925,7 @@
     "*amount* of the items as *damage*"
   ],
   "item-damage-teleport-challenge": [
-    "§cDamage Random Teleport",
+    "§cRandom Teleport On Damage",
     "You'll be teleported randomly",
     "when you take damage"
   ],
@@ -944,9 +945,9 @@
     "*frozen* for a certain time"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Nicht aufhören zu laufen",
-    "Du darfst nur eine bestimmte *Zeit*",
-    "*stehen* bevor du *stirbst*"
+    "§9Don't Stop Running",
+    "You can *stand still* only a",
+    "specified *time* until you *die*"
   ],
   "item-consume-launch-challenge": [
     "§cConsume Boost",
@@ -987,7 +988,7 @@
     "Who survived until the end wins"
   ],
   "item-mine-most-blocks-goal": [
-    "§eMobs Blocks",
+    "§eMost Blocks",
     "Who *breaks* the most *blocks* wins"
   ],
   "item-most-xp-goal": [
