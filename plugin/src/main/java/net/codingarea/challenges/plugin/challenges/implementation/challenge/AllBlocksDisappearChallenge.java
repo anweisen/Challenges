@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -116,7 +117,9 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 				.fill(builder -> {
 					for (int x = 0; x < 16; x++) {
 						for (int z = 0; z < 16; z++) {
-							for (int y = BukkitReflectionUtils.getMinHeight(chunk.getWorld()); y < chunk.getWorld().getMaxHeight(); y++) {
+
+							for (int y = Utils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight(); y++) {
+								System.out.println(y);
 								Block block = chunk.getBlock(x, y, z);
 								if (block.getType() == material) {
 									builder.add(block);
