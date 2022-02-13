@@ -133,7 +133,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 				.fill(builder -> {
 					for (int x = 0; x < 16; x++) {
 						for (int z = 0; z < 16; z++) {
-							for (int y = Utils.getMinHeight(chunk.getWorld()); y <= chunk.getWorld().getMaxHeight(); y++) {
+							for (int y = Utils.getMinHeight(chunk.getWorld()); y < chunk.getWorld().getMaxHeight(); y++) {
 								Block block = chunk.getBlock(x, y, z);
 								if (block.getType() == material) {
 									builder.add(block);
