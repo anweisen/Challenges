@@ -94,6 +94,7 @@ public class CutCleanSetting extends MenuSetting {
 
 		@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 		public void onBlockBreak(@Nonnull BlockBreakEvent event) {
+			if (!shouldExecuteEffect()) return;
 			if (!directIntoInventory()) return;
 			Material type = event.getBlock().getType();
 			if (type != from) return;
@@ -113,7 +114,7 @@ public class CutCleanSetting extends MenuSetting {
 
 		@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 		public void onBlockBreak(@Nonnull BlockBreakEvent event) {
-			if (!isEnabled()) return;
+			if (!shouldExecuteEffect()) return;
 			ItemStack itemInMainHand = event.getPlayer().getInventory().getItemInMainHand();
 			if (!canBeBroken(event.getBlock(), itemInMainHand)) return;
 			if (!event.getBlock().getType().name().contains("ORE")) return;
