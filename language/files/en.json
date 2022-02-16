@@ -209,6 +209,8 @@
     "What's going on now?!"
   ],
 
+  "quiz-how-to": "Write your answer with §e/guess <answer>",
+
   "quiz-right-answer": "§e{0} §7is the §aright §7answer!",
   "quiz-right-answer-other": "§e{0} §7answered the question §acorrectly§7!",
 

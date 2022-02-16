@@ -138,6 +138,7 @@ public class QuizChallenge extends TimedChallenge implements PlayerCommand, TabC
 			onTimeActivation();
 			return;
 		}
+		Message.forName("quiz-how-to").send(currentQuestionedPlayer, Prefix.CHALLENGES);
 		timeLeft = 60;
 
 		bossbar.update();
