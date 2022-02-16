@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge.quiz;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.StringUtils;
@@ -252,7 +253,14 @@ public class QuizChallenge extends TimedChallenge implements PlayerCommand, TabC
 
 			@Override
 			public boolean isRightAnswer(@Nonnull String answer) {
-				return currentRightAnswers != null && currentRightAnswers.contains(answer);
+				if (currentRightAnswers == null) return false;
+
+				for (String currentRightAnswer : currentRightAnswers) {
+					if (currentRightAnswer.equalsIgnoreCase(answer)) {
+						return true;
+					}
+				}
+				return false;
 			}
 
 			@Override
@@ -412,14 +420,13 @@ public class QuizChallenge extends TimedChallenge implements PlayerCommand, TabC
 					}
 				}
 
-
 				List<String> newAnswers = answers.stream().map(StringUtils::getEnumName).collect(Collectors.toList());
 				answers.clear();
 				answers.addAll(newAnswers);
 
-				highestEntries = highestEntries.stream().map(StringUtils::getEnumName).collect(Collectors.toList());
-
 				IQuestion.sendMessage(Message.forName("quiz-question-most").asString(statistic.getVerbMessage(), answers.size()), answers);
+
+				highestEntries = highestEntries.stream().map(StringUtils::getEnumName).collect(Collectors.toList());
 
 				return highestEntries;
 			}),
@@ -434,13 +441,9 @@ public class QuizChallenge extends TimedChallenge implements PlayerCommand, TabC
 				}
 
 				String key = keys.get(instance.random.nextInt(keys.size()));
-				double rightAnswer = documentCountStatistic.getStatistic(player, key);
+				int rightAnswer = (int) documentCountStatistic.getStatistic(player, key);
 
-				if (rightAnswer % 1 == 0) {
-					rightAnswer = (int) rightAnswer;
-				}
-
-				for (double i = rightAnswer; i < rightAnswer + 4; i++) {
+				for (int i = rightAnswer; i < rightAnswer + 4; i++) {
 					answers.add(i + "");
 				}
 
@@ -536,10 +539,11 @@ public class QuizChallenge extends TimedChallenge implements PlayerCommand, TabC
 		SavedStatistic.BLOCKS_PLACED.increaseStatistic(event.getPlayer(), event.getBlockPlaced().getType().name());
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	@EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
 	public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
+		if (BukkitReflectionUtils.isAir(event.getBlock().getType())) return;
 		SavedStatistic.BLOCKS_DESTROYED.increaseStatistic(event.getPlayer(), event.getBlock().getType().name());
 	}
 

@@ -208,6 +208,8 @@
     "Was geht denn jetzt ab"
   ],
 
+  "quiz-how-to": "Schreibe deine Antwort mit §e/guess <antwort>",
+
   "quiz-right-answer": "§e{0} §7ist die §arichtige §7Antwort!",
   "quiz-right-answer-other": "§e{0} §7hat die Frage §arichtig §7beantwortet",
 
@@ -223,8 +225,8 @@
   "quiz-question-often-be": "Wie oft bist du §e{0}§7{1}?",
   "quiz-question-far-be": "Wie weit bist du {0}?",
   "quiz-question-most": "Was hast du von diesen {1} am meisten {0}?",
-  "quiz-question-damage-have": "Wie viel Schaden hast du {0}",
-  "quiz-question-damage-taken-have": "Wie viel Schaden hast du durch {0}",
+  "quiz-question-damage-have": "Wie viel Schaden hast du {0}{1}?",
+  "quiz-question-damage-taken-have": "Wie viel Schaden hast du durch {0}{1}?",
 
   "quiz-verb-traveled": "gelaufen",
   "quiz-verb-jumped": "gesprungen",
