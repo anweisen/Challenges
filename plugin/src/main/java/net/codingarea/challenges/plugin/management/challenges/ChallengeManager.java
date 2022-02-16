@@ -67,7 +67,8 @@ public final class ChallengeManager {
 	}
 
 	public void saveSettings(@Nonnull Player player) throws DatabaseException {
-		Document document = new GsonDocument();
+		Document document = Challenges.getInstance().getDatabaseManager()
+				.getDatabase().query("challenges").where("uuid", player.getUniqueId()).execute().firstOrEmpty();
 		saveSettingsInto(document);
 		Challenges.getInstance().getDatabaseManager().getDatabase()
 				.insertOrUpdate("challenges")
