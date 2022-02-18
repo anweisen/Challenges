@@ -1,5 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
@@ -10,10 +14,6 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Arrays;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -54,11 +54,10 @@ public class RandomItemChallenge extends TimedChallenge {
 	protected void onTimeActivation() {
 		restartTimer();
 
-		Material[] materials = Arrays.stream(Material.values())
-				.filter(Material::isItem)
-				.toArray(Material[]::new);
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		list.removeIf(material -> !material.isItem());
 
-		broadcastFiltered(player -> InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(materials))));
+		broadcastFiltered(player -> InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(list))));
 
 	}
 

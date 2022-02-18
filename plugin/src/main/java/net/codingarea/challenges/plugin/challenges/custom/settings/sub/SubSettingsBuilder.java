@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  */
 public abstract class SubSettingsBuilder {
 
-	private final SubSettingsBuilder parent;
+	private SubSettingsBuilder parent;
 	private SubSettingsBuilder child;
 
 	protected SubSettingsBuilder() {
@@ -33,6 +33,11 @@ public abstract class SubSettingsBuilder {
 
 	public SubSettingsBuilder getParent() {
 		return parent;
+	}
+
+	public void setParent(
+			SubSettingsBuilder parent) {
+		this.parent = parent;
 	}
 
 	public SubSettingsBuilder getChild() {
@@ -60,6 +65,12 @@ public abstract class SubSettingsBuilder {
 	 */
 	public SubSettingsBuilder build() {
 		return parent == null ? this : parent.build();
+	}
+
+	public SubSettingsBuilder addChild(SubSettingsBuilder builder) {
+		builder.setParent(this);
+		this.child = builder;
+		return builder;
 	}
 
 	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {

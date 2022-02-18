@@ -15,16 +15,17 @@ import java.util.Random;
  */
 public enum ChallengeAction implements IChallengeParam {
 
-	KILL(Material.COMMAND_BLOCK, "kill", IChallengeAction.KILL, createEntityTargetSettingsBuilder(true).createValueChild().fill(builder -> {
-		builder.addBooleanSetting(new ItemBuilder(Material.TURTLE_EGG, "TEST"), true);
-	})),
+	KILL(Material.COMMAND_BLOCK, "kill", IChallengeAction.KILL, createEntityTargetSettingsBuilder(true)),
 	DAMAGE(Material.FERMENTED_SPIDER_EYE, "damage", IChallengeAction.DAMAGE, createEntityTargetSettingsBuilder(true).createChooseItemChild("damage").fill(builder -> {
 		String prefix = Message.forName("item-prefix").asString();
 		for (int i = 1; i < 21; i++) {
 			builder.addSetting(i + "", new ItemBuilder(Material.RED_DYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
 		}
-	})),
+	}).createChooseItemChild("keyy").addSetting("hallo", new ItemBuilder(Material.DIRT))),
 	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random_mob", IChallengeAction.SPAWN_RANDOM_MOB, createEntityTargetSettingsBuilder(false)),
+	RANDOM_ITEM(Material.BEACON, "random_item", IChallengeAction.RANDOM_ITEM, createEntityTargetSettingsBuilder(false)),
+	UNCRAFT_INVENTORY(Material.CRAFTING_TABLE, "uncraft_inventory", IChallengeAction.UNCRAFT_INVENTORY, createEntityTargetSettingsBuilder(false)),
+	BOOST_IN_AIR(Material.CRAFTING_TABLE, "boost_in_air", IChallengeAction.UNCRAFT_INVENTORY, createEntityTargetSettingsBuilder(false)),
 	;
 
 	public static final Random random = new Random();

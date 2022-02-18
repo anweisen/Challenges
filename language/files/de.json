@@ -1098,7 +1098,11 @@
   "custom-main-view-challenges": "§6Challenges Ansehen",
   "custom-main-create-challenge": "§aChallenge Erstellen",
 
-  "item-custom-info-delete": "§cLöschen",
+  "item-custom-info-delete": [
+    "§cLöschen",
+    "*Achtung* diese Aktion kann *nicht*",
+    "rückgängig gemacht werden"
+  ],
   "item-custom-info-save": "§aSpeichern",
 
   "item-custom-info-condition": [
@@ -1175,7 +1179,7 @@
   ],
 
   "item-custom-action-kill": [
-    "§4Töte",
+    "§4Töten",
     "Töte Entities"
   ],
   "item-custom-action-damage": [
@@ -1185,6 +1189,18 @@
   "item-custom-action-random_mob": [
     "§6Zufälliges Entity",
     "Spawne ein zufälliges Entity"
+  ],
+  "item-custom-action-random_item": [
+    "§bZufälliges Item",
+    "Gebe Spielern zufällige Items"
+  ],
+  "item-custom-action-uncraft_inventory": [
+    "§eInventar Zurück-Craften",
+    "Lasse das Inventar von Spielern zurück-Craften"
+  ],
+  "item-custom-action-boost_in_air": [
+    "§fIn Luft Schleudern",
+    "Schleudere Entities in die Luft"
   ],
 
   "item-custom-action-target-current": [

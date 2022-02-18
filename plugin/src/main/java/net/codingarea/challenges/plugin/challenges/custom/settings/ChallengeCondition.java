@@ -56,6 +56,7 @@ public enum ChallengeCondition implements IChallengeParam {
 	ENTITY_DEATH(Material.BONE, "death", new EntityDeathCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE(Material.FLINT_AND_STEEL, "damage", new EntityDamageCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE_BY_PLAYER(Material.WOODEN_SWORD, "damage_by_player", new EntityDamageByPlayerCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
+	CONSUME_ITEM(Material.COOKED_BEEF, "consume_item", new EntityDamageByPlayerCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	;
 
 	private final Material material;

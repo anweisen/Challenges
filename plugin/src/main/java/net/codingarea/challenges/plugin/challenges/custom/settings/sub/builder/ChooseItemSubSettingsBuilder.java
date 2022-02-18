@@ -66,7 +66,6 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
     return this;
   }
 
-
   public ChooseItemSubSettingsBuilder addSetting(String key, ItemBuilder value) {
     settings.put(key, value.hideAttributes().build());
     return this;

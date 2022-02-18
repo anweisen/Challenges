@@ -115,7 +115,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		// Name Item
 		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("item-custom-info-name"))
-				.appendLore(currently + name).build());
+				.appendLore(currently + "§7" + name).build());
 	}
 
 	@Override

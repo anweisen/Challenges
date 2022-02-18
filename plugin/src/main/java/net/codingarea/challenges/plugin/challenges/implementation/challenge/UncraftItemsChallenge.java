@@ -49,11 +49,11 @@ public class UncraftItemsChallenge extends TimedChallenge {
 	protected void onTimeActivation() {
 		restartTimer();
 
-		broadcastFiltered(this::uncraftInventory);
+		broadcastFiltered(UncraftItemsChallenge::uncraftInventory);
 
 	}
 
-	private void uncraftInventory(@Nonnull Player player) {
+	public static void uncraftInventory(@Nonnull Player player) {
 
 		PlayerInventory inventory = player.getInventory();
 
@@ -94,7 +94,7 @@ public class UncraftItemsChallenge extends TimedChallenge {
 
 	}
 
-	private boolean canCraft(List<Recipe> recipes, Material material) {
+	private static boolean canCraft(List<Recipe> recipes, Material material) {
 
 		for (Recipe recipe : recipes) {
 			for (ItemStack ingredient : getIngredientsOfRecipe(recipe)) {
@@ -119,7 +119,7 @@ public class UncraftItemsChallenge extends TimedChallenge {
 		return false;
 	}
 
-	private List<ItemStack> getIngredientsOfRecipe(@Nonnull Recipe recipe) {
+	private static List<ItemStack> getIngredientsOfRecipe(@Nonnull Recipe recipe) {
 		List<ItemStack> ingredients = new ArrayList<>();
 		if (recipe instanceof ShapedRecipe) {
 			ShapedRecipe shaped = (ShapedRecipe) recipe;
