@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
+import java.util.Map;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
@@ -10,12 +11,12 @@ import org.bukkit.entity.Player;
 public interface PlayerChallengeAction extends IChallengeAction {
 
 	@Override
-	default void execute(Entity entity, String... data) {
+	default void execute(Entity entity, Map<String, String> data) {
 		if (entity instanceof Player) {
-			execute(((Player) entity), data);
+			execute((Player) entity, data);
 		}
 	}
 
-	void execute(Player player, String... data);
+	void execute(Player player, Map<String, String> data);
 
 }

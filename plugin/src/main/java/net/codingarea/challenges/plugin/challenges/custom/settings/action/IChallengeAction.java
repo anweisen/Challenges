@@ -1,12 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
 import com.google.common.collect.Lists;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -14,10 +14,6 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -27,8 +23,8 @@ public interface IChallengeAction {
 
 	Random random = new Random();
 
-	IChallengeAction SPAWN_RANDOM_MOB = (entity, strings) -> {
-		for (Entity target : getTargets(entity, strings, 0)) {
+	IChallengeAction SPAWN_RANDOM_MOB = (entity, map) -> {
+		for (Entity target : getTargets(entity, map)) {
 			for (int i = 0; i < 100; i++) {
 				EntityType value = EntityType.values()[random.nextInt(EntityType.values().length)];
 				if (value.isSpawnable()) {
@@ -40,9 +36,10 @@ public interface IChallengeAction {
 			}
 		}
 	};
-	IChallengeAction DAMAGE = (entity, strings) -> {
-		for (Entity target : getTargets(entity, strings, 0)) {
-			int damage = Integer.parseInt(strings[1]);
+	IChallengeAction DAMAGE = (entity, map) -> {
+		System.out.println("Damage");
+		for (Entity target : getTargets(entity, map)) {
+			int damage = Integer.parseInt(map.get("damage"));
 			if (target instanceof LivingEntity) {
 				((LivingEntity) target).setNoDamageTicks(0);
 				((LivingEntity) target).damage(damage);
@@ -50,8 +47,8 @@ public interface IChallengeAction {
 			}
 		}
 	};
-	IChallengeAction KILL = (entity, strings) -> {
-		for (Entity target : getTargets(entity, strings, 0)) {
+	IChallengeAction KILL = (entity, map) -> {
+		for (Entity target : getTargets(entity, map)) {
 			if (target instanceof Player) {
 				ChallengeHelper.kill(((Player) target));
 			} else if (target instanceof LivingEntity) {
@@ -59,21 +56,26 @@ public interface IChallengeAction {
 			}
 		}
 	};
-	IChallengeAction RANDOM_ITEM = (entity, strings) -> {
-		for (Entity target : getTargets(entity, strings, 0)) {
+	IChallengeAction RANDOM_ITEM = (entity, map) -> {
+		for (Entity target : getTargets(entity, map)) {
 			if (target instanceof Player) {
 
 			}
 		}
 	};
 
-	void execute(Entity entity, String... subActions);
+	void execute(Entity entity, Map<String, String> subActions);
 
-	static List<Entity> getTargets(Entity conditionTarget, String[] subActions, int param) {
-		if (param >= subActions.length) return Lists.newLinkedList();
+	static List<Entity> getTargets(Entity conditionTarget, Map<String, String> subActions) {
 
-		System.out.println(subActions[param]);
-		switch (subActions[param]) {
+		System.out.println(subActions.entrySet());
+		if (!subActions.containsKey("target_entity")) {
+			return Lists.newLinkedList();
+		}
+		String targetEntity = subActions.get("target_entity");
+		System.out.println(targetEntity);
+
+		switch (targetEntity) {
 			case "random_player":
 				List<Player> players = ChallengeAPI.getPlayingPlayers();
 				if (players.isEmpty()) return new LinkedList<>();

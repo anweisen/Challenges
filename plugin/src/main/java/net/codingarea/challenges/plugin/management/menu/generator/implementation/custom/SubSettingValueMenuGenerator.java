@@ -27,7 +27,7 @@ public class SubSettingValueMenuGenerator extends ValueMenuGenerator {
 
   @Override
   public void onSaveItemClick(Player player) {
-    parent.accept(player, getSettings().values().toArray(new String[0]));
+//    parent.accept(player, null,getSettings().values().toArray(new String[0]));
   }
 
   @Override

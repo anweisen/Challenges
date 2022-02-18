@@ -3,8 +3,10 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder;
 import com.google.common.collect.Lists;
 import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingChooseMenuGenerator;
@@ -18,19 +20,22 @@ import org.bukkit.inventory.ItemStack;
 public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
 
   private final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
+  private final String key;
 
-  public ChooseItemSubSettingsBuilder() {
+  public ChooseItemSubSettingsBuilder(String key) {
+    this.key = key;
   }
 
-  public ChooseItemSubSettingsBuilder(SubSettingsBuilder parent) {
+  public ChooseItemSubSettingsBuilder(String key, SubSettingsBuilder parent) {
     super(parent);
+    this.key = key;
   }
 
   @Override
   public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
 
     if (hasSettings()) {
-      SubSettingChooseMenuGenerator generator = new SubSettingChooseMenuGenerator(parentGenerator, getSettings(), title);
+      SubSettingChooseMenuGenerator generator = new SubSettingChooseMenuGenerator(key, parentGenerator, getSettings(), title);
       generator.open(player, 0);
       return true;
     }
@@ -39,16 +44,15 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
   }
 
   @Override
-  public List<String> getDisplay(String[] activated) {
+  public List<String> getDisplay(Map<String, String> activated) {
     List<String> display = Lists.newLinkedList();
 
-    // TRY DIFFERENT WAY OF DEFINING ACTIVE SETTINGS OR NAME ALL SETTINGS UNIQUE
-    // IF TWO SETTINGS WHETHER THEY ARE AT THE SAME INDEX HAVE THE SAME NAME THE SYSTEM THINKS
-    // ITS ACTIVATED!!!!!!!!!!!!!!
-    for (Entry<String, ItemStack> entry : getSettings().entrySet()) {
-      for (String key : activated) {
-        if (entry.getKey().equals(key)) {
-          display.add(entry.getValue().getItemMeta().getDisplayName());
+    for (Entry<String, String> entry : activated.entrySet()) {
+      if (entry.getKey().equals(key)) {
+        ItemStack itemStack = getSettings().get(entry.getValue());
+        if (itemStack != null) {
+          display.add("§7" + StringUtils.getEnumName(entry.getKey()) + " " + itemStack.getItemMeta().getDisplayName());
+
         }
       }
     }

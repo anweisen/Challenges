@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.condition.im
 
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityDeathEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -15,7 +15,7 @@ public class EntityDamageCondition implements IChallengeCondition {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDeath(@Nonnull EntityDamageEvent event) {
-		execute(event.getEntity(), "any", event.getEntityType().name());
+		execute(event.getEntity(), MapUtils.createStringListMap("entity_type","any", event.getEntityType().name()));
 	}
 
 }

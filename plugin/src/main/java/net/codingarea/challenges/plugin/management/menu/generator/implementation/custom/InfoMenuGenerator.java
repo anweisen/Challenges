@@ -1,11 +1,10 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import com.google.common.collect.Lists;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
@@ -16,6 +15,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -45,9 +45,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private String name;
 	private Material material;
 	private ChallengeCondition condition;
-	private String[] subConditions;
+	private Map<String, String> subConditions;
 	private ChallengeAction action;
-	private String[] subActions;
+	private Map<String, String> subActions;
 	private Inventory inventory;
 	private boolean inNaming;
 
@@ -64,8 +64,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	public InfoMenuGenerator() {
 		this.condition = null;
 		this.action = null;
-		this.subConditions = new String[0];
-		this.subActions = new String[0];
+		this.subConditions = new HashMap<>();
+		this.subActions = new HashMap<>();
 		this.uuid = UUID.randomUUID();
 		this.name = "§7Custom §e#" +
 				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size()+1);
@@ -135,38 +135,22 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	}
 
 	@Override
-	public void accept(Player player, String... data) {
+	public void accept(Player player, SettingType type, Map<String, String> data) {
 		open(player, 0);
-		if (data.length <= 1) return;
 
-		switch (data[0]) {
-			case "condition":
-				condition = ChallengeCondition.valueOf(data[1]);
-
-				if (data.length > 2) {
-					ArrayList<String> list = Lists.newArrayList();
-					for (int i = 2; i < data.length; i++) {
-						list.add(data[i]);
-					}
-					this.subConditions = list.toArray(new String[0]);
-				}
-
-				break;
-			case "action":
-				action = ChallengeAction.valueOf(data[1]);
-
-				if (data.length > 2) {
-					ArrayList<String> list = Lists.newArrayList();
-					for (int i = 2; i < data.length; i++) {
-						list.add(data[i]);
-					}
-					this.subActions = list.toArray(new String[0]);
-				}
-
+		switch (type) {
+			case CONDITION:
+				condition = ChallengeCondition.valueOf(data.get("condition"));
+				this.subConditions = data;
 				break;
 
-			case "material":
-				material = Material.valueOf(data[1]);
+			case ACTION:
+				action = ChallengeAction.valueOf(data.get("action"));
+				this.subActions = data;
+				break;
+
+			case MATERIAL:
+				material = Material.valueOf(data.get("material"));
 				updateItems();
 				break;
 		}
@@ -199,12 +183,14 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	@Override
 	public String toString() {
 		return "InfoMenuGenerator{" +
-				"name='" + name + "§r" + '\'' +
+				"name='" + name + '\'' +
 				", material=" + material +
 				", condition=" + condition +
-				", subConditions=" + Arrays.toString(subConditions) +
+				", subConditions=" + subConditions +
 				", action=" + action +
-				", subActions=" + Arrays.toString(subActions) +
+				", subActions=" + subActions +
+				", inventory=" + inventory +
+				", inNaming=" + inNaming +
 				'}';
 	}
 
@@ -257,11 +243,11 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.LEVEL_UP.play(player);
 					break;
 				case CONDITION_SLOT:
-					new SettingMenuGenerator(generator, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
+					new SettingMenuGenerator(generator, SettingType.CONDITION, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
-					new SettingMenuGenerator(generator, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
+					new SettingMenuGenerator(generator, SettingType.ACTION, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:
@@ -286,7 +272,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
 	}
 
-	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, String[] activated) {
+	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String> activated) {
 		List<String> display = new LinkedList<>();
 		for (SubSettingsBuilder child : builder.getAllChilds()) {
 			display.addAll(child.getDisplay(activated));

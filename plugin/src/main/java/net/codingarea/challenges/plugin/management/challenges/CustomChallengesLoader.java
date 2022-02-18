@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.condition.ICh
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
+import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 
@@ -31,7 +32,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions, boolean generate) {
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition, Map<String, String> subConditions, ChallengeAction action, Map<String, String> subActions, boolean generate) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
@@ -66,9 +67,9 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 					String name = doc.getString("name");
 					Material material = doc.getEnum("material", Material.class);
 					ChallengeCondition condition = doc.getEnum("condition", ChallengeCondition.class);
-					String[] subConditions = doc.getStringArray("subConditions");
+					Map<String, String> subConditions = MapUtils.createMapFromDocument(doc.getDocument("subConditions"));
 					ChallengeAction action = doc.getEnum("action", ChallengeAction.class);
-					String[] subActions = doc.getStringArray("subActions");
+					Map<String, String> subActions = MapUtils.createMapFromDocument(doc.getDocument("subActions"));
 
 					CustomChallenge challenge = registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
 					challenge.setEnabled(doc.getBoolean("enabled"));
@@ -116,7 +117,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		return challenges;
 	}
 
-	public void executeCondition(@Nonnull IChallengeCondition condition, Entity entity, String... data) {
+	public void executeCondition(@Nonnull IChallengeCondition condition, Entity entity, Map<String, List<String>> data) {
 		getCustomChallengesByCondition(condition).forEach(customChallenge -> customChallenge.onConditionFulfilled(entity, data));
 	}
 

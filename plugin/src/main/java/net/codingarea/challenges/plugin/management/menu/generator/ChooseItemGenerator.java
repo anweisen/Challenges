@@ -59,9 +59,9 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 					return;
 				}
 
-				String key = array[index];
+				String itemKey = array[index];
 
-				onItemClick(info.getPlayer(), key);
+				onItemClick(info.getPlayer(), itemKey);
 				SoundSample.LEVEL_UP.play(info.getPlayer());
 
 			}
@@ -125,7 +125,7 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 	}
 
 	public abstract String[] getSubTitles(int page);
-	public abstract void onItemClick(Player player, String key);
+	public abstract void onItemClick(Player player, String itemKey);
 	public abstract void onBackToMenuItemClick(Player player);
 
 }

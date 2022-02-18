@@ -31,7 +31,7 @@ import java.util.function.Supplier;
 public enum ChallengeCondition implements IChallengeParam {
 
 	INTERVALL(Material.CLOCK, "intervall", new IntervallCondition(), () -> {
-		return SubSettingsBuilder.createChooseItem().fill(builder -> {
+		return SubSettingsBuilder.createChooseItem("time").fill(builder -> {
 			builder.addSetting("1", new ItemBuilder(Material.MUSIC_DISC_13, Message.forName("item-custom-condition-intervall-second"), "1").build());
 			String seconds = "item-custom-condition-intervall-seconds";
 			builder.addSetting("2", new ItemBuilder(Material.MUSIC_DISC_CAT, Message.forName(seconds), "2").build());
@@ -50,7 +50,7 @@ public enum ChallengeCondition implements IChallengeParam {
 	PLAYER_JUMP(Material.RABBIT_FOOT, "jump", new PlayerJumpCondition()),
 	PLAYER_SNEAK(Material.SANDSTONE_SLAB, "sneak", new PlayerSneakCondition()),
 	PLAYER_MOVE_BLOCK(Material.LEATHER_BOOTS, "move_block", new BlockMoveCondition()),
-	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), () -> SubSettingsBuilder.createChooseItem().fill(builder -> {
+	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), () -> SubSettingsBuilder.createChooseItem("block").fill(builder -> {
 		builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
 		for (Material material : Material.values()) {
 			if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
@@ -58,7 +58,7 @@ public enum ChallengeCondition implements IChallengeParam {
 			}
 		}
 	})),
-	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), () -> SubSettingsBuilder.createChooseItem().fill(builder -> {
+	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), () -> SubSettingsBuilder.createChooseItem("block").fill(builder -> {
 		builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
 		for (Material material : Material.values()) {
 			if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
@@ -91,7 +91,7 @@ public enum ChallengeCondition implements IChallengeParam {
 	}
 
 	ChallengeCondition(Material material, String messageSuffix, IChallengeCondition condition, Class<? extends IChallengeAction> actionClassTarget) {
-		this(material, messageSuffix, condition, actionClassTarget, SubSettingsBuilder.createChooseItem());
+		this(material, messageSuffix, condition, actionClassTarget, SubSettingsBuilder.createEmpty());
 	}
 
 	ChallengeCondition(Material material, String messageSuffix, IChallengeCondition condition, SubSettingsBuilder subSettingsBuilder) {
@@ -103,7 +103,7 @@ public enum ChallengeCondition implements IChallengeParam {
 	}
 
 	ChallengeCondition(Material material, String messageSuffix, IChallengeCondition condition) {
-		this(material, messageSuffix, condition, SubSettingsBuilder.createChooseItem());
+		this(material, messageSuffix, condition, SubSettingsBuilder.createEmpty());
 	}
 
 	public Class<? extends IChallengeAction> getActionClassTarget() {
@@ -132,7 +132,7 @@ public enum ChallengeCondition implements IChallengeParam {
 	}
 
 	public static SubSettingsBuilder createEntityTypeSettingsBuilder() {
-		return SubSettingsBuilder.createChooseItem().fill(builder -> {
+		return SubSettingsBuilder.createChooseItem("entity_type").fill(builder -> {
 			builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
 			builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-condition-entity_type-player")).build());
 			for (EntityType type : EntityType.values()) {

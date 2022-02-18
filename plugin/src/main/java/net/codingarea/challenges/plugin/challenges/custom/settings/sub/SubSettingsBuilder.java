@@ -3,7 +3,9 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.sub;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import org.bukkit.entity.Player;
@@ -26,7 +28,8 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
-	public abstract List<String> getDisplay(String[] activated);
+	public abstract List<String> getDisplay(Map<String, String> activated);
+	public abstract boolean hasSettings();
 
 	public SubSettingsBuilder getParent() {
 		return parent;
@@ -59,8 +62,8 @@ public abstract class SubSettingsBuilder {
 		return parent == null ? this : parent.build();
 	}
 
-	public ChooseItemSubSettingsBuilder createChooseItemChild() {
-		ChooseItemSubSettingsBuilder builder = new ChooseItemSubSettingsBuilder(this);
+	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {
+		ChooseItemSubSettingsBuilder builder = new ChooseItemSubSettingsBuilder(key, this);
 		this.child = builder;
 		return builder;
 	}
@@ -71,8 +74,12 @@ public abstract class SubSettingsBuilder {
 		return builder;
 	}
 
-	public static ChooseItemSubSettingsBuilder createChooseItem() {
-		return new ChooseItemSubSettingsBuilder();
+	public static ChooseItemSubSettingsBuilder createChooseItem(String key) {
+		return new ChooseItemSubSettingsBuilder(key);
+	}
+
+	public static EmptySubSettingsBuilder createEmpty() {
+		return new EmptySubSettingsBuilder();
 	}
 
 	public static ValueSubSettingsBuilder createValueItem() {

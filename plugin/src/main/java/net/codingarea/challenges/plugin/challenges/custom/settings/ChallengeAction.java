@@ -18,7 +18,7 @@ public enum ChallengeAction implements IChallengeParam {
 	KILL(Material.COMMAND_BLOCK, "kill", IChallengeAction.KILL, createEntityTargetSettingsBuilder(true).createValueChild().fill(builder -> {
 		builder.addBooleanSetting(new ItemBuilder(Material.TURTLE_EGG, "TEST"), true);
 	})),
-	DAMAGE(Material.FERMENTED_SPIDER_EYE, "damage", IChallengeAction.DAMAGE, createEntityTargetSettingsBuilder(true).createChooseItemChild().fill(builder -> {
+	DAMAGE(Material.FERMENTED_SPIDER_EYE, "damage", IChallengeAction.DAMAGE, createEntityTargetSettingsBuilder(true).createChooseItemChild("damage").fill(builder -> {
 		String prefix = Message.forName("item-prefix").asString();
 		for (int i = 1; i < 21; i++) {
 			builder.addSetting(i + "", new ItemBuilder(Material.RED_DYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
@@ -42,7 +42,7 @@ public enum ChallengeAction implements IChallengeParam {
 	}
 
 	ChallengeAction(Material material, String messageSuffix, IChallengeAction action) {
-		this(material, messageSuffix, action, SubSettingsBuilder.createChooseItem());
+		this(material, messageSuffix, action, SubSettingsBuilder.createChooseItem("none"));
 	}
 
 	public Material getMaterial() {
@@ -67,7 +67,7 @@ public enum ChallengeAction implements IChallengeParam {
 	}
 
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob) {
-		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem()
+		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem("target_entity")
 				.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
 						Message.forName("item-custom-action-target-current")).build());
 		if (everyMob) {
