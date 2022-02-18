@@ -140,17 +140,17 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		switch (type) {
 			case CONDITION:
-				condition = ChallengeCondition.valueOf(data.get("condition"));
+				condition = ChallengeCondition.valueOf(data.remove("condition"));
 				this.subConditions = data;
 				break;
 
 			case ACTION:
-				action = ChallengeAction.valueOf(data.get("action"));
+				action = ChallengeAction.valueOf(data.remove("action"));
 				this.subActions = data;
 				break;
 
 			case MATERIAL:
-				material = Material.valueOf(data.get("material"));
+				material = Material.valueOf(data.remove("material"));
 				updateItems();
 				break;
 		}

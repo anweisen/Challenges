@@ -10,6 +10,7 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingChooseMenuGenerator;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -62,6 +63,12 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
 
   public ChooseItemSubSettingsBuilder addSetting(String key, ItemStack value) {
     settings.put(key, value);
+    return this;
+  }
+
+
+  public ChooseItemSubSettingsBuilder addSetting(String key, ItemBuilder value) {
+    settings.put(key, value.hideAttributes().build());
     return this;
   }
 

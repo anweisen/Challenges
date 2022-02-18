@@ -68,12 +68,10 @@ public interface IChallengeAction {
 
 	static List<Entity> getTargets(Entity conditionTarget, Map<String, String> subActions) {
 
-		System.out.println(subActions.entrySet());
 		if (!subActions.containsKey("target_entity")) {
 			return Lists.newLinkedList();
 		}
 		String targetEntity = subActions.get("target_entity");
-		System.out.println(targetEntity);
 
 		switch (targetEntity) {
 			case "random_player":

@@ -15,6 +15,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.condition.imp
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.PlayerJumpCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.PlayerSneakCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -34,38 +35,24 @@ public enum ChallengeCondition implements IChallengeParam {
 		return SubSettingsBuilder.createChooseItem("time").fill(builder -> {
 			builder.addSetting("1", new ItemBuilder(Material.MUSIC_DISC_13, Message.forName("item-custom-condition-intervall-second"), "1").build());
 			String seconds = "item-custom-condition-intervall-seconds";
-			builder.addSetting("2", new ItemBuilder(Material.MUSIC_DISC_CAT, Message.forName(seconds), "2").build());
-			builder.addSetting("5", new ItemBuilder(Material.MUSIC_DISC_BLOCKS, Message.forName(seconds), "5").build());
-			builder.addSetting("10", new ItemBuilder(Material.MUSIC_DISC_CHIRP, Message.forName(seconds), "10").build());
-			builder.addSetting("20", new ItemBuilder(Material.MUSIC_DISC_FAR, Message.forName(seconds), "20").build());
-			builder.addSetting("30", new ItemBuilder(Material.MUSIC_DISC_MALL, Message.forName(seconds), "30").build());
-			builder.addSetting("60", new ItemBuilder(Material.MUSIC_DISC_MELLOHI, Message.forName(seconds), "60").build());
+			builder.addSetting("2", new ItemBuilder(Material.MUSIC_DISC_CAT, Message.forName(seconds), "2"));
+			builder.addSetting("5", new ItemBuilder(Material.MUSIC_DISC_BLOCKS, Message.forName(seconds), "5"));
+			builder.addSetting("10", new ItemBuilder(Material.MUSIC_DISC_CHIRP, Message.forName(seconds), "10"));
+			builder.addSetting("20", new ItemBuilder(Material.MUSIC_DISC_FAR, Message.forName(seconds), "20"));
+			builder.addSetting("30", new ItemBuilder(Material.MUSIC_DISC_MALL, Message.forName(seconds), "30"));
+			builder.addSetting("60", new ItemBuilder(Material.MUSIC_DISC_MELLOHI, Message.forName(seconds), "60"));
 			String minutes = "item-custom-condition-intervall-minutes";
-			builder.addSetting("120", new ItemBuilder(Material.MUSIC_DISC_STAL, Message.forName(minutes), "2").build());
-			builder.addSetting("180", new ItemBuilder(Material.MUSIC_DISC_STRAD, Message.forName(minutes), "3").build());
-			builder.addSetting("240", new ItemBuilder(Material.MUSIC_DISC_WARD, Message.forName(minutes), "4").build());
-			builder.addSetting("300", new ItemBuilder(Material.MUSIC_DISC_11, Message.forName(minutes), "5").build());
+			builder.addSetting("120", new ItemBuilder(Material.MUSIC_DISC_STAL, Message.forName(minutes), "2"));
+			builder.addSetting("180", new ItemBuilder(Material.MUSIC_DISC_STRAD, Message.forName(minutes), "3"));
+			builder.addSetting("240", new ItemBuilder(Material.MUSIC_DISC_WARD, Message.forName(minutes), "4"));
+			builder.addSetting("300", new ItemBuilder(Material.MUSIC_DISC_11, Message.forName(minutes), "5"));
 		});
 	}),
 	PLAYER_JUMP(Material.RABBIT_FOOT, "jump", new PlayerJumpCondition()),
 	PLAYER_SNEAK(Material.SANDSTONE_SLAB, "sneak", new PlayerSneakCondition()),
 	PLAYER_MOVE_BLOCK(Material.LEATHER_BOOTS, "move_block", new BlockMoveCondition()),
-	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), () -> SubSettingsBuilder.createChooseItem("block").fill(builder -> {
-		builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
-		for (Material material : Material.values()) {
-			if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
-				builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
-			}
-		}
-	})),
-	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), () -> SubSettingsBuilder.createChooseItem("block").fill(builder -> {
-		builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
-		for (Material material : Material.values()) {
-			if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
-				builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
-			}
-		}
-	})),
+	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), ChallengeCondition::createMaterialSettingsBuilder),
+	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), ChallengeCondition::createMaterialSettingsBuilder),
 	ENTITY_DEATH(Material.BONE, "death", new EntityDeathCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE(Material.FLINT_AND_STEEL, "damage", new EntityDamageCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE_BY_PLAYER(Material.WOODEN_SWORD, "damage_by_player", new EntityDamageByPlayerCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
@@ -131,7 +118,7 @@ public enum ChallengeCondition implements IChallengeParam {
 		return subSettingsBuilder;
 	}
 
-	public static SubSettingsBuilder createEntityTypeSettingsBuilder() {
+	public static ChooseItemSubSettingsBuilder createEntityTypeSettingsBuilder() {
 		return SubSettingsBuilder.createChooseItem("entity_type").fill(builder -> {
 			builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
 			builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-condition-entity_type-player")).build());
@@ -140,6 +127,17 @@ public enum ChallengeCondition implements IChallengeParam {
 					Material spawnEgg = Material.valueOf(type.name() + "_SPAWN_EGG");
 					builder.addSetting(type.name(), new ItemBuilder(spawnEgg, DefaultItem.getItemPrefix() + StringUtils.getEnumName(type)).build());
 				} catch (Exception ex) { }
+			}
+		});
+	}
+
+	public static ChooseItemSubSettingsBuilder createMaterialSettingsBuilder() {
+		return SubSettingsBuilder.createChooseItem("block").fill(builder -> {
+			builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
+			for (Material material : Material.values()) {
+				if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
+				}
 			}
 		});
 	}

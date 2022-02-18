@@ -24,7 +24,7 @@ public interface IChallengeParam {
 		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
 		for (IChallengeParam value : getValues()) {
-			map.put(value.name(), new ItemBuilder(value.getMaterial(), Message.forName(value.getMessage())).build());
+			map.put(value.name(), new ItemBuilder(value.getMaterial(), Message.forName(value.getMessage())).hideAttributes().build());
 		}
 
 		return map;
