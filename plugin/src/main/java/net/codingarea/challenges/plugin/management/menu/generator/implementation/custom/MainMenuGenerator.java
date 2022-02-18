@@ -1,10 +1,14 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -13,11 +17,9 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
-import javax.annotation.Nonnull;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  *
  */
 public class MainMenuGenerator extends ChallengeMenuGenerator {
@@ -59,8 +61,17 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	@Override
 	public void onPreChallengePageClicking(@Nonnull MenuClickInfo clickInfo, int page) {
 		if (clickInfo.getSlot() == VIEW_SLOT) {
+			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() == 0) {
+				Message.forName("custom-not-loaded").send(clickInfo.getPlayer(), Prefix.CUSTOM);
+				return;
+			}
 			open(clickInfo.getPlayer(), 1);
 		} else if (clickInfo.getSlot() == CREATE_SLOT) {
+			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() > 100) {
+				Message.forName("custom-limit").send(clickInfo.getPlayer(), Prefix.CUSTOM);
+				SoundSample.BASS_OFF.play(clickInfo.getPlayer());
+				return;
+			}
 			new InfoMenuGenerator().open(clickInfo.getPlayer(), 0);
 			SoundSample.PLING.play(clickInfo.getPlayer());
 		}
@@ -68,7 +79,39 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 
 	@Override
 	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
-		inventory.setItem(getSlots()[topSlot], getDisplayItem(challenge));
+
+		ItemBuilder displayItem = getDisplayItemBuilder(challenge);
+		if (challenge instanceof CustomChallenge) {
+			CustomChallenge customChallenge = (CustomChallenge) challenge;
+
+			// ADDING CONDITION INFO
+			if (customChallenge.getCondition() != null) {
+				displayItem.appendLore(" ");
+				List<String> conditionDisplay = InfoMenuGenerator
+						.getSubSettingsDisplay(customChallenge.getCondition().getSubSettingsBuilder(),
+								customChallenge.getSubConditions());
+
+				String conditionName = Message.forName(customChallenge.getCondition().getMessage()).asItemDescription()
+						.getName();
+				displayItem.appendLore(Message.forName("custom-info-condition").asString() + " " + conditionName);
+				displayItem.appendLore(conditionDisplay);
+			}
+
+			// ADDING ACTION INFO
+			if (customChallenge.getAction() != null) {
+				displayItem.appendLore(" ");
+				List<String> actionDisplay = InfoMenuGenerator
+						.getSubSettingsDisplay(customChallenge.getAction().getSubSettingsBuilder(),
+								customChallenge.getSubActions());
+
+				String actionName = Message.forName(customChallenge.getAction().getMessage()).asItemDescription()
+						.getName();
+				displayItem.appendLore(Message.forName("custom-info-action").asString() + " " + actionName);
+				displayItem.appendLore(actionDisplay);
+			}
+		}
+
+		inventory.setItem(getSlots()[topSlot], displayItem.setName(Message.forName("item-prefix").asString() + displayItem.getName()).build());
 		inventory.setItem(getSlots()[topSlot] + 9, DefaultItem.customize().build());
 		inventory.setItem(getSlots()[topSlot] + 18, getSettingsItem(challenge));
 	}

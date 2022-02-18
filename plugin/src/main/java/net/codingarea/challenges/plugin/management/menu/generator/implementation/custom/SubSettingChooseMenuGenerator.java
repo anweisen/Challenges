@@ -8,14 +8,14 @@ import java.util.LinkedHashMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
-public class SubSettingMenuGenerator extends ChooseItemGenerator {
+public class SubSettingChooseMenuGenerator extends ChooseItemGenerator {
 
 	private final IParentCustomGenerator parent;
 	private final String title;
 
-	public SubSettingMenuGenerator(IParentCustomGenerator parent, LinkedHashMap<String, ItemStack> map, String title) {
+	public SubSettingChooseMenuGenerator(IParentCustomGenerator parent, LinkedHashMap<String, ItemStack> map, String title) {
 		super(map);
 		this.title = title;
 		this.parent = parent;
@@ -34,10 +34,6 @@ public class SubSettingMenuGenerator extends ChooseItemGenerator {
 	@Override
 	public void onBackToMenuItemClick(Player player) {
 		parent.decline(player);
-	}
-
-	public IParentCustomGenerator getParent() {
-		return parent;
 	}
 
 }

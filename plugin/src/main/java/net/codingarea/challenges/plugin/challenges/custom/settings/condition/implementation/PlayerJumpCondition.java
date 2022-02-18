@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.challenges.custom.api.condition.implementation;
+package net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation;
 
-import net.codingarea.challenges.plugin.challenges.custom.api.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

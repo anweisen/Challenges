@@ -78,12 +78,16 @@ public final class InventoryUtils {
 	}
 
 	public static <I> void setNavigationItems(@Nonnull I inventory, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter, int index, int size) {
+		setNavigationItems(inventory, navigationSlots, goBackExit, setter, index, size, DefaultItem.navigateBack(), DefaultItem.navigateNext());
+	}
+
+	public static <I> void setNavigationItems(@Nonnull I inventory, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter, int index, int size, ItemBuilder navigateBack, ItemBuilder navigateNext) {
 		if (navigationSlots.length >= 1) {
-			ItemBuilder left = index == 0 && goBackExit ? DefaultItem.navigateBackMainMenu() : DefaultItem.navigateBack();
+			ItemBuilder left = index == 0 && goBackExit ? DefaultItem.navigateBackMainMenu() : navigateBack;
 			setter.set(inventory, navigationSlots[0], left);
 		}
 		if (navigationSlots.length >= 2 && index < (size - 1))
-			setter.set(inventory, navigationSlots[1], DefaultItem.navigateNext());
+			setter.set(inventory, navigationSlots[1], navigateNext);
 	}
 
 	public static boolean isEmpty(@Nonnull Inventory inventory) {
@@ -177,22 +181,19 @@ public final class InventoryUtils {
 	 * @return if the door item was clicked
 	 */
 	public static boolean handleNavigationClicking(MenuGenerator generator, int[] navigationSlots, int page, MenuClickInfo info) {
+		int pagesSwitching = info.isShiftClick() ? 5 : 1;
 		if (navigationSlots.length >= 1 && info.getSlot() == navigationSlots[0]) {
 			SoundSample.CLICK.play(info.getPlayer());
-			if (page <= 0 || info.isShiftClick()) {
-				if (page == 0) {
-					return true;
-				} else {
-					generator.open(info.getPlayer(), 0);
-				}
+			if (page <= 0) {
+				return page == 0;
 			} else {
-				generator.open(info.getPlayer(), page - 1);
+				generator.open(info.getPlayer(), Math.max(page - pagesSwitching, 0));
 			}
 			return false;
 		} else if (navigationSlots.length >= 2 && info.getSlot() == navigationSlots[1]) {
 			SoundSample.CLICK.play(info.getPlayer());
 			if (page < (generator.getInventories().size()))
-				generator.open(info.getPlayer(), page + 1);
+				generator.open(info.getPlayer(), Math.min(page + pagesSwitching, generator.getInventories().size()));
 			return false;
 		}
 		return false;

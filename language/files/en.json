@@ -940,9 +940,9 @@
     "*frozen* for a certain time"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Nicht aufhören zu laufen",
-    "Du darfst nur eine bestimmte *Zeit*",
-    "*stehen* bevor du *stirbst*"
+    "§9Dont stop running",
+    "You are only allowed to stand*",
+    "a certain *time* before you *die*"
   ],
   "item-consume-launch-challenge": [
     "§cConsume Boost",

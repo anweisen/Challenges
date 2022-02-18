@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -12,13 +17,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import java.util.LinkedHashMap;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
@@ -117,7 +118,10 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	protected String getTitle(int page) {
-		return InventoryTitleManager.getTitle(MenuType.CUSTOM, getSubTitles(page));
+		LinkedList<String> list = new LinkedList<>(Arrays.asList(getSubTitles(page)));
+		list.add(String.valueOf(page+1));
+
+		return InventoryTitleManager.getTitle(MenuType.CUSTOM, list.toArray(new String[0]));
 	}
 
 	public abstract String[] getSubTitles(int page);

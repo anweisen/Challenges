@@ -1,12 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.custom;
 
+import java.util.List;
 import net.anweisen.utilities.common.config.Document;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeCondition;
+import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 
@@ -17,7 +20,7 @@ import java.util.UUID;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public class CustomChallenge extends Setting {
 
@@ -45,11 +48,8 @@ public class CustomChallenge extends Setting {
 	public ItemBuilder createDisplayItem() {
 		String name = this.name;
 		if (name == null) {
-			if (action != null) {
-				name = Message.forName(action.getMessage()).asString();
-			} else {
-				name = "N/A";
-			}
+			name = "NULL";
+
 		}
 		Material material = this.material;
 		if (material == null) {
@@ -60,7 +60,12 @@ public class CustomChallenge extends Setting {
 			}
 		}
 
-		return new ItemBuilder(material, "§f" + name);
+		return new ItemBuilder(material, "§7" + name);
+	}
+
+	@Override
+	public void playStatusUpdateTitle() {
+		Challenges.getInstance().getTitleManager().sendChallengeStatusTitle(enabled ? Message.forName("title-challenge-enabled") : Message.forName("title-challenge-disabled"), getDisplayName());
 	}
 
 	@Override
@@ -75,23 +80,36 @@ public class CustomChallenge extends Setting {
 		document.set("subActions", subActions);
 	}
 
-	@Override
-	public void restoreDefaults() {
-		super.restoreDefaults();
-	}
-
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
 		return super.getSettingsDescription();
 	}
 
-	public final void onConditionFulfilled(@Nonnull Entity entity, String... data) {
+	public final void onConditionFulfilled(Entity entity, String... data) {
 		if (isEnabled()) {
-			if (Arrays.equals(this.subConditions, data)) {
-				action.getAction().execute(entity, subActions);
+
+			if (subConditions.length == 0) {
+				List<String> dataList = Arrays.asList(data);
+				for (String subCondition : subConditions) {
+					if (!dataList.contains(subCondition)) {
+						return;
+					}
+				}
 			}
+
+			executeAction(entity);
 		}
+	}
+
+	public void executeAction(Entity entity) {
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
+				action.getAction().execute(entity, subActions);
+			});
+			return;
+		}
+		action.getAction().execute(entity, subActions);
 	}
 
 	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull ChallengeCondition condition, String[] subConditions, ChallengeAction action, String[] subActions) {
@@ -126,7 +144,7 @@ public class CustomChallenge extends Setting {
 
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getUniqueName() {
 		return "custom-" + uuid.toString();
 	}
 

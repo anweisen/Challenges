@@ -1,16 +1,15 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import java.util.LinkedHashMap;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.LinkedHashMap;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public class MaterialMenuGenerator extends ChooseItemGenerator {
 

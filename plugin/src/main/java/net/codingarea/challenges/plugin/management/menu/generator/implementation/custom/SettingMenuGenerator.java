@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import net.codingarea.challenges.plugin.challenges.custom.SubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.api.IChallengeEnum;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.IChallengeParam;
 import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -21,12 +21,12 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	private final IParentCustomGenerator parent;
 	private final String key;
 	private final String title;
-	private final Function<String, IChallengeEnum> enumGetter;
-	private IChallengeEnum setting;
+	private final Function<String, IChallengeParam> enumGetter;
+	private IChallengeParam setting;
 	private SubSettingsBuilder subSettingsBuilder;
 	private ArrayList<String> subSettings;
 
-	public SettingMenuGenerator(IParentCustomGenerator parent, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeEnum> enumGetter) {
+	public SettingMenuGenerator(IParentCustomGenerator parent, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeParam> enumGetter) {
 		super(items);
 		this.parent = parent;
 		this.key = key;
@@ -78,9 +78,8 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 
 	private boolean openSubSettingsMenu(Player player) {
 
-		if (subSettingsBuilder != null && subSettingsBuilder.hasSettings()) {
-			SubSettingMenuGenerator generator = new SubSettingMenuGenerator(this, subSettingsBuilder.getSettings(), title);
-			generator.open(player, 0);
+		if (subSettingsBuilder != null) {
+			subSettingsBuilder.open(player, this, title);
 			subSettingsBuilder = subSettingsBuilder.getChild();
 
 			return true;

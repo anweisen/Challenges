@@ -123,8 +123,8 @@ public class ModuleChallengeLoader {
 	public final void unregister(@Nonnull IChallenge challenge) {
 		Challenges.getInstance().getChallengeManager().unregister(challenge);
 		Challenges.getInstance().getScheduler().unregister(challenge);
-		Challenges.getInstance().getConfigManager().getSettingsConfig().remove(challenge.getName());
-		Challenges.getInstance().getConfigManager().getGameStateConfig().remove(challenge.getName());
+		Challenges.getInstance().getConfigManager().getSettingsConfig().remove(challenge.getUniqueName());
+		Challenges.getInstance().getConfigManager().getGameStateConfig().remove(challenge.getUniqueName());
 
 		if (challenge instanceof Listener) {
 			HandlerList.unregisterAll((Listener) challenge);

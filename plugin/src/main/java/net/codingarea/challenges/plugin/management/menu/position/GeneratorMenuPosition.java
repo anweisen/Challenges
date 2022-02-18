@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public abstract class GeneratorMenuPosition implements MenuPosition {
 

@@ -40,7 +40,29 @@ import java.util.stream.Collectors;
  */
 public final class ChallengeHelper {
 
+	private static boolean inInstantKill = false;
+
 	private ChallengeHelper() {}
+
+	public static void kill(@Nonnull Player player) {
+
+		if (!Bukkit.isPrimaryThread()) {
+			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> kill(player));
+			return;
+		}
+
+		inInstantKill = true;
+		player.damage(player.getHealth());
+		inInstantKill = false;
+	}
+
+	public static void kill(@Nonnull Player player, int delay) {
+		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> kill(player), delay);
+	}
+
+	public static boolean isInInstantKill() {
+		return inInstantKill;
+	}
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
 		challenge.getType().executeWithGenerator(SettingsMenuGenerator.class, gen -> gen.updateItem(challenge));

@@ -1,13 +1,22 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
 import com.google.common.collect.Lists;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.UUID;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
@@ -18,19 +27,20 @@ import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-import javax.annotation.Nonnull;
-import java.util.*;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGenerator {
 
-	public static final int DELETE_SLOT = 19, SAVE_SLOT = 25, CONDITION_SLOT = 21, ACTION_SLOT = 23, MATERIAL_SLOT = 14, NAME_SLOT = 12;
+	public static final int DELETE_SLOT = 19+9, SAVE_SLOT = 25+9, CONDITION_SLOT = 21+9, ACTION_SLOT = 23+9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
+
+	private static final boolean 	savePlayerConfigs;
+
 	private final UUID uuid;
 	private String name;
 	private Material material;
@@ -55,32 +65,57 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.condition = null;
 		this.action = null;
 		this.subConditions = new String[0];
+		this.subActions = new String[0];
 		this.uuid = UUID.randomUUID();
+		this.name = "§7Custom §e#" +
+				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size()+1);
 		this.inNaming = false;
 	}
 
 	@Override
 	public void generateInventories() {
-		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 5*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Create"));
+		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Create"));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 
 		updateItems();
 
-		InventoryUtils.setNavigationItems(inventory, new int[]{36}, true, InventorySetter.INVENTORY, 0, 1);
+		InventoryUtils.setNavigationItems(inventory, new int[]{36+9}, true, InventorySetter.INVENTORY, 0, 1);
 	}
 
 	public void updateItems() {
-		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("custom-info-delete")).build());
-		inventory.setItem(SAVE_SLOT, new ItemBuilder(Material.LIME_DYE, Message.forName("custom-info-save")).build());
+		String currently = Message.forName("custom-info-currently").asString();
+		String none = Message.forName("custom-info-none").asString();
 
-		inventory.setItem(CONDITION_SLOT, new ItemBuilder(Material.WITHER_SKELETON_SKULL, Message.forName("custom-info-condition"))
-				.appendLore("§7Currently §8» §e" + (condition != null ? Message.forName(condition.getMessage()) : "None")).build());
-		inventory.setItem(ACTION_SLOT, new ItemBuilder(Material.NETHER_STAR, Message.forName("custom-info-action"))
-				.appendLore("§7Currently §8» §e" + (action != null ? Message.forName(action.getMessage()) : "None")).build());
+		// Save / Delete Item
+		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("item-custom-info-delete")).build());
+		inventory.setItem(SAVE_SLOT, new ItemBuilder(Material.LIME_DYE, Message.forName("item-custom-info-save")).build());
 
-		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(material == null ? Material.BRICKS : material, Message.forName("custom-info-material")).build());
-		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("custom-info-name"))
-				.appendLore("§7Currently §8» §e" + name).build());
+		// Condition Item
+		ItemBuilder conditionItem = new ItemBuilder(Material.WITHER_SKELETON_SKULL,
+				Message.forName("item-custom-info-condition"))
+				.appendLore(
+						currently + (condition != null ? Message.forName(condition.getMessage()) : none));
+		if (condition != null) {
+			conditionItem.appendLore(getSubSettingsDisplay(condition.getSubSettingsBuilder(), subConditions));
+		}
+		inventory.setItem(CONDITION_SLOT, conditionItem.build());
+
+		// Action Item
+		ItemBuilder actionItem = new ItemBuilder(Material.NETHER_STAR,
+				Message.forName("item-custom-info-action"))
+				.appendLore(currently + (action != null ? Message.forName(action.getMessage()) : none));
+		if (action != null) {
+			actionItem.appendLore(getSubSettingsDisplay(action.getSubSettingsBuilder(), subActions));
+		}
+		inventory.setItem(ACTION_SLOT, actionItem.build());
+
+		// Display Item
+		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(material == null ? Material.BARRIER : material, Message.forName("item-custom-info-material"))
+				.appendLore(currently + (material != null ? StringUtils.getEnumName(material) : none)).build());
+
+		// Name Item
+		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("item-custom-info-name"))
+				.appendLore(currently + name).build());
 	}
 
 	@Override
@@ -157,11 +192,14 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		return inNaming;
 	}
 
+	public void setInNaming(boolean inNaming) {
+		this.inNaming = inNaming;
+	}
+
 	@Override
 	public String toString() {
 		return "InfoMenuGenerator{" +
-				"uuid=" + uuid +
-				", name='" + name + "§r" + '\'' +
+				"name='" + name + "§r" + '\'' +
 				", material=" + material +
 				", condition=" + condition +
 				", subConditions=" + Arrays.toString(subConditions) +
@@ -182,7 +220,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
-			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36}, page, info)) {
+			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36+9}, page, info)) {
 				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0);
 				return;
 			}
@@ -200,15 +238,26 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 						break;
 					}
 					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
-					SoundSample.BREAK.play(player);
+					new SoundSample().addSound(Sound.ENTITY_WITHER_BREAK_BLOCK, 0.4f).play(player);
 					break;
 				case SAVE_SLOT:
+
+					if (new InfoMenuGenerator().toString().equals(InfoMenuGenerator.this.toString())) {
+						Message.forName("custom-no-changes").send(player, Prefix.CUSTOM);
+						SoundSample.BASS_OFF.play(player);
+						return;
+					}
+
 					save();
 					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+					Message.forName("custom-saved").send(player, Prefix.CUSTOM);
+					if (savePlayerConfigs) {
+						Message.forName("custom-saved-db").send(player, Prefix.CUSTOM);
+					}
 					SoundSample.LEVEL_UP.play(player);
 					break;
 				case CONDITION_SLOT:
-					new SettingMenuGenerator(generator, "condition", "Condition", ChallengeCondition.ENTITY_DEATH.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
+					new SettingMenuGenerator(generator, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
@@ -216,6 +265,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:
+					Message.forName("custom-name-info").send(player, Prefix.CUSTOM);
 					inNaming = true;
 					player.closeInventory();
 					break;
@@ -230,6 +280,18 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		public InfoMenuGenerator getGenerator() {
 			return generator;
 		}
+	}
+
+	static {
+		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
+	}
+
+	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, String[] activated) {
+		List<String> display = new LinkedList<>();
+		for (SubSettingsBuilder child : builder.getAllChilds()) {
+			display.addAll(child.getDisplay(activated));
+		}
+		return display;
 	}
 
 }

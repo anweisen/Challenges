@@ -68,6 +68,7 @@
   "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
   "player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
 
+  "item-prefix": "§8» ",
   "item-setting-info": "§8➟ {0}",
 
   "stat-dragon-killed": "Drachen getötet",
@@ -140,7 +141,7 @@
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
   "backpack-opened": "Du hast den {0} §7geöffnet",
   "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
-  "top-to-surface": "Du wurdest zur §eOverfläche §7teleportiert",
+  "top-to-surface": "Du wurdest zur §eOberfläche §7teleportiert",
   "jnr-countdown": "Nächstes §6JumpAndRun §7in §e{0} Sekunden",
   "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
@@ -209,7 +210,7 @@
   ],
 
   "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
-  "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
+  "bossbar-mob-transformation": "§8» §7Letzter Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-height-time-left": "§8» §7Zeit übrig auf §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
@@ -569,7 +570,7 @@
   "item-no-trading-challenge": [
     "§2Kein Handeln",
     "Du kannst *nicht* mit",
-    "Villagern *handeln*"
+    "Villager *handeln*"
   ],
   "item-block-break-damage-challenge": [
     "§6Block Break Damage",
@@ -665,7 +666,7 @@
   "item-mob-transformation-challenge": [
     "§cMob Verwandlung",
     "Wenn du einen Mob schlägst *verwandelt* sich",
-    "dieser in den *letzen Mob* den du *geschlagen* hast"
+    "dieser in den *letzten Mob* den du *geschlagen* hast"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
@@ -701,7 +702,7 @@
     "§cAlle Blöcke Verschwinden",
     "Bei verschiedenen *Interaktionen*",
     "verschwinden alle *Blöcke* im *Chunk*",
-    "eines *betimmten types*"
+    "eines *bestimmten types*"
   ],
   "item-all-blocks-disappear-break-challenge": [
     "§bBeim Abbauen",
@@ -947,9 +948,9 @@
     "du dich für eine bestimmte Zeit *nicht bewegen*"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Dont stop running",
-    "You are only allowed to +stand*",
-    "a certain *time* before you *die*"
+    "§9Nicht aufhören zu laufen",
+    "Du darfst nur eine bestimmte *Zeit*",
+    "*stehen* bevor du *stirbst*"
   ],
   "item-consume-launch-challenge": [
     "§cEssens Boost",
@@ -1031,40 +1032,40 @@
 
 
   "item-damage-rule-fire": [
-    "§6Feuer Damage",
+    "§6Feuer Schaden",
     "Stellt ein ob du Schaden durch",
     "*Lava* und *Feuer* bekommen kannst"
   ],
   "item-damage-rule-attack": [
-    "§3Attack Damage",
+    "§3Angriff Schaden",
     "Stellt ein ob du Schaden durch",
     "*Nahkampfangriffe von Entities* bekommen kannst"
   ],
   "item-damage-rule-projectile": [
-    "§6Projectile Damage",
+    "§6Projektil Schaden",
     "Stellt ein ob du Schaden durch",
     "*Projektile* bekommen kannst"
   ],
   "item-damage-rule-fall": [
-    "§fFall Damage",
+    "§fFallschaden",
     "Stellt ein ob du *Fallschaden* bekommen kannst"
   ],
   "item-damage-rule-explosion": [
-    "§cExplosion Damage",
+    "§cExplosions Schaden",
     "Stellt ein ob du *Explosions Schaden* bekommen kannst"
   ],
   "item-damage-rule-drowning": [
-    "§9Drowning Damage",
+    "§9Ertrink Schaden",
     "Stellt ein ob du Schaden durch",
     "*Ertrinken* bekommen kannst"
   ],
   "item-damage-rule-block": [
-    "§eBlock Damage",
+    "§eBlock Schaden",
     "Stellt ein ob du Schaden durch",
     "*Fallende Blöcke* bekommen kannst"
   ],
   "item-damage-rule-magic": [
-    "§5Magic Damage",
+    "§5Magie Schaden",
     "Stellt ein ob du Schaden durch",
     "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
   ],
@@ -1075,24 +1076,147 @@
     "genutzt werden *kann*"
   ],
 
-  "custom-not-deleted": "Diese Challenge existiert noch §cnicht§7!",
+  "custom-limit": "Du hast das Limit von §e100 Challenges §7erreicht",
+  "custom-not-deleted": "Diese Challenge existiert noch nicht!",
+  "custom-saved": "§7Challenge wurde Lokal §agespeichert",
+  "custom-saved-db": [
+    "Um in §eDatenbank §7zu Speichern benutze §e/config save",
+    "§cAchtung: §7Alte Einstellungen werden dabei überschrieben!"
+  ],
+  "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
+  "custom-name-info": "Schreibe den Namen der Challenge in den Chat",
+  "custom-name-max_length": "Du hast die Maximale Anzahl von §e50 Zeichen §7überschritten",
+  "custom-not-loaded": [
+    "",
+    "Es sind derzeit keine Custom Challenges geladen.",
+    "Du vermisst deine Challenges? §e/config load",
+    "Du hast Probleme beim automatischen Speichern?",
+    "Speichere vorm verlassen manuell §e/config save",
+    ""
+  ],
 
   "custom-main-view-challenges": "§6Challenges Ansehen",
   "custom-main-create-challenge": "§aChallenge Erstellen",
 
-  "custom-info-delete": "§cChallenge Löschen",
-  "custom-info-save": "§aChallenge Speichern",
+  "item-custom-info-delete": "§cLöschen",
+  "item-custom-info-save": "§aSpeichern",
 
-  "custom-info-condition": "§cChallenge Bedingung",
-  "custom-info-action": "§bChallenge Aktion",
+  "item-custom-info-condition": [
+    "§cBedingung",
+    "*Klicke* um einzustellen, was passieren",
+    "muss, damit die *Aktion* ausgeführt wird"
+  ],
+  "item-custom-info-action": [
+    "§bAktion",
+    "*Klicke* um einzustellen, was passieren",
+    "soll, wenn die *Bedingung* erfüllt ist"
+  ],
 
-  "custom-info-material": "§6Challenge Item",
-  "custom-info-name": "§6Challenge Name",
+  "item-custom-info-material": [
+    "§6Anzeige Item",
+    "*Klicke* um das Anzeigeitem zu ändern"
+  ],
+  "item-custom-info-name": [
+    "§6Name",
+    "*Klicke* um den Namen über den Chat zu ändern",
+    "Maximale Zeichenanzahl: 50"
+  ],
 
+  "custom-info-currently": "§7Eingestellt §8» §e",
+  "custom-info-condition": "§7Bedingung",
+  "custom-info-action": "§7Aktion",
+  "custom-info-none": "Nichts",
 
-  "custom-action-damage": [
+  "item-custom-condition-jump": [
+    "§aSpieler springt"
+  ],
+  "item-custom-condition-sneak": [
+    "§aSpieler schleicht"
+  ],
+  "item-custom-condition-move_block": [
+    "§6Spieler läuft einen block"
+  ],
+  "item-custom-condition-death": [
+    "§cEntity stirbt"
+  ],
+  "item-custom-condition-damage": [
+    "§cEntity bekommt Schaden"
+  ],
+  "item-custom-condition-damage_by_player": [
+    "§cEntity bekommt Schaden von Spieler"
+  ],
+  "item-custom-condition-entity_type-any": [
+    "§cJegliches Entity"
+  ],
+  "item-custom-condition-entity_type-player": [
+    "§aSpieler"
+  ],
+  "item-custom-condition-intervall": [
+    "§6Intervall",
+    "In einem *Zeitlichem* Intervall"
+  ],
+  "item-custom-condition-intervall-second": [
+    "§6Jede Sekunden"
+  ],
+  "item-custom-condition-intervall-seconds": [
+    "§6Alle {0} Sekunden"
+  ],
+  "item-custom-condition-intervall-minutes": [
+    "§6Alle {0} Minuten"
+  ],
+  "item-custom-condition-block_place": [
+    "§aBlock Platziert"
+  ],
+  "item-custom-condition-block_break": [
+    "§cBlock Zerstört"
+  ],
+  "item-custom-condition-block-any": [
+    "§2Jeglicher Block"
+  ],
+
+  "item-custom-action-kill": [
+    "§4Töte",
+    "Töte Entities"
+  ],
+  "item-custom-action-damage": [
     "§cSchaden",
     "Füge Entities Schaden zu"
+  ],
+  "item-custom-action-random_mob": [
+    "§6Zufälliges Entity",
+    "Spawne ein zufälliges Entity"
+  ],
+
+  "item-custom-action-target-current": [
+    "§6Aktives Entity",
+    "Die Aktion wird für das *aktive Entity* ausgeführt"
+  ],
+  "item-custom-action-target-every_mob": [
+    "§4Alle Mobs",
+    "Die Aktion wird für *alle Mobs* ausgeführt"
+  ],
+  "item-custom-action-target-every_mob_except_current": [
+    "§4Alle Mobs außer Aktives",
+    "Die Aktion wird für *alle Mobs*",
+    "*außer* das Aktive ausgeführt ausgeführt"
+  ],
+  "item-custom-action-target-every_mob_except_players": [
+    "§4Alle Mobs außer Spieler",
+    "Die Aktion wird für *alle Mobs*",
+    "*außer* Spieler ausgeführt"
+  ],
+  "item-custom-action-target-random_player": [
+    "§5Zufälliger Spieler",
+    "Die Aktion wird für einen *zufälligen Spieler* ausgeführt"
+  ],
+  "item-custom-action-target-every_player": [
+    "§cJeder Spieler",
+    "Die Aktion wird für *jeden Spieler* ausgeführt"
+  ],
+  "item-custom-action-target-current_player": [
+    "§aAktiver Spieler",
+    "Die Aktion wird für den *aktiven Spieler* ausgeführt",
+    "§o§7Wenn das Entity kein Spieler ist, wird nichts passieren"
   ]
 
 }

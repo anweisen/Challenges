@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.challenges.custom.api;
+package net.codingarea.challenges.plugin.challenges.custom.settings;
 
-import net.codingarea.challenges.plugin.challenges.custom.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -10,20 +10,20 @@ import java.util.LinkedHashMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
-public interface IChallengeEnum {
+public interface IChallengeParam {
 
 	SubSettingsBuilder getSubSettingsBuilder();
 	String name();
 	Material getMaterial();
 	String getMessage();
-	IChallengeEnum[] getValues();
+	IChallengeParam[] getValues();
 
 	default LinkedHashMap<String, ItemStack> getMenuItems() {
 		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
-		for (IChallengeEnum value : getValues()) {
+		for (IChallengeParam value : getValues()) {
 			map.put(value.name(), new ItemBuilder(value.getMaterial(), Message.forName(value.getMessage())).build());
 		}
 

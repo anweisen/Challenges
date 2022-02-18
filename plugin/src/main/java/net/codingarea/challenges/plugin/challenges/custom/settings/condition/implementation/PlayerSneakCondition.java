@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.challenges.custom.api.condition.implementation;
+package net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation;
 
-import net.codingarea.challenges.plugin.challenges.custom.api.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerToggleSneakEvent;

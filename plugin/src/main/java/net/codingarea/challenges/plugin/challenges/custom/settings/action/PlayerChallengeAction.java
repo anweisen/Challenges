@@ -1,11 +1,11 @@
-package net.codingarea.challenges.plugin.challenges.custom.api.action;
+package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public interface PlayerChallengeAction extends IChallengeAction {
 

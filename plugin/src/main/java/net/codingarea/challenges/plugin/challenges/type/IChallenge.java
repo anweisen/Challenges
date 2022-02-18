@@ -51,7 +51,7 @@ public interface IChallenge {
 	 * @return the internal name of this challenge
 	 */
 	@Nonnull
-	String getName();
+	String getUniqueName();
 
 	/**
 	 * This challenge will be displayed in the menu for the given {@link MenuType}.

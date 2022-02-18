@@ -23,7 +23,7 @@ import java.util.function.Consumer;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
@@ -112,16 +112,20 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 	}
 
 	protected ItemStack getDisplayItem(@Nonnull IChallenge challenge) {
+		return getDisplayItemBuilder(challenge).build();
+	}
+
+	protected ItemBuilder getDisplayItemBuilder(@Nonnull IChallenge challenge) {
 		try {
 			ItemBuilder item = new ItemBuilder(challenge.getDisplayItem()).hideAttributes();
 			if (newSuffix && isNew(challenge)) {
-				return item.appendName(" " + Message.forName("new-challenge")).build();
+				return item.appendName(" " + Message.forName("new-challenge"));
 			} else {
-				return item.build();
+				return item;
 			}
 		} catch (Exception ex) {
 			Logger.error("Error while generating challenge display item for challenge {}", challenge.getClass().getSimpleName(), ex);
-			return new ItemBuilder().build();
+			return new ItemBuilder();
 		}
 	}
 

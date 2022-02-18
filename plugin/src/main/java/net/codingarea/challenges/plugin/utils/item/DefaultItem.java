@@ -14,6 +14,11 @@ import javax.annotation.Nonnull;
 public final class DefaultItem {
 
 	@Nonnull
+	public static String getItemPrefix() {
+		return Message.forName("item-prefix").asString() + "§e";
+	}
+
+	@Nonnull
 	public static ItemBuilder navigateBack() {
 		return new SkullBuilder("MHF_ArrowLeft").setName(Message.forName("navigate-back")).hideAttributes();
 	}

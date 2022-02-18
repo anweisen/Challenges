@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import java.util.LinkedList;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.api.ChallengeCondition;
-import net.codingarea.challenges.plugin.challenges.custom.api.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
@@ -17,7 +18,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -36,7 +36,6 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
 			register(challenge);
-			challenge.setEnabled(true);
 		} else {
 			challenge.applySettings(material, name, condition, subConditions, action, subActions);
 		}
@@ -47,13 +46,16 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	public boolean unregisterCustomChallenge(@Nonnull UUID uuid) {
 		CustomChallenge challenge = customChallenges.remove(uuid);
 		if (challenge == null) return false;
+		Challenges.getInstance().getChallengeManager().unregister(challenge);
 		unregister(challenge);
 		generateCustomChallenge(challenge, true, true);
 		return true;
 	}
 
-	public void loadSettings(@Nonnull Document document) {
+	public void loadCustomChallengesFrom(@Nonnull Document document) {
 		customChallenges.clear();
+		Challenges.getInstance().getChallengeManager().unregisterIf(iChallenge -> iChallenge.getType() == MenuType.CUSTOM);
+		((ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator()).resetChallengeCache();
 
 		for (String key : document.keys()) {
 			if (key.startsWith("custom-")) {
@@ -68,10 +70,12 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 					ChallengeAction action = doc.getEnum("action", ChallengeAction.class);
 					String[] subActions = doc.getStringArray("subActions");
 
-					registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
+					CustomChallenge challenge = registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
+					challenge.setEnabled(doc.getBoolean("enabled"));
 
 				} catch (Exception exception) {
 					Challenges.getInstance().getLogger().error("Something went wrong while initializing custom challenge {} :: {}", key, exception.getMessage());
+					exception.printStackTrace();
 				}
 
 			}
@@ -101,11 +105,23 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	}
 
 	public List<CustomChallenge> getCustomChallengesByCondition(@Nonnull IChallengeCondition condition) {
-		return customChallenges.values().stream().filter(customChallenge -> customChallenge.getCondition() != null && customChallenge.getCondition().getConditionInterface() == condition).collect(Collectors.toList());
+		List<CustomChallenge> challenges = new LinkedList<>();
+
+		for (CustomChallenge challenge : customChallenges.values()) {
+			if (challenge.getCondition() != null && challenge.getCondition().getConditionInterface() == condition) {
+				challenges.add(challenge);
+			}
+		}
+
+		return challenges;
 	}
 
-	public void executeCondition(@Nonnull IChallengeCondition condition, @Nonnull Entity entity, String... data) {
+	public void executeCondition(@Nonnull IChallengeCondition condition, Entity entity, String... data) {
 		getCustomChallengesByCondition(condition).forEach(customChallenge -> customChallenge.onConditionFulfilled(entity, data));
+	}
+
+	public Map<UUID, CustomChallenge> getCustomChallenges() {
+		return customChallenges;
 	}
 
 }

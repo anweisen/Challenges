@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.menu.generator;
 
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
@@ -15,7 +16,7 @@ import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1
+ * @since 2.1.0
  */
 public abstract class MultiPageMenuGenerator extends MenuGenerator {
 
@@ -64,7 +65,11 @@ public abstract class MultiPageMenuGenerator extends MenuGenerator {
 	}
 
 	public void addNavigationItems(@Nonnull Inventory inventory, int page) {
-		InventoryUtils.setNavigationItems(inventory, getNavigationSlots(page), true, InventorySetter.INVENTORY, page, inventories.size());
+		InventoryUtils.setNavigationItems(inventory,
+				getNavigationSlots(page), true,
+				InventorySetter.INVENTORY, page, inventories.size(),
+				DefaultItem.navigateBack().clone().setLore("", "§7Shift §8» §7-5"),
+				DefaultItem.navigateNext().clone().setLore("", "§7Shift §8» §7+5"));
 	}
 
 }
