@@ -14,6 +14,7 @@ import org.bukkit.entity.Player;
 public class EmptySubSettingsBuilder extends SubSettingsBuilder {
 
   public EmptySubSettingsBuilder() {
+    super("none");
   }
 
   @Override
@@ -22,7 +23,7 @@ public class EmptySubSettingsBuilder extends SubSettingsBuilder {
   }
 
   @Override
-  public List<String> getDisplay(Map<String, String> activated) {
+  public List<String> getDisplay(Map<String, String[]> activated) {
     return Lists.newLinkedList();
   }
 

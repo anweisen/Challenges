@@ -1,13 +1,16 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
+import java.util.Random;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.IChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
-
-import java.util.Random;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.PotionMeta;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -21,11 +24,12 @@ public enum ChallengeAction implements IChallengeParam {
 		for (int i = 1; i < 21; i++) {
 			builder.addSetting(i + "", new ItemBuilder(Material.RED_DYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
 		}
-	}).createChooseItemChild("keyy").addSetting("hallo", new ItemBuilder(Material.DIRT))),
+	})),
 	SPAWN_RANDOM_MOB(Material.BLAZE_SPAWN_EGG, "random_mob", IChallengeAction.SPAWN_RANDOM_MOB, createEntityTargetSettingsBuilder(false)),
 	RANDOM_ITEM(Material.BEACON, "random_item", IChallengeAction.RANDOM_ITEM, createEntityTargetSettingsBuilder(false)),
 	UNCRAFT_INVENTORY(Material.CRAFTING_TABLE, "uncraft_inventory", IChallengeAction.UNCRAFT_INVENTORY, createEntityTargetSettingsBuilder(false)),
-	BOOST_IN_AIR(Material.CRAFTING_TABLE, "boost_in_air", IChallengeAction.UNCRAFT_INVENTORY, createEntityTargetSettingsBuilder(false)),
+	BOOST_IN_AIR(Material.FEATHER, "boost_in_air", IChallengeAction.BOOST_IN_AIR, createEntityTargetSettingsBuilder(false)),
+	POTION_EFFECT(Material.POTION, "potion_effect", IChallengeAction.BOOST_IN_AIR, createPotionSettingsBuilder(true, true))
 	;
 
 	public static final Random random = new Random();
@@ -80,6 +84,24 @@ public enum ChallengeAction implements IChallengeParam {
 				.addSetting("random_player", new ItemBuilder(Material.ZOMBIE_HEAD, Message.forName("item-custom-action-target-random_player")).build())
 				.addSetting("every_player", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-action-target-every_player")).build())
 				.addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-action-target-current_player")).build());
+	}
+
+	public static SubSettingsBuilder createPotionSettingsBuilder(boolean potionType, boolean potionTime) {
+		SubSettingsBuilder currentBuilder;
+
+			currentBuilder = SubSettingsBuilder.createChooseItem("potion_type").fill(builder -> {
+				for (PotionEffectType effectType : PotionEffectType.values()) {
+					ItemStack potion = new ItemStack(Material.POTION);
+					PotionMeta meta = (PotionMeta) potion.getItemMeta();
+					meta.addCustomEffect(new PotionEffect(effectType, 1, 1), true);
+					potion.setItemMeta(meta);
+					builder.addSetting(effectType.getName(), potion);
+				}
+			});
+
+
+
+		return currentBuilder;
 	}
 
 }

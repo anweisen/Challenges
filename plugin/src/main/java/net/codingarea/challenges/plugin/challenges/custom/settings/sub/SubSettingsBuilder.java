@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
@@ -16,19 +17,22 @@ import org.bukkit.entity.Player;
  */
 public abstract class SubSettingsBuilder {
 
+	private final String key;
 	private SubSettingsBuilder parent;
 	private SubSettingsBuilder child;
 
-	protected SubSettingsBuilder() {
+	protected SubSettingsBuilder(String key) {
+		this.key = key;
 		parent = null;
 	}
 
-	protected SubSettingsBuilder(SubSettingsBuilder parent) {
+	protected SubSettingsBuilder(String key, SubSettingsBuilder parent) {
+		this.key = key;
 		this.parent = parent;
 	}
 
 	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
-	public abstract List<String> getDisplay(Map<String, String> activated);
+	public abstract List<String> getDisplay(Map<String, String[]> activated);
 	public abstract boolean hasSettings();
 
 	public SubSettingsBuilder getParent() {
@@ -42,6 +46,10 @@ public abstract class SubSettingsBuilder {
 
 	public SubSettingsBuilder getChild() {
 		return child;
+	}
+
+	public String getKey() {
+		return key;
 	}
 
 	public List<SubSettingsBuilder> getAllChilds() {
@@ -85,16 +93,26 @@ public abstract class SubSettingsBuilder {
 		return builder;
 	}
 
+	public ChooseMultipleItemSubSettingBuilder createChooseMultipleChild(String key) {
+		ChooseMultipleItemSubSettingBuilder builder = new ChooseMultipleItemSubSettingBuilder(key, this);
+		this.child = builder;
+		return builder;
+	}
+
 	public static ChooseItemSubSettingsBuilder createChooseItem(String key) {
 		return new ChooseItemSubSettingsBuilder(key);
 	}
 
-	public static EmptySubSettingsBuilder createEmpty() {
-		return new EmptySubSettingsBuilder();
-	}
-
 	public static ValueSubSettingsBuilder createValueItem() {
 		return new ValueSubSettingsBuilder();
+	}
+
+	public static ChooseMultipleItemSubSettingBuilder createChooseMultipleItem(String key) {
+		return new ChooseMultipleItemSubSettingBuilder(key);
+	}
+
+	public static EmptySubSettingsBuilder createEmpty() {
+		return new EmptySubSettingsBuilder();
 	}
 
 }

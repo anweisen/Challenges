@@ -22,10 +22,11 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   private final LinkedHashMap<ValueSetting, String> defaultSettings = new LinkedHashMap<>();
 
   public ValueSubSettingsBuilder() {
+    super(null);
   }
 
   public ValueSubSettingsBuilder(SubSettingsBuilder parent) {
-    super(parent);
+    super(null, parent);
   }
 
   @Override
@@ -41,7 +42,7 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   }
 
   @Override
-  public List<String> getDisplay(Map<String, String> activated) {
+  public List<String> getDisplay(Map<String, String[]> activated) {
     List<String> display = Lists.newLinkedList();
 
 
@@ -49,8 +50,8 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
     return display;
   }
 
-  public ValueSubSettingsBuilder addBooleanSetting(ItemBuilder displayItem, boolean defaultValue) {
-    defaultSettings.put(new BooleanSetting(displayItem), defaultValue ? "enabled" : "disabled");
+  public ValueSubSettingsBuilder addBooleanSetting(String key, ItemBuilder displayItem, boolean defaultValue) {
+    defaultSettings.put(new BooleanSetting(key, displayItem), defaultValue ? "enabled" : "disabled");
     return this;
   }
 

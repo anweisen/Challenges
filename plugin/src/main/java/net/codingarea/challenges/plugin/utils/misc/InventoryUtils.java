@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -13,12 +18,6 @@ import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -178,22 +177,27 @@ public final class InventoryUtils {
 	}
 
 	/**
-	 * @return if the door item was clicked
+	 * @return if a navigation item was clicked
 	 */
-	public static boolean handleNavigationClicking(MenuGenerator generator, int[] navigationSlots, int page, MenuClickInfo info) {
+	public static boolean handleNavigationClicking(MenuGenerator generator, int[] navigationSlots, int page, MenuClickInfo info, Runnable onDoorClick) {
 		int pagesSwitching = info.isShiftClick() ? 5 : 1;
 		if (navigationSlots.length >= 1 && info.getSlot() == navigationSlots[0]) {
 			SoundSample.CLICK.play(info.getPlayer());
 			if (page <= 0) {
+				if (page == 0) {
+					onDoorClick.run();
+				}
 				return page == 0;
 			} else {
 				generator.open(info.getPlayer(), Math.max(page - pagesSwitching, 0));
+				return true;
 			}
-			return false;
 		} else if (navigationSlots.length >= 2 && info.getSlot() == navigationSlots[1]) {
 			SoundSample.CLICK.play(info.getPlayer());
-			if (page < (generator.getInventories().size()))
+			if (page < (generator.getInventories().size())) {
 				generator.open(info.getPlayer(), Math.min(page + pagesSwitching, generator.getInventories().size()));
+				return true;
+			}
 			return false;
 		}
 		return false;

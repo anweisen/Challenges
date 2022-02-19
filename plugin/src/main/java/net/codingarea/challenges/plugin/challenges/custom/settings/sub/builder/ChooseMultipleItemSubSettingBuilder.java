@@ -8,36 +8,36 @@ import java.util.Map.Entry;
 import java.util.function.Consumer;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingChooseMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingChooseMultipleMenuGenerator;
+import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 2.1.0
+ * @since 1.0
  */
-public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
+public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
 
   protected final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
-  protected final String key;
 
-  public ChooseItemSubSettingsBuilder(String key) {
+  public ChooseMultipleItemSubSettingBuilder(String key) {
     super(key);
-    this.key = key;
   }
 
-  public ChooseItemSubSettingsBuilder(String key, SubSettingsBuilder parent) {
+  public ChooseMultipleItemSubSettingBuilder(String key, SubSettingsBuilder parent) {
     super(key, parent);
-    this.key = key;
   }
 
   @Override
   public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
 
     if (hasSettings()) {
-      SubSettingChooseMenuGenerator generator = new SubSettingChooseMenuGenerator(key, parentGenerator, getSettings(), title);
+      MenuGenerator generator = new SubSettingChooseMultipleMenuGenerator(getKey(), parentGenerator, getSettings(), title);
       generator.open(player, 0);
       return true;
     }
@@ -49,32 +49,50 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
   public List<String> getDisplay(Map<String, String[]> activated) {
     List<String> display = Lists.newLinkedList();
 
+
+
     for (Entry<String, String[]> entry : activated.entrySet()) {
-      if (entry.getKey().equals(key)) {
+      if (entry.getKey().equals(getKey())) {
+
+        int count = 0;
+        String firstDisplay = null;
+        String keyName = StringUtils.getEnumName(entry.getKey());
+
         for (String value : entry.getValue()) {
           ItemStack itemStack = getSettings().get(value);
           if (itemStack != null) {
-            display.add("§7" + StringUtils.getEnumName(entry.getKey()) + " " + itemStack.getItemMeta().getDisplayName());
+            if (firstDisplay == null) {
+              firstDisplay = "§7" + keyName + " " + itemStack.getItemMeta().getDisplayName();
+            } else {
+              count++;
+            }
 
           }
         }
+
+        if (firstDisplay != null) {
+          display.add(firstDisplay + " §7+" + count);
+        } else {
+          display.add("§7" + keyName + " " + DefaultItem.getItemPrefix() + Message.forName("custom-info-none").asString());
+        }
+
       }
     }
 
     return display;
   }
 
-  public ChooseItemSubSettingsBuilder addSetting(String key, ItemStack value) {
+  public ChooseMultipleItemSubSettingBuilder addSetting(String key, ItemStack value) {
     settings.put(key, value);
     return this;
   }
 
-  public ChooseItemSubSettingsBuilder addSetting(String key, ItemBuilder value) {
+  public ChooseMultipleItemSubSettingBuilder addSetting(String key, ItemBuilder value) {
     settings.put(key, value.hideAttributes().build());
     return this;
   }
 
-  public ChooseItemSubSettingsBuilder fill(Consumer<ChooseItemSubSettingsBuilder> actions) {
+  public ChooseMultipleItemSubSettingBuilder fill(Consumer<ChooseMultipleItemSubSettingBuilder> actions) {
     actions.accept(this);
     return this;
   }

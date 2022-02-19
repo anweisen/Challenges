@@ -10,8 +10,9 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
  */
 public class BooleanSetting extends ValueSetting {
 
-  public BooleanSetting(ItemBuilder itemBuilder) {
-    super(itemBuilder);
+
+  public BooleanSetting(String key, ItemBuilder itemBuilder) {
+    super(key, itemBuilder);
   }
 
   @Override

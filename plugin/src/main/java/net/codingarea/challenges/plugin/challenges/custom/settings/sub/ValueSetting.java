@@ -8,9 +8,11 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
  */
 public abstract class ValueSetting {
 
+  private final String key;
   private final ItemBuilder itemBuilder;
 
-  public ValueSetting(ItemBuilder itemBuilder) {
+  public ValueSetting(String key, ItemBuilder itemBuilder) {
+    this.key = key;
     this.itemBuilder = itemBuilder;
   }
 
@@ -23,5 +25,9 @@ public abstract class ValueSetting {
     return createDisplayItem().hideAttributes();
   }
   public abstract ItemBuilder getSettingsItem(String value);
+
+  public String getKey() {
+    return key;
+  }
 
 }

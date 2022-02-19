@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
+import java.util.function.Supplier;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
@@ -7,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.IChall
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.BlockMoveCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.BreakBlockCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.ConsumeItemCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.EntityDamageByPlayerCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.EntityDamageCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.EntityDeathCondition;
@@ -16,14 +18,13 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.condition.imp
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation.PlayerSneakCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
-
-import java.util.function.Supplier;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -51,12 +52,19 @@ public enum ChallengeCondition implements IChallengeParam {
 	PLAYER_JUMP(Material.RABBIT_FOOT, "jump", new PlayerJumpCondition()),
 	PLAYER_SNEAK(Material.SANDSTONE_SLAB, "sneak", new PlayerSneakCondition()),
 	PLAYER_MOVE_BLOCK(Material.LEATHER_BOOTS, "move_block", new BlockMoveCondition()),
-	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), ChallengeCondition::createMaterialSettingsBuilder),
-	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), ChallengeCondition::createMaterialSettingsBuilder),
+	BLOCK_BREAK(Material.GOLDEN_PICKAXE, "block_break", new BreakBlockCondition(), ChallengeCondition::createBlockSettingsBuilder),
+	BLOCK_PLACE(Material.BRICKS, "block_place", new PlaceBlockCondition(), ChallengeCondition::createBlockSettingsBuilder),
 	ENTITY_DEATH(Material.BONE, "death", new EntityDeathCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE(Material.FLINT_AND_STEEL, "damage", new EntityDamageCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
 	ENTITY_DAMAGE_BY_PLAYER(Material.WOODEN_SWORD, "damage_by_player", new EntityDamageByPlayerCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
-	CONSUME_ITEM(Material.COOKED_BEEF, "consume_item", new EntityDamageByPlayerCondition(), ChallengeCondition::createEntityTypeSettingsBuilder),
+	CONSUME_ITEM(Material.COOKED_BEEF, "consume_item", new ConsumeItemCondition(), () ->
+			SubSettingsBuilder.createChooseMultipleItem("item").fill(builder -> {
+				for (Material material : Material.values()) {
+					if (material.isEdible()) {
+						builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
+					}
+				}
+	})),
 	;
 
 	private final Material material;
@@ -132,11 +140,11 @@ public enum ChallengeCondition implements IChallengeParam {
 		});
 	}
 
-	public static ChooseItemSubSettingsBuilder createMaterialSettingsBuilder() {
-		return SubSettingsBuilder.createChooseItem("block").fill(builder -> {
+	public static ChooseMultipleItemSubSettingBuilder createBlockSettingsBuilder() {
+		return SubSettingsBuilder.createChooseMultipleItem("block").fill(builder -> {
 			builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
 			for (Material material : Material.values()) {
-				if (material.isBlock() && !BukkitReflectionUtils.isAir(material)) {
+				if (material.isBlock() && material.isItem() && !BukkitReflectionUtils.isAir(material)) {
 					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
 				}
 			}

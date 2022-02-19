@@ -66,6 +66,7 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 				return;
 			}
 			open(clickInfo.getPlayer(), 1);
+			SoundSample.PLOP.play(clickInfo.getPlayer());
 		} else if (clickInfo.getSlot() == CREATE_SLOT) {
 			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() > 100) {
 				Message.forName("custom-limit").send(clickInfo.getPlayer(), Prefix.CUSTOM);

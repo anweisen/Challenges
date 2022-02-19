@@ -3,16 +3,21 @@ package net.codingarea.challenges.plugin.management.menu.generator;
 import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
+import java.util.List;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
+import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import org.bukkit.Material;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -21,12 +26,16 @@ import org.bukkit.inventory.ItemStack;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
+public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator {
+
+	public static final int FINISH_SLOT = 40;
 
 	private final LinkedHashMap<String, ItemStack> items;
+	private final List<String> selectedKeys;
 
-	public ChooseItemGenerator(LinkedHashMap<String, ItemStack> items) {
+	public ChooseMultipleItemGenerator(LinkedHashMap<String, ItemStack> items) {
 		this.items = items;
+		selectedKeys = new LinkedList<>();
 	}
 
 	@Override
@@ -35,6 +44,12 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 			@Override
 			public void handleClick(@Nonnull MenuClickInfo info) {
+
+				if (info.getSlot() == FINISH_SLOT) {
+					onItemClick(info.getPlayer(), selectedKeys.toArray(new String[0]));
+					SoundSample.PLOP.play(info.getPlayer());
+					return;
+				}
 
 				if (InventoryUtils.handleNavigationClicking(generator, getNavigationSlots(page), page, info, () -> onBackToMenuItemClick(info.getPlayer()))) {
 					return;
@@ -60,9 +75,13 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 				String itemKey = array[index];
 
-				onItemClick(info.getPlayer(), itemKey);
-				SoundSample.PLOP.play(info.getPlayer());
-
+				if (selectedKeys.contains(itemKey)) {
+					selectedKeys.remove(itemKey);
+				} else {
+					selectedKeys.add(itemKey);
+				}
+				generatePage(info.getInventory(), page);
+				SoundSample.LOW_PLOP.play(info.getPlayer());
 			}
 		};
 	}
@@ -89,11 +108,18 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 		for (int i = startIndex; i < startIndex + getItemsPerPage() && i < items.size(); i++) {
 			String key = items.keySet().toArray(new String[0])[i];
 			ItemStack itemStack = items.get(key);
+
+			if (selectedKeys.contains(key)) {
+				itemStack = itemStack.clone();
+				itemStack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+			}
+
 			lastSlot = getNextMiddleSlot(lastSlot);
 			inventory.setItem(lastSlot, itemStack);
 			lastSlot++;
 		}
 
+		inventory.setItem(FINISH_SLOT, DefaultItem.create(Material.LIME_DYE, Message.forName("custom-sub-finish")).build());
 	}
 
 	private static int getNextMiddleSlot(@Nonnegative int currentSlot) {
@@ -124,7 +150,7 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 	}
 
 	public abstract String[] getSubTitles(int page);
-	public abstract void onItemClick(Player player, String itemKey);
+	public abstract void onItemClick(Player player, String[] itemKeys);
 	public abstract void onBackToMenuItemClick(Player player);
 
 }

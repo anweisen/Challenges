@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.implementation
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
+import org.bukkit.Material;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -14,33 +15,46 @@ import java.util.function.Consumer;
  */
 public enum MenuType {
 
-	TIMER("Timer", new TimerMenuGenerator(), false),
-	GOAL("Goal", new SettingsMenuGenerator()),
-	DAMAGE("Damage", new SettingsMenuGenerator()),
-	ITEMS_BLOCKS("Items & Blocks", new SettingsMenuGenerator()),
-	CHALLENGES("Challenges", new SettingsMenuGenerator()),
-	SETTINGS("Settings", new SettingsMenuGenerator()),
-	CUSTOM("Custom", new MainMenuGenerator());
+	TIMER("Timer", "§6Timer", Material.CLOCK, new TimerMenuGenerator(), false),
+	GOAL("Goal", "§5Goal", Material.COMPASS, new SettingsMenuGenerator()),
+	DAMAGE("Damage", "§7Damage", Material.IRON_SWORD, new SettingsMenuGenerator()),
+	ITEMS_BLOCKS("Items & Blocks", "§4Blocks & Items", Material.STICK, new SettingsMenuGenerator()),
+	CHALLENGES("Challenges", "§cChallenges", Material.BOOK, new SettingsMenuGenerator()),
+	SETTINGS("Settings", "§eSettings", Material.COMPARATOR, new SettingsMenuGenerator()),
+	CUSTOM("Custom", "§aCustom", Material.WRITABLE_BOOK, new MainMenuGenerator());
 
 	private final String name;
+	private final String displayName;
+	private final Material displayItem;
 	private final MenuGenerator menuGenerator;
 	private final boolean usable;
 
-	MenuType(@Nonnull String name, MenuGenerator menuGenerator, boolean usable) {
+	MenuType(@Nonnull String name, @Nonnull String displayName, @Nonnull Material displayItem, MenuGenerator menuGenerator, boolean usable) {
 		this.name = name;
+		this.displayName = displayName;
+		this.displayItem = displayItem;
 		this.menuGenerator = menuGenerator;
 		this.usable = usable;
 
 		menuGenerator.setMenuType(this);
 	}
 
-	MenuType(@Nonnull String name, MenuGenerator menuGenerator) {
-		this(name, menuGenerator, true);
+	MenuType(@Nonnull String name, @Nonnull String displayName, @Nonnull Material displayItem, MenuGenerator menuGenerator) {
+		this(name, displayName, displayItem, menuGenerator, true);
 	}
 
 	@Nonnull
 	public String getName() {
 		return name;
+	}
+
+	@Nonnull
+	public String getDisplayName() {
+		return displayName;
+	}
+
+	public Material getDisplayItem() {
+		return displayItem;
 	}
 
 	public boolean isUsable() {

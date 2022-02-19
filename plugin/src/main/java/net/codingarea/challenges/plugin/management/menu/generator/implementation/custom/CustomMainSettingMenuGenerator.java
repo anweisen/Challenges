@@ -16,7 +16,7 @@ import org.bukkit.inventory.ItemStack;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1
  */
-public class SettingMenuGenerator extends ChooseItemGenerator implements IParentCustomGenerator {
+public class CustomMainSettingMenuGenerator extends ChooseItemGenerator implements IParentCustomGenerator {
 
 	private final IParentCustomGenerator parent;
 	private final SettingType type;
@@ -25,9 +25,9 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	private final Function<String, IChallengeParam> enumGetter;
 	private IChallengeParam setting;
 	private SubSettingsBuilder subSettingsBuilder;
-	private Map<String, String> subSettings;
+	private Map<String, String[]> subSettings;
 
-	public SettingMenuGenerator(IParentCustomGenerator parent, SettingType type, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeParam> enumGetter) {
+	public CustomMainSettingMenuGenerator(IParentCustomGenerator parent, SettingType type, String key, String title, LinkedHashMap<String, ItemStack> items, Function<String, IChallengeParam> enumGetter) {
 		super(items);
 		this.parent = parent;
 		this.type = type;
@@ -52,7 +52,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 	}
 
 	@Override
-	public void accept(Player player, SettingType type, Map<String, String> data) {
+	public void accept(Player player, SettingType type, Map<String, String[]> data) {
 
 		subSettings.putAll(data);
 
@@ -68,7 +68,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 		this.subSettingsBuilder = setting.getSubSettingsBuilder();
 
 
-		subSettings.put(key, setting.name());
+		subSettings.put(key, new String[]{setting.name()});
 
 		if (!openSubSettingsMenu(player)) {
 			parent.accept(player, type, subSettings);
@@ -94,7 +94,7 @@ public class SettingMenuGenerator extends ChooseItemGenerator implements IParent
 
 	@Override
 	public void decline(Player player) {
-		if (setting != null) this.subSettings = MapUtils.createStringMap(key, setting.name());
+		if (setting != null) this.subSettings = MapUtils.createStringArrayMap(key, setting.name());
 		open(player, 0);
 	}
 

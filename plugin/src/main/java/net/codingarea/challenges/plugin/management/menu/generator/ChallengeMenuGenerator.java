@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -11,15 +16,10 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -166,6 +166,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
+
+			if (InventoryUtils.handleNavigationClicking(generator, getNavigationSlots(page), page, info, () -> onLeaveClick.accept(info.getPlayer()))) {
+				return;
+			}
 
 			if (info.getSlot() == getNavigationSlots(page)[0]) {
 				SoundSample.CLICK.play(info.getPlayer());

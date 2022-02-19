@@ -1,6 +1,8 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Map.Entry;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
 import net.codingarea.challenges.plugin.management.menu.generator.ValueMenuGenerator;
 import org.bukkit.entity.Player;
@@ -27,7 +29,13 @@ public class SubSettingValueMenuGenerator extends ValueMenuGenerator {
 
   @Override
   public void onSaveItemClick(Player player) {
-//    parent.accept(player, null,getSettings().values().toArray(new String[0]));
+
+    Map<String, String[]> map = new HashMap<>();
+    for (Entry<ValueSetting, String> entry : getSettings().entrySet()) {
+      map.put(entry.getKey().getKey(), new String[]{entry.getValue()});
+    }
+
+    parent.accept(player, null, map);
   }
 
   @Override
