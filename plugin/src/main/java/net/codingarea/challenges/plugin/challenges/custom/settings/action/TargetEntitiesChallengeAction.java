@@ -10,12 +10,12 @@ import org.bukkit.entity.Entity;
 public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   @Override
-  default void execute(Entity entity, Map<String, String> subActions) {
+  default void execute(Entity entity, Map<String, String[]> subActions) {
     for (Entity target : IChallengeAction.getTargets(entity, subActions)) {
       executeFor(target, subActions);
     }
   }
 
-  void executeFor(Entity entity, Map<String, String> subActions);
+  void executeFor(Entity entity, Map<String, String[]> subActions);
 
 }

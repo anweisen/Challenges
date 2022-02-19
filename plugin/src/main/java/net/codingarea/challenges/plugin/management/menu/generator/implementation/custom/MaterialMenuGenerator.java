@@ -29,7 +29,7 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 
 	@Override
 	public void onItemClick(Player player, String itemKey) {
-		parent.accept(player, SettingType.MATERIAL, MapUtils.createStringMap("material", itemKey));
+		parent.accept(player, SettingType.MATERIAL, MapUtils.createStringArrayMap("material", itemKey));
 	}
 
 	@Override

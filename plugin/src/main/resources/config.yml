@@ -145,6 +145,7 @@ cloud-support:
 
 # This will require a database connection
 save-player-configs: false
+save-player-custom-challenges: false
 save-player-stats: false
 no-stats-after-cheating: false
 

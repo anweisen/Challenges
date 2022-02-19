@@ -90,6 +90,10 @@ commands:
     aliases:
       - "config"
     permission: "challenges.config"
+  custom:
+    usage: "/custom <save/load>"
+    description: "Allows you to save/load your custom challenges over multiple servers using a database"
+    permission: "challenges.custom"
   gamestate:
     usage: "/gamestate <reset/reload>"
     description: "Allows you to reload/reset the current challenges gamestate"

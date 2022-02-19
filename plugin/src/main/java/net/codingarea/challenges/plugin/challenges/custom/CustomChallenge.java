@@ -28,12 +28,12 @@ public class CustomChallenge extends Setting {
 	private Material material;
 	private String name;
 	private ChallengeCondition condition;
-	private Map<String, String> subConditions;
+	private Map<String, String[]> subConditions;
 	private ChallengeAction action;
-	private Map<String, String> subActions;
+	private Map<String, String[]> subActions;
 
 	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, ChallengeCondition condition,
-			Map<String, String> subConditions, ChallengeAction action, Map<String, String> subActions) {
+			Map<String, String[]> subConditions, ChallengeAction action, Map<String, String[]> subActions) {
 		super(menuType);
 		this.uuid = uuid;
 		this.material = displayItem;
@@ -54,11 +54,7 @@ public class CustomChallenge extends Setting {
 		}
 		Material material = this.material;
 		if (material == null) {
-			if (action != null) {
-				material = action.getMaterial();
-			} else {
-				material = Material.BARRIER;
-			}
+			material = Material.BARRIER;
 		}
 
 		return new ItemBuilder(material, "§7" + name);
@@ -90,19 +86,41 @@ public class CustomChallenge extends Setting {
 	public final void onConditionFulfilled(Entity entity, Map<String, List<String>> data) {
 		if (isEnabled()) {
 
-			if (!subConditions.isEmpty()) {
-				for (Entry<String, String> entry : subConditions.entrySet()) {
-					if (!data.containsKey(entry.getKey())) {
-						return;
-					}
-					if (!data.get(entry.getKey()).contains(entry.getValue())) {
-							return;
-					}
-				}
+			boolean conditionMet = isConditionMet(data);
+			if (conditionMet) {
+				executeAction(entity);
 			}
 
-			executeAction(entity);
 		}
+	}
+
+	/**
+	 * @return if the condition is met.
+	 * That is when every key in the subConditions is contained by the data map and one or more value
+	 * of the lists are equal to one another.
+	 */
+	public boolean isConditionMet(Map<String, List<String>> data) {
+		if (!subConditions.isEmpty()) {
+			for (Entry<String, String[]> entry : subConditions.entrySet()) {
+				if (!data.containsKey(entry.getKey())) {
+					return false;
+				}
+				List<String> list = data.get(entry.getKey());
+
+				boolean match = false;
+				for (String value : entry.getValue()) {
+					if (list.contains(value)) {
+						match = true;
+						break;
+					}
+				}
+
+				if (!match) {
+					return false;
+				}
+			}
+		}
+		return true;
 	}
 
 	public void executeAction(Entity entity) {
@@ -116,7 +134,7 @@ public class CustomChallenge extends Setting {
 	}
 
 	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull ChallengeCondition condition,
-			Map<String, String> subConditions, ChallengeAction action, Map<String, String> subActions) {
+			Map<String, String[]> subConditions, ChallengeAction action, Map<String, String[]> subActions) {
 		this.material = material;
 		this.name = name;
 		this.condition = condition;
@@ -149,14 +167,14 @@ public class CustomChallenge extends Setting {
 	@Nonnull
 	@Override
 	public String getUniqueName() {
-		return "custom-" + uuid.toString();
+		return uuid.toString();
 	}
 
-	public Map<String, String> getSubConditions() {
+	public Map<String, String[]> getSubConditions() {
 		return subConditions;
 	}
 
-	public Map<String, String> getSubActions() {
+	public Map<String, String[]> getSubActions() {
 		return subActions;
 	}
 

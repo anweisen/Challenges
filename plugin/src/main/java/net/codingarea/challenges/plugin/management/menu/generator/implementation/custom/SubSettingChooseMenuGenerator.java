@@ -30,7 +30,7 @@ public class SubSettingChooseMenuGenerator extends ChooseItemGenerator {
 
 	@Override
 	public void onItemClick(Player player, String itemKey) {
-		parent.accept(player, null, MapUtils.createStringMap(key, itemKey));
+		parent.accept(player, null, MapUtils.createStringArrayMap(key, itemKey));
 	}
 
 	@Override

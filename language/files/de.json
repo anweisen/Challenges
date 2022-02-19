@@ -67,6 +67,9 @@
   "player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
   "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
   "player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
+  "player-custom_challenges-loaded": "Deine Challenges wurden §aerfolgreich geladen",
+  "player-custom_challenges-saved": "Deine Challenges wurden §aerfolgreich gespeichert",
+  "player-custom_challenges-reset": "Die Challenges wurden §aerfolgreich zurückgesetzt",
 
   "item-prefix": "§8» ",
   "item-setting-info": "§8➟ {0}",

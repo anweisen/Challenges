@@ -45,9 +45,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private String name;
 	private Material material;
 	private ChallengeCondition condition;
-	private Map<String, String> subConditions;
+	private Map<String, String[]> subConditions;
 	private ChallengeAction action;
-	private Map<String, String> subActions;
+	private Map<String, String[]> subActions;
 	private Inventory inventory;
 	private boolean inNaming;
 
@@ -135,22 +135,22 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	}
 
 	@Override
-	public void accept(Player player, SettingType type, Map<String, String> data) {
+	public void accept(Player player, SettingType type, Map<String, String[]> data) {
 		open(player, 0);
 
 		switch (type) {
 			case CONDITION:
-				condition = ChallengeCondition.valueOf(data.remove("condition"));
+				condition = ChallengeCondition.valueOf(data.remove("condition")[0]);
 				this.subConditions = data;
 				break;
 
 			case ACTION:
-				action = ChallengeAction.valueOf(data.remove("action"));
+				action = ChallengeAction.valueOf(data.remove("action")[0]);
 				this.subActions = data;
 				break;
 
 			case MATERIAL:
-				material = Material.valueOf(data.remove("material"));
+				material = Material.valueOf(data.remove("material")[0]);
 				updateItems();
 				break;
 		}
@@ -186,9 +186,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				"name='" + name + '\'' +
 				", material=" + material +
 				", condition=" + condition +
-				", subConditions=" + subConditions +
+				", subConditions=" + subConditions.entrySet() +
 				", action=" + action +
-				", subActions=" + subActions +
+				", subActions=" + subActions.entrySet() +
 				", inventory=" + inventory +
 				", inNaming=" + inNaming +
 				'}';
@@ -206,8 +206,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
-			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36+9}, page, info)) {
-				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0);
+			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36+9}, page, info, () -> 				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0))) {
 				return;
 			}
 
@@ -243,11 +242,11 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.LEVEL_UP.play(player);
 					break;
 				case CONDITION_SLOT:
-					new SettingMenuGenerator(generator, SettingType.CONDITION, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
+					new CustomMainSettingMenuGenerator(generator, SettingType.CONDITION, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
-					new SettingMenuGenerator(generator, SettingType.ACTION, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
+					new CustomMainSettingMenuGenerator(generator, SettingType.ACTION, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:
@@ -272,7 +271,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
 	}
 
-	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String> activated) {
+	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
 		List<String> display = new LinkedList<>();
 		for (SubSettingsBuilder child : builder.getAllChilds()) {
 			display.addAll(child.getDisplay(activated));

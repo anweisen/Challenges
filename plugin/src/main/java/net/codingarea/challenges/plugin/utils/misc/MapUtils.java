@@ -24,17 +24,25 @@ public class MapUtils {
     return map;
   }
 
+  public static Map<String, String[]> createStringArrayMap(String key, String... values) {
+    Map<String, String[]> map = new HashMap<>();
+    map.put(key, values);
+    return map;
+  }
+
   public static Map<String, List<String>> createStringListMap(String key, String... values) {
     Map<String, List<String>> map = new HashMap<>();
     map.put(key, new ArrayList<>(Arrays.asList(values)));
     return map;
   }
 
-  public static Map<String, String> createMapFromDocument(Document document) {
+  public static Map<String, String[]> createSubSettingsMapFromDocument(Document document) {
     if (document == null) return new HashMap<>();
-    Map<String, String> map = new HashMap<>();
+    Map<String, String[]> map = new HashMap<>();
     for (Entry<String, Object> entry : document.entrySet()) {
-      map.put(entry.getKey(), String.valueOf(entry.getValue()));
+      try {
+        map.put(entry.getKey(), document.getStringArray(entry.getKey()));
+      } catch (Exception exception) { }
     }
     return map;
   }

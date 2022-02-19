@@ -1,6 +1,12 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import java.util.Collection;
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Predicate;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -8,15 +14,10 @@ import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.common.config.document.wrapper.FileDocumentWrapper;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -82,15 +83,27 @@ public final class ChallengeManager {
 				.execute();
 	}
 
+	public void saveCustomChallenges(@Nonnull Player player) throws DatabaseException {
+		Document document = new GsonDocument();
+		saveCustomChallengesInto(document);
+		Challenges.getInstance().getDatabaseManager().getDatabase()
+				.insertOrUpdate("challenges")
+				.where("uuid", player.getUniqueId())
+				.set("custom-challenges", document)
+				.execute();
+	}
+
 	public void enable() {
 		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig().readonly());
 		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig().readonly());
+		loadCustomChallenges(Challenges.getInstance().getConfigManager().getCustomChallengesConfig().readonly());
 	}
 
 	public synchronized void loadSettings(@Nonnull Document config) {
-		Challenges.getInstance().getCustomChallengesLoader().loadCustomChallengesFrom(config);
 
 		for (IChallenge challenge : challenges) {
+			if (challenge instanceof CustomChallenge) continue;
+
 			String name = challenge.getUniqueName();
 			if (!config.contains(name)) continue;
 			try {
@@ -104,6 +117,7 @@ public final class ChallengeManager {
 
 	public synchronized void loadGamestate(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
+			if (challenge instanceof CustomChallenge) continue;
 			String name = challenge.getUniqueName();
 			if (!config.contains(name)) continue;
 			try {
@@ -113,6 +127,10 @@ public final class ChallengeManager {
 				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 			}
 		}
+	}
+
+	public synchronized void loadCustomChallenges(@Nonnull Document config) {
+		Challenges.getInstance().getCustomChallengesLoader().loadCustomChallengesFrom(config);
 	}
 
 	public void resetGamestate() {
@@ -127,6 +145,7 @@ public final class ChallengeManager {
 
 	public void saveGameStateInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
+			if (challenge instanceof CustomChallenge) continue;
 			try {
 				Document document = config.getDocument(challenge.getUniqueName());
 				challenge.writeGameState(document);
@@ -144,6 +163,7 @@ public final class ChallengeManager {
 
 	public void saveSettingsInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
+			if (challenge instanceof CustomChallenge) continue;
 			try {
 				Document document = config.getDocument(challenge.getUniqueName());
 				challenge.writeSettings(document);
@@ -154,10 +174,32 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveLocalSettings(boolean async) {
-		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/settings.json"), new GsonDocument());
+		FileDocument config = Challenges.getInstance().getConfigManager().getSettingsConfig();
 		saveSettingsInto(config);
 		config.save(async);
 	}
+
+	public void saveCustomChallengesInto(@Nonnull Document config) {
+		Collection<CustomChallenge> customChallenges = Challenges.getInstance().getCustomChallengesLoader()
+				.getCustomChallenges().values();
+
+		for (IChallenge challenge : customChallenges) {
+			try {
+				Document document = config.getDocument(challenge.getUniqueName());
+				challenge.writeSettings(document);
+				challenge.writeGameState(document);
+			} catch (Exception ex) {
+				Logger.error("Could not write settings of {}", challenge.getClass().getSimpleName(), ex);
+			}
+		}
+	}
+
+	public synchronized void saveLocalCustomChallenges(boolean async) {
+		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/custom-challenges.json"), new GsonDocument());
+		saveCustomChallengesInto(config);
+		config.save(async);
+	}
+
 
 	@Nullable
 	public IGoal getCurrentGoal() {

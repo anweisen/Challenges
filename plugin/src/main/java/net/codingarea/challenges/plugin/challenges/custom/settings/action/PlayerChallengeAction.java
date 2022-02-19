@@ -11,12 +11,12 @@ import org.bukkit.entity.Player;
 public interface PlayerChallengeAction extends IChallengeAction {
 
 	@Override
-	default void execute(Entity entity, Map<String, String> data) {
+	default void execute(Entity entity, Map<String, String[]> data) {
 		if (entity instanceof Player) {
 			execute((Player) entity, data);
 		}
 	}
 
-	void execute(Player player, Map<String, String> data);
+	void execute(Player player, Map<String, String[]> data);
 
 }

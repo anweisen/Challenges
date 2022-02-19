@@ -143,6 +143,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new StatsCommand(), "stats");
 		registerCommand(new LeaderboardCommand(), "leaderboard");
 		registerCommand(new ConfigCommand(), "config");
+		registerCommand(new CustomChallengesCommand(), "custom");
 		registerCommand(new GamestateCommand(), "gamestate");
 		registerCommand(new VillageCommand(), "village");
 		registerCommand(new HealCommand(), "heal");
@@ -196,6 +197,7 @@ public final class Challenges extends BukkitModule {
 				challengeManager.restoreDefaults();
 			}
 			challengeManager.saveLocalSettings(false);
+			challengeManager.saveLocalCustomChallenges(false);
 
 			if (!shutdownBecauseOfReset) {
 				challengeManager.saveGamestate(false);

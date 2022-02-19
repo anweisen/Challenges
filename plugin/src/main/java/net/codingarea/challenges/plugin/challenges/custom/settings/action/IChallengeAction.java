@@ -43,7 +43,7 @@ public interface IChallengeAction {
 		}
 	};
 	TargetEntitiesChallengeAction DAMAGE = (entity, map) -> {
-		int damage = Integer.parseInt(map.get("damage"));
+		int damage = Integer.parseInt(map.get("damage")[0]);
 		if (entity instanceof LivingEntity) {
 			((LivingEntity) entity).setNoDamageTicks(0);
 			((LivingEntity) entity).damage(damage);
@@ -78,17 +78,17 @@ public interface IChallengeAction {
 	TargetEntitiesChallengeAction BOOST_IN_AIR = (entity, map) -> {
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
-			UncraftItemsChallenge.uncraftInventory(player);
+
 		}
 	};
 
-	void execute(Entity entity, Map<String, String> subActions);
+	void execute(Entity entity, Map<String, String[]> subActions);
 
-	static List<Entity> getTargets(Entity conditionTarget, Map<String, String> subActions) {
+	static List<Entity> getTargets(Entity conditionTarget, Map<String, String[]> subActions) {
 		if (!subActions.containsKey("target_entity")) {
 			return Lists.newLinkedList();
 		}
-		String targetEntity = subActions.get("target_entity");
+		String targetEntity = subActions.get("target_entity")[0];
 
 		switch (targetEntity) {
 			case "random_player":
