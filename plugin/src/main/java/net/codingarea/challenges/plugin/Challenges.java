@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.anweisen.utilities.common.version.Version;
+import net.codingarea.challenges.plugin.challenges.custom.settings.CustomSettingsLoader;
 import net.codingarea.challenges.plugin.content.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
@@ -46,6 +47,7 @@ public final class Challenges extends BukkitModule {
 	private BlockDropManager blockDropManager;
 	private ChallengeLoader challengeLoader;
 	private CustomChallengesLoader customChallengesLoader;
+	private CustomSettingsLoader customSettingsLoader;
 	private DatabaseManager databaseManager;
 	private CloudSupportManager cloudSupportManager;
 	private ServerManager serverManager;
@@ -106,6 +108,7 @@ public final class Challenges extends BukkitModule {
 		challengeManager = new ChallengeManager();
 		challengeLoader = new ChallengeLoader();
 		customChallengesLoader = new CustomChallengesLoader();
+		customSettingsLoader = new CustomSettingsLoader();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
@@ -128,6 +131,7 @@ public final class Challenges extends BukkitModule {
 		statsManager.register();
 		scheduler.start();
 		metricsLoader.start();
+		customSettingsLoader.enable();
 
 		loaderRegistry.enable();
 	}
@@ -204,6 +208,10 @@ public final class Challenges extends BukkitModule {
 			}
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public CustomSettingsLoader getCustomSettingsLoader() {
+		return customSettingsLoader;
 	}
 
 	public CustomChallengesLoader getCustomChallengesLoader() {

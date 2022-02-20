@@ -13,9 +13,9 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -44,9 +44,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private final UUID uuid;
 	private String name;
 	private Material material;
-	private ChallengeCondition condition;
+	private AbstractChallengeCondition condition;
 	private Map<String, String[]> subConditions;
-	private ChallengeAction action;
+	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 	private Inventory inventory;
 	private boolean inNaming;
@@ -140,12 +140,12 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		switch (type) {
 			case CONDITION:
-				condition = ChallengeCondition.valueOf(data.remove("condition")[0]);
+				condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName(data.remove("condition")[0]);
 				this.subConditions = data;
 				break;
 
 			case ACTION:
-				action = ChallengeAction.valueOf(data.remove("action")[0]);
+				action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(data.remove("action")[0]);
 				this.subActions = data;
 				break;
 
@@ -242,11 +242,17 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.LEVEL_UP.play(player);
 					break;
 				case CONDITION_SLOT:
-					new CustomMainSettingMenuGenerator(generator, SettingType.CONDITION, "condition", "Condition", ChallengeCondition.PLAYER_JUMP.getMenuItems(), ChallengeCondition::valueOf).open(player, 0);
+					new CustomMainSettingsMenuGenerator(generator, SettingType.CONDITION,
+							"condition", "Condition", AbstractChallengeCondition.getMenuItems(),
+							s -> Challenges.getInstance().getCustomSettingsLoader().getConditionByName(s))
+							.open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
-					new CustomMainSettingMenuGenerator(generator, SettingType.ACTION, "action", "Action", ChallengeAction.DAMAGE.getMenuItems(), ChallengeAction::valueOf).open(player, 0);
+					new CustomMainSettingsMenuGenerator(generator, SettingType.ACTION,
+							"action", "Action", AbstractChallengeAction.getMenuItems(),
+							s -> Challenges.getInstance().getCustomSettingsLoader().getActionByName(s))
+							.open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:

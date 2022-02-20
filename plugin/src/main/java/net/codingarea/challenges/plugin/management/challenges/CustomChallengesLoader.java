@@ -1,11 +1,16 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
@@ -13,12 +18,6 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-
-import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -32,8 +31,8 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeCondition condition,
-			Map<String, String[]> subConditions, ChallengeAction action, Map<String, String[]> subActions, boolean generate) {
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, AbstractChallengeCondition condition,
+			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions, boolean generate) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
@@ -66,9 +65,9 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 				UUID uuid = UUID.fromString(key);
 				String name = doc.getString("name");
 				Material material = doc.getEnum("material", Material.class);
-				ChallengeCondition condition = doc.getEnum("condition", ChallengeCondition.class);
+				AbstractChallengeCondition condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName("condition");
 				Map<String, String[]> subConditions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subConditions"));
-				ChallengeAction action = doc.getEnum("action", ChallengeAction.class);
+				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName("action");
 				Map<String, String[]> subActions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subActions"));
 
 				CustomChallenge challenge = registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
@@ -115,7 +114,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		List<CustomChallenge> challenges = new LinkedList<>();
 
 		for (CustomChallenge challenge : customChallenges.values()) {
-			if (challenge.getCondition() != null && challenge.getCondition().getConditionInterface() == condition) {
+			if (challenge.getCondition() != null && challenge.getCondition() == condition) {
 				challenges.add(challenge);
 			}
 		}

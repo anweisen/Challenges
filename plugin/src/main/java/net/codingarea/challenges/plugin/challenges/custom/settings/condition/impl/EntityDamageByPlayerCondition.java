@@ -1,8 +1,9 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.implementation;
+package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
 
 import javax.annotation.Nonnull;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
+import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -14,7 +15,16 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class EntityDamageByPlayerCondition implements IChallengeCondition {
+public class EntityDamageByPlayerCondition extends AbstractChallengeCondition {
+
+	public EntityDamageByPlayerCondition(String name) {
+		super(name, createEntityTypeSettingsBuilder());
+	}
+
+	@Override
+	public Material getMaterial() {
+		return Material.WOODEN_SWORD;
+	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDeath(@Nonnull EntityDamageByEntityEvent event) {
@@ -26,7 +36,7 @@ public class EntityDamageByPlayerCondition implements IChallengeCondition {
 		}
 
 		if (damager instanceof Player) {
-			execute(damager, MapUtils
+			execute(event.getEntity(), MapUtils
 					.createStringListMap("entity_type","any", event.getEntityType().name()));
 		}
 

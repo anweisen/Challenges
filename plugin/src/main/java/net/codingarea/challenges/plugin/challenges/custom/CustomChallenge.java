@@ -8,8 +8,8 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -27,13 +27,13 @@ public class CustomChallenge extends Setting {
 	private final UUID uuid;
 	private Material material;
 	private String name;
-	private ChallengeCondition condition;
+	private AbstractChallengeCondition condition;
 	private Map<String, String[]> subConditions;
-	private ChallengeAction action;
+	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 
-	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, ChallengeCondition condition,
-			Map<String, String[]> subConditions, ChallengeAction action, Map<String, String[]> subActions) {
+	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, AbstractChallengeCondition condition,
+			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions) {
 		super(menuType);
 		this.uuid = uuid;
 		this.material = displayItem;
@@ -71,9 +71,9 @@ public class CustomChallenge extends Setting {
 
 		document.set("material", material == null ? null : material.name());
 		document.set("name", name);
-		document.set("condition", condition == null ? null : condition.name());
+		document.set("condition", condition == null ? null : condition.getName());
 		document.set("subConditions", subConditions);
-		document.set("action", action == null ? null : action.name());
+		document.set("action", action == null ? null : action.getName());
 		document.set("subActions", subActions);
 	}
 
@@ -126,15 +126,15 @@ public class CustomChallenge extends Setting {
 	public void executeAction(Entity entity) {
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
-				action.getAction().execute(entity, subActions);
+				action.execute(entity, subActions);
 			});
 			return;
 		}
-		action.getAction().execute(entity, subActions);
+		action.execute(entity, subActions);
 	}
 
-	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull ChallengeCondition condition,
-			Map<String, String[]> subConditions, ChallengeAction action, Map<String, String[]> subActions) {
+	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeCondition condition,
+			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions) {
 		this.material = material;
 		this.name = name;
 		this.condition = condition;
@@ -143,11 +143,11 @@ public class CustomChallenge extends Setting {
 		this.subActions = subActions;
 	}
 
-	public ChallengeAction getAction() {
+	public AbstractChallengeAction getAction() {
 		return action;
 	}
 
-	public ChallengeCondition getCondition() {
+	public AbstractChallengeCondition getCondition() {
 		return condition;
 	}
 
