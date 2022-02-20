@@ -1083,7 +1083,7 @@
   "custom-not-deleted": "Diese Challenge existiert noch nicht!",
   "custom-saved": "§7Challenge wurde Lokal §agespeichert",
   "custom-saved-db": [
-    "Um in §eDatenbank §7zu Speichern benutze §e/config save",
+    "Um in §eDatenbank §7zu Speichern benutze §e/custom save",
     "§cAchtung: §7Alte Einstellungen werden dabei überschrieben!"
   ],
   "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
@@ -1092,14 +1092,15 @@
   "custom-not-loaded": [
     "",
     "Es sind derzeit keine Custom Challenges geladen.",
-    "Du vermisst deine Challenges? §e/config load",
+    "Du vermisst deine Challenges? §e/custom load",
     "Du hast Probleme beim automatischen Speichern?",
-    "Speichere vorm verlassen manuell §e/config save",
+    "Speichere vorm verlassen manuell §e/custom save",
     ""
   ],
 
   "custom-main-view-challenges": "§6Challenges Ansehen",
   "custom-main-create-challenge": "§aChallenge Erstellen",
+  "custom-sub-finish": "§aFertig",
 
   "item-custom-info-delete": [
     "§cLöschen",
@@ -1180,6 +1181,9 @@
   "item-custom-condition-block-any": [
     "§2Jeglicher Block"
   ],
+  "item-custom-condition-consume_item": [
+    "§2Item Konsumieren"
+  ],
 
   "item-custom-action-kill": [
     "§4Töten",
@@ -1204,6 +1208,10 @@
   "item-custom-action-boost_in_air": [
     "§fIn Luft Schleudern",
     "Schleudere Entities in die Luft"
+  ],
+  "item-custom-action-potion_effect": [
+    "§dTrank Effekt",
+    "Gebe einen bestimmten Trank Effekt"
   ],
 
   "item-custom-action-target-current": [

@@ -94,7 +94,7 @@ public abstract class MenuSetting extends Setting {
 	}
 
 	@Nonnull
-	private static int[] getSlots(int amount) {
+	public static int[] getSlots(int amount) {
 		switch (amount) {
 			default: return new int[0];
 			case 1: return new int[] { 13 };

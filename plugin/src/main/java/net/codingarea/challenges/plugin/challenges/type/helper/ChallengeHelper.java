@@ -1,6 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
@@ -12,7 +18,6 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
-import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -26,12 +31,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -76,7 +75,7 @@ public final class ChallengeHelper {
 		return challenge.getClass().isAnnotationPresent(ExcludeFromRandomChallenges.class);
 	}
 
-	public static void handleModifierClick(@Nonnull ChallengeMenuClickInfo info, @Nonnull IModifier modifier) {
+	public static void handleModifierClick(@Nonnull MenuClickInfo info, @Nonnull IModifier modifier) {
 		int newValue = modifier.getValue();
 		int amount = info.isShiftClick()
 				? (modifier.getValue() == modifier.getMinValue() || info.isRightClick() && modifier.getValue() == (10 - (modifier.getMinValue() - 1)) ? 9 : 10)

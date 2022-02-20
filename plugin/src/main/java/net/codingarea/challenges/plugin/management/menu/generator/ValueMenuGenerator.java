@@ -8,6 +8,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -66,7 +67,7 @@ public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
         String oldValue = settings.get(key);
 
         int itemIndex = slot >= 18 ? 1 : 0;
-        String newValue = key.onClick(oldValue, itemIndex);
+        String newValue = key.onClick(info, oldValue, itemIndex);
         settings.put(key, newValue);
         SoundSample.CLICK.play(info.getPlayer());
         generatePage(info.getInventory(), page);
@@ -86,15 +87,20 @@ public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
   }
 
   public int getItemsPerPage() {
-    return 7;
+    return 4;
   }
 
   @Override
   public void generatePage(@Nonnull Inventory inventory, int page) {
 
     int startIndex = getItemsPerPage() * page;
-    for (int i = startIndex; i < startIndex + getItemsPerPage() && i < settings.size(); i++) {
-      int slot = i - (getItemsPerPage()*page) + 10;
+
+    int left = settings.size() - page * getItemsPerPage() + startIndex;
+    int fitOnThisPage = startIndex + left;
+    int[] slots = MenuSetting.getSlots(fitOnThisPage);
+
+    for (int i = 0; i < slots.length; i++) {
+      int slot = slots[i];
       ValueSetting key = settings.keySet().toArray(new ValueSetting[0])[i];
       String value = settings.get(key);
       inventory.setItem(slot, key.getDisplayItem(value).build());

@@ -39,11 +39,6 @@ public abstract class SubSettingsBuilder {
 		return parent;
 	}
 
-	public void setParent(
-			SubSettingsBuilder parent) {
-		this.parent = parent;
-	}
-
 	public SubSettingsBuilder getChild() {
 		return child;
 	}
@@ -75,10 +70,26 @@ public abstract class SubSettingsBuilder {
 		return parent == null ? this : parent.build();
 	}
 
-	public SubSettingsBuilder addChild(SubSettingsBuilder builder) {
-		builder.setParent(this);
-		this.child = builder;
-		return builder;
+	/**
+	 * Sets the highest parent of a child as the child of this builder.
+	 * @param child one of the child builders that are added.
+	 * @return the highest parent of that child
+	 */
+	public SubSettingsBuilder addChild(SubSettingsBuilder child) {
+		this.child = child.setParent(this);
+		return child;
+	}
+
+	public SubSettingsBuilder setParent(SubSettingsBuilder parent) {
+
+		SubSettingsBuilder parentBuilder = getParent();
+		if (parentBuilder != null) {
+			return parentBuilder.setParent(parent);
+		} else {
+			this.parent = parent;
+			return this;
+		}
+
 	}
 
 	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {

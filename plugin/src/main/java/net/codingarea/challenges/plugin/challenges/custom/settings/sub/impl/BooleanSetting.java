@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl;
 
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -16,7 +17,8 @@ public class BooleanSetting extends ValueSetting {
   }
 
   @Override
-  public String onClick(String value, int slotIndex) {
+  public String onClick(MenuClickInfo info, String value,
+      int slotIndex) {
     return value.equals("enabled") ? "disabled" : "enabled";
   }
 

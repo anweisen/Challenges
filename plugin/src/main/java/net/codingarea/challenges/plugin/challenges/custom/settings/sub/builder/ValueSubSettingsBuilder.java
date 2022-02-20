@@ -5,9 +5,11 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.BooleanSetting;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.ModifierSetting;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingValueMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -50,10 +52,34 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
     return display;
   }
 
-  public ValueSubSettingsBuilder addBooleanSetting(String key, ItemBuilder displayItem, boolean defaultValue) {
-    defaultSettings.put(new BooleanSetting(key, displayItem), defaultValue ? "enabled" : "disabled");
+  public ValueSubSettingsBuilder addBooleanSetting(String key, ItemBuilder displayItem,
+      boolean defaultValue) {
+    defaultSettings.put(new BooleanSetting(key, displayItem),
+        defaultValue ? "enabled" : "disabled");
     return this;
   }
+
+  public ValueSubSettingsBuilder addModifierSetting(String key, ItemBuilder displayItem,
+      int defaultValue, int min, int max) {
+    defaultSettings.put(new ModifierSetting(key, min, max, displayItem),
+        String.valueOf(defaultValue));
+    return this;
+  }
+
+  public ValueSubSettingsBuilder addModifierSetting(String key, ItemBuilder displayItem,
+      int defaultValue, int min, int max, Function<Integer, String> prefixGetter) {
+    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, prefixGetter),
+        String.valueOf(defaultValue));
+    return this;
+  }
+
+  public ValueSubSettingsBuilder addModifierSetting(String key, ItemBuilder displayItem,
+      int defaultValue, int min, int max, Function<Integer, String> prefixGetter, Function<Integer, String> suffixGetter) {
+    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, prefixGetter, suffixGetter),
+        String.valueOf(defaultValue));
+    return this;
+  }
+
 
   public ValueSubSettingsBuilder fill(Consumer<ValueSubSettingsBuilder> actions) {
     actions.accept(this);

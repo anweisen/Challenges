@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub;
 
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 
 /**
@@ -20,7 +21,7 @@ public abstract class ValueSetting {
     return itemBuilder;
   }
 
-  public abstract String onClick(String value, int slotIndex);
+  public abstract String onClick(MenuClickInfo info, String value, int slotIndex);
   public ItemBuilder getDisplayItem(String value) {
     return createDisplayItem().hideAttributes();
   }

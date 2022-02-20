@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.UncraftItemsChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -20,6 +21,8 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -78,8 +81,25 @@ public interface IChallengeAction {
 	TargetEntitiesChallengeAction BOOST_IN_AIR = (entity, map) -> {
 		if (entity instanceof Player) {
 			Player player = (Player) entity;
-
 		}
+	};
+	TargetEntitiesChallengeAction POTION_EFFECT = (entity, map) -> {
+
+		if (entity instanceof LivingEntity) {
+			LivingEntity livingEntity = (LivingEntity) entity;
+			try {
+
+				PotionEffectType effectType = PotionEffectType.getByName(map.get("potion_type")[0]);
+				PotionEffect effect = effectType.createEffect(Integer.parseInt(map.get("length")[0]) * 20 + 1,
+						Integer.parseInt(map.get("amplifier")[0]));
+
+				livingEntity.addPotionEffect(effect);
+			} catch (Exception exception) {
+				Challenges.getInstance().getLogger().severe("Error while adding potion effect to player");
+				exception.printStackTrace();
+			}
+		}
+
 	};
 
 	void execute(Entity entity, Map<String, String[]> subActions);
