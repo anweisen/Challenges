@@ -789,7 +789,7 @@
     "*Effekt* anhält"
   ],
   "item-random-effect-amplifier-challenge": [
-    "§6Amplifier",
+    "§6Stärke",
     "Die *Stärke*, die der",
     "*Effekt* hat"
   ],
@@ -1136,22 +1136,22 @@
   "custom-info-none": "Nichts",
 
   "item-custom-condition-jump": [
-    "§aSpieler springt"
+    "§aSpieler Springt"
   ],
   "item-custom-condition-sneak": [
-    "§aSpieler schleicht"
+    "§aSpieler Schleicht"
   ],
   "item-custom-condition-move_block": [
-    "§6Spieler läuft einen block"
+    "§6Spieler Läuft Einen Block"
   ],
   "item-custom-condition-death": [
-    "§cEntity stirbt"
+    "§cEntity Stirbt"
   ],
   "item-custom-condition-damage": [
-    "§cEntity bekommt Schaden"
+    "§cEntity Erleidet Schaden"
   ],
   "item-custom-condition-damage_by_player": [
-    "§cEntity bekommt Schaden von Spieler"
+    "§cEntity Bekommt Schaden Von Spieler"
   ],
   "item-custom-condition-entity_type-any": [
     "§cJegliches Entity"
@@ -1160,8 +1160,7 @@
     "§aSpieler"
   ],
   "item-custom-condition-intervall": [
-    "§6Intervall",
-    "In einem *Zeitlichem* Intervall"
+    "§6Intervall"
   ],
   "item-custom-condition-intervall-second": [
     "§6Jede Sekunde"
@@ -1184,7 +1183,37 @@
   "item-custom-condition-consume_item": [
     "§2Item Konsumieren"
   ],
+  "item-custom-condition-pickup_item": [
+    "§bItem Aufheben"
+  ],
+  "item-custom-condition-advancement": [
+    "§cSpieler erhält Errungenschaft"
+  ],
+  "item-custom-condition-hunger": [
+    "§2Spieler Verliert Hunger"
+  ],
+  "item-custom-condition-move_down": [
+    "§6Block Nach Unten Bewegen"
+  ],
+  "item-custom-condition-move_up": [
+    "§6Block Nach Oben Bewegen"
+  ],
+  "item-custom-condition-move_camera": [
+    "§6Kamera Bewegen"
+  ],
+  "item-custom-condition-stands_on_specific_block": [
+    "§6Spieler Ist Auf Bestimmten Block"
+  ],
+  "item-custom-condition-stands_not_on_specific_block": [
+    "§6Spieler Ist Nicht Auf Bestimmten Block"
+  ],
 
+
+  "item-custom-action-cancel": [
+    "§4Bedingung Abbrechen",
+    "Verhindert, dass die Bedingung ausgeführt wird",
+    "Nicht abbrechbare Bedingungen: Springen, Sneaken, Töten"
+  ],
   "item-custom-action-kill": [
     "§4Töten",
     "Töte Entities"
@@ -1192,6 +1221,14 @@
   "item-custom-action-damage": [
     "§cSchaden",
     "Füge Entities Schaden zu"
+  ],
+  "item-custom-action-heal": [
+    "§aHeilen",
+    "Heile Entities"
+  ],
+  "item-custom-action-hunger": [
+    "§6Hunger",
+    "Füge Spielern Hunger hinzu"
   ],
   "item-custom-action-random_mob": [
     "§6Zufälliges Entity",
@@ -1211,7 +1248,29 @@
   ],
   "item-custom-action-potion_effect": [
     "§dTrank Effekt",
-    "Gebe einen bestimmten Trank Effekt"
+    "Gebe Entities einen bestimmten Trank Effekt"
+  ],
+  "item-custom-action-permanent_effect": [
+    "§6Permanenten Trank Effekt",
+    "Füge Spieler einen Permanenten Effekt hinzu.",
+    "Die Aktion nutzt die Einstellungen",
+    "von der Permanenten Effekt Challenge."
+  ],
+  "item-custom-action-random_effect": [
+    "§dZufälliger Trank Effekt",
+    "Gebe Entities einen zufälligen Trank Effekt"
+  ],
+  "item-custom-action-drop_random_item": [
+    "§aItem Aus Inventar Droppen",
+    "Droppe ein Item aus dem Inventar auf den Boden"
+  ],
+  "item-custom-action-remove_random_item": [
+    "§cItem Aus Inventar Entfernen",
+    "Entferne ein Item aus dem Inventar für immer"
+  ],
+  "item-custom-action-swap_random_item": [
+    "§6Items Im Inventar Tauschen",
+    "Tausche zwei Item im Inventar"
   ],
 
   "item-custom-action-target-current": [
@@ -1243,7 +1302,7 @@
   "item-custom-action-target-current_player": [
     "§aAktiver Spieler",
     "Die Aktion wird für den *aktiven Spieler* ausgeführt",
-    "§o§7Wenn das Entity kein Spieler ist, wird nichts passieren"
+    "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
   ]
 
 }
