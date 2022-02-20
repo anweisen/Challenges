@@ -117,7 +117,6 @@ public final class ChallengeManager {
 
 	public synchronized void loadGamestate(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
-			if (challenge instanceof CustomChallenge) continue;
 			String name = challenge.getUniqueName();
 			if (!config.contains(name)) continue;
 			try {
@@ -145,7 +144,6 @@ public final class ChallengeManager {
 
 	public void saveGameStateInto(@Nonnull Document config) {
 		for (IChallenge challenge : challenges) {
-			if (challenge instanceof CustomChallenge) continue;
 			try {
 				Document document = config.getDocument(challenge.getUniqueName());
 				challenge.writeGameState(document);
@@ -156,7 +154,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocument config = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/gamestate.json"), new GsonDocument());
 		saveGameStateInto(config);
 		config.save(async);
 	}

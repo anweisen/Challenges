@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
@@ -29,12 +30,12 @@ import org.bukkit.Bukkit;
  */
 public class CustomSettingsLoader {
 
-  private final HashMap<String, AbstractChallengeCondition> conditions;
-  private final HashMap<String, AbstractChallengeAction> actions;
+  private final Map<String, AbstractChallengeCondition> conditions;
+  private final Map<String, AbstractChallengeAction> actions;
 
   public CustomSettingsLoader() {
-    actions = new HashMap<>();
-    conditions = new HashMap<>();
+    actions = new LinkedHashMap<>();
+    conditions = new LinkedHashMap<>();
   }
 
   public void enable() {
@@ -91,11 +92,11 @@ public class CustomSettingsLoader {
     return conditions.get(name);
   }
 
-  public HashMap<String, AbstractChallengeAction> getActions() {
+  public Map<String, AbstractChallengeAction> getActions() {
     return actions;
   }
 
-  public HashMap<String, AbstractChallengeCondition> getConditions() {
+  public Map<String, AbstractChallengeCondition> getConditions() {
     return conditions;
   }
 
