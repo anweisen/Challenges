@@ -36,7 +36,7 @@ public class EntityDamageByPlayerCondition extends AbstractChallengeCondition {
 		}
 
 		if (damager instanceof Player) {
-			execute(event.getEntity(), MapUtils
+			execute(event.getEntity(), event, MapUtils
 					.createStringListMap("entity_type","any", event.getEntityType().name()));
 		}
 

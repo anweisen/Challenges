@@ -5,9 +5,11 @@ import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Listener;
 
 /**
@@ -20,12 +22,26 @@ public interface IChallengeCondition extends Listener {
 		execute(entity, new HashMap<>());
 	}
 
+	default void execute(Entity entity, Cancellable event) {
+		execute(entity, event, new HashMap<>());
+	}
+
 	default void execute(Entity entity, Map<String, List<String>> data) {
+		execute(entity, null, data);
+	}
+
+	default void execute(Entity entity, Cancellable event, Map<String, List<String>> data) {
 		if (ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse()) {
 			if (entity instanceof Player && AbstractChallenge.ignorePlayer(((Player) entity))) {
 				return;
 			}
+			if (event != null) {
+				CancelEventAction.onPreCondition();
+			}
 			Challenges.getInstance().getCustomChallengesLoader().executeCondition(this, entity, data);
+			if (event != null && CancelEventAction.shouldCancel()) {
+				event.setCancelled(true);
+			}
 		}
 	}
 

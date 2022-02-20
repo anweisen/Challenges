@@ -2,13 +2,14 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
+import org.bukkit.util.Vector;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public class BoostEntityInAirAction extends AbstractChallengeTargetAction {
 
@@ -23,9 +24,9 @@ public class BoostEntityInAirAction extends AbstractChallengeTargetAction {
 
   @Override
   public void executeFor(Entity entity, Map<String, String[]> subActions) {
-    if (entity instanceof Player) {
-      Player player = (Player) entity;
-    }
+    Vector velocityToAdd = new Vector(0, 3 / 2, 0);
+    Vector newVelocity = EntityUtils.getSucceedingVelocity(entity.getVelocity()).add(velocityToAdd);
+    entity.setVelocity(newVelocity);
   }
 
 }

@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -25,7 +25,7 @@ import org.bukkit.entity.Entity;
  */
 public class CustomChallengesLoader extends ModuleChallengeLoader {
 
-	private final Map<UUID, CustomChallenge> customChallenges = new HashMap<>();
+	private final Map<UUID, CustomChallenge> customChallenges = new LinkedHashMap<>();
 
 	public CustomChallengesLoader() {
 		super(Challenges.getInstance());
@@ -44,13 +44,12 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		return challenge;
 	}
 
-	public boolean unregisterCustomChallenge(@Nonnull UUID uuid) {
+	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
 		CustomChallenge challenge = customChallenges.remove(uuid);
-		if (challenge == null) return false;
+		if (challenge == null) return;
 		Challenges.getInstance().getChallengeManager().unregister(challenge);
 		unregister(challenge);
 		generateCustomChallenge(challenge, true, true);
-		return true;
 	}
 
 	public void loadCustomChallengesFrom(@Nonnull Document document) {
@@ -65,9 +64,9 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 				UUID uuid = UUID.fromString(key);
 				String name = doc.getString("name");
 				Material material = doc.getEnum("material", Material.class);
-				AbstractChallengeCondition condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName("condition");
+				AbstractChallengeCondition condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName(doc.getString("condition"));
 				Map<String, String[]> subConditions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subConditions"));
-				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName("action");
+				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(doc.getString("action"));
 				Map<String, String[]> subActions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subActions"));
 
 				CustomChallenge challenge = registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);

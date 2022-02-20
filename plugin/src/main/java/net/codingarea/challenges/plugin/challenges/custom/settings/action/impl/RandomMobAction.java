@@ -9,12 +9,12 @@ import org.bukkit.entity.EntityType;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public class RandomMobAction extends AbstractChallengeTargetAction {
 
   public RandomMobAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true));
+    super(name, createEntityTargetSettingsBuilder(false));
   }
 
   @Override
@@ -32,7 +32,7 @@ public class RandomMobAction extends AbstractChallengeTargetAction {
 
   @Override
   public Material getMaterial() {
-    return Material.COMMAND_BLOCK;
+    return Material.BLAZE_SPAWN_EGG;
   }
 
 }

@@ -56,10 +56,24 @@ public abstract class AbstractChallengeAction extends AbstractChallengeSetting i
 
 
   public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob) {
-    ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem("target_entity")
-        .addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
-            Message.forName("item-custom-action-target-current")).build());
-    if (everyMob) {
+    return createEntityTargetSettingsBuilder(everyMob, false);
+  }
+
+  public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer) {
+    ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem("target_entity");
+    if (!onlyPlayer) {
+      builder.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
+              Message.forName("item-custom-action-target-current")).build());
+    }
+
+    builder.addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD,
+        Message.forName("item-custom-action-target-current_player")).build());
+    builder.addSetting("random_player", new ItemBuilder(Material.ZOMBIE_HEAD,
+        Message.forName("item-custom-action-target-random_player")).build());
+    builder.addSetting("every_player", new ItemBuilder(Material.PLAYER_HEAD,
+        Message.forName("item-custom-action-target-every_player")).build());
+
+    if (everyMob && !onlyPlayer) {
       builder.addSetting("every_mob", new ItemBuilder(Material.WITHER_SKELETON_SKULL,
           Message.forName("item-custom-action-target-every_mob")).build());
       builder.addSetting("every_mob_except_current", new ItemBuilder(Material.SKELETON_SKULL,
@@ -67,13 +81,7 @@ public abstract class AbstractChallengeAction extends AbstractChallengeSetting i
       builder.addSetting("every_mob_except_players", new ItemBuilder(Material.SKELETON_SKULL,
           Message.forName("item-custom-action-target-every_mob_except_players")).build());
     }
-    return builder
-        .addSetting("random_player", new ItemBuilder(Material.ZOMBIE_HEAD,
-            Message.forName("item-custom-action-target-random_player")).build())
-        .addSetting("every_player", new ItemBuilder(Material.PLAYER_HEAD,
-            Message.forName("item-custom-action-target-every_player")).build())
-        .addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD,
-            Message.forName("item-custom-action-target-current_player")).build());
+    return builder;
   }
 
   public static SubSettingsBuilder createPotionSettingsBuilder(boolean potionType,

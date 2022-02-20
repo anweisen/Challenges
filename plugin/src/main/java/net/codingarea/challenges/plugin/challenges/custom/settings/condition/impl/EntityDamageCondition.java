@@ -25,7 +25,7 @@ public class EntityDamageCondition extends AbstractChallengeCondition {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDeath(@Nonnull EntityDamageEvent event) {
-		execute(event.getEntity(), MapUtils.createStringListMap("entity_type","any", event.getEntityType().name()));
+		execute(event.getEntity(), event,MapUtils.createStringListMap("entity_type","any", event.getEntityType().name()));
 	}
 
 }

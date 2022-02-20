@@ -11,9 +11,9 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class BlockMoveCondition extends AbstractChallengeCondition {
+public class MoveBlockCondition extends AbstractChallengeCondition {
 
-  public BlockMoveCondition(String name) {
+  public MoveBlockCondition(String name) {
     super(name);
   }
 
@@ -25,7 +25,7 @@ public class BlockMoveCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
     if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
-    execute(event.getPlayer());
+    execute(event.getPlayer(), event);
   }
 
 }

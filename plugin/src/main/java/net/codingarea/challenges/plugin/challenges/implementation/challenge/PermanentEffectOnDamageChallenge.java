@@ -124,7 +124,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		updateEffects();
 	}
 
-	private void addRandomEffect(@Nonnull Player eventPlayer) {
+	public void addRandomEffect(@Nonnull Player eventPlayer) {
 		PotionEffectType randomEffect = getNewRandomEffect();
 		if (randomEffect == null) return;
 		applyNewEffect(eventPlayer, randomEffect);
@@ -159,7 +159,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		return possibleEffects.get(random.nextInt(possibleEffects.size()));
 	}
 
-	private void updateEffects() {
+	public void updateEffects() {
 		forEachEffect((player, effectType, amplifier) -> {
 			if (effectsToEveryone()) {
 				broadcastFiltered(currentPlayer -> {

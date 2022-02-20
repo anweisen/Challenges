@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -12,8 +13,6 @@ import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -55,7 +54,7 @@ public class MaxHealthSetting extends Modifier {
 
 	private void updateHealth(Player player) {
 		AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-		if (attribute == null) return; // Normally this should never happen because its a generic attribute, but sometimes it does somehow, weird
+		if (attribute == null) return; // This should never happen because its a generic attribute, but just in case
 		if (attribute.getBaseValue() != getValue()) {
 			attribute.setBaseValue(getValue());
 			player.setHealth(getValue());

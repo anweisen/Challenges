@@ -86,6 +86,16 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 		setSettingsItems(inventory, challenge, slot);
 	}
 
+	public int getPageOfChallenge(IChallenge challenge) {
+		int index = challenges.indexOf(challenge);
+		if (index == -1) return -1; // Challenge not registered or menus not loaded
+
+		int page = (index / getSlots().length);
+		if (page >= getInventories().size()) return -1; // This should never happen
+
+		return page;
+	}
+
 	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
 		inventory.setItem(getSlots()[topSlot], getDisplayItem(challenge));
 		inventory.setItem(getSlots()[topSlot] + 9, getSettingsItem(challenge));
@@ -156,7 +166,6 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 	public void onPreChallengePageClicking(@Nonnull MenuClickInfo clickInfo, @Nonnegative int page) {
 
 	}
-
 
 	private class ChallengeMenuPositionGenerator extends GeneratorMenuPosition {
 

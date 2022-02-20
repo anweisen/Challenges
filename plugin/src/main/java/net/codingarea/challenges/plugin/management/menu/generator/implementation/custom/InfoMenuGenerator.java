@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -10,6 +12,7 @@ import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
@@ -21,6 +24,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -39,7 +43,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	public static final int DELETE_SLOT = 19+9, SAVE_SLOT = 25+9, CONDITION_SLOT = 21+9, ACTION_SLOT = 23+9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
 
-	private static final boolean 	savePlayerConfigs;
+	private static final Material[] defaultMaterials;
+	private static final boolean savePlayerConfigs;
 
 	private final UUID uuid;
 	private String name;
@@ -61,12 +66,16 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.subActions = customChallenge.getSubActions();
 	}
 
+	/**
+	 * Default Settings for new Custom Challenges
+	 */
 	public InfoMenuGenerator() {
 		this.condition = null;
 		this.action = null;
 		this.subConditions = new HashMap<>();
 		this.subActions = new HashMap<>();
 		this.uuid = UUID.randomUUID();
+		this.material = IRandom.threadLocal().choose(defaultMaterials);
 		this.name = "§7Custom §e#" +
 				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size()+1);
 		this.inNaming = false;
@@ -184,12 +193,10 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	public String toString() {
 		return "InfoMenuGenerator{" +
 				"name='" + name + '\'' +
-				", material=" + material +
 				", condition=" + condition +
 				", subConditions=" + subConditions.entrySet() +
 				", action=" + action +
 				", subActions=" + subActions.entrySet() +
-				", inventory=" + inventory +
 				", inNaming=" + inNaming +
 				'}';
 	}
@@ -217,24 +224,27 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.CLICK.play(player);
 					break;
 				case DELETE_SLOT:
-					if (!Challenges.getInstance().getCustomChallengesLoader().unregisterCustomChallenge(uuid)) {
+					if (!Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().containsKey(uuid)) {
 						Message.forName("custom-not-deleted").send(player, Prefix.CUSTOM);
 						SoundSample.BASS_OFF.play(player);
 						break;
 					}
-					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+					openChallengeMenu(player);
+					Challenges.getInstance().getCustomChallengesLoader().unregisterCustomChallenge(uuid);
 					new SoundSample().addSound(Sound.ENTITY_WITHER_BREAK_BLOCK, 0.4f).play(player);
 					break;
 				case SAVE_SLOT:
 
-					if (new InfoMenuGenerator().toString().equals(InfoMenuGenerator.this.toString())) {
+					String defaults = new InfoMenuGenerator().toString();
+					String current = InfoMenuGenerator.this.toString();
+					if (defaults.equals(current)) {
 						Message.forName("custom-no-changes").send(player, Prefix.CUSTOM);
 						SoundSample.BASS_OFF.play(player);
 						return;
 					}
 
 					save();
-					Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+					openChallengeMenu(player);
 					Message.forName("custom-saved").send(player, Prefix.CUSTOM);
 					if (savePlayerConfigs) {
 						Message.forName("custom-saved-db").send(player, Prefix.CUSTOM);
@@ -273,8 +283,24 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		}
 	}
 
+	public void openChallengeMenu(Player player) {
+		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
+				.getCustomChallenges().get(uuid);
+		if (challenge == null) {
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+		} else {
+			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
+			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu is in the same generator
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
+		}
+	}
+
 	static {
 		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
+
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		list.removeIf(material1 -> !material1.isItem());
+		defaultMaterials = list.toArray(new Material[0]);
 	}
 
 	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {

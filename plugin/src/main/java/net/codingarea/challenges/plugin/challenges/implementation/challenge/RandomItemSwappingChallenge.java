@@ -33,7 +33,6 @@ public class RandomItemSwappingChallenge extends TimedChallenge {
 		return new ItemBuilder(Material.HOPPER, Message.forName("item-random-swapping-challenge"));
 	}
 
-
 	@Nullable
 	@Override
 	protected String[] getSettingsDescription() {
@@ -54,26 +53,29 @@ public class RandomItemSwappingChallenge extends TimedChallenge {
 	protected void onTimeActivation() {
 		restartTimer();
 
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			if (player.getInventory().getContents().length <= 0) continue;
+		Bukkit.getScheduler().runTask(plugin, () -> {
 
-			Bukkit.getScheduler().runTask(plugin, () -> {
-				int slot = InventoryUtils.getRandomFullSlot(player.getInventory());
-				if (slot == -1) return;
-				swapItemToRandomSlot(
-						player.getInventory(),
-						InventoryUtils.getRandomFullSlot(player.getInventory()),
-						InventoryUtils.getRandomSlot(player.getInventory())
-				);
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (ignorePlayer(player)) continue;
+				swapRandomItems(player);
+			}
 
-			});
-
-		}
+		});
 
 	}
 
-	private void swapItemToRandomSlot(@Nonnull Inventory inventory, int slot1, int slot2) {
+	public static void swapRandomItems(Player player) {
+		if (player.getInventory().getContents().length <= 0) return;
+		int slot = InventoryUtils.getRandomFullSlot(player.getInventory());
+		if (slot == -1) return;
+		swapItemToRandomSlot(
+				player.getInventory(),
+				InventoryUtils.getRandomFullSlot(player.getInventory()),
+				InventoryUtils.getRandomSlot(player.getInventory())
+		);
+	}
+
+	private static void swapItemToRandomSlot(@Nonnull Inventory inventory, int slot1, int slot2) {
 		if (slot1 == -1 || slot2 == -1) return;
 		ItemStack item1 = inventory.getItem(slot1);
 		ItemStack item2 = inventory.getItem(slot2);

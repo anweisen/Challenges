@@ -123,6 +123,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void enableManagers() {
+		customSettingsLoader.enable();
 		databaseManager.enable();
 		worldManager.enable();
 		timer.loadSession();
@@ -131,7 +132,6 @@ public final class Challenges extends BukkitModule {
 		statsManager.register();
 		scheduler.start();
 		metricsLoader.start();
-		customSettingsLoader.enable();
 
 		loaderRegistry.enable();
 	}

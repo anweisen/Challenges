@@ -40,14 +40,14 @@ public class ModifierSetting extends ValueSetting implements IModifier {
   }
 
   @Override
-  public String onClick(MenuClickInfo info, String value,
-      int slotIndex) {
+  public String onClick(MenuClickInfo info, String value, int slotIndex) {
 
     int intValue = getIntValue(value);
     tempValue = intValue;
 
     ChallengeHelper.handleModifierClick(info, this);
 
+    System.out.println(tempValue);
     intValue = tempValue;
     tempValue = 0;
     return String.valueOf(intValue);

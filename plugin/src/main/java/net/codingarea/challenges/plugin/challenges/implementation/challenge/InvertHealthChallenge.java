@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @Since("2.0")
+@ExcludeFromRandomChallenges
 public class InvertHealthChallenge extends TimedChallenge {
 
 	private final IRandom random = IRandom.create();

@@ -17,7 +17,7 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public interface TargetEntitiesChallengeAction extends IChallengeActionLegacy {
+public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   @Override
   default void execute(Entity entity, Map<String, String[]> subActions) {

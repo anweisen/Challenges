@@ -24,7 +24,7 @@ public class BreakBlockCondition extends AbstractChallengeCondition {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onBlockBreak(BlockBreakEvent event) {
-    execute(event.getPlayer(), MapUtils
+    execute(event.getPlayer(), event, MapUtils
         .createStringListMap("block", "any", event.getBlock().getType().name()));
   }
 

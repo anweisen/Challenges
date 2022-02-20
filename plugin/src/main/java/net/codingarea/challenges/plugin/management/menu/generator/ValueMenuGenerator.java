@@ -94,13 +94,8 @@ public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
   public void generatePage(@Nonnull Inventory inventory, int page) {
 
     int startIndex = getItemsPerPage() * page;
-
-    int left = settings.size() - page * getItemsPerPage() + startIndex;
-    int fitOnThisPage = startIndex + left;
-    int[] slots = MenuSetting.getSlots(fitOnThisPage);
-
-    for (int i = 0; i < slots.length; i++) {
-      int slot = slots[i];
+    for (int i = startIndex; i < startIndex + getItemsPerPage() && i < settings.size(); i++) {
+      int slot = i - (getItemsPerPage()*page) + 10;
       ValueSetting key = settings.keySet().toArray(new ValueSetting[0])[i];
       String value = settings.get(key);
       inventory.setItem(slot, key.getDisplayItem(value).build());

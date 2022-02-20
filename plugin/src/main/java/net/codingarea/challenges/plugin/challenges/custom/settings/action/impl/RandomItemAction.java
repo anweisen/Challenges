@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 public class RandomItemAction extends AbstractChallengeAction {
 
   public RandomItemAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false));
+    super(name, createEntityTargetSettingsBuilder(false, true));
   }
 
   @Override

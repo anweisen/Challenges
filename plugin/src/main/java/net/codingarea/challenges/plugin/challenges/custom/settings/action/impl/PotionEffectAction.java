@@ -11,7 +11,7 @@ import org.bukkit.potion.PotionEffectType;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public class PotionEffectAction extends AbstractChallengeTargetAction {
 
@@ -39,7 +39,7 @@ public class PotionEffectAction extends AbstractChallengeTargetAction {
 
   @Override
   public Material getMaterial() {
-    return Material.CRAFTING_TABLE;
+    return Material.POTION;
   }
 
 }

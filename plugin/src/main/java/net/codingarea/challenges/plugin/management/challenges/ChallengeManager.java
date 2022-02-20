@@ -154,7 +154,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/gamestate.json"), new GsonDocument());
+		FileDocument config = Challenges.getInstance().getConfigManager().getGameStateConfig();
 		saveGameStateInto(config);
 		config.save(async);
 	}

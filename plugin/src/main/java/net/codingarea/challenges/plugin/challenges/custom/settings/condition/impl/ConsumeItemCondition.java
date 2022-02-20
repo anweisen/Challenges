@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public class ConsumeItemCondition extends AbstractChallengeCondition {
 
@@ -35,7 +35,7 @@ public class ConsumeItemCondition extends AbstractChallengeCondition {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onConsumeItem(PlayerItemConsumeEvent event) {
-    execute(event.getPlayer(), MapUtils.createStringListMap("item", "any", event.getItem().getType().name()));
+    execute(event.getPlayer(), event, MapUtils.createStringListMap("item", "any", event.getItem().getType().name()));
   }
 
 }
