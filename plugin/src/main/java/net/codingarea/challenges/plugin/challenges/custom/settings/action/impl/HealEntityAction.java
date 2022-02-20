@@ -11,7 +11,7 @@ import org.bukkit.entity.LivingEntity;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.0
  */
 public class HealEntityAction extends AbstractChallengeTargetAction {
 
