@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.Abstra
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.AddPermanentEffectAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.BoostEntityInAirAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ClearInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DamageEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DropRandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
@@ -96,6 +97,7 @@ public class CustomSettingsLoader {
         new PotionEffectAction("potion_effect"),
         new AddPermanentEffectAction("permanent_effect"),
         new RandomPotionEffectAction("random_effect"),
+        new ClearInventoryAction("clear_inventory"),
         new DropRandomItemAction("drop_random_item"),
         new DropRandomItemAction("remove_random_item"),
         new SwapRandomItemAction("swap_random_item")

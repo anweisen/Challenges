@@ -1260,13 +1260,17 @@
     "§dZufälliger Trank Effekt",
     "Gebe Entities einen zufälligen Trank Effekt"
   ],
+  "item-custom-action-clear_inventory": [
+    "§cInventar Leeren",
+    "Leere das Inventar von Spielern komplett"
+  ],
   "item-custom-action-drop_random_item": [
     "§aItem Aus Inventar Droppen",
     "Droppe ein Item aus dem Inventar auf den Boden"
   ],
   "item-custom-action-remove_random_item": [
     "§cItem Aus Inventar Entfernen",
-    "Entferne ein Item aus dem Inventar für immer"
+    "Entferne ein Item aus dem Inventar"
   ],
   "item-custom-action-swap_random_item": [
     "§6Items Im Inventar Tauschen",
