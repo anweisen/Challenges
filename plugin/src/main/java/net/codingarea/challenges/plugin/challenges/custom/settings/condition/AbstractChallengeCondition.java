@@ -22,6 +22,13 @@ import org.bukkit.inventory.ItemStack;
 public abstract class AbstractChallengeCondition extends AbstractChallengeSetting implements
     IChallengeCondition {
 
+  public static final String ENTITY_TYPE = "entity_type",
+        BLOCK = "block",
+        ANY = "any",
+        ITEM = "item",
+        LIQUID = "liquid",
+        TARGET_ENTITY = "target_entity";
+
   public AbstractChallengeCondition(String name,
       SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
@@ -52,8 +59,8 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
   }
 
   public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder() {
-    return SubSettingsBuilder.createChooseMultipleItem("entity_type").fill(builder -> {
-      builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
+    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.ENTITY_TYPE).fill(builder -> {
+      builder.addSetting(AbstractChallengeCondition.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
       builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-condition-entity_type-player")).build());
       for (EntityType type : EntityType.values()) {
         try {
@@ -66,8 +73,8 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
   }
 
   public static ChooseMultipleItemSubSettingBuilder createBlockSettingsBuilder() {
-    return SubSettingsBuilder.createChooseMultipleItem("block").fill(builder -> {
-      builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
+    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.BLOCK).fill(builder -> {
+      builder.addSetting(AbstractChallengeCondition.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
       for (Material material : Material.values()) {
         if (material.isBlock() && material.isItem() && !BukkitReflectionUtils.isAir(material)) {
           builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());

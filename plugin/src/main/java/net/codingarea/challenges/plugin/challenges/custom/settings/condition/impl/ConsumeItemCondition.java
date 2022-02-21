@@ -5,7 +5,6 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.condition.Abs
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -18,7 +17,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 public class ConsumeItemCondition extends AbstractChallengeCondition {
 
   public ConsumeItemCondition(String name) {
-    super(name, SubSettingsBuilder.createChooseMultipleItem("item").fill(builder -> {
+    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.ITEM).fill(builder -> {
       for (Material material : Material.values()) {
         if (material.isEdible()) {
           builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils
@@ -38,7 +37,7 @@ public class ConsumeItemCondition extends AbstractChallengeCondition {
     createData()
         .entity(event.getPlayer())
         .event(event)
-        .data("item", "any", event.getItem().getType().name())
+        .data(AbstractChallengeCondition.ITEM, AbstractChallengeCondition.ANY, event.getItem().getType().name())
         .execute();
   }
 

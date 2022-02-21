@@ -8,6 +8,7 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import org.bukkit.Material;
@@ -50,11 +51,11 @@ public class ChallengeExecutionData {
   }
 
   public ChallengeExecutionData block(Material material) {
-    return data("block", "any", material.name());
+    return data(AbstractChallengeCondition.BLOCK, AbstractChallengeCondition.ANY, material.name());
   }
 
   public ChallengeExecutionData entityType(EntityType type) {
-    return data("entity_type", "any", type.name());
+    return data(AbstractChallengeCondition.ENTITY_TYPE, AbstractChallengeCondition.ANY, type.name());
   }
 
   public ChallengeExecutionData entity(Entity entity) {

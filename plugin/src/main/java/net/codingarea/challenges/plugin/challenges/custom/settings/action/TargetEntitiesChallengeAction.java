@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -29,10 +30,10 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
   void executeFor(Entity entity, Map<String, String[]> subActions);
 
   static List<Entity> getTargets(Entity conditionTarget, Map<String, String[]> subActions) {
-    if (!subActions.containsKey("target_entity")) {
+    if (!subActions.containsKey(AbstractChallengeCondition.TARGET_ENTITY)) {
       return Lists.newLinkedList();
     }
-    String targetEntity = subActions.get("target_entity")[0];
+    String targetEntity = subActions.get(AbstractChallengeCondition.TARGET_ENTITY)[0];
 
     switch (targetEntity) {
       case "random_player":

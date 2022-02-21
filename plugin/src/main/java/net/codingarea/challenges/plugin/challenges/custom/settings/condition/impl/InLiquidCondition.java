@@ -21,7 +21,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class InLiquidCondition extends AbstractChallengeCondition {
 
   public InLiquidCondition(String name) {
-    super(name, SubSettingsBuilder.createChooseMultipleItem("liquid").fill(builder -> {
+    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.LIQUID).fill(builder -> {
       builder.addSetting("LAVA", new ItemBuilder(Material.LAVA_BUCKET, DefaultItem.getItemPrefix() + "§cLava"));
       builder.addSetting("WATER", new ItemBuilder(Material.WATER_BUCKET, DefaultItem.getItemPrefix() + "§9Water"));
     }));
@@ -46,7 +46,7 @@ public class InLiquidCondition extends AbstractChallengeCondition {
         oldType != Material.LAVA) {
       createData()
           .entity(event.getPlayer())
-          .data("liquid", type.name())
+          .data(AbstractChallengeCondition.LIQUID, type.name())
           .execute();
     }
 
