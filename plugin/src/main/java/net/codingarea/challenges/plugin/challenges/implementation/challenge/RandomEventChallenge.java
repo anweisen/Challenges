@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
@@ -9,7 +10,6 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;

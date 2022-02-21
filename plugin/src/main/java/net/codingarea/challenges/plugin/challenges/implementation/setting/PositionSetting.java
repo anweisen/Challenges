@@ -14,7 +14,6 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.*;
-import org.bukkit.Color;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -24,7 +23,6 @@ import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.*;
-import java.util.List;
 import java.util.Map.Entry;
 
 /**

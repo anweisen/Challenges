@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnegative;

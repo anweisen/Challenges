@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.database;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.Tuple;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.database.Database;
@@ -9,7 +10,6 @@ import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
 import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -85,7 +85,7 @@ public final class DatabaseManager {
 			database.createTableSafely("challenges",
 					new SQLColumn("uuid", "varchar", 36),
 					new SQLColumn("name", "varchar", 16),
-					new SQLColumn("textures", "varchar", 265),
+					new SQLColumn("textures", "varchar", 500),
 					new SQLColumn("stats", "varchar", 1500),
 					new SQLColumn("config", "varchar", 7500)
 			);

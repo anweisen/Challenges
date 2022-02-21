@@ -4,6 +4,7 @@ import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.ReflectionUtils;
 import org.bukkit.Material;
+import org.bukkit.World;
 import org.bukkit.entity.EntityType;
 
 import javax.annotation.CheckReturnValue;
@@ -65,6 +66,15 @@ public final class Utils {
 	public static <T extends Enum<?>> void removeEnums(@Nonnull Collection<T> collection, @Nonnull String... names) {
 		List<String> nameList = Arrays.asList(names);
 		collection.removeIf(element -> nameList.contains(element.name()));
+	}
+
+	public static int getMinHeight(@Nonnull World world) {
+		try {
+			return world.getMinHeight();
+		} catch (Throwable ex) {
+		}
+
+		return 0;
 	}
 
 }

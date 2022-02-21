@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.Tuple;
 import net.anweisen.utilities.common.config.Document;
@@ -13,7 +14,6 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.utils.misc.TriConsumer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;

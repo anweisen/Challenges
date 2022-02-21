@@ -58,6 +58,7 @@ ignore-players:
 challenge-settings:
   position-particle-lines: true
   backpack-size: 3 # The size of the backpack in rows between 1-6
+  all-block-disappear-stack-drop-limit: 50 # Limits the amount of the dropped stacks per item (increasing it will probably cause lags with deepslate and stone)
 
 # This will change the item design in the challenges menu
 design:

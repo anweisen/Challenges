@@ -30,7 +30,7 @@ public final class TitleManager {
 	}
 
 	public void sendChallengeStatusTitle(@Nonnull Message message, @Nonnull Object... args) {
-		if (!timerStatusEnabled) return;
+		if (!challengeStatusEnabled) return;
 		message.broadcastTitle(args);
 	}
 

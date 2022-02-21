@@ -6,7 +6,9 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import org.bukkit.*;
+import org.bukkit.Color;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerMoveEvent;
 

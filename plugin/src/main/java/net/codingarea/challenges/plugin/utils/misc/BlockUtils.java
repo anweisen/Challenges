@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
+import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -168,6 +171,24 @@ public final class BlockUtils {
 			return null;
 		}
 		return block;
+	}
+
+	public static boolean isEndItem(Material material) {
+		String name = material.name();
+		return material == Material.ELYTRA ||
+				name.contains("PURPUR") ||
+				name.contains("SHULKER") ||
+				name.contains("END");
+	}
+
+	public static boolean isTooHardToGet(Material material) {
+		String name = material.name();
+		return isEndItem(material) ||
+				material == Material.NETHER_STAR ||
+				name.contains("EXPOSED") ||
+				name.contains("WEATHERED") ||
+				name.contains("OXIDIZED") ||
+				name.contains("BUD");
 	}
 
 }

@@ -26,6 +26,9 @@ public class HelpListener implements Listener {
 
 		String[] args = message.substring(1).trim().split(" ");
 		String commandName = args[0];
+		if (commandName.contains(":")) {
+			commandName = commandName.substring(commandName.indexOf(':') + 1);
+		}
 
 		List<String> names = new ArrayList<>(Challenges.getInstance().getCommand("help").getAliases());
 		names.add("help");
