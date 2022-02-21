@@ -25,7 +25,7 @@
 # The config-version is even with the version of the plugin.
 # You will be notified, when this version is older than the of the plugin.
 # We recommend regenerating the config to get access to new features / settings.
-config-version: "2.0.3"
+config-version: "2.1.0"
 
 # Currently supported by default
 # - en (English)
@@ -146,6 +146,7 @@ cloud-support:
 
 # This will require a database connection
 save-player-configs: false
+save-player-custom-challenges: false
 save-player-stats: false
 no-stats-after-cheating: false
 

@@ -100,7 +100,7 @@ public class BlockMaterialSetting extends Setting {
 
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getUniqueName() {
 		return "blockmaterial" + materials[0].name().toLowerCase();
 	}
 

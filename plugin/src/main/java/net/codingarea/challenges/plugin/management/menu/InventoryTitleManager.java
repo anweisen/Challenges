@@ -22,12 +22,21 @@ public final class InventoryTitleManager {
 
 	@Nonnull
 	public static String getTitle(@Nonnull MenuType menu, int page) {
-		return getTitle(menu.getName(), page);
+		return getTitle(menu.getName(), (page + 1) + "");
 	}
 
 	@Nonnull
-	public static String getTitle(@Nonnull String menu, int page) {
-		return getTitle("§9" + menu + " §8┃ §9" + (page + 1));
+	public static String getTitle(@Nonnull MenuType menu, String... sub) {
+		return getTitle(menu.getName(), sub);
+	}
+
+	@Nonnull
+	public static String getTitle(@Nonnull String menu, String... sub) {
+		String name = "§9" + menu;
+		for (String s : sub) {
+			name += " §8┃ §9" + s;
+		}
+		return getTitle(name);
 	}
 
 	@Nonnull

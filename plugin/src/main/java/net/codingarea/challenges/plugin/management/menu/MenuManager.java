@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
@@ -11,13 +12,10 @@ import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
+import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -25,25 +23,23 @@ import java.util.Map;
  */
 public final class MenuManager {
 
-	public static final int[] GUI_SLOTS = { 30, 32, 19, 25, 11, 15 };
+	public static final int[] GUI_SLOTS = { 30, 32, 19, 25, 11, 15, 4 };
 
-	private final Map<MenuType, SettingsMenu> menus = new HashMap<>();
-	private final AnimatedInventory gui;
+	private AnimatedInventory gui;
 	private final boolean displayNewInFront;
 	private final boolean permissionToManageGUI;
 
-	private TimerMenu timerMenu;
 	private boolean generated = false;
 
 	public MenuManager() {
 		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::generateMenus);
+		ChallengeAPI.subscribeLoader(LanguageLoader.class, this::generateMainMenu);
 		displayNewInFront = Challenges.getInstance().getConfigDocument().getBoolean("display-new-in-front");
 		permissionToManageGUI = Challenges.getInstance().getConfigDocument().getBoolean("manage-settings-permission");
+		generateMainMenu();
+	}
 
-		for (MenuType type : MenuType.values()) {
-			if (!type.isUsable()) continue;
-			menus.put(type, new SettingsMenu(type));
-		}
+	public void generateMainMenu() {
 
 		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
@@ -58,25 +54,27 @@ public final class MenuManager {
 		gui.cloneLastAndAdd().setItem(1, ItemBuilder.FILL_ITEM_2).setItem(7, ItemBuilder.FILL_ITEM_2);
 		gui.cloneLastAndAdd().setItem(2, ItemBuilder.FILL_ITEM_2).setItem(6, ItemBuilder.FILL_ITEM_2);
 
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.TIMER.ordinal()],          new ItemBuilder(Material.CLOCK).name("§8» §6Timer").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.GOAL.ordinal()],           new ItemBuilder(Material.COMPASS).name("§8» §5Goal").hideAttributes());
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.DAMAGE.ordinal()],         new ItemBuilder(Material.IRON_SWORD).name("§8» §7Damage").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.ITEMS_BLOCKS.ordinal()],   new ItemBuilder(Material.STICK).name("§8» §4Blocks & Items").hideAttributes());
-		gui.cloneLastAndAdd().setItem(GUI_SLOTS[MenuType.CHALLENGES.ordinal()],     new ItemBuilder(Material.BOOK).name("§8» §cChallenges").hideAttributes())
-							 .setItem(GUI_SLOTS[MenuType.SETTINGS.ordinal()],       new ItemBuilder(Material.COMPARATOR).name("§8» §eSettings").hideAttributes());
+		for (MenuType type : MenuType.values()) {
+			gui.cloneLastAndAdd().setItem(GUI_SLOTS[type.ordinal()], new ItemBuilder(type.getDisplayItem()).name(
+					DefaultItem.getItemPrefix() + type.getDisplayName()).hideAttributes());
+
+		}
 	}
 
 	public void generateMenus() {
-		menus.values().forEach(SettingsMenu::resetChallengesCache);
+
+		for (MenuType value : MenuType.values()) {
+			value.executeWithGenerator(ChallengeMenuGenerator.class, ChallengeMenuGenerator::resetChallengeCache);
+		}
+
 		for (IChallenge challenge : Challenges.getInstance().getChallengeManager().getChallenges()) {
 			MenuType type = challenge.getType();
-			SettingsMenu menu = menus.get(type);
-			if (menu == null) continue; // Menu is not usable
-			menu.addChallengeCache(challenge);
+			type.executeWithGenerator(ChallengeMenuGenerator.class, gen -> gen.addChallengeToCache(challenge));
 		}
-		menus.values().forEach(SettingsMenu::generateInventories);
 
-		timerMenu = new TimerMenu();
+		for (MenuType value : MenuType.values()) {
+			value.getMenuGenerator().generateInventories();
+		}
 
 		generated = true;
 	}
@@ -104,19 +102,9 @@ public final class MenuManager {
 			return false;
 		}
 
-		if (type == MenuType.TIMER) {
-			timerMenu.open(player, page);
-		} else {
-			SettingsMenu menu = getMenu(type);
-			if (menu.getInventories().isEmpty()) return false;
-			menu.open(player, page);
-		}
-		return true;
-	}
+		type.getMenuGenerator().open(player, page);
 
-	@Nonnull
-	public SettingsMenu getMenu(@Nonnull MenuType type) {
-		return menus.get(type);
+		return true;
 	}
 
 	public boolean isDisplayNewInFront() {

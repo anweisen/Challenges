@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -8,6 +9,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -83,21 +85,21 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		Bukkit.getOnlinePlayers().forEach(this::applyRandomEffect);
 	}
 
-	private void applyRandomEffect(@Nonnull Player player) {
-		PotionEffectType effect = getNewRandomEffect(player);
+	private void applyRandomEffect(@Nonnull Player entity) {
+		PotionEffectType effect = getNewRandomEffect(entity);
 		if (effect == null) return;
-		applyEffect(player, effect);
+		applyEffect(entity, effect);
 	}
 
 	@Nullable
-	private PotionEffectType getNewRandomEffect(@Nonnull Player player) {
-		List<PotionEffectType> activeEffects = player.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
+	public static PotionEffectType getNewRandomEffect(@Nonnull LivingEntity entity) {
+		List<PotionEffectType> activeEffects = entity.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
 
 		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
 		possibleEffects.removeAll(activeEffects);
 		possibleEffects.remove(PotionEffectType.HEAL);
 		possibleEffects.remove(PotionEffectType.HARM);
-		return possibleEffects.get(random.nextInt(possibleEffects.size()));
+		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
 	}
 
 	private void applyEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType) {

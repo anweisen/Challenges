@@ -945,9 +945,9 @@
     "*frozen* for a certain time"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Don't Stop Running",
-    "You can *stand still* only a",
-    "specified *time* until you *die*"
+    "§9Dont stop running",
+    "You are only allowed to stand *still*",
+    "a certain *time* before you *die*"
   ],
   "item-consume-launch-challenge": [
     "§cConsume Boost",

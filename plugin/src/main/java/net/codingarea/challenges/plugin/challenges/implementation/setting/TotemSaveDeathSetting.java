@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -31,7 +32,7 @@ public class TotemSaveDeathSetting extends Setting {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onEntityResurrect(@Nonnull EntityResurrectEvent event) {
-		if (inInstantKill && !isEnabled()) {
+		if (ChallengeHelper.isInInstantKill() && !isEnabled()) {
 			event.setCancelled(true);
 		}
 	}

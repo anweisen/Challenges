@@ -119,6 +119,7 @@ public class HealthDisplaySetting extends Setting {
 		try {
 			objective.setRenderType(RenderType.HEARTS);
 		} catch (Exception ex) {
+			Challenges.getInstance().getLogger().severe("Tablist Health could not be updated. You are using an outdated version of spigot.");
 			// In some versions of spigot RenderType does not exist
 		}
 

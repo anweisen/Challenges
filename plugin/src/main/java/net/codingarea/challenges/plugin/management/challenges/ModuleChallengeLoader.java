@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.management.challenges.annotations.Requir
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 
@@ -112,6 +113,22 @@ public class ModuleChallengeLoader {
 
 	public final void registerMaterialRule(@Nonnull String name, @Nonnull ItemBuilder preset, Object[] replacements, @Nonnull Material... materials) {
 		register(BlockMaterialSetting.class, new Class[] { String.class, ItemBuilder.class, Object[].class, Material[].class }, name, preset, replacements, materials);
+	}
+
+
+	/**
+	 * Unregisters an existing challenge and deletes its settings.
+	 * It does not unregister commands!
+	 */
+	public final void unregister(@Nonnull IChallenge challenge) {
+		Challenges.getInstance().getChallengeManager().unregister(challenge);
+		Challenges.getInstance().getScheduler().unregister(challenge);
+		Challenges.getInstance().getConfigManager().getSettingsConfig().remove(challenge.getUniqueName());
+		Challenges.getInstance().getConfigManager().getGameStateConfig().remove(challenge.getUniqueName());
+
+		if (challenge instanceof Listener) {
+			HandlerList.unregisterAll((Listener) challenge);
+		}
 	}
 
 }

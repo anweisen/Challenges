@@ -16,9 +16,7 @@ import java.io.File;
  */
 public final class ConfigManager {
 
-	private FileDocument sessionConfig;
-	private FileDocument gamestateConfig;
-	private FileDocument settingsConfig;
+	private FileDocument sessionConfig, gamestateConfig, settingsConfig, customChallengesConfig;
 
 	public ConfigManager() {
 		GsonDocument.setCleanupEmptyObjects(true);
@@ -29,6 +27,7 @@ public final class ConfigManager {
 		sessionConfig   = load("internal/session.json");
 		gamestateConfig = load("internal/gamestate.json");
 		settingsConfig  = load("internal/settings.json");
+		customChallengesConfig  = load("internal/custom-challenges.json");
 	}
 
 	@Nullable
@@ -56,6 +55,10 @@ public final class ConfigManager {
 	@Nonnull
 	public FileDocument getSettingsConfig() {
 		return settingsConfig;
+	}
+
+	public FileDocument getCustomChallengesConfig() {
+		return customChallengesConfig;
 	}
 
 }

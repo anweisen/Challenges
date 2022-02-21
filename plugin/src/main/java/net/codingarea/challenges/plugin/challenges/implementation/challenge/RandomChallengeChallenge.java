@@ -98,6 +98,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		challenges.removeIf(challenge -> challenge.getType() != MenuType.CHALLENGES);
 		challenges.removeIf(challenge -> !(challenge instanceof AbstractChallenge));
 		challenges.removeIf(ChallengeHelper::canInstaKillOnEnable);
+		challenges.removeIf(ChallengeHelper::isExcludedFromRandomChallenges);
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 

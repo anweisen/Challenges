@@ -56,6 +56,10 @@ public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBu
 		this(material, message.asItemDescription());
 	}
 
+	public ItemBuilder(@Nonnull Material material, @Nonnull Message message, Object... args) {
+		this(material, message.asItemDescription(args));
+	}
+
 	public ItemBuilder(@Nonnull Material material, @Nonnull ItemDescription description) {
 		this(material);
 		applyFormat(description);

@@ -35,8 +35,8 @@ public class DamageRuleSetting extends Setting {
 
 	@Nonnull
 	@Override
-	public String getName() {
-		return super.getName() + name;
+	public String getUniqueName() {
+		return super.getUniqueName() + name;
 	}
 
 	@Nonnull

@@ -1,5 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -8,7 +18,8 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.SettingsMenu;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -19,13 +30,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -81,20 +85,20 @@ public abstract class MenuSetting extends Setting {
 
 		}
 
-		InventoryUtils.setNavigationItemsToInventory(inventories, SettingsMenu.NAVIGATION_SLOTS, false);
+		InventoryUtils.setNavigationItemsToInventory(inventories, MainMenuGenerator.NAVIGATION_SLOTS, false);
 
 	}
 
 	@Nonnull
 	private Inventory createNewInventory(int page, int pagesAmount) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenu.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenuGenerator.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
 	}
 
 	@Nonnull
-	private static int[] getSlots(int amount) {
+	public static int[] getSlots(int amount) {
 		switch (amount) {
 			default: return new int[0];
 			case 1: return new int[] { 13 };
@@ -593,7 +597,7 @@ public abstract class MenuSetting extends Setting {
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
 
-			if (info.getSlot() == SettingsMenu.NAVIGATION_SLOTS[0]) {
+			if (info.getSlot() == SettingsMenuGenerator.NAVIGATION_SLOTS[0]) {
 				if (page == 0) {
 					MenuPosition.set(info.getPlayer(), before);
 					info.getPlayer().openInventory(inventoryBefore);
@@ -602,7 +606,7 @@ public abstract class MenuSetting extends Setting {
 				}
 				SoundSample.CLICK.play(info.getPlayer());
 				return;
-			} else if (info.getSlot() == SettingsMenu.NAVIGATION_SLOTS[1]) {
+			} else if (info.getSlot() == SettingsMenuGenerator.NAVIGATION_SLOTS[1]) {
 				open(info.getPlayer(), inventoryBefore, before, page + 1);
 				SoundSample.CLICK.play(info.getPlayer());
 				return;

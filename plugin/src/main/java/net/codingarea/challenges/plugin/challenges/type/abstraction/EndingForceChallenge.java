@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -56,7 +57,7 @@ public abstract class EndingForceChallenge extends AbstractForceChallenge {
 
 	private void killFailedPlayers(@Nonnull Iterable<? extends Player> failed) {
 		if (!ChallengeAPI.isStarted()) return;
-		failed.forEach(this::kill);
+		failed.forEach(ChallengeHelper::kill);
 	}
 
 	@Override
