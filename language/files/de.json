@@ -1220,6 +1220,9 @@
   "item-custom-condition-item_craft": [
     "§6Spieler Craftet Item"
   ],
+  "item-custom-condition-in_liquid": [
+    "§9Spieler In Flüssigkeit"
+  ],
 
 
   "item-custom-action-cancel": [
