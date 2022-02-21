@@ -22,7 +22,7 @@ public class LevelUpCondition extends AbstractChallengeCondition {
   }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onPickup(PlayerLevelChangeEvent event) {
+  public void onLevelUp(PlayerLevelChangeEvent event) {
     if (event.getNewLevel() > event.getOldLevel()) {
       execute(event.getPlayer());
     }
