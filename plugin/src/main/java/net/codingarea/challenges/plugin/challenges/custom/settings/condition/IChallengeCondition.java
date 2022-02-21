@@ -26,21 +26,29 @@ public interface IChallengeCondition extends Listener {
 		execute(entity, event, new HashMap<>());
 	}
 
+	default void execute(Entity entity, Runnable cancelAction) {
+		execute(entity, cancelAction, new HashMap<>());
+	}
+
 	default void execute(Entity entity, Map<String, List<String>> data) {
-		execute(entity, null, data);
+		execute(entity, () -> {}, data);
 	}
 
 	default void execute(Entity entity, Cancellable event, Map<String, List<String>> data) {
+		execute(entity, () -> event.setCancelled(true), data);
+	}
+
+	default void execute(Entity entity, Runnable cancelAction, Map<String, List<String>> data) {
 		if (ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse()) {
 			if (entity instanceof Player && AbstractChallenge.ignorePlayer(((Player) entity))) {
 				return;
 			}
-			if (event != null) {
+			if (cancelAction != null) {
 				CancelEventAction.onPreCondition();
 			}
 			Challenges.getInstance().getCustomChallengesLoader().executeCondition(this, entity, data);
-			if (event != null && CancelEventAction.shouldCancel()) {
-				event.setCancelled(true);
+			if (cancelAction != null && CancelEventAction.shouldCancel()) {
+				cancelAction.run();
 			}
 		}
 	}

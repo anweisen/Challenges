@@ -22,6 +22,8 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.S
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.AdvancementCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.GainXPCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.LevelUpCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.MoveBlockCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.BreakBlockCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.ConsumeItemCondition;
@@ -79,7 +81,9 @@ public class CustomSettingsLoader {
         new MoveDownCondition("move_down"),
         new MoveCameraCondition("move_camera"),
         new StandsOnSpecificBlock("stands_on_specific_block"),
-        new StandsNotOnSpecificBlock("stands_not_on_specific_block")
+        new StandsNotOnSpecificBlock("stands_not_on_specific_block"),
+        new GainXPCondition("gain_xp"),
+        new LevelUpCondition("level_up")
     );
   }
 

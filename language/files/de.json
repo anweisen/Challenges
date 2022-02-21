@@ -1207,6 +1207,12 @@
   "item-custom-condition-stands_not_on_specific_block": [
     "§6Spieler Ist Nicht Auf Bestimmten Block"
   ],
+  "item-custom-condition-gain_xp": [
+    "§6Spieler Bekommt XP"
+  ],
+  "item-custom-condition-level_up": [
+    "§6Spieler Levelt Auf"
+  ],
 
 
   "item-custom-action-cancel": [
