@@ -42,7 +42,6 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	private static final int GLOBAL_EFFECT = 1;
 	private final Random random = new Random();
-
 	public PermanentEffectOnDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 2);
 	}

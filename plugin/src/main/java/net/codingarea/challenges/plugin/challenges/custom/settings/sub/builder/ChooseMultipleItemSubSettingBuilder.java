@@ -49,8 +49,6 @@ public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
   public List<String> getDisplay(Map<String, String[]> activated) {
     List<String> display = Lists.newLinkedList();
 
-
-
     for (Entry<String, String[]> entry : activated.entrySet()) {
       if (entry.getKey().equals(getKey())) {
 
@@ -71,7 +69,7 @@ public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
         }
 
         if (firstDisplay != null) {
-          String suffix = count == 0 ? "" : " +" + count;
+          String suffix = count == 0 ? "" : " §7+" + count;
           display.add(firstDisplay + suffix);
         } else {
           display.add("§7" + keyName + " " + DefaultItem.getItemPrefix() + Message.forName("custom-info-none").asString());
