@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.C
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ClearInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DamageEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DropRandomItemAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.FreezeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
@@ -108,7 +109,8 @@ public class CustomSettingsLoader {
         new ClearInventoryAction("clear_inventory"),
         new DropRandomItemAction("drop_random_item"),
         new DropRandomItemAction("remove_random_item"),
-        new SwapRandomItemAction("swap_random_item")
+        new SwapRandomItemAction("swap_random_item"),
+        new FreezeAction("freeze")
     );
   }
 

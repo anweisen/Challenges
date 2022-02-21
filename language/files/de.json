@@ -1292,6 +1292,12 @@
     "§6Items Im Inventar Tauschen",
     "Tausche zwei Item im Inventar"
   ],
+  "item-custom-action-freeze": [
+    "§bFreeze",
+    "Friere Mobs Zeitweise ein.",
+    "Die Aktion nutzt die Einstellungen",
+    "von der Freeze On Damage Challenge."
+  ],
 
   "item-custom-action-target-current": [
     "§6Aktives Entity",
