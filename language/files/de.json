@@ -1212,10 +1212,13 @@
     "§6Spieler Ist Nicht Auf Bestimmten Block"
   ],
   "item-custom-condition-gain_xp": [
-    "§6Spieler Bekommt XP"
+    "§5Spieler Bekommt XP"
   ],
   "item-custom-condition-level_up": [
-    "§6Spieler Levelt Auf"
+    "§5Spieler Levelt Auf"
+  ],
+  "item-custom-condition-item_craft": [
+    "§6Spieler Craftet Item"
   ],
 
 
