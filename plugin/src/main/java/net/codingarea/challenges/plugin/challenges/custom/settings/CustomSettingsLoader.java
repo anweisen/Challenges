@@ -14,6 +14,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.D
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.FreezeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.InvertHealthAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.PotionEffectAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
@@ -110,7 +111,8 @@ public class CustomSettingsLoader {
         new DropRandomItemAction("drop_random_item"),
         new DropRandomItemAction("remove_random_item"),
         new SwapRandomItemAction("swap_random_item"),
-        new FreezeAction("freeze")
+        new FreezeAction("freeze"),
+        new InvertHealthAction("invert_health")
     );
   }
 

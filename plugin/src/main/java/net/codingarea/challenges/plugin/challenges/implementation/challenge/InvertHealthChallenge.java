@@ -59,10 +59,18 @@ public class InvertHealthChallenge extends TimedChallenge {
 		Message.forName("health-inverted").broadcast(Prefix.CHALLENGES);
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (ignorePlayer(player)) continue;
-			double health = player.getMaxHealth() - player.getHealth();
-			player.setHealth(health);
+			invertHealth(player);
 		}
 		restartTimer();
+	}
+
+	public static void invertHealth(Player player) {
+		double health = player.getMaxHealth() - player.getHealth();
+		if (health <= 0) {
+			ChallengeHelper.kill(player);
+			return;
+		}
+		player.setHealth(health);
 	}
 
 }

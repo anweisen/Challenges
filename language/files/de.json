@@ -595,8 +595,9 @@
   ],
   "item-invert-health-challenge": [
     "§cInvert Health",
-    "Alle paar Minuten werden deine *Herzen invertiert*",
-    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+    "Alle paar Minuten werden deine *Herzen invertiert*.",
+    "Wenn du *8 Herzen* hast,",
+    "hast du danach *2 Herzen* und umgekehrt."
   ],
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
@@ -1297,6 +1298,12 @@
     "Friere Mobs Zeitweise ein.",
     "Die Aktion nutzt die Einstellungen",
     "von der Freeze On Damage Challenge."
+  ],
+  "item-custom-action-invert_health": [
+    "§cInvert Health",
+    "Invertiere die Herzen eines Spielers.",
+    "Wenn du *8 Herzen* hast,",
+    "hast du danach *2 Herzen* und umgekehrt."
   ],
 
   "item-custom-action-target-current": [
