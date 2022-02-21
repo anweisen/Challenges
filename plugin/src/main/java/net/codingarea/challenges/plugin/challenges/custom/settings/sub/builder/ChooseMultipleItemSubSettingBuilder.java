@@ -71,7 +71,7 @@ public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
         }
 
         if (firstDisplay != null) {
-          String suffix = count == 0 ? "" : "§7+" + count;
+          String suffix = count == 0 ? "" : " +" + count;
           display.add(firstDisplay + suffix);
         } else {
           display.add("§7" + keyName + " " + DefaultItem.getItemPrefix() + Message.forName("custom-info-none").asString());

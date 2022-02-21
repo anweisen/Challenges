@@ -24,7 +24,10 @@ public class HungerCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPickup(FoodLevelChangeEvent event) {
     if (event.getFoodLevel() < event.getEntity().getFoodLevel()) {
-      execute(event.getEntity(), event);
+      createData()
+          .entity(event.getEntity())
+          .event(event)
+          .execute();
     }
   }
 

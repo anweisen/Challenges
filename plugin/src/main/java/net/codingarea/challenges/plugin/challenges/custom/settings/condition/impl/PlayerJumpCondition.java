@@ -24,7 +24,7 @@ public class PlayerJumpCondition extends AbstractChallengeCondition {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onJump(@Nonnull PlayerJumpEvent event) {
-		execute(event.getPlayer());
+		createData().entity(event.getPlayer()).execute();
 	}
 
 }

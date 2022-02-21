@@ -83,7 +83,9 @@ public class IntervallCondition extends AbstractChallengeCondition {
       list.add("300");
     }
 
-    execute(null, data);
+    createData()
+        .data("time", list)
+        .execute();
   }
 
 }

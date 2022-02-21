@@ -24,7 +24,7 @@ public class AdvancementCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPickup(PlayerAdvancementDoneEvent event) {
     if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
-    execute(event.getPlayer());
+    createData().entity(event.getPlayer()).execute();
   }
 
 }

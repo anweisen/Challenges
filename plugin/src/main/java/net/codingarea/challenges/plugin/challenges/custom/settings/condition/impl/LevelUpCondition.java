@@ -24,7 +24,9 @@ public class LevelUpCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onLevelUp(PlayerLevelChangeEvent event) {
     if (event.getNewLevel() > event.getOldLevel()) {
-      execute(event.getPlayer());
+      createData()
+          .entity(event.getPlayer())
+          .execute();
     }
   }
 

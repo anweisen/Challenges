@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
@@ -83,12 +84,12 @@ public class CustomChallenge extends Setting {
 		return super.getSettingsDescription();
 	}
 
-	public final void onConditionFulfilled(Entity entity, Map<String, List<String>> data) {
+	public final void onConditionFulfilled(ChallengeExecutionData challengeExecutionData) {
 		if (isEnabled()) {
 
-			boolean conditionMet = isConditionMet(data);
+			boolean conditionMet = isConditionMet(challengeExecutionData.getConditionData());
 			if (conditionMet) {
-				executeAction(entity);
+				executeAction(challengeExecutionData.getEntity());
 			}
 
 		}

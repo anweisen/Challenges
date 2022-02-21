@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
@@ -17,7 +18,6 @@ import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuG
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -121,8 +121,10 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		return challenges;
 	}
 
-	public void executeCondition(@Nonnull IChallengeCondition condition, Entity entity, Map<String, List<String>> data) {
-		getCustomChallengesByCondition(condition).forEach(customChallenge -> customChallenge.onConditionFulfilled(entity, data));
+	public void executeCondition(@Nonnull ChallengeExecutionData challengeExecutionData) {
+		getCustomChallengesByCondition(challengeExecutionData.getCondition())
+				.forEach(customChallenge -> customChallenge
+						.onConditionFulfilled(challengeExecutionData));
 	}
 
 	public Map<UUID, CustomChallenge> getCustomChallenges() {

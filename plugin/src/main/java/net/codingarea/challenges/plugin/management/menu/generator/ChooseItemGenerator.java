@@ -74,7 +74,7 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	public int getPagesCount() {
-		return (items.size() / getItemsPerPage()) + 1;
+		return (int) Math.ceil((float) items.size() / getItemsPerPage());
 	}
 
 	public int getItemsPerPage() {

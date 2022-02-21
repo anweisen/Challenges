@@ -25,7 +25,10 @@ public class MoveDownCondition extends AbstractChallengeCondition {
   public void onMove(PlayerMoveEvent event) {
     if (event.getTo() == null) return;
     if (event.getTo().getBlockY() < event.getFrom().getBlockY()) {
-      execute(event.getPlayer(), event);
+      createData()
+          .entity(event.getPlayer())
+          .event(event)
+          .execute();
     }
 
   }

@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.condition.im
 
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -36,8 +35,11 @@ public class EntityDamageByPlayerCondition extends AbstractChallengeCondition {
 		}
 
 		if (damager instanceof Player) {
-			execute(event.getEntity(), event, MapUtils
-					.createStringListMap("entity_type","any", event.getEntityType().name()));
+			createData()
+					.entity(event.getEntity())
+					.event(event)
+					.entityType(event.getEntityType())
+					.execute();
 		}
 
 	}

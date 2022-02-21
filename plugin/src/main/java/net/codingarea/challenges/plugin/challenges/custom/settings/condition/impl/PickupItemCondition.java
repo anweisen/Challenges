@@ -23,7 +23,10 @@ public class PickupItemCondition extends AbstractChallengeCondition {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPickup(PlayerPickupItemEvent event) {
-    execute(event.getPlayer(), event);
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .execute();
   }
 
 }

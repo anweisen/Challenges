@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.condition.im
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -30,9 +29,12 @@ public class StandsOnSpecificBlock extends AbstractChallengeCondition {
     Block blockBelow = BlockUtils.getBlockBelow(
         event.getTo());
     if (blockBelow == null) return;
-    execute(event.getPlayer(), event,
-        MapUtils.createStringListMap("block",
-            blockBelow.getType().name()));
+
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .block(blockBelow.getType())
+        .execute();
   }
 
 }

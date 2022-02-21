@@ -7,7 +7,6 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.AbstractChallengeSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -52,8 +51,8 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
     return map;
   }
 
-  public static ChooseItemSubSettingsBuilder createEntityTypeSettingsBuilder() {
-    return SubSettingsBuilder.createChooseItem("entity_type").fill(builder -> {
+  public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder() {
+    return SubSettingsBuilder.createChooseMultipleItem("entity_type").fill(builder -> {
       builder.addSetting("any", new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
       builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-condition-entity_type-player")).build());
       for (EntityType type : EntityType.values()) {

@@ -35,7 +35,11 @@ public class ConsumeItemCondition extends AbstractChallengeCondition {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onConsumeItem(PlayerItemConsumeEvent event) {
-    execute(event.getPlayer(), event, MapUtils.createStringListMap("item", "any", event.getItem().getType().name()));
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .data("item", "any", event.getItem().getType().name())
+        .execute();
   }
 
 }

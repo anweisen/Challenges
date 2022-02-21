@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -24,7 +23,11 @@ public class PlaceBlockCondition extends AbstractChallengeCondition {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onBlockPlace(BlockPlaceEvent event) {
-    execute(event.getPlayer(), event, MapUtils.createStringListMap("block", "any", event.getBlock().getType().name()));
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .block(event.getBlock().getType())
+        .execute();
   }
 
 }

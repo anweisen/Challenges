@@ -5,7 +5,6 @@ import java.util.LinkedList;
 import java.util.List;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -45,9 +44,11 @@ public class StandsNotOnSpecificBlock extends AbstractChallengeCondition {
       names.add(material.name());
     }
 
-    execute(event.getPlayer(), event,
-        MapUtils.createStringListMap("block", names.toArray(new String[0])));
-
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .data("block", names)
+        .execute();
   }
 
 }

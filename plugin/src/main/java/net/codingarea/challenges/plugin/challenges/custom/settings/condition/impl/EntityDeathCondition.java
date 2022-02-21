@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.condition.im
 
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,8 +24,10 @@ public class EntityDeathCondition extends AbstractChallengeCondition {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDeath(@Nonnull EntityDeathEvent event) {
-		execute(event.getEntity(), MapUtils
-				.createStringListMap("entity_type","any", event.getEntityType().name()));
+		createData()
+				.entity(event.getEntity())
+				.entityType(event.getEntityType())
+				.execute();
 	}
 
 }

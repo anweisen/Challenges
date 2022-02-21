@@ -25,7 +25,10 @@ public class MoveBlockCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
     if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
-    execute(event.getPlayer(), event);
+    createData()
+        .entity(event.getPlayer())
+        .event(event)
+        .execute();
   }
 
 }

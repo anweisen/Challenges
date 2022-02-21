@@ -24,7 +24,10 @@ public class GainXPCondition extends AbstractChallengeCondition {
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onXPGain(PlayerExpChangeEvent event) {
     if (event.getAmount() > 0) {
-      execute(event.getPlayer(), () -> event.setAmount(0));
+      createData()
+          .entity(event.getPlayer())
+          .cancelAction(() -> event.setAmount(0))
+          .execute();
     }
   }
 

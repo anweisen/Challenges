@@ -25,7 +25,7 @@ public class PlayerSneakCondition extends AbstractChallengeCondition {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onJump(@Nonnull PlayerToggleSneakEvent event) {
 		if (event.isSneaking()) {
-			execute(event.getPlayer());
+			createData().entity(event.getPlayer()).execute();
 		}
 	}
 
