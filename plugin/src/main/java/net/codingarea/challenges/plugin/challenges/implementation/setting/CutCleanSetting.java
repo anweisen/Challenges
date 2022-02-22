@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
@@ -13,6 +18,7 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -22,12 +28,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -39,13 +39,24 @@ public class CutCleanSetting extends MenuSetting {
 
 	public CutCleanSetting() {
 		super(MenuType.SETTINGS, "CutClean");
-		registerSetting("iron->iron_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron-setting")), true, Material.IRON_ORE, Material.IRON_INGOT));
-		registerSetting("gold->gold_ingot", new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true, Material.GOLD_ORE, Material.GOLD_INGOT));
-		registerSetting("coal->torch",      new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false, Material.COAL_ORE, Material.TORCH));
-		registerSetting("gravel->flint",    new ConvertDropSubSetting(() -> new ItemBuilder(Material.FLINT, Message.forName("item-cut-clean-flint-setting")), false, Material.GRAVEL, Material.FLINT));
-		registerSetting("ore->veins",       new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 1, 10));
-		registerSetting("items->inventory", new DirectIntoInventorySubSetting(() -> new ItemBuilder(Material.CHEST, Message.forName("item-cut-clean-inventory-setting"))));
-		registerSetting("row->cooked",      new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food-setting")), true));
+		registerSetting("iron->iron_ingot",
+				new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron-setting")), true,
+				Material.IRON_INGOT, "IRON_ORE", "DEEPSLATE_IRON_ORE"));
+		registerSetting("gold->gold_ingot",
+				new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true,
+				Material.GOLD_INGOT, "GOLD_ORE", "DEEPSLATE_GOLD_ORE"));
+		registerSetting("coal->torch",
+				new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false,
+				Material.TORCH, "COAL_ORE", "DEEPSLATE_COAL_ORE"));
+		registerSetting("gravel->flint",
+				new ConvertDropSubSetting(() -> new ItemBuilder(Material.FLINT, Message.forName("item-cut-clean-flint-setting")), false,
+				Material.FLINT, "GRAVEL"));
+		registerSetting("ore->veins",
+				new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 1, 10));
+		registerSetting("items->inventory",
+				new DirectIntoInventorySubSetting(() -> new ItemBuilder(Material.CHEST, Message.forName("item-cut-clean-inventory-setting"))));
+		registerSetting("row->cooked",
+				new CookFoodSubSetting(() -> new ItemBuilder(Material.COOKED_BEEF, Message.forName("item-cut-clean-food-setting")), true));
 	}
 
 	@Nonnull
@@ -74,22 +85,39 @@ public class CutCleanSetting extends MenuSetting {
 
 	private class ConvertDropSubSetting extends BooleanSubSetting {
 
-		protected final Material from, to;
+		protected final Material[] from;
+		protected final Material to;
 
-		public ConvertDropSubSetting(@Nonnull Supplier<ItemBuilder> item, boolean enabledByDefault, @Nonnull Material from, @Nonnull Material to) {
+		public ConvertDropSubSetting(@Nonnull Supplier<ItemBuilder> item, boolean enabledByDefault,
+				@Nonnull Material to, @Nonnull String... from) {
 			super(item, enabledByDefault);
-			this.from = from;
+
+			List<Material> materials = new ArrayList<>();
+			for (String s : from) {
+				Material material = Utils.getMaterial(s);
+				if (material != null) {
+					materials.add(material);
+				}
+			}
+
+			this.from = materials.toArray(new Material[0]);
 			this.to = to;
 		}
 
 		@Override
 		public void onEnable() {
-			Challenges.getInstance().getBlockDropManager().setCustomDrops(from, to, DropPriority.CUT_CLEAN);
+			if (from == null) return;
+			for (Material material : from) {
+				Challenges.getInstance().getBlockDropManager().setCustomDrops(material, to, DropPriority.CUT_CLEAN);
+			}
 		}
 
 		@Override
 		public void onDisable() {
-			Challenges.getInstance().getBlockDropManager().resetCustomDrop(from, DropPriority.CUT_CLEAN);
+			if (from == null) return;
+			for (Material material : from) {
+				Challenges.getInstance().getBlockDropManager().resetCustomDrop(material, DropPriority.CUT_CLEAN);
+			}
 		}
 
 		@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -97,11 +125,15 @@ public class CutCleanSetting extends MenuSetting {
 			if (!shouldExecuteEffect()) return;
 			if (!directIntoInventory()) return;
 			Material type = event.getBlock().getType();
-			if (type != from) return;
-			List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(event.getBlock().getType());
-			if (customDrops.isEmpty()) return;
-			event.setDropItems(false);
-			customDrops.forEach(drop -> InventoryUtils.dropOrGiveItem(event.getPlayer().getInventory(), event.getBlock().getLocation(), drop));
+
+			for (Material material : from) {
+				if (type != material) continue;
+				List<Material> customDrops = Challenges.getInstance().getBlockDropManager().getCustomDrops(event.getBlock().getType());
+				if (customDrops.isEmpty()) return;
+				event.setDropItems(false);
+				customDrops.forEach(drop -> InventoryUtils.dropOrGiveItem(event.getPlayer().getInventory(), event.getBlock().getLocation(), drop));
+			}
+
 		}
 
 	}
