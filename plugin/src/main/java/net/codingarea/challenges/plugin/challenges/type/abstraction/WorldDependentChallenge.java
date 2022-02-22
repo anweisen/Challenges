@@ -87,7 +87,6 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 	}
 
 	private void teleport(@Nonnull Player player, @Nullable BiConsumer<Player, Integer> teleport) {
-		Challenges.getInstance().getWorldManager().cachePlayerData(player);
 		player.getInventory().clear();
 		player.setFoodLevel(20);
 		player.setSaturation(20);
