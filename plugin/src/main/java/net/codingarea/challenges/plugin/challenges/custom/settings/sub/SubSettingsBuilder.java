@@ -4,10 +4,15 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import org.bukkit.entity.Player;
 
@@ -31,7 +36,20 @@ public abstract class SubSettingsBuilder {
 		this.parent = parent;
 	}
 
-	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
+	public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
+
+		if (hasSettings()) {
+			MenuGenerator generator = getGenerator(player, parentGenerator,
+					title + InventoryTitleManager.getTitleSplitter() + getKeyTranslation());
+			if (generator == null) return false;
+			generator.open(player, 0);
+			return true;
+		}
+
+		return false;
+	}
+
+	public abstract MenuGenerator getGenerator(Player player, IParentCustomGenerator parentGenerator, String title);
 	public abstract List<String> getDisplay(Map<String, String[]> activated);
 	public abstract boolean hasSettings();
 
@@ -47,24 +65,30 @@ public abstract class SubSettingsBuilder {
 		return key;
 	}
 
-	public List<SubSettingsBuilder> getAllChilds() {
-		LinkedList<SubSettingsBuilder> childs = new LinkedList<>(Collections.singleton(this));
+	public String getKeyTranslation() {
+		String messageName = "custom-subsetting-" + key;
+		return MessageManager.hasMessageInCache(messageName)
+				? Message.forName(messageName).asString() : StringUtils.getEnumName(key);
+	}
+
+	public List<SubSettingsBuilder> getAllChildren() {
+		LinkedList<SubSettingsBuilder> children = new LinkedList<>(Collections.singleton(this));
 
 		SubSettingsBuilder last = this;
 
 		while (last != null) {
 			if (last.getChild() != null) {
-				childs.add(last.getChild());
+				children.add(last.getChild());
 			}
 			last = last.getChild();
 		}
 
-		return childs;
+		return children;
 	}
 
 	/**
 	 * @return the first parent that was created.
-	 * Only required if first builder has one ore more childs.
+	 * Only required if first builder has one ore more children.
 	 */
 	public SubSettingsBuilder build() {
 		return parent == null ? this : parent.build();

@@ -34,9 +34,14 @@ public final class InventoryTitleManager {
 	public static String getTitle(@Nonnull String menu, String... sub) {
 		String name = "§9" + menu;
 		for (String s : sub) {
-			name += " §8┃ §9" + s;
+			name += getTitleSplitter() + s;
 		}
 		return getTitle(name);
+	}
+
+	@Nonnull
+	public static String getTitleSplitter() {
+		return " §8┃ §9";
 	}
 
 	@Nonnull

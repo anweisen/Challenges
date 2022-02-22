@@ -23,6 +23,11 @@ public final class MessageManager {
 		return cache.computeIfAbsent(name, key -> new MessageImpl(key));
 	}
 
+	@CheckReturnValue
+	public static boolean hasMessageInCache(@Nonnull String name) {
+		return cache.containsKey(name);
+	}
+
 	public static int getMessageCountCached() {
 		return cache.size();
 	}

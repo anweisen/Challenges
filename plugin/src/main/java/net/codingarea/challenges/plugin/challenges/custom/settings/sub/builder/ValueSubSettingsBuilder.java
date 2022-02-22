@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettin
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.BooleanSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.ModifierSetting;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingValueMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -32,22 +33,15 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   }
 
   @Override
-  public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
-
-    if (hasSettings()) {
-      SubSettingValueMenuGenerator generator = new SubSettingValueMenuGenerator(parentGenerator, new LinkedHashMap<>(getDefaultSettings()), title);
-      generator.open(player, 0);
-      return true;
-    }
-
-    return false;
+  public MenuGenerator getGenerator(Player player, IParentCustomGenerator parentGenerator, String title) {
+    return new SubSettingValueMenuGenerator(parentGenerator, new LinkedHashMap<>(getDefaultSettings()), title);
   }
 
   @Override
   public List<String> getDisplay(Map<String, String[]> activated) {
     List<String> display = Lists.newLinkedList();
 
-
+    // TODO: IMPLEMENT DISPLAY
 
     return display;
   }

@@ -25,7 +25,7 @@ public class SubSettingChooseMultipleMenuGenerator extends ChooseMultipleItemGen
 
 	@Override
 	public String[] getSubTitles(int page) {
-		return new String[]{ "Create", title };
+		return new String[]{ title };
 	}
 
 	@Override

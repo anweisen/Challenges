@@ -1,8 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
-import java.util.Arrays;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
@@ -117,10 +115,7 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	protected String getTitle(int page) {
-		LinkedList<String> list = new LinkedList<>(Arrays.asList(getSubTitles(page)));
-		list.add(String.valueOf(page+1));
-
-		return InventoryTitleManager.getTitle(MenuType.CUSTOM, list.toArray(new String[0]));
+		return InventoryTitleManager.getTitle(MenuType.CUSTOM, getSubTitles(page));
 	}
 
 	public abstract String[] getSubTitles(int page);

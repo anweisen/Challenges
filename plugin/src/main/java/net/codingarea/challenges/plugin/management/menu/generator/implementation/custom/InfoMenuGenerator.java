@@ -83,7 +83,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	@Override
 	public void generateInventories() {
-		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Create"));
+		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Info"));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 
 		updateItems();
@@ -305,7 +305,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
 		List<String> display = new LinkedList<>();
-		for (SubSettingsBuilder child : builder.getAllChilds()) {
+		for (SubSettingsBuilder child : builder.getAllChildren()) {
 			display.addAll(child.getDisplay(activated));
 		}
 		return display;

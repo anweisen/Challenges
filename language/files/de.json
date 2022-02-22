@@ -1339,6 +1339,13 @@
     "§aAktiver Spieler",
     "Die Aktion wird 69für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
-  ]
+  ],
+
+  "custom-subsetting-target_entity": "Ziel Entity",
+  "custom-subsetting-entity_type": "Entity Typ",
+  "custom-subsetting-liquid": "Flüssigkeit",
+  "custom-subsetting-time": "Zeit",
+  "custom-subsetting-damage_cause": "Schadens Art",
+  "custom-subsetting-amount": "Anzahl"
 
 }

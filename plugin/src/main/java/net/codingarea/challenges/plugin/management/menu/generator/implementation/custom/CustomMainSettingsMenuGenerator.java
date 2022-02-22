@@ -39,7 +39,7 @@ public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator impleme
 
 	@Override
 	public String[] getSubTitles(int page) {
-		return new String[]{ "Create", title };
+		return new String[]{ title };
 	}
 
 	@Override

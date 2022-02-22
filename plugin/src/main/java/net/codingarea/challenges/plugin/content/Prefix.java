@@ -40,7 +40,7 @@ public class Prefix {
 	@Nonnull
 	@Override
 	public String toString() {
-		return value == null ? defaultValue : value;
+		return (value == null ? defaultValue : value) + "§7";
 	}
 
 	@Nonnull

@@ -24,7 +24,7 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 
 	@Override
 	public String[] getSubTitles(int page) {
-		return new String[]{ "Create", "Material" };
+		return new String[]{ "Material" };
 	}
 
 	@Override

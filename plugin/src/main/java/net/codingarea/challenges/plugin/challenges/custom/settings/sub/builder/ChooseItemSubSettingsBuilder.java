@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Consumer;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingChooseMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -34,15 +34,8 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
   }
 
   @Override
-  public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
-
-    if (hasSettings()) {
-      SubSettingChooseMenuGenerator generator = new SubSettingChooseMenuGenerator(key, parentGenerator, getSettings(), title);
-      generator.open(player, 0);
-      return true;
-    }
-
-    return false;
+  public MenuGenerator getGenerator(Player player, IParentCustomGenerator parentGenerator, String title) {
+    return new SubSettingChooseMenuGenerator(key, parentGenerator, getSettings(), title);
   }
 
   @Override
@@ -54,7 +47,7 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
         for (String value : entry.getValue()) {
           ItemStack itemStack = getSettings().get(value);
           if (itemStack != null) {
-            display.add("§7" + StringUtils.getEnumName(entry.getKey()) + " " + itemStack.getItemMeta().getDisplayName());
+            display.add("§7" + getKeyTranslation() + " " + itemStack.getItemMeta().getDisplayName());
 
           }
         }

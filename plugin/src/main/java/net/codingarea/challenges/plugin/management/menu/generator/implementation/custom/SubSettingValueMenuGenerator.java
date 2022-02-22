@@ -24,7 +24,7 @@ public class SubSettingValueMenuGenerator extends ValueMenuGenerator {
 
   @Override
   public String[] getSubTitles(int page) {
-    return new String[]{ "Create", title };
+    return new String[]{ title };
   }
 
   @Override
