@@ -1155,6 +1155,9 @@
   "item-custom-condition-damage": [
     "§cEntity Erleidet Schaden"
   ],
+  "item-custom-condition-damage-any": [
+    "§aJeglicher Grund"
+  ],
   "item-custom-condition-damage_by_player": [
     "§cEntity Bekommt Schaden Von Spieler"
   ],
@@ -1329,12 +1332,12 @@
     "Die Aktion wird für einen *zufälligen Spieler* ausgeführt"
   ],
   "item-custom-action-target-every_player": [
-    "§cJeder Spieler",
+    "§cAlle Spieler",
     "Die Aktion wird für *jeden Spieler* ausgeführt"
   ],
   "item-custom-action-target-current_player": [
     "§aAktiver Spieler",
-    "Die Aktion wird für den *aktiven Spieler* ausgeführt",
+    "Die Aktion wird 69für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
   ]
 

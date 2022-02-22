@@ -15,6 +15,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
+import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
@@ -107,15 +108,18 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 		int startIndex = getItemsPerPage() * page;
 		for (int i = startIndex; i < startIndex + getItemsPerPage() && i < items.size(); i++) {
 			String key = items.keySet().toArray(new String[0])[i];
-			ItemStack itemStack = items.get(key);
+			ItemBuilder itemBuilder = new ItemBuilder(items.get(key)).clone();
+			itemBuilder.hideAttributes();
 
 			if (selectedKeys.contains(key)) {
-				itemStack = itemStack.clone();
-				itemStack.addUnsafeEnchantment(Enchantment.DURABILITY, 1);
+				itemBuilder.addEnchantment(Enchantment.DURABILITY, 1);
+				itemBuilder.appendName(" §8┃ §2§l✔");
+			} else {
+				itemBuilder.appendName(" §8┃ §c✖");
 			}
 
 			lastSlot = getNextMiddleSlot(lastSlot);
-			inventory.setItem(lastSlot, itemStack);
+			inventory.setItem(lastSlot, itemBuilder.build());
 			lastSlot++;
 		}
 
