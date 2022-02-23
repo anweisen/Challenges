@@ -106,7 +106,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	protected void onTimeActivation() {
+	protected void startWorldChallenge() {
 		startJumpAndRun();
 	}
 
@@ -212,6 +212,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!event.getPlayer().getUniqueId().equals(currentPlayer)) return;
+		if (!isInExtraWorld()) return;
 		if (targetBlock == null) return;
 		if (event.getTo() == null) return;
 

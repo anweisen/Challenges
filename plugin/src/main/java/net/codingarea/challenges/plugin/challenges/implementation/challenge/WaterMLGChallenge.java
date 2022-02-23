@@ -57,8 +57,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	protected void onTimeActivation() {
-
+	protected void startWorldChallenge() {
 		Location currentLocation = new Location(getExtraWorld(), 0, 150, 0);
 
 		teleportToWorld(false, (player, index) -> {
@@ -73,13 +72,11 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 			teleportBack();
 			restartTimer();
 		}, 10*20);
-
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlayerBucketEmpty(@Nonnull PlayerBucketEmptyEvent event) {
 		if (!isInExtraWorld()) return;
-		if (!isEnabled()) return;
 
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			event.getBlock().setType(Material.AIR);
@@ -93,7 +90,6 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onEntityDamage(@Nonnull EntityDamageEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
-		if (!isEnabled()) return;
 		if (!isInExtraWorld()) return;
 
 		if (AbstractChallenge.getFirstInstance(OneTeamLifeSetting.class).isEnabled()) {

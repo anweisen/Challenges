@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import java.util.List;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -11,11 +16,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
-import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -58,6 +58,20 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 	public WorldDependentChallenge(@Nonnull MenuType menu, int min, int max, int defaultValue, boolean runAsync) {
 		super(menu, min, max, defaultValue, runAsync);
 	}
+
+	/**
+	 * Prevents the activation of two world challenges at the same time
+	 */
+	@Override
+	protected final void onTimeActivation() {
+		if (ChallengeAPI.isWorldInUse()) {
+			restartTimer(1);
+		} else {
+			startWorldChallenge();
+		}
+	}
+
+	protected abstract void startWorldChallenge();
 
 	@Override
 	protected boolean getTimerCondition() {
