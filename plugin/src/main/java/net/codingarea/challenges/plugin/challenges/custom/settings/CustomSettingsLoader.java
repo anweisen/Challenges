@@ -15,6 +15,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.F
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.InvertHealthAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.JumpAndRunAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.PotionEffectAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
@@ -22,6 +23,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.R
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomPotionEffectAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.AdvancementCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.CraftItemCondition;
@@ -112,7 +114,9 @@ public class CustomSettingsLoader {
         new DropRandomItemAction("remove_random_item"),
         new SwapRandomItemAction("swap_random_item"),
         new FreezeAction("freeze"),
-        new InvertHealthAction("invert_health")
+        new InvertHealthAction("invert_health"),
+        new WaterMLGAction("water_mlg"),
+        new JumpAndRunAction("jnr")
     );
   }
 

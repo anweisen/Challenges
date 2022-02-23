@@ -1309,6 +1309,14 @@
     "Wenn du *8 Herzen* hast,",
     "hast du danach *2 Herzen* und umgekehrt."
   ],
+  "item-custom-action-water_mlg": [
+    "§9Water MLG",
+    "Alle Spieler müssen einen Water MLG machen"
+  ],
+  "item-custom-action-jnr": [
+    "§6Jump And Run",
+    "Ein zufälliger Spieler muss ein Jump And Run machen"
+  ],
 
   "item-custom-action-target-current": [
     "§6Aktives Entity",

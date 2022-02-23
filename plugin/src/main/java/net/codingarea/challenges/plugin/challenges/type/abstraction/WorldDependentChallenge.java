@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.function.BiConsumer;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -16,6 +17,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
+import org.bukkit.util.Vector;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -71,7 +73,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 		}
 	}
 
-	protected abstract void startWorldChallenge();
+	public abstract void startWorldChallenge();
 
 	@Override
 	protected boolean getTimerCondition() {
@@ -79,6 +81,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 	}
 
 	protected void teleportToWorld(boolean allowJoinCatchUp, @Nonnull BiConsumer<Player, Integer> action) {
+		if (Challenges.getInstance().getWorldManager().isWorldInUse()) return;
 		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = true);
 		lastTeleport = allowJoinCatchUp ? action : null;
 
@@ -91,6 +94,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 	}
 
 	protected void teleportBack() {
+		if (!Challenges.getInstance().getWorldManager().isWorldInUse()) return;
 		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = false);
 		lastTeleport = null;
 		teleportIndex = 0;
@@ -111,7 +115,9 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 			player.removePotionEffect(effect.getType());
 		}
 		if (teleport != null) {
+			player.setVelocity(new Vector());
 			teleport.accept(player, teleportIndex++);
+			SoundSample.TELEPORT.play(player);
 		}
 	}
 

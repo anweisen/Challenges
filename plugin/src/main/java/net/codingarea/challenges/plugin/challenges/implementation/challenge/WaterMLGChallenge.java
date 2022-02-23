@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
@@ -18,9 +19,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -57,7 +55,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	protected void startWorldChallenge() {
+	public void startWorldChallenge() {
 		Location currentLocation = new Location(getExtraWorld(), 0, 150, 0);
 
 		teleportToWorld(false, (player, index) -> {
@@ -65,7 +63,6 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 			player.getInventory().setHeldItemSlot(4);
 			player.getInventory().setItem(4, new ItemStack(Material.WATER_BUCKET));
 			player.teleport(currentLocation);
-			SoundSample.TELEPORT.play(player);
 		});
 
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
