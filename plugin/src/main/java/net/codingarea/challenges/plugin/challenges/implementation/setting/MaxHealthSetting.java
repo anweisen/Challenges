@@ -50,13 +50,13 @@ public class MaxHealthSetting extends Modifier {
 	@Override
 	public void writeGameState(@NotNull Document document) {
 		super.writeGameState(document);
-		document.set("healthOffset", valueOffset);
+		document.set("offset", valueOffset);
 	}
 
 	@Override
 	public void loadGameState(@NotNull Document document) {
 		super.loadGameState(document);
-		valueOffset = document.getDocument("healthOffset").copyJson();
+		valueOffset = document.contains("offset") ? document.getDocument("offset") : new GsonDocument();
 		onValueChange();
 	}
 

@@ -1,14 +1,11 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -112,10 +109,7 @@ public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
 
   @Override
   protected String getTitle(int page) {
-    LinkedList<String> list = new LinkedList<>(Arrays.asList(getSubTitles(page)));
-    list.add(String.valueOf(page+1));
-
-    return InventoryTitleManager.getTitle(MenuType.CUSTOM, list.toArray(new String[0]));
+    return InventoryTitleManager.getTitle(MenuType.CUSTOM, getSubTitles(page));
   }
 
   public abstract String[] getSubTitles(int page);
