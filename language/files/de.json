@@ -1232,7 +1232,8 @@
   "item-custom-action-cancel": [
     "§4Bedingung Abbrechen",
     "Verhindert, dass die Bedingung ausgeführt wird",
-    "Nicht abbrechbare Bedingungen: Springen, Sneaken, Töten"
+    "Nicht abbrechbare Bedingungen: *Springen*, *Sneaken*, *Töten*",
+    "*Advancement*, *Auf Leveln*, *In Liquid*"
   ],
   "item-custom-action-kill": [
     "§4Töten",
