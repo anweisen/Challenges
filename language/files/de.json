@@ -1251,6 +1251,15 @@
     "§6Hunger",
     "Füge Spielern Hunger hinzu"
   ],
+  "item-custom-action-max_health": [
+    "§cMaximale Leben",
+    "Verändere die Maximalen Leben von Spielern",
+    "Wird mit einem */gamestate reset* zurückgesetzt"
+  ],
+  "item-custom-action-max_health-offset": [
+    "§cVeränderung",
+    "Wähle aus wie viele Leben verändert werden sollen"
+  ],
   "item-custom-action-random_mob": [
     "§6Zufälliges Entity",
     "Spawne ein zufälliges Entity"
@@ -1355,6 +1364,7 @@
   "custom-subsetting-liquid": "Flüssigkeit",
   "custom-subsetting-time": "Zeit",
   "custom-subsetting-damage_cause": "Schadens Art",
-  "custom-subsetting-amount": "Anzahl"
+  "custom-subsetting-amount": "Anzahl",
+  "custom-subsetting-value": "Werte Editor"
 
 }

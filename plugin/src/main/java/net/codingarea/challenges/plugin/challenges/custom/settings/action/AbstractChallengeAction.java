@@ -101,7 +101,8 @@ public abstract class AbstractChallengeAction extends AbstractChallengeSetting i
       builder.addModifierSetting("amplifier", new ItemBuilder(Material.STONE_SWORD,
               Message.forName("item-random-effect-amplifier-challenge")),
           3, 1, 8,
-          value -> Message.forName("amplifier").asString());
+          value -> Message.forName("amplifier").asString(),
+          integer -> "");
     });
 
     if (potionType) {

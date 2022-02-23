@@ -8,7 +8,6 @@ import net.codingarea.challenges.plugin.challenges.type.IModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Material;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -17,26 +16,25 @@ import org.bukkit.Material;
 public class ModifierSetting extends ValueSetting implements IModifier {
 
   private final int min, max;
-  private final Function<Integer, String> prefixGetter;
-  private final Function<Integer, String> suffixGetter;
+  private final Function<Integer, ItemBuilder> settingsItemGetter;
 
   private int tempValue;
 
-  public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder) {
-    this(key, min, max, itemBuilder, integer -> "");
+  public ModifierSetting(String key, int min, int max, ItemBuilder displayItem) {
+    this(key, min, max, displayItem, integer -> "", integer -> "");
   }
-
-  public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder, Function<Integer, String> prefixGetter) {
-    this(key, min, max, itemBuilder, prefixGetter, value -> "");
-  }
-
 
   public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder, Function<Integer, String> prefixGetter, Function<Integer, String> suffixGetter) {
+    this(key, min, max, itemBuilder, value ->
+        DefaultItem.value(value, prefixGetter.apply(value) + "§e")
+            .appendName(suffixGetter.apply(value)));
+  }
+
+  public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder, Function<Integer, ItemBuilder> settingsItemGetter) {
     super(key, itemBuilder);
     this.min = min;
     this.max = max;
-    this.prefixGetter = prefixGetter;
-    this.suffixGetter = suffixGetter;
+    this.settingsItemGetter = settingsItemGetter;
   }
 
   @Override
@@ -47,7 +45,6 @@ public class ModifierSetting extends ValueSetting implements IModifier {
 
     ChallengeHelper.handleModifierClick(info, this);
 
-    System.out.println(tempValue);
     intValue = tempValue;
     tempValue = 0;
     return String.valueOf(intValue);
@@ -79,9 +76,7 @@ public class ModifierSetting extends ValueSetting implements IModifier {
   @Override
   public ItemBuilder getSettingsItem(String value) {
     int intValue = getIntValue(value);
-    String prefix = prefixGetter.apply(intValue);
-    return DefaultItem.create(Material.STONE_BUTTON, "§7" + (prefix.equals("") ? "" : prefix + " ")
-        + "§e" + value + " §7" + suffixGetter.apply(intValue)).amount(intValue);
+    return settingsItemGetter.apply(intValue);
   }
 
   public int getIntValue(String value) {

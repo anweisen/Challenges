@@ -37,7 +37,7 @@ public class HealEntityAction extends AbstractChallengeTargetAction {
 
   @Override
   public Material getMaterial() {
-    return Material.RED_DYE;
+    return Material.GOLDEN_APPLE;
   }
 
 }

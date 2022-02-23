@@ -60,7 +60,7 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder value(int value, @Nonnull String prefix) {
-		return create(Material.STONE_BUTTON, prefix + value).amount(value);
+		return create(Material.STONE_BUTTON, prefix + value).amount(Math.max(value, 1));
 	}
 
 	@Nonnull

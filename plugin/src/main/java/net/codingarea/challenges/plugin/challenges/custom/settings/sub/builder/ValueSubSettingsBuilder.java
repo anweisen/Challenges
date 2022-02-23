@@ -25,11 +25,11 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   private final LinkedHashMap<ValueSetting, String> defaultSettings = new LinkedHashMap<>();
 
   public ValueSubSettingsBuilder() {
-    super(null);
+    super("value");
   }
 
   public ValueSubSettingsBuilder(SubSettingsBuilder parent) {
-    super(null, parent);
+    super("value", parent);
   }
 
   @Override
@@ -61,15 +61,15 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   }
 
   public ValueSubSettingsBuilder addModifierSetting(String key, ItemBuilder displayItem,
-      int defaultValue, int min, int max, Function<Integer, String> prefixGetter) {
-    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, prefixGetter),
+      int defaultValue, int min, int max, Function<Integer, String> prefixGetter, Function<Integer, String> suffixGetter) {
+    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, prefixGetter, suffixGetter),
         String.valueOf(defaultValue));
     return this;
   }
 
   public ValueSubSettingsBuilder addModifierSetting(String key, ItemBuilder displayItem,
-      int defaultValue, int min, int max, Function<Integer, String> prefixGetter, Function<Integer, String> suffixGetter) {
-    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, prefixGetter, suffixGetter),
+      int defaultValue, int min, int max, Function<Integer, ItemBuilder> settingsItemGetter) {
+    defaultSettings.put(new ModifierSetting(key, min, max, displayItem, settingsItemGetter),
         String.valueOf(defaultValue));
     return this;
   }

@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.H
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.InvertHealthAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.JumpAndRunAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ModifyMaxHealthAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.PotionEffectAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
@@ -101,6 +102,7 @@ public class CustomSettingsLoader {
         new KillEntityAction("kill"),
         new DamageEntityAction("damage"),
         new HealEntityAction("heal"),
+        new ModifyMaxHealthAction("max_health"),
         new HungerPlayerAction("hunger"),
         new RandomMobAction("random_mob"),
         new RandomItemAction("random_item"),
