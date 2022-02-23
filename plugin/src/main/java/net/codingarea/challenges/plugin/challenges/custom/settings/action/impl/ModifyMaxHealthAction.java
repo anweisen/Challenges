@@ -23,7 +23,7 @@ public class ModifyMaxHealthAction extends AbstractChallengePlayerTargetAction {
               new ItemBuilder(Material.RED_DYE,
                   Message.forName("item-custom-action-max_health-offset")),
               0, -20, 20,
-              integer -> "§e", integer -> " §7HP §8(§e" + (integer / 2f) + " §c❤§8)");
+              integer -> "", integer -> "HP §8(§e" + (integer / 2f) + " §c❤§8)");
     }));
   }
 

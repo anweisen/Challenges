@@ -4,12 +4,16 @@ import com.google.common.collect.Lists;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.BooleanSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.impl.ModifierSetting;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.impl.MessageManager;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.SubSettingValueMenuGenerator;
@@ -41,9 +45,31 @@ public class ValueSubSettingsBuilder extends SubSettingsBuilder {
   public List<String> getDisplay(Map<String, String[]> activated) {
     List<String> display = Lists.newLinkedList();
 
-    // TODO: IMPLEMENT DISPLAY
+    for (Entry<String, String[]> entry : activated.entrySet()) {
+
+      for (ValueSetting setting : defaultSettings.keySet()) {
+
+        if (entry.getKey().equals(setting.getKey())) {
+
+          ItemBuilder builder = setting.getSettingsItem(entry.getValue()[0]);
+          if (builder != null) {
+            display.add("§7" + getKeyTranslation(entry.getKey()) + " " + builder.getName());
+
+          }
+
+        }
+
+      }
+
+    }
 
     return display;
+  }
+
+  public String getKeyTranslation(String key) {
+    String messageName = "custom-subsetting-" + key;
+    return MessageManager.hasMessageInCache(messageName)
+        ? Message.forName(messageName).asString() : StringUtils.getEnumName(key);
   }
 
   public ValueSubSettingsBuilder addBooleanSetting(String key, ItemBuilder displayItem,

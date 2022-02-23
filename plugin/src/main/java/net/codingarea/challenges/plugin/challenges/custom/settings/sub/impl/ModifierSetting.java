@@ -26,8 +26,12 @@ public class ModifierSetting extends ValueSetting implements IModifier {
 
   public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder, Function<Integer, String> prefixGetter, Function<Integer, String> suffixGetter) {
     this(key, min, max, itemBuilder, value ->
-        DefaultItem.value(value, prefixGetter.apply(value) + "§e")
-            .appendName(suffixGetter.apply(value)));
+    {
+      String prefix = prefixGetter.apply(value);
+      String suffix = suffixGetter.apply(value);
+      return DefaultItem.value(value, (prefix.isEmpty() ? "" : "§7" + prefix + " ") + "§e")
+          .appendName(suffix.isEmpty() ? "" : " " + "§7" + suffix);
+    });
   }
 
   public ModifierSetting(String key, int min, int max, ItemBuilder itemBuilder, Function<Integer, ItemBuilder> settingsItemGetter) {
