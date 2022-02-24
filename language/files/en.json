@@ -58,7 +58,6 @@
   ],
   "cheats-detected": [
     "§e{0} §7has §ccheated",
-    "",
     "§cNo §7further statistics can be collected"
   ],
   "cheats-already-detected": [
@@ -68,7 +67,11 @@
   "player-config-loaded": "Your settings have been loaded §asuccessfully",
   "player-config-saved": "Your settings have been saved §asuccessfully",
   "player-config-reset": "The settings were §asuccessfully §7reset",
+  "player-custom_challenges-loaded": "Your challenges have been loaded §asuccessfully",
+  "player-custom_challenges-saved": "Your challenges have been saved §asuccessfully",
+  "player-custom_challenges-reset": "The challenges were §asuccessfully §7reset",
 
+  "item-prefix": "§8» ",
   "item-setting-info": "§8➟ {0}",
 
   "stat-dragon-killed": "Dragons killed",
@@ -1059,5 +1062,287 @@
   "item-block-material": [
     "{0}",
     "Sets whether *{1}* can be used"
-  ]
+  ],
+
+  "custom-limit": "You've reached the limit of §e100 challenges",
+  "custom-not-deleted": "Challenge doesn't exist yet!",
+  "custom-saved": "§7Challenge §asaved §7locally",
+  "custom-saved-db": [
+    "To save it in your database use §e/custom save",
+    "§cWarning: §7Old challenges will be overwritten!"
+  ],
+  "custom-no-changes": "You haven't made any changes",
+  "custom-name-info": "Type the new name into the chat",
+  "custom-name-max_length": "You've reached the limit of 50 characters",
+  "custom-not-loaded": [
+    "",
+    "There are no currently loaded challenges.",
+    "You're missing your challenges? §e/custom load",
+    "You've got problems with saving them?",
+    "Save your challenges before leaving with §e/custom save",
+    ""
+  ],
+
+  "custom-main-view-challenges": "§6View Challenges",
+  "custom-main-create-challenge": "§aCreate Challenge",
+  "custom-sub-finish": "§aFinished",
+
+  "item-custom-info-delete": [
+    "§cDelete",
+    "*Warning* This Action cannot be made *undone*"
+  ],
+  "item-custom-info-save": "§aSave",
+
+  "item-custom-info-condition": [
+    "§cCondition",
+    "*Click here* to set what has to be happening",
+    "for the *action* to execute"
+  ],
+  "item-custom-info-action": [
+    "§bAction",
+    "*Click here* to set what should happen",
+    "once the *condition* is met"
+  ],
+
+  "item-custom-info-material": [
+    "§6Display Item",
+    "*Click here* to change the display item"
+  ],
+  "item-custom-info-name": [
+    "§6Name",
+    "*Click here* to change the name via chat",
+    "Max Characters: 50"
+  ],
+
+  "custom-info-currently": "§7Set §8» §e",
+  "custom-info-condition": "§7Condition",
+  "custom-info-action": "§7Action",
+  "custom-info-none": "None",
+
+  "item-custom-condition-jump": [
+    "§aPlayer Jumps"
+  ],
+  "item-custom-condition-sneak": [
+    "§aPlayer Sneaks"
+  ],
+  "item-custom-condition-move_block": [
+    "§6Player Walks A Block"
+  ],
+  "item-custom-condition-death": [
+    "§cEntity Dies"
+  ],
+  "item-custom-condition-damage": [
+    "§cEntity Takes Damage"
+  ],
+  "item-custom-condition-damage-any": [
+    "§aAny Cause"
+  ],
+  "item-custom-condition-damage_by_player": [
+    "§cEntity Takes Damage By Player"
+  ],
+  "item-custom-condition-entity_type-any": [
+    "§cAny Entity"
+  ],
+  "item-custom-condition-entity_type-player": [
+    "§aPlayer"
+  ],
+  "item-custom-condition-intervall": [
+    "§6Interval"
+  ],
+  "item-custom-condition-intervall-second": [
+    "§6Each Second"
+  ],
+  "item-custom-condition-intervall-seconds": [
+    "§6Every {0} Seconds"
+  ],
+  "item-custom-condition-intervall-minutes": [
+    "§6Every {0} Minutes"
+  ],
+  "item-custom-condition-block_place": [
+    "§aBlock Placed"
+  ],
+  "item-custom-condition-block_break": [
+    "§cBlock Destroyed"
+  ],
+  "item-custom-condition-block-any": [
+    "§2Any Block"
+  ],
+  "item-custom-condition-consume_item": [
+    "§2Consume Item"
+  ],
+  "item-custom-condition-pickup_item": [
+    "§bPickup Item"
+  ],
+  "item-custom-condition-advancement": [
+    "§cPlayer Gets Advancement"
+  ],
+  "item-custom-condition-hunger": [
+    "§2Player Looses Hunger"
+  ],
+  "item-custom-condition-move_down": [
+    "§6Player Moves Block Down"
+  ],
+  "item-custom-condition-move_up": [
+    "§6Player Moves Block Up"
+  ],
+  "item-custom-condition-move_camera": [
+    "§6Moves Camera"
+  ],
+  "item-custom-condition-stands_on_specific_block": [
+    "§6Player Is On Specific Block"
+  ],
+  "item-custom-condition-stands_not_on_specific_block": [
+    "§6Player Is Not On Specific Block"
+  ],
+  "item-custom-condition-gain_xp": [
+    "§5Player Gets XP"
+  ],
+  "item-custom-condition-level_up": [
+    "§5Player Gets Level"
+  ],
+  "item-custom-condition-item_craft": [
+    "§6Player Crafts Item"
+  ],
+  "item-custom-condition-in_liquid": [
+    "§9Player Is In Liquid"
+  ],
+
+
+  "item-custom-action-cancel": [
+    "§4Cancel Condition",
+    "Verhindert, dass die Bedingung ausgeführt wird",
+    "Nicht abbrechbare Bedingungen: *Springen*, *Sneaken*, *Töten*",
+    "*Advancement*, *Auf Leveln*, *In Liquid*"
+  ],
+  "item-custom-action-kill": [
+    "§4Kill",
+    "Kill entities"
+  ],
+  "item-custom-action-damage": [
+    "§cDamage",
+    "Hurt entities"
+  ],
+  "item-custom-action-heal": [
+    "§aHeal",
+    "Restore entity health"
+  ],
+  "item-custom-action-hunger": [
+    "§6Hunger",
+    "Make Entities get hunger"
+  ],
+  "item-custom-action-max_health": [
+    "§cChange Max Health",
+    "Modify the max health of players.",
+    "Will be reset with */gamestate reset*"
+  ],
+  "item-custom-action-max_health-offset": [
+    "§cHealth Change",
+    "Choose how the max health should be changed"
+  ],
+  "item-custom-action-random_mob": [
+    "§6Random Entity",
+    "Spawn a random entity"
+  ],
+  "item-custom-action-random_item": [
+    "§bRandom Item",
+    "Give random items to players"
+  ],
+  "item-custom-action-uncraft_inventory": [
+    "§eUncraft Inventory",
+    "Make players inventories uncraft"
+  ],
+  "item-custom-action-boost_in_air": [
+    "§fBoost In Air",
+    "Boost entities into the air"
+  ],
+  "item-custom-action-potion_effect": [
+    "§dPotion Effect",
+    "Add a potion effect to entities"
+  ],
+  "item-custom-action-permanent_effect": [
+    "§6Permanent Potion Effect",
+    "Add a permanent potion effect to players.",
+    "Uses the settings of the permanent effect challenge."
+  ],
+  "item-custom-action-random_effect": [
+    "§dRandom Potion Effect",
+    "Add a random potion effect to entities"
+  ],
+  "item-custom-action-clear_inventory": [
+    "§cClear Inventory",
+    "Clear the inventory of players"
+  ],
+  "item-custom-action-drop_random_item": [
+    "§aDrop Item From Inventory",
+    "Drop a random item from the inventory onto the floor"
+  ],
+  "item-custom-action-remove_random_item": [
+    "§cRemove Item From Inventory",
+    "Remove a random item from the inventory"
+  ],
+  "item-custom-action-swap_random_item": [
+    "§6Swap Items In Inventory",
+    "Swap two items in the inventory"
+  ],
+  "item-custom-action-freeze": [
+    "§bFreeze",
+    "Temporarily freeze mobs",
+    "Uses the settings of the freeze challenge"
+  ],
+  "item-custom-action-invert_health": [
+    "§cInvert Health",
+    "Invert the current health of players"
+  ],
+  "item-custom-action-water_mlg": [
+    "§9Water MLG",
+    "All players have to do a water mlg to survive"
+  ],
+  "item-custom-action-jnr": [
+    "§6Jump And Run",
+    "A random player has to a a jump and run",
+    "that gets longer everytime"
+  ],
+
+  "item-custom-action-target-current": [
+    "§6Current Entity",
+    "The action will be executed for the *current entity*"
+  ],
+  "item-custom-action-target-every_mob": [
+    "§4Every Mob",
+    "The action will be executed for *every mob*"
+  ],
+  "item-custom-action-target-every_mob_except_current": [
+    "§4Every Mob Except Current",
+    "The action will be executed for *every mob*",
+    "*except* the current one"
+  ],
+  "item-custom-action-target-every_mob_except_players": [
+    "§4Every Mob Except Players",
+    "The action will be executed for *every mob except players*"
+  ],
+  "item-custom-action-target-random_player": [
+    "§5Random Player",
+    "The action will be executed for a *random player*"
+  ],
+  "item-custom-action-target-every_player": [
+    "§cEvery Player",
+    "The action will be executed for *every player*"
+  ],
+  "item-custom-action-target-current_player": [
+    "§aCurrent Player",
+    "The action will be executed for the *active player*.",
+    "§7§oIf the current entity is not a player nothing will be happen"
+  ],
+
+  "custom-subsetting-target_entity": "Target Entity",
+  "custom-subsetting-entity_type": "Entity Type",
+  "custom-subsetting-liquid": "Liquid",
+  "custom-subsetting-time": "Time",
+  "custom-subsetting-damage_cause": "Damage Cause",
+  "custom-subsetting-amount": "Amount",
+  "custom-subsetting-value": "Value Editor",
+  "custom-subsetting-health_offset": "Change",
+  "custom-subsetting-length": "Length",
+  "custom-subsetting-amplifier": "Amplifier"
+
 }

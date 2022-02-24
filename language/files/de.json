@@ -1195,7 +1195,7 @@
     "§bItem Aufheben"
   ],
   "item-custom-condition-advancement": [
-    "§cSpieler erhält Errungenschaft"
+    "§cSpieler Erhält Errungenschaft"
   ],
   "item-custom-condition-hunger": [
     "§2Spieler Verliert Hunger"
@@ -1270,7 +1270,7 @@
   ],
   "item-custom-action-uncraft_inventory": [
     "§eInventar Zurück-Craften",
-    "Lasse das Inventar von Spielern zurück-Craften"
+    "Lasse das Inventar von Spielern Zurück-Craften"
   ],
   "item-custom-action-boost_in_air": [
     "§fIn Luft Schleudern",
@@ -1336,12 +1336,12 @@
     "Die Aktion wird für *alle Mobs* ausgeführt"
   ],
   "item-custom-action-target-every_mob_except_current": [
-    "§4Alle Mobs außer Aktives",
+    "§4Alle Mobs Außer Aktives",
     "Die Aktion wird für *alle Mobs*",
     "*außer* das Aktive ausgeführt ausgeführt"
   ],
   "item-custom-action-target-every_mob_except_players": [
-    "§4Alle Mobs außer Spieler",
+    "§4Alle Mobs Außer Spieler",
     "Die Aktion wird für *alle Mobs*",
     "*außer* Spieler ausgeführt"
   ],
@@ -1366,6 +1366,8 @@
   "custom-subsetting-damage_cause": "Schadens Art",
   "custom-subsetting-amount": "Anzahl",
   "custom-subsetting-value": "Werte Editor",
-  "custom-subsetting-health_offset": "Veränderung"
+  "custom-subsetting-health_offset": "Veränderung",
+  "custom-subsetting-length": "Länge",
+  "custom-subsetting-amplifier": "Stärke"
 
 }
