@@ -1,14 +1,5 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
-import net.anweisen.utilities.common.collection.IOUtils;
-import net.anweisen.utilities.common.config.Document;
-import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -16,8 +7,12 @@ import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.stream.Collectors;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.collection.IOUtils;
+import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
+import org.bukkit.Bukkit;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -43,8 +38,8 @@ public final class ServiceLoader extends ContentLoader {
 			connection.setRequestProperty("Accept", "*/*");
 			connection.setRequestProperty("Content-Type", "application/json");
 
-			String request = Document.newJsonDocument()
-					.set("address", Document.newJsonDocument()
+			String request = Document.create()
+					.set("address", Document.create()
 						.set("ip", Inet4Address.getLocalHost().getHostAddress())
 						.set("port", Bukkit.getPort())
 					).toString();

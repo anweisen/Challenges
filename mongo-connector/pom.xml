@@ -46,7 +46,7 @@
 		</dependency>
 
 		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
+			<groupId>com.github.anweisen.Utility</groupId>
 			<artifactId>database-mongodb</artifactId>
 			<version>${utilities.version}</version>
 		</dependency>
@@ -60,9 +60,10 @@
 			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
 		</repository>
 
+		<!-- Jitpack for Utilities Dependencies -->
 		<repository>
-			<id>github</id>
-			<url>https://maven.pkg.github.com/anweisen/*</url>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 
 	</repositories>

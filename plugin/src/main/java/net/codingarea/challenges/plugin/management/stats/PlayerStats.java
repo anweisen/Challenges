@@ -40,7 +40,7 @@ public class PlayerStats {
 
 	@Nonnull
 	public Document asDocument() {
-		Document document = Document.newJsonDocument();
+		Document document = Document.create();
 		for (Entry<Statistic, Double> entry : values.entrySet()) {
 			document.set(entry.getKey().name(), entry.getValue());
 		}
