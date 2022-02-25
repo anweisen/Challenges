@@ -27,8 +27,10 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	public static final int[] SLOTS = { 10, 11, 12, 13, 14, 15, 16 };
 	public static final int[] NAVIGATION_SLOTS = { 36, 44 };
 	public static final int SIZE = 5*9;
-	public static final int VIEW_SLOT = 21;
-	public static final int CREATE_SLOT = 23;
+	private static final int VIEW_SLOT = 21;
+	private static final int CREATE_SLOT = 23;
+
+	private static final int maxCustomChallenges;
 
 	public MainMenuGenerator() {
 		super(1);
@@ -68,8 +70,8 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 			open(clickInfo.getPlayer(), 1);
 			SoundSample.PLOP.play(clickInfo.getPlayer());
 		} else if (clickInfo.getSlot() == CREATE_SLOT) {
-			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() > 100) {
-				Message.forName("custom-limit").send(clickInfo.getPlayer(), Prefix.CUSTOM);
+			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() > maxCustomChallenges) {
+				Message.forName("custom-limit").send(clickInfo.getPlayer(), Prefix.CUSTOM, maxCustomChallenges);
 				SoundSample.BASS_OFF.play(clickInfo.getPlayer());
 				return;
 			}
@@ -130,6 +132,10 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	@Override
 	public int[] getNavigationSlots(int page) {
 		return page == 0 ? new int[]{NAVIGATION_SLOTS[0]} : NAVIGATION_SLOTS;
+	}
+
+	static {
+		maxCustomChallenges = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-challenges");
 	}
 
 }

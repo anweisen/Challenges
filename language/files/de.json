@@ -1086,7 +1086,7 @@
     "genutzt werden *kann*"
   ],
 
-  "custom-limit": "Du hast das Limit von §e100 Challenges §7erreicht",
+  "custom-limit": "Du hast das Limit von §e{0} Challenges §7erreicht",
   "custom-not-deleted": "Diese Challenge existiert noch nicht!",
   "custom-saved": "§7Challenge wurde lokal §agespeichert",
   "custom-saved-db": [
@@ -1095,7 +1095,7 @@
   ],
   "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
   "custom-name-info": "Schreibe den Namen der Challenge in den Chat",
-  "custom-name-max_length": "Du hast die Maximale Anzahl von §e50 Zeichen §7überschritten",
+  "custom-name-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
   "custom-not-loaded": [
     "",
     "Es sind derzeit keine Custom Challenges geladen.",

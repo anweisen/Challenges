@@ -19,6 +19,12 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public class CustomChallengeNamingListener implements Listener {
 
+    private final int maxNameLength;
+
+    public CustomChallengeNamingListener() {
+        this.maxNameLength = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-name-length");
+    }
+
     @EventHandler(priority = EventPriority.LOW)
     public void onChat(AsyncPlayerChatEvent event) {
 
@@ -32,8 +38,8 @@ public class CustomChallengeNamingListener implements Listener {
             if (generator.isInNaming()) {
                 event.setCancelled(true);
 
-                if (event.getMessage().length() > 50) {
-                    Message.forName("custom-name-max_length").send(event.getPlayer(), Prefix.CUSTOM);
+                if (event.getMessage().length() > maxNameLength) {
+                    Message.forName("custom-name-max_length").send(event.getPlayer(), Prefix.CUSTOM, maxNameLength);
                     return;
                 }
 

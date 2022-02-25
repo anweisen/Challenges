@@ -60,6 +60,10 @@ challenge-settings:
   backpack-size: 3 # The size of the backpack in rows between 1-6
   all-block-disappear-stack-drop-limit: 50 # Limits the amount of the dropped stacks per item (increasing it will probably cause lags with deepslate and stone)
 
+custom-challenge-settings:
+  max-challenges: 100
+  max-name-length: 50
+
 # This will change the item design in the challenges menu
 design:
   empty-line-above: true

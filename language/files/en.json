@@ -1066,7 +1066,7 @@
     "Sets whether *{1}* can be used"
   ],
 
-  "custom-limit": "You've reached the limit of §e100 challenges",
+  "custom-limit": "You've reached the limit of §e{0} challenges",
   "custom-not-deleted": "Challenge doesn't exist yet!",
   "custom-saved": "§7Challenge §asaved §7locally",
   "custom-saved-db": [
@@ -1075,7 +1075,7 @@
   ],
   "custom-no-changes": "You haven't made any changes",
   "custom-name-info": "Type the new name into the chat",
-  "custom-name-max_length": "You've reached the limit of 50 characters",
+  "custom-name-max_length": "You've reached the limit of {0} characters",
   "custom-not-loaded": [
     "",
     "There are no currently loaded challenges.",
