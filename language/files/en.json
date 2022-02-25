@@ -50,6 +50,8 @@
     "Download: §e{0}"
   ],
   "deprecated-config-version": "A new version of the §econfig §7is available",
+  "missing-config-settings": "There are missing config settings: §e{0}",
+  "missing-config-settings-separator": "§7, §e",
   "join-message": "§e{0} §7has §ajoined §7the server",
   "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [

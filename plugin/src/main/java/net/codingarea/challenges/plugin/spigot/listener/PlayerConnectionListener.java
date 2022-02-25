@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import java.util.List;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -69,6 +70,15 @@ public class PlayerConnectionListener implements Listener {
 			if (!UpdateLoader.isNewestConfigVersion()) {
 				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
+
+			List<String> missingConfigSettings = Challenges.getInstance().getConfigManager()
+					.getMissingConfigSettings();
+			if (!missingConfigSettings.isEmpty()) {
+				String separator = Message.forName("missing-config-settings-separator").asString();
+				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES,
+						String.join(separator , missingConfigSettings));
+			}
+
 			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {
 				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
 			}

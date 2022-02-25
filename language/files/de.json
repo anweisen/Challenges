@@ -50,6 +50,8 @@
     "Download: §e{0}"
   ],
   "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
+  "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",
+  "missing-config-settings-separator": "§7, §e",
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [
@@ -1086,7 +1088,7 @@
 
   "custom-limit": "Du hast das Limit von §e100 Challenges §7erreicht",
   "custom-not-deleted": "Diese Challenge existiert noch nicht!",
-  "custom-saved": "§7Challenge wurde Lokal §agespeichert",
+  "custom-saved": "§7Challenge wurde lokal §agespeichert",
   "custom-saved-db": [
     "Um in §eDatenbank §7zu Speichern benutze §e/custom save",
     "§cAchtung: §7Alte Einstellungen werden dabei überschrieben!"
