@@ -1,8 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
 import net.anweisen.utilities.common.collection.NumberFormatter;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard.ScoreboardInstance;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -48,17 +50,21 @@ public final class GoalHelper {
 	@Nonnull
 	public static <V> Map<Player, Integer> createPointsFromValues(@Nonnull AtomicInteger mostPoints, @Nonnull Map<UUID, V> map, @Nonnull ToIntBiFunction<UUID, V> mapper, boolean zeros) {
 		Map<Player, Integer> result = new HashMap<>();
-		if (zeros) Bukkit.getOnlinePlayers().forEach(player -> result.put(player, 0));
+		if (zeros) ChallengeAPI.getPlayingPlayers().forEach(player -> result.put(player, 0));
 		for (Entry<UUID, V> entry : map.entrySet()) {
 			Player player = Bukkit.getPlayer(entry.getKey());
-			if (player == null) continue;
-			int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
-			if (points == 0) continue;
+			if (player == null)
+				continue;
+			if (!AbstractChallenge.ignorePlayer(player)) {
+				int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
+				if (points == 0)
+					continue;
 
-			result.put(player, points);
+				result.put(player, points);
 
-			if (points >= mostPoints.get())
-				mostPoints.set(points);
+				if (points >= mostPoints.get())
+					mostPoints.set(points);
+			}
 		}
 		return result;
 	}
