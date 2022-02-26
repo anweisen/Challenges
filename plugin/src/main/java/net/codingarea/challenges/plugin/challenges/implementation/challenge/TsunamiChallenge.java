@@ -1,5 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
@@ -22,14 +29,6 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -42,7 +41,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	private final List<Chunk> floodedChunks = new ArrayList<>();
 
-	private int waterHeight = 0,
+	private int waterHeight = BukkitReflectionUtils.getMinHeight(Bukkit.getWorlds().get(0)),
 				lavaHeight = 0;
 
 	public TsunamiChallenge() {
@@ -174,15 +173,15 @@ public class TsunamiChallenge extends TimedChallenge {
 	}
 
 	private void floodChunk0(@Nonnull Chunk chunk, @Nullable Integer givenStartAt, int height, boolean overworld, @Nonnull BiConsumer<Integer, Runnable> executor) {
-		int startAt = givenStartAt != null ? Math.max(BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1, givenStartAt) : BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1;
+		int startAt = givenStartAt != null ? Math.max(BukkitReflectionUtils.getMinHeight(chunk.getWorld()) + 1, givenStartAt) : BukkitReflectionUtils
+				.getMinHeight(chunk.getWorld()) + 1;
 		Map<Integer, List<Block>> blocksByDelay = new HashMap<>();
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
-					int relativeY = 0;
-					for (int y = startAt; y <= height; y++, relativeY++) {
-						List<Block> blocks = blocksByDelay.computeIfAbsent(relativeY / 10, key -> new ArrayList<>(16));
-						Block block = chunk.getBlock(x, y -1, z);
+					for (int y = startAt+1; y <= height; y++) {
+						List<Block> blocks = blocksByDelay.computeIfAbsent(0, key -> new ArrayList<>(16));
+						Block block = chunk.getBlock(x, y, z);
 						Material type = block.getType();
 						if (type != Material.WATER && type != Material.LAVA && block.isPassable() || (overworld && type == Material.LAVA))
 							blocks.add(block);
