@@ -73,6 +73,13 @@ commands:
     aliases:
       - "pos"
       - "coords"
+  delposition:
+    usage: "/delpos [name]"
+    description: "Deletes previously saved locations"
+    aliases:
+      - "delpos"
+      - "delcoords"
+    permission: "challenges.delposition"
   backpack:
     usage: "/bp"
     description: "Opens the player's or the shared backpack"

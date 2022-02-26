@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -19,6 +20,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
@@ -37,6 +39,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	public PositionSetting() {
 		super(MenuType.SETTINGS, true);
 		particleLines = ChallengeConfigHelper.getSettingsDocument().getBoolean("position-particle-lines");
+		Challenges.getInstance().registerCommand(new DelPosCommand(), "delposition");
 	}
 
 	@Nonnull
@@ -134,6 +137,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	@Override
 	public void loadGameState(@Nonnull Document document) {
+		positions.clear();
 		for (String name : document.keys()) {
 			positions.put(name, document.getSerializable(name, Location.class));
 		}
@@ -141,7 +145,59 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	@Override
 	public void writeGameState(@Nonnull Document document) {
+		for (String key : document.keys()) {
+			document.remove(key);
+		}
 		positions.forEach(document::set);
+	}
+
+	public class DelPosCommand implements PlayerCommand, TabCompleter {
+
+		@Override
+		public void onCommand(@NotNull Player player, @NotNull String[] args) throws Exception {
+			if (!isEnabled()) {
+				Message.forName("positions-disabled").send(player, Prefix.POSITION);
+				SoundSample.BASS_OFF.play(player);
+				return;
+			}
+
+			if (args.length == 0) {
+				if (positions.isEmpty()) {
+					Message.forName("no-positions-global").send(player, Prefix.POSITION, "position <name>");
+					return;
+				}
+
+				positions.entrySet().stream()
+						.sorted(Comparator.<Entry<String, Location>>comparingDouble(entry -> entry.getValue().distance(player.getLocation())).reversed())
+						.forEach(entry -> {
+							Location location = entry.getValue();
+							Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), entry.getKey(), (int) location.distance(player.getLocation()));
+						});
+			} else if (args.length == 1) {
+				String name = args[0].toLowerCase();
+				Location position = positions.get(name);
+				if (position != null) {
+					positions.remove(name);
+					Message.forName("position-deleted").broadcast(Prefix.POSITION,
+							position.getBlockX(), position.getBlockY(), position.getBlockZ(),
+							getWorldName(position), name, NameHelper.getName(player));
+				} else {
+					Message.forName("position-not-exists").send(player, Prefix.POSITION);
+				}
+
+			} else {
+				Message.forName("syntax").send(player, Prefix.POSITION, "delposition [name]");
+			}
+
+		}
+
+		@Nullable
+		@Override
+		public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+			if (args.length > 1) return new ArrayList<>();
+			return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
+		}
+
 	}
 
 }
