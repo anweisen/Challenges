@@ -41,7 +41,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	private final List<Chunk> floodedChunks = new ArrayList<>();
 
-	private int waterHeight = BukkitReflectionUtils.getMinHeight(Bukkit.getWorlds().get(0)),
+	private int waterHeight = Integer.MAX_VALUE,
 				lavaHeight = 0;
 
 	public TsunamiChallenge() {
@@ -67,6 +67,10 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	@Override
 	protected void onEnable() {
+
+		if (waterHeight == Integer.MAX_VALUE) {
+			waterHeight = BukkitReflectionUtils.getMinHeight(Bukkit.getWorlds().get(0));
+		}
 		bossbar.setContent((bossbar, player) -> {
 			World world = player.getWorld();
 			Environment environment = world.getEnvironment();
