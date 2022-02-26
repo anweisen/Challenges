@@ -171,6 +171,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectWoodGoal.class);
 		register(FinishRaidGoal.class);
 		register(MostEmeraldsGoal.class);
+		register(AllAdvancementGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
