@@ -20,12 +20,6 @@ require:
   version: 1.13
 
 commands:
-  creload:
-    usage: "/creload"
-    description: "Reloads the plugin"
-    permission: "challenges.reload"
-    aliases:
-      - "crl"
   help:
     usage: "/help"
     description: "Provides you with some information of this plugin"
