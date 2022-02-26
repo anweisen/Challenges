@@ -238,9 +238,6 @@
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
-  "bossbar-quiz-waiting": "§8» §7Warten auf neue Frage..",
-  "bossbar-quiz-question": "§8» §7Neue Frage! §8┃ {0}",
-  "bossbar-quiz-question-other": "§8» §e{1} §7wird befragt! §8┃ {0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
