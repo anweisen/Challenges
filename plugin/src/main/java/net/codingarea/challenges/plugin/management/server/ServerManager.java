@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
@@ -16,10 +19,6 @@ import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -89,7 +88,7 @@ public final class ServerManager {
 
 		Challenges.getInstance().getChallengeTimer().pause(false);
 
-		String winnerString = StringUtils.getIterableAsString(winners, "§7, §e", NameHelper::getName);
+		String winnerString = StringUtils.getIterableAsString(winners, "§7, ", player -> "§e§l" + NameHelper.getName(player));
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
 		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
