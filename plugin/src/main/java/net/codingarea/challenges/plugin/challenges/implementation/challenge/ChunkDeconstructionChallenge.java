@@ -84,7 +84,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 		Location location = block.getLocation();
 		location.setY(block.getWorld().getMaxHeight());
 
-		while (location.getY() >= 0 && !isBreakable(location.getBlock())) {
+		while (location.getY() >= BukkitReflectionUtils.getMinHeight(block.getWorld()) && !isBreakable(location.getBlock())) {
 			location.subtract(0, 1, 0);
 		}
 
