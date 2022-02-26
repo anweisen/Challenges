@@ -1018,7 +1018,7 @@
   ],
   "item-finish-raid-goal": [
     "§6Finish Raid",
-    "The first player that wins a raid wins"
+    "The first player that *finishes* a *raid* wins"
   ],
   "item-most-emeralds-goal": [
     "§2Most Emeralds",
