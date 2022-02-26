@@ -181,6 +181,7 @@
   "missing-items-inventory-open": "§8[§aGUI öffnen§8]",
   "loops-cleared": "§e{0} §7Loops abgebrochen",
   "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
+  "all-advancements-goal": "§7Advancements §8» §e{0}",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -1038,6 +1039,11 @@
     "§2Meisten Emeralds",
     "Der Spieler mit den *meisten*",
     "*Emeralds* gewinnt"
+  ],
+  "item-all-advancements-goal": [
+    "§6Alle Advancements",
+    "Der Spieler, der als erstes *alle*",
+    "Errungenschaften *erhalten hat*, gewinnt"
   ],
 
 

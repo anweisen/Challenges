@@ -181,6 +181,7 @@
   "missing-items-inventory-open": "§8[§aOpen GUI§8]",
   "loops-cleared": "§e{0} §7Loops cancelled",
   "stopped-moving": "§e{0} §7hasn't moved for too long",
+  "all-advancements-goal": "§7Advancements §8» §e{0}",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -1024,6 +1025,10 @@
     "§2Most Emeralds",
     "The player with the *most*",
     "*emeralds* wins"
+  ],
+  "item-all-advancements-goal": [
+    "§6All Advancements",
+    "The first player that *gets* all *advancements* wins"
   ],
 
 

@@ -1,10 +1,14 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
+import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -41,7 +45,11 @@ public class AllAdvancementGoal extends PointsGoal {
   @Override
   protected void onEnable() {
     updateAdvancements();
-    super.onEnable();
+    scoreboard.setContent(GoalHelper.createScoreboard(() ->
+        getPoints(new AtomicInteger(), true), player -> {
+      return Collections.singletonList(Message.forName("all-advancements-goal").asString(advancementCount));
+    }));
+    scoreboard.show();
   }
 
   @Override
@@ -56,7 +64,7 @@ public class AllAdvancementGoal extends PointsGoal {
   @NotNull
   @Override
   public ItemBuilder createDisplayItem() {
-    return new ItemBuilder(Material.BOOK, "§6All Advancements");
+    return new ItemBuilder(Material.BOOK, Message.forName("item-all-advancements-goal"));
   }
 
   @EventHandler(priority = EventPriority.HIGH)
@@ -88,7 +96,7 @@ public class AllAdvancementGoal extends PointsGoal {
   }
 
   protected void updateAdvancements(@Nonnull Player player) {
-    int done = 90;
+    int done = 0;
     for (Advancement advancement : allAdvancements) {
       AdvancementProgress progress = player.getAdvancementProgress(advancement);
       if (progress.isDone()) {
