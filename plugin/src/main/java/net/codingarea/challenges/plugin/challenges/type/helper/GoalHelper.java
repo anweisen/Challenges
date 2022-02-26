@@ -1,5 +1,20 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.function.ToIntBiFunction;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.collection.NumberFormatter;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -10,14 +25,6 @@ import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeSc
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-import java.util.function.ToIntBiFunction;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -80,6 +87,11 @@ public final class GoalHelper {
 
 	@Nonnull
 	public static BiConsumer<ScoreboardInstance, Player> createScoreboard(@Nonnull Supplier<Map<Player, Integer>> points) {
+		return createScoreboard(points);
+	}
+
+	@Nonnull
+	public static BiConsumer<ScoreboardInstance, Player> createScoreboard(@Nonnull Supplier<Map<Player, Integer>> points, Function<Player, List<String>> additionalLines) {
 		return (scoreboard, player) -> {
 			SortedMap<Integer, List<Player>> leaderboard = GoalHelper.createLeaderboardFromPoints(points.get());
 			int playerPlace = GoalHelper.determinePosition(leaderboard, player);
@@ -100,6 +112,15 @@ public final class GoalHelper {
 					if (displayed >= LEADERBOARD_SIZE) break;
 					place++;
 				}
+			}
+			scoreboard.addLine("");
+
+			List<String> lines = additionalLines.apply(player);
+			int linesThatCanBeAdded = 15 - scoreboard.getLines().size() - 1;
+			for (int i = 0; i < lines.size() && linesThatCanBeAdded > 0; i++) {
+				linesThatCanBeAdded--;
+				String line = lines.get(i);
+				scoreboard.addLine(line);
 			}
 			scoreboard.addLine("");
 		};
