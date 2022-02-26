@@ -253,14 +253,16 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					break;
 				case CONDITION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.CONDITION,
-							"condition", "Condition", AbstractChallengeCondition.getMenuItems(),
+							"condition", Message.forName("custom-title-condition").asString(),
+							AbstractChallengeCondition.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getConditionByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;
 				case ACTION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.ACTION,
-							"action", "Action", AbstractChallengeAction.getMenuItems(),
+							"action", Message.forName("custom-title-action").asString(),
+							AbstractChallengeAction.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getActionByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);

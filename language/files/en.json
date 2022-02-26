@@ -1092,6 +1092,9 @@
 
   "custom-main-view-challenges": "§6View Challenges",
   "custom-main-create-challenge": "§aCreate Challenge",
+  "custom-title-condition": "Condition",
+  "custom-title-action": "Action",
+  "custom-title-view": "View",
   "custom-sub-finish": "§aFinished",
 
   "item-custom-info-delete": [

@@ -1106,13 +1106,16 @@
     "",
     "Es sind derzeit keine Custom Challenges geladen.",
     "Du vermisst deine Challenges? §e/custom load",
-    "Du hast Probleme beim automatischen Speichern?",
+    "Du hast Probleme beim Speichern?",
     "Speichere vorm verlassen manuell §e/custom save",
     ""
   ],
 
   "custom-main-view-challenges": "§6Challenges Ansehen",
   "custom-main-create-challenge": "§aChallenge Erstellen",
+  "custom-title-condition": "Bedingung",
+  "custom-title-action": "Aktion",
+  "custom-title-view": "Gespeicherte",
   "custom-sub-finish": "§aFertig",
 
   "item-custom-info-delete": [
