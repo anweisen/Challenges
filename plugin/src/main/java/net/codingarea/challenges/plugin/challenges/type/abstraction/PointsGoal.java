@@ -91,4 +91,9 @@ public abstract class PointsGoal extends SettingGoal {
 		scoreboard.update();
 	}
 
+	@CheckReturnValue
+	protected int getPoints(@Nonnull UUID uuid) {
+		return points.get(uuid);
+	}
+
 }
