@@ -42,6 +42,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	private static final int GLOBAL_EFFECT = 1;
 	private final Random random = new Random();
+
 	public PermanentEffectOnDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 2);
 	}
@@ -173,6 +174,14 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	}
 
 	private void addEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType, int amplifier) {
+
+		if (player.hasPotionEffect(effectType)) {
+			PotionEffect effect = player.getPotionEffect(effectType);
+			if (effect.getAmplifier() == amplifier-1) {
+				return;
+			}
+		}
+
 		player.removePotionEffect(effectType);
 		player.addPotionEffect(new PotionEffect(effectType, Integer.MAX_VALUE, amplifier - 1));
 	}
@@ -261,7 +270,9 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 				player.removePotionEffect(potionEffect.getType());
 			}
 		});
-		updateEffects();
+		if (shouldExecuteEffect()) {
+			updateEffects();
+		}
 	}
 
 }
