@@ -192,6 +192,10 @@ commands:
     usage: "/difficulty <difficulty>"
     description: "Changes the difficulty with saving it in the difficulty setting"
     permission: "challenges.difficulty"
+  world:
+    usage: "/world <world>"
+    description: "Teleport to another world"
+    permission: "challenges.world"
   skipitem:
     usage: "/skipitem"
     description: "Skips the current item of the collect all items goal"
