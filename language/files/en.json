@@ -133,6 +133,10 @@
     "Playtime §e{0} §7Ticks §8(§7Tag §e{1}§8)",
     "Time of day §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
+  "command-time-noon": "Noon",
+  "command-time-night": "Night",
+  "command-time-midnight": "Midnight",
+  "command-time-Day": "Day",
   "command-fly-enabled": "You can fly §anow",
   "command-fly-disabled": "You can §cno longer §7fly",
   "command-fly-toggled-others": "You toggled §efly §7for §e{0} §7player/s",

@@ -65,7 +65,9 @@ public class TimeCommand implements PlayerCommand, Completer {
 				}
 				world.setTime(time);
 				if (names.containsKey(time)) {
-					Message.forName("command-time-set-exact").send(player, Prefix.CHALLENGES, names.get(time), time);
+					String timeName = names.get(time);
+					String timeTranslation = Message.forName("command-time-" + timeName).asString();
+					Message.forName("command-time-set-exact").send(player, Prefix.CHALLENGES, timeTranslation, time);
 				} else {
 					Message.forName("command-time-set").send(player, Prefix.CHALLENGES, time, getNearestTime(world));
 				}

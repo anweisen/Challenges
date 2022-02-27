@@ -133,6 +133,10 @@
     "Spielzeit §e{0} §7Ticks §8(§7Tag §e{1}§8)",
     "Tageszeit §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
+  "command-time-noon": "Mittag",
+  "command-time-night": "Nacht",
+  "command-time-midnight": "Mitternacht",
+  "command-time-Day": "Tag",
   "command-fly-enabled": "Du kannst §anun fliegen",
   "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
   "command-fly-toggled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
