@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
@@ -25,6 +26,7 @@ import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.bukkit.event.world.LootGenerateEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
@@ -101,11 +103,17 @@ public class FiveHundredBlocksChallenge extends Setting {
   }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onEntityExplosion(BlockExplodeEvent event) {
+  public void onBlockExplosion(BlockExplodeEvent event) {
     if (!shouldExecuteEffect()) return;
     for (Block block : event.blockList()) {
       block.setType(Material.AIR);
     }
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onEntityExplosion(LootGenerateEvent event) {
+    if (!shouldExecuteEffect()) return;
+    event.setLoot(new LinkedList<>());
   }
 
   /**
