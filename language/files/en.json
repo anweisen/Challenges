@@ -244,6 +244,7 @@
   "bossbar-tsunami-lava": "§8» §7Lavaheight: §c{0}",
   "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Move in §8┃ §e{0}",
+  "bossbar-five-hundred-blocks": "§8» §fBlocks Walked §8┃ §7{0} §8/ §7{1}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -962,6 +963,13 @@
     "When you *eat* an *item*",
     "you will be *launched* into the air"
   ],
+  "item-five-hundred-blocks-challenges": [
+    "§5500 Blocks",
+    "*Every 500 Blocks walked* players",
+    "will get a *64 stack* of a random item.",
+    "*Blocks* and *Entities* won't *drop* any items."
+  ],
+
 
   "item-dragon-goal": [
     "§5Ender Dragon",
