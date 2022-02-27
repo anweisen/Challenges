@@ -44,7 +44,7 @@ public class InvseeCommand implements PlayerCommand, Listener {
 			offHandSlot = 52
 	;
 
-	private Map<Player, Inventory> inventories = new HashMap<>();
+	private final Map<Player, Inventory> inventories = new HashMap<>();
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {

@@ -44,7 +44,7 @@ public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator impleme
 
 	@Override
 	public int[] getNavigationSlots(int page) {
-		return MainMenuGenerator.NAVIGATION_SLOTS;
+		return MainCustomMenuGenerator.NAVIGATION_SLOTS;
 	}
 
 	public IParentCustomGenerator getParent() {

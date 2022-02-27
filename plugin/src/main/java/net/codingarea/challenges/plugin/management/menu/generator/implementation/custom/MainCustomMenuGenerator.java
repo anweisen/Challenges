@@ -22,7 +22,7 @@ import org.bukkit.inventory.Inventory;
  * @since 2.1.0
  *
  */
-public class MainMenuGenerator extends ChallengeMenuGenerator {
+public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 
 	public static final int[] SLOTS = { 10, 11, 12, 13, 14, 15, 16 };
 	public static final int[] NAVIGATION_SLOTS = { 36, 44 };
@@ -32,7 +32,7 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 
 	private static final int maxCustomChallenges;
 
-	public MainMenuGenerator() {
+	public MainCustomMenuGenerator() {
 		super(1);
 	}
 
@@ -63,22 +63,25 @@ public class MainMenuGenerator extends ChallengeMenuGenerator {
 	}
 
 	@Override
-	public void onPreChallengePageClicking(@Nonnull MenuClickInfo clickInfo, int page) {
-		if (clickInfo.getSlot() == VIEW_SLOT) {
+	public void onPreChallengePageClicking(@Nonnull MenuClickInfo info, int page) {
+		if (info.getSlot() == VIEW_SLOT) {
 			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() == 0) {
-				Message.forName("custom-not-loaded").send(clickInfo.getPlayer(), Prefix.CUSTOM);
+				Message.forName("custom-not-loaded").send(info.getPlayer(), Prefix.CUSTOM);
 				return;
 			}
-			open(clickInfo.getPlayer(), 1);
-			SoundSample.PLOP.play(clickInfo.getPlayer());
-		} else if (clickInfo.getSlot() == CREATE_SLOT) {
+			open(info.getPlayer(), 1);
+			SoundSample.PLOP.play(info.getPlayer());
+		} else if (info.getSlot() == CREATE_SLOT) {
+			if (ChallengeMenuGenerator.playNoPermissionsEffect(info.getPlayer())) {
+				return;
+			}
 			if (Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() > maxCustomChallenges) {
-				Message.forName("custom-limit").send(clickInfo.getPlayer(), Prefix.CUSTOM, maxCustomChallenges);
-				SoundSample.BASS_OFF.play(clickInfo.getPlayer());
+				Message.forName("custom-limit").send(info.getPlayer(), Prefix.CUSTOM, maxCustomChallenges);
+				SoundSample.BASS_OFF.play(info.getPlayer());
 				return;
 			}
-			new InfoMenuGenerator().open(clickInfo.getPlayer(), 0);
-			SoundSample.PLING.play(clickInfo.getPlayer());
+			new InfoMenuGenerator().open(info.getPlayer(), 0);
+			SoundSample.PLING.play(info.getPlayer());
 		}
 	}
 

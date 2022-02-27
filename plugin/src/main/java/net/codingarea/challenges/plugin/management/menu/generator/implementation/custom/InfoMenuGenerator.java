@@ -217,6 +217,11 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				return;
 			}
 
+			if (ChallengeMenuGenerator.playNoPermissionsEffect(info.getPlayer())) {
+				info.getPlayer().closeInventory();
+				return;
+			}
+
 			Player player = info.getPlayer();
 
 			switch (info.getSlot()) {
@@ -299,7 +304,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	static {
 		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
-
 		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
 		list.removeIf(material1 -> !material1.isItem());
 		defaultMaterials = list.toArray(new Material[0]);

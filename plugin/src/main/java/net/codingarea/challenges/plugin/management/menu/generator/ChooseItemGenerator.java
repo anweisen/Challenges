@@ -8,7 +8,7 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainCustomMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.entity.Player;
@@ -110,7 +110,7 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 
 	@Override
 	public int[] getNavigationSlots(int page) {
-		return MainMenuGenerator.NAVIGATION_SLOTS;
+		return MainCustomMenuGenerator.NAVIGATION_SLOTS;
 	}
 
 	@Override

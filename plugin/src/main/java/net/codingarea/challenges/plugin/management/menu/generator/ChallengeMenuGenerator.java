@@ -243,18 +243,18 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 		}
 
-		private boolean playNoPermissionsEffect(@Nonnull Player player) {
-			MenuManager menuManager = Challenges.getInstance().getMenuManager();
-			if (!menuManager.permissionToManageGUI()) return false;
-			if (mayManageSettings(player)) return false;
-			menuManager.playNoPermissionsEffect(player);
-			return true;
-		}
+	}
 
-		private boolean mayManageSettings(@Nonnull Player player) {
-			return player.hasPermission("challenges.manage");
-		}
+	public static boolean playNoPermissionsEffect(@Nonnull Player player) {
+		MenuManager menuManager = Challenges.getInstance().getMenuManager();
+		if (!menuManager.permissionToManageGUI()) return false;
+		if (mayManageSettings(player)) return false;
+		menuManager.playNoPermissionsEffect(player);
+		return true;
+	}
 
+	private static boolean mayManageSettings(@Nonnull Player player) {
+		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
 	}
 
 }

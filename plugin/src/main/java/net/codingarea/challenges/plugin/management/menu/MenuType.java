@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.management.menu;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.TimerMenuGenerator;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainCustomMenuGenerator;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
@@ -21,7 +21,7 @@ public enum MenuType {
 	ITEMS_BLOCKS("Items & Blocks", "§4Blocks & Items", Material.STICK, new SettingsMenuGenerator()),
 	CHALLENGES("Challenges", "§cChallenges", Material.BOOK, new SettingsMenuGenerator()),
 	SETTINGS("Settings", "§eSettings", Material.COMPARATOR, new SettingsMenuGenerator()),
-	CUSTOM("Custom", "§aCustom", Material.WRITABLE_BOOK, new MainMenuGenerator());
+	CUSTOM("Custom", "§aCustom", Material.WRITABLE_BOOK, new MainCustomMenuGenerator());
 
 	private final String name;
 	private final String displayName;
