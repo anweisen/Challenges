@@ -143,6 +143,7 @@
   "command-fly-toggled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
   "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
   "command-gamestate-reset": "Der Gamestate wurde §azurückgesetzt",
+  "command-world-teleport": "Du wirst in die Welt §e{0} §7teleportiert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",

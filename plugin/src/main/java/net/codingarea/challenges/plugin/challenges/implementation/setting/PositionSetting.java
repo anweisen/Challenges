@@ -117,7 +117,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
 	}
 
-	private String getWorldName(@Nonnull Location location) {
+	public static String getWorldName(@Nonnull Location location) {
 		if (location.getWorld() == null) return "?";
 		switch (location.getWorld().getEnvironment()) {
 			default:        return "Overworld";

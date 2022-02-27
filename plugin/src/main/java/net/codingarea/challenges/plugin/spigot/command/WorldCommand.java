@@ -51,6 +51,7 @@ public class WorldCommand implements PlayerCommand, TabCompleter {
       location = world.getHighestBlockAt(0, 0).getLocation().add(0.5, 1, 0.5);
     }
 
+    Message.forName("command-world-teleport").send(player, Prefix.CHALLENGES, PositionSetting.getWorldName(location));
     player.teleport(location);
   }
 
