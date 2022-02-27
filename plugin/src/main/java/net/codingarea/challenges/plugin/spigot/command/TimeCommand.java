@@ -35,7 +35,7 @@ public class TimeCommand implements PlayerCommand, Completer {
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 
 		if (args.length <= 0) {
-			Message.forName("syntax").send(player, Prefix.CHALLENGES, "<time <set/add/remove/query/day/night/noon/midnight>");
+			Message.forName("syntax").send(player, Prefix.CHALLENGES, "time <set/add/remove/query/day/night/noon/midnight>");
 			return;
 		}
 		World world = player.getWorld();
