@@ -1,4 +1,4 @@
 version: "1.0"
-failThreshold: 124
+failThreshold: 0
 profile:
   name: qodana.recommended
