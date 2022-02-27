@@ -89,7 +89,7 @@ public final class ChallengeManager {
 		Challenges.getInstance().getDatabaseManager().getDatabase()
 				.insertOrUpdate("challenges")
 				.where("uuid", player.getUniqueId())
-				.set("custom-challenges", document)
+				.set("custom_challenges", document)
 				.execute();
 	}
 
@@ -193,7 +193,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveLocalCustomChallenges(boolean async) {
-		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/custom-challenges.json"), new GsonDocument());
+		FileDocument config = new FileDocumentWrapper(Challenges.getInstance().getDataFile("internal/custom_challenges.json"), new GsonDocument());
 		saveCustomChallengesInto(config);
 		config.save(async);
 	}

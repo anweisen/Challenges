@@ -36,7 +36,7 @@ public final class ConfigManager {
 		sessionConfig   = load("internal/session.json");
 		gamestateConfig = load("internal/gamestate.json");
 		settingsConfig  = load("internal/settings.json");
-		customChallengesConfig  = load("internal/custom-challenges.json");
+		customChallengesConfig  = load("internal/custom_challenges.json");
 
 		Challenges plugin = Challenges.getInstance();
 		Document config = plugin.getConfigDocument();

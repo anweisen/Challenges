@@ -87,7 +87,8 @@ public final class DatabaseManager {
 					new SQLColumn("name", "varchar", 16),
 					new SQLColumn("textures", "varchar", 500),
 					new SQLColumn("stats", "varchar", 1500),
-					new SQLColumn("config", "varchar", 7500)
+					new SQLColumn("config", "varchar", 7500),
+					new SQLColumn("custom_challenges", "varchar", 7500)
 			);
 		});
 	}

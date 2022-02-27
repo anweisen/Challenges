@@ -50,9 +50,9 @@ public class CustomChallengesCommand implements PlayerCommand, Completer {
 				if (!checkEnabled(player)) return;
 				Document config = Challenges.getInstance().getDatabaseManager().getDatabase()
 						.query("challenges")
-						.select("custom-challenges")
+						.select("custom_challenges")
 						.where("uuid", player.getUniqueId())
-						.execute().firstOrEmpty().getDocument("custom-challenges");
+						.execute().firstOrEmpty().getDocument("custom_challenges");
 				Challenges.getInstance().getChallengeManager().loadCustomChallenges(config);
 				Message.forName("player-custom_challenges-loaded").send(player, Prefix.CHALLENGES);
 				break;

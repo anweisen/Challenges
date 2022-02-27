@@ -44,7 +44,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	public static final int DELETE_SLOT = 19+9, SAVE_SLOT = 25+9, CONDITION_SLOT = 21+9, ACTION_SLOT = 23+9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
 
 	private static final Material[] defaultMaterials;
-	private static final boolean savePlayerConfigs;
+	private static final boolean savePlayerChallenges;
 
 	private final UUID uuid;
 	private String name;
@@ -246,7 +246,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					save();
 					openChallengeMenu(player);
 					Message.forName("custom-saved").send(player, Prefix.CUSTOM);
-					if (savePlayerConfigs) {
+					if (savePlayerChallenges) {
 						Message.forName("custom-saved-db").send(player, Prefix.CUSTOM);
 					}
 					SoundSample.LEVEL_UP.play(player);
@@ -292,13 +292,13 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
 		} else {
 			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
-			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu is in the same generator
+			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu are in the same generator
 			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
 		}
 	}
 
 	static {
-		savePlayerConfigs = Challenges.getInstance().getConfigDocument().getBoolean("save-player-configs");
+		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
 
 		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
 		list.removeIf(material1 -> !material1.isItem());
