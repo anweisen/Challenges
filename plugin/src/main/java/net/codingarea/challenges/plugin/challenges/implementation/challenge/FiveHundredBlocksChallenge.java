@@ -16,11 +16,14 @@ import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
@@ -87,6 +90,22 @@ public class FiveHundredBlocksChallenge extends Setting {
     if (!shouldExecuteEffect()) return;
     event.getDrops().clear();
     event.setDroppedExp(0);
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onEntityExplosion(EntityExplodeEvent event) {
+    if (!shouldExecuteEffect()) return;
+    for (Block block : event.blockList()) {
+      block.setType(Material.AIR);
+    }
+  }
+
+  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+  public void onEntityExplosion(BlockExplodeEvent event) {
+    if (!shouldExecuteEffect()) return;
+    for (Block block : event.blockList()) {
+      block.setType(Material.AIR);
+    }
   }
 
   /**
