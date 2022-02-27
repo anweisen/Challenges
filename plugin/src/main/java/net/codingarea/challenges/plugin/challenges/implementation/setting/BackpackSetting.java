@@ -139,7 +139,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	protected void write(@Nonnull Document document, @Nonnull Inventory inventory) {
 		for (int i = 0; i < inventory.getSize(); i++) {
 			ItemStack item = inventory.getItem(i);
-			document.set(i + "", item);
+			document.set(String.valueOf(i), item);
 		}
 	}
 

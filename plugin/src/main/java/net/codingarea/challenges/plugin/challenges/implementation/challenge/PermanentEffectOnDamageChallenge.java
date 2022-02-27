@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
@@ -177,7 +177,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 		if (player.hasPotionEffect(effectType)) {
 			PotionEffect effect = player.getPotionEffect(effectType);
-			if (effect.getAmplifier() == amplifier-1) {
+			if (effect != null && effect.getAmplifier() == amplifier-1) {
 				return;
 			}
 		}

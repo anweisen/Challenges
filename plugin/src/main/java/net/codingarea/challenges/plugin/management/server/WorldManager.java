@@ -168,9 +168,8 @@ public final class WorldManager {
 		sessionConfig.clear();
 		sessionConfig.set("reset", true);
 		sessionConfig.set("seed-reset", useCustomSeed);
-		try {
+		if (!Bukkit.getWorlds().isEmpty()) {
 			sessionConfig.set("level-name", Bukkit.getWorlds().get(0).getName());
-		} catch (Exception ex) {
 		}
 		sessionConfig.save();
 
@@ -210,7 +209,15 @@ public final class WorldManager {
 			if (player.getWorld() != world) continue;
 
 			Location location = player.getBedSpawnLocation();
-			if (location == null) location = Bukkit.getWorld(levelName).getSpawnLocation();
+			if (location == null) {
+				World world = Bukkit.getWorld(levelName);
+				if (world != null) {
+					location = world.getSpawnLocation();
+				} else {
+					world = Bukkit.getWorlds().get(0);
+					location = world.getSpawnLocation();
+				}
+			}
 
 			player.teleport(location);
 		}
@@ -288,9 +295,15 @@ public final class WorldManager {
 	}
 
 	private void copyDirectory(@Nonnull File source, @Nonnull File target) throws IOException {
-		if (!target.exists())
-			target.mkdir();
-		for (String child : source.list()) {
+		if (!target.exists()) {
+			if (!target.mkdir()) {
+				return;
+			}
+		}
+
+		String[] list = source.list();
+		if (list == null) return;
+		for (String child : list) {
 			if ("session.lock".equals(child)) continue;
 			copy(new File(source, child), new File(target, child));
 		}

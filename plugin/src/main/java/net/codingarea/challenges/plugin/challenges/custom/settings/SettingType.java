@@ -8,6 +8,6 @@ public enum SettingType {
 
   CONDITION,
   MATERIAL,
-  ACTION;
+  ACTION
 
 }

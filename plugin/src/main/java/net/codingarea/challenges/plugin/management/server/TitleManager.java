@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
  */
 public final class TitleManager {
 
-	private final int fadein = 5, duration = 20, fadeout = 10;
+	private static final int fadein = 5, duration = 20, fadeout = 10;
 
 	private final boolean timerStatusEnabled;
 	private final boolean challengeStatusEnabled;

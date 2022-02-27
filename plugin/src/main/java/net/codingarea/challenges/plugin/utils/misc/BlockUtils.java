@@ -1,18 +1,14 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
-import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.Challenges;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -24,7 +20,7 @@ public final class BlockUtils {
 	private BlockUtils() {}
 
 	public static boolean isSameBlock(@Nullable Location loc1, @Nullable Location loc2) {
-		if (loc1 == null || loc2 == null) return false;
+		if (loc1 == null || loc2 == null) return true;
 		return loc1.getBlockX() == loc2.getBlockX()
 		 	&& loc1.getBlockY() == loc2.getBlockY()
 			&& loc1.getBlockZ() == loc2.getBlockZ();

@@ -39,7 +39,7 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 	@Override
 	protected String getTitle(int page) {
 		return page != 0 ? InventoryTitleManager.getTitle(getMenuType(),
-				Message.forName("custom-title-view").asString(), "" + page) :
+				Message.forName("custom-title-view").asString(), String.valueOf(page)) :
 				InventoryTitleManager.getTitle(getMenuType(), "Menu");
 	}
 

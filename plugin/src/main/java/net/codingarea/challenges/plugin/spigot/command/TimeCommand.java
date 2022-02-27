@@ -126,8 +126,9 @@ public class TimeCommand implements PlayerCommand, Completer {
 	private long getLongFromString(@Nonnull String input) {
 		try {
 			return Long.parseLong(input);
-		} catch (NumberFormatException ex) { }
-		return -1;
+		} catch (NumberFormatException ex) {
+			return -1;
+		}
 	}
 
 	@Nullable

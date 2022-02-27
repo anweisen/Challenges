@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 @Since("2.0")
 public class HydraPlusChallenge extends HydraChallenge {
 
-	final int limit = 512;
+	private static final int limit = 512;
 
 	public HydraPlusChallenge() {
 		super(MenuType.CHALLENGES);
@@ -33,7 +33,7 @@ public class HydraPlusChallenge extends HydraChallenge {
 	public int getNewMobsCount(@Nonnull EntityType entityType) {
 		int currentCount = getGameStateData().getInt(entityType.name());
 		if (currentCount == 0) currentCount = 1;
-		currentCount = currentCount*2;
+		currentCount *= currentCount;
 		getGameStateData().set(entityType.name(), Math.min(currentCount, limit));
 		return currentCount;
 	}

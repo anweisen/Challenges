@@ -1,12 +1,10 @@
 package net.codingarea.challenges.plugin.content.loader;
 
+import java.net.URL;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.Challenges;
-
-import javax.annotation.Nullable;
-import java.net.URL;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -18,7 +16,6 @@ public final class UpdateLoader extends ContentLoader {
 
 	private static boolean newestPluginVersion = true;
 	private static boolean newestConfigVersion = true;
-	private static Version latestVersion;
 
 	@Override
 	protected void load() {
@@ -27,7 +24,7 @@ public final class UpdateLoader extends ContentLoader {
 			String response = IOUtils.toString(url);
 			Version plugin = Challenges.getInstance().getVersion();
 			Version config = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
-			latestVersion = Version.parse(response);
+			Version latestVersion = Version.parse(response);
 
 			if (latestVersion.isNewerThan(plugin)) {
 				Logger.info("A new version of Challenges is available: {}, you have {}", latestVersion, plugin);
@@ -49,11 +46,6 @@ public final class UpdateLoader extends ContentLoader {
 
 	public static boolean isNewestPluginVersion() {
 		return newestPluginVersion;
-	}
-
-	@Nullable
-	public static Version getLatestVersion() {
-		return latestVersion;
 	}
 
 }

@@ -51,6 +51,7 @@ public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
           ItemStack itemStack = getSettings().get(value);
           if (itemStack != null) {
             if (firstDisplay == null) {
+              if (itemStack.getItemMeta() == null) continue;
               firstDisplay = "§7" + getKeyTranslation() + " " + itemStack.getItemMeta().getDisplayName();
             } else {
               count++;

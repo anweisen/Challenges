@@ -19,9 +19,6 @@ public class KeepInventorySetting extends Setting {
 
 	public KeepInventorySetting() {
 		super(MenuType.SETTINGS);
-		try {
-			setEnabled(Bukkit.getWorlds().get(0).getGameRuleValue(GameRule.KEEP_INVENTORY));
-		} catch (Exception ignored) { }
 	}
 
 	@Nonnull

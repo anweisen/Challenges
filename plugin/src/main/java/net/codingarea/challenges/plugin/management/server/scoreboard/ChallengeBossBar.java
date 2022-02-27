@@ -19,7 +19,7 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeBossBar {
 
-	public final class BossBarInstance {
+	public static final class BossBarInstance {
 
 		private String title = "";
 		private double progress = 1;

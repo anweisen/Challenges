@@ -296,7 +296,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 						cord = location.getBlockZ() + 0.5;
 				}
 
-				return Collections.singletonList(cord + "");
+				return Collections.singletonList(String.valueOf(cord));
 
 			} else if (args.length > 1) {
 				return Arrays.asList("Overworld", "Nether", "End");
@@ -325,6 +325,5 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		}
 		return null;
 	}
-
 
 }

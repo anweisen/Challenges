@@ -19,7 +19,8 @@ public class HungerPlayerAction extends AbstractChallengePlayerTargetAction {
           String prefix = DefaultItem.getItemPrefix();
 
           for (int i = 1; i < 21; i++) {
-            builder.addSetting(i + "", new ItemBuilder(Material.ROTTEN_FLESH, prefix + "§7" + i).setAmount(i).build());
+            builder.addSetting(
+                String.valueOf(i), new ItemBuilder(Material.ROTTEN_FLESH, prefix + "§7" + i).setAmount(i).build());
           }
 
     }));

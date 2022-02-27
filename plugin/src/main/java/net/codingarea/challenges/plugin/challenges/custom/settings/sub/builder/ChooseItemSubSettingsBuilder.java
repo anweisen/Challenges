@@ -47,8 +47,8 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
         for (String value : entry.getValue()) {
           ItemStack itemStack = getSettings().get(value);
           if (itemStack != null) {
+            if (itemStack.getItemMeta() == null) continue;
             display.add("§7" + getKeyTranslation() + " " + itemStack.getItemMeta().getDisplayName());
-
           }
         }
       }

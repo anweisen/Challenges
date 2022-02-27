@@ -92,13 +92,13 @@ public class MaxHeightTimeChallenge extends SettingModifier {
 			kill(player);
 		}
 		if (time < getValue() * 60) {
-			getPlayerData(player).set(player.getLocation().getBlockY() + "", time);
+			getPlayerData(player).set(String.valueOf(player.getLocation().getBlockY()), time);
 		}
 		bossbar.update(player);
 	}
 
 	private int getCurrentTime(@Nonnull Player player) {
-		return getPlayerData(player).getInt(player.getLocation().getBlockY() + "", 0);
+		return getPlayerData(player).getInt(String.valueOf(player.getLocation().getBlockY()), 0);
 	}
 
 }

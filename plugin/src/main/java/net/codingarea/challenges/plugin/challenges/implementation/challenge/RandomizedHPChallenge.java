@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -86,7 +87,9 @@ public class RandomizedHPChallenge extends SettingModifier {
 				EntityType type = entity.getType();
 				double health = entityDefaultHealth.getOrDefault(type, getDefaultHealth(type));
 				entityDefaultHealth.put(type, health);
-				entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+				AttributeInstance attribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+				if (attribute == null) return;
+				attribute.setBaseValue(health);
 				entity.setHealth(health);
 			}
 		}
@@ -97,7 +100,10 @@ public class RandomizedHPChallenge extends SettingModifier {
 		Entity entity = world.spawnEntity(new Location(world, 0, 0, 0), entityType);
 		entity.remove();
 		if (!(entity instanceof LivingEntity)) return 0;
-		return ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+		AttributeInstance attribute = ((LivingEntity) entity)
+				.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+		if (attribute == null) return 10;
+		return attribute.getBaseValue();
 	}
 
 	@Nonnull
