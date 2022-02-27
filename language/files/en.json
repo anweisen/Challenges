@@ -97,7 +97,8 @@
   "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
   "positions-disabled": "Positions are §cdeactivated",
   "position-other-world": "This position is in another world §8(§e{0}§8)",
-  "position-not-exists": "This position §cdoesn't §7exist",
+  "position-not-exists": "The position §e{0} §cdoesn't §7exist",
+  "position-not-exists": "The position {0} §calready §7exist",
   "position-set": "§e{5} §7created position §e{4} §7{0}, {1}, {2} §8(§e{3}§8)",
   "position-deleted": "§e{5} §7deleted §e{4} §7{0}, {1}, {2} §8(§e{3}§8)",
   "no-positions": [

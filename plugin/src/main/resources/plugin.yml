@@ -80,6 +80,13 @@ commands:
       - "delpos"
       - "delcoords"
     permission: "challenges.delposition"
+  setposition:
+    usage: "/setpos [name]"
+    description: "Creates a position at a specific location"
+    aliases:
+      - "setpos"
+      - "setcoords"
+    permission: "challenges.setposition"
   backpack:
     usage: "/bp"
     description: "Opens the player's or the shared backpack"
