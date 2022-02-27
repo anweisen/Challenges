@@ -2,7 +2,9 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
+import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.TargetEntitiesChallengeAction;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -17,26 +19,36 @@ import org.bukkit.inventory.ItemStack;
  */
 public class RandomItemAction extends AbstractChallengeAction {
 
+  public static final List<Material> items;
+
   public RandomItemAction(String name) {
     super(name, createEntityTargetSettingsBuilder(false, true));
   }
 
   @Override
   public void execute(Entity entity, Map<String, String[]> subActions) {
-    ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
-    list.removeIf(material -> !material.isItem());
 
     for (Entity target : TargetEntitiesChallengeAction.getTargets(entity, subActions)) {
       if (target instanceof Player) {
         Player player = (Player) target;
-        InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(random.choose(list)));
+        giveRandomItemToPlayer(player);
       }
     }
+  }
+
+  public static void giveRandomItemToPlayer(@Nonnull Player player) {
+    InventoryUtils.giveItem(player.getInventory(),
+        player.getLocation(), new ItemStack(random.choose(items)));
   }
 
   @Override
   public Material getMaterial() {
     return Material.BEACON;
+  }
+
+  static {
+    items = new ArrayList<>(Arrays.asList(Material.values()));
+    items.removeIf(material -> !material.isItem());
   }
 
 }

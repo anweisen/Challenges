@@ -153,6 +153,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(FoodLaunchChallenge.class);
 
 		register(UncraftItemsChallenge.class);
+		register(FiveHundredBlocksChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

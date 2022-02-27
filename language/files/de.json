@@ -244,6 +244,7 @@
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
+  "bossbar-five-hundred-blocks": "§8» §fBlöcke Gelaufen §8┃ §7{0} §8/ §7{1}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -969,6 +970,13 @@
     "§cEssens Boost",
     "Wenn du ein *Item isst*,",
     "wirst du *in die Luft* geschleudert"
+  ],
+  "item-five-hundred-blocks-challenges": [
+    "§5500 Blöcke",
+    "*Alle* 500 Blöcke bekommst du",
+    "ein *zufälliges Item*.",
+    "Es droppen *keine Items* mehr",
+    "von *Blöcken* und *Entities*."
   ],
 
 

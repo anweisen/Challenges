@@ -124,6 +124,7 @@ public class CutCleanSetting extends MenuSetting {
 		public void onBlockBreak(@Nonnull BlockBreakEvent event) {
 			if (!shouldExecuteEffect()) return;
 			if (!directIntoInventory()) return;
+			if (!event.isDropItems()) return;
 			Material type = event.getBlock().getType();
 
 			for (Material material : from) {
