@@ -26,6 +26,7 @@ public class RandomPotionEffectAction extends AbstractChallengeTargetAction {
       PotionEffectType randomEffect = RandomPotionEffectChallenge
           .getNewRandomEffect(livingEntity);
 
+      if (randomEffect == null) return;
       PotionEffect effect = randomEffect.createEffect(Integer.parseInt(subActions.get("length")[0]) * 20 + 1,
           Integer.parseInt(subActions.get("amplifier")[0]));
 

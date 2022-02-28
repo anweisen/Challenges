@@ -46,9 +46,7 @@ public class IntervallCondition extends AbstractChallengeCondition {
   public void onSecond() {
     long currentTime = Challenges.getInstance().getChallengeTimer().getTime();
 
-    HashMap<String, List<String>> data = new HashMap<>();
     List<String> list = new LinkedList<>();
-    data.put("time", list);
     list.add("1");
 
 

@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Prefix;
+import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -30,7 +31,9 @@ public class HelpListener implements Listener {
 			commandName = commandName.substring(commandName.indexOf(':') + 1);
 		}
 
-		List<String> names = new ArrayList<>(Challenges.getInstance().getCommand("help").getAliases());
+		PluginCommand command = Challenges.getInstance().getCommand("help");
+		if (command == null) return;
+		List<String> names = new ArrayList<>(command.getAliases());
 		names.add("help");
 
 		if (!names.contains(commandName)) return;

@@ -19,12 +19,15 @@ public class RandomMobAction extends AbstractChallengeTargetAction {
 
   @Override
   public void executeFor(Entity entity, Map<String, String[]> subActions) {
+    if (entity.getLocation().getWorld() == null) return;
     for (int i = 0; i < 100; i++) {
       EntityType value = AbstractChallengeAction.random.choose(EntityType.values());
       if (value.isSpawnable()) {
         try {
           entity.getLocation().getWorld().spawnEntity(entity.getLocation(), value);
-        } catch (Exception ex) { }
+        } catch (Exception ex) {
+          continue;
+        }
         break;
       }
     }

@@ -43,7 +43,7 @@ public final class InventoryUtils {
 	@FunctionalInterface
 	public interface InventorySetter<I> {
 
-		InventorySetter<AnimationFrame> FRAME = (frame, slot, item) -> frame.setItem(slot, item);
+		InventorySetter<AnimationFrame> FRAME = AnimationFrame::setItem;
 		InventorySetter<Inventory> INVENTORY = (inventory, slot, item) -> inventory.setItem(slot, item.build());
 
 		void set(@Nonnull I inventory, int slot, @Nonnull ItemBuilder item);
@@ -140,6 +140,7 @@ public final class InventoryUtils {
 	}
 
 	public static void dropItemByPlayer(@Nonnull Location location, @Nonnull ItemStack itemStack) {
+		if (location.getWorld() == null) return;
 		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), itemStack);
 		droppedItem.setVelocity(location.getDirection().multiply(0.4));
 	}

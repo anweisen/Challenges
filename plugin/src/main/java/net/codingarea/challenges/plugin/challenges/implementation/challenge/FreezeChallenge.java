@@ -70,7 +70,7 @@ public class FreezeChallenge extends SettingModifier {
 		PotionEffect effect = entity.getPotionEffect(PotionEffectType.SLOW);
 		entity.removePotionEffect(PotionEffectType.SLOW);
 
-		if (effect != null && effect.getAmplifier() == 255) time = time + effect.getDuration();
+		if (effect != null && effect.getAmplifier() == 255) time += effect.getDuration();
 
 		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, time, 255));
 	}

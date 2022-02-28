@@ -53,7 +53,7 @@ public abstract class SettingModifierGoal extends SettingModifier implements IGo
 
 	@Override
 	public void handleClick(@Nonnull ChallengeMenuClickInfo info) {
-		if (info.isUpperItemClick() && isEnabled()) {
+		if (info.isLowerItemClick() && isEnabled()) {
 			ChallengeHelper.handleModifierClick(info, this);
 		} else {
 			setEnabled(!isEnabled());

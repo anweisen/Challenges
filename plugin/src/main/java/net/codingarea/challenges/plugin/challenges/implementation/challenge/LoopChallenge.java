@@ -307,6 +307,7 @@ public class LoopChallenge extends Setting {
 				ItemStack item = player.getInventory().getItem(slot);
 				if (item == null) continue;
 				if (!isTool(item)) continue;
+				if (item.getItemMeta() == null) continue;
 				if (((org.bukkit.inventory.meta.Damageable) item.getItemMeta()).getDamage() >= item.getType().getMaxDurability()) {
 					player.getInventory().setItem(slot, null);
 				}

@@ -68,7 +68,7 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 
 				String[] array = items.keySet().toArray(new String[0]);
 
-				if (index >= array.length || isSideSlot(slot) || isTopOrBottomSlot(slot)) {
+				if (isSideSlot(slot) || isTopOrBottomSlot(slot)) {
 					SoundSample.CLICK.play(info.getPlayer());
 					return;
 				}

@@ -26,6 +26,7 @@ public class PotionEffectAction extends AbstractChallengeTargetAction {
       try {
 
         PotionEffectType effectType = PotionEffectType.getByName(subActions.get("potion_type")[0]);
+        if (effectType == null) return;
         PotionEffect effect = effectType.createEffect(Integer.parseInt(subActions.get("length")[0]) * 20 + 1,
             Integer.parseInt(subActions.get("amplifier")[0]));
 

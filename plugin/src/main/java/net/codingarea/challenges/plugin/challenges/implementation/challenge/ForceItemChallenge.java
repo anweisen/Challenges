@@ -68,11 +68,6 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 	@Override
 	protected BiConsumer<BossBarInstance, Player> setupBossbar() {
 		return (bossbar, player) -> {
-			if (ChallengeAPI.isPaused()) {
-				bossbar.setTitle(Message.forName("bossbar-timer-paused").asString());
-				bossbar.setColor(BarColor.RED);
-				return;
-			}
 			if (getState() == WAITING) {
 				bossbar.setTitle(Message.forName("bossbar-force-item-waiting").asString());
 				return;

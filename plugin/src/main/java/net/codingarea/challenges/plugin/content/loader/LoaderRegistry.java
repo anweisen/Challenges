@@ -96,7 +96,7 @@ public final class LoaderRegistry {
 			execute(classOfLoader, action);
 	}
 
-	protected static void execute(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
+	private static void execute(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
 		try {
 			action.run();
 		} catch (Exception ex) {

@@ -28,8 +28,8 @@ public final class LanguageLoader extends ContentLoader {
 	public static final String DIRECT_FILE_PATH = "direct-language-file";
 
 	private static final JsonParser parser = new JsonParser();
-	private static volatile boolean loaded = false;
 
+	private static volatile boolean loaded = false;
 	private String language;
 
 	@Override
@@ -39,6 +39,7 @@ public final class LanguageLoader extends ContentLoader {
 		if (config.contains(DIRECT_FILE_PATH)) {
 			language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
 			String path = config.getString(DIRECT_FILE_PATH);
+			if (path == null) return;
 			Logger.info("Using direct language file '{}'", path);
 			readLanguage(new File(path));
 			return;

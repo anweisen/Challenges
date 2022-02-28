@@ -68,7 +68,7 @@ public class SlotLimitSetting extends Modifier {
 
 		if (slot >= 9 && slot <= 17) {
 			slot += 9 * 2;
-		} else if (slot >= 27 && slot <= 35) {
+		} else if (slot >= 27) {
 			slot -= 9 * 2;
 		}
 

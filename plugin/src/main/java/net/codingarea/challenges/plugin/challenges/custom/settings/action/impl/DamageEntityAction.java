@@ -18,7 +18,8 @@ public class DamageEntityAction extends AbstractChallengeTargetAction {
     super(name, createEntityTargetSettingsBuilder(true).createChooseItemChild("amount").fill(builder -> {
       String prefix = DefaultItem.getItemPrefix();
       for (int i = 1; i < 21; i++) {
-        builder.addSetting(i + "", new ItemBuilder(Material.FERMENTED_SPIDER_EYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
+        builder.addSetting(
+            String.valueOf(i), new ItemBuilder(Material.FERMENTED_SPIDER_EYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
       }
     }));
   }

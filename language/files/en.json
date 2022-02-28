@@ -194,6 +194,8 @@
   "loops-cleared": "§e{0} §7Loops cancelled",
   "stopped-moving": "§e{0} §7hasn't moved for too long",
   "all-advancements-goal": "§7Advancements §8» §e{0}",
+  "height-reached": "§e{0} §7reached §eY = {1} §7first!",
+  "race-goal-reached": "§e{0} §7reached the goal!",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -227,7 +229,7 @@
     "What's going on now?!"
   ],
 
-  "bossbar-timer-paused": "§8» §7The timer is §cstill paused",
+  "bossbar-timer-paused": "§8» §7The timer is §cpaused",
   "bossbar-mob-transformation": "§8» §7Last mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Time left in §e{0} §8§l┃ §a{1}s",
   "bossbar-height-time-left": "§8» §7Time left on §e{0} §8§l┃ §a{1}s",
@@ -251,6 +253,8 @@
   "bossbar-ice-floor": "§8» §bIce floor §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Move in §8┃ §e{0}",
   "bossbar-five-hundred-blocks": "§8» §fBlocks Walked §8┃ §7{0} §8/ §7{1}",
+  "bossbar-race-goal-info": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blocks",
+  "bossbar-race-goal": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -1045,6 +1049,21 @@
   "item-all-advancements-goal": [
     "§6All Advancements",
     "The first player that *gets* all *advancements* wins"
+  ],
+  "item-max-height-goal": [
+    "§fMaximum Height",
+    "The *first* player to reach",
+    "*Y = {0}* wins"
+  ],
+  "item-min-height-goal": [
+    "§fMinimum Height",
+    "The *first* player to reach",
+    "*Y = {0}* wins"
+  ],
+  "item-race-goal": [
+    "§5Race",
+    "The *first* player to *reach* a",
+    "*random* location in the overworld wins"
   ],
 
 

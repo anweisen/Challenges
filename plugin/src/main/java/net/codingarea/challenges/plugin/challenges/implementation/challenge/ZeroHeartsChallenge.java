@@ -13,6 +13,7 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -45,7 +46,11 @@ public class ZeroHeartsChallenge extends SettingModifier {
 			bossbar.setProgress(1 - ((float) currentTime / maxTime));
 		});
 		bossbar.show();
-		Bukkit.getOnlinePlayers().forEach(player -> player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(0));
+		Bukkit.getOnlinePlayers().forEach(player -> {
+			AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+			if (attribute == null) return;
+			attribute.setBaseValue(0);
+		});
 	}
 
 	@Override
@@ -67,7 +72,11 @@ public class ZeroHeartsChallenge extends SettingModifier {
 
 	@ScheduledTask(ticks = 20, async = false)
 	public void onSecond() {
-		broadcast(player -> player.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(0));
+		broadcast(player -> {
+			AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+			if (attribute == null) return;
+			attribute.setBaseValue(0);
+		});
 		int absorptionTime = getCurrentTime();
 		if (absorptionTime >= getValue() * 60) {
 			bossbar.hide();

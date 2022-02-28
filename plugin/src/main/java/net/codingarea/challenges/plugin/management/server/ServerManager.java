@@ -26,16 +26,17 @@ import org.bukkit.inventory.ItemStack;
  */
 public final class ServerManager {
 
-	private static boolean isFresh; // This indicated if the timer was never started before
-	private static boolean hasCheated = false;
 
 	private final boolean setSpectatorOnWin;
 	private final boolean dropItemsOnEnd;
 	private final boolean winSounds;
 
+	private boolean isFresh; // This indicated if the timer was never started before
+	private boolean hasCheated = false;
+
 	public ServerManager() {
 		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
-		hasCheated = sessionConfig.getBoolean("cheated", hasCheated);
+		hasCheated = sessionConfig.getBoolean("cheated");
 		isFresh = sessionConfig.getBoolean("fresh", true);
 
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
@@ -90,7 +91,7 @@ public final class ServerManager {
 
 		String winnerString = StringUtils.getIterableAsString(winners, "§7, ", player -> "§e§l" + NameHelper.getName(player));
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
-		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
+		String seed = Bukkit.getWorlds().isEmpty() ? "?" : String.valueOf(Bukkit.getWorlds().get(0).getSeed());
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
 
 	}
@@ -117,11 +118,8 @@ public final class ServerManager {
 		for (ItemStack item : items) {
 			if (item == null) continue;
 			if (BukkitReflectionUtils.isAir(item.getType())) continue;
-
-			try {
-				location.getWorld().dropItem(location, item);
-			} catch (IllegalArgumentException ex) {
-			}
+			if (location.getWorld() == null) return;
+			location.getWorld().dropItem(location, item);
 		}
 	}
 

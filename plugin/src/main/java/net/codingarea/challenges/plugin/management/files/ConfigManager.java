@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.management.files;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -47,7 +48,9 @@ public final class ConfigManager {
 			// Create a output stream from that file to write into it
 			FileOutputStream stream = new FileOutputStream(defaultConfigTempFile);
 			// Copy the default config inside the temp file
-			IOUtils.copy(plugin.getResource("config.yml"), stream);
+			InputStream resource = plugin.getResource("config.yml");
+			if (resource == null) return;
+			IOUtils.copy(resource, stream);
 			// Load the File as a yaml config
 			// Spigot Config Implementation because the Document Library does not contain deep-keys.
 			YamlConfiguration defaultConfig = new YamlConfiguration();
