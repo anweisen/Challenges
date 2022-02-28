@@ -196,6 +196,10 @@ commands:
     usage: "/world <world>"
     description: "Teleport to another world"
     permission: "challenges.world"
+  back:
+    usage: "/back [count]"
+    description: "Teleport to old locations"
+    permission: "challenges.back"
   skipitem:
     usage: "/skipitem"
     description: "Skips the current item of the collect all items goal"

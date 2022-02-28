@@ -154,6 +154,7 @@ public final class Challenges extends BukkitModule {
 		registerListenerCommand(new InvseeCommand(), "invsee");
 		registerCommand(new FlyCommand(), "fly");
 		registerCommand(new WorldCommand(), "world");
+		registerListenerCommand(new BackCommand(), "back");
 		registerCommand(new GamemodeCommand(), "gamemode");
 		registerCommand(new ForwardingCommand("gamemode 0", false), "gms");
 		registerCommand(new ForwardingCommand("gamemode 1", false), "gmc");
