@@ -145,12 +145,4 @@
 
 	</build>
 
-    <distributionManagement>
-        <repository>
-            <id>anweisen</id>
-            <name>GitHub anweisen Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/anweisen/Challenges</url>
-        </repository>
-    </distributionManagement>
-
 </project>
