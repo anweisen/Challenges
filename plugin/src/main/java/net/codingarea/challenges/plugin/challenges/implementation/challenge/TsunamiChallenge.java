@@ -10,6 +10,7 @@ import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -69,7 +70,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	protected void onEnable() {
 
 		if (waterHeight == Integer.MAX_VALUE) {
-			waterHeight = BukkitReflectionUtils.getMinHeight(Bukkit.getWorlds().get(0));
+			waterHeight = BukkitReflectionUtils.getMinHeight(ChallengeAPI.getGameWorld(Environment.NORMAL));
 		}
 		bossbar.setContent((bossbar, player) -> {
 			World world = player.getWorld();
@@ -110,7 +111,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	protected void onTimeActivation() {
 		restartTimer();
 
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			if (!world.getPlayers().isEmpty()) {
 				if (world.getEnvironment() == Environment.NORMAL) {
 					if (waterHeight >= (world.getMaxHeight() - 1)) continue;

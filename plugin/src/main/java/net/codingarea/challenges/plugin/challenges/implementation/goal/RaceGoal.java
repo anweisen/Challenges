@@ -23,6 +23,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -130,7 +131,7 @@ public class RaceGoal extends SettingModifierGoal {
 
   private void reloadGoalLocation() {
 
-    World world = Bukkit.getWorlds().get(0);
+    World world = ChallengeAPI.getGameWorld(Environment.NORMAL);
     int y = 999;
 
     IRandom iRandom = IRandom.create(seed);

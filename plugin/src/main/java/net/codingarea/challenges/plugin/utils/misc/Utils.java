@@ -28,7 +28,7 @@ public final class Utils {
 		argument = argument.toLowerCase();
 		List<String> list = new ArrayList<>();
 		for (String current : recommendations) {
-			if (current.startsWith(argument))
+			if (current.toLowerCase().startsWith(argument))
 				list.add(current);
 		}
 		Collections.sort(list);

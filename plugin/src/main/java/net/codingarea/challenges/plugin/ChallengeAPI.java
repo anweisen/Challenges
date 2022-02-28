@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin;
 
 import java.util.ArrayList;
+import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.loader.ContentLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -10,6 +11,8 @@ import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 
 /**
@@ -90,7 +93,7 @@ public final class ChallengeAPI {
 	 * @return all players that aren't ignored by the plugin
 	 */
 	@Nonnull
-	public static List<Player> getPlayingPlayers() {
+	public static List<Player> getIngamePlayers() {
 		List<Player> list = new ArrayList<>();
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (!AbstractChallenge.ignorePlayer(player)) {
@@ -98,6 +101,14 @@ public final class ChallengeAPI {
 			}
 		}
 		return list;
+	}
+
+	public static List<World> getGameWorlds() {
+		return Challenges.getInstance().getGameWorldStorage().getGameWorlds();
+	}
+
+	public static World getGameWorld(@Nullable Environment environment) {
+		return Challenges.getInstance().getGameWorldStorage().getWorld(environment);
 	}
 
 }

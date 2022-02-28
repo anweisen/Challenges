@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryMana
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
 import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.management.server.TitleManager;
@@ -60,6 +61,7 @@ public final class Challenges extends BukkitModule {
 	private ChallengeTimer timer;
 	private LoaderRegistry loaderRegistry;
 	private MetricsLoader metricsLoader;
+	private GameWorldStorage gameWorldStorage;
 
 	@Override
 	protected void handleLoad() {
@@ -113,16 +115,18 @@ public final class Challenges extends BukkitModule {
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
 		metricsLoader = new MetricsLoader();
+		gameWorldStorage = new GameWorldStorage();
 
 	}
 
 	private void loadManagers() {
 		loaderRegistry.load();
-		challengeLoader.load();
 		worldManager.load();
 	}
 
 	private void enableManagers() {
+		gameWorldStorage.enable();
+		challengeLoader.enable();
 		customSettingsLoader.enable();
 		databaseManager.enable();
 		worldManager.enable();
@@ -209,6 +213,10 @@ public final class Challenges extends BukkitModule {
 			}
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public GameWorldStorage getGameWorldStorage() {
+		return gameWorldStorage;
 	}
 
 	public CustomSettingsLoader getCustomSettingsLoader() {

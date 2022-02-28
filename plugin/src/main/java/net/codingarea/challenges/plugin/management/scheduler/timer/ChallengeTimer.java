@@ -1,8 +1,10 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.content.Message;
@@ -15,10 +17,13 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Effect;
+import org.bukkit.GameMode;
+import org.bukkit.GameRule;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -59,7 +64,7 @@ public final class ChallengeTimer {
 	}
 
 	private void updateTimeRule() {
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			world.setGameRule(GameRule.DO_DAYLIGHT_CYCLE, !paused);
 		}
 	}

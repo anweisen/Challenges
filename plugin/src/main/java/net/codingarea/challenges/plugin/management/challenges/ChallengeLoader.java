@@ -23,7 +23,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public void load() {
+	public void enable() {
 		// Settings
 		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -37,29 +36,29 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
     switch (targetEntity) {
       case "random_player":
-        List<Player> players = ChallengeAPI.getPlayingPlayers();
+        List<Player> players = ChallengeAPI.getIngamePlayers();
         if (players.isEmpty()) return new LinkedList<>();
         return Collections.singletonList(players.get(random.nextInt(players.size())));
       case "every_player":
-        return Lists.newLinkedList(ChallengeAPI.getPlayingPlayers());
+        return Lists.newLinkedList(ChallengeAPI.getIngamePlayers());
       case "current_player":
         return conditionTarget instanceof Player ? Lists.newArrayList(conditionTarget) : Lists.newLinkedList();
       case "every_mob":
         List<Entity> everyList = Lists.newLinkedList();
-        for (World world : Bukkit.getWorlds()) {
+        for (World world : ChallengeAPI.getGameWorlds()) {
           everyList.addAll(world.getLivingEntities());
         }
         return everyList;
       case "every_mob_except_current":
         List<Entity> exceptList = Lists.newLinkedList();
-        for (World world : Bukkit.getWorlds()) {
+        for (World world : ChallengeAPI.getGameWorlds()) {
           exceptList.addAll(world.getLivingEntities());
         }
         exceptList.remove(conditionTarget);
         return exceptList;
       case "every_mob_except_players":
         List<Entity> noPlayers = Lists.newLinkedList();
-        for (World world : Bukkit.getWorlds()) {
+        for (World world : ChallengeAPI.getGameWorlds()) {
           for (LivingEntity entity : world.getLivingEntities()) {
             if (entity.getType() == EntityType.PLAYER) continue;
             noPlayers.add(entity);

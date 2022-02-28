@@ -8,12 +8,13 @@ import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -152,7 +153,7 @@ public final class InventoryUtils {
 	public static void dropOrGiveItem(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull ItemStack itemStack) {
 		location = location.clone();
 		if (inventory.firstEmpty() == -1) {
-			if (location.getWorld() == null) location.setWorld(Bukkit.getWorlds().get(0));
+			if (location.getWorld() == null) location.setWorld(ChallengeAPI.getGameWorld(Environment.NORMAL));
 			location.getWorld().dropItem(location, itemStack);
 			return;
 		}

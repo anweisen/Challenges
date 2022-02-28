@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -91,7 +92,8 @@ public final class ServerManager {
 
 		String winnerString = StringUtils.getIterableAsString(winners, "§7, ", player -> "§e§l" + NameHelper.getName(player));
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
-		String seed = Bukkit.getWorlds().isEmpty() ? "?" : String.valueOf(Bukkit.getWorlds().get(0).getSeed());
+		String seed = Bukkit.getWorlds().isEmpty() ? "?" :
+				String.valueOf(ChallengeAPI.getGameWorld(Environment.NORMAL).getSeed());
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
 
 	}

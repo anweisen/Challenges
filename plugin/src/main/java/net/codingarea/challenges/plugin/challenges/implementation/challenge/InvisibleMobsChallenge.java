@@ -1,6 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -8,7 +10,6 @@ import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -19,8 +20,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -58,7 +57,7 @@ public class InvisibleMobsChallenge extends Setting {
 	}
 
 	private void addEffectForEveryEntity() {
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				if (entity instanceof Player) continue;
 				addEffect(entity);

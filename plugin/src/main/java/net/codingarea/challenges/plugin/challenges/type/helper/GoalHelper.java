@@ -58,7 +58,7 @@ public final class GoalHelper {
 	@Nonnull
 	public static <V> Map<Player, Integer> createPointsFromValues(@Nonnull AtomicInteger mostPoints, @Nonnull Map<UUID, V> map, @Nonnull ToIntBiFunction<UUID, V> mapper, boolean zeros) {
 		Map<Player, Integer> result = new HashMap<>();
-		if (zeros) ChallengeAPI.getPlayingPlayers().forEach(player -> result.put(player, 0));
+		if (zeros) ChallengeAPI.getIngamePlayers().forEach(player -> result.put(player, 0));
 		for (Entry<UUID, V> entry : map.entrySet()) {
 			Player player = Bukkit.getPlayer(entry.getKey());
 			if (player == null)

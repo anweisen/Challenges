@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Objects;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
@@ -253,7 +252,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 			try {
 				Environment environment = getWorldEnvironment(worldName);
-				World world = getWorldByEnvironment(Objects.requireNonNull(environment));
+				World world = ChallengeAPI.getGameWorld(environment);
 				if (world == null) throw new IllegalArgumentException();
 				double doubleX = Double.parseDouble(x);
 				double doubleY = Double.parseDouble(y);
@@ -314,16 +313,6 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 			case "nether": return Environment.NETHER;
 			case "end": return Environment.THE_END;
 		}
-	}
-
-	public static World getWorldByEnvironment(@Nonnull Environment environment) {
-		List<World> worlds = Bukkit.getWorlds();
-		switch (environment) {
-			case NORMAL: return worlds.get(0);
-			case NETHER: return worlds.get(1);
-			case THE_END: return worlds.get(2);
-		}
-		return null;
 	}
 
 }

@@ -1,5 +1,16 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -9,16 +20,15 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
+import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -169,7 +179,7 @@ public final class WorldManager {
 		sessionConfig.set("reset", true);
 		sessionConfig.set("seed-reset", useCustomSeed);
 		if (!Bukkit.getWorlds().isEmpty()) {
-			sessionConfig.set("level-name", Bukkit.getWorlds().get(0).getName());
+			sessionConfig.set("level-name", ChallengeAPI.getGameWorld(Environment.NORMAL).getName());
 		}
 		sessionConfig.save();
 
@@ -214,7 +224,7 @@ public final class WorldManager {
 				if (world != null) {
 					location = world.getSpawnLocation();
 				} else {
-					world = Bukkit.getWorlds().get(0);
+					world = ChallengeAPI.getGameWorld(Environment.NORMAL);
 					location = world.getSpawnLocation();
 				}
 			}
