@@ -194,6 +194,8 @@
   "loops-cleared": "§e{0} §7Loops abgebrochen",
   "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
   "all-advancements-goal": "§7Advancements §8» §e{0}",
+  "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
+  "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -227,7 +229,7 @@
     "Was geht denn jetzt ab"
   ],
 
-  "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
+  "bossbar-timer-paused": "§8» §7Der Timer ist §cpausiert",
   "bossbar-mob-transformation": "§8» §7Letzter Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-height-time-left": "§8» §7Zeit übrig auf §e{0} §8§l┃ §a{1}s",
@@ -251,6 +253,8 @@
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
   "bossbar-five-hundred-blocks": "§8» §fBlöcke Gelaufen §8┃ §7{0} §8/ §7{1}",
+  "bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
+  "bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -1060,6 +1064,21 @@
     "§6Alle Advancements",
     "Der Spieler, der als erstes *alle*",
     "Errungenschaften *erhalten hat*, gewinnt"
+  ],
+  "item-max-height-goal": [
+    "§fMaximale Höhe",
+    "Der Spieler, der als *erstes* die",
+    "Höhe *{0}* erreicht hat, gewinnt"
+  ],
+  "item-min-height-goal": [
+    "§fMinimale Höhe",
+    "Der Spieler, der als *erstes* die",
+    "Höhe *{0}* erreicht hat, gewinnt"
+  ],
+  "item-race-goal": [
+    "§5Wettrennen",
+    "Der Spieler, der als *erstes* an",
+    "einer *zufälligen* Position ist, gewinnt"
   ],
 
 
