@@ -3,10 +3,10 @@ package net.codingarea.challenges.plugin.content.loader;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.Inet4Address;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import javax.net.ssl.HttpsURLConnection;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.config.Document;
@@ -22,18 +22,19 @@ public final class ServiceLoader extends ContentLoader {
 
 	@Override
 	protected void load() {
-		try {
+		URL url;
+		HttpsURLConnection connection;
 
+		try {
 			String endpoint = IOUtils.toString(getGitHubUrl("endpoint.txt"));
 			Logger.debug("Fetched service endpoint {}", endpoint);
 			if (endpoint.equals("none")) return;
 
-			HttpURLConnection connection = (HttpURLConnection) new URL(endpoint).openConnection();
+			url = new URL(endpoint);
+			connection = (HttpsURLConnection) url.openConnection();
 			connection.setRequestMethod("POST");
 			connection.setDoOutput(true);
 			connection.setDoInput(true);
-			connection.setConnectTimeout(2500);
-			connection.setReadTimeout(1000);
 			connection.setRequestProperty("User-Agent", "Mozilla/5.0");
 			connection.setRequestProperty("Accept", "*/*");
 			connection.setRequestProperty("Content-Type", "application/json");
@@ -44,10 +45,10 @@ public final class ServiceLoader extends ContentLoader {
 						.set("port", Bukkit.getPort())
 					).toString();
 
-			OutputStream output = connection.getOutputStream();
-			output.write(request.getBytes(StandardCharsets.UTF_8));
-			output.flush();
-			output.close();
+			try (OutputStream output = connection.getOutputStream()) {
+				output.write(request.getBytes(StandardCharsets.UTF_8));
+				output.flush();
+			}
 
 			BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream(), StandardCharsets.UTF_8));
 			StringBuilder response = new StringBuilder();
@@ -65,9 +66,10 @@ public final class ServiceLoader extends ContentLoader {
 				ConsolePrint.accessBlocked();
 			}
 
+			connection.getInputStream().close();
+			connection.disconnect();
 		} catch (Exception ex) {
 			Logger.warn("Could not connect to monitoring services ({})", ex.getClass().getSimpleName());
 		}
 	}
-
 }
