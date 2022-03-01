@@ -188,13 +188,9 @@ public class LevelBorderChallenge extends Setting {
   @EventHandler(priority = EventPriority.HIGH)
   public void onRespawn(@Nonnull PlayerRespawnEvent event) {
     if (!shouldExecuteEffect()) return;
-    final Player player = event.getPlayer();
     Bukkit.getScheduler().runTaskLater(plugin, () -> {
-      for (World world : ChallengeAPI.getGameWorlds()) {
-        if (isOutsideBorder(world, player)) {
-          teleportInsideBorder(world, player);
-        }
-      }
+      checkBorderSize(false);
+      playerSpawnTeleport();
     }, 1);
   }
 
