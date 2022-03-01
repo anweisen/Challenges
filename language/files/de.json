@@ -256,6 +256,7 @@
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
   "bossbar-five-hundred-blocks": "§8» §fBlöcke Gelaufen §8┃ §7{0} §8/ §7{1}",
+  "bossbar-level-border": "§8» §7Border Größe §8┃ §7{0}",
   "bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
   "bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
 
@@ -990,6 +991,11 @@
     "bekommst du *64* eines *zufälliges Items*.",
     "Es droppen *keine Items* von",
     "*Blöcken* und *Entities* mehr."
+  ],
+  "item-level-border-challenges": [
+    "§eLevel = Border",
+    "Die *Border Größe* passt sich dem *Spieler*",
+    "mit den *meisten Leveln* an."
   ],
 
 
