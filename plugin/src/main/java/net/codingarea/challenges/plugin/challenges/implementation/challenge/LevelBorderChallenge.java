@@ -96,13 +96,7 @@ public class LevelBorderChallenge extends Setting {
     broadcastFiltered(player -> {
       World world = player.getWorld();
       if (isOutsideBorder(world, player)) {
-
-        if (world.getEnvironment() != Environment.NORMAL) {
-          player.teleport(world.getWorldBorder().getCenter());
-        } else {
-          player.teleport(world.getHighestBlockAt(
-              world.getWorldBorder().getCenter()).getLocation().add(0.5, 1, 0.5));
-        }
+        teleportInsideBorder(world, player);
       }
     });
   }
@@ -114,6 +108,15 @@ public class LevelBorderChallenge extends Setting {
         Math.abs(player.getLocation().getBlockZ()));
 
     return dis >= size;
+  }
+
+  public void teleportInsideBorder(@Nonnull World world, Player player) {
+    if (world.getEnvironment() != Environment.NORMAL) {
+      player.teleport(world.getWorldBorder().getCenter());
+    } else {
+      player.teleport(world.getHighestBlockAt(
+          world.getWorldBorder().getCenter()).getLocation().add(0.5, 1, 0.5));
+    }
   }
 
   private Location getDefaultWorldSpawn() {
@@ -177,7 +180,13 @@ public class LevelBorderChallenge extends Setting {
   @EventHandler(priority = EventPriority.HIGH)
   public void onRespawn(@Nonnull PlayerRespawnEvent event) {
     Player player = event.getPlayer();
-    player.getBedSpawnLocation();
+    Bukkit.getScheduler().runTaskLater(plugin, () -> {
+      for (World world : ChallengeAPI.getGameWorlds()) {
+        if (isOutsideBorder(world, player)) {
+          teleportInsideBorder(world, player);
+        }
+      }
+    }, 1);
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
