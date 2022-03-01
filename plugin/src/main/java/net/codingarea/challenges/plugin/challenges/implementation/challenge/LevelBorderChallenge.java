@@ -56,7 +56,7 @@ public class LevelBorderChallenge extends Setting {
       bar.setTitle(Message.forName("bossbar-level-border").asString(bestPlayerLevel));
     });
     bossbar.show();
-    updateBorderSize();
+    updateBorderSize(false);
     worldCenters.put(ChallengeAPI.getGameWorld(Environment.NORMAL), getDefaultWorldSpawn());
   }
 
@@ -72,21 +72,21 @@ public class LevelBorderChallenge extends Setting {
     return new ItemBuilder(Material.ENCHANTING_TABLE,Message.forName("item-level-border-challenges"));
   }
 
-  public void checkBorderSize() {
+  public void checkBorderSize(boolean animate) {
     for (Player player : ChallengeAPI.getIngamePlayers()) {
       int level = player.getLevel();
 
       if (bestPlayerUUID == null) {
         bestPlayerLevel = level;
         bestPlayerUUID = player.getUniqueId();
-        updateBorderSize();
+        updateBorderSize(animate);
       } else if (player.getUniqueId().equals(bestPlayerUUID)) {
         bestPlayerLevel = level;
-        updateBorderSize();
+        updateBorderSize(animate);
       } else if (level > bestPlayerLevel) {
         bestPlayerLevel = level;
         bestPlayerUUID = player.getUniqueId();
-        updateBorderSize();
+        updateBorderSize(animate);
       }
     }
     bossbar.update();
@@ -127,21 +127,28 @@ public class LevelBorderChallenge extends Setting {
     return location;
   }
 
-  private void updateBorderSize() {
+  private void updateBorderSize(boolean animate) {
     for (World world : ChallengeAPI.getGameWorlds()) {
       if (world.getPlayers().isEmpty()) {
         continue;
       }
-      updateBorderSize(world);
+      updateBorderSize(world, animate);
     }
   }
 
-  private void updateBorderSize(@NotNull World world) {
+  private void updateBorderSize(@NotNull World world, boolean animate) {
     Location location = worldCenters.get(world);
     if (location == null) return;
     WorldBorder worldBorder = world.getWorldBorder();
     worldBorder.setCenter(location);
-    worldBorder.setSize(bestPlayerLevel + 1);
+    int newSize = bestPlayerLevel + 1;
+    if (animate) {
+      long time = (long) (Math.max(0, newSize - worldBorder.getSize()));
+      Bukkit.broadcastMessage(String.valueOf(time));
+      worldBorder.setSize(newSize, time);
+    } else {
+      worldBorder.setSize(newSize);
+    }
   }
 
   public void borderReset() {
@@ -153,25 +160,25 @@ public class LevelBorderChallenge extends Setting {
   @TimerTask(status = TimerStatus.RUNNING, async = false)
   public void onTimerStart() {
     if (!isEnabled()) return;
-    checkBorderSize();
+    checkBorderSize(false);
     playerSpawnTeleport();
   }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onLevelUp(@Nonnull PlayerLevelChangeEvent event) {
     if (!shouldExecuteEffect()) return;
-    checkBorderSize();
+    checkBorderSize(true);
   }
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onPLayerJoin(@Nonnull PlayerJoinEvent event) {
     if (!shouldExecuteEffect()) return;
-    checkBorderSize();
+    checkBorderSize(false);
   }
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onPlayerLeave(@Nonnull PlayerQuitEvent event) {
-    checkBorderSize();
+    checkBorderSize(false);
   }
 
   @EventHandler(priority = EventPriority.HIGH)
@@ -193,7 +200,7 @@ public class LevelBorderChallenge extends Setting {
     if (world == Challenges.getInstance().getWorldManager().getExtraWorld()) return;
     Location location = event.getTo().getBlock().getLocation().add(0.5, 0, 0.5);
     worldCenters.put(world, location);
-    updateBorderSize(world);
+    updateBorderSize(world, false);
   }
 
   @Override
@@ -212,7 +219,7 @@ public class LevelBorderChallenge extends Setting {
     }
 
     if (isEnabled()) {
-      checkBorderSize();
+      checkBorderSize(false);
     }
   }
 
