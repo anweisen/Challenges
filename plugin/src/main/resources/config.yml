@@ -61,8 +61,11 @@ challenge-settings:
   all-block-disappear-stack-drop-limit: 50 # Limits the amount of the dropped stacks per item (increasing it will probably cause lags with deepslate and stone)
 
 custom-challenge-settings:
-  max-challenges: 100
-  max-name-length: 50
+  # Keep in mind that when using an SQL database there is a maxiumum of what can be stored in one column.
+  # Setting these values too high could result in players overreaching this limit.
+  # Character data limit per player = 60.000 | 30 Challenges take approximately 7.000 characters to save
+  max-challenges: 60
+  max-name-length: 30
 
 # This will change the item design in the challenges menu
 design:
