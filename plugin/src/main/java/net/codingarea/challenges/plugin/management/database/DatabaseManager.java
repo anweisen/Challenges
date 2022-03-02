@@ -6,6 +6,9 @@ import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
+import net.anweisen.utilities.database.action.ExecutedQuery;
+import net.anweisen.utilities.database.exceptions.DatabaseException;
+import net.anweisen.utilities.database.internal.sql.abstraction.AbstractSQLDatabase;
 import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
 import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
@@ -90,7 +93,32 @@ public final class DatabaseManager {
 					new SQLColumn("config", "varchar", 7500),
 					new SQLColumn("custom_challenges", "varchar", 7500)
 			);
+			loadMigration();
 		});
+	}
+
+	private void loadMigration() {
+
+		if (database instanceof AbstractSQLDatabase) {
+			AbstractSQLDatabase sqlDatabase = (AbstractSQLDatabase) this.database;
+
+			/**
+			 * Create custom_challenges column
+			 */
+			try {
+				ExecutedQuery execute = sqlDatabase.query("challenges").select("custom_challenges").execute();
+			} catch (DatabaseException databaseException) {
+				try {
+					sqlDatabase.prepare("ALTER TABLE `challenges` ADD COLUMN `custom_challenges` varchar(7500)").execute();
+					Challenges.getInstance().getLogger().info("Creating not existing column 'custom_challenges' in SQL Database");
+				} catch (Exception exception) {
+					Challenges.getInstance().getLogger().info("Failed to create not existing column 'custom_challenges' in SQL Database");
+					exception.printStackTrace();
+				}
+			}
+
+		}
+
 	}
 
 	public void disconnectIfConnected() {
