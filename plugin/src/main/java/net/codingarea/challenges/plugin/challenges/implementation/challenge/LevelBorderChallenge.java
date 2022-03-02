@@ -25,6 +25,7 @@ import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -73,6 +74,8 @@ public class LevelBorderChallenge extends Setting {
   }
 
   public void checkBorderSize(boolean animate) {
+    Player currentBestPlayer = bestPlayerUUID != null ? Bukkit.getPlayer(bestPlayerUUID) : null;
+
     for (Player player : ChallengeAPI.getIngamePlayers()) {
       int level = player.getLevel();
 
@@ -80,12 +83,14 @@ public class LevelBorderChallenge extends Setting {
         bestPlayerLevel = level;
         bestPlayerUUID = player.getUniqueId();
         updateBorderSize(animate);
-      } else if (player.getUniqueId().equals(bestPlayerUUID)) {
-        bestPlayerLevel = level;
-        updateBorderSize(animate);
-      } else if (level > bestPlayerLevel) {
+        // Checks if the player is better than the saved level or if online the current player level.
+        // Checking with the player instance is reqired to fix issues with dying and the level of the best player being 0.
+      } else if (level > bestPlayerLevel || (currentBestPlayer != null && level > currentBestPlayer.getLevel())) {
         bestPlayerLevel = level;
         bestPlayerUUID = player.getUniqueId();
+        updateBorderSize(animate);
+      } else if (player.getUniqueId().equals(bestPlayerUUID)) {
+        bestPlayerLevel = level;
         updateBorderSize(animate);
       }
     }
@@ -146,9 +151,7 @@ public class LevelBorderChallenge extends Setting {
     worldBorder.setCenter(location);
     int newSize = bestPlayerLevel + 1;
     if (animate) {
-      long time = (long) (Math.max(0, newSize - worldBorder.getSize()));
-      Bukkit.broadcastMessage(String.valueOf(time));
-      worldBorder.setSize(newSize, time);
+      worldBorder.setSize(newSize, 1);
     } else {
       worldBorder.setSize(newSize);
     }
@@ -168,7 +171,7 @@ public class LevelBorderChallenge extends Setting {
   }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onLevelUp(@Nonnull PlayerLevelChangeEvent event) {
+  public void onLevelChange(@Nonnull PlayerLevelChangeEvent event) {
     if (!shouldExecuteEffect()) return;
     checkBorderSize(true);
   }
@@ -176,22 +179,37 @@ public class LevelBorderChallenge extends Setting {
   @EventHandler(priority = EventPriority.HIGH)
   public void onPLayerJoin(@Nonnull PlayerJoinEvent event) {
     if (!shouldExecuteEffect()) return;
+    if (ignorePlayer(event.getPlayer())) return;
     checkBorderSize(false);
   }
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onPlayerLeave(@Nonnull PlayerQuitEvent event) {
     if (!shouldExecuteEffect()) return;
+    if (ignorePlayer(event.getPlayer())) return;
     checkBorderSize(false);
   }
 
   @EventHandler(priority = EventPriority.HIGH)
   public void onRespawn(@Nonnull PlayerRespawnEvent event) {
     if (!shouldExecuteEffect()) return;
-    Bukkit.getScheduler().runTaskLater(plugin, () -> {
-      checkBorderSize(false);
-      playerSpawnTeleport();
-    }, 1);
+    if (ignorePlayer(event.getPlayer())) return;
+    // Teleports the player back inside border if spawnpoint is outside of it
+    // That will rarly be by beds but mostly because of the random spawning at the world spawn.
+    Bukkit.getScheduler().runTaskLater(plugin, this::playerSpawnTeleport, 1);
+  }
+
+  /**
+   * Execute level change event when dying instead of respawning like spigot does it
+   */
+  @EventHandler(priority = EventPriority.HIGH)
+  public void onDeath(@Nonnull PlayerDeathEvent event) {
+    if (!shouldExecuteEffect()) return;
+    if (ignorePlayer(event.getEntity())) return;
+    PlayerLevelChangeEvent lvlEvent = new PlayerLevelChangeEvent(
+        event.getEntity(), event.getEntity().getLevel(), 0);
+    event.getEntity().setLevel(0);
+    onLevelChange(lvlEvent);
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
