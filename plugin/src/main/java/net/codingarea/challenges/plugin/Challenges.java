@@ -302,8 +302,4 @@ public final class Challenges extends BukkitModule {
 		return loaderRegistry;
 	}
 
-	public static boolean isDevelopmentBuild() {
-		return true;
-	}
-
 }
