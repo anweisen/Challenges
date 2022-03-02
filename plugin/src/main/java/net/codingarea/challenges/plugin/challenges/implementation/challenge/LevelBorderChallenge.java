@@ -1,9 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
@@ -22,10 +24,13 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.WorldBorder;
+import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLevelChangeEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -100,19 +105,20 @@ public class LevelBorderChallenge extends Setting {
   public void playerSpawnTeleport() {
     broadcastFiltered(player -> {
       World world = player.getWorld();
-      if (isOutsideBorder(world, player)) {
+      if (isOutsideBorder(world, player.getLocation())) {
         teleportInsideBorder(world, player);
       }
     });
   }
 
-  public boolean isOutsideBorder(@NotNull World world, Player player) {
+  public boolean isOutsideBorder(@NotNull World world, Location location) {
     WorldBorder worldBorder = world.getWorldBorder();
-    double size = worldBorder.getSize() / 2;
-    double dis = Math.max(Math.abs(player.getLocation().getBlockX()),
-        Math.abs(player.getLocation().getBlockZ()));
-
-    return dis >= size;
+    return !worldBorder.isInside(location);
+//    double size = worldBorder.getSize() / 2;
+//    double dis = Math.max(Math.abs(location.getBlockX()),
+//        Math.abs(location.getBlockZ()));
+//
+//    return dis >= size;
   }
 
   public void teleportInsideBorder(@Nonnull World world, Player player) {
@@ -144,12 +150,18 @@ public class LevelBorderChallenge extends Setting {
     }
   }
 
-  private void updateBorderSize(@NotNull World world, boolean animate) {
+  private void updateBorderSize(@Nonnull World world, boolean animate) {
+
     Location location = worldCenters.get(world);
     if (location == null) return;
     WorldBorder worldBorder = world.getWorldBorder();
     worldBorder.setCenter(location);
+    worldBorder.setWarningDistance(0);
     int newSize = bestPlayerLevel + 1;
+
+    for (Player player : world.getPlayers()) {
+      sendPacketBorder(player, location, newSize, animate);
+    }
     if (animate) {
       worldBorder.setSize(newSize, 1);
     } else {
@@ -177,10 +189,11 @@ public class LevelBorderChallenge extends Setting {
   }
 
   @EventHandler(priority = EventPriority.HIGH)
-  public void onPLayerJoin(@Nonnull PlayerJoinEvent event) {
+  public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
     if (!shouldExecuteEffect()) return;
     if (ignorePlayer(event.getPlayer())) return;
     checkBorderSize(false);
+    playerSpawnTeleport();
   }
 
   @EventHandler(priority = EventPriority.HIGH)
@@ -190,12 +203,15 @@ public class LevelBorderChallenge extends Setting {
     checkBorderSize(false);
   }
 
+  /**
+   * Teleports the player back inside border if spawnpoint is outside of it.
+   * Will rarely occur by beds since minecraft blocks bed respawn outside the border but
+   * because of the random spawning mechanic at the world spawn.
+   */
   @EventHandler(priority = EventPriority.HIGH)
   public void onRespawn(@Nonnull PlayerRespawnEvent event) {
     if (!shouldExecuteEffect()) return;
     if (ignorePlayer(event.getPlayer())) return;
-    // Teleports the player back inside border if spawnpoint is outside of it
-    // That will rarly be by beds but mostly because of the random spawning at the world spawn.
     Bukkit.getScheduler().runTaskLater(plugin, this::playerSpawnTeleport, 1);
   }
 
@@ -210,6 +226,24 @@ public class LevelBorderChallenge extends Setting {
         event.getEntity(), event.getEntity().getLevel(), 0);
     event.getEntity().setLevel(0);
     onLevelChange(lvlEvent);
+  }
+
+  @EventHandler(priority = EventPriority.HIGH)
+  public void onEntityDamageByEntity(PlayerInteractEntityEvent event) {
+    if (!shouldExecuteEffect()) return;
+    System.out.println(event.isCancelled());
+    }
+
+  @EventHandler(priority = EventPriority.HIGH)
+  public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+    if (!shouldExecuteEffect()) return;
+    if (event.getDamager().getType() != EntityType.PLAYER) return;
+    System.out.println(event.isCancelled());
+    if (!event.isCancelled()) return;
+    if (isOutsideBorder(event.getEntity().getWorld(), event.getEntity().getLocation()) &&
+        !isOutsideBorder(event.getDamager().getWorld(), event.getDamager().getLocation())) {
+      event.setCancelled(false);
+    }
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -258,4 +292,61 @@ public class LevelBorderChallenge extends Setting {
     document.set("worlds", doc);
     document.set("uuid", bestPlayerUUID);
   }
+
+  private static void sendPacketBorder(@Nonnull Player player, Location center, int size, boolean animate) {
+
+    // First try with 1.13-1.16 logic
+    try {
+      Class<?> borderClass = getMinecraftServerClass("WorldBorder");
+      Object borderInstance = borderClass.getDeclaredConstructor().newInstance();
+
+      Class<?> craftWorldClass = getCraftBukkitClass("CraftWorld");
+      Object craftWorld = craftWorldClass.cast(center.getWorld());
+      Method getHandleMethod = craftWorldClass.getDeclaredMethod("getHandle");
+      Object nmsWorld = getHandleMethod.invoke(craftWorld);
+
+      borderClass.getDeclaredField("world").set(borderInstance, nmsWorld);
+
+      System.out.println(borderInstance.toString());
+
+    } catch (Exception exception) {
+      Logger.warn("First try failed");
+      // Second try with 1.17+ logic
+      try {
+        Class<?> borderClass = getMojMappedClass("world.level.border.WorldBorder");
+        Object borderInstance = borderClass.getDeclaredConstructor().newInstance();
+
+        Class<?> craftWorldClass = getCraftBukkitClass("CraftWorld");
+        Object craftWorld = craftWorldClass.cast(center.getWorld());
+        Method getHandleMethod = craftWorldClass.getDeclaredMethod("getHandle");
+        Object serverWorld = getHandleMethod.invoke(craftWorld);
+
+        System.out.println(serverWorld);
+      } catch (Exception exception1) {
+        Logger.warn("Second try failed");
+        exception1.printStackTrace();
+      }
+    }
+  }
+
+  private static Class<?> getMojMappedClass(@Nonnull String name) throws ClassNotFoundException {
+    ClassLoader cl = ClassLoader.getSystemClassLoader();
+    return cl.loadClass("net.minecraft." + name);
+  }
+
+  private static Class<?> getMinecraftServerClass(@Nonnull String name) throws ClassNotFoundException {
+    ClassLoader cl = ClassLoader.getSystemClassLoader();
+    return cl.loadClass("net.minecraft.server." + getVersion() + "." + name);
+  }
+
+  private static Class<?> getCraftBukkitClass(@Nonnull String name) throws ClassNotFoundException {
+    ClassLoader cl = ClassLoader.getSystemClassLoader();
+    return cl.loadClass("org.bukkit.craftbukkit." + getVersion() + "." + name);
+  }
+
+  public static String getVersion() {
+    String ver = Bukkit.getServer().getClass().getPackage().getName();
+    return ver.substring(ver.lastIndexOf('.') + 1);
+  }
+
 }
