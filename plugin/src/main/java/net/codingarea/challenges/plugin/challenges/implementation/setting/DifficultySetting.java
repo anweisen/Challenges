@@ -74,6 +74,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	}
 
 	private void setDifficulty(Difficulty difficulty) {
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:difficulty " + difficulty.name().toLowerCase());
 		for (World world : Bukkit.getWorlds()) {
 			world.setDifficulty(difficulty);
 		}
