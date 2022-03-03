@@ -1,5 +1,9 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import com.google.common.collect.Lists;
+import java.util.Collections;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -8,11 +12,8 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.command.CommandSender;
-
-import javax.annotation.Nonnull;
-import java.util.Collections;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -39,9 +40,20 @@ public class ResetCommand implements SenderCommand, Completer {
 			return;
 		}
 
-		if (confirmReset && (args.length < 1 || !args[0].equalsIgnoreCase("confirm"))) {
-			Message.forName("confirm-reset").send(sender, Prefix.CHALLENGES, "reset confirm");
-			return;
+		if (confirmReset && (args.length < 1 || !args[0].equalsIgnoreCase("confirm")) || (args.length > 0 && !args[0].equalsIgnoreCase("confirm"))) {
+			if (args[0].equalsIgnoreCase("settings")) {
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
+				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
+				return;
+			} else if (args[0].equalsIgnoreCase("custom_challenges")) {
+				Challenges.getInstance().getCustomChallengesLoader().resetChallenges();
+				Message.forName("player-custom_challenges-reset").broadcast(Prefix.CHALLENGES);
+				return;
+			}
+			if (confirmReset) {
+				Message.forName("confirm-reset").send(sender, Prefix.CHALLENGES, "reset confirm");
+				return;
+			}
 		}
 
 		Long seed = null;
@@ -63,10 +75,16 @@ public class ResetCommand implements SenderCommand, Completer {
 
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		if (confirmReset && args.length == 1) return Collections.singletonList("confirm");
-		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) return Collections.singletonList("[seed]");
+		if (confirmReset && args.length == 1) return Utils.filterRecommendations(
+				args[0], "confirm", "settings", "custom_challenges");
+		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) {
+			return args.length == 1 ?
+					Utils.filterRecommendations(args[args.length-1], "[seed]", "settings", "custom_challenges") :
+					args[0].equalsIgnoreCase("confirm") ? Collections.singletonList("[seed]") : Lists
+							.newLinkedList();
+		}
 
-		return Collections.emptyList();
+		return Lists.newLinkedList();
 	}
 
 }

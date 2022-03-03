@@ -92,16 +92,12 @@ commands:
     description: "Opens the player's or the shared backpack"
     aliases:
       - "bp"
-  config:
-    usage: "/config <save/load>"
-    description: "Allows you to save/load your challenge setting over multiple servers using a database"
+  database:
     aliases:
-      - "config"
-    permission: "challenges.config"
-  custom:
-    usage: "/custom <save/load>"
-    description: "Allows you to save/load your custom challenges over multiple servers using a database"
-    permission: "challenges.custom"
+      - "db"
+    usage: "/db <save/load> <config/custom_challenges>"
+    description: "Manage your settings in the database"
+    permission: "challenges.database"
   gamestate:
     usage: "/gamestate <reset/reload>"
     description: "Allows you to reload/reset the current challenges gamestate"
