@@ -33,7 +33,7 @@ import org.jetbrains.annotations.Nullable;
 public class DifficultySetting extends Modifier implements SenderCommand, TabCompleter {
 
 	public DifficultySetting() {
-		super(MenuType.SETTINGS, 0, 3);
+		super(MenuType.SETTINGS, 0, 3, 2);
 		setValue(getCurrentDifficulty().ordinal());
 	}
 
