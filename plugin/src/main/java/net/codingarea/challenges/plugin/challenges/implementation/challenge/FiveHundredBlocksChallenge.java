@@ -9,7 +9,8 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -29,27 +30,26 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.world.LootGenerateEvent;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
 @Since("2.1.0")
-public class FiveHundredBlocksChallenge extends Setting {
-
-  private static final int blocksToWalk = 500;
+public class FiveHundredBlocksChallenge extends SettingModifier {
 
   private final Map<UUID, Integer> blocksWalked = new HashMap<>();
 
   public FiveHundredBlocksChallenge() {
-    super(MenuType.CHALLENGES);
+    super(MenuType.CHALLENGES, 1, 5, 5);
   }
 
   @Override
   protected void onEnable() {
     bossbar.setContent((bar, player) -> {
       int walked = blocksWalked.getOrDefault(player.getUniqueId(), 0);
-      bar.setTitle(Message.forName("bossbar-five-hundred-blocks").asString(walked, blocksToWalk));
+      bar.setTitle(Message.forName("bossbar-five-hundred-blocks").asString(walked, getBlocksToWalk()));
     });
     bossbar.show();
   }
@@ -63,6 +63,21 @@ public class FiveHundredBlocksChallenge extends Setting {
   @Override
   public ItemBuilder createDisplayItem() {
     return new ItemBuilder(Material.OAK_SIGN, Message.forName("item-five-hundred-blocks-challenges"));
+  }
+
+  @Override
+  public void playValueChangeTitle() {
+    ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("subtitle-blocks").asString(getBlocksToWalk()));
+  }
+
+  @Nullable
+  @Override
+  protected String[] getSettingsDescription() {
+    return Message.forName("item-blocks-description").asArray(getBlocksToWalk());
+  }
+
+  private int getBlocksToWalk() {
+    return getValue() * 100;
   }
 
   @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -127,7 +142,7 @@ public class FiveHundredBlocksChallenge extends Setting {
     blocksWalked++;
 
     boolean reached = false;
-    if (blocksWalked >= blocksToWalk) {
+    if (blocksWalked >= getBlocksToWalk()) {
       blocksWalked = 0;
       reached = true;
     }

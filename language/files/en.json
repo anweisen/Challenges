@@ -261,7 +261,8 @@
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
   "subtitle-time-minutes": "§e{0} §7minutes",
-  "subtitle-launcher-description": "Power §e{0}",
+  "subtitle-launcher-description": "§7Power §e{0}",
+  "subtitle-blocks": "§e{0} §7Blocks",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -353,6 +354,7 @@
   "item-launcher-description": "§8» §7Strength: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Only the active players gets the effect",
   "item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
+  "item-blocks-description": "§8» Blocks to walk: §e{0}",
 
   "item-difficulty-setting": [
     "§aDifficulty",
