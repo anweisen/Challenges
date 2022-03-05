@@ -266,6 +266,7 @@
   "subtitle-time-minutes": "§e{0} §7Minuten",
   "subtitle-launcher-description": "§7Stärke §e{0}",
   "subtitle-blocks": "§e{0} §7Blöcke",
+  "subtitle-range-blocks": "§7Reichweite: §e{0} §7Blöcke",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -358,6 +359,7 @@
   "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
   "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
   "item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
+  "item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",

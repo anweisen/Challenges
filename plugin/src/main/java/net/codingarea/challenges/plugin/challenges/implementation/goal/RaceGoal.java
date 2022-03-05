@@ -7,6 +7,7 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifierGoal;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -30,6 +31,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -83,6 +85,18 @@ public class RaceGoal extends SettingModifierGoal {
     bossbar.hide();
     goal = null;
   }
+
+  @Override
+  public void playValueChangeTitle() {
+    ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("subtitle-range-blocks").asString(getValue() * 100));
+  }
+
+  @Nullable
+  @Override
+  protected String[] getSettingsDescription() {
+    return Message.forName("item-range-blocks-description").asArray(getValue() * 100);
+  }
+
 
   @Override
   protected void onValueChange() {
