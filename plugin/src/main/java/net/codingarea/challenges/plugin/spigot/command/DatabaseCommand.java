@@ -85,7 +85,7 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
     }
 
     if (args.length != 2 || !databaseExecutors.containsKey(args[1])) {
-      Message.forName("syntax").send(player, Prefix.CHALLENGES, "database <save/load/reset> <config/custom_challenges>");
+      Message.forName("syntax").send(player, Prefix.CHALLENGES, "database <save/load/reset> <settings/custom_challenges>");
       return;
     }
 
@@ -100,7 +100,7 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
         executor.load(player);
         break;
       default:
-        Message.forName("syntax").send(player, Prefix.CHALLENGES, "database <save/load/reset> <config/custom_challenges>");
+        Message.forName("syntax").send(player, Prefix.CHALLENGES, "database <save/load/reset> <settings/custom_challenges>");
     }
 
   }
