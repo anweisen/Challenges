@@ -256,6 +256,7 @@
   "bossbar-level-border": "§8» §7Border size §8┃ §7{0}",
   "bossbar-race-goal-info": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blocks",
   "bossbar-race-goal": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1}",
+  "bossbar-first-at-height-goal": "§8» §fGoal §8┃ §7Y: {0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",

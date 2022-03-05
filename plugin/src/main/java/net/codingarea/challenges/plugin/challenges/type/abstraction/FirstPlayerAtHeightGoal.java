@@ -22,6 +22,19 @@ public abstract class FirstPlayerAtHeightGoal extends SettingGoal {
   private int heightToGetTo;
 
   @Override
+  protected void onEnable() {
+    bossbar.setContent((bar, player) -> {
+      bar.setTitle(Message.forName("bossbar-first-at-height-goal").asString(getHeightToGetTo()));
+    });
+    bossbar.show();
+  }
+
+  @Override
+  protected void onDisable() {
+    bossbar.hide();
+  }
+
+  @Override
   public void getWinnersOnEnd(@NotNull List<Player> winners) {
     broadcastFiltered(player -> {
       if (player.getLocation().getBlockY() == heightToGetTo) {
