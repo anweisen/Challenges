@@ -45,21 +45,34 @@ public final class MenuManager {
 		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
 		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
 		gui.cloneLastAndAdd().setAccent(39, 41);
-		gui.cloneLastAndAdd().setItem(38, ItemBuilder.FILL_ITEM_2).setItem(42, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(37, ItemBuilder.FILL_ITEM_2).setItem(43, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(28, ItemBuilder.FILL_ITEM_2).setItem(34, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(27, ItemBuilder.FILL_ITEM_2).setItem(35, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(18, ItemBuilder.FILL_ITEM_2).setItem(26, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(9, ItemBuilder.FILL_ITEM_2).setItem(17, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(10, ItemBuilder.FILL_ITEM_2).setItem(16, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(1, ItemBuilder.FILL_ITEM_2).setItem(7, ItemBuilder.FILL_ITEM_2);
-		gui.cloneLastAndAdd().setItem(2, ItemBuilder.FILL_ITEM_2).setItem(6, ItemBuilder.FILL_ITEM_2);
+		gui.cloneLastAndAdd().setAccent(38, 42);
+		gui.cloneLastAndAdd().setAccent(37, 43);
+		gui.cloneLastAndAdd().setAccent(28, 34);
+		gui.cloneLastAndAdd().setAccent(27, 35);
+		gui.cloneLastAndAdd().setAccent(18, 26);
+		gui.cloneLastAndAdd().setAccent(9, 17);
+		gui.cloneLastAndAdd().setAccent(10, 16);
+		gui.cloneLastAndAdd().setAccent(1, 7);
+		gui.cloneLastAndAdd().setAccent(2, 6);
 
-		for (MenuType type : MenuType.values()) {
-			gui.cloneLastAndAdd().setItem(GUI_SLOTS[type.ordinal()], new ItemBuilder(type.getDisplayItem()).name(
-					DefaultItem.getItemPrefix() + type.getDisplayName()).hideAttributes());
+		MenuType[] values = MenuType.values();
+		for (int i = 0; i < values.length; i+=2) {
 
+			AnimationFrame frame = gui.getLastFrame().clone();
+
+			MenuType first = values[i];
+			frame.setItem(GUI_SLOTS[i], new ItemBuilder(first.getDisplayItem()).name(
+					DefaultItem.getItemPrefix() + first.getDisplayName()).hideAttributes());
+
+			if (values.length > i+1) {
+				MenuType second = values[i+1];
+				frame.setItem(GUI_SLOTS[i+1], new ItemBuilder(second.getDisplayItem()).name(
+						DefaultItem.getItemPrefix() + second.getDisplayName()).hideAttributes());
+			}
+
+			gui.addFrame(frame);
 		}
+
 	}
 
 	public void generateMenus() {
