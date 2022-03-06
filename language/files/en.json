@@ -1120,7 +1120,7 @@
   "custom-not-deleted": "Challenge doesn't exist yet!",
   "custom-saved": "§7Challenge §asaved §7locally",
   "custom-saved-db": [
-    "To save it in your database use §e/custom save",
+    "To save it in your database use §e/db save customs",
     "§cWarning: §7Old challenges will be overwritten!"
   ],
   "custom-no-changes": "You haven't made any changes",
@@ -1129,9 +1129,9 @@
   "custom-not-loaded": [
     "",
     "There are no currently loaded challenges.",
-    "You're missing your challenges? §e/custom load",
+    "You're missing your challenges? §e/db load customs",
     "You've got problems with saving them?",
-    "Save your challenges before leaving with §e/custom save",
+    "Save your challenges before leaving with §e/db save customs",
     ""
   ],
 

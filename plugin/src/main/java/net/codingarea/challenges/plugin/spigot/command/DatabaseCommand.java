@@ -54,7 +54,7 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
         Message.forName("player-config-loaded").send(player, Prefix.CHALLENGES);
       }
     });
-    databaseExecutors.put("custom_challenges", new DatabaseCommandExecutor() {
+    databaseExecutors.put("customs", new DatabaseCommandExecutor() {
 
       @Override
       public void save(Player player) throws Exception {

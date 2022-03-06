@@ -1139,7 +1139,7 @@
   "custom-not-deleted": "Diese Challenge existiert noch nicht!",
   "custom-saved": "§7Challenge wurde lokal §agespeichert",
   "custom-saved-db": [
-    "Um in §eDatenbank §7zu Speichern benutze §e/custom save",
+    "Um in §eDatenbank §7zu Speichern benutze §e/db save customs",
     "§cAchtung: §7Alte Einstellungen werden dabei überschrieben!"
   ],
   "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
@@ -1148,9 +1148,9 @@
   "custom-not-loaded": [
     "",
     "Es sind derzeit keine Custom Challenges geladen.",
-    "Du vermisst deine Challenges? §e/custom load",
+    "Du vermisst deine Challenges? §e/db load customs",
     "Du hast Probleme beim Speichern?",
-    "Speichere vorm verlassen manuell §e/custom save",
+    "Speichere vorm verlassen manuell §e/db save customs",
     ""
   ],
 
