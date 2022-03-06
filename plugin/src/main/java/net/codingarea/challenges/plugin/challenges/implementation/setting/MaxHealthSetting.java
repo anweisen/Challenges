@@ -80,6 +80,13 @@ public class MaxHealthSetting extends Modifier {
 		if (attribute == null) return; // This should never happen because its a generic attribute, but just in case
 		int newMaxHealth = getMaxHealth(player);
 		double oldMaxHealth = attribute.getBaseValue();
+
+		if (newMaxHealth <= 0) {
+			ChallengeHelper.kill(player);
+			valueOffset.remove(player.getUniqueId().toString());
+			return;
+		}
+
 		if (oldMaxHealth != newMaxHealth) {
 			attribute.setBaseValue(newMaxHealth);
 
