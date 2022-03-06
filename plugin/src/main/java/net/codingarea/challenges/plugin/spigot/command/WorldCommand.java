@@ -1,7 +1,9 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import java.util.List;
+import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.PositionSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -32,18 +34,28 @@ public class WorldCommand implements PlayerCommand, TabCompleter {
     }
 
     String worldName = args[0];
+
     Environment environment = PositionSetting.getWorldEnvironment(worldName);
 
-    if (environment == null) {
+    boolean targetIsVoidMap = worldName.equalsIgnoreCase("void");
+    if (environment == null && !targetIsVoidMap) {
       Message.forName("syntax").send(player, Prefix.CHALLENGES, "world <world>");
       return;
     }
 
-    World world = ChallengeAPI.getGameWorld(environment);
+    World world = targetIsVoidMap ? Challenges.getInstance().getGameWorldStorage().getOrCreateVoidWorld() : ChallengeAPI.getGameWorld(environment);
     if (world == null) {
       Message.forName("syntax").send(player, Prefix.CHALLENGES, "world <world>");
       return;
     }
+
+    Location location = getSpawn(world, player);
+
+    Message.forName("command-world-teleport").send(player, Prefix.CHALLENGES, targetIsVoidMap ? "Void" : getWorldName(location));
+    player.teleport(location);
+  }
+
+  public Location getSpawn(@Nonnull World world, @Nonnull Player player) {
     Location location = world.getSpawnLocation();
     Location bedSpawnLocation = player.getBedSpawnLocation();
     if (bedSpawnLocation != null && bedSpawnLocation.getWorld() == world) {
@@ -51,16 +63,23 @@ public class WorldCommand implements PlayerCommand, TabCompleter {
     } else if (world.getEnvironment() == Environment.THE_END) {
       location = world.getHighestBlockAt(0, 0).getLocation().add(0.5, 1, 0.5);
     }
+    return location;
+  }
 
-    Message.forName("command-world-teleport").send(player, Prefix.CHALLENGES, PositionSetting.getWorldName(location));
-    player.teleport(location);
+  public  String getWorldName(@Nonnull Location location) {
+    if (location.getWorld() == null) return "?";
+    switch (location.getWorld().getEnvironment()) {
+      default:        return "Overworld";
+      case NETHER:    return "Nether";
+      case THE_END:   return "End";
+    }
   }
 
   @Nullable
   @Override
   public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
       @NotNull String alias, @NotNull String[] args) {
-    return Utils.filterRecommendations(args[0], "Overworld", "Nether", "End");
+    return Utils.filterRecommendations(args[0], "Overworld", "Nether", "End", "Void");
   }
 
 }

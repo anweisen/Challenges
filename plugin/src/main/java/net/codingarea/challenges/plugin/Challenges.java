@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryMana
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.server.GeneratorWorldPortalManager;
 import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
 import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
@@ -62,6 +63,7 @@ public final class Challenges extends BukkitModule {
 	private LoaderRegistry loaderRegistry;
 	private MetricsLoader metricsLoader;
 	private GameWorldStorage gameWorldStorage;
+	private GeneratorWorldPortalManager generatorWorldPortalManager;
 
 	@Override
 	protected void handleLoad() {
@@ -116,6 +118,7 @@ public final class Challenges extends BukkitModule {
 		statsManager = new StatsManager();
 		metricsLoader = new MetricsLoader();
 		gameWorldStorage = new GameWorldStorage();
+		generatorWorldPortalManager = new GeneratorWorldPortalManager();
 
 	}
 
@@ -183,7 +186,8 @@ public final class Challenges extends BukkitModule {
 				new BlockDropListener(),
 				new CustomEventListener(),
 				new HelpListener(),
-				new CustomChallengeNamingListener()
+				new CustomChallengeNamingListener(),
+				new GeneratorWorldsListener()
 		);
 	}
 
@@ -212,6 +216,10 @@ public final class Challenges extends BukkitModule {
 			}
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public GeneratorWorldPortalManager getGeneratorWorldManager() {
+		return generatorWorldPortalManager;
 	}
 
 	public GameWorldStorage getGameWorldStorage() {

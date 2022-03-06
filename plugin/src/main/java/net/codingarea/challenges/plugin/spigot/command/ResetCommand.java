@@ -41,11 +41,11 @@ public class ResetCommand implements SenderCommand, Completer {
 		}
 
 		if (confirmReset && (args.length < 1 || !args[0].equalsIgnoreCase("confirm")) || (args.length > 0 && !args[0].equalsIgnoreCase("confirm"))) {
-			if (args[0].equalsIgnoreCase("settings")) {
+			if (args.length > 0 && args[0].equalsIgnoreCase("settings")) {
 				Challenges.getInstance().getChallengeManager().restoreDefaults();
 				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
 				return;
-			} else if (args[0].equalsIgnoreCase("custom_challenges")) {
+			} else if (args.length > 0 && args[0].equalsIgnoreCase("custom_challenges")) {
 				Challenges.getInstance().getCustomChallengesLoader().resetChallenges();
 				Message.forName("player-custom_challenges-reset").broadcast(Prefix.CHALLENGES);
 				return;

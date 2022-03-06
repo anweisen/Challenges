@@ -260,6 +260,10 @@ public final class WorldManager {
 			}
 		}
 
+		for (String world : Challenges.getInstance().getGameWorldStorage().getCustomGeneratedGameWorlds()) {
+			deleteWorld(world);
+		}
+
 		sessionConfig.set("reset", false);
 		sessionConfig.set("seed-reset", false);
 		sessionConfig.save();

@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.management.challenges.entities.GamestateSaveable;
 import org.bukkit.entity.Player;
 
 /**
@@ -26,12 +27,17 @@ import org.bukkit.entity.Player;
 public final class ChallengeManager {
 
 	private final List<IChallenge> challenges = new LinkedList<>();
+	private final List<GamestateSaveable> additionalSaver = new LinkedList<>();
 
 	private IGoal currentGoal;
 
 	@Nonnull
 	public List<IChallenge> getChallenges() {
 		return Collections.unmodifiableList(challenges);
+	}
+
+	public void registerGameStateSaver(@Nonnull GamestateSaveable saveable) {
+		additionalSaver.add(saveable);
 	}
 
 	public void register(@Nonnull IChallenge challenge) {
@@ -116,7 +122,9 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void loadGamestate(@Nonnull Document config) {
-		for (IChallenge challenge : challenges) {
+		LinkedList<GamestateSaveable> list = new LinkedList<>(challenges);
+		list.addAll(additionalSaver);
+		for (GamestateSaveable challenge : list) {
 			String name = challenge.getUniqueName();
 			if (!config.contains(name)) continue;
 			try {
@@ -133,7 +141,9 @@ public final class ChallengeManager {
 	}
 
 	public void resetGamestate() {
-		for (IChallenge challenge : challenges) {
+		LinkedList<GamestateSaveable> list = new LinkedList<>(challenges);
+		list.addAll(additionalSaver);
+		for (GamestateSaveable challenge : list) {
 			try {
 				challenge.loadGameState(Document.empty());
 			} catch (Exception ex) {
@@ -143,7 +153,9 @@ public final class ChallengeManager {
 	}
 
 	public void saveGameStateInto(@Nonnull Document config) {
-		for (IChallenge challenge : challenges) {
+		LinkedList<GamestateSaveable> list = new LinkedList<>(challenges);
+		list.addAll(additionalSaver);
+		for (GamestateSaveable challenge : list) {
 			try {
 				Document document = config.getDocument(challenge.getUniqueName());
 				challenge.writeGameState(document);
