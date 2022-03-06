@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -22,6 +23,7 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockExplodeEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -43,6 +45,25 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
 
   public FiveHundredBlocksChallenge() {
     super(MenuType.CHALLENGES, 1, 5, 5);
+
+    // Loot Generate Event was added in 1.15
+    try {
+      Listener listener = new Listener() {
+
+        @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+        public void onEntityExplosion(LootGenerateEvent event) {
+          if (!shouldExecuteEffect())
+            return;
+          event.setLoot(new LinkedList<>());
+        }
+      };
+
+      Challenges.getInstance().registerListener(listener);
+    } catch (NoClassDefFoundError noClassDefFoundError) {
+      Challenges.getInstance().getLogger().warning("Loot Generation couldn't be blocked in FiveHundredBlocks Challenge: Please Use 1.15 or higher");
+    }
+
+
   }
 
   @Override
@@ -123,12 +144,6 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
     for (Block block : event.blockList()) {
       block.setType(Material.AIR);
     }
-  }
-
-  @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-  public void onEntityExplosion(LootGenerateEvent event) {
-    if (!shouldExecuteEffect()) return;
-    event.setLoot(new LinkedList<>());
   }
 
   /**

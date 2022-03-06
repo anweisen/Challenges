@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.LinkedList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -14,7 +15,6 @@ import net.anweisen.utilities.common.config.FileDocument;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import org.apache.commons.io.IOUtils;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
@@ -50,7 +50,7 @@ public final class ConfigManager {
 			// Copy the default config inside the temp file
 			InputStream resource = plugin.getResource("config.yml");
 			if (resource == null) return;
-			IOUtils.copy(resource, stream);
+			copyLarge(resource, stream, new byte[1024 * 4]);
 			// Load the File as a yaml config
 			// Spigot Config Implementation because the Document Library does not contain deep-keys.
 			YamlConfiguration defaultConfig = new YamlConfiguration();
@@ -66,6 +66,16 @@ public final class ConfigManager {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Copied method from or {@link org.apache.commons.io.IOUtils} because it is not implemented in older versions
+	 */
+	private void copyLarge(InputStream input, OutputStream output, byte[] buffer) throws IOException {
+		int n;
+		while (-1 != (n = input.read(buffer))) {
+			output.write(buffer, 0, n);
+		}
 	}
 
 	@Nullable
