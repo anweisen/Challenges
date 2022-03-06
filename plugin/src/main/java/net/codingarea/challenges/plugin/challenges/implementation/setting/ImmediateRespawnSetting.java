@@ -10,6 +10,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameRule;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.PlayerDeathEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -17,6 +20,8 @@ import org.bukkit.World;
  */
 @Since("2.0")
 public class ImmediateRespawnSetting extends Setting {
+
+	private boolean respawnWithEvent;
 
 	public ImmediateRespawnSetting() {
 		super(MenuType.SETTINGS);
@@ -30,16 +35,36 @@ public class ImmediateRespawnSetting extends Setting {
 
 	@Override
 	protected void onEnable() {
-		for (World world : Bukkit.getWorlds()) {
-			world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+		if (respawnWithEvent) {
+			return;
+		}
+		try {
+			for (World world : Bukkit.getWorlds()) {
+				world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, true);
+			}
+		} catch (NoSuchFieldError ignored) {
+			respawnWithEvent = true;
 		}
 	}
 
 	@Override
 	protected void onDisable() {
-		for (World world : Bukkit.getWorlds()) {
-			world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, false);
+		if (respawnWithEvent) {
+			return;
 		}
+		try {
+			for (World world : Bukkit.getWorlds()) {
+				world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, false);
+			}
+		} catch (NoSuchFieldError ignored) { }
 	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onPlayerDeath(@Nonnull PlayerDeathEvent event) {
+		if (!isEnabled()) return;
+		if (!respawnWithEvent) return;
+		Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> event.getEntity().spigot().respawn(), 1);
+	}
+
 
 }
