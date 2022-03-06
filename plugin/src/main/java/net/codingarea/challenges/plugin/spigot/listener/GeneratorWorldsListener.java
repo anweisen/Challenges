@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
-import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.management.server.GeneratorWorldPortalManager;
 import org.bukkit.Location;
@@ -55,17 +54,6 @@ public class GeneratorWorldsListener implements Listener {
 
     }
 
-  }
-
-  public Location getSpawn(@Nonnull World world, @Nonnull Player player) {
-    Location location = world.getSpawnLocation();
-    Location bedSpawnLocation = player.getBedSpawnLocation();
-    if (bedSpawnLocation != null && bedSpawnLocation.getWorld() == world) {
-      location = bedSpawnLocation;
-    } else if (world.getEnvironment() == Environment.THE_END) {
-      location = world.getHighestBlockAt(0, 0).getLocation().add(0.5, 1, 0.5);
-    }
-    return location;
   }
 
 }
