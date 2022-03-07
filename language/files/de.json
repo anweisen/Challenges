@@ -1409,7 +1409,7 @@
   ],
   "item-custom-action-target-current_player": [
     "§aAktiver Spieler",
-    "Die Aktion wird 69für den *aktiven Spieler* ausgeführt",
+    "Die Aktion wird für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
   ],
 
