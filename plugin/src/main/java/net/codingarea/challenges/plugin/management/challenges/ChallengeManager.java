@@ -70,6 +70,7 @@ public final class ChallengeManager {
 
 	public void restoreDefaults() {
 		Logger.debug("Restoring default settings..");
+		Challenges.getInstance().getCustomChallengesLoader().resetChallenges();
 		for (IChallenge challenge : challenges) {
 			try {
 				challenge.restoreDefaults();
