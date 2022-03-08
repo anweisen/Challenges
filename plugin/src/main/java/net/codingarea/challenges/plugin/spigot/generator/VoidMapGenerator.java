@@ -67,6 +67,10 @@ public class VoidMapGenerator extends ChunkGenerator {
     }
 
     // Stronghold location is weirdly the same for every void map
+    // TODO: FIX FOLLOWING ISSUES
+    // Only applies in 1.18 worlds (1.17 not tested)
+    // maybe try to locate the three first strongholds and place portal in chunk (code commented out above)
+    // Maybe don't generate a portal at all to prevent issues with the feature
     if (x == -7 && z == -105) {
       generateEndPortal(chunkData);
     }
