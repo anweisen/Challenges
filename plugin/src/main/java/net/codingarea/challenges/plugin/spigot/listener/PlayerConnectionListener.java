@@ -113,16 +113,18 @@ public class PlayerConnectionListener implements Listener {
 		}
 
 		if (Bukkit.getOnlinePlayers().size() <= 1) {
-			if (restoreDefaultsOnLastQuit) {
-				Challenges.getInstance().getChallengeManager().restoreDefaults();
-			}
 
 			if (!Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
 				if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
 					Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
+					return;
 				} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
 					ChallengeAPI.pauseTimer();
 				}
+			}
+
+			if (restoreDefaultsOnLastQuit) {
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
 			}
 		}
 
