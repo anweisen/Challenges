@@ -101,15 +101,19 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
 
-		Player player = event.getPlayer();
-		Challenges.getInstance().getScoreboardManager().handleQuit(player);
-		DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
+		try {
+			Player player = event.getPlayer();
+			Challenges.getInstance().getScoreboardManager().handleQuit(player);
+			DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
 
-		if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
-			event.setQuitMessage(null);
-		} else if (messages) {
-			event.setQuitMessage(null);
-			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
+				event.setQuitMessage(null);
+			} else if (messages) {
+				event.setQuitMessage(null);
+				Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			}
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("Error while handling disconnect", exception);
 		}
 
 		if (Bukkit.getOnlinePlayers().size() <= 1) {
