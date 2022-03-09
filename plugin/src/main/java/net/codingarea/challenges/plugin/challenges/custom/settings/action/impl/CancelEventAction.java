@@ -28,7 +28,7 @@ public class CancelEventAction extends AbstractChallengeAction {
     inCanceling = true;
   }
 
-  public static void onPreCondition() {
+  public static void onPreTrigger() {
     inCanceling = false;
   }
 

@@ -11,8 +11,8 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.IChallengeTrigger;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
@@ -31,14 +31,14 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, AbstractChallengeCondition condition,
-			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions, boolean generate) {
-		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, condition, subConditions, action, subActions));
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, AbstractChallengeTrigger trigger,
+			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions, boolean generate) {
+		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, trigger, subTriggers, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
 			register(challenge);
 		} else {
-			challenge.applySettings(material, name, condition, subConditions, action, subActions);
+			challenge.applySettings(material, name, trigger, subTriggers, action, subActions);
 		}
 		generateCustomChallenge(challenge, false, generate);
 		return challenge;
@@ -64,12 +64,12 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 				UUID uuid = UUID.fromString(key);
 				String name = doc.getString("name");
 				Material material = doc.getEnum("material", Material.class);
-				AbstractChallengeCondition condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName(doc.getString("condition"));
-				Map<String, String[]> subConditions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subConditions"));
+				AbstractChallengeTrigger trigger = Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(doc.getString("trigger"));
+				Map<String, String[]> subTriggers = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subTriggers"));
 				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(doc.getString("action"));
 				Map<String, String[]> subActions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subActions"));
 
-				CustomChallenge challenge = registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, false);
+				CustomChallenge challenge = registerCustomChallenge(uuid, material, name, trigger, subTriggers, action, subActions, false);
 				challenge.setEnabled(doc.getBoolean("enabled"));
 
 			} catch (Exception exception) {
@@ -109,11 +109,11 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		}
 	}
 
-	public List<CustomChallenge> getCustomChallengesByCondition(@Nonnull IChallengeCondition condition) {
+	public List<CustomChallenge> getCustomChallengesByTrigger(@Nonnull IChallengeTrigger trigger) {
 		List<CustomChallenge> challenges = new LinkedList<>();
 
 		for (CustomChallenge challenge : customChallenges.values()) {
-			if (challenge.getCondition() != null && challenge.getCondition() == condition) {
+			if (challenge.getTrigger() != null && challenge.getTrigger() == trigger) {
 				challenges.add(challenge);
 			}
 		}
@@ -121,10 +121,10 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		return challenges;
 	}
 
-	public void executeCondition(@Nonnull ChallengeExecutionData challengeExecutionData) {
-		getCustomChallengesByCondition(challengeExecutionData.getCondition())
+	public void executeTrigger(@Nonnull ChallengeExecutionData challengeExecutionData) {
+		getCustomChallengesByTrigger(challengeExecutionData.getTrigger())
 				.forEach(customChallenge -> customChallenge
-						.onConditionFulfilled(challengeExecutionData));
+						.onTriggerFulfilled(challengeExecutionData));
 	}
 
 	public Map<UUID, CustomChallenge> getCustomChallenges() {

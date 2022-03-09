@@ -71,7 +71,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 		if (timerStatus) {
 
-			if (getTimerCondition()) {
+			if (getTimerTrigger()) {
 				secondsUntilActivation--;
 				if (secondsUntilActivation <= 0) {
 					secondsUntilActivation = 0;
@@ -81,7 +81,7 @@ public abstract class TimedChallenge extends SettingModifier {
 					handleCountdown();
 				}
 			} else {
-				Logger.debug("getTimerCondition returned false for {}", this.getClass().getSimpleName());
+				Logger.debug("getTimerTrigger returned false for {}", this.getClass().getSimpleName());
 			}
 		}
 
@@ -120,7 +120,7 @@ public abstract class TimedChallenge extends SettingModifier {
 	protected void handleCountdown() {
 	}
 
-	protected boolean getTimerCondition() {
+	protected boolean getTimerTrigger() {
 		return true;
 	}
 

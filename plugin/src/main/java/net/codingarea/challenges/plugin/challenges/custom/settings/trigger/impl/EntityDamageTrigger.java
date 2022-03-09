@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -8,7 +8,7 @@ import java.util.Random;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.ItemBuilder.PotionBuilder;
 import net.anweisen.utilities.common.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -23,16 +23,16 @@ import org.bukkit.potion.PotionEffectType;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class EntityDamageCondition extends AbstractChallengeCondition {
+public class EntityDamageTrigger extends AbstractChallengeTrigger {
 
-	public EntityDamageCondition(String name) {
+	public EntityDamageTrigger(String name) {
 		super(name, createEntityTypeSettingsBuilder().createChooseMultipleChild("damage_cause").fill(builder -> {
 
 			List<PotionEffectType> types = new ArrayList<>(
 					Arrays.asList(PotionEffectType.values()));
 			Collections.shuffle(types, new Random(1));
 
-			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-damage-any")));
+			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-damage-any")));
 
 			DamageCause[] values = DamageCause.values();
 			for (int i = 0; i < values.length; i++) {

@@ -25,30 +25,30 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.R
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.AdvancementCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.CraftItemCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.DropItemCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.GainXPCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.InLiquidCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.LevelUpCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.MoveBlockCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.BreakBlockCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.ConsumeItemCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.EntityDamageByPlayerCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.EntityDamageCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.EntityDeathCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.HungerCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.IntervallCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.MoveCameraCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.MoveDownCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.MoveUpCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.PickupItemCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.PlaceBlockCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.PlayerJumpCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.PlayerSneakCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.StandsNotOnSpecificBlock;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.StandsOnSpecificBlock;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.AdvancementTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.CraftItemTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.DropItemTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.GainXPTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.InLiquidTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.LevelUpTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveBlockTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.BreakBlockTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.ConsumeItemTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDamageByPlayerTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDamageTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDeathTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.HungerTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.IntervallTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveCameraTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveDownTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveUpTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PickupItemTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlaceBlockTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlayerJumpTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlayerSneakTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.StandsNotOnSpecificBlockTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.StandsOnSpecificBlockTrigger;
 import org.bukkit.Bukkit;
 
 /**
@@ -57,44 +57,44 @@ import org.bukkit.Bukkit;
  */
 public class CustomSettingsLoader {
 
-  private final Map<String, AbstractChallengeCondition> conditions;
+  private final Map<String, AbstractChallengeTrigger> triggers;
   private final Map<String, AbstractChallengeAction> actions;
 
   public CustomSettingsLoader() {
     actions = new LinkedHashMap<>();
-    conditions = new LinkedHashMap<>();
+    triggers = new LinkedHashMap<>();
   }
 
   public void enable() {
-    loadConditions();
+    loadTrigger();
     loadActions();
   }
 
-  private void loadConditions() {
-    registerConditions(
-        new IntervallCondition("intervall"),
-        new PlayerJumpCondition("jump"),
-        new PlayerSneakCondition("sneak"),
-        new MoveBlockCondition("move_block"),
-        new BreakBlockCondition("block_break"),
-        new PlaceBlockCondition("block_place"),
-        new EntityDeathCondition("death"),
-        new EntityDamageCondition("damage"),
-        new EntityDamageByPlayerCondition("damage_by_player"),
-        new ConsumeItemCondition("consume_item"),
-        new PickupItemCondition("pickup_item"),
-        new DropItemCondition("drop_item"),
-        new AdvancementCondition("advancement"),
-        new HungerCondition("hunger"),
-        new MoveUpCondition("move_up"),
-        new MoveDownCondition("move_down"),
-        new MoveCameraCondition("move_camera"),
-        new StandsOnSpecificBlock("stands_on_specific_block"),
-        new StandsNotOnSpecificBlock("stands_not_on_specific_block"),
-        new GainXPCondition("gain_xp"),
-        new LevelUpCondition("level_up"),
-        new CraftItemCondition("item_craft"),
-        new InLiquidCondition("in_liquid")
+  private void loadTrigger() {
+    registerTriggers(
+        new IntervallTrigger("intervall"),
+        new PlayerJumpTrigger("jump"),
+        new PlayerSneakTrigger("sneak"),
+        new MoveBlockTrigger("move_block"),
+        new BreakBlockTrigger("block_break"),
+        new PlaceBlockTrigger("block_place"),
+        new EntityDeathTrigger("death"),
+        new EntityDamageTrigger("damage"),
+        new EntityDamageByPlayerTrigger("damage_by_player"),
+        new ConsumeItemTrigger("consume_item"),
+        new PickupItemTrigger("pickup_item"),
+        new DropItemTrigger("drop_item"),
+        new AdvancementTrigger("advancement"),
+        new HungerTrigger("hunger"),
+        new MoveUpTrigger("move_up"),
+        new MoveDownTrigger("move_down"),
+        new MoveCameraTrigger("move_camera"),
+        new StandsOnSpecificBlockTrigger("stands_on_specific_block"),
+        new StandsNotOnSpecificBlockTrigger("stands_not_on_specific_block"),
+        new GainXPTrigger("gain_xp"),
+        new LevelUpTrigger("level_up"),
+        new CraftItemTrigger("item_craft"),
+        new InLiquidTrigger("in_liquid")
     );
   }
 
@@ -124,10 +124,10 @@ public class CustomSettingsLoader {
     );
   }
 
-  public void registerConditions(AbstractChallengeCondition... condition) {
-    for (AbstractChallengeCondition condition1 : condition) {
-      conditions.put(condition1.getName(), condition1);
-      Bukkit.getPluginManager().registerEvents(condition1, Challenges.getInstance());
+  public void registerTriggers(AbstractChallengeTrigger... trigger) {
+    for (AbstractChallengeTrigger trigger1 : trigger) {
+      triggers.put(trigger1.getName(), trigger1);
+      Bukkit.getPluginManager().registerEvents(trigger1, Challenges.getInstance());
     }
   }
 
@@ -143,16 +143,16 @@ public class CustomSettingsLoader {
   }
 
   @Nullable
-  public AbstractChallengeCondition getConditionByName(String name) {
-    return conditions.get(name);
+  public AbstractChallengeTrigger getTriggerByName(String name) {
+    return triggers.get(name);
   }
 
   public Map<String, AbstractChallengeAction> getActions() {
     return actions;
   }
 
-  public Map<String, AbstractChallengeCondition> getConditions() {
-    return conditions;
+  public Map<String, AbstractChallengeTrigger> getTriggers() {
+    return triggers;
   }
 
 }

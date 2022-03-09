@@ -93,16 +93,16 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 			CustomChallenge customChallenge = (CustomChallenge) challenge;
 
 			// ADDING CONDITION INFO
-			if (customChallenge.getCondition() != null) {
+			if (customChallenge.getTrigger() != null) {
 				displayItem.appendLore(" ");
-				List<String> conditionDisplay = InfoMenuGenerator
-						.getSubSettingsDisplay(customChallenge.getCondition().getSubSettingsBuilder(),
-								customChallenge.getSubConditions());
+				List<String> triggerDisplay = InfoMenuGenerator
+						.getSubSettingsDisplay(customChallenge.getTrigger().getSubSettingsBuilder(),
+								customChallenge.getSubTriggers());
 
-				String conditionName = Message.forName(customChallenge.getCondition().getMessage()).asItemDescription()
+				String triggerName = Message.forName(customChallenge.getTrigger().getMessage()).asItemDescription()
 						.getName();
-				displayItem.appendLore(Message.forName("custom-info-condition").asString() + " " + conditionName);
-				displayItem.appendLore(conditionDisplay);
+				displayItem.appendLore(Message.forName("custom-info-trigger").asString() + " " + triggerName);
+				displayItem.appendLore(triggerDisplay);
 			}
 
 			// ADDING ACTION INFO

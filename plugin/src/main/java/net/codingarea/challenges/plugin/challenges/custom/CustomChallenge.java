@@ -10,7 +10,7 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -28,19 +28,19 @@ public class CustomChallenge extends Setting {
 	private final UUID uuid;
 	private Material material;
 	private String name;
-	private AbstractChallengeCondition condition;
-	private Map<String, String[]> subConditions;
+	private AbstractChallengeTrigger trigger;
+	private Map<String, String[]> subTriggers;
 	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 
-	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, AbstractChallengeCondition condition,
-			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions) {
+	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, AbstractChallengeTrigger trigger,
+			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions) {
 		super(menuType);
 		this.uuid = uuid;
 		this.material = displayItem;
 		this.name = name;
-		this.condition = condition;
-		this.subConditions = subConditions;
+		this.trigger = trigger;
+		this.subTriggers = subTriggers;
 		this.action = action;
 		this.subActions = subActions;
 	}
@@ -72,8 +72,8 @@ public class CustomChallenge extends Setting {
 
 		document.set("material", material == null ? null : material.name());
 		document.set("name", name);
-		document.set("condition", condition == null ? null : condition.getName());
-		document.set("subConditions", subConditions);
+		document.set("trigger", trigger == null ? null : trigger.getName());
+		document.set("subTrigger", subTriggers);
 		document.set("action", action == null ? null : action.getName());
 		document.set("subActions", subActions);
 	}
@@ -84,11 +84,11 @@ public class CustomChallenge extends Setting {
 		return super.getSettingsDescription();
 	}
 
-	public final void onConditionFulfilled(ChallengeExecutionData challengeExecutionData) {
+	public final void onTriggerFulfilled(ChallengeExecutionData challengeExecutionData) {
 		if (isEnabled()) {
 
-			boolean conditionMet = isConditionMet(challengeExecutionData.getConditionData());
-			if (conditionMet) {
+			boolean triggerMet = isTriggerMet(challengeExecutionData.getTriggerData());
+			if (triggerMet) {
 				executeAction(challengeExecutionData.getEntity());
 			}
 
@@ -96,13 +96,13 @@ public class CustomChallenge extends Setting {
 	}
 
 	/**
-	 * @return if the condition is met.
-	 * That is when every key in the subConditions is contained by the data map and one or more value
+	 * @return if the trigger is met.
+	 * That is when every key in the subTriggers is contained by the data map and one or more value
 	 * of the lists are equal to one another.
 	 */
-	public boolean isConditionMet(Map<String, List<String>> data) {
-		if (!subConditions.isEmpty()) {
-			for (Entry<String, String[]> entry : subConditions.entrySet()) {
+	public boolean isTriggerMet(Map<String, List<String>> data) {
+		if (!subTriggers.isEmpty()) {
+			for (Entry<String, String[]> entry : subTriggers.entrySet()) {
 				if (!data.containsKey(entry.getKey())) {
 					return false;
 				}
@@ -134,12 +134,12 @@ public class CustomChallenge extends Setting {
 		action.execute(entity, subActions);
 	}
 
-	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeCondition condition,
-			Map<String, String[]> subConditions, AbstractChallengeAction action, Map<String, String[]> subActions) {
+	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeTrigger trigger,
+			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions) {
 		this.material = material;
 		this.name = name;
-		this.condition = condition;
-		this.subConditions = subConditions;
+		this.trigger = trigger;
+		this.subTriggers = subTriggers;
 		this.action = action;
 		this.subActions = subActions;
 	}
@@ -148,8 +148,8 @@ public class CustomChallenge extends Setting {
 		return action;
 	}
 
-	public AbstractChallengeCondition getCondition() {
-		return condition;
+	public AbstractChallengeTrigger getTrigger() {
+		return trigger;
 	}
 
 	public UUID getUniqueId() {
@@ -171,8 +171,8 @@ public class CustomChallenge extends Setting {
 		return uuid.toString();
 	}
 
-	public Map<String, String[]> getSubConditions() {
-		return subConditions;
+	public Map<String, String[]> getSubTriggers() {
+		return subTriggers;
 	}
 
 	public Map<String, String[]> getSubActions() {
@@ -185,8 +185,8 @@ public class CustomChallenge extends Setting {
 				"uuid=" + uuid +
 				", material=" + material +
 				", name='" + name + '\'' +
-				", condition=" + condition +
-				", subConditions=" + subConditions +
+				", trigger=" + trigger +
+				", subTriggers=" + subTriggers +
 				", action=" + action +
 				", subActions=" + subActions +
 				'}';

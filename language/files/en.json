@@ -1137,7 +1137,7 @@
 
   "custom-main-view-challenges": "§6View Challenges",
   "custom-main-create-challenge": "§aCreate Challenge",
-  "custom-title-condition": "Condition",
+  "custom-title-trigger": "Trigger",
   "custom-title-action": "Action",
   "custom-title-view": "View",
   "custom-sub-finish": "§aFinished",
@@ -1148,15 +1148,15 @@
   ],
   "item-custom-info-save": "§aSave",
 
-  "item-custom-info-condition": [
-    "§cCondition",
+  "item-custom-info-trigger": [
+    "§cTrigger",
     "*Click here* to set what has to be happening",
     "for the *action* to execute"
   ],
   "item-custom-info-action": [
     "§bAction",
     "*Click here* to set what should happen",
-    "once the *condition* is met"
+    "once the *trigger* is met"
   ],
 
   "item-custom-info-material": [
@@ -1170,107 +1170,107 @@
   ],
 
   "custom-info-currently": "§7Set §8» §e",
-  "custom-info-condition": "§7Condition",
+  "custom-info-trigger": "§7Trigger",
   "custom-info-action": "§7Action",
   "custom-info-none": "None",
 
-  "item-custom-condition-jump": [
+  "item-custom-trigger-jump": [
     "§aPlayer Jumps"
   ],
-  "item-custom-condition-sneak": [
+  "item-custom-trigger-sneak": [
     "§aPlayer Sneaks"
   ],
-  "item-custom-condition-move_block": [
+  "item-custom-trigger-move_block": [
     "§6Player Walks A Block"
   ],
-  "item-custom-condition-death": [
+  "item-custom-trigger-death": [
     "§cEntity Dies"
   ],
-  "item-custom-condition-damage": [
+  "item-custom-trigger-damage": [
     "§cEntity Takes Damage"
   ],
-  "item-custom-condition-damage-any": [
+  "item-custom-trigger-damage-any": [
     "§aAny Cause"
   ],
-  "item-custom-condition-damage_by_player": [
+  "item-custom-trigger-damage_by_player": [
     "§cEntity Takes Damage By Player"
   ],
-  "item-custom-condition-entity_type-any": [
+  "item-custom-trigger-entity_type-any": [
     "§cAny Entity"
   ],
-  "item-custom-condition-entity_type-player": [
+  "item-custom-trigger-entity_type-player": [
     "§aPlayer"
   ],
-  "item-custom-condition-intervall": [
+  "item-custom-trigger-intervall": [
     "§6Interval"
   ],
-  "item-custom-condition-intervall-second": [
+  "item-custom-trigger-intervall-second": [
     "§6Each Second"
   ],
-  "item-custom-condition-intervall-seconds": [
+  "item-custom-trigger-intervall-seconds": [
     "§6Every {0} Seconds"
   ],
-  "item-custom-condition-intervall-minutes": [
+  "item-custom-trigger-intervall-minutes": [
     "§6Every {0} Minutes"
   ],
-  "item-custom-condition-block_place": [
+  "item-custom-trigger-block_place": [
     "§aBlock Placed"
   ],
-  "item-custom-condition-block_break": [
+  "item-custom-trigger-block_break": [
     "§cBlock Destroyed"
   ],
-  "item-custom-condition-block-any": [
+  "item-custom-trigger-block-any": [
     "§2Any Block"
   ],
-  "item-custom-condition-consume_item": [
+  "item-custom-trigger-consume_item": [
     "§2Consume Item"
   ],
-  "item-custom-condition-pickup_item": [
+  "item-custom-trigger-pickup_item": [
     "§bPickup Item"
   ],
-  "item-custom-condition-drop_item": [
+  "item-custom-trigger-drop_item": [
     "§9Player Dropped Item"
   ],
-  "item-custom-condition-advancement": [
+  "item-custom-trigger-advancement": [
     "§cPlayer Gets Advancement"
   ],
-  "item-custom-condition-hunger": [
+  "item-custom-trigger-hunger": [
     "§2Player Looses Hunger"
   ],
-  "item-custom-condition-move_down": [
+  "item-custom-trigger-move_down": [
     "§6Player Moves Block Down"
   ],
-  "item-custom-condition-move_up": [
+  "item-custom-trigger-move_up": [
     "§6Player Moves Block Up"
   ],
-  "item-custom-condition-move_camera": [
+  "item-custom-trigger-move_camera": [
     "§6Moves Camera"
   ],
-  "item-custom-condition-stands_on_specific_block": [
+  "item-custom-trigger-stands_on_specific_block": [
     "§6Player Is On Specific Block"
   ],
-  "item-custom-condition-stands_not_on_specific_block": [
+  "item-custom-trigger-stands_not_on_specific_block": [
     "§6Player Is Not On Specific Block"
   ],
-  "item-custom-condition-gain_xp": [
+  "item-custom-trigger-gain_xp": [
     "§5Player Gets XP"
   ],
-  "item-custom-condition-level_up": [
+  "item-custom-trigger-level_up": [
     "§5Player Gets Level"
   ],
-  "item-custom-condition-item_craft": [
+  "item-custom-trigger-item_craft": [
     "§6Player Crafts Item"
   ],
-  "item-custom-condition-in_liquid": [
+  "item-custom-trigger-in_liquid": [
     "§9Player Is In Liquid"
   ],
 
 
   "item-custom-action-cancel": [
-    "§4Cancel Condition",
-    "Verhindert, dass die Bedingung ausgeführt wird",
-    "Nicht abbrechbare Bedingungen: *Springen*, *Sneaken*, *Töten*",
-    "*Advancement*, *Auf Leveln*, *In Liquid*"
+    "§4Cancel Trigger",
+    "Prevent that the trigger will be executed",
+    "Non preventable Trigger: *Jump*, *Sneak*, *Death*",
+    "*Advancement*, *Level Up*, *In Liquid*"
   ],
   "item-custom-action-kill": [
     "§4Kill",

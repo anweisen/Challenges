@@ -8,8 +8,8 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.IChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.IChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -23,39 +23,39 @@ import org.bukkit.event.Cancellable;
  */
 public class ChallengeExecutionData {
 
-  private final IChallengeCondition condition;
-  private final Map<String, List<String>> conditionData;
+  private final IChallengeTrigger trigger;
+  private final Map<String, List<String>> triggerData;
   private Entity entity;
   private Runnable cancelAction;
   private int timesExecuting;
 
   public ChallengeExecutionData(
-      IChallengeCondition condition) {
-    this.condition = condition;
-    this.conditionData = new HashMap<>();
+      IChallengeTrigger trigger) {
+    this.trigger = trigger;
+    this.triggerData = new HashMap<>();
   }
 
   public ChallengeExecutionData data(String key, String data) {
-    conditionData.put(key, Collections.singletonList(data));
+    triggerData.put(key, Collections.singletonList(data));
     return this;
   }
 
   public ChallengeExecutionData data(String key, List<String> data) {
-    conditionData.put(key, data);
+    triggerData.put(key, data);
     return this;
   }
 
   public ChallengeExecutionData data(String key, String... data) {
-    conditionData.put(key, Arrays.asList(data));
+    triggerData.put(key, Arrays.asList(data));
     return this;
   }
 
   public ChallengeExecutionData block(Material material) {
-    return data(AbstractChallengeCondition.BLOCK, AbstractChallengeCondition.ANY, material.name());
+    return data(AbstractChallengeTrigger.BLOCK, AbstractChallengeTrigger.ANY, material.name());
   }
 
   public ChallengeExecutionData entityType(EntityType type) {
-    return data(AbstractChallengeCondition.ENTITY_TYPE, AbstractChallengeCondition.ANY, type.name());
+    return data(AbstractChallengeTrigger.ENTITY_TYPE, AbstractChallengeTrigger.ANY, type.name());
   }
 
   public ChallengeExecutionData entity(Entity entity) {
@@ -84,21 +84,21 @@ public class ChallengeExecutionData {
         return;
       }
       if (cancelAction != null) {
-        CancelEventAction.onPreCondition();
+        CancelEventAction.onPreTrigger();
       }
-      Challenges.getInstance().getCustomChallengesLoader().executeCondition(this);
+      Challenges.getInstance().getCustomChallengesLoader().executeTrigger(this);
       if (cancelAction != null && CancelEventAction.shouldCancel()) {
         cancelAction.run();
       }
     }
   }
 
-  public IChallengeCondition getCondition() {
-    return condition;
+  public IChallengeTrigger getTrigger() {
+    return trigger;
   }
 
-  public Map<String, List<String>> getConditionData() {
-    return conditionData;
+  public Map<String, List<String>> getTriggerData() {
+    return triggerData;
   }
 
   public Entity getEntity() {

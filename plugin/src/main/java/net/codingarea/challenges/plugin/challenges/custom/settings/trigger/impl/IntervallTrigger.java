@@ -1,10 +1,9 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
@@ -16,19 +15,19 @@ import org.bukkit.Material;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class IntervallCondition extends AbstractChallengeCondition {
+public class IntervallTrigger extends AbstractChallengeTrigger {
 
-  public IntervallCondition(String name) {
+  public IntervallTrigger(String name) {
     super(name, SubSettingsBuilder.createChooseItem("time").fill(builder -> {
-      builder.addSetting("1", new ItemBuilder(Material.MUSIC_DISC_13, Message.forName("item-custom-condition-intervall-second"), "1").build());
-      String seconds = "item-custom-condition-intervall-seconds";
+      builder.addSetting("1", new ItemBuilder(Material.MUSIC_DISC_13, Message.forName("item-custom-trigger-intervall-second"), "1").build());
+      String seconds = "item-custom-trigger-intervall-seconds";
       builder.addSetting("2", new ItemBuilder(Material.MUSIC_DISC_CAT, Message.forName(seconds), "2"));
       builder.addSetting("5", new ItemBuilder(Material.MUSIC_DISC_BLOCKS, Message.forName(seconds), "5"));
       builder.addSetting("10", new ItemBuilder(Material.MUSIC_DISC_CHIRP, Message.forName(seconds), "10"));
       builder.addSetting("20", new ItemBuilder(Material.MUSIC_DISC_FAR, Message.forName(seconds), "20"));
       builder.addSetting("30", new ItemBuilder(Material.MUSIC_DISC_MALL, Message.forName(seconds), "30"));
       builder.addSetting("60", new ItemBuilder(Material.MUSIC_DISC_MELLOHI, Message.forName(seconds), "60"));
-      String minutes = "item-custom-condition-intervall-minutes";
+      String minutes = "item-custom-trigger-intervall-minutes";
       builder.addSetting("120", new ItemBuilder(Material.MUSIC_DISC_STAL, Message.forName(minutes), "2"));
       builder.addSetting("180", new ItemBuilder(Material.MUSIC_DISC_STRAD, Message.forName(minutes), "3"));
       builder.addSetting("240", new ItemBuilder(Material.MUSIC_DISC_WARD, Message.forName(minutes), "4"));

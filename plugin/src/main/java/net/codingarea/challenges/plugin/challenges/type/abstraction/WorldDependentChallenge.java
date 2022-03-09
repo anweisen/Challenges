@@ -76,7 +76,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 	public abstract void startWorldChallenge();
 
 	@Override
-	protected boolean getTimerCondition() {
+	protected boolean getTimerTrigger() {
 		return inExtraWorld || !Challenges.getInstance().getWorldManager().isWorldInUse();
 	}
 

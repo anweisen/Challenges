@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -10,9 +10,9 @@ import org.bukkit.event.block.BlockPlaceEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class PlaceBlockCondition extends AbstractChallengeCondition {
+public class PlaceBlockTrigger extends AbstractChallengeTrigger {
 
-  public PlaceBlockCondition(String name) {
+  public PlaceBlockTrigger(String name) {
     super(name, createBlockSettingsBuilder());
   }
 

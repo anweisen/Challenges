@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -28,11 +28,11 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   void executeFor(Entity entity, Map<String, String[]> subActions);
 
-  static List<Entity> getTargets(Entity conditionTarget, Map<String, String[]> subActions) {
-    if (!subActions.containsKey(AbstractChallengeCondition.TARGET_ENTITY)) {
+  static List<Entity> getTargets(Entity triggerTarget, Map<String, String[]> subActions) {
+    if (!subActions.containsKey(AbstractChallengeTrigger.TARGET_ENTITY)) {
       return Lists.newLinkedList();
     }
-    String targetEntity = subActions.get(AbstractChallengeCondition.TARGET_ENTITY)[0];
+    String targetEntity = subActions.get(AbstractChallengeTrigger.TARGET_ENTITY)[0];
 
     switch (targetEntity) {
       case "random_player":
@@ -42,7 +42,7 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
       case "every_player":
         return Lists.newLinkedList(ChallengeAPI.getIngamePlayers());
       case "current_player":
-        return conditionTarget instanceof Player ? Lists.newArrayList(conditionTarget) : Lists.newLinkedList();
+        return triggerTarget instanceof Player ? Lists.newArrayList(triggerTarget) : Lists.newLinkedList();
       case "every_mob":
         List<Entity> everyList = Lists.newLinkedList();
         for (World world : ChallengeAPI.getGameWorlds()) {
@@ -54,7 +54,7 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
         for (World world : ChallengeAPI.getGameWorlds()) {
           exceptList.addAll(world.getLivingEntities());
         }
-        exceptList.remove(conditionTarget);
+        exceptList.remove(triggerTarget);
         return exceptList;
       case "every_mob_except_players":
         List<Entity> noPlayers = Lists.newLinkedList();
@@ -67,10 +67,10 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
         return noPlayers;
     }
-    if (conditionTarget == null) {
+    if (triggerTarget == null) {
       return Lists.newLinkedList();
     }
-    return Lists.newArrayList(conditionTarget);
+    return Lists.newArrayList(triggerTarget);
   }
 
 }

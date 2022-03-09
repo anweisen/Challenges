@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger;
 
 import java.util.LinkedHashMap;
 import java.util.function.Supplier;
@@ -19,8 +19,8 @@ import org.bukkit.inventory.ItemStack;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public abstract class AbstractChallengeCondition extends AbstractChallengeSetting implements
-    IChallengeCondition {
+public abstract class AbstractChallengeTrigger extends AbstractChallengeSetting implements
+    IChallengeTrigger {
 
   public static final String ENTITY_TYPE = "entity_type",
         BLOCK = "block",
@@ -29,29 +29,29 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
         LIQUID = "liquid",
         TARGET_ENTITY = "target_entity";
 
-  public AbstractChallengeCondition(String name,
+  public AbstractChallengeTrigger(String name,
       SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
   }
 
-  public AbstractChallengeCondition(String name) {
+  public AbstractChallengeTrigger(String name) {
     super(name);
   }
 
-  public AbstractChallengeCondition(String name,
+  public AbstractChallengeTrigger(String name,
       Supplier<SubSettingsBuilder> builderSupplier) {
     super(name, builderSupplier);
   }
 
   @Override
   public final String getMessage() {
-    return "item-custom-condition-" + getMessageSuffix();
+    return "item-custom-trigger-" + getMessageSuffix();
   }
 
   public static LinkedHashMap<String, ItemStack> getMenuItems() {
     LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
-    for (AbstractChallengeCondition value : Challenges.getInstance().getCustomSettingsLoader().getConditions().values()) {
+    for (AbstractChallengeTrigger value : Challenges.getInstance().getCustomSettingsLoader().getTriggers().values()) {
       map.put(value.getName(), new ItemBuilder(value.getMaterial(), Message.forName(value.getMessage())).hideAttributes().build());
     }
 
@@ -59,9 +59,9 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
   }
 
   public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder() {
-    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.ENTITY_TYPE).fill(builder -> {
-      builder.addSetting(AbstractChallengeCondition.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-entity_type-any")).build());
-      builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-condition-entity_type-player")).build());
+    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeTrigger.ENTITY_TYPE).fill(builder -> {
+      builder.addSetting(AbstractChallengeTrigger.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-entity_type-any")).build());
+      builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-trigger-entity_type-player")).build());
       for (EntityType type : EntityType.values()) {
         try {
           Material spawnEgg = Material.valueOf(type.name() + "_SPAWN_EGG");
@@ -73,8 +73,8 @@ public abstract class AbstractChallengeCondition extends AbstractChallengeSettin
   }
 
   public static ChooseMultipleItemSubSettingBuilder createBlockSettingsBuilder() {
-    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.BLOCK).fill(builder -> {
-      builder.addSetting(AbstractChallengeCondition.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-condition-block-any")).build());
+    return SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeTrigger.BLOCK).fill(builder -> {
+      builder.addSetting(AbstractChallengeTrigger.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-block-any")).build());
       for (Material material : Material.values()) {
         if (material.isBlock() && material.isItem() && !BukkitReflectionUtils.isAir(material)) {
           builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());

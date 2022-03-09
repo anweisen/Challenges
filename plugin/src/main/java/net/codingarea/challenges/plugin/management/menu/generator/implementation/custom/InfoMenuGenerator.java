@@ -18,7 +18,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -49,8 +49,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private final UUID uuid;
 	private String name;
 	private Material material;
-	private AbstractChallengeCondition condition;
-	private Map<String, String[]> subConditions;
+	private AbstractChallengeTrigger trigger;
+	private Map<String, String[]> subTriggers;
 	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 	private Inventory inventory;
@@ -60,8 +60,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.uuid = customChallenge.getUniqueId();
 		this.material = customChallenge.getMaterial();
 		this.name = customChallenge.getDisplayName();
-		this.condition = customChallenge.getCondition();
-		this.subConditions = customChallenge.getSubConditions();
+		this.trigger = customChallenge.getTrigger();
+		this.subTriggers = customChallenge.getSubTriggers();
 		this.action = customChallenge.getAction();
 		this.subActions = customChallenge.getSubActions();
 	}
@@ -70,9 +70,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	 * Default Settings for new Custom Challenges
 	 */
 	public InfoMenuGenerator() {
-		this.condition = null;
+		this.trigger = null;
 		this.action = null;
-		this.subConditions = new HashMap<>();
+		this.subTriggers = new HashMap<>();
 		this.subActions = new HashMap<>();
 		this.uuid = UUID.randomUUID();
 		this.material = IRandom.threadLocal().choose(defaultMaterials);
@@ -99,15 +99,15 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("item-custom-info-delete")).build());
 		inventory.setItem(SAVE_SLOT, new ItemBuilder(Material.LIME_DYE, Message.forName("item-custom-info-save")).build());
 
-		// Condition Item
-		ItemBuilder conditionItem = new ItemBuilder(Material.WITHER_SKELETON_SKULL,
-				Message.forName("item-custom-info-condition"))
+		// Trigger Item
+		ItemBuilder triggerItem = new ItemBuilder(Material.WITHER_SKELETON_SKULL,
+				Message.forName("item-custom-info-trigger"))
 				.appendLore(
-						currently + (condition != null ? Message.forName(condition.getMessage()) : none));
-		if (condition != null) {
-			conditionItem.appendLore(getSubSettingsDisplay(condition.getSubSettingsBuilder(), subConditions));
+						currently + (trigger != null ? Message.forName(trigger.getMessage()) : none));
+		if (trigger != null) {
+			triggerItem.appendLore(getSubSettingsDisplay(trigger.getSubSettingsBuilder(), subTriggers));
 		}
-		inventory.setItem(CONDITION_SLOT, conditionItem.build());
+		inventory.setItem(CONDITION_SLOT, triggerItem.build());
 
 		// Action Item
 		ItemBuilder actionItem = new ItemBuilder(Material.NETHER_STAR,
@@ -149,8 +149,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		switch (type) {
 			case CONDITION:
-				condition = Challenges.getInstance().getCustomSettingsLoader().getConditionByName(data.remove("condition")[0]);
-				this.subConditions = data;
+				trigger = Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(data.remove("trigger")[0]);
+				this.subTriggers = data;
 				break;
 
 			case ACTION:
@@ -178,7 +178,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	}
 
 	public CustomChallenge save() {
-		return Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name, condition, subConditions, action, subActions, true);
+		return Challenges.getInstance().getCustomChallengesLoader().registerCustomChallenge(uuid, material, name,
+				trigger, subTriggers, action, subActions, true);
 	}
 
 	public boolean isInNaming() {
@@ -193,8 +194,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	public String toString() {
 		return "InfoMenuGenerator{" +
 				"name='" + name + '\'' +
-				", condition=" + condition +
-				", subConditions=" + subConditions.entrySet() +
+				", trigger=" + trigger +
+				", subTriggers=" + subTriggers.entrySet() +
 				", action=" + action +
 				", subActions=" + subActions.entrySet() +
 				", inNaming=" + inNaming +
@@ -258,9 +259,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					break;
 				case CONDITION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.CONDITION,
-							"condition", Message.forName("custom-title-condition").asString(),
-							AbstractChallengeCondition.getMenuItems(),
-							s -> Challenges.getInstance().getCustomSettingsLoader().getConditionByName(s))
+							"trigger", Message.forName("custom-title-trigger").asString(),
+							AbstractChallengeTrigger.getMenuItems(),
+							s -> Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);
 					break;

@@ -1,6 +1,6 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -11,9 +11,9 @@ import org.bukkit.event.inventory.CraftItemEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class CraftItemCondition extends AbstractChallengeCondition {
+public class CraftItemTrigger extends AbstractChallengeTrigger {
 
-  public CraftItemCondition(String name) {
+  public CraftItemTrigger(String name) {
     super(name);
   }
 

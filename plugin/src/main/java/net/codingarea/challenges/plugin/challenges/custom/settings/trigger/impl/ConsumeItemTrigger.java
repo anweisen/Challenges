@@ -1,7 +1,7 @@
-package net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl;
+package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
 import net.anweisen.utilities.common.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -14,10 +14,10 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class ConsumeItemCondition extends AbstractChallengeCondition {
+public class ConsumeItemTrigger extends AbstractChallengeTrigger {
 
-  public ConsumeItemCondition(String name) {
-    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeCondition.ITEM).fill(builder -> {
+  public ConsumeItemTrigger(String name) {
+    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeTrigger.ITEM).fill(builder -> {
       for (Material material : Material.values()) {
         if (material.isEdible()) {
           builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils
@@ -37,7 +37,8 @@ public class ConsumeItemCondition extends AbstractChallengeCondition {
     createData()
         .entity(event.getPlayer())
         .event(event)
-        .data(AbstractChallengeCondition.ITEM, AbstractChallengeCondition.ANY, event.getItem().getType().name())
+        .data(
+            AbstractChallengeTrigger.ITEM, AbstractChallengeTrigger.ANY, event.getItem().getType().name())
         .execute();
   }
 

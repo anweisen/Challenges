@@ -7,7 +7,7 @@ import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.AbstractChallengeSetting;
-import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
@@ -62,7 +62,7 @@ public abstract class AbstractChallengeAction extends AbstractChallengeSetting i
 
   public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer) {
     ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(
-        AbstractChallengeCondition.TARGET_ENTITY);
+        AbstractChallengeTrigger.TARGET_ENTITY);
     if (!onlyPlayer) {
       builder.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
               Message.forName("item-custom-action-target-current")).build());
