@@ -1228,6 +1228,9 @@
   "item-custom-condition-pickup_item": [
     "§bPickup Item"
   ],
+  "item-custom-condition-drop_item": [
+    "§9Player Dropped Item"
+  ],
   "item-custom-condition-advancement": [
     "§cPlayer Gets Advancement"
   ],

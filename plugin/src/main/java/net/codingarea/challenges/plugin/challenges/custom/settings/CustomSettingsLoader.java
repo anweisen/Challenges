@@ -28,6 +28,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.W
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.AbstractChallengeCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.AdvancementCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.CraftItemCondition;
+import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.DropItemCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.GainXPCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.InLiquidCondition;
 import net.codingarea.challenges.plugin.challenges.custom.settings.condition.impl.LevelUpCondition;
@@ -82,6 +83,7 @@ public class CustomSettingsLoader {
         new EntityDamageByPlayerCondition("damage_by_player"),
         new ConsumeItemCondition("consume_item"),
         new PickupItemCondition("pickup_item"),
+        new DropItemCondition("drop_item"),
         new AdvancementCondition("advancement"),
         new HungerCondition("hunger"),
         new MoveUpCondition("move_up"),

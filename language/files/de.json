@@ -1248,6 +1248,9 @@
   "item-custom-condition-pickup_item": [
     "§bItem Aufheben"
   ],
+  "item-custom-condition-drop_item": [
+    "§9Spieler Droppt Item"
+  ],
   "item-custom-condition-advancement": [
     "§cSpieler Erhält Errungenschaft"
   ],
