@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.concurrent.ThreadLocalRandom;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -7,7 +9,6 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -15,9 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
-
-import javax.annotation.Nonnull;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -82,9 +80,7 @@ public class DamageTeleportChallenge extends SettingModifier {
 
 		final double randomX = ThreadLocalRandom.current().nextDouble(-size, size);
 		final double randomY = ThreadLocalRandom.current().nextDouble(-size, size);
-
-		Bukkit.broadcastMessage(randomX + " : " + randomY);
-
+		
 		return world.getWorldBorder().getCenter().add(randomX, 0, randomY);
 	}
 
