@@ -147,12 +147,12 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(InvisibleMobsChallenge.class);
 		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
 		register(DontStopRunningChallenge.class);
-		register(DamageTeleportChallenge.class);
+//		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
 		register(PickupItemLaunchChallenge.class);
 		register(FoodLaunchChallenge.class);
-
 		register(UncraftItemsChallenge.class);
+
 		register(FiveHundredBlocksChallenge.class);
 
 		// Goal
