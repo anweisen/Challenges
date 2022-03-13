@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.spigot.generator;
 
 import java.util.Random;
 import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -14,6 +15,8 @@ import org.bukkit.generator.ChunkGenerator;
  * @since 2.1.0
  */
 public class VoidMapGenerator extends ChunkGenerator {
+
+  private static final boolean generateEndPortal = MinecraftVersion.current().getMinor() == 18;
 
 //  private static class PortalInfo {
 //
@@ -68,11 +71,13 @@ public class VoidMapGenerator extends ChunkGenerator {
 
     // Stronghold location is weirdly the same for every void map
     // TODO: FIX FOLLOWING ISSUES
-    // Only applies in 1.18 worlds (1.17 not tested)
+    // Only works in 1.18 worlds
     // maybe try to locate the three first strongholds and place portal in chunk (code commented out above)
     // Maybe don't generate a portal at all to prevent issues with the feature
-    if (x == -7 && z == -105) {
-      generateEndPortal(chunkData);
+    if (generateEndPortal) {
+      if (x == -7 && z == -105) {
+        generateEndPortal(chunkData);
+      }
     }
 
 //      if (portalChunk.chunkX == x && portalChunk.chunkZ == z) {
