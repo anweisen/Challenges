@@ -157,9 +157,10 @@ save-player-custom_challenges: false
 save-player-stats: false
 no-stats-after-cheating: false
 
-# Debug messages will be shown in the console.
-# You should enable this setting when reporting an issue.
-# This may also enable experimental settings
+# A mode that is used for development or testing purposes.
+# - Will NOT add any other challenges or features.
+# - Will show debug messages in console.
+# - Will download languages from github development branch (https://github.com/anweisen/Challenges/tree/development).
 dev-mode: false
 
 database:
