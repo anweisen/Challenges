@@ -36,7 +36,7 @@ public enum Statistic {
 	public enum Display {
 
 		HEARTS(value ->  NumberFormatter.BIG_NUMBER.format(value / 2) + " §c❤"),
-		INTEGER(value -> NumberFormatter.BIG_NUMBER.format(value) + "");
+		INTEGER(NumberFormatter.BIG_NUMBER::format);
 
 		private final Function<Double, String> chatFormat;
 

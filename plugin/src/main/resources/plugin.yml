@@ -1,5 +1,5 @@
 name: Challenges
-version: 2.0.2
+version: 2.1.0
 author: CodingArea
 authors:
   - anweisen
@@ -20,12 +20,6 @@ require:
   version: 1.13
 
 commands:
-  creload:
-    usage: "/creload"
-    description: "Reloads the plugin"
-    permission: "challenges.reload"
-    aliases:
-      - "crl"
   help:
     usage: "/help"
     description: "Provides you with some information of this plugin"
@@ -79,17 +73,31 @@ commands:
     aliases:
       - "pos"
       - "coords"
+  delposition:
+    usage: "/delpos [name]"
+    description: "Deletes previously saved locations"
+    aliases:
+      - "delpos"
+      - "delcoords"
+    permission: "challenges.delposition"
+  setposition:
+    usage: "/setpos [name]"
+    description: "Creates a position at a specific location"
+    aliases:
+      - "setpos"
+      - "setcoords"
+    permission: "challenges.setposition"
   backpack:
     usage: "/bp"
     description: "Opens the player's or the shared backpack"
     aliases:
       - "bp"
-  config:
-    usage: "/config <save/load>"
-    description: "Allows you to save/load your challenge setting over multiple servers using a database"
+  database:
     aliases:
-      - "config"
-    permission: "challenges.config"
+      - "db"
+    usage: "/db <save/load> <config/custom_challenges>"
+    description: "Manage your settings in the database"
+    permission: "challenges.database"
   gamestate:
     usage: "/gamestate <reset/reload>"
     description: "Allows you to reload/reset the current challenges gamestate"
@@ -180,6 +188,14 @@ commands:
     usage: "/difficulty <difficulty>"
     description: "Changes the difficulty with saving it in the difficulty setting"
     permission: "challenges.difficulty"
+  world:
+    usage: "/world <world>"
+    description: "Teleport to another world"
+    permission: "challenges.world"
+  back:
+    usage: "/back [count]"
+    description: "Teleport to old locations"
+    permission: "challenges.back"
   skipitem:
     usage: "/skipitem"
     description: "Skips the current item of the collect all items goal"

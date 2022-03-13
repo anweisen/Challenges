@@ -1,12 +1,19 @@
 package net.codingarea.challenges.plugin;
 
+import java.util.ArrayList;
+import javax.annotation.Nullable;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.loader.ContentLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import org.bukkit.Bukkit;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
+import org.bukkit.entity.Player;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -80,6 +87,28 @@ public final class ChallengeAPI {
 	@Nonnull
 	public static String formatTime(long seconds) {
 		return Challenges.getInstance().getChallengeTimer().getFormat().format(seconds);
+	}
+
+	/**
+	 * @return all players that aren't ignored by the plugin
+	 */
+	@Nonnull
+	public static List<Player> getIngamePlayers() {
+		List<Player> list = new ArrayList<>();
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (!AbstractChallenge.ignorePlayer(player)) {
+				list.add(player);
+			}
+		}
+		return list;
+	}
+
+	public static List<World> getGameWorlds() {
+		return Challenges.getInstance().getGameWorldStorage().getGameWorlds();
+	}
+
+	public static World getGameWorld(@Nullable Environment environment) {
+		return Challenges.getInstance().getGameWorldStorage().getWorld(environment);
 	}
 
 }

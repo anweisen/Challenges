@@ -1,11 +1,19 @@
 package net.codingarea.challenges.plugin.management.database;
 
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.database.Database;
 import net.anweisen.utilities.database.DatabaseConfig;
 import net.anweisen.utilities.database.SQLColumn;
+import net.anweisen.utilities.database.action.ExecutedQuery;
+import net.anweisen.utilities.database.exceptions.DatabaseException;
+import net.anweisen.utilities.database.internal.sql.abstraction.AbstractSQLDatabase;
 import net.anweisen.utilities.database.internal.sql.mysql.MySQLDatabase;
 import net.anweisen.utilities.database.internal.sql.sqlite.SQLiteDatabase;
 import net.codingarea.challenges.plugin.Challenges;
@@ -13,12 +21,6 @@ import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -87,9 +89,33 @@ public final class DatabaseManager {
 					new SQLColumn("name", "varchar", 16),
 					new SQLColumn("textures", "varchar", 500),
 					new SQLColumn("stats", "varchar", 1500),
-					new SQLColumn("config", "varchar", 7500)
+					new SQLColumn("config", "varchar", 15000),
+					new SQLColumn("custom_challenges", "varchar", 60000)
 			);
+			loadMigration();
 		});
+	}
+
+	private void loadMigration() {
+
+		if (database instanceof AbstractSQLDatabase) {
+			AbstractSQLDatabase sqlDatabase = (AbstractSQLDatabase) this.database;
+
+			// Create custom_challenges column
+			try {
+				ExecutedQuery execute = sqlDatabase.query("challenges").select("custom_challenges").execute();
+			} catch (DatabaseException databaseException) {
+				try {
+					sqlDatabase.prepare("ALTER TABLE `challenges` ADD COLUMN `custom_challenges` varchar(60000)").execute();
+					Challenges.getInstance().getLogger().info("Creating not existing column 'custom_challenges' in SQL Database");
+				} catch (Exception exception) {
+					Challenges.getInstance().getLogger().error("Failed to create non existing column 'custom_challenges' in SQL Database");
+					exception.printStackTrace();
+				}
+			}
+
+		}
+
 	}
 
 	public void disconnectIfConnected() {

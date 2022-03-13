@@ -38,7 +38,7 @@ public final class ItemDescription {
 		if (description.length == 0) throw new IllegalArgumentException("Invalid item description: Cannot be empty");
 
 		originalName = description[0];
-		name = "§8» " + originalName;
+		name = Message.forName("item-prefix") + originalName;
 		colors = determineColors(originalName);
 
 		List<String> loreOutput = new ArrayList<>();

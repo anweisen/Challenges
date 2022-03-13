@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -21,6 +22,7 @@ import javax.annotation.Nullable;
  * @since 2.0
  */
 @Since("2.0")
+@ExcludeFromRandomChallenges
 public class InvertHealthChallenge extends TimedChallenge {
 
 	private final IRandom random = IRandom.create();
@@ -57,10 +59,18 @@ public class InvertHealthChallenge extends TimedChallenge {
 		Message.forName("health-inverted").broadcast(Prefix.CHALLENGES);
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (ignorePlayer(player)) continue;
-			double health = player.getMaxHealth() - player.getHealth();
-			player.setHealth(health);
+			invertHealth(player);
 		}
 		restartTimer();
+	}
+
+	public static void invertHealth(Player player) {
+		double health = player.getMaxHealth() - player.getHealth();
+		if (health <= 0) {
+			ChallengeHelper.kill(player);
+			return;
+		}
+		player.setHealth(health);
 	}
 
 }

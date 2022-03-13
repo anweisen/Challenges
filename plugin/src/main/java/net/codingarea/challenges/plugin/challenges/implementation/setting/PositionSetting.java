@@ -1,8 +1,19 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -13,17 +24,20 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.Particle.DustOptions;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.Map.Entry;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -37,6 +51,8 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	public PositionSetting() {
 		super(MenuType.SETTINGS, true);
 		particleLines = ChallengeConfigHelper.getSettingsDocument().getBoolean("position-particle-lines");
+		Challenges.getInstance().registerCommand(new DelPosCommand(), "delposition");
+		Challenges.getInstance().registerCommand(new SetPosCommand(), "setposition");
 	}
 
 	@Nonnull
@@ -100,7 +116,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
 	}
 
-	private String getWorldName(@Nonnull Location location) {
+	public String getWorldName(@Nonnull Location location) {
 		if (location.getWorld() == null) return "?";
 		switch (location.getWorld().getEnvironment()) {
 			default:        return "Overworld";
@@ -134,6 +150,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	@Override
 	public void loadGameState(@Nonnull Document document) {
+		positions.clear();
 		for (String name : document.keys()) {
 			positions.put(name, document.getSerializable(name, Location.class));
 		}
@@ -141,7 +158,161 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	@Override
 	public void writeGameState(@Nonnull Document document) {
+		for (String key : document.keys()) {
+			document.remove(key);
+		}
 		positions.forEach(document::set);
+	}
+
+	public class DelPosCommand implements PlayerCommand, TabCompleter {
+
+		@Override
+		public void onCommand(@NotNull Player player, @NotNull String[] args) throws Exception {
+			if (!isEnabled()) {
+				Message.forName("positions-disabled").send(player, Prefix.POSITION);
+				SoundSample.BASS_OFF.play(player);
+				return;
+			}
+			if (!ChallengeAPI.isStarted()) {
+				Message.forName("timer-not-started").send(player, Prefix.POSITION);
+				SoundSample.BASS_OFF.play(player);
+				return;
+			}
+
+			if (args.length == 0) {
+				if (positions.isEmpty()) {
+					Message.forName("no-positions-global").send(player, Prefix.POSITION, "position <name>");
+					return;
+				}
+
+				positions.entrySet().stream()
+						.sorted(Comparator.<Entry<String, Location>>comparingDouble(entry -> entry.getValue().distance(player.getLocation())).reversed())
+						.forEach(entry -> {
+							Location location = entry.getValue();
+							Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), entry.getKey(), (int) location.distance(player.getLocation()));
+						});
+			} else if (args.length == 1) {
+				String name = args[0].toLowerCase();
+				Location position = positions.get(name);
+				if (position != null) {
+					positions.remove(name);
+					Message.forName("position-deleted").broadcast(Prefix.POSITION,
+							position.getBlockX(), position.getBlockY(), position.getBlockZ(),
+							getWorldName(position), name, NameHelper.getName(player));
+				} else {
+					Message.forName("position-not-exists").send(player, Prefix.POSITION);
+				}
+
+			} else {
+				Message.forName("syntax").send(player, Prefix.POSITION, "delposition <name>");
+			}
+
+		}
+
+		@Nullable
+		@Override
+		public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+			if (args.length > 1) return new ArrayList<>();
+			return Utils.filterRecommendations(args[0], positions.keySet().toArray(new String[0]));
+		}
+
+	}
+
+	public class SetPosCommand implements PlayerCommand, TabCompleter {
+
+		@Override
+		public void onCommand(@NotNull Player player, @NotNull String[] args) throws Exception {
+			if (!isEnabled()) {
+				Message.forName("positions-disabled").send(player, Prefix.POSITION);
+				SoundSample.BASS_OFF.play(player);
+				return;
+			}
+			if (!ChallengeAPI.isStarted()) {
+				Message.forName("timer-not-started").send(player, Prefix.POSITION);
+				SoundSample.BASS_OFF.play(player);
+				return;
+			}
+
+			if (args.length < 5) {
+				Message.forName("syntax").send(player, Prefix.POSITION, "setposition <name> <world> <x> <y> <z>");
+				return;
+			}
+
+			String name = args[0].toLowerCase();
+
+			if (positions.containsKey(name)) {
+				Message.forName("position-already-exists").send(player, Prefix.POSITION, name);
+				return;
+			}
+
+			String worldName = args[1];
+			String x = args[2];
+			String y = args[3];
+			String z = args[4];
+
+			try {
+				Environment environment = getWorldEnvironment(worldName);
+				World world = ChallengeAPI.getGameWorld(environment);
+				if (world == null) throw new IllegalArgumentException();
+				double doubleX = Double.parseDouble(x);
+				double doubleY = Double.parseDouble(y);
+				double doubleZ = Double.parseDouble(z);
+
+				Location position = new Location(world, doubleX, doubleY, doubleZ);
+				positions.put(name, position);
+				Message.forName("position-set")
+						.broadcast(Prefix.POSITION, position.getBlockX(), position.getBlockY(),
+								position.getBlockZ(), getWorldName(position), name, NameHelper.getName(player));
+				SoundSample.BASS_ON.play(player);
+				broadcastParticleLine(position);
+
+			} catch (Exception exception) {
+				Message.forName("syntax").send(player, Prefix.POSITION, "setposition <name> <world> <x> <y> <z>");
+			}
+
+		}
+
+		@Nullable
+		@Override
+		public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
+			if (!(sender instanceof Player)) return new LinkedList<>();
+			Player player = (Player) sender;
+			if (args.length > 5) return new LinkedList<>();
+
+			if (args.length > 2) {
+				int arg = args.length - 2;
+
+				double cord;
+				Location location = player.getLocation();
+				switch (arg) {
+					case 1:
+						cord = location.getBlockX() + 0.5;
+						break;
+					case 2:
+						cord = location.getBlockY();
+						break;
+					default:
+						cord = location.getBlockZ() + 0.5;
+				}
+
+				return Collections.singletonList(String.valueOf(cord));
+
+			} else if (args.length > 1) {
+				return Arrays.asList("Overworld", "Nether", "End");
+			}
+
+			return new LinkedList<>();
+		}
+
+	}
+
+	public static Environment getWorldEnvironment(@Nonnull String name) {
+		switch (name.toLowerCase()) {
+			default: return null;
+			case "overworld": return Environment.NORMAL;
+			case "nether": return Environment.NETHER;
+			case "end": return Environment.THE_END;
+		}
 	}
 
 }

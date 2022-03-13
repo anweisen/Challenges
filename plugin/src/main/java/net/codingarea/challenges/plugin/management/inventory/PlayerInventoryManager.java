@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.management.inventory;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.anweisen.utilities.common.collection.Triple;
+import net.anweisen.utilities.common.collection.pair.Triple;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -171,7 +171,6 @@ public final class PlayerInventoryManager implements Listener {
 			if (pair != null && pair.getThird() != null && !player.hasPermission(pair.getThird())) continue;
 			if (expected != null && found == null) return false;
 			if (expected == null) continue;
-			if (found == null) continue;
 			if (expected.getType() != found.getType()) return false;
 		}
 		return true;

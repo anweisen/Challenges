@@ -1,5 +1,16 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -9,16 +20,15 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.container.PlayerData;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.*;
+import org.bukkit.Bukkit;
+import org.bukkit.GameRule;
+import org.bukkit.Location;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
+import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.io.*;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -168,9 +178,8 @@ public final class WorldManager {
 		sessionConfig.clear();
 		sessionConfig.set("reset", true);
 		sessionConfig.set("seed-reset", useCustomSeed);
-		try {
-			sessionConfig.set("level-name", Bukkit.getWorlds().get(0).getName());
-		} catch (Exception ex) {
+		if (!Bukkit.getWorlds().isEmpty()) {
+			sessionConfig.set("level-name", ChallengeAPI.getGameWorld(Environment.NORMAL).getName());
 		}
 		sessionConfig.save();
 
@@ -210,7 +219,15 @@ public final class WorldManager {
 			if (player.getWorld() != world) continue;
 
 			Location location = player.getBedSpawnLocation();
-			if (location == null) location = Bukkit.getWorld(levelName).getSpawnLocation();
+			if (location == null) {
+				World world = Bukkit.getWorld(levelName);
+				if (world != null) {
+					location = world.getSpawnLocation();
+				} else {
+					world = ChallengeAPI.getGameWorld(Environment.NORMAL);
+					location = world.getSpawnLocation();
+				}
+			}
 
 			player.teleport(location);
 		}
@@ -241,6 +258,10 @@ public final class WorldManager {
 			} else {
 				deletePreGeneratedWorld(world);
 			}
+		}
+
+		for (String world : Challenges.getInstance().getGameWorldStorage().getCustomGeneratedGameWorlds()) {
+			deleteWorld(world);
 		}
 
 		sessionConfig.set("reset", false);
@@ -288,9 +309,15 @@ public final class WorldManager {
 	}
 
 	private void copyDirectory(@Nonnull File source, @Nonnull File target) throws IOException {
-		if (!target.exists())
-			target.mkdir();
-		for (String child : source.list()) {
+		if (!target.exists()) {
+			if (!target.mkdir()) {
+				return;
+			}
+		}
+
+		String[] list = source.list();
+		if (list == null) return;
+		for (String child : list) {
 			if ("session.lock".equals(child)) continue;
 			copy(new File(source, child), new File(target, child));
 		}

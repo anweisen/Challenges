@@ -1,13 +1,24 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Random;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
-import org.bukkit.*;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -15,12 +26,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -71,7 +76,7 @@ public class RandomizedHPChallenge extends SettingModifier {
 	}
 
 	private void randomizeExistingEntityHealth() {
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				randomizeEntityHealth(entity);
 			}
@@ -80,24 +85,29 @@ public class RandomizedHPChallenge extends SettingModifier {
 
 	private void resetExistingEntityHealth() {
 		Map<EntityType, Double> entityDefaultHealth = new HashMap<>();
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				if (entity instanceof Player) continue;
 				EntityType type = entity.getType();
 				double health = entityDefaultHealth.getOrDefault(type, getDefaultHealth(type));
 				entityDefaultHealth.put(type, health);
-				entity.getAttribute(Attribute.GENERIC_MAX_HEALTH).setBaseValue(health);
+				AttributeInstance attribute = entity.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+				if (attribute == null) return;
+				attribute.setBaseValue(health);
 				entity.setHealth(health);
 			}
 		}
 	}
 
 	private double getDefaultHealth(@Nonnull EntityType entityType) {
-		World world = Bukkit.getWorlds().get(0);
+		World world = ChallengeAPI.getGameWorld(Environment.NORMAL);
 		Entity entity = world.spawnEntity(new Location(world, 0, 0, 0), entityType);
 		entity.remove();
 		if (!(entity instanceof LivingEntity)) return 0;
-		return ((LivingEntity) entity).getAttribute(Attribute.GENERIC_MAX_HEALTH).getBaseValue();
+		AttributeInstance attribute = ((LivingEntity) entity)
+				.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+		if (attribute == null) return 10;
+		return attribute.getBaseValue();
 	}
 
 	@Nonnull

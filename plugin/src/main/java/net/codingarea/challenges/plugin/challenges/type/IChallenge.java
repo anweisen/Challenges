@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.type;
 
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.challenges.entities.GamestateSaveable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import org.bukkit.inventory.ItemStack;
@@ -14,7 +15,7 @@ import javax.annotation.Nonnull;
  *
  * @see ChallengeManager
  */
-public interface IChallenge {
+public interface IChallenge extends GamestateSaveable {
 
 	/**
 	 * Returns if this challenge is enabled.
@@ -51,7 +52,7 @@ public interface IChallenge {
 	 * @return the internal name of this challenge
 	 */
 	@Nonnull
-	String getName();
+	String getUniqueName();
 
 	/**
 	 * This challenge will be displayed in the menu for the given {@link MenuType}.
@@ -70,9 +71,6 @@ public interface IChallenge {
 	ItemStack getSettingsItem();
 
 	void handleClick(@Nonnull ChallengeMenuClickInfo info);
-
-	void writeGameState(@Nonnull Document document);
-	void loadGameState(@Nonnull Document document);
 
 	void writeSettings(@Nonnull Document document);
 	void loadSettings(@Nonnull Document document);

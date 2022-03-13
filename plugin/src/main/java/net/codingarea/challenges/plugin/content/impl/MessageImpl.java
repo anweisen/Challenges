@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.content.impl;
 
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
@@ -10,10 +13,6 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -32,7 +31,9 @@ public class MessageImpl implements Message {
 	@Override
 	public String asString(@Nonnull Object... args) {
 		if (value == null)                      return Message.NULL;
+		if (value instanceof String && args.length == 0) return (String) value;
 		if (value instanceof String)            return StringUtils.format((String) value, args);
+		if (value instanceof String[] && args.length == 0) return StringUtils.getArrayAsString((String[]) value, "\n");
 		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
 		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
@@ -145,7 +146,7 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void setValue(@Nonnull String value) {
-		this.value = value.startsWith("§") || value.startsWith("{") ? value : "§7" + value;
+		this.value = value;
 	}
 
 	@Override

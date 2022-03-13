@@ -1,15 +1,14 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -21,7 +20,8 @@ public final class BlockUtils {
 	private BlockUtils() {}
 
 	public static boolean isSameBlock(@Nullable Location loc1, @Nullable Location loc2) {
-		if (loc1 == null || loc2 == null) return false;
+		if (loc1 == null || loc2 == null) return true;
+		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.getBlockX() == loc2.getBlockX()
 		 	&& loc1.getBlockY() == loc2.getBlockY()
 			&& loc1.getBlockZ() == loc2.getBlockZ();
@@ -29,20 +29,24 @@ public final class BlockUtils {
 
 	public static boolean isSameBlockIgnoreHeight(@Nullable Location loc1, @Nullable Location loc2) {
 		if (loc1 == null || loc2 == null) return false;
+		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.getBlockX() == loc2.getBlockX()
 			&& loc1.getBlockZ() == loc2.getBlockZ();
 	}
 
 	public static boolean isSameLocation(@Nonnull Location loc1, @Nonnull Location loc2) {
+		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.distance(loc2) < 0.1;
 	}
 
 	public static boolean isSameLocationIgnoreHeight(@Nonnull Location loc1, @Nonnull Location loc2) {
+		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.getX() == loc2.getX()
 			&& loc1.getZ() == loc2.getZ();
 	}
 
 	public static boolean isSameChunk(@Nonnull Chunk chunk1, @Nonnull Chunk chunk2) {
+		if (chunk1.getWorld() != chunk2.getWorld()) return false;
 		return chunk1.getX() == chunk2.getX() && chunk1.getZ() == chunk2.getZ();
 	}
 
@@ -168,6 +172,24 @@ public final class BlockUtils {
 			return null;
 		}
 		return block;
+	}
+
+	public static boolean isEndItem(Material material) {
+		String name = material.name();
+		return material == Material.ELYTRA ||
+				name.contains("PURPUR") ||
+				name.contains("SHULKER") ||
+				name.contains("END");
+	}
+
+	public static boolean isTooHardToGet(Material material) {
+		String name = material.name();
+		return isEndItem(material) ||
+				material == Material.NETHER_STAR ||
+				name.contains("EXPOSED") ||
+				name.contains("WEATHERED") ||
+				name.contains("OXIDIZED") ||
+				name.contains("BUD");
 	}
 
 }

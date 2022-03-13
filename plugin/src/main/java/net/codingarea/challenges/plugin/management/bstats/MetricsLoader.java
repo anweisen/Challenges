@@ -21,7 +21,12 @@ public class MetricsLoader {
 		Challenges plugin = Challenges.getInstance();
 
 		Metrics metrics = new Metrics(plugin, 11494);
-		metrics.addCustomChart(new SimplePie("language", () -> Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class).getLanguage()));
+		metrics.addCustomChart(new SimplePie("language", () -> {
+			LanguageLoader loader = Challenges.getInstance().getLoaderRegistry()
+					.getFirstLoaderByClass(LanguageLoader.class);
+			if (loader == null) return "NULL";
+			return loader.getLanguage();
+		}));
 		metrics.addCustomChart(new SimplePie("cloudType", () -> StringUtils.getEnumName(plugin.getCloudSupportManager().getType())));
 		metrics.addCustomChart(new SimplePie("databaseType", () -> StringUtils.getEnumName(plugin.getDatabaseManager().getType())));
 		metrics.addCustomChart(new SingleLineChart("totalMemory", this::getMemory));
@@ -29,7 +34,7 @@ public class MetricsLoader {
 		metrics.addCustomChart(new AdvancedPie("maxMemory", () -> {
 			HashMap<String, Integer> map = new HashMap<>();
 			if (Runtime.getRuntime().maxMemory() == Long.MAX_VALUE) return map;
-			map.put(getMemory() + "", 1);
+			map.put(String.valueOf(getMemory()), 1);
 			return map;
 		}));
 

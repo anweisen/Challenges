@@ -34,6 +34,10 @@ public class RestrictionListener implements Listener {
 	public void onEntityDamage(@Nonnull EntityDamageEvent event) {
 		if (ChallengeAPI.isStarted()) return;
 		Entity entity = event.getEntity();
+		if (entity instanceof Player && ((Player) entity).getGameMode() == GameMode.CREATIVE) {
+			return;
+		}
+
 		if (event.getCause() != DamageCause.VOID && (entity instanceof Player || event.getCause() == DamageCause.ENTITY_ATTACK || event.getCause() == DamageCause.PROJECTILE)) {
 			entity.setFireTicks(entity instanceof Player ? 0 : entity.getFireTicks());
 			event.setCancelled(true);

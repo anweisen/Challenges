@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
@@ -124,7 +124,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		updateEffects();
 	}
 
-	private void addRandomEffect(@Nonnull Player eventPlayer) {
+	public void addRandomEffect(@Nonnull Player eventPlayer) {
 		PotionEffectType randomEffect = getNewRandomEffect();
 		if (randomEffect == null) return;
 		applyNewEffect(eventPlayer, randomEffect);
@@ -159,7 +159,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		return possibleEffects.get(random.nextInt(possibleEffects.size()));
 	}
 
-	private void updateEffects() {
+	public void updateEffects() {
 		forEachEffect((player, effectType, amplifier) -> {
 			if (effectsToEveryone()) {
 				broadcastFiltered(currentPlayer -> {
@@ -174,6 +174,14 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	}
 
 	private void addEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType, int amplifier) {
+
+		if (player.hasPotionEffect(effectType)) {
+			PotionEffect effect = player.getPotionEffect(effectType);
+			if (effect != null && effect.getAmplifier() == amplifier-1) {
+				return;
+			}
+		}
+
 		player.removePotionEffect(effectType);
 		player.addPotionEffect(new PotionEffect(effectType, Integer.MAX_VALUE, amplifier - 1));
 	}
@@ -262,7 +270,9 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 				player.removePotionEffect(potionEffect.getType());
 			}
 		});
-		updateEffects();
+		if (shouldExecuteEffect()) {
+			updateEffects();
+		}
 	}
 
 }

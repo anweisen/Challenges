@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import net.anweisen.utilities.common.annotations.DeprecatedSince;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -31,7 +32,6 @@ import java.util.function.Consumer;
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	protected static final Challenges plugin = Challenges.getInstance();
-	protected static boolean inInstantKill = false;
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
@@ -95,7 +95,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	@Override
-	public String getName() {
+	public String getUniqueName() {
 		return name != null ? name : (name = getClass().getSimpleName().toLowerCase()
 				.replace("setting", "")
 				.replace("challenge", "")
@@ -129,25 +129,28 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return isEnabled() && ChallengeAPI.isStarted() && !ChallengeAPI.isWorldInUse();
 	}
 
-	protected final void kill(@Nonnull Player player) {
-
-		if (!Bukkit.isPrimaryThread()) {
-			Bukkit.getScheduler().runTask(plugin, () -> kill(player));
-			return;
-		}
-
-		inInstantKill = true;
-		player.damage(player.getHealth());
-		inInstantKill = false;
+	/**
+	 * @deprecated Use {@link ChallengeHelper#kill(Player)}
+	 */
+	@Deprecated
+	@DeprecatedSince("2.1.0")
+	public void kill(@Nonnull Player player) {
+		ChallengeHelper.kill(player);
 	}
 
-	protected final void kill(@Nonnull Player player, int delay) {
-		Bukkit.getScheduler().runTaskLater(plugin, () -> kill(player), delay);
+	/**
+	 * @deprecated Use {@link ChallengeHelper#kill(Player, int)}
+	 */
+	@Deprecated
+	@DeprecatedSince("2.1.0")
+	public void kill(@Nonnull Player player, int delay) {
+		ChallengeHelper.kill(player, delay);
+
 	}
 
 	@Nonnull
 	protected final Document getGameStateData() {
-		return plugin.getConfigManager().getGameStateConfig().getDocument(getName());
+		return plugin.getConfigManager().getGameStateConfig().getDocument(getUniqueName());
 	}
 
 	@Nonnull

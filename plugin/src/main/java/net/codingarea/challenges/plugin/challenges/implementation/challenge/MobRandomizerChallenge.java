@@ -1,6 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -8,20 +14,20 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.Drowned;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Guardian;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.WaterMob;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -61,7 +67,7 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	}
 
 	private void loadAllEntities() {
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				if (!entityRandomizer.containsKey(entity.getType())) continue;
 				entity.remove();
@@ -75,7 +81,7 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	private void unLoadAllEntities() {
 		inSpawn = true;
 
-		for (World world : Bukkit.getWorlds()) {
+		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				if (!inverseRandomizer.containsKey(entity.getType())) continue;
 				entity.remove();

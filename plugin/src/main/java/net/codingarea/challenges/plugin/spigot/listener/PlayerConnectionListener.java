@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import java.util.List;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -69,6 +70,15 @@ public class PlayerConnectionListener implements Listener {
 			if (!UpdateLoader.isNewestConfigVersion()) {
 				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
 			}
+
+			List<String> missingConfigSettings = Challenges.getInstance().getConfigManager()
+					.getMissingConfigSettings();
+			if (!missingConfigSettings.isEmpty()) {
+				String separator = Message.forName("missing-config-settings-separator").asString();
+				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES,
+						String.join(separator , missingConfigSettings));
+			}
+
 			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {
 				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
 			}
@@ -91,28 +101,34 @@ public class PlayerConnectionListener implements Listener {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(@Nonnull PlayerQuitEvent event) {
 
-		Player player = event.getPlayer();
-		Challenges.getInstance().getScoreboardManager().handleQuit(player);
-		DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
+		try {
+			Player player = event.getPlayer();
+			Challenges.getInstance().getScoreboardManager().handleQuit(player);
+			DatabaseHelper.clearCache(event.getPlayer().getUniqueId());
 
-		if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
-			event.setQuitMessage(null);
-		} else if (messages) {
-			event.setQuitMessage(null);
-			Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			if (Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
+				event.setQuitMessage(null);
+			} else if (messages) {
+				event.setQuitMessage(null);
+				Message.forName("quit-message").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+			}
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("Error while handling disconnect", exception);
 		}
 
 		if (Bukkit.getOnlinePlayers().size() <= 1) {
-			if (restoreDefaultsOnLastQuit) {
-				Challenges.getInstance().getChallengeManager().restoreDefaults();
-			}
 
 			if (!Challenges.getInstance().getWorldManager().isShutdownBecauseOfReset()) {
 				if (resetOnLastQuit && !ChallengeAPI.isFresh()) {
 					Challenges.getInstance().getWorldManager().prepareWorldReset(Bukkit.getConsoleSender());
+					return;
 				} else if (pauseOnLastQuit && ChallengeAPI.isStarted()) {
 					ChallengeAPI.pauseTimer();
 				}
+			}
+
+			if (restoreDefaultsOnLastQuit) {
+				Challenges.getInstance().getChallengeManager().restoreDefaults();
 			}
 		}
 

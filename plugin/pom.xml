@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>net.codingarea.challenges</groupId>
 		<artifactId>root</artifactId>
-		<version>2.0.2</version>
+		<version>2.1.0</version>
 	</parent>
 
 	<artifactId>plugin</artifactId>
@@ -34,7 +34,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
+			<groupId>com.github.anweisen.Utility</groupId>
 			<artifactId>bukkit-utils</artifactId>
 			<version>${utilities.version}</version>
 		</dependency>
@@ -61,12 +61,12 @@
 
 		<!-- Database API -->
 		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
+			<groupId>com.github.anweisen.Utility</groupId>
 			<artifactId>database-api</artifactId>
 			<version>${utilities.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>net.anweisen.utilities</groupId>
+			<groupId>com.github.anweisen.Utility</groupId>
 			<artifactId>database-sql</artifactId>
 			<version>${utilities.version}</version>
 		</dependency>
@@ -82,10 +82,10 @@
 
 	<repositories>
 
-		<!-- Utilities Repository -->
+		<!-- Jitpack for Utilities Dependencies -->
 		<repository>
-			<id>github</id>
-			<url>https://maven.pkg.github.com/anweisen/*</url>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
 		</repository>
 
 		<!-- Minecraft Repositories -->
@@ -144,13 +144,5 @@
 		</plugins>
 
 	</build>
-
-    <distributionManagement>
-        <repository>
-            <id>anweisen</id>
-            <name>GitHub anweisen Apache Maven Packages</name>
-            <url>https://maven.pkg.github.com/anweisen/Challenges</url>
-        </repository>
-    </distributionManagement>
 
 </project>

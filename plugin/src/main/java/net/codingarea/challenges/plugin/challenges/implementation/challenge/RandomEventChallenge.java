@@ -45,13 +45,13 @@ public class RandomEventChallenge extends TimedChallenge {
 	public RandomEventChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 3, false);
 		events = new Event[] {
-			new SpeedEvent(),
+				new SpeedEvent(),
 			new SpawnEntitiesEvent(),
-			new HoleEvent(),
-			new FlyEvent(),
+				new HoleEvent(),
+				new FlyEvent(),
 			new CobWebEvent(),
-			new ReplaceOresEvent(),
-			new SicknessEvent()
+				new ReplaceOresEvent(),
+				new SicknessEvent()
 		};
 	}
 
@@ -86,7 +86,7 @@ public class RandomEventChallenge extends TimedChallenge {
 		broadcastFiltered(event::run);
 	}
 
-	public class SpeedEvent implements Event {
+	public static class SpeedEvent implements Event {
 
 		@Nonnull
 		@Override
@@ -115,6 +115,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 			for (int i = 0; i < random.nextInt(5) + 5; i++) {
 				Location randomLocation = player.getLocation().add(random.nextInt(10) - 5, -10, random.nextInt(10 - 5));
+				if (randomLocation.getWorld() == null) return;
 				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
 					randomLocation.add(0, 1, 0);
 
@@ -124,7 +125,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	public class HoleEvent implements Event {
+	public static class HoleEvent implements Event {
 
 		@Nonnull
 		@Override
@@ -146,7 +147,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	public class FlyEvent implements Event {
+	public static class FlyEvent implements Event {
 
 		@Nonnull
 		@Override
@@ -173,6 +174,7 @@ public class RandomEventChallenge extends TimedChallenge {
 		public void run(@Nonnull Player player) {
 			for (int i = 0; i < 13; i++) {
 				Location randomLocation = player.getLocation().add(random.nextInt(10) - 5, -20, random.nextInt(10 - 5));
+				if (randomLocation.getWorld() == null) return;
 				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
 					randomLocation.add(0, 1, 0);
 
@@ -182,7 +184,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	public class ReplaceOresEvent implements Event {
+	public static class ReplaceOresEvent implements Event {
 
 		@Nonnull
 		@Override
@@ -199,6 +201,7 @@ public class RandomEventChallenge extends TimedChallenge {
 						int finalZ = z;
 						int finalX = x;
 						Bukkit.getScheduler().runTask(plugin, () -> {
+							if (location.getWorld() == null) return;
 							for (int y = BukkitReflectionUtils.getMinHeight(location.getWorld()); y < 80; y++) {
 								Location current = location.clone().add(finalX, 0, finalZ);
 								current.setY(y);
@@ -216,7 +219,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	public class SicknessEvent implements Event {
+	public static class SicknessEvent implements Event {
 
 		@Nonnull
 		@Override

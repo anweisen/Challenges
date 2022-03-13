@@ -27,15 +27,15 @@ import java.util.UUID;
 public final class CloudSupportManager implements Listener {
 
 	private final Map<UUID, String> cachedColoredNames = new HashMap<>();
-	private static boolean startedNewService = false;
 
-	private final boolean startNewService;
+	private boolean startedNewService = false;
 	private final boolean nameSupport;
 	private final boolean resetToLobby;
 	private final boolean setIngame;
 	private final String type;
 
 	private CloudSupport support;
+	private final boolean startNewService;
 
 	public CloudSupportManager() {
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("cloud-support");
@@ -143,7 +143,7 @@ public final class CloudSupportManager implements Listener {
 		return type;
 	}
 
-	protected boolean isEnabled() {
+	private boolean isEnabled() {
 		return support != null;
 	}
 

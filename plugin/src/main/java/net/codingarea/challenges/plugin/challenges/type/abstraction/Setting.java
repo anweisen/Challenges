@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
@@ -14,6 +15,7 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
+
 public abstract class Setting extends AbstractChallenge {
 
 	private final boolean enabledByDefault;
@@ -40,8 +42,19 @@ public abstract class Setting extends AbstractChallenge {
 		if (this.enabled == enabled) return;
 		this.enabled = enabled;
 
-		if (enabled) onEnable();
-		else onDisable();
+		try {
+			if (enabled) onEnable();
+			else onDisable();
+		} catch (Exception exception) {
+			try {
+				enabled = !enabled;
+				if (enabled) onEnable();
+				else onDisable();
+				Challenges.getInstance().getLogger().error("Error while {} Setting {}", enabled ? "enabling" : "disabling", getClass().getSimpleName(), exception);
+			} catch (Exception exception1) {
+				Challenges.getInstance().getLogger().error("Error while toggling Setting {}", getClass().getSimpleName(), exception);
+			}
+		}
 
 		updateItems();
 	}

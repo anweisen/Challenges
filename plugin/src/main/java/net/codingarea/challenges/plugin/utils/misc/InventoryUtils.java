@@ -1,21 +1,24 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -39,9 +42,9 @@ public final class InventoryUtils {
 	}
 
 	@FunctionalInterface
-	interface InventorySetter<I> {
+	public interface InventorySetter<I> {
 
-		InventorySetter<AnimationFrame> FRAME = (frame, slot, item) -> frame.setItem(slot, item);
+		InventorySetter<AnimationFrame> FRAME = AnimationFrame::setItem;
 		InventorySetter<Inventory> INVENTORY = (inventory, slot, item) -> inventory.setItem(slot, item.build());
 
 		void set(@Nonnull I inventory, int slot, @Nonnull ItemBuilder item);
@@ -75,10 +78,16 @@ public final class InventoryUtils {
 	}
 
 	public static <I> void setNavigationItems(@Nonnull I inventory, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter, int index, int size) {
-		ItemBuilder left = index == 0 && goBackExit ? DefaultItem.navigateBackMainMenu() : DefaultItem.navigateBack();
-		setter.set(inventory, navigationSlots[0], left);
-		if (index < (size - 1))
-			setter.set(inventory, navigationSlots[1], DefaultItem.navigateNext());
+		setNavigationItems(inventory, navigationSlots, goBackExit, setter, index, size, DefaultItem.navigateBack(), DefaultItem.navigateNext());
+	}
+
+	public static <I> void setNavigationItems(@Nonnull I inventory, @Nonnull int[] navigationSlots, boolean goBackExit, @Nonnull InventorySetter<I> setter, int index, int size, ItemBuilder navigateBack, ItemBuilder navigateNext) {
+		if (navigationSlots.length >= 1) {
+			ItemBuilder left = index == 0 && goBackExit ? DefaultItem.navigateBackMainMenu() : navigateBack;
+			setter.set(inventory, navigationSlots[0], left);
+		}
+		if (navigationSlots.length >= 2 && index < (size - 1))
+			setter.set(inventory, navigationSlots[1], navigateNext);
 	}
 
 	public static boolean isEmpty(@Nonnull Inventory inventory) {
@@ -132,6 +141,7 @@ public final class InventoryUtils {
 	}
 
 	public static void dropItemByPlayer(@Nonnull Location location, @Nonnull ItemStack itemStack) {
+		if (location.getWorld() == null) return;
 		Item droppedItem = location.getWorld().dropItem(location.clone().add(0, 1.4, 0), itemStack);
 		droppedItem.setVelocity(location.getDirection().multiply(0.4));
 	}
@@ -143,7 +153,7 @@ public final class InventoryUtils {
 	public static void dropOrGiveItem(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull ItemStack itemStack) {
 		location = location.clone();
 		if (inventory.firstEmpty() == -1) {
-			if (location.getWorld() == null) location.setWorld(Bukkit.getWorlds().get(0));
+			if (location.getWorld() == null) location.setWorld(ChallengeAPI.getGameWorld(Environment.NORMAL));
 			location.getWorld().dropItem(location, itemStack);
 			return;
 		}
@@ -166,6 +176,33 @@ public final class InventoryUtils {
 			return;
 		}
 		inventory.addItem(itemStack);
+	}
+
+	/**
+	 * @return if a navigation item was clicked
+	 */
+	public static boolean handleNavigationClicking(MenuGenerator generator, int[] navigationSlots, int page, MenuClickInfo info, Runnable onDoorClick) {
+		int pagesSwitching = info.isShiftClick() ? 5 : 1;
+		if (navigationSlots.length >= 1 && info.getSlot() == navigationSlots[0]) {
+			SoundSample.CLICK.play(info.getPlayer());
+			if (page <= 0) {
+				if (page == 0) {
+					onDoorClick.run();
+				}
+				return page == 0;
+			} else {
+				generator.open(info.getPlayer(), Math.max(page - pagesSwitching, 0));
+				return true;
+			}
+		} else if (navigationSlots.length >= 2 && info.getSlot() == navigationSlots[1]) {
+			SoundSample.CLICK.play(info.getPlayer());
+			if (page < (generator.getInventories().size())) {
+				generator.open(info.getPlayer(), Math.min(page + pagesSwitching, generator.getInventories().size()));
+				return true;
+			}
+			return false;
+		}
+		return false;
 	}
 
 }

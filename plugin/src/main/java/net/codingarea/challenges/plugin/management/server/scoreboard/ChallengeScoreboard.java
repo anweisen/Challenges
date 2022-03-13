@@ -22,9 +22,9 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeScoreboard {
 
-	private static int index = 0;
+	private int index = 0;
 
-	public final class ScoreboardInstance {
+	public static final class ScoreboardInstance {
 
 		private final String[] lines = new String[15];
 		private String title = Message.forName("scoreboard-title").asString();
@@ -102,8 +102,12 @@ public final class ChallengeScoreboard {
 			}
 
 			Scoreboard scoreboard = player.getScoreboard();
-			if (scoreboard == Bukkit.getScoreboardManager().getMainScoreboard())
+			if (Bukkit.getScoreboardManager() == null) {
+				return;
+			}
+			if (scoreboard == Bukkit.getScoreboardManager().getMainScoreboard()) {
 				player.setScoreboard(scoreboard = Bukkit.getScoreboardManager().getNewScoreboard());
+			}
 
 			Objective objective = scoreboard.registerNewObjective(String.valueOf(index++), "dummy", String.valueOf(instance.getTitle()));
 			int score = lines.size();
@@ -140,6 +144,7 @@ public final class ChallengeScoreboard {
 			if (objective == null) return;
 			objective.unregister();
 		} catch (Exception ex) {
+			Logger.error("Unable to unregister objective " + objective.getName());
 		}
 	}
 

@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
@@ -13,13 +16,10 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnull;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -27,16 +27,17 @@ import java.util.List;
  */
 public final class ServerManager {
 
-	private static boolean isFresh; // This indicated if the timer was never started before
-	private static boolean hasCheated = false;
 
 	private final boolean setSpectatorOnWin;
 	private final boolean dropItemsOnEnd;
 	private final boolean winSounds;
 
+	private boolean isFresh; // This indicated if the timer was never started before
+	private boolean hasCheated = false;
+
 	public ServerManager() {
 		Document sessionConfig = Challenges.getInstance().getConfigManager().getSessionConfig();
-		hasCheated = sessionConfig.getBoolean("cheated", hasCheated);
+		hasCheated = sessionConfig.getBoolean("cheated");
 		isFresh = sessionConfig.getBoolean("fresh", true);
 
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
@@ -89,9 +90,10 @@ public final class ServerManager {
 
 		Challenges.getInstance().getChallengeTimer().pause(false);
 
-		String winnerString = StringUtils.getIterableAsString(winners, ", ", NameHelper::getName);
+		String winnerString = StringUtils.getIterableAsString(winners, "§7, ", player -> "§e§l" + NameHelper.getName(player));
 		String time = Challenges.getInstance().getChallengeTimer().getFormattedTime();
-		String seed = Bukkit.getWorlds().isEmpty() ? "?" : Bukkit.getWorlds().get(0).getSeed() + "";
+		String seed = Bukkit.getWorlds().isEmpty() ? "?" :
+				String.valueOf(ChallengeAPI.getGameWorld(Environment.NORMAL).getSeed());
 		endCause.getMessage(!winners.isEmpty()).broadcast(Prefix.CHALLENGES, time, winnerString, seed);
 
 	}
@@ -118,11 +120,8 @@ public final class ServerManager {
 		for (ItemStack item : items) {
 			if (item == null) continue;
 			if (BukkitReflectionUtils.isAir(item.getType())) continue;
-
-			try {
-				location.getWorld().dropItem(location, item);
-			} catch (IllegalArgumentException ex) {
-			}
+			if (location.getWorld() == null) return;
+			location.getWorld().dropItem(location, item);
 		}
 	}
 

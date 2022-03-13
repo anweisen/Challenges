@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
@@ -11,15 +14,11 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -55,11 +54,6 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 	@Override
 	protected BiConsumer<BossBarInstance, Player> setupBossbar() {
 		return (bossbar, player) -> {
-			if (ChallengeAPI.isPaused()) {
-				bossbar.setTitle(Message.forName("bossbar-timer-paused").asString());
-				bossbar.setColor(BarColor.RED);
-				return;
-			}
 			if (getState() == WAITING) {
 				bossbar.setTitle(Message.forName("bossbar-force-height-waiting").asString());
 				return;
@@ -88,7 +82,7 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 
 	@Override
 	protected void chooseForcing() {
-		World world = Bukkit.getWorlds().get(0);
+		World world = ChallengeAPI.getGameWorld(Environment.NORMAL);
 		height = random.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
 	}
 

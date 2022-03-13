@@ -106,7 +106,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	}
 
 	@Override
-	protected void onTimeActivation() {
+	public void startWorldChallenge() {
 		startJumpAndRun();
 	}
 
@@ -119,7 +119,6 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		teleportToWorld(true, (player, index) -> {
 			player.setGameMode(player.getUniqueId().equals(currentPlayer) ? GameMode.SURVIVAL : GameMode.SPECTATOR);
 			player.teleport(new Location(getExtraWorld(), 0.5, 101, 0.5));
-			SoundSample.TELEPORT.play(player);
 		});
 	}
 
@@ -212,6 +211,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!event.getPlayer().getUniqueId().equals(currentPlayer)) return;
+		if (!isInExtraWorld()) return;
 		if (targetBlock == null) return;
 		if (event.getTo() == null) return;
 

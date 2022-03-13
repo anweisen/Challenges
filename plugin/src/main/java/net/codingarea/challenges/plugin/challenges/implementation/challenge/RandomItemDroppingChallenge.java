@@ -54,17 +54,21 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 	protected void onTimeActivation() {
 		restartTimer();
 
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			if (player.getInventory().getContents().length <= 0) continue;
+		Bukkit.getScheduler().runTask(plugin, () -> {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (ignorePlayer(player)) continue;
 
-			Bukkit.getScheduler().runTask(plugin, () -> {
-				dropRandomItem(player.getLocation(), player.getInventory());
-			});
-		}
+				dropRandomItem(player);
+			}
+		});
 	}
 
-	private void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
+	public static void dropRandomItem(Player player) {
+		if (player.getInventory().getContents().length <= 0) return;
+		dropRandomItem(player.getLocation(), player.getInventory());
+	}
+
+	public static void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
 		if (location.getWorld() == null) return;
 		int slot = InventoryUtils.getRandomFullSlot(inventory);
 		if (slot == -1) return;

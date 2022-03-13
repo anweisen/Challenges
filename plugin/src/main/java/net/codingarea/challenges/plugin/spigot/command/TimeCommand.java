@@ -35,7 +35,7 @@ public class TimeCommand implements PlayerCommand, Completer {
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) throws Exception {
 
 		if (args.length <= 0) {
-			Message.forName("syntax").send(player, Prefix.CHALLENGES, "<time <set/add/remove/query/day/night/noon/midnight>");
+			Message.forName("syntax").send(player, Prefix.CHALLENGES, "time <set/add/remove/query/day/night/noon/midnight>");
 			return;
 		}
 		World world = player.getWorld();
@@ -65,7 +65,9 @@ public class TimeCommand implements PlayerCommand, Completer {
 				}
 				world.setTime(time);
 				if (names.containsKey(time)) {
-					Message.forName("command-time-set-exact").send(player, Prefix.CHALLENGES, names.get(time), time);
+					String timeName = names.get(time).toLowerCase();
+					String timeTranslation = Message.forName("command-time-" + timeName).asString();
+					Message.forName("command-time-set-exact").send(player, Prefix.CHALLENGES, timeTranslation, time);
 				} else {
 					Message.forName("command-time-set").send(player, Prefix.CHALLENGES, time, getNearestTime(world));
 				}
@@ -124,8 +126,9 @@ public class TimeCommand implements PlayerCommand, Completer {
 	private long getLongFromString(@Nonnull String input) {
 		try {
 			return Long.parseLong(input);
-		} catch (NumberFormatException ex) { }
-		return -1;
+		} catch (NumberFormatException ex) {
+			return -1;
+		}
 	}
 
 	@Nullable

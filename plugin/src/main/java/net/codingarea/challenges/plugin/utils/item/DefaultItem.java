@@ -14,6 +14,11 @@ import javax.annotation.Nonnull;
 public final class DefaultItem {
 
 	@Nonnull
+	public static String getItemPrefix() {
+		return Message.forName("item-prefix").asString() + "§e";
+	}
+
+	@Nonnull
 	public static ItemBuilder navigateBack() {
 		return new SkullBuilder("MHF_ArrowLeft").setName(Message.forName("navigate-back")).hideAttributes();
 	}
@@ -55,7 +60,7 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder value(int value, @Nonnull String prefix) {
-		return create(Material.STONE_BUTTON, prefix + value).amount(value);
+		return create(Material.STONE_BUTTON, prefix + value).amount(Math.max(value, 1));
 	}
 
 	@Nonnull

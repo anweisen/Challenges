@@ -1,7 +1,7 @@
 {
   "syntax": "Bitte nutze §e/{0}",
   "reload": "Challenges Plugin wird neu geladen...",
-  "reload-failed": "Ein §cFehler §7ist während dem reload aufgetreten",
+  "reload-failed": "Ein §cFehler §7ist während dem Reload aufgetreten",
   "reload-success": "Challenges Plugin wurde §aerfolgreich §7neu geladen",
   "player-command": "Dazu musst du ein Spieler sein!",
   "no-permission": "Dazu hast du §ckeine §7Rechte",
@@ -26,7 +26,7 @@
   "timer-is-running": "§8» §7Timer ist §agestartet",
   "confirm-reset": "Bestätige den Reset mit §e/{0}",
   "no-fresh-reset": [
-    "Der Server kann §cnicht resetet §7werden",
+    "Der Server kann §cnicht resettet §7werden",
     "Die Challenge wurde §cnoch nicht §7gestartet"
   ],
   "new-challenge": "§a§lNeu!",
@@ -50,6 +50,8 @@
     "Download: §e{0}"
   ],
   "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
+  "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",
+  "missing-config-settings-separator": "§7, §e",
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [
@@ -67,7 +69,11 @@
   "player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
   "player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
   "player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
+  "player-custom_challenges-loaded": "Deine Challenges wurden §aerfolgreich geladen",
+  "player-custom_challenges-saved": "Deine Challenges wurden §aerfolgreich gespeichert",
+  "player-custom_challenges-reset": "Die Challenges wurden §aerfolgreich zurückgesetzt",
 
+  "item-prefix": "§8» ",
   "item-setting-info": "§8➟ {0}",
 
   "stat-dragon-killed": "Drachen getötet",
@@ -91,9 +97,16 @@
   "position": "§e{4} §8- §7{0}, {1}, {2} §8(§e{3}§8) §8┃ §e{5}m",
   "positions-disabled": "Positionen sind §cdeaktiviert",
   "position-other-world": "Diese Position befindet sich in einer anderen Welt §8(§e{0}§8)",
+  "position-not-exists": "Die Position §e{0} §7existiert §cnicht",
+  "position-already-exists": "Die Position §e{0} §7existiert §cbereits",
   "position-set": "§e{5} §7hat §e{4} §7{0}, {1}, {2} §8(§e{3}§8) §7erstellt",
+  "position-deleted": "§e{5} §7hat §e{4} §7{0}, {1}, {2} §8(§e{3}§8) §7gelöscht",
   "no-positions": [
     "Es sind keine §ePositionen §7in dieser Welt gesetzt",
+    "Erstelle eine mit §e/{0}"
+  ],
+  "no-positions-global": [
+    "Es sind keine §ePositionen §7gesetzt",
     "Erstelle eine mit §e/{0}"
   ],
 
@@ -121,11 +134,19 @@
     "Spielzeit §e{0} §7Ticks §8(§7Tag §e{1}§8)",
     "Tageszeit §e{2} §7Ticks §8(§7ca. §e{3}§8)"
   ],
+  "command-time-noon": "Mittag",
+  "command-time-night": "Nacht",
+  "command-time-midnight": "Mitternacht",
+  "command-time-day": "Tag",
   "command-fly-enabled": "Du kannst §anun fliegen",
   "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
   "command-fly-toggled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
   "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
   "command-gamestate-reset": "Der Gamestate wurde §azurückgesetzt",
+  "command-world-teleport": "Du wirst in die Welt §e{0} §7teleportiert",
+  "command-back-no-locations": "Du hast dich noch §cnicht §7teleportiert",
+  "command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
+  "command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
 
   "traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
   "player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
@@ -140,7 +161,7 @@
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
   "backpack-opened": "Du hast den {0} §7geöffnet",
   "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
-  "top-to-surface": "Du wurdest zur §eOverfläche §7teleportiert",
+  "top-to-surface": "Du wurdest zur §eOberfläche §7teleportiert",
   "jnr-countdown": "Nächstes §6JumpAndRun §7in §e{0} Sekunden",
   "jnr-countdown-one": "Nächstes §6JumpAndRun §7in §eeiner Sekunde",
   "jnr-finished": "§e{0} §7hat das §6JumpAndRun §ageschafft",
@@ -172,9 +193,12 @@
   "force-item-success": "§e{0} §7hat das Item §e{1} §agefunden",
   "new-effect": "Effekt §e{0} §8➔ §e{1}",
   "missing-items-inventory": "{0}Welches Item fehlt?",
-  "missing-items-inventory-open": "§8[§aGUI Öffnen§8]",
+  "missing-items-inventory-open": "§8[§aGUI öffnen§8]",
   "loops-cleared": "§e{0} §7Loops abgebrochen",
   "stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
+  "all-advancements-goal": "§7Advancements §8» §e{0}",
+  "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
+  "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -208,14 +232,15 @@
     "Was geht denn jetzt ab"
   ],
 
-  "bossbar-timer-paused": "§8» §7Der Timer ist §cnoch pausiert",
-  "bossbar-mob-transformation": "§8» §7Letzer Mob §8§l┃ §a{0}",
+  "bossbar-timer-paused": "§8» §7Der Timer ist §cpausiert",
+  "bossbar-mob-transformation": "§8» §7Letzter Mob §8§l┃ §a{0}",
   "bossbar-biome-time-left": "§8» §7Zeit übrig in §e{0} §8§l┃ §a{1}s",
   "bossbar-height-time-left": "§8» §7Zeit übrig auf §e{0} §8§l┃ §a{1}s",
   "bossbar-zero-hearts": "§8» §7Schutzzeit §8§l┃ §a{0}s",
   "bossbar-random-challenge-waiting": "§8» §7Warten auf neue Challenge..",
   "bossbar-random-challenge-current": "§8» §7Challenge §e{0}",
-  "bossbar-all-items-current": "§8» §f{0} §8┃ §7#{1}",
+  "bossbar-all-items-current": "§8» §f{0} §8┃ §e#§7{1}",
+  "bossbar-all-items-current-max": "§8» §f{0} §8┃ §7{1} §8/ §7{2}",
   "bossbar-all-items-finished": "§8» §7Alle Items gefunden",
   "bossbar-force-height-waiting": "§8» §7Warten auf nächste Höhe..",
   "bossbar-force-height-instruction": "§8» §7Höhe §e{0} §8┃ §a{1}",
@@ -231,11 +256,17 @@
   "bossbar-tsunami-lava": "§8» §7Lavahöhe: §c{0}",
   "bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
   "bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
+  "bossbar-five-hundred-blocks": "§8» §fBlöcke Gelaufen §8┃ §7{0} §8/ §7{1}",
+  "bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
+  "bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
+  "bossbar-first-at-height-goal": "§8» §fZiel §8┃ §7Y: {0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
   "subtitle-time-minutes": "§e{0} §7Minuten",
-  "subtitle-launcher-description": "Stärke §e{0}",
+  "subtitle-launcher-description": "§7Stärke §e{0}",
+  "subtitle-blocks": "§e{0} §7Blöcke",
+  "subtitle-range-blocks": "§7Reichweite: §e{0} §7Blöcke",
 
   "scoreboard-title": "§7» §f§lChallenge",
   "scoreboard-leaderboard": "§e#{0} §8┃ §7{1} §8» §e{2}",
@@ -327,6 +358,8 @@
   "item-launcher-description": "§8» §7Stärke: §e{0}",
   "item-permanent-effect-target-player-description": "§8» §7Nur der aktive Spieler erhält den Effekt",
   "item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
+  "item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
+  "item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
 
   "item-difficulty-setting": [
     "§aSchwierigkeit",
@@ -349,21 +382,21 @@
   ],
   "item-max-health-setting": [
     "§cMaximale Herzen",
-    "Stellt ein wie viele",
+    "Stellt ein, wie viele",
     "Herzen man hat"
   ],
   "item-soup-setting": [
     "§cSuppen Heilung",
-    "Wenn du eine *Pilzsuppe Suppe* benutzt",
+    "Wenn du eine *Pilzsuppe Suppe* benutzt,",
     "wirst du um *4 Herzen* geheilt"
   ],
   "item-damage-setting": [
     "§cDamage Multiplier",
-    "Schaden den du nimmst wird *multipliziert*"
+    "Schaden, den du nimmst, wird *multipliziert*"
   ],
   "item-damage-display-setting": [
     "§eDamage Display",
-    "Es wird im Chat angezeigt",
+    "Es wird im Chat angezeigt,",
     "wenn jemand *Schaden* bekommt"
   ],
   "item-health-display-setting": [
@@ -378,12 +411,12 @@
   ],
   "item-backpack-setting": [
     "§6Backpack",
-    "Erlaubt es dir *deinen Backpack* oder den",
+    "Erlaubt es dir, *deinen Backpack* oder den",
     "*Team Backpack* mit */backpack* zu öffnen"
   ],
   "item-cut-clean-setting": [
     "§9CutClean",
-    "Verschiedene *Einstellungen* die",
+    "Verschiedene *Einstellungen*, die",
     "das *Farmen* von Items *einfacher* machen"
   ],
   "item-cut-clean-gold-setting": [
@@ -408,7 +441,7 @@
   ],
   "item-cut-clean-inventory-setting": [
     "§6Direkt ins Inventar",
-    "*Items* werden *anstatt gedroppt* zu werden,",
+    "*Items* werden, *anstatt gedroppt* zu werden,",
     "*direkt* ins *Inventar* hinzugefügt"
   ],
   "item-cut-clean-food-setting": [
@@ -455,12 +488,12 @@
   ],
   "item-fortress-spawn-setting": [
     "§cFestungs Spawn",
-    "Wenn du in den *Nether* gehst",
+    "Wenn du in den *Nether* gehst,",
     "spawnst du immer in einer *Festung*"
   ],
   "item-bastion-spawn-setting": [
     "§cBastions Spawn",
-    "Wenn du in den *Nether* gehst",
+    "Wenn du in den *Nether* gehst,",
     "spawnst du immer in einer *Bastion*"
   ],
   "item-no-offhand-setting": [
@@ -469,17 +502,17 @@
   ],
   "item-regeneration-setting": [
     "§cRegeneration",
-    "Stellt ein *ob* und",
+    "Stellt ein, *ob* und",
     "*wie* man *regeneriert*"
   ],
   "item-immediate-respawn-setting": [
     "§6Direkter Respawn",
-    "Wenn du stirbst *respawnst* du *automatisch*",
+    "Wenn du stirbst, *respawnst* du *automatisch,*",
     "ohne den *Death Screen* zu sehen"
   ],
   "item-slot-limit-setting": [
     "§4Inventar Slots",
-    "Stellt ein wie viele *Inventar*",
+    "Stellt ein, wie viele *Inventar*",
     "*Slots* nutzbar sind"
   ],
   "item-death-position-setting": [
@@ -520,7 +553,7 @@
   ],
   "item-crafting-randomizer-challenge": [
     "§6Crafting Randomizer",
-    "Wenn du *etwas craftest* bekommst du ein *zufälliges Item*"
+    "Wenn du *etwas craftest*, bekommst du ein *zufälliges Item*"
   ],
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
@@ -529,17 +562,17 @@
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
     "Du bekommst *Schaden* durch",
-    "jeden *Block* den du gehst"
+    "jeden *Block*, den du gehst"
   ],
   "item-hunger-block-challenge": [
     "§6Hunger pro Block",
     "Du bekommst *Hunger* durch",
-    "jeden *Block* den du gehst"
+    "jeden *Block*, den du gehst"
   ],
   "item-stone-sight-challenge": [
     "§fStein Blick",
-    "*Mobs* denen du in die *Augen*",
-    "*schaust* werden zu *Stein*"
+    "*Mobs*, denen du in die *Augen*",
+    "*schaust*, werden zu *Stein*"
   ],
   "item-no-mob-sight-challenge": [
     "§cMob Blick Schaden",
@@ -569,7 +602,7 @@
   "item-no-trading-challenge": [
     "§2Kein Handeln",
     "Du kannst *nicht* mit",
-    "Villagern *handeln*"
+    "Villager *handeln*"
   ],
   "item-block-break-damage-challenge": [
     "§6Block Break Damage",
@@ -587,8 +620,9 @@
   ],
   "item-invert-health-challenge": [
     "§cInvert Health",
-    "Alle paar Minuten werden deine *Herzen invertiert*",
-    "Wenn du *8 Herzen* hast, hast du danach *2 Herzen* und umgekehrt"
+    "Alle paar Minuten werden deine *Herzen invertiert*.",
+    "Wenn du *8 Herzen* hast,",
+    "hast du danach *2 Herzen* und umgekehrt."
   ],
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
@@ -607,7 +641,7 @@
   ],
   "item-reversed-damage-challenge": [
     "§cReversed Damage",
-    "Wenn du Entities *schlägst* oder *abschießt*",
+    "Wenn du Entities *schlägst* oder *abschießt*,",
     "bekommst du den *gleichen Schaden*"
   ],
   "item-duped-spawning-challenge": [
@@ -617,12 +651,12 @@
   ],
   "item-hydra-challenge": [
     "§5Hydra",
-    "Wenn du einen *Mob* tötest",
+    "Wenn du einen *Mob* tötest,",
     "spawnen *zwei* neue"
   ],
   "item-hydra-plus-challenge": [
     "§cHydra Plus",
-    "Wenn du einen *Mob* tötest",
+    "Wenn du einen *Mob* tötest,",
     "spawnen *doppelt* so viele",
     "wie beim *vorherigen* mal",
     "",
@@ -645,7 +679,7 @@
   ],
   "item-chunk-deconstruction-challenge": [
     "§bChunk Deconstruction",
-    "*Chunks*, in denen sich Spieler befinden",
+    "*Chunks*, in denen sich Spieler befinden,",
     "*bauen* sich von *oben* aus ab"
   ],
   "item-one-durability-challenge": [
@@ -664,8 +698,8 @@
   ],
   "item-mob-transformation-challenge": [
     "§cMob Verwandlung",
-    "Wenn du einen Mob schlägst *verwandelt* sich",
-    "dieser in den *letzen Mob* den du *geschlagen* hast"
+    "Wenn du einen Mob schlägst, *verwandelt* sich",
+    "dieser in den *letzen Mob*, den du *geschlagen* hast"
   ],
   "item-jump-entity-challenge": [
     "§2Jump Entity",
@@ -684,34 +718,34 @@
   ],
   "item-infection-challenge": [
     "§aInfection Challenge",
-    "Du musst *2 Blöcke* abstand von allen ",
+    "Du musst *2 Blöcke* Abstand von allen ",
     "*Mobs* halten oder du wirst *krank*"
   ],
   "item-only-down-challenge": [
     "§cNur nach Unten",
     "Wenn du *einen Block* nach",
-    "*oben* gehst *stirbst* du"
+    "*oben* gehst, *stirbst* du"
   ],
   "item-advancement-damage-challenge": [
     "§cAdvancement Schaden",
     "Du bekommst für jedes neue *Advancement*",
-    "die gesetze Anzahl *schaden*"
+    "die gesetze Anzahl *Schaden*"
   ],
   "item-all-blocks-disappear-challenge": [
     "§cAlle Blöcke Verschwinden",
     "Bei verschiedenen *Interaktionen*",
     "verschwinden alle *Blöcke* im *Chunk*",
-    "eines *betimmten types*"
+    "eines *betimmten Types*"
   ],
   "item-all-blocks-disappear-break-challenge": [
     "§bBeim Abbauen",
     "Wenn du einen Block *abbaust*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "*alle Blöcke* des *selben Types zerstört*"
   ],
   "item-all-blocks-disappear-place-challenge": [
     "§bBeim Platzieren",
     "Wenn du einen Block *platzierst*, werden",
-    "*alle Blöcke* des *selben types zerstört*"
+    "*alle Blöcke* des *selben Types zerstört*"
   ],
   "item-water-allergy-challenge": [
     "§9Wasserallergie",
@@ -760,14 +794,14 @@
     "*Item* aus deinem Inventar *gelöscht*"
   ],
   "item-death-on-fall-challenge": [
-    "§fTot bei Fallschaden",
-    "Wenn du *Fallschaden* erleidest",
+    "§fTod bei Fallschaden",
+    "Wenn du *Fallschaden* erleidest,",
     "*stirbst* du sofort"
   ],
   "item-zero-hearts-challenge": [
     "§6Null Herzen",
     "Nach einer *Schutzzeit* musst du",
-    "dauerhaft absorption bekommen"
+    "dauerhaft Absorption bekommen"
   ],
   "item-random-effect-challenge": [
     "§6Random Effekte",
@@ -776,7 +810,7 @@
   ],
   "item-random-effect-time-challenge": [
     "§6Intervall",
-    "Der *Intervall*, in dem man",
+    "Das *Intervall*, in dem man",
     "einen *Effekt* erhält"
   ],
   "item-random-effect-length-challenge": [
@@ -785,14 +819,14 @@
     "*Effekt* anhält"
   ],
   "item-random-effect-amplifier-challenge": [
-    "§6Amplifier",
+    "§6Stärke",
     "Die *Stärke*, die der",
     "*Effekt* hat"
   ],
   "item-permanent-effect-on-damage-challenge": [
     "§6Permanente Effekte",
-    "Du bekommst immer wenn du *Schaden*",
-    "erleidest einen *zufälligen Effekt*"
+    "Du bekommst immer, wenn du *Schaden*",
+    "erleidest, einen *zufälligen Effekt*"
   ],
   "item-random-challenge-challenge": [
     "§cRandom Challenge",
@@ -805,7 +839,7 @@
   ],
   "item-anvil-rain-time-challenge": [
     "§6Intervall",
-    "Der *Intervall*, in",
+    "Das *Intervall*, in",
     "dem *Ambosse* spawnen"
   ],
   "item-anvil-rain-range-challenge": [
@@ -815,7 +849,7 @@
   ],
   "item-anvil-rain-count-challenge": [
     "§6Anzahl",
-    "Die *Anzahl*, an *Ambossen*",
+    "Die *Anzahl*, an *Ambossen*,",
     "die in einem *Chunk* spawnen"
   ],
   "item-anvil-rain-damage-challenge": [
@@ -836,18 +870,18 @@
   ],
   "item-random-event-challenge": [
     "§6Random Events",
-    "Alle *paar Minuten* wird ein von",
+    "Alle *paar Minuten* wird eines von",
     "*{0} random Events* aktiviert"
   ],
   "item-block-chunk-item-remove-challenge": [
     "§6Movement Item Remove",
-    "Es wird für jeden *Block* / *Chunk*",
-    "den du dich *fortbewegst* ein Item,",
-    "aus deinem Inventar, *gelöscht*"
+    "Es wird für jeden *Block* / *Chunk*,",
+    "den du dich *fortbewegst*, ein Item",
+    "aus deinem Inventar *gelöscht*"
   ],
   "item-higher-jumps-challenge": [
     "§aHigher Jumps",
-    "*Umso öfter* du springst",
+    "*Umso öfter* du springst,",
     "*desto höher* springst du"
   ],
   "item-force-height-challenge": [
@@ -883,16 +917,16 @@
   ],
   "item-always-running-challenge": [
     "§cAlways Running",
-    "Du kannst *nicht aufhören* vorwärts zu laufen"
+    "Du kannst *nicht aufhören*, vorwärts zu laufen"
   ],
   "item-pickup-launch-challenge": [
     "§cPickup Boost",
-    "Wenn du ein *Item aufhebst*",
+    "Wenn du ein *Item aufhebst*,",
     "wirst du *in die Luft* geschleudert"
   ],
   "item-tsunami-challenge": [
     "§9Tsunami",
-    "In einem *gesetztem Interval*",
+    "In einem *gesetztem Intervall*",
     "*steigt* das *Wasser* in der *Overworld*",
     "und die *Lava* in im *Nether*",
     "",
@@ -912,51 +946,57 @@
   ],
   "item-blocks-disappear-time-challenge": [
     "§fBlöcke verschwinden nach Zeit",
-    "Blöcke die du *platzierst*, *verschwinden*",
+    "Blöcke, die du *platzierst*, *verschwinden*",
     "nach ein *paar Sekunden* wieder"
   ],
   "item-missing-items-challenge": [
     "§9Items Fehlen",
     "Alle paar Minuten *verschwindet* ein *Item* aus",
-    "deinem *Inventar* und du musst *erraten* welches"
+    "deinem *Inventar* und du musst *erraten*, welches"
   ],
   "item-damage-item-challenge": [
     "§cSchaden pro Item",
     "Wenn du ein *Item aufhebst* oder es",
     "in deinem Inventar *anklickst* erleidest",
-    "du *0,5 ❤* multipliziert mit der Anzahl Items"
+    "du *0,5 ❤* multipliziert mit der Anzahl der Items"
   ],
   "item-damage-teleport-challenge": [
     "§cSchaden Random Teleport",
-    "Du wirst *zufällig Teleportiert*",
+    "Du wirst *zufällig teleportiert*,",
     "wenn du *Schaden* erleidest"
   ],
   "item-loop-challenge": [
     "§6Wiederholungs Challenge",
     "Verschiedene Aktionen *wiederholen* sich",
-    "unendlich oft bis ein Spieler *schleicht*"
+    "unendlich oft, bis ein Spieler *schleicht*"
   ],
   "item-uncraft-challenge": [
     "§6Items Craften sich zurück",
-    "Alle *Items* in deinem Inventar *Craften*",
+    "Alle *Items* in deinem Inventar *craften*",
     "sich alle paar Sekunden *zurück*"
   ],
   "item-freeze-challenge": [
     "§bFreeze Challenge",
-    "Für *jedes Herz* dass du *Schaden* erleidest kannst",
+    "Für *jedes Herz*, das du *Schaden* erleidest, kannst",
     "du dich für eine bestimmte Zeit *nicht bewegen*"
   ],
   "item-dont-stop-running-challenge": [
-    "§9Dont stop running",
-    "You are only allowed to +stand*",
-    "a certain *time* before you *die*"
+    "§9Nicht stehen bleiben",
+    "Du darfst nur eine bestimmte Zeit",
+    "*stehen bleiben* bevor du *stirbst*"
   ],
   "item-consume-launch-challenge": [
     "§cEssens Boost",
-    "Wenn du ein *Item isst*",
+    "Wenn du ein *Item isst*,",
     "wirst du *in die Luft* geschleudert"
   ],
-
+  "item-five-hundred-blocks-challenges": [
+    "§5500 Blöcke",
+    "*Alle* 500 Blöcke, die du *läufst*,",
+    "bekommst du *64* eines *zufälliges Items*.",
+    "Es droppen *keine Items* von",
+    "*Blöcken* und *Entities* mehr."
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
@@ -964,23 +1004,23 @@
   ],
   "item-wither-goal": [
     "§dWither",
-    "Tote einen *Wither* um zu gewinnen"
+    "Töte einen *Wither* um zu gewinnen"
   ],
   "item-elder-guardian-goal": [
     "§bElder Guardian",
     "Töte einen *Elder Guardian* um zu gewinnen"
   ],
   "item-iron-golem-goal": [
-    "§bEisen Golem",
-    "Tote einen *Eisen Golem* um zu gewinnen"
+    "§bEisengolem",
+    "Töte einen *Eisengolem* um zu gewinnen"
   ],
   "item-snow-golem-goal": [
     "§bSchneemann",
-    "Tote einen *Schneemann* um zu gewinnen"
+    "Töte einen *Schneemann* um zu gewinnen"
   ],
   "item-most-deaths-goal": [
     "§6Meiste Tode",
-    "Wer die meisten *verschiedene Tode*",
+    "Wer die meisten *verschiedenen Tode*",
     "sammelt, *gewinnt*"
   ],
   "item-most-items-goal": [
@@ -994,15 +1034,15 @@
   ],
   "item-mine-most-blocks-goal": [
     "§eMeisten Blöcke",
-    "Wer die *meisten Blöcke* abbaut gewinnt"
+    "Wer die *meisten Blöcke* abbaut, gewinnt"
   ],
   "item-most-xp-goal": [
     "§aMeiste XP",
-    "Wer die meiste *XP sammelt* gewinnt"
+    "Wer die meiste *XP sammelt*, gewinnt"
   ],
   "item-first-one-to-die-goal": [
     "§cErster Tod",
-    "Wer als *erstes stirbt* gewinnt"
+    "Wer als *erstes stirbt*, gewinnt"
   ],
   "item-collect-wood-goal": [
     "§6Holzarten Sammeln",
@@ -1012,11 +1052,11 @@
   "item-all-bosses-goal": [
     "§bAlle Bosse",
     "Es müssen *alle Bosse* einmal",
-    "*getötet* werden um zu *gewinnen*"
+    "*getötet* werden, um zu *gewinnen*"
   ],
   "item-all-items-goal": [
     "§2Alle Items",
-    "Finde *alle Items* die es *in Minecraft gibt*"
+    "Finde *alle Items*, die es *in Minecraft gibt*"
   ],
   "item-finish-raid-goal": [
     "§6Raid Gewinnen",
@@ -1028,50 +1068,363 @@
     "Der Spieler mit den *meisten*",
     "*Emeralds* gewinnt"
   ],
+  "item-all-advancements-goal": [
+    "§6Alle Advancements",
+    "Der Spieler, der als erstes *alle*",
+    "Errungenschaften *erhalten hat*, gewinnt"
+  ],
+  "item-max-height-goal": [
+    "§fMaximale Höhe",
+    "Der Spieler, der als *erstes* die",
+    "Höhe *{0}* erreicht hat, gewinnt"
+  ],
+  "item-min-height-goal": [
+    "§fMinimale Höhe",
+    "Der Spieler, der als *erstes* die",
+    "Höhe *{0}* erreicht hat, gewinnt"
+  ],
+  "item-race-goal": [
+    "§5Wettrennen",
+    "Der Spieler, der als *erstes* an",
+    "einer *zufälligen* Position ist, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
-    "§6Feuer Damage",
-    "Stellt ein ob du Schaden durch",
+    "§6Feuer Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Lava* und *Feuer* bekommen kannst"
   ],
   "item-damage-rule-attack": [
-    "§3Attack Damage",
-    "Stellt ein ob du Schaden durch",
+    "§3Angriff Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Nahkampfangriffe von Entities* bekommen kannst"
   ],
   "item-damage-rule-projectile": [
-    "§6Projectile Damage",
-    "Stellt ein ob du Schaden durch",
+    "§6Projektil Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Projektile* bekommen kannst"
   ],
   "item-damage-rule-fall": [
-    "§fFall Damage",
-    "Stellt ein ob du *Fallschaden* bekommen kannst"
+    "§fFallschaden",
+    "Stellt ein, ob du *Fallschaden* bekommen kannst"
   ],
   "item-damage-rule-explosion": [
-    "§cExplosion Damage",
-    "Stellt ein ob du *Explosions Schaden* bekommen kannst"
+    "§cExplosions Schaden",
+    "Stellt ein, ob du *Explosions Schaden* bekommen kannst"
   ],
   "item-damage-rule-drowning": [
-    "§9Drowning Damage",
-    "Stellt ein ob du Schaden durch",
+    "§9Ertrink Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Ertrinken* bekommen kannst"
   ],
   "item-damage-rule-block": [
-    "§eBlock Damage",
-    "Stellt ein ob du Schaden durch",
+    "§eBlock Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Fallende Blöcke* bekommen kannst"
   ],
   "item-damage-rule-magic": [
-    "§5Magic Damage",
-    "Stellt ein ob du Schaden durch",
+    "§5Magie Schaden",
+    "Stellt ein, ob du Schaden durch",
     "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
   ],
 
   "item-block-material": [
     "{0}",
-    "Stellt ein ob *{1}*",
+    "Stellt ein, ob *{1}*",
     "genutzt werden *kann*"
-  ]
+  ],
+
+  "custom-limit": "Du hast das Limit von §e{0} Challenges §7erreicht",
+  "custom-not-deleted": "Diese Challenge existiert noch nicht!",
+  "custom-saved": "§7Challenge wurde lokal §agespeichert",
+  "custom-saved-db": [
+    "Um in §eDatenbank §7zu Speichern benutze §e/db save customs",
+    "§cAchtung: §7Alte Einstellungen werden dabei überschrieben!"
+  ],
+  "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
+  "custom-name-info": "Schreibe den Namen der Challenge in den Chat",
+  "custom-name-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
+  "custom-not-loaded": [
+    "",
+    "Es sind derzeit keine Custom Challenges geladen.",
+    "Du vermisst deine Challenges? §e/db load customs",
+    "Du hast Probleme beim Speichern?",
+    "Speichere vorm verlassen manuell §e/db save customs",
+    ""
+  ],
+
+  "custom-main-view-challenges": "§6Challenges Ansehen",
+  "custom-main-create-challenge": "§aChallenge Erstellen",
+  "custom-title-trigger": "Auslöser",
+  "custom-title-action": "Aktion",
+  "custom-title-view": "Gespeichert",
+  "custom-sub-finish": "§aFertig",
+
+  "item-custom-info-delete": [
+    "§cLöschen",
+    "*Achtung* diese Aktion kann *nicht*",
+    "rückgängig gemacht werden"
+  ],
+  "item-custom-info-save": "§aSpeichern",
+
+  "item-custom-info-trigger": [
+    "§cAuslöser",
+    "*Klicke* um einzustellen, was passieren",
+    "muss, damit die *Aktion* ausgeführt wird"
+  ],
+  "item-custom-info-action": [
+    "§bAktion",
+    "*Klicke* um einzustellen, was passieren",
+    "soll, wenn der *Auslöser* erfüllt ist"
+  ],
+
+  "item-custom-info-material": [
+    "§6Anzeige Item",
+    "*Klicke* um das Anzeigeitem zu ändern"
+  ],
+  "item-custom-info-name": [
+    "§6Name",
+    "*Klicke* um den Namen über den Chat zu ändern",
+    "Maximale Zeichenanzahl: 50"
+  ],
+
+  "custom-info-currently": "§7Eingestellt §8» §e",
+  "custom-info-trigger": "§7Auslöser",
+  "custom-info-action": "§7Aktion",
+  "custom-info-none": "Nichts",
+
+  "item-custom-trigger-jump": [
+    "§aSpieler Springt"
+  ],
+  "item-custom-trigger-sneak": [
+    "§aSpieler Schleicht"
+  ],
+  "item-custom-trigger-move_block": [
+    "§6Spieler Läuft Einen Block"
+  ],
+  "item-custom-trigger-death": [
+    "§cEntity Stirbt"
+  ],
+  "item-custom-trigger-damage": [
+    "§cEntity Erleidet Schaden"
+  ],
+  "item-custom-trigger-damage-any": [
+    "§aJeglicher Grund"
+  ],
+  "item-custom-trigger-damage_by_player": [
+    "§cEntity Bekommt Schaden Von Spieler"
+  ],
+  "item-custom-trigger-entity_type-any": [
+    "§cJegliches Entity"
+  ],
+  "item-custom-trigger-entity_type-player": [
+    "§aSpieler"
+  ],
+  "item-custom-trigger-intervall": [
+    "§6Intervall"
+  ],
+  "item-custom-trigger-intervall-second": [
+    "§6Jede Sekunde"
+  ],
+  "item-custom-trigger-intervall-seconds": [
+    "§6Alle {0} Sekunden"
+  ],
+  "item-custom-trigger-intervall-minutes": [
+    "§6Alle {0} Minuten"
+  ],
+  "item-custom-trigger-block_place": [
+    "§aBlock Platziert"
+  ],
+  "item-custom-trigger-block_break": [
+    "§cBlock Zerstört"
+  ],
+  "item-custom-trigger-block-any": [
+    "§2Jeglicher Block"
+  ],
+  "item-custom-trigger-consume_item": [
+    "§2Item Konsumieren"
+  ],
+  "item-custom-trigger-pickup_item": [
+    "§bItem Aufheben"
+  ],
+  "item-custom-trigger-drop_item": [
+    "§9Spieler Droppt Item"
+  ],
+  "item-custom-trigger-advancement": [
+    "§cSpieler Erhält Errungenschaft"
+  ],
+  "item-custom-trigger-hunger": [
+    "§2Spieler Verliert Hunger"
+  ],
+  "item-custom-trigger-move_down": [
+    "§6Block Nach Unten Bewegen"
+  ],
+  "item-custom-trigger-move_up": [
+    "§6Block Nach Oben Bewegen"
+  ],
+  "item-custom-trigger-move_camera": [
+    "§6Kamera Bewegen"
+  ],
+  "item-custom-trigger-stands_on_specific_block": [
+    "§6Spieler Ist Auf Bestimmten Block"
+  ],
+  "item-custom-trigger-stands_not_on_specific_block": [
+    "§6Spieler Ist Nicht Auf Bestimmten Block"
+  ],
+  "item-custom-trigger-gain_xp": [
+    "§5Spieler Bekommt XP"
+  ],
+  "item-custom-trigger-level_up": [
+    "§5Spieler Levelt Auf"
+  ],
+  "item-custom-trigger-item_craft": [
+    "§6Spieler Craftet Item"
+  ],
+  "item-custom-trigger-in_liquid": [
+    "§9Spieler In Flüssigkeit"
+  ],
+
+
+  "item-custom-action-cancel": [
+    "§4Auslöser Abbrechen",
+    "Verhindert, dass der Auslöser ausgeführt wird.",
+    "Nicht abrechenbare Auslöser: *Springen*, *Sneaken*, *Töten*",
+    "*Advancement*, *Auf Leveln*, *In Flüssigkeit*"
+  ],
+  "item-custom-action-kill": [
+    "§4Töten",
+    "Töte Entities"
+  ],
+  "item-custom-action-damage": [
+    "§cSchaden",
+    "Füge Entities Schaden zu"
+  ],
+  "item-custom-action-heal": [
+    "§aHeilen",
+    "Heile Entities"
+  ],
+  "item-custom-action-hunger": [
+    "§6Hunger",
+    "Füge Spielern Hunger hinzu"
+  ],
+  "item-custom-action-max_health": [
+    "§cMaximale Leben Verändern",
+    "Verändere die Maximalen Leben von Spielern",
+    "Wird mit einem */gamestate reset* zurückgesetzt"
+  ],
+  "item-custom-action-max_health-offset": [
+    "§cVeränderung",
+    "Wähle aus wie viele Leben verändert werden sollen"
+  ],
+  "item-custom-action-random_mob": [
+    "§6Zufälliges Entity",
+    "Spawne ein zufälliges Entity"
+  ],
+  "item-custom-action-random_item": [
+    "§bZufälliges Item",
+    "Gebe Spielern zufällige Items"
+  ],
+  "item-custom-action-uncraft_inventory": [
+    "§eInventar Zurück-Craften",
+    "Lasse das Inventar von Spielern Zurück-Craften"
+  ],
+  "item-custom-action-boost_in_air": [
+    "§fIn Luft Schleudern",
+    "Schleudere Entities in die Luft"
+  ],
+  "item-custom-action-potion_effect": [
+    "§dTrank Effekt",
+    "Gebe Entities einen bestimmten Trank Effekt"
+  ],
+  "item-custom-action-permanent_effect": [
+    "§6Permanenten Trank Effekt",
+    "Füge Spieler einen Permanenten Effekt hinzu.",
+    "Die Aktion nutzt die Einstellungen",
+    "von der Permanenten Effekt Challenge."
+  ],
+  "item-custom-action-random_effect": [
+    "§dZufälliger Trank Effekt",
+    "Gebe Entities einen zufälligen Trank Effekt"
+  ],
+  "item-custom-action-clear_inventory": [
+    "§cInventar Leeren",
+    "Leere das Inventar von Spielern komplett"
+  ],
+  "item-custom-action-drop_random_item": [
+    "§aItem Aus Inventar Droppen",
+    "Droppe ein Item aus dem Inventar auf den Boden"
+  ],
+  "item-custom-action-remove_random_item": [
+    "§cItem Aus Inventar Entfernen",
+    "Entferne ein Item aus dem Inventar"
+  ],
+  "item-custom-action-swap_random_item": [
+    "§6Items Im Inventar Tauschen",
+    "Tausche zwei Item im Inventar"
+  ],
+  "item-custom-action-freeze": [
+    "§bFreeze",
+    "Friere Mobs Zeitweise ein.",
+    "Die Aktion nutzt die Einstellungen",
+    "von der Freeze On Damage Challenge."
+  ],
+  "item-custom-action-invert_health": [
+    "§cInvert Health",
+    "Invertiere die Herzen eines Spielers.",
+    "Wenn du *8 Herzen* hast,",
+    "hast du danach *2 Herzen* und umgekehrt."
+  ],
+  "item-custom-action-water_mlg": [
+    "§9Water MLG",
+    "Alle Spieler müssen einen Water MLG machen"
+  ],
+  "item-custom-action-jnr": [
+    "§6Jump And Run",
+    "Ein zufälliger Spieler muss ein Jump And Run machen"
+  ],
+
+  "item-custom-action-target-current": [
+    "§6Aktives Entity",
+    "Die Aktion wird für das *aktive Entity* ausgeführt"
+  ],
+  "item-custom-action-target-every_mob": [
+    "§4Alle Mobs",
+    "Die Aktion wird für *alle Mobs* ausgeführt"
+  ],
+  "item-custom-action-target-every_mob_except_current": [
+    "§4Alle Mobs Außer Aktives",
+    "Die Aktion wird für *alle Mobs*",
+    "*außer* das Aktive ausgeführt ausgeführt"
+  ],
+  "item-custom-action-target-every_mob_except_players": [
+    "§4Alle Mobs Außer Spieler",
+    "Die Aktion wird für *alle Mobs*",
+    "*außer* Spieler ausgeführt"
+  ],
+  "item-custom-action-target-random_player": [
+    "§5Zufälliger Spieler",
+    "Die Aktion wird für einen *zufälligen Spieler* ausgeführt"
+  ],
+  "item-custom-action-target-every_player": [
+    "§cAlle Spieler",
+    "Die Aktion wird für *jeden Spieler* ausgeführt"
+  ],
+  "item-custom-action-target-current_player": [
+    "§aAktiver Spieler",
+    "Die Aktion wird für den *aktiven Spieler* ausgeführt",
+    "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
+  ],
+
+  "custom-subsetting-target_entity": "Ziel Entity",
+  "custom-subsetting-entity_type": "Entity Typ",
+  "custom-subsetting-liquid": "Flüssigkeit",
+  "custom-subsetting-time": "Zeit",
+  "custom-subsetting-damage_cause": "Schadens Art",
+  "custom-subsetting-amount": "Anzahl",
+  "custom-subsetting-value": "Werte Editor",
+  "custom-subsetting-health_offset": "Veränderung",
+  "custom-subsetting-length": "Länge",
+  "custom-subsetting-amplifier": "Stärke"
+
 }

@@ -1,21 +1,31 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.SortedMap;
+import java.util.TreeMap;
+import java.util.UUID;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.function.ToIntBiFunction;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.collection.NumberFormatter;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard.ScoreboardInstance;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import java.util.*;
-import java.util.Map.Entry;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Supplier;
-import java.util.function.ToIntBiFunction;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -48,17 +58,21 @@ public final class GoalHelper {
 	@Nonnull
 	public static <V> Map<Player, Integer> createPointsFromValues(@Nonnull AtomicInteger mostPoints, @Nonnull Map<UUID, V> map, @Nonnull ToIntBiFunction<UUID, V> mapper, boolean zeros) {
 		Map<Player, Integer> result = new HashMap<>();
-		if (zeros) Bukkit.getOnlinePlayers().forEach(player -> result.put(player, 0));
+		if (zeros) ChallengeAPI.getIngamePlayers().forEach(player -> result.put(player, 0));
 		for (Entry<UUID, V> entry : map.entrySet()) {
 			Player player = Bukkit.getPlayer(entry.getKey());
-			if (player == null) continue;
-			int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
-			if (points == 0) continue;
+			if (player == null)
+				continue;
+			if (!AbstractChallenge.ignorePlayer(player)) {
+				int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
+				if (points == 0)
+					continue;
 
-			result.put(player, points);
+				result.put(player, points);
 
-			if (points >= mostPoints.get())
-				mostPoints.set(points);
+				if (points >= mostPoints.get())
+					mostPoints.set(points);
+			}
 		}
 		return result;
 	}
@@ -74,6 +88,11 @@ public final class GoalHelper {
 
 	@Nonnull
 	public static BiConsumer<ScoreboardInstance, Player> createScoreboard(@Nonnull Supplier<Map<Player, Integer>> points) {
+		return createScoreboard(points, player -> new LinkedList<>());
+	}
+
+	@Nonnull
+	public static BiConsumer<ScoreboardInstance, Player> createScoreboard(@Nonnull Supplier<Map<Player, Integer>> points, Function<Player, List<String>> additionalLines) {
 		return (scoreboard, player) -> {
 			SortedMap<Integer, List<Player>> leaderboard = GoalHelper.createLeaderboardFromPoints(points.get());
 			int playerPlace = GoalHelper.determinePosition(leaderboard, player);
@@ -94,6 +113,15 @@ public final class GoalHelper {
 					if (displayed >= LEADERBOARD_SIZE) break;
 					place++;
 				}
+			}
+			scoreboard.addLine("");
+
+			List<String> lines = additionalLines.apply(player);
+			int linesThatCanBeAdded = 15 - scoreboard.getLines().size() - 1;
+			for (int i = 0; i < lines.size() && linesThatCanBeAdded > 0; i++) {
+				linesThatCanBeAdded--;
+				String line = lines.get(i);
+				scoreboard.addLine(line);
 			}
 			scoreboard.addLine("");
 		};

@@ -31,7 +31,6 @@ public final class TimerFormat {
 
 	@Nonnull
 	public String format(@Nonnegative long time) {
-		if (time < 0) time = 0;
 
 		long seconds = time;
 		long minutes = seconds / 60;
@@ -43,13 +42,13 @@ public final class TimerFormat {
 		hours %= 24;
 
 		return getFormat(minutes, hours, days)
-				.replace("{d}", "" + days)
+				.replace("{d}", String.valueOf(days))
 				.replace("{dd}", digit2(days))
-				.replace("{h}", "" + hours)
+				.replace("{h}", String.valueOf(hours))
 				.replace("{hh}", digit2(hours))
-				.replace("{m}", "" + minutes)
+				.replace("{m}", String.valueOf(minutes))
 				.replace("{mm}", digit2(minutes))
-				.replace("{s}", "" + seconds)
+				.replace("{s}", String.valueOf(seconds))
 				.replace("{ss}", digit2(seconds));
 	}
 
@@ -70,7 +69,7 @@ public final class TimerFormat {
 	}
 
 	private String digit2(@Nonnegative long number) {
-		return number > 9 ? "" + number : "0" + number;
+		return number > 9 ? String.valueOf(number) : "0" + number;
 	}
 
 }

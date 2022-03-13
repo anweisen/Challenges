@@ -23,6 +23,7 @@ import org.bukkit.scoreboard.RenderType;
 import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nonnull;
+import org.bukkit.scoreboard.ScoreboardManager;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -107,8 +108,10 @@ public class HealthDisplaySetting extends Setting {
 	private void show(@Nonnull Player player) {
 
 		Scoreboard scoreboard = player.getScoreboard();
-		if (player.getScoreboard() == Bukkit.getScoreboardManager().getMainScoreboard())
-			player.setScoreboard(scoreboard = Bukkit.getScoreboardManager().getNewScoreboard());
+		ScoreboardManager manager = Bukkit.getScoreboardManager();
+		if (manager == null) return;
+		if (player.getScoreboard() == manager.getMainScoreboard())
+			player.setScoreboard(scoreboard = manager.getNewScoreboard());
 
 		Objective objective = scoreboard.getObjective(OBJECTIVE_NAME);
 		if (objective == null)
@@ -119,6 +122,7 @@ public class HealthDisplaySetting extends Setting {
 		try {
 			objective.setRenderType(RenderType.HEARTS);
 		} catch (Exception ex) {
+			Challenges.getInstance().getLogger().severe("Tablist Health could not be updated. You are using an outdated version of spigot.");
 			// In some versions of spigot RenderType does not exist
 		}
 
@@ -137,6 +141,7 @@ public class HealthDisplaySetting extends Setting {
 		try {
 			objective.unregister();
 		} catch (Exception ex) {
+			Challenges.getInstance().getLogger().severe("Error while unregistering tablist hearts objective");
 		}
 
 	}

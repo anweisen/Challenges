@@ -1,9 +1,18 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -21,18 +30,14 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
 @Since("2.0")
 public class AllBlocksDisappearChallenge extends MenuSetting {
+
+	private final int stackDropLimit;
 
 	public AllBlocksDisappearChallenge() {
 		super(MenuType.CHALLENGES, "All Blocks Disappear");
@@ -44,6 +49,8 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 				() -> new ItemBuilder(Material.DIAMOND_BLOCK, Message.forName("item-all-blocks-disappear-place-challenge"))
 		));
 
+		Document document = ChallengeConfigHelper.getSettingsDocument();
+		stackDropLimit = document.contains("all-block-disappear-stack-drop-limit") ? document.getInt("all-block-disappear-stack-drop-limit") : 50;
 	}
 
 	@Nonnull
@@ -105,10 +112,22 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 
 	private void dropList(@Nonnull Collection<ItemStack> itemStacks, @Nonnull Location location, @Nonnull Inventory inventory) {
 		if (location.getWorld() == null) return;
+		Map<Material, Integer> stackCount = new HashMap<>();
+
 		for (ItemStack itemStack : itemStacks) {
-			ChallengeHelper.dropItem(itemStack, location, inventory);
-			location.getWorld().dropItemNaturally(location, itemStack);
+			if (increaseStackCount(stackCount, itemStack.getType())) {
+				ChallengeHelper.dropItem(itemStack, location, inventory);
+				location.getWorld().dropItemNaturally(location, itemStack);
+			}
 		}
+	}
+
+	private boolean increaseStackCount(Map<Material, Integer> map, Material material) {
+		int droppedStacks = map.getOrDefault(material, 0);
+		if (droppedStacks >= stackDropLimit) return false;
+		droppedStacks++;
+		map.put(material, droppedStacks);
+		return true;
 	}
 
 	protected List<Block> getAllBlocksToBreak(@Nonnull Chunk chunk, @Nonnull Material material) {

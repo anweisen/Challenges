@@ -2,11 +2,13 @@ package net.codingarea.challenges.plugin;
 
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.anweisen.utilities.common.version.Version;
+import net.codingarea.challenges.plugin.challenges.custom.settings.CustomSettingsLoader;
 import net.codingarea.challenges.plugin.content.loader.*;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.bstats.MetricsLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeLoader;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
+import net.codingarea.challenges.plugin.management.challenges.CustomChallengesLoader;
 import net.codingarea.challenges.plugin.management.cloud.CloudSupportManager;
 import net.codingarea.challenges.plugin.management.database.DatabaseManager;
 import net.codingarea.challenges.plugin.management.files.ConfigManager;
@@ -14,6 +16,8 @@ import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryMana
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
+import net.codingarea.challenges.plugin.management.server.GeneratorWorldPortalManager;
+import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
 import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
 import net.codingarea.challenges.plugin.management.server.ServerManager;
 import net.codingarea.challenges.plugin.management.server.TitleManager;
@@ -44,6 +48,8 @@ public final class Challenges extends BukkitModule {
 	private ChallengeManager challengeManager;
 	private BlockDropManager blockDropManager;
 	private ChallengeLoader challengeLoader;
+	private CustomChallengesLoader customChallengesLoader;
+	private CustomSettingsLoader customSettingsLoader;
 	private DatabaseManager databaseManager;
 	private CloudSupportManager cloudSupportManager;
 	private ServerManager serverManager;
@@ -56,6 +62,8 @@ public final class Challenges extends BukkitModule {
 	private ChallengeTimer timer;
 	private LoaderRegistry loaderRegistry;
 	private MetricsLoader metricsLoader;
+	private GameWorldStorage gameWorldStorage;
+	private GeneratorWorldPortalManager generatorWorldPortalManager;
 
 	@Override
 	protected void handleLoad() {
@@ -103,20 +111,26 @@ public final class Challenges extends BukkitModule {
 		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
 		challengeLoader = new ChallengeLoader();
+		customChallengesLoader = new CustomChallengesLoader();
+		customSettingsLoader = new CustomSettingsLoader();
 		menuManager = new MenuManager();
 		playerInventoryManager = new PlayerInventoryManager();
 		statsManager = new StatsManager();
 		metricsLoader = new MetricsLoader();
+		gameWorldStorage = new GameWorldStorage();
+		generatorWorldPortalManager = new GeneratorWorldPortalManager();
 
 	}
 
 	private void loadManagers() {
 		loaderRegistry.load();
-		challengeLoader.load();
 		worldManager.load();
 	}
 
 	private void enableManagers() {
+		gameWorldStorage.enable();
+		challengeLoader.enable();
+		customSettingsLoader.enable();
 		databaseManager.enable();
 		worldManager.enable();
 		timer.loadSession();
@@ -130,7 +144,6 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void registerCommands() {
-		registerCommand(new ReloadCommand(), "creload");
 		registerCommand(new HelpCommand(), "help");
 		registerCommand(new ChallengesCommand(), "challenges");
 		registerCommand(new TimerCommand(), "timer");
@@ -139,13 +152,15 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ResetCommand(), "reset");
 		registerCommand(new StatsCommand(), "stats");
 		registerCommand(new LeaderboardCommand(), "leaderboard");
-		registerCommand(new ConfigCommand(), "config");
+		registerCommand(new DatabaseCommand(), "database");
 		registerCommand(new GamestateCommand(), "gamestate");
 		registerCommand(new VillageCommand(), "village");
 		registerCommand(new HealCommand(), "heal");
 		registerCommand(new SearchCommand(), "search");
 		registerListenerCommand(new InvseeCommand(), "invsee");
 		registerCommand(new FlyCommand(), "fly");
+		registerCommand(new WorldCommand(), "world");
+		registerListenerCommand(new BackCommand(), "back");
 		registerCommand(new GamemodeCommand(), "gamemode");
 		registerCommand(new ForwardingCommand("gamemode 0", false), "gms");
 		registerCommand(new ForwardingCommand("gamemode 1", false), "gmc");
@@ -170,7 +185,9 @@ public final class Challenges extends BukkitModule {
 				new CheatListener(),
 				new BlockDropListener(),
 				new CustomEventListener(),
-				new HelpListener()
+				new HelpListener(),
+				new CustomChallengeNamingListener(),
+				new GeneratorWorldsListener()
 		);
 	}
 
@@ -192,12 +209,29 @@ public final class Challenges extends BukkitModule {
 				challengeManager.restoreDefaults();
 			}
 			challengeManager.saveLocalSettings(false);
+			challengeManager.saveLocalCustomChallenges(false);
 
 			if (!shutdownBecauseOfReset) {
 				challengeManager.saveGamestate(false);
 			}
 			challengeManager.clearChallengeCache();
 		}
+	}
+
+	public GeneratorWorldPortalManager getGeneratorWorldManager() {
+		return generatorWorldPortalManager;
+	}
+
+	public GameWorldStorage getGameWorldStorage() {
+		return gameWorldStorage;
+	}
+
+	public CustomSettingsLoader getCustomSettingsLoader() {
+		return customSettingsLoader;
+	}
+
+	public CustomChallengesLoader getCustomChallengesLoader() {
+		return customChallengesLoader;
 	}
 
 	@Nonnull
@@ -273,10 +307,6 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public LoaderRegistry getLoaderRegistry() {
 		return loaderRegistry;
-	}
-
-	public static boolean isDevelopmentBuild() {
-		return true;
 	}
 
 }

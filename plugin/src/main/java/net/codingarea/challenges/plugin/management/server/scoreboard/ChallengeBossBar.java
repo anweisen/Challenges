@@ -1,17 +1,18 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.content.Message;
 import org.bukkit.Bukkit;
 import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
-
-import javax.annotation.Nonnull;
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -19,7 +20,7 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeBossBar {
 
-	public final class BossBarInstance {
+	public static final class BossBarInstance {
 
 		private String title = "";
 		private double progress = 1;
@@ -101,7 +102,14 @@ public final class ChallengeBossBar {
 		try {
 
 			BossBarInstance instance = new BossBarInstance();
-			content.accept(instance, player);
+
+			if (ChallengeAPI.isPaused()) {
+				instance.setTitle(Message.forName("bossbar-timer-paused").asString());
+				instance.setColor(BarColor.RED);
+			} else {
+				content.accept(instance, player);
+			}
+
 
 			BossBar bossbar = bossbars.computeIfAbsent(player, key -> createBossbar(instance));
 			apply(bossbar, instance);

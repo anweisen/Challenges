@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -39,7 +40,7 @@ public class BedrockWallChallenge extends SettingModifier {
 			World world = event.getPlayer().getWorld();
 
 			List<Block> blocks = new ArrayList<>();
-			for (int y = 1; y < world.getMaxHeight(); y++) {
+			for (int y = BukkitReflectionUtils.getMinHeight(world)+1; y < world.getMaxHeight(); y++) {
 				Location blockLocation = location.clone();
 				blockLocation.setY(y);
 				blocks.add(blockLocation.getBlock());

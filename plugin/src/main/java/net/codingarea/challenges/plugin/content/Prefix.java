@@ -18,6 +18,7 @@ public class Prefix {
 
 	public static final Prefix
 			CHALLENGES  = forName("challenges", "§6Challenges"),
+			CUSTOM      = forName("custom", "§bCustom"),
 			DAMAGE      = forName("damage", "§cDamage"),
 			POSITION    = forName("position", "§9Position"),
 			BACKPACK    = forName("backpack", "§aBackpack"),
@@ -39,7 +40,7 @@ public class Prefix {
 	@Nonnull
 	@Override
 	public String toString() {
-		return value == null ? defaultValue : value;
+		return (value == null ? defaultValue : value) + "§7";
 	}
 
 	@Nonnull

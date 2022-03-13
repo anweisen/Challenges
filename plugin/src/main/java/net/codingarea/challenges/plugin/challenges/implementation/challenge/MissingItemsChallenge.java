@@ -6,7 +6,7 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
-import net.anweisen.utilities.common.collection.Tuple;
+import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -115,7 +115,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 				if (timeLeft == 0) {
 					cancel();
 					Tuple<Inventory, MenuPosition> tuple = inventories.remove(player.getUniqueId());
-					tuple.getSecond().handleClick(new MenuClickInfo(player, tuple.getFirst(), false, false, -1));
+					tuple.getSecond().handleClick(new MenuClickInfo(player, tuple.getFirst(), false, false, 1000));
 				} else if (timeLeft <= 5) {
 					new SoundSample().addSound(Sound.BLOCK_NOTE_BLOCK_BASS, 0.5F, (float) (timeLeft - 1) / 10 + 1).play(player);
 				}

@@ -1,7 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -14,15 +19,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -32,7 +33,7 @@ import java.util.List;
 public class DifficultySetting extends Modifier implements SenderCommand, TabCompleter {
 
 	public DifficultySetting() {
-		super(MenuType.SETTINGS, 0, 3);
+		super(MenuType.SETTINGS, 0, 3, 2);
 		setValue(getCurrentDifficulty().ordinal());
 	}
 
@@ -73,6 +74,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	}
 
 	private void setDifficulty(Difficulty difficulty) {
+		Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:difficulty " + difficulty.name().toLowerCase());
 		for (World world : Bukkit.getWorlds()) {
 			world.setDifficulty(difficulty);
 		}
@@ -80,7 +82,8 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 
 	@Nonnull
 	private Difficulty getCurrentDifficulty() {
-		return Bukkit.getWorlds().isEmpty() ? Difficulty.NORMAL : Bukkit.getWorlds().get(0).getDifficulty();
+		return Bukkit.getWorlds().isEmpty() ? Difficulty.NORMAL : ChallengeAPI.getGameWorld(Environment.NORMAL)
+				.getDifficulty();
 	}
 
 	@Nonnull

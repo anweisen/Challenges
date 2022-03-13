@@ -23,7 +23,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		super(Challenges.getInstance());
 	}
 
-	public void load() {
+	public void enable() {
 		// Settings
 		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);
@@ -147,12 +147,13 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(InvisibleMobsChallenge.class);
 		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
 		register(DontStopRunningChallenge.class);
-		register(DamageTeleportChallenge.class);
+//		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
 		register(PickupItemLaunchChallenge.class);
 		register(FoodLaunchChallenge.class);
-
 		register(UncraftItemsChallenge.class);
+
+		register(FiveHundredBlocksChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
@@ -162,6 +163,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
 		register(LastManStandingGoal.class);
+
 		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
@@ -169,8 +171,13 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectMostExpGoal.class);
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
+
 		register(FinishRaidGoal.class);
 		register(MostEmeraldsGoal.class);
+		register(AllAdvancementGoal.class);
+		register(MaxHeightGoal.class);
+		register(MinHeightGoal.class);
+		register(RaceGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
