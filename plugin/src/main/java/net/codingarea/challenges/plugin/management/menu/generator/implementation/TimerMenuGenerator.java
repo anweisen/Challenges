@@ -100,7 +100,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 	@Nonnull
 	private ItemStack getTimeItem(long value, @Nonnull Message singular, @Nonnull Message plural) {
 		return new ItemBuilder(Material.CLOCK).name(
-				"§8» " + (value == 1 ? singular : plural) + ": §e" + value,
+				"§8» §7" + (value == 1 ? singular : plural) + ": §e" + value,
 				" ",
 				"§7§o[Click] §8» §cReset §7timer",
 				" "
