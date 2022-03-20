@@ -126,11 +126,11 @@ public class CustomChallenge extends Setting {
 	public void executeAction(ChallengeExecutionData challengeExecutionData) {
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
-				action.execute(, challengeExecutionData, subActions);
+				action.execute(challengeExecutionData, subActions);
 			});
 			return;
 		}
-		action.execute(, challengeExecutionData, subActions);
+		action.execute(challengeExecutionData, subActions);
 	}
 
 	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeTrigger trigger,

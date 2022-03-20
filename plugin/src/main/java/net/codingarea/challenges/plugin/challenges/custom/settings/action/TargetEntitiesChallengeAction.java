@@ -21,10 +21,8 @@ import org.bukkit.entity.Player;
 public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   @Override
-  default void execute(
-      ChallengeExecutionData executionData,
-      Map<String, String[]> subActions) {
-    for (Entity target : getTargets(entity, subActions)) {
+  default void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {
+    for (Entity target : getTargets(executionData.getEntity(), subActions)) {
       executeFor(target, subActions);
     }
   }
