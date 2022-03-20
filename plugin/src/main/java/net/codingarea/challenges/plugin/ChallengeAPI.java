@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin;
 
-import com.google.common.collect.Lists;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -53,7 +52,7 @@ public final class ChallengeAPI {
 	}
 
 	public static void endChallenge(@Nonnull ChallengeEndCause endCause) {
-		Challenges.getInstance().getServerManager().endChallenge(endCause, Lists::newLinkedList);
+		Challenges.getInstance().getServerManager().endChallenge(endCause, null);
 	}
 
 	public static void endChallenge(@Nonnull ChallengeEndCause endCause, Supplier<List<Player>> winnerGetter) {
