@@ -997,6 +997,11 @@
     "Es droppen *keine Items* von",
     "*Blöcken* und *Entities* mehr."
   ],
+  "item-chunk-effect-challenge": [
+    "§3Zufällige Chunk Effekte",
+    "In *jedem Chunk* bekommst du",
+    "einen *zufälligen Effekt*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

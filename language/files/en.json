@@ -990,6 +990,11 @@
     "The *border size* adjusts to *the player*",
     "with the *most levels*."
   ],
+  "item-chunk-effect-challenge": [
+    "§3Random Chunk Effects",
+    "In *each chunk* you'll get",
+    "a random *potion effect*"
+  ],
 
   "item-dragon-goal": [
     "§5Ender Dragon",

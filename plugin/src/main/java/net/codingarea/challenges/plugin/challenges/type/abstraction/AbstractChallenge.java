@@ -188,7 +188,12 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@CheckReturnValue
 	public static boolean ignorePlayer(@Nonnull Player player) {
-		return (isIgnoreSpectatorPlayers() && player.getGameMode() == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && player.getGameMode() == GameMode.CREATIVE);
+		return ignoreGameMode(player.getGameMode());
+	}
+
+	@CheckReturnValue
+	public static boolean ignoreGameMode(@Nonnull GameMode gameMode) {
+		return (isIgnoreSpectatorPlayers() && gameMode == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && gameMode == GameMode.CREATIVE);
 	}
 
 	public static boolean isIgnoreCreativePlayers() {
