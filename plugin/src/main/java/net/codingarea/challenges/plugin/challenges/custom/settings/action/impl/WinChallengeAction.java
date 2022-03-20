@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.1.1
  */
 public class WinChallengeAction extends AbstractChallengePlayerTargetAction {
 

@@ -1360,6 +1360,10 @@
     "A random player has to a a jump and run",
     "that gets longer everytime"
   ],
+  "item-custom-action-win": [
+    "§6Win",
+    "The challenge will be won *by specific players*"
+  ],
 
   "item-custom-action-target-current": [
     "§6Current Entity",
