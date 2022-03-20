@@ -1383,6 +1383,10 @@
     "§6Jump And Run",
     "Ein zufälliger Spieler muss ein Jump And Run machen"
   ],
+  "item-custom-action-win": [
+    "§6Gewinnen",
+    "Die Challenge wird von *bestimmten Spielern* gewonnen"
+  ],
 
   "item-custom-action-target-current": [
     "§6Aktives Entity",

@@ -25,6 +25,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.R
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WinChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.AdvancementTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.CraftItemTrigger;
@@ -101,6 +102,7 @@ public class CustomSettingsLoader {
   private void loadActions() {
     registerActions(
         new CancelEventAction("cancel"),
+        new WinChallengeAction("win"),
         new KillEntityAction("kill"),
         new DamageEntityAction("damage"),
         new HealEntityAction("heal"),
