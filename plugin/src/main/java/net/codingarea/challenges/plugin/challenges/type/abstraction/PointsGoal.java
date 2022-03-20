@@ -1,17 +1,16 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.anweisen.utilities.common.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
-import org.bukkit.entity.Player;
-
-import javax.annotation.CheckReturnValue;
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.CheckReturnValue;
+import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
+import org.bukkit.entity.Player;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -91,9 +90,20 @@ public abstract class PointsGoal extends SettingGoal {
 		scoreboard.update();
 	}
 
+	protected void addPoints(@Nonnull UUID uuid, int amount) {
+		points.put(uuid, getPoints(uuid) + amount);
+		scoreboard.update();
+	}
+
+	protected void removePoints(@Nonnull UUID uuid, int amount) {
+		points.put(uuid, getPoints(uuid) - amount);
+		scoreboard.update();
+	}
+
 	@CheckReturnValue
 	protected int getPoints(@Nonnull UUID uuid) {
-		return points.get(uuid);
+		Integer points = this.points.get(uuid);
+		return points == null ? 0 : points;
 	}
 
 }
