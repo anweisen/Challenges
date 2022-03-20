@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -20,7 +21,9 @@ import org.bukkit.entity.Player;
 public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   @Override
-  default void execute(Entity entity, Map<String, String[]> subActions) {
+  default void execute(
+      ChallengeExecutionData executionData,
+      Map<String, String[]> subActions) {
     for (Entity target : getTargets(entity, subActions)) {
       executeFor(target, subActions);
     }

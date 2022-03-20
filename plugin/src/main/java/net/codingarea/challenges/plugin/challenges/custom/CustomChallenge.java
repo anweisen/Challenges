@@ -17,7 +17,6 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -89,7 +88,7 @@ public class CustomChallenge extends Setting {
 
 			boolean triggerMet = isTriggerMet(challengeExecutionData.getTriggerData());
 			if (triggerMet) {
-				executeAction(challengeExecutionData.getEntity());
+				executeAction(challengeExecutionData);
 			}
 
 		}
@@ -124,14 +123,14 @@ public class CustomChallenge extends Setting {
 		return true;
 	}
 
-	public void executeAction(Entity entity) {
+	public void executeAction(ChallengeExecutionData challengeExecutionData) {
 		if (!Bukkit.isPrimaryThread()) {
 			Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
-				action.execute(entity, subActions);
+				action.execute(, challengeExecutionData, subActions);
 			});
 			return;
 		}
-		action.execute(entity, subActions);
+		action.execute(, challengeExecutionData, subActions);
 	}
 
 	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeTrigger trigger,

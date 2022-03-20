@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Nonnull;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.TargetEntitiesChallengeAction;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -26,9 +27,11 @@ public class RandomItemAction extends AbstractChallengeAction {
   }
 
   @Override
-  public void execute(Entity entity, Map<String, String[]> subActions) {
+  public void execute(
+      ChallengeExecutionData executionData,
+      Map<String, String[]> subActions) {
 
-    for (Entity target : TargetEntitiesChallengeAction.getTargets(entity, subActions)) {
+    for (Entity target : TargetEntitiesChallengeAction.getTargets(executionData.getEntity(), subActions)) {
       if (target instanceof Player) {
         Player player = (Player) target;
         giveRandomItemToPlayer(player);

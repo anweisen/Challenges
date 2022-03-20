@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
 import java.util.Map;
 import java.util.function.Supplier;
+import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import org.bukkit.entity.Entity;
 
@@ -26,8 +27,10 @@ public abstract class AbstractChallengeTargetAction extends AbstractChallengeAct
   }
 
   @Override
-  public void execute(Entity entity, Map<String, String[]> subActions) {
-    for (Entity target : TargetEntitiesChallengeAction.getTargets(entity, subActions)) {
+  public void execute(
+      ChallengeExecutionData executionData,
+      Map<String, String[]> subActions) {
+    for (Entity target : TargetEntitiesChallengeAction.getTargets(executionData.getEntity(), subActions)) {
       executeFor(target, subActions);
     }
   }
