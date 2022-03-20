@@ -1,6 +1,10 @@
 package net.codingarea.challenges.plugin;
 
+import com.google.common.collect.Lists;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.loader.ContentLoader;
@@ -8,9 +12,6 @@ import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
@@ -52,8 +53,13 @@ public final class ChallengeAPI {
 	}
 
 	public static void endChallenge(@Nonnull ChallengeEndCause endCause) {
-		Challenges.getInstance().getServerManager().endChallenge(endCause);
+		Challenges.getInstance().getServerManager().endChallenge(endCause, Lists::newLinkedList);
 	}
+
+	public static void endChallenge(@Nonnull ChallengeEndCause endCause, Supplier<List<Player>> winnerGetter) {
+		Challenges.getInstance().getServerManager().endChallenge(endCause, winnerGetter);
+	}
+
 
 	public static boolean isWorldInUse() {
 		return Challenges.getInstance().getWorldManager().isWorldInUse();
