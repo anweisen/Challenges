@@ -155,6 +155,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 
 		register(FiveHundredBlocksChallenge.class);
 		register(ChunkRandomEffectChallenge.class);
+		register(RepeatInChunkChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

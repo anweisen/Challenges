@@ -996,6 +996,11 @@
     "In *each chunk* you'll get",
     "a random *potion effect*"
   ],
+  "item-repeat-chunk-challenge": [
+    "§2Repeated Chunk",
+    "Blocks that are *placed or destroyed*",
+    "will be placed / destroyed in *every chunk*"
+  ],
 
   "item-dragon-goal": [
     "§5Ender Dragon",

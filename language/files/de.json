@@ -1003,6 +1003,11 @@
     "In *jedem Chunk* bekommst du",
     "einen *zufälligen Effekt*"
   ],
+  "item-repeat-chunk-challenge": [
+    "§2Wiederholende Chunks",
+    "Blöcke die *platziert oder zerstört* werden,",
+    "werden in *jedem Chunk* platziert / zerstört"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
