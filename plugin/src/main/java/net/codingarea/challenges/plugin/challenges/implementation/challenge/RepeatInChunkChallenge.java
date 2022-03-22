@@ -151,7 +151,7 @@ public class RepeatInChunkChallenge extends Setting {
 				for (Chunk chunk : getSurroundingChunks(player.getLocation().getChunk(), false)) {
 					Block block = chunk.getBlock(x, y, z);
 					if (!Objects.equals(exception, block)) {
-						block.setBlockData(data, true);
+						setBlockData(block, data, true);
 					}
 				}
 
@@ -207,12 +207,19 @@ public class RepeatInChunkChallenge extends Setting {
 			BlockData blockData = blockEntry.getValue();
 			Block block = chunk.getBlock(pos.getFirst(), pos.getSecond(), pos.getThird());
 			if (!block.getBlockData().matches(blockData)) {
-				block.setBlockData(blockData, false);
+				setBlockData(block, blockData, false);
 			}
 
 		}
 
 
+	}
+
+	private void setBlockData(Block block, BlockData blockData, boolean update) {
+		if (block.getType() == Material.END_PORTAL ||
+				block.getType() == Material.END_PORTAL_FRAME ||
+				block.getType() == Material.END_GATEWAY) return;
+		block.setBlockData(blockData, update);
 	}
 
 	private int getRelativeChunkCoordinate(int worldCoordinate) {
