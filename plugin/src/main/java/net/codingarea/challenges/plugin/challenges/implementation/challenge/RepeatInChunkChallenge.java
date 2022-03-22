@@ -245,7 +245,7 @@ public class RepeatInChunkChallenge extends Setting {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onBreak(BlockBreakEvent event) {
 		if (!shouldExecuteEffect()) return;
-//		if (ignorePlayer(event.getPlayer())) return;
+		if (ignorePlayer(event.getPlayer())) return;
 
 		Block block = event.getBlock();
 		changeBlockInEveryChunk(
