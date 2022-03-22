@@ -14,9 +14,12 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.Abstr
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.InfoMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -44,9 +47,9 @@ public class CustomChallenge extends Setting {
 		this.subActions = subActions;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
-	public ItemBuilder createDisplayItem() {
+	public ItemStack getDisplayItem() {
 		String name = this.name;
 		if (name == null) {
 			name = "NULL";
@@ -57,7 +60,37 @@ public class CustomChallenge extends Setting {
 			material = Material.BARRIER;
 		}
 
-		return new ItemBuilder(material, "§7" + name);
+		ItemBuilder builder = new ItemBuilder(material, Message.forName("item-prefix").asString() + "§7" + name);
+
+		// ADDING CONDITION INFO
+		if (getTrigger() != null) {
+			builder.appendLore(" ");
+			List<String> triggerDisplay = InfoMenuGenerator
+					.getSubSettingsDisplay(getTrigger().getSubSettingsBuilder(), getSubTriggers());
+
+			String triggerName = Message.forName(getTrigger().getMessage()).asItemDescription().getName();
+			builder.appendLore(Message.forName("custom-info-trigger").asString() + " " + triggerName);
+			builder.appendLore(triggerDisplay);
+		}
+
+		// ADDING ACTION INFO
+		if (getAction() != null) {
+			builder.appendLore(" ");
+			List<String> actionDisplay = InfoMenuGenerator
+					.getSubSettingsDisplay(getAction().getSubSettingsBuilder(), getSubActions());
+
+			String actionName = Message.forName(getAction().getMessage()).asItemDescription().getName();
+			builder.appendLore(Message.forName("custom-info-action").asString() + " " + actionName);
+			builder.appendLore(actionDisplay);
+		}
+
+		return builder.build();
+	}
+
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.BARRIER);
 	}
 
 	@Override

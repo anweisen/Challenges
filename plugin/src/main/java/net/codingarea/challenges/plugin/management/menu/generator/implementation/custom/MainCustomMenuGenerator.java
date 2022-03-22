@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import java.util.List;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -89,37 +88,8 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
 
 		ItemBuilder displayItem = getDisplayItemBuilder(challenge);
-		if (challenge instanceof CustomChallenge) {
-			CustomChallenge customChallenge = (CustomChallenge) challenge;
 
-			// ADDING CONDITION INFO
-			if (customChallenge.getTrigger() != null) {
-				displayItem.appendLore(" ");
-				List<String> triggerDisplay = InfoMenuGenerator
-						.getSubSettingsDisplay(customChallenge.getTrigger().getSubSettingsBuilder(),
-								customChallenge.getSubTriggers());
-
-				String triggerName = Message.forName(customChallenge.getTrigger().getMessage()).asItemDescription()
-						.getName();
-				displayItem.appendLore(Message.forName("custom-info-trigger").asString() + " " + triggerName);
-				displayItem.appendLore(triggerDisplay);
-			}
-
-			// ADDING ACTION INFO
-			if (customChallenge.getAction() != null) {
-				displayItem.appendLore(" ");
-				List<String> actionDisplay = InfoMenuGenerator
-						.getSubSettingsDisplay(customChallenge.getAction().getSubSettingsBuilder(),
-								customChallenge.getSubActions());
-
-				String actionName = Message.forName(customChallenge.getAction().getMessage()).asItemDescription()
-						.getName();
-				displayItem.appendLore(Message.forName("custom-info-action").asString() + " " + actionName);
-				displayItem.appendLore(actionDisplay);
-			}
-		}
-
-		inventory.setItem(getSlots()[topSlot], displayItem.setName(Message.forName("item-prefix").asString() + displayItem.getName()).build());
+		inventory.setItem(getSlots()[topSlot], getDisplayItemBuilder(challenge).build());
 		inventory.setItem(getSlots()[topSlot] + 9, DefaultItem.customize().build());
 		inventory.setItem(getSlots()[topSlot] + 18, getSettingsItem(challenge));
 	}
