@@ -1008,6 +1008,11 @@
     "Blöcke die *platziert oder zerstört* werden,",
     "werden in *jedem Chunk* platziert / zerstört"
   ],
+  "item-blocks-fly-challenge": [
+    "§fBlöcke Fliegen In Luft",
+    "*Blöcke* auf denen du *gelaufen* bist,",
+    "fliegen nach *einer Sekunde* in die *Luft*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",

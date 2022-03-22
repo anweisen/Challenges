@@ -1001,6 +1001,12 @@
     "Blocks that are *placed or destroyed*",
     "will be placed / destroyed in *every chunk*"
   ],
+  "item-blocks-fly-challenge": [
+    "§fBlocks Fly in Air",
+    "*Blocks* you've *walked* on fly",
+    "into the air after *one second*"
+  ],
+
 
   "item-dragon-goal": [
     "§5Ender Dragon",
