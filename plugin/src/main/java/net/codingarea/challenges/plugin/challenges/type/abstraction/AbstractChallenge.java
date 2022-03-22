@@ -42,6 +42,8 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	private String name;
 
+	private ItemStack cachedDisplayItem;
+
 	static {
 		Document ignoreDocument = Challenges.getInstance().getConfigDocument().getDocument("ignore-players");
 		ignoreCreativePlayers = ignoreDocument.getBoolean("creative");
@@ -66,7 +68,9 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	@Override
 	public ItemStack getDisplayItem() {
-		return createDisplayItem().build();
+		if (cachedDisplayItem != null) return cachedDisplayItem.clone();
+		cachedDisplayItem = createDisplayItem().build();
+		return cachedDisplayItem.clone();
 	}
 
 	@Nonnull

@@ -86,9 +86,6 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 
 	@Override
 	public void setSettingsItems(@Nonnull Inventory inventory, @Nonnull IChallenge challenge, int topSlot) {
-
-		ItemBuilder displayItem = getDisplayItemBuilder(challenge);
-
 		inventory.setItem(getSlots()[topSlot], getDisplayItemBuilder(challenge).build());
 		inventory.setItem(getSlots()[topSlot] + 9, DefaultItem.customize().build());
 		inventory.setItem(getSlots()[topSlot] + 18, getSettingsItem(challenge));
