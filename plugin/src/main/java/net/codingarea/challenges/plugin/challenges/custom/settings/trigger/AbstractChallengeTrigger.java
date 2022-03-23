@@ -38,8 +38,7 @@ public abstract class AbstractChallengeTrigger extends AbstractChallengeSetting 
     super(name);
   }
 
-  public AbstractChallengeTrigger(String name,
-      Supplier<SubSettingsBuilder> builderSupplier) {
+  public AbstractChallengeTrigger(String name, Supplier<SubSettingsBuilder> builderSupplier) {
     super(name, builderSupplier);
   }
 
@@ -63,11 +62,15 @@ public abstract class AbstractChallengeTrigger extends AbstractChallengeSetting 
       builder.addSetting(AbstractChallengeTrigger.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-entity_type-any")).build());
       builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-trigger-entity_type-player")).build());
       for (EntityType type : EntityType.values()) {
+        if (!type.isSpawnable() || !type.isAlive()) continue;
         try {
           Material spawnEgg = Material.valueOf(type.name() + "_SPAWN_EGG");
-          builder.addSetting(type.name(), new ItemBuilder(spawnEgg, DefaultItem.getItemPrefix() + StringUtils
-              .getEnumName(type)).build());
-        } catch (Exception ex) { }
+          builder.addSetting(type.name(), new ItemBuilder(spawnEgg,
+              DefaultItem.getItemPrefix() + StringUtils.getEnumName(type)).build());
+        } catch (Exception ex) {
+          builder.addSetting(type.name(), new ItemBuilder(Material.STRUCTURE_VOID,
+              DefaultItem.getItemPrefix() + StringUtils.getEnumName(type)));
+        }
       }
     });
   }
