@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 import java.util.Map;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -16,7 +17,8 @@ import org.bukkit.potion.PotionEffectType;
 public class PotionEffectAction extends AbstractChallengeTargetAction {
 
   public PotionEffectAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true).addChild(createPotionSettingsBuilder(true, true)));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).addChild(
+        SubSettingsHelper.createPotionSettingsBuilder(true, true)));
   }
 
   @Override

@@ -1221,12 +1221,6 @@
   "item-custom-trigger-damage_by_player": [
     "§cEntity Takes Damage By Player"
   ],
-  "item-custom-trigger-entity_type-any": [
-    "§cAny Entity"
-  ],
-  "item-custom-trigger-entity_type-player": [
-    "§aPlayer"
-  ],
   "item-custom-trigger-intervall": [
     "§6Interval"
   ],
@@ -1244,9 +1238,6 @@
   ],
   "item-custom-trigger-block_break": [
     "§cBlock Destroyed"
-  ],
-  "item-custom-trigger-block-any": [
-    "§2Any Block"
   ],
   "item-custom-trigger-consume_item": [
     "§2Consume Item"
@@ -1391,36 +1382,40 @@
     "The challenge will be won *by specific players*"
   ],
 
-  "item-custom-action-target-current": [
+  "item-custom-setting-target-current": [
     "§6Current Entity",
     "The action will be executed for the *current entity*"
   ],
-  "item-custom-action-target-every_mob": [
+  "item-custom-setting-target-every_mob": [
     "§4Every Mob",
     "The action will be executed for *every mob*"
   ],
-  "item-custom-action-target-every_mob_except_current": [
+  "item-custom-setting-target-every_mob_except_current": [
     "§4Every Mob Except Current",
     "The action will be executed for *every mob*",
     "*except* the current one"
   ],
-  "item-custom-action-target-every_mob_except_players": [
+  "item-custom-setting-target-every_mob_except_players": [
     "§4Every Mob Except Players",
     "The action will be executed for *every mob except players*"
   ],
-  "item-custom-action-target-random_player": [
+  "item-custom-setting-target-random_player": [
     "§5Random Player",
     "The action will be executed for a *random player*"
   ],
-  "item-custom-action-target-every_player": [
+  "item-custom-setting-target-every_player": [
     "§cEvery Player",
     "The action will be executed for *every player*"
   ],
-  "item-custom-action-target-current_player": [
+  "item-custom-setting-target-current_player": [
     "§aCurrent Player",
     "The action will be executed for the *active player*.",
     "§7§oIf the current entity is not a player nothing will be happen"
   ],
+
+  "item-custom-setting-entity_type-any": "§cAny Entity",
+  "item-custom-setting-entity_type-player": "§aPlayer",
+  "item-custom-setting-block-any": "§2Any Block",
 
   "custom-subsetting-target_entity": "Target Entity",
   "custom-subsetting-entity_type": "Entity Type",

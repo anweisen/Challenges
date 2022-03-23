@@ -8,6 +8,7 @@ import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.TargetEntitiesChallengeAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -23,7 +24,7 @@ public class RandomItemAction extends AbstractChallengeAction {
   public static final List<Material> items;
 
   public RandomItemAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false, true));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
   }
 
   @Override
@@ -41,7 +42,7 @@ public class RandomItemAction extends AbstractChallengeAction {
 
   public static void giveRandomItemToPlayer(@Nonnull Player player) {
     InventoryUtils.giveItem(player.getInventory(),
-        player.getLocation(), new ItemStack(random.choose(items)));
+        player.getLocation(), new ItemStack(AbstractChallengeAction.random.choose(items)));
   }
 
   @Override

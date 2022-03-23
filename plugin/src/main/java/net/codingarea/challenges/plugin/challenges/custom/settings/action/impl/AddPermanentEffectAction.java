@@ -4,6 +4,7 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.PermanentEffectOnDamageChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -17,7 +18,7 @@ public class AddPermanentEffectAction extends AbstractChallengePlayerTargetActio
       .getFirstInstance(PermanentEffectOnDamageChallenge.class);
 
   public AddPermanentEffectAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false, true));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
   }
 
   @Override

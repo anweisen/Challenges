@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -21,7 +22,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class InLiquidTrigger extends AbstractChallengeTrigger {
 
   public InLiquidTrigger(String name) {
-    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeTrigger.LIQUID).fill(builder -> {
+    super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.LIQUID).fill(builder -> {
       builder.addSetting("LAVA", new ItemBuilder(Material.LAVA_BUCKET, DefaultItem.getItemPrefix() + "§cLava"));
       builder.addSetting("WATER", new ItemBuilder(Material.WATER_BUCKET, DefaultItem.getItemPrefix() + "§9Water"));
     }));
@@ -46,7 +47,7 @@ public class InLiquidTrigger extends AbstractChallengeTrigger {
         oldType != Material.LAVA) {
       createData()
           .entity(event.getPlayer())
-          .data(AbstractChallengeTrigger.LIQUID, type.name())
+          .data(SubSettingsHelper.LIQUID, type.name())
           .execute();
     }
 

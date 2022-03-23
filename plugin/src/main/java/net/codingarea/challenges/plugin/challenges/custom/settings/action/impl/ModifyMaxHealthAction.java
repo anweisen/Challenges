@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.Abstra
 import net.codingarea.challenges.plugin.challenges.implementation.setting.MaxHealthSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ import org.bukkit.entity.Player;
 public class ModifyMaxHealthAction extends AbstractChallengePlayerTargetAction {
 
   public ModifyMaxHealthAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false, true)
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true)
         .createValueChild().fill(builder -> {
           builder.addModifierSetting("health_offset",
               new ItemBuilder(Material.RED_DYE,

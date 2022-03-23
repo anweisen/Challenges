@@ -6,6 +6,7 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ public class WinChallengeAction extends AbstractChallengePlayerTargetAction {
 	private final List<Player> winner = Lists.newLinkedList();
 
 	public WinChallengeAction(String name) {
-		super(name, createEntityTargetSettingsBuilder(false, true));
+		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
 	}
 
 	@Override

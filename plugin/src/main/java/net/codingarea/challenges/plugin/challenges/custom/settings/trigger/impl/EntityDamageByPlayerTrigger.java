@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -17,7 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class EntityDamageByPlayerTrigger extends AbstractChallengeTrigger {
 
 	public EntityDamageByPlayerTrigger(String name) {
-		super(name, createEntityTypeSettingsBuilder());
+		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder());
 	}
 
 	@Override

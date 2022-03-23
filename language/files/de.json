@@ -1241,12 +1241,6 @@
   "item-custom-trigger-damage_by_player": [
     "§cEntity Bekommt Schaden Von Spieler"
   ],
-  "item-custom-trigger-entity_type-any": [
-    "§cJegliches Entity"
-  ],
-  "item-custom-trigger-entity_type-player": [
-    "§aSpieler"
-  ],
   "item-custom-trigger-intervall": [
     "§6Intervall"
   ],
@@ -1264,9 +1258,6 @@
   ],
   "item-custom-trigger-block_break": [
     "§cBlock Zerstört"
-  ],
-  "item-custom-trigger-block-any": [
-    "§2Jeglicher Block"
   ],
   "item-custom-trigger-consume_item": [
     "§2Item Konsumieren"
@@ -1414,37 +1405,42 @@
     "Die Challenge wird von *bestimmten Spielern* gewonnen"
   ],
 
-  "item-custom-action-target-current": [
+
+  "item-custom-setting-target-current": [
     "§6Aktives Entity",
     "Die Aktion wird für das *aktive Entity* ausgeführt"
   ],
-  "item-custom-action-target-every_mob": [
+  "item-custom-setting-target-every_mob": [
     "§4Alle Mobs",
     "Die Aktion wird für *alle Mobs* ausgeführt"
   ],
-  "item-custom-action-target-every_mob_except_current": [
+  "item-custom-setting-target-every_mob_except_current": [
     "§4Alle Mobs Außer Aktives",
     "Die Aktion wird für *alle Mobs*",
     "*außer* das Aktive ausgeführt ausgeführt"
   ],
-  "item-custom-action-target-every_mob_except_players": [
+  "item-custom-setting-target-every_mob_except_players": [
     "§4Alle Mobs Außer Spieler",
     "Die Aktion wird für *alle Mobs*",
     "*außer* Spieler ausgeführt"
   ],
-  "item-custom-action-target-random_player": [
+  "item-custom-setting-target-random_player": [
     "§5Zufälliger Spieler",
     "Die Aktion wird für einen *zufälligen Spieler* ausgeführt"
   ],
-  "item-custom-action-target-every_player": [
+  "item-custom-setting-target-every_player": [
     "§cAlle Spieler",
     "Die Aktion wird für *jeden Spieler* ausgeführt"
   ],
-  "item-custom-action-target-current_player": [
+  "item-custom-setting-target-current_player": [
     "§aAktiver Spieler",
     "Die Aktion wird für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
   ],
+
+  "item-custom-setting-entity_type-any": "§cJegliches Entity",
+  "item-custom-setting-entity_type-player": "§aSpieler",
+  "item-custom-setting-block-any": "§2Jeglicher Block",
 
   "custom-subsetting-target_entity": "Ziel Entity",
   "custom-subsetting-entity_type": "Entity Typ",

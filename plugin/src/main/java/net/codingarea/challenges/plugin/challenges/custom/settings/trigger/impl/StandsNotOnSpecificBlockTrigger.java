@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -18,7 +19,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class StandsNotOnSpecificBlockTrigger extends AbstractChallengeTrigger {
 
   public StandsNotOnSpecificBlockTrigger(String name) {
-    super(name, createBlockSettingsBuilder());
+    super(name, SubSettingsHelper.createBlockSettingsBuilder());
   }
 
   @Override

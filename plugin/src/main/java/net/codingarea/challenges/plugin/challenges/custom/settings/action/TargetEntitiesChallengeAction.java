@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -30,10 +30,10 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
   void executeFor(Entity entity, Map<String, String[]> subActions);
 
   static List<Entity> getTargets(Entity triggerTarget, Map<String, String[]> subActions) {
-    if (!subActions.containsKey(AbstractChallengeTrigger.TARGET_ENTITY)) {
+    if (!subActions.containsKey(SubSettingsHelper.TARGET_ENTITY)) {
       return Lists.newLinkedList();
     }
-    String targetEntity = subActions.get(AbstractChallengeTrigger.TARGET_ENTITY)[0];
+    String targetEntity = subActions.get(SubSettingsHelper.TARGET_ENTITY)[0];
 
     switch (targetEntity) {
       case "random_player":

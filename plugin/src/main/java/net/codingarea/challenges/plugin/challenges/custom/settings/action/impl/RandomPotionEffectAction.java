@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.RandomPotionEffectChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -16,7 +17,8 @@ import org.bukkit.potion.PotionEffectType;
 public class RandomPotionEffectAction extends AbstractChallengeTargetAction {
 
   public RandomPotionEffectAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true).addChild(createPotionSettingsBuilder(false, true)));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).addChild(
+				SubSettingsHelper.createPotionSettingsBuilder(false, true)));
   }
 
   @Override
