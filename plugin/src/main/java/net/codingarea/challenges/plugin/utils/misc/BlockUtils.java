@@ -184,9 +184,7 @@ public final class BlockUtils {
 
 	public static boolean isTooHardToGet(Material material) {
 		String name = material.name();
-		return isEndItem(material) ||
-				material == Material.NETHER_STAR ||
-				name.contains("EXPOSED") ||
+		return name.contains("EXPOSED") ||
 				name.contains("WEATHERED") ||
 				name.contains("OXIDIZED") ||
 				name.contains("BUD");
