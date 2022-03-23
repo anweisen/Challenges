@@ -183,6 +183,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RaceGoal.class);
 		register(MostOresGoal.class);
 
+		register(FindElytraGoal.class);
+
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
 		registerDamageRule("attack",    Material.DIAMOND_SWORD,             DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION);

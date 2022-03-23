@@ -1109,6 +1109,11 @@
     "Der Spieler, der am *meisten Erze*",
     "*abgebaut* hat, gewinnt"
   ],
+  "item-find-elytra-goal": [
+    "§fElytra Finden",
+    "Der Spieler, der als *erstes*",
+    "eine Elytra findet, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [

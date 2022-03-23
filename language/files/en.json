@@ -1096,6 +1096,11 @@
     "§9Most Ores",
     "The player that mines the most ores wins"
   ],
+  "item-find-elytra-goal": [
+    "§fFind Elytra",
+    "The *player* that finds an elytra *wins*"
+  ],
+
 
 
   "item-damage-rule-fire": [
