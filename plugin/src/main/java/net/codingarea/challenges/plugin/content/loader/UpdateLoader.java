@@ -17,6 +17,7 @@ public final class UpdateLoader extends ContentLoader {
 
 	private static boolean newestPluginVersion = true;
 	private static boolean newestConfigVersion = true;
+	private static Version defaultConfigVersion;
 
 	@Override
 	protected void load() {
@@ -25,7 +26,7 @@ public final class UpdateLoader extends ContentLoader {
 			String response = IOUtils.toString(url);
 			Version plugin = Challenges.getInstance().getVersion();
 			YamlConfiguration defaultConfig = Challenges.getInstance().getConfigManager().getDefaultConfig();
-			Version defaultConfigVersion = defaultConfig == null ? plugin : Version.parse(defaultConfig.getString("config-version"));
+			defaultConfigVersion = defaultConfig == null ? plugin : Version.parse(defaultConfig.getString("config-version"));
 			Version config = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
 			Version latestVersion = Version.parse(response);
 
@@ -41,6 +42,10 @@ public final class UpdateLoader extends ContentLoader {
 		} catch (Exception ex) {
 			Logger.error("Could not check for update: {}", ex.getMessage());
 		}
+	}
+
+	public static Version getDefaultConfigVersion() {
+		return defaultConfigVersion;
 	}
 
 	public static boolean isNewestConfigVersion() {

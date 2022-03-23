@@ -49,9 +49,16 @@
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
+  "deprecated-config-version": [
+    "Eine neue Version der §eChallenges Config ({0}) §7ist verfügbar",
+    "Du kannst die alte config löschen oder die fehlenden Einstellungen manuell hinzufügen"
+  ],
   "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",
   "missing-config-settings-separator": "§7, §e",
+  "no-missing-config-settings": [
+    "§cEs fehlen keine Einstellungen in der Config.",
+    "§cDu kannst die Version ohne bedenken selbst auf §c§l{0} §cstellen."
+  ],
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [

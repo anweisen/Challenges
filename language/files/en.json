@@ -49,9 +49,16 @@
     "A new version of §e§lChallenges §7is available",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "A new version of the §econfig §7is available",
+  "deprecated-config-version": [
+    "A new version of the §econfig §7is available",
+    "You can either manually add all missing settings or delete the old one"
+  ],
   "missing-config-settings": "There are missing config settings: §e{0}",
   "missing-config-settings-separator": "§7, §e",
+  "no-missing-config-settings": [
+    "§cThere are no missing config settings.",
+    "§cYou can manually update it to §c§l{0}"
+  ],
   "join-message": "§e{0} §7has §ajoined §7the server",
   "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [
