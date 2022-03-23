@@ -13,6 +13,7 @@ import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
 import net.anweisen.utilities.common.config.document.GsonDocument;
+import net.anweisen.utilities.common.config.document.YamlDocument;
 import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -41,7 +42,25 @@ public final class ConfigManager {
 
 		Challenges plugin = Challenges.getInstance();
 		Document config = plugin.getConfigDocument();
+		YamlConfiguration defaultConfig = getDefaultConfig();
 
+		if (defaultConfig != null) {
+			for (String key : defaultConfig.getKeys(true)) {
+				if (!config.contains(key)) {
+					missingConfigSettings.add(key);
+				}
+			}
+		}
+
+	}
+
+	public Document getDefaultConfigDocument() {
+		YamlConfiguration defaultConfig = getDefaultConfig();
+		return defaultConfig == null ? null : new YamlDocument(defaultConfig);
+	}
+
+	public YamlConfiguration getDefaultConfig() {
+		Challenges plugin = Challenges.getInstance();
 		try {
 			// Create Temp File for loading the yaml configuration
 			File defaultConfigTempFile = new File("defaultConfig.yml");
@@ -49,23 +68,20 @@ public final class ConfigManager {
 			FileOutputStream stream = new FileOutputStream(defaultConfigTempFile);
 			// Copy the default config inside the temp file
 			InputStream resource = plugin.getResource("config.yml");
-			if (resource == null) return;
+			if (resource == null) return null;
 			copyLarge(resource, stream, new byte[1024 * 4]);
 			// Load the File as a yaml config
 			// Spigot Config Implementation because the Document Library does not contain deep-keys.
 			YamlConfiguration defaultConfig = new YamlConfiguration();
 			defaultConfig.load(defaultConfigTempFile);
 
-			for (String key : defaultConfig.getKeys(true)) {
-				if (!config.contains(key)) {
-					missingConfigSettings.add(key);
-				}
-			}
+			return defaultConfig;
 		} catch (IOException | NullPointerException | InvalidConfigurationException e) {
 			plugin.getLogger().severe("Error while checking missing keys in the current config");
 			e.printStackTrace();
 		}
 
+		return null;
 	}
 
 	/**
