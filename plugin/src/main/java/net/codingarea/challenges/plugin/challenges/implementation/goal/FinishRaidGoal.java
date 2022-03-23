@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -15,10 +17,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.raid.RaidFinishEvent;
 
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
@@ -27,7 +25,6 @@ import java.util.List;
 @RequireVersion(MinecraftVersion.V1_16)
 public class FinishRaidGoal extends SettingGoal {
 
-	private List<Player> winners = new ArrayList<>();
 
 	@Nonnull
 	@Override
@@ -36,16 +33,13 @@ public class FinishRaidGoal extends SettingGoal {
 	}
 
 	@Override
-	public void getWinnersOnEnd(@Nonnull List<Player> winners) {
-		winners.addAll(this.winners);
-	}
+	public void getWinnersOnEnd(@Nonnull List<Player> winners) { }
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onRaidFinish(@Nonnull RaidFinishEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (event.getRaid().getStatus() != RaidStatus.VICTORY) return;
-		this.winners = event.getWinners();
-		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
+		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED, event::getWinners);
 	}
 
 }

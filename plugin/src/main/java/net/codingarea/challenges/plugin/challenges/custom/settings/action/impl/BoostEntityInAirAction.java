@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -14,7 +15,7 @@ import org.bukkit.util.Vector;
 public class BoostEntityInAirAction extends AbstractChallengeTargetAction {
 
   public BoostEntityInAirAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true));
   }
 
   @Override

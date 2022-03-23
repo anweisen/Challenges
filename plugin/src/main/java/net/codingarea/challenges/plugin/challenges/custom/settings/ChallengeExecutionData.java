@@ -8,9 +8,9 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.IChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -51,11 +51,11 @@ public class ChallengeExecutionData {
   }
 
   public ChallengeExecutionData block(Material material) {
-    return data(AbstractChallengeTrigger.BLOCK, AbstractChallengeTrigger.ANY, material.name());
+    return data(SubSettingsHelper.BLOCK, SubSettingsHelper.ANY, material.name());
   }
 
   public ChallengeExecutionData entityType(EntityType type) {
-    return data(AbstractChallengeTrigger.ENTITY_TYPE, AbstractChallengeTrigger.ANY, type.name());
+    return data(SubSettingsHelper.ENTITY_TYPE, SubSettingsHelper.ANY, type.name());
   }
 
   public ChallengeExecutionData entity(Entity entity) {

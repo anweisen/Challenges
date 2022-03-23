@@ -25,6 +25,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard.ScoreboardInstance;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 /**
@@ -63,7 +64,8 @@ public final class GoalHelper {
 			Player player = Bukkit.getPlayer(entry.getKey());
 			if (player == null)
 				continue;
-			if (!AbstractChallenge.ignorePlayer(player)) {
+			// Ignore spectators when playing but show spectators after challenge end
+			if (!AbstractChallenge.ignorePlayer(player) || (ChallengeAPI.isPaused() && player.getGameMode() == GameMode.SPECTATOR)) {
 				int points = mapper.applyAsInt(entry.getKey(), entry.getValue());
 				if (points == 0)
 					continue;
@@ -129,12 +131,22 @@ public final class GoalHelper {
 
 	public static void getWinnersOnEnd(@Nonnull List<Player> winners, @Nonnull Map<Player, Integer> points) {
 		AtomicInteger mostPoints = new AtomicInteger();
-		if (mostPoints.get() == 0) return; // Nobody won, nobody has anything
+		List<Player> currentWinners = new LinkedList<>();
 
 		for (Entry<Player, Integer> entry : points.entrySet()) {
-			if (entry.getValue() != mostPoints.get() || entry.getValue() == 0) continue;
-			winners.add(entry.getKey());
+			if (entry.getValue() <= 0) continue;
+			if (entry.getValue() == mostPoints.get()) {
+				currentWinners.add(entry.getKey());
+				continue;
+			}
+			if (entry.getValue() > mostPoints.get()) {
+				mostPoints.set(entry.getValue());
+				currentWinners.clear();
+				currentWinners.add(entry.getKey());
+			}
 		}
+
+		winners.addAll(currentWinners);
 	}
 
 }

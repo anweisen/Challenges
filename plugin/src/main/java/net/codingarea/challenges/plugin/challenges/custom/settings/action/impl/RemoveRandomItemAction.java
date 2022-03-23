@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -13,7 +14,7 @@ import org.bukkit.entity.Player;
 public class RemoveRandomItemAction extends AbstractChallengePlayerTargetAction {
 
   public RemoveRandomItemAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false, true));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
   }
 
   @Override

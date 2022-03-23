@@ -151,7 +151,7 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void updateInventoryPaused(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !enabled) {
+		if (gamemode == GameMode.SPECTATOR || !enabled) {
 			removeItems(player);
 			return;
 		}
@@ -223,18 +223,14 @@ public final class PlayerInventoryManager implements Listener {
 	private Triple<ItemStack, Consumer<Player>, String>[] createItemPairs(@Nonnull Player player) {
 		Triple<ItemStack, Consumer<Player>, String>[] pairs = new Triple[9];
 
+
 		if (control) {
-			pairs[3] = new Triple<>(
-					new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
-					p -> p.performCommand("timer"),
-					"challenges.timer"
-			);
 			pairs[4] = new Triple<>(
-					new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
-					p -> p.performCommand("challenges"),
+					new ItemBuilder(Material.NETHER_STAR, Message.forName("item-menu-challenges").asString()).build(),
+					p -> p.performCommand("Settings (RechtsKlick)"),
 					"challenges.gui"
 			);
-			pairs[5] = new Triple<>(
+			pairs[9] = new Triple<>(
 					new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
 					p -> p.performCommand("start"),
 					"challenges.timer"

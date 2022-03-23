@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ import org.bukkit.entity.LivingEntity;
 public class HealEntityAction extends AbstractChallengeTargetAction {
 
   public HealEntityAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true).createChooseItemChild("amount").fill(builder -> {
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).createChooseItemChild("amount").fill(builder -> {
       String prefix = DefaultItem.getItemPrefix();
       for (int i = 1; i < 21; i++) {
         builder.addSetting(

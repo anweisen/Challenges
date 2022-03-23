@@ -154,6 +154,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(UncraftItemsChallenge.class);
 
 		register(FiveHundredBlocksChallenge.class);
+		register(ChunkRandomEffectChallenge.class);
+		register(RepeatInChunkChallenge.class);
+		register(BlockFlyInAirChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);
@@ -178,6 +181,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MaxHeightGoal.class);
 		register(MinHeightGoal.class);
 		register(RaceGoal.class);
+		register(MostOresGoal.class);
+
+		register(FindElytraGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);

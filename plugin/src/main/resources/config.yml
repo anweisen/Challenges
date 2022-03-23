@@ -1,29 +1,26 @@
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
-#     _____ _           _ _                                     #
-#    / ____| |         | | |                                    #
-#   | |    | |__   __ _| | | ___ _ __   __ _  ___  ___          #
-#   | |    | '_ \ / _` | | |/ _ \ '_ \ / _` |/ _ \/ __|         #
-#   | |____| | | | (_| | | |  __/ | | | (_| |  __/\__ \         #
-#    \_____|_| |_|\__,_|_|_|\___|_| |_|\__, |\___||___/         #
-#                                       __/ |                   #
-#                                      |___/                    #
-#                                                               #
-# This plugin was made by the CodingArea team                   #
-# - anweisen | Angelo - https://github.com/anweisen             #
-# - KxmischesDomi | Dominik - https://github.com/kxmischesdomi  #
-#                                                               #
-# Visit our website / minecraft server (coding-area.net) or     #
-# join our discord server (https://discord.gg/v6zzCk8)          #
-#                                                               #
-# You can find the source code at                               #
-# https://github.com/anweisen/Challenges                        #
-#                                                               #
-# Download at plugin at                                         #
-# https://www.spigotmc.org/resources/80548                      #
-# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+#
+#   █████╗  ██╗  ██╗  █████╗  ██╗      ██╗      ███████╗ ███╗  ██╗  ██████╗  ███████╗  ██████╗
+#  ██╔══██╗ ██║  ██║ ██╔══██╗ ██║      ██║      ██╔════╝ ████╗ ██║ ██╔════╝  ██╔════╝ ██╔════╝
+#  ██║  ╚═╝ ███████║ ███████║ ██║      ██║      █████╗   ██╔██╗██║ ██║  ██╗  █████╗   ╚█████╗
+#  ██║  ██╗ ██╔══██║ ██╔══██║ ██║      ██║      ██╔══╝   ██║╚████║ ██║  ╚██╗ ██╔══╝    ╚═══██╗
+#  ╚█████╔╝ ██║  ██║ ██║  ██║ ███████╗ ███████╗ ███████╗ ██║ ╚███║ ╚██████╔╝ ███████╗ ██████╔╝
+#   ╚════╝  ╚═╝  ╚═╝ ╚═╝  ╚═╝ ╚══════╝ ╚══════╝ ╚══════╝ ╚═╝  ╚══╝  ╚═════╝  ╚══════╝ ╚═════╝
+#
+# This plugin was made by the CodingArea team
+# - anweisen | Angelo - https://github.com/anweisen
+# - KxmischesDomi | Dominik - https://github.com/kxmischesdomi
+#
+# Visit our website / minecraft server (coding-area.net) or join our discord server (https://discord.gg/v6zzCk8)
+#
+# You can find the source code at
+# https://github.com/anweisen/Challenges
+#
+# Download plugin at
+# https://www.spigotmc.org/resources/80548
+#
 
-# The config-version is even with the version of the plugin.
-# You will be notified, when this version is older than the of the plugin.
+# The config-version is even with the version of the default config.
+# You will be notified, when this version is older than the of the default in the plugin jar.
 # We recommend regenerating the config to get access to new features / settings.
 config-version: "2.1.0"
 

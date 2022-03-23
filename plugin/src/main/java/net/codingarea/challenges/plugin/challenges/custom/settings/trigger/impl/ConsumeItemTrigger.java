@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -17,7 +18,7 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 public class ConsumeItemTrigger extends AbstractChallengeTrigger {
 
   public ConsumeItemTrigger(String name) {
-    super(name, SubSettingsBuilder.createChooseMultipleItem(AbstractChallengeTrigger.ITEM).fill(builder -> {
+    super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.ITEM).fill(builder -> {
       for (Material material : Material.values()) {
         if (material.isEdible()) {
           builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils
@@ -38,7 +39,7 @@ public class ConsumeItemTrigger extends AbstractChallengeTrigger {
         .entity(event.getPlayer())
         .event(event)
         .data(
-            AbstractChallengeTrigger.ITEM, AbstractChallengeTrigger.ANY, event.getItem().getType().name())
+            SubSettingsHelper.ITEM, SubSettingsHelper.ANY, event.getItem().getType().name())
         .execute();
   }
 

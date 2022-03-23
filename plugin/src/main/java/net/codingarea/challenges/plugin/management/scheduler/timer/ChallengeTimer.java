@@ -98,7 +98,7 @@ public final class ChallengeTimer {
 	}
 
 	private void handleHitZero() {
-		Challenges.getInstance().getServerManager().endChallenge(ChallengeEndCause.TIMER_HIT_ZERO);
+		ChallengeAPI.endChallenge(ChallengeEndCause.TIMER_HIT_ZERO);
 	}
 
 	public void resume() {

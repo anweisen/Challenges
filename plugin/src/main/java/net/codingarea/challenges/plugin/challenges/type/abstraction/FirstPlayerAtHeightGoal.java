@@ -1,12 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import java.util.Collections;
 import java.util.List;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,13 +35,7 @@ public abstract class FirstPlayerAtHeightGoal extends SettingGoal {
   }
 
   @Override
-  public void getWinnersOnEnd(@NotNull List<Player> winners) {
-    broadcastFiltered(player -> {
-      if (player.getLocation().getBlockY() == heightToGetTo) {
-        winners.add(player);
-      }
-    });
-  }
+  public void getWinnersOnEnd(@NotNull List<Player> winners) { }
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
@@ -50,12 +44,8 @@ public abstract class FirstPlayerAtHeightGoal extends SettingGoal {
     if (ignorePlayer(event.getPlayer())) return;
     if (event.getTo().getBlockY() == event.getFrom().getBlockY()) return;
     if (event.getTo().getBlockY() == heightToGetTo) {
-      // Scheduler to prevent the player position being the old one in the get winners method
-      Bukkit.getScheduler().runTask(plugin, () -> {
-        Message.forName("height-reached")
-            .broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), getHeightToGetTo());
-        ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
-      });
+      Message.forName("height-reached").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), getHeightToGetTo());
+      ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED, () -> Collections.singletonList(event.getPlayer()));
     }
   }
 

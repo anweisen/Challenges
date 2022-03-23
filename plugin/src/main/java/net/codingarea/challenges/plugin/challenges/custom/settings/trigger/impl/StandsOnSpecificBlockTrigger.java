@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -15,7 +16,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
 public class StandsOnSpecificBlockTrigger extends AbstractChallengeTrigger {
 
   public StandsOnSpecificBlockTrigger(String name) {
-    super(name, createBlockSettingsBuilder());
+    super(name, SubSettingsHelper.createBlockSettingsBuilder());
   }
 
   @Override

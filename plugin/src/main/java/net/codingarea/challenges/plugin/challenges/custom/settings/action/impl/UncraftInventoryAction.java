@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.UncraftItemsChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
@@ -14,7 +15,7 @@ import org.bukkit.entity.Player;
 public class UncraftInventoryAction extends AbstractChallengeTargetAction {
 
   public UncraftInventoryAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false));
   }
 
   @Override

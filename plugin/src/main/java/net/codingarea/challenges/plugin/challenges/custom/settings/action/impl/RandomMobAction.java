@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -14,7 +15,7 @@ import org.bukkit.entity.EntityType;
 public class RandomMobAction extends AbstractChallengeTargetAction {
 
   public RandomMobAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false));
   }
 
   @Override

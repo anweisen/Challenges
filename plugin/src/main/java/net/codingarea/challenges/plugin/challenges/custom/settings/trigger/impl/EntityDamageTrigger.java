@@ -9,6 +9,7 @@ import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.ItemBuilder.PotionBuilder;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -26,13 +27,13 @@ import org.bukkit.potion.PotionEffectType;
 public class EntityDamageTrigger extends AbstractChallengeTrigger {
 
 	public EntityDamageTrigger(String name) {
-		super(name, createEntityTypeSettingsBuilder().createChooseMultipleChild("damage_cause").fill(builder -> {
+		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder(true, true).createChooseMultipleChild("damage_cause").fill(builder -> {
 
 			List<PotionEffectType> types = new ArrayList<>(
 					Arrays.asList(PotionEffectType.values()));
 			Collections.shuffle(types, new Random(1));
 
-			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-damage-any")));
+			builder.addSetting(SubSettingsHelper.ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-trigger-damage-any")));
 
 			DamageCause[] values = DamageCause.values();
 			for (int i = 0; i < values.length; i++) {
@@ -61,7 +62,7 @@ public class EntityDamageTrigger extends AbstractChallengeTrigger {
 				.entity(event.getEntity())
 				.event(event)
 				.entityType(event.getEntityType())
-				.data("damage_cause", ANY, event.getCause().name())
+				.data("damage_cause", SubSettingsHelper.ANY, event.getCause().name())
 				.execute();
 	}
 
