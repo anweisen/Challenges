@@ -49,9 +49,16 @@
     "Eine neue Version von §e§lChallenges §7ist verfügbar",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "Eine neue Version der §eChallenges Config §7ist verfügbar",
+  "deprecated-config-version": [
+    "Eine neue Version der §eChallenges Config ({0}) §7ist verfügbar",
+    "Du kannst die alte config löschen oder die fehlenden Einstellungen manuell hinzufügen"
+  ],
   "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",
   "missing-config-settings-separator": "§7, §e",
+  "no-missing-config-settings": [
+    "§cEs fehlen keine Einstellungen in der Config.",
+    "§cDu kannst die Version ohne bedenken selbst auf §c§l{0} §cstellen."
+  ],
   "join-message": "§e{0} §7hat den Server §abetreten",
   "quit-message": "§e{0} §7hat den Server §cverlassen",
   "timer-paused-message": [
@@ -199,6 +206,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
   "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
+  "most-ores-points": "§e{0} §7Punkte",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -997,6 +1005,21 @@
     "Es droppen *keine Items* von",
     "*Blöcken* und *Entities* mehr."
   ],
+  "item-chunk-effect-challenge": [
+    "§3Zufällige Chunk Effekte",
+    "In *jedem Chunk* bekommst du",
+    "einen *zufälligen Effekt*"
+  ],
+  "item-repeat-chunk-challenge": [
+    "§2Wiederholende Chunks",
+    "Blöcke die *platziert oder zerstört* werden,",
+    "werden in *jedem Chunk* platziert / zerstört"
+  ],
+  "item-blocks-fly-challenge": [
+    "§fBlöcke Fliegen In Luft",
+    "*Blöcke* auf denen du *gelaufen* bist,",
+    "fliegen nach *einer Sekunde* in die *Luft*"
+  ],
 
   "item-dragon-goal": [
     "§5Enderdrache",
@@ -1087,6 +1110,16 @@
     "§5Wettrennen",
     "Der Spieler, der als *erstes* an",
     "einer *zufälligen* Position ist, gewinnt"
+  ],
+  "item-most-ores-goal": [
+    "§9Meiste Erze",
+    "Der Spieler, der am *meisten Erze*",
+    "*abgebaut* hat, gewinnt"
+  ],
+  "item-find-elytra-goal": [
+    "§fElytra Finden",
+    "Der Spieler, der als *erstes*",
+    "eine Elytra findet, gewinnt"
   ],
 
 
@@ -1215,12 +1248,6 @@
   "item-custom-trigger-damage_by_player": [
     "§cEntity Bekommt Schaden Von Spieler"
   ],
-  "item-custom-trigger-entity_type-any": [
-    "§cJegliches Entity"
-  ],
-  "item-custom-trigger-entity_type-player": [
-    "§aSpieler"
-  ],
   "item-custom-trigger-intervall": [
     "§6Intervall"
   ],
@@ -1238,9 +1265,6 @@
   ],
   "item-custom-trigger-block_break": [
     "§cBlock Zerstört"
-  ],
-  "item-custom-trigger-block-any": [
-    "§2Jeglicher Block"
   ],
   "item-custom-trigger-consume_item": [
     "§2Item Konsumieren"
@@ -1317,6 +1341,10 @@
     "§cVeränderung",
     "Wähle aus wie viele Leben verändert werden sollen"
   ],
+  "item-custom-action-spawn_entity": [
+    "§3Entity Spawnen",
+    "Spawne ein Entity bestimmten Types"
+  ],
   "item-custom-action-random_mob": [
     "§6Zufälliges Entity",
     "Spawne ein zufälliges Entity"
@@ -1383,38 +1411,47 @@
     "§6Jump And Run",
     "Ein zufälliger Spieler muss ein Jump And Run machen"
   ],
+  "item-custom-action-win": [
+    "§6Gewinnen",
+    "Die Challenge wird von *bestimmten Spielern* gewonnen"
+  ],
 
-  "item-custom-action-target-current": [
+
+  "item-custom-setting-target-current": [
     "§6Aktives Entity",
     "Die Aktion wird für das *aktive Entity* ausgeführt"
   ],
-  "item-custom-action-target-every_mob": [
+  "item-custom-setting-target-every_mob": [
     "§4Alle Mobs",
     "Die Aktion wird für *alle Mobs* ausgeführt"
   ],
-  "item-custom-action-target-every_mob_except_current": [
+  "item-custom-setting-target-every_mob_except_current": [
     "§4Alle Mobs Außer Aktives",
     "Die Aktion wird für *alle Mobs*",
     "*außer* das Aktive ausgeführt ausgeführt"
   ],
-  "item-custom-action-target-every_mob_except_players": [
+  "item-custom-setting-target-every_mob_except_players": [
     "§4Alle Mobs Außer Spieler",
     "Die Aktion wird für *alle Mobs*",
     "*außer* Spieler ausgeführt"
   ],
-  "item-custom-action-target-random_player": [
+  "item-custom-setting-target-random_player": [
     "§5Zufälliger Spieler",
     "Die Aktion wird für einen *zufälligen Spieler* ausgeführt"
   ],
-  "item-custom-action-target-every_player": [
+  "item-custom-setting-target-every_player": [
     "§cAlle Spieler",
     "Die Aktion wird für *jeden Spieler* ausgeführt"
   ],
-  "item-custom-action-target-current_player": [
+  "item-custom-setting-target-current_player": [
     "§aAktiver Spieler",
     "Die Aktion wird für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
   ],
+
+  "item-custom-setting-entity_type-any": "§cJegliches Entity",
+  "item-custom-setting-entity_type-player": "§aSpieler",
+  "item-custom-setting-block-any": "§2Jeglicher Block",
 
   "custom-subsetting-target_entity": "Ziel Entity",
   "custom-subsetting-entity_type": "Entity Typ",

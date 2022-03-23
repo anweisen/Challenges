@@ -4,6 +4,7 @@ import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.FreezeChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -18,7 +19,7 @@ public class FreezeAction extends AbstractChallengeTargetAction {
       .getFirstInstance(FreezeChallenge.class);
 
   public FreezeAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(true));
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true));
   }
 
   @Override

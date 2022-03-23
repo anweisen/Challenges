@@ -49,9 +49,16 @@
     "A new version of §e§lChallenges §7is available",
     "Download: §e{0}"
   ],
-  "deprecated-config-version": "A new version of the §econfig §7is available",
+  "deprecated-config-version": [
+    "A new version of the §econfig §7is available",
+    "You can either manually add all missing settings or delete the old one"
+  ],
   "missing-config-settings": "There are missing config settings: §e{0}",
   "missing-config-settings-separator": "§7, §e",
+  "no-missing-config-settings": [
+    "§cThere are no missing config settings.",
+    "§cYou can manually update it to §c§l{0}"
+  ],
   "join-message": "§e{0} §7has §ajoined §7the server",
   "quit-message": "§e{0} §7has §cleft §7the server",
   "timer-paused-message": [
@@ -196,6 +203,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7reached §eY = {1} §7first!",
   "race-goal-reached": "§e{0} §7reached the goal!",
+  "most-ores-points": "§e{0} §7Points",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -990,6 +998,22 @@
     "The *border size* adjusts to *the player*",
     "with the *most levels*."
   ],
+  "item-chunk-effect-challenge": [
+    "§3Random Chunk Effects",
+    "In *each chunk* you'll get",
+    "a random *potion effect*"
+  ],
+  "item-repeat-chunk-challenge": [
+    "§2Repeated Chunk",
+    "Blocks that are *placed or destroyed*",
+    "will be placed / destroyed in *every chunk*"
+  ],
+  "item-blocks-fly-challenge": [
+    "§fBlocks Fly in Air",
+    "*Blocks* you've *walked* on fly",
+    "into the air after *one second*"
+  ],
+
 
   "item-dragon-goal": [
     "§5Ender Dragon",
@@ -1075,6 +1099,15 @@
     "The *first* player to *reach* a",
     "*random* location in the overworld wins"
   ],
+  "item-most-ores-goal": [
+    "§9Most Ores",
+    "The player that mines the most ores wins"
+  ],
+  "item-find-elytra-goal": [
+    "§fFind Elytra",
+    "The *player* that finds an elytra *wins*"
+  ],
+
 
 
   "item-damage-rule-fire": [
@@ -1195,12 +1228,6 @@
   "item-custom-trigger-damage_by_player": [
     "§cEntity Takes Damage By Player"
   ],
-  "item-custom-trigger-entity_type-any": [
-    "§cAny Entity"
-  ],
-  "item-custom-trigger-entity_type-player": [
-    "§aPlayer"
-  ],
   "item-custom-trigger-intervall": [
     "§6Interval"
   ],
@@ -1218,9 +1245,6 @@
   ],
   "item-custom-trigger-block_break": [
     "§cBlock Destroyed"
-  ],
-  "item-custom-trigger-block-any": [
-    "§2Any Block"
   ],
   "item-custom-trigger-consume_item": [
     "§2Consume Item"
@@ -1297,6 +1321,10 @@
     "§cHealth Change",
     "Choose how the max health should be changed"
   ],
+  "item-custom-action-spawn_entity": [
+    "§3Spawn Entity",
+    "Spawn an entity with a specific type"
+  ],
   "item-custom-action-random_mob": [
     "§6Random Entity",
     "Spawn a random entity"
@@ -1360,37 +1388,45 @@
     "A random player has to a a jump and run",
     "that gets longer everytime"
   ],
+  "item-custom-action-win": [
+    "§6Win",
+    "The challenge will be won *by specific players*"
+  ],
 
-  "item-custom-action-target-current": [
+  "item-custom-setting-target-current": [
     "§6Current Entity",
     "The action will be executed for the *current entity*"
   ],
-  "item-custom-action-target-every_mob": [
+  "item-custom-setting-target-every_mob": [
     "§4Every Mob",
     "The action will be executed for *every mob*"
   ],
-  "item-custom-action-target-every_mob_except_current": [
+  "item-custom-setting-target-every_mob_except_current": [
     "§4Every Mob Except Current",
     "The action will be executed for *every mob*",
     "*except* the current one"
   ],
-  "item-custom-action-target-every_mob_except_players": [
+  "item-custom-setting-target-every_mob_except_players": [
     "§4Every Mob Except Players",
     "The action will be executed for *every mob except players*"
   ],
-  "item-custom-action-target-random_player": [
+  "item-custom-setting-target-random_player": [
     "§5Random Player",
     "The action will be executed for a *random player*"
   ],
-  "item-custom-action-target-every_player": [
+  "item-custom-setting-target-every_player": [
     "§cEvery Player",
     "The action will be executed for *every player*"
   ],
-  "item-custom-action-target-current_player": [
+  "item-custom-setting-target-current_player": [
     "§aCurrent Player",
     "The action will be executed for the *active player*.",
     "§7§oIf the current entity is not a player nothing will be happen"
   ],
+
+  "item-custom-setting-entity_type-any": "§cAny Entity",
+  "item-custom-setting-entity_type-player": "§aPlayer",
+  "item-custom-setting-block-any": "§2Any Block",
 
   "custom-subsetting-target_entity": "Target Entity",
   "custom-subsetting-entity_type": "Entity Type",

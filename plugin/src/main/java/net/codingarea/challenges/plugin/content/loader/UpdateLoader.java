@@ -5,6 +5,7 @@ import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.Challenges;
+import org.bukkit.configuration.file.YamlConfiguration;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -16,6 +17,7 @@ public final class UpdateLoader extends ContentLoader {
 
 	private static boolean newestPluginVersion = true;
 	private static boolean newestConfigVersion = true;
+	private static Version defaultConfigVersion;
 
 	@Override
 	protected void load() {
@@ -23,6 +25,8 @@ public final class UpdateLoader extends ContentLoader {
 			URL url = new URL("https://api.spigotmc.org/legacy/update.php?resource=" + RESOURCE_ID);
 			String response = IOUtils.toString(url);
 			Version plugin = Challenges.getInstance().getVersion();
+			YamlConfiguration defaultConfig = Challenges.getInstance().getConfigManager().getDefaultConfig();
+			defaultConfigVersion = defaultConfig == null ? plugin : Version.parse(defaultConfig.getString("config-version"));
 			Version config = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
 			Version latestVersion = Version.parse(response);
 
@@ -30,7 +34,7 @@ public final class UpdateLoader extends ContentLoader {
 				Logger.info("A new version of Challenges is available: {}, you have {}", latestVersion, plugin);
 				newestPluginVersion = false;
 			}
-			if (plugin.isNewerThan(config)) {
+			if (defaultConfigVersion.isNewerThan(config)) {
 				Logger.info("A new version of the config (plugins/Challenges/config.yml) is available");
 				newestConfigVersion = false;
 			}
@@ -38,6 +42,10 @@ public final class UpdateLoader extends ContentLoader {
 		} catch (Exception ex) {
 			Logger.error("Could not check for update: {}", ex.getMessage());
 		}
+	}
+
+	public static Version getDefaultConfigVersion() {
+		return defaultConfigVersion;
 	}
 
 	public static boolean isNewestConfigVersion() {

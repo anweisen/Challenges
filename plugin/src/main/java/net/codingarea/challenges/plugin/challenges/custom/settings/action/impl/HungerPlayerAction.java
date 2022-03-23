@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -14,7 +15,7 @@ import org.bukkit.entity.Player;
 public class HungerPlayerAction extends AbstractChallengePlayerTargetAction {
 
   public HungerPlayerAction(String name) {
-    super(name, createEntityTargetSettingsBuilder(false, true)
+    super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true)
         .createChooseItemChild("amount").fill(builder -> {
           String prefix = DefaultItem.getItemPrefix();
 

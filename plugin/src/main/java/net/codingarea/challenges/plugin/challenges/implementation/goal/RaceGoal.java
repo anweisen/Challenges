@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import java.util.Collections;
 import java.util.List;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
@@ -17,7 +18,6 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -49,13 +49,7 @@ public class RaceGoal extends SettingModifierGoal {
   }
 
   @Override
-  public void getWinnersOnEnd(@NotNull List<Player> winners) {
-    broadcastFiltered(player -> {
-      if (BlockUtils.isSameBlockIgnoreHeight(player.getLocation(), goal)) {
-        winners.add(player);
-      }
-    });
-  }
+  public void getWinnersOnEnd(@NotNull List<Player> winners) { }
 
   @Override
   protected void onEnable() {
@@ -133,13 +127,11 @@ public class RaceGoal extends SettingModifierGoal {
     if (ignorePlayer(event.getPlayer())) return;
     if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
     if (event.getTo().getWorld() != goal.getWorld()) return;
+    if (event.getTo() == null) return;
     if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), goal)) {
-      // Scheduler to prevent the player position being the old one in the get winners method
-      Bukkit.getScheduler().runTask(plugin, () -> {
-        Message.forName("race-goal-reached").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-        ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
-        ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), event.getTo(), Particle.SPELL_MOB, 0.75, 2);
-      });
+      Message.forName("race-goal-reached").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
+      ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED, () -> Collections.singletonList(event.getPlayer()));
+      ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), event.getTo(), Particle.SPELL_MOB, 0.75, 2);
     }
   }
 

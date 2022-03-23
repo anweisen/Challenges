@@ -120,7 +120,7 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
 	private void handleCollect(@Nonnull Player player, @Nonnull Material material) {
 		collect(player, material, () -> {
-			Message.forName("item-collected").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
 			SoundSample.PLING.play(player);
 		});
 	}

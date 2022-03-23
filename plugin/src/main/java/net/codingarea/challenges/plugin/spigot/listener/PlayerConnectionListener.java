@@ -68,7 +68,7 @@ public class PlayerConnectionListener implements Listener {
 				Message.forName("deprecated-plugin-version").send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
 			}
 			if (!UpdateLoader.isNewestConfigVersion()) {
-				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES);
+				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());
 			}
 
 			List<String> missingConfigSettings = Challenges.getInstance().getConfigManager()
@@ -77,6 +77,8 @@ public class PlayerConnectionListener implements Listener {
 				String separator = Message.forName("missing-config-settings-separator").asString();
 				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES,
 						String.join(separator , missingConfigSettings));
+			} else if (!UpdateLoader.isNewestConfigVersion()) {
+				Message.forName("no-missing-config-settings").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());
 			}
 
 			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {

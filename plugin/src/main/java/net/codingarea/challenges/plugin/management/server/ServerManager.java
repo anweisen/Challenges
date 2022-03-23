@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.management.server;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
@@ -64,7 +65,7 @@ public final class ServerManager {
 		return hasCheated;
 	}
 
-	public void endChallenge(@Nonnull ChallengeEndCause endCause) {
+	public void endChallenge(@Nonnull ChallengeEndCause endCause, Supplier<List<Player>> winnerGetter) {
 		if (ChallengeAPI.isPaused()) {
 			Logger.warn("Tried to end challenge while timer was paused");
 			return;
@@ -72,8 +73,11 @@ public final class ServerManager {
 
 		IGoal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 		List<Player> winners = new LinkedList<>();
-		if (currentGoal != null && endCause.isWinnable())
+		if (winnerGetter != null) {
+			winners = winnerGetter.get();
+		} else if (currentGoal != null && endCause.isWinnable()) {
 			currentGoal.getWinnersOnEnd(winners);
+		}
 
 		if (endCause != ChallengeEndCause.GOAL_REACHED || setSpectatorOnWin) {
 			setSpectator();
