@@ -22,6 +22,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.P
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomPotionEffectAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SpawnEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
@@ -108,6 +109,7 @@ public class CustomSettingsLoader {
         new HealEntityAction("heal"),
         new ModifyMaxHealthAction("max_health"),
         new HungerPlayerAction("hunger"),
+        new SpawnEntityAction("spawn_entity"),
         new RandomMobAction("random_mob"),
         new RandomItemAction("random_item"),
         new UncraftInventoryAction("uncraft_inventory"),

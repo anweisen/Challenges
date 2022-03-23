@@ -27,7 +27,7 @@ import org.bukkit.potion.PotionEffectType;
 public class EntityDamageTrigger extends AbstractChallengeTrigger {
 
 	public EntityDamageTrigger(String name) {
-		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder().createChooseMultipleChild("damage_cause").fill(builder -> {
+		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder(true, true).createChooseMultipleChild("damage_cause").fill(builder -> {
 
 			List<PotionEffectType> types = new ArrayList<>(
 					Arrays.asList(PotionEffectType.values()));

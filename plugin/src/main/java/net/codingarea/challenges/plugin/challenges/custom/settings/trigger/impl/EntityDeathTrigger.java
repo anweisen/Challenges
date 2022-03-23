@@ -15,7 +15,7 @@ import org.bukkit.event.entity.EntityDeathEvent;
 public class EntityDeathTrigger extends AbstractChallengeTrigger {
 
 	public EntityDeathTrigger(String name) {
-		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder());
+		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder(true, true));
 	}
 
 	@Override

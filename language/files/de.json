@@ -1334,6 +1334,10 @@
     "§cVeränderung",
     "Wähle aus wie viele Leben verändert werden sollen"
   ],
+  "item-custom-action-spawn_entity": [
+    "§3Entity Spawnen",
+    "Spawne ein Entity bestimmten Types"
+  ],
   "item-custom-action-random_mob": [
     "§6Zufälliges Entity",
     "Spawne ein zufälliges Entity"

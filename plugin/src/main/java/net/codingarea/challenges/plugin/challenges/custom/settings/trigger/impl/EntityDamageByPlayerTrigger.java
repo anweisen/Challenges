@@ -18,7 +18,7 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 public class EntityDamageByPlayerTrigger extends AbstractChallengeTrigger {
 
 	public EntityDamageByPlayerTrigger(String name) {
-		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder());
+		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder(true, true));
 	}
 
 	@Override

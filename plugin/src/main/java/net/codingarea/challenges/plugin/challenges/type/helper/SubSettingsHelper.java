@@ -27,11 +27,16 @@ public class SubSettingsHelper {
 			LIQUID = "liquid",
 			TARGET_ENTITY = "target_entity";
 
-	public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder() {
+	public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder(boolean any, boolean player) {
 		return SubSettingsBuilder.createChooseMultipleItem(ENTITY_TYPE).fill(builder -> {
-			builder.addSetting(ANY, new ItemBuilder(
-					Material.NETHER_STAR, Message.forName("item-custom-setting-entity_type-any")).build());
-			builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-setting-entity_type-player")).build());
+
+			if (any) {
+				builder.addSetting(ANY, new ItemBuilder(
+						Material.NETHER_STAR, Message.forName("item-custom-setting-entity_type-any")).build());
+			}
+			if (player) {
+				builder.addSetting("PLAYER", new ItemBuilder(Material.PLAYER_HEAD, Message.forName("item-custom-setting-entity_type-player")).build());
+			}
 			for (EntityType type : EntityType.values()) {
 				if (!type.isSpawnable() || !type.isAlive()) continue;
 				try {

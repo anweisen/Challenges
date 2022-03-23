@@ -1314,6 +1314,10 @@
     "§cHealth Change",
     "Choose how the max health should be changed"
   ],
+  "item-custom-action-spawn_entity": [
+    "§3Spawn Entity",
+    "Spawn an entity with a specific type"
+  ],
   "item-custom-action-random_mob": [
     "§6Random Entity",
     "Spawn a random entity"
