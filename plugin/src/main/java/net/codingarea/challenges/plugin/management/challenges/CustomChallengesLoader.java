@@ -65,7 +65,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 				String name = doc.getString("name");
 				Material material = doc.getEnum("material", Material.class);
 				AbstractChallengeTrigger trigger = Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(doc.getString("trigger"));
-				Map<String, String[]> subTriggers = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subTriggers"));
+				Map<String, String[]> subTriggers = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subTrigger"));
 				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(doc.getString("action"));
 				Map<String, String[]> subActions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subActions"));
 
@@ -78,8 +78,6 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 			}
 
 		}
-
-
 
 		MenuType.CUSTOM.getMenuGenerator().generateInventories();
 	}
