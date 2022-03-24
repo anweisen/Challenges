@@ -1107,7 +1107,10 @@
     "§fFind Elytra",
     "The *player* that finds an elytra *wins*"
   ],
-
+  "item-eat-cake-goal": [
+    "§fEat Cake",
+    "The player that *eats a cake* first *wins*"
+  ],
 
 
   "item-damage-rule-fire": [

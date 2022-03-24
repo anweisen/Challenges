@@ -1121,6 +1121,11 @@
     "Der Spieler, der als *erstes*",
     "eine Elytra findet, gewinnt"
   ],
+  "item-eat-cake-goal": [
+    "§fKuchen Essen",
+    "Der Spieler, der als *erstes*",
+    "einen *Kuchen isst*, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
