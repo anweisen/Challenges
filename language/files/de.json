@@ -1142,7 +1142,11 @@
     "Der Spieler, der als *erstes*",
     "*alle Schwerter* hat, gewinnt"
   ],
-
+  "item-collect-workstations-item": [
+    "§6Sammle Arbeitsblöcke",
+    "Der Spieler, der als *erstes*",
+    "*alle Villager Arbeitsblöcke* hat, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [
