@@ -1126,6 +1126,11 @@
     "Der Spieler, der als *erstes*",
     "einen *Kuchen isst*, gewinnt"
   ],
+  "item-collect-horse-armor-goal": [
+    "§bSammle Pferderüstungen",
+    "Der Spieler, der als *erstes*",
+    "*alle Pferderüstungen* hat, gewinnt"
+  ],
 
 
   "item-damage-rule-fire": [

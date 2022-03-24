@@ -1111,6 +1111,11 @@
     "§fEat Cake",
     "The player that *eats a cake* first *wins*"
   ],
+  "item-collect-horse-armor-goal": [
+    "§bCollect Horse Armor",
+    "The player that *collects* every",
+    "horse armor first *wins*"
+  ],
 
 
   "item-damage-rule-fire": [
