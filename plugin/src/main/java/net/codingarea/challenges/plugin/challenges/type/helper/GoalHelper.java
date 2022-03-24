@@ -126,7 +126,6 @@ public final class GoalHelper {
 					String line = lines.get(i);
 					scoreboard.addLine(line);
 				}
-				scoreboard.addLine("");
 			}
 		};
 	}
