@@ -55,6 +55,11 @@ public class AllAdvancementGoal extends PointsGoal {
   }
 
   @Override
+  protected void onDisable() {
+    scoreboard.hide();
+  }
+
+  @Override
   public void getWinnersOnEnd(@NotNull List<Player> winners) {
     broadcastFiltered(player -> {
       if (hasWon(player)) {
