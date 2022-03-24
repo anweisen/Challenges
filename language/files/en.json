@@ -1117,6 +1117,11 @@
     "The player that *collects* every",
     "horse armor first *wins*"
   ],
+  "item-collect-ice-goal": [
+    "§bCollect Ice Blocks",
+    "The player that *collects* every",
+    "ice blocks and snow first *wins*"
+  ],
 
 
   "item-damage-rule-fire": [

@@ -1132,6 +1132,12 @@
     "Der Spieler, der als *erstes*",
     "*alle Pferderüstungen* hat, gewinnt"
   ],
+  "item-collect-ice-goal": [
+    "§bSammle Eisblöcke",
+    "Der Spieler, der als *erstes*",
+    "*alle Eisblöcke* und Schnee hat, gewinnt"
+  ],
+
 
 
   "item-damage-rule-fire": [
