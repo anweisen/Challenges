@@ -189,6 +189,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
 		register(CollectWorkstationsGoal.class);
+		register(EatMostGoal.class);
 
 		// Damage Rules
 		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);

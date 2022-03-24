@@ -204,7 +204,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7reached §eY = {1} §7first!",
   "race-goal-reached": "§e{0} §7reached the goal!",
-  "most-ores-points": "§e{0} §7Points",
+  "points-change": "§e{0} §7Points",
 
   "random-event-speed": [
     "Sonic? Is it you?",

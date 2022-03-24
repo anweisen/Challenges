@@ -207,7 +207,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
   "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
-  "most-ores-points": "§e{0} §7Punkte",
+  "points-change": "§e{0} §7Punkte",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -1146,6 +1146,10 @@
     "§6Sammle Arbeitsblöcke",
     "Der Spieler, der als *erstes*",
     "*alle Villager Arbeitsblöcke* hat, gewinnt"
+  ],
+  "item-eat-most-goal": [
+    "§6Am Meisten Essen",
+    "Der Spieler, der am *meisten isst*, gewinnt"
   ],
 
 
