@@ -119,13 +119,15 @@ public final class GoalHelper {
 			scoreboard.addLine("");
 
 			List<String> lines = additionalLines.apply(player);
-			int linesThatCanBeAdded = 15 - scoreboard.getLines().size() - 1;
-			for (int i = 0; i < lines.size() && linesThatCanBeAdded > 0; i++) {
-				linesThatCanBeAdded--;
-				String line = lines.get(i);
-				scoreboard.addLine(line);
+			if (!lines.isEmpty()) {
+				int linesThatCanBeAdded = 15 - scoreboard.getLines().size() - 1;
+				for (int i = 0; i < lines.size() && linesThatCanBeAdded > 0; i++) {
+					linesThatCanBeAdded--;
+					String line = lines.get(i);
+					scoreboard.addLine(line);
+				}
+				scoreboard.addLine("");
 			}
-			scoreboard.addLine("");
 		};
 	}
 
