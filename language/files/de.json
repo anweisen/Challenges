@@ -165,6 +165,7 @@
   "unable-to-find-bastion": "Es konnte §ckeine Bastion §7gefunden werden",
   "death-collected": "Todesgrund §e{0} §7wurde registriert",
   "item-collected": "Item §e{0} §7wurde registriert",
+  "items-to-collect": "§7Items zu sammeln §8» §e{0}",
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
   "backpack-opened": "Du hast den {0} §7geöffnet",
   "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",

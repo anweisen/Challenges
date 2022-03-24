@@ -36,14 +36,12 @@ public abstract class CollectionGoal extends SettingGoal {
 
 	@Override
 	protected void onEnable() {
-		super.onEnable();
 		scoreboard.setContent(GoalHelper.createScoreboard(() -> getPoints(new AtomicInteger(), true)));
 		scoreboard.show();
 	}
 
 	@Override
 	protected void onDisable() {
-		super.onDisable();
 		scoreboard.hide();
 	}
 

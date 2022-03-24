@@ -162,6 +162,7 @@
   "unable-to-find-bastion": "§cNo bastion §7could be found",
   "death-collected": "Death reason §e{0} §7registered",
   "item-collected": "Item §e{0} §7registered",
+  "items-to-collect": "§7Items to collect §8» §e{0}",
   "backpacks-disabled": "Backpacks are currently §cdeactivated",
   "backpack-opened": "You opened the {0}",
   "top-to-overworld": "You have been teleported to the §eoverworld",

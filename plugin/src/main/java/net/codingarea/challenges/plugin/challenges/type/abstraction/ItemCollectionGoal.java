@@ -1,8 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -34,6 +37,12 @@ public abstract class ItemCollectionGoal extends CollectionGoal {
 		});
 	}
 
+	@Override
+	protected void onEnable() {
+		scoreboard.setContent(GoalHelper.createScoreboard(() -> getPoints(new AtomicInteger(), true),
+				player -> Collections.singletonList(Message.forName("items-to-collect").asString(target.length))));
+		scoreboard.show();
+	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPickupItem(@Nonnull PlayerPickupItemEvent event) {
