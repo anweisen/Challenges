@@ -1137,6 +1137,11 @@
     "Der Spieler, der als *erstes*",
     "*alle Eisblöcke* und Schnee hat, gewinnt"
   ],
+  "item-collect-swords-goal": [
+    "§9Sammle Schwerter",
+    "Der Spieler, der als *erstes*",
+    "*alle Schwerter* hat, gewinnt"
+  ],
 
 
 

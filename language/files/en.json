@@ -1122,6 +1122,11 @@
     "The player that *collects* every",
     "ice blocks and snow first *wins*"
   ],
+  "item-collect-swords-goal": [
+    "§9Collect Swords",
+    "The player that *collects* every",
+    "sword first *wins*"
+  ],
 
 
   "item-damage-rule-fire": [
