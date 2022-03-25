@@ -269,6 +269,7 @@
   "bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
   "bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
   "bossbar-first-at-height-goal": "§8» §fZiel §8┃ §7Y: {0}",
+  "bossbar-respawn-end": "§8» §5Respawnte Mobs im End §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -1021,6 +1022,12 @@
     "*Blöcke* auf denen du *gelaufen* bist,",
     "fliegen nach *einer Sekunde* in die *Luft*"
   ],
+  "item-respawn-end-challenge": [
+    "§5Mobs Respawnen In End",
+    "Entities die *getötet werden*,",
+    "respawnen im *End*"
+  ],
+
 
   "item-dragon-goal": [
     "§5Enderdrache",

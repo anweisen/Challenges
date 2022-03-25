@@ -266,6 +266,7 @@
   "bossbar-race-goal-info": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blocks",
   "bossbar-race-goal": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1}",
   "bossbar-first-at-height-goal": "§8» §fGoal §8┃ §7Y: {0}",
+  "bossbar-respawn-end": "§8» §5Respawned Mobs in End §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -1013,6 +1014,10 @@
     "§fBlocks Fly in Air",
     "*Blocks* you've *walked* on fly",
     "into the air after *one second*"
+  ],
+  "item-respawn-end-challenge": [
+    "§5Mobs Respawn In End",
+    "*Killed mobs* respawn in *end dimension*"
   ],
 
 
