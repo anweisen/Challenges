@@ -1,19 +1,17 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.Particle;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -32,14 +30,10 @@ public abstract class HydraChallenge extends Setting {
 	public abstract int getNewMobsCount(@Nonnull EntityType entityType);
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onEntityDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
+	public void onEntityDamageByEntity(@Nonnull EntityDeathByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (!(event.getDamager() instanceof Player)) return;
 		if (event.getEntity() instanceof EnderDragon || event.getEntity() instanceof Player) return;
-		if (!(event.getEntity() instanceof LivingEntity)) return;
-		LivingEntity entity = (LivingEntity) event.getEntity();
-		if (entity.getHealth() - event.getDamage() > 0) return;
-		if (ChallengeHelper.ignoreDamager(event.getDamager())) return;
+		if (ChallengeHelper.ignoreDamager(event.getKiller())) return;
 
 		int mobsCount = getNewMobsCount(event.getEntityType());
 

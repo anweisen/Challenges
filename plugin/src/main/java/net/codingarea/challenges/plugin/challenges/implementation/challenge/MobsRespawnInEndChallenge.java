@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,7 +24,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -101,18 +101,14 @@ public class MobsRespawnInEndChallenge extends Setting {
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onMobKill(EntityDamageByEntityEvent event) {
+	public void onMobKill(EntityDeathByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (!(event.getDamager() instanceof Player)) return;
+		if (event.getEntity() instanceof Player || event.getEntity() instanceof EnderDragon) return;
 		if (event.getEntity().getLocation().getWorld() == null) return;
 		if (event.getEntity().getLocation().getWorld().getEnvironment() == World.Environment.THE_END) return;
-		if (event.getEntity() instanceof EnderDragon || event.getEntity() instanceof Player) return;
-		if (!(event.getEntity() instanceof LivingEntity)) return;
-		LivingEntity entity = (LivingEntity) event.getEntity();
-		if (entity.getHealth() - event.getDamage() > 0) return;
-		if (ChallengeHelper.ignoreDamager(event.getDamager())) return;
+		if (ChallengeHelper.ignoreDamager(event.getKiller())) return;
 		addEntityToSpawn(event.getEntityType());
-		SoundSample.PLING.play(((Player) event.getDamager()));
+		SoundSample.PLING.play((event.getKiller()));
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
