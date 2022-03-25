@@ -3,18 +3,22 @@ package net.codingarea.challenges.plugin.spigot.listener;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerStatisticIncrementEvent;
 
 /**
@@ -50,6 +54,16 @@ public class CustomEventListener implements Listener {
 		eventCall.setCancelled(event.isCancelled());
 		Bukkit.getPluginManager().callEvent(eventCall);
 		event.setCancelled(eventCall.isCancelled());
+	}
+
+	@EventHandler(priority = EventPriority.HIGHEST)
+	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+		if (!(event.getDamager() instanceof Player)) return;
+		if (!(event.getEntity() instanceof LivingEntity)) return;
+		LivingEntity entity = (LivingEntity) event.getEntity();
+		if (entity.getHealth() - event.getDamage() > 0) return;
+		EntityDeathByPlayerEvent deathEvent = new EntityDeathByPlayerEvent(event.getEntity(), (Player) event.getDamager(), event);
+		Bukkit.getPluginManager().callEvent(deathEvent);
 	}
 
 	@EventHandler(priority = EventPriority.HIGHEST)
