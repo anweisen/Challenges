@@ -18,24 +18,21 @@ import org.bukkit.inventory.ItemStack;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
+public class ChooseItemSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
   protected final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
-  protected final String key;
 
   public ChooseItemSubSettingsBuilder(String key) {
     super(key);
-    this.key = key;
   }
 
   public ChooseItemSubSettingsBuilder(String key, SubSettingsBuilder parent) {
     super(key, parent);
-    this.key = key;
   }
 
   @Override
   public MenuGenerator getGenerator(Player player, IParentCustomGenerator parentGenerator, String title) {
-    return new SubSettingChooseMenuGenerator(key, parentGenerator, getSettings(), title);
+    return new SubSettingChooseMenuGenerator(getKey(), parentGenerator, getSettings(), title);
   }
 
   @Override
@@ -43,7 +40,7 @@ public class ChooseItemSubSettingsBuilder extends SubSettingsBuilder {
     List<String> display = Lists.newLinkedList();
 
     for (Entry<String, String[]> entry : activated.entrySet()) {
-      if (entry.getKey().equals(key)) {
+      if (entry.getKey().equals(getKey())) {
         for (String value : entry.getValue()) {
           ItemStack itemStack = getSettings().get(value);
           if (itemStack != null) {

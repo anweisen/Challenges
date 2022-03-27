@@ -20,7 +20,7 @@ import org.bukkit.inventory.ItemStack;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class ChooseMultipleItemSubSettingBuilder extends SubSettingsBuilder {
+public class ChooseMultipleItemSubSettingBuilder extends GeneratorSubSettingsBuilder {
 
   protected final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
 

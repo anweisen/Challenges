@@ -1187,7 +1187,13 @@
   ],
   "custom-no-changes": "You haven't made any changes",
   "custom-name-info": "Type the new name into the chat",
-  "custom-name-max_length": "You've reached the limit of {0} characters",
+  "custom-command-info": [
+    "Type the command §ewithout / §7in chat",
+    "Allowed commands: §e{0}",
+    "§cOther commands can be allowed in the config"
+  ],
+  "custom-command-not-allowed": "Command §e{0} §7is not set as allowed command in config",
+  "custom-chars-max_length": "You've reached the limit of {0} characters",
   "custom-not-loaded": [
     "",
     "There are no currently loaded challenges.",
@@ -1324,6 +1330,12 @@
     "Prevent that the trigger will be executed",
     "Non preventable Trigger: *Jump*, *Sneak*, *Death*",
     "*Advancement*, *Level Up*, *In Liquid*"
+  ],
+  "item-custom-action-command": [
+    "§4Execute Command",
+    "Make players execute commands.",
+    "Allowed commands can be set in plugin config.",
+    "The player must have the permission to execute the command."
   ],
   "item-custom-action-kill": [
     "§4Kill",

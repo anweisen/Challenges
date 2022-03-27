@@ -1214,7 +1214,13 @@
   ],
   "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
   "custom-name-info": "Schreibe den Namen der Challenge in den Chat",
-  "custom-name-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
+  "custom-command-info": [
+    "Schreibe den Command den der Spieler ausführen soll §eohne / §7in den Chat",
+    "Erlaubte Commands: §e{0}",
+    "§cWeitere Commands können in der Config erlaubt werden"
+  ],
+  "custom-command-not-allowed": "Der Command §e{0} §7ist in der Config nicht als erlaubter Command angegeben",
+  "custom-chars-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
   "custom-not-loaded": [
     "",
     "Es sind derzeit keine Custom Challenges geladen.",
@@ -1352,6 +1358,12 @@
     "Verhindert, dass der Auslöser ausgeführt wird.",
     "Nicht abrechenbare Auslöser: *Springen*, *Sneaken*, *Töten*",
     "*Advancement*, *Auf Leveln*, *In Flüssigkeit*"
+  ],
+  "item-custom-action-command": [
+    "§4Command Ausführen",
+    "Lasse Spieler einen Command ausführen lassen",
+    "Erlaubte Commands werden in der Config eingestellt.",
+    "Der Spieler muss rechte auf den Command haben."
   ],
   "item-custom-action-kill": [
     "§4Töten",

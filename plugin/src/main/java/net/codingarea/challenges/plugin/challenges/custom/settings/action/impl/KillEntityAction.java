@@ -30,7 +30,7 @@ public class KillEntityAction extends AbstractChallengeTargetAction {
 
   @Override
   public Material getMaterial() {
-    return Material.COMMAND_BLOCK;
+    return Material.DIAMOND_SWORD;
   }
 
 }

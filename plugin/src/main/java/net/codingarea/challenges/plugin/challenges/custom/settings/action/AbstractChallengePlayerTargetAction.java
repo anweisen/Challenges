@@ -12,8 +12,7 @@ import org.bukkit.entity.Player;
  */
 public abstract class AbstractChallengePlayerTargetAction extends AbstractChallengeTargetAction {
 
-  public AbstractChallengePlayerTargetAction(String name,
-      SubSettingsBuilder subSettingsBuilder) {
+  public AbstractChallengePlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
   }
 
