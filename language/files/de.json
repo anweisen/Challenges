@@ -1413,6 +1413,9 @@
     "§fIn Luft Schleudern",
     "Schleudere Entities in die Luft"
   ],
+  "item-custom-action-boost_in_air-strength": [
+    "§fStärke"
+  ],
   "item-custom-action-potion_effect": [
     "§dTrank Effekt",
     "Gebe Entities einen bestimmten Trank Effekt"

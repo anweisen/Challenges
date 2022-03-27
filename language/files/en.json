@@ -1384,6 +1384,9 @@
     "§fBoost In Air",
     "Boost entities into the air"
   ],
+  "item-custom-action-boost_in_air-strength": [
+    "§fAmplifier"
+  ],
   "item-custom-action-potion_effect": [
     "§dPotion Effect",
     "Add a potion effect to entities"
