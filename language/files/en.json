@@ -1334,8 +1334,10 @@
   "item-custom-action-command": [
     "§4Execute Command",
     "Make players execute commands.",
+    "Commands are executed for players via */execute as*.",
     "Allowed commands can be set in plugin config.",
-    "The player must have the permission to execute the command."
+    "The player doesn't need the *permission* to the commands.",
+    "Player aren't able to execute *plugin commands*."
   ],
   "item-custom-action-kill": [
     "§4Kill",
@@ -1463,6 +1465,10 @@
     "§aCurrent Player",
     "The action will be executed for the *active player*.",
     "§7§oIf the current entity is not a player nothing will be happen"
+  ],
+  "item-custom-setting-target-console": [
+    "§4Console",
+    "The action will be executed for the *console*"
   ],
 
   "item-custom-setting-entity_type-any": "§cAny Entity",

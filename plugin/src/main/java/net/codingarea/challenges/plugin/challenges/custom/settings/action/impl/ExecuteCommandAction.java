@@ -9,8 +9,8 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.permissions.PermissionAttachment;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -23,8 +23,7 @@ public class ExecuteCommandAction extends AbstractChallengePlayerTargetAction {
 	private static List<String> commandsThatCanBeExecuted = Challenges.getInstance().getConfigDocument().getStringList("custom-challenge-settings.allowed-commands-to-execute");
 
 	public ExecuteCommandAction(String name) {
-		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true, true).createTextInputChild("command", player -> {
-			System.out.println(commandsThatCanBeExecuted);
+		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true, true, true).createTextInputChild("command", player -> {
 			Message.forName("custom-command-info").send(player, Prefix.CUSTOM, "/" + String.join(" /", commandsThatCanBeExecuted));
 		}, event -> {
 			String cmd = event.getMessage().split(" ")[0].toLowerCase();
@@ -48,14 +47,13 @@ public class ExecuteCommandAction extends AbstractChallengePlayerTargetAction {
 	@Override
 	public void executeForPlayer(Player player, Map<String, String[]> subActions) {
 		String fullCommand = subActions.get("command")[0];
-		String command = fullCommand.split(" ")[0];
 
-		PermissionAttachment permissionAttachment = player.addAttachment(Challenges.getInstance());
-		permissionAttachment.setPermission("minecraft.command.fill", true);
-		Bukkit.getServer().dispatchCommand(player, fullCommand);
-		permissionAttachment.unsetPermission("minecraft.command.fill");
-		player.removeAttachment(permissionAttachment);
+		CommandSender sender = Bukkit.getConsoleSender();
+		if (player != null) {
+			fullCommand = "execute as " + player.getName() + " run " + fullCommand;
+		}
 
+		Bukkit.getServer().dispatchCommand(sender, fullCommand);
 	}
 
 	@Override

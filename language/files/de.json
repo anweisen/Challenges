@@ -1362,8 +1362,11 @@
   "item-custom-action-command": [
     "§4Command Ausführen",
     "Lasse Spieler einen Command ausführen lassen",
+    "Die Commands werden für Spieler mit */execute as* von",
+    "der Konsole ausgeführt.",
     "Erlaubte Commands werden in der Config eingestellt.",
-    "Der Spieler muss rechte auf den Command haben."
+    "Der Spieler braucht *keine Rechte* auf den Command haben.",
+    "Spieler können *keine Plugin Commands* ausführen."
   ],
   "item-custom-action-kill": [
     "§4Töten",
@@ -1496,6 +1499,10 @@
     "§aAktiver Spieler",
     "Die Aktion wird für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
+  ],
+  "item-custom-setting-target-console": [
+    "§4Konsole",
+    "Die Aktion wird für die *Konsole* ausgeführt"
   ],
 
   "item-custom-setting-entity_type-any": "§cJegliches Entity",
