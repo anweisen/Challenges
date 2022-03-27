@@ -3,9 +3,11 @@ package net.codingarea.challenges.plugin.challenges.type.abstraction;
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import org.bukkit.Bukkit;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -58,10 +60,13 @@ public abstract class TimedChallenge extends SettingModifier {
 	@Override
 	public void setValue(int value) {
 		super.setValue(value);
-		restartTimer();
+		if (!timerStatus) {
+			restartTimer();
+		}
 	}
 
-	@ScheduledTask(ticks = 20)
+	// Don't execute async to prevent sync issues with timer
+	@ScheduledTask(ticks = 20, async = false)
 	public final void handleTimedChallengeSecond() {
 
 		if (!startedBefore)
@@ -135,6 +140,23 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	protected void restartTimer() {
 		restartTimer(getSecondsUntilNextActivation());
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		if (document.contains("time")) {
+			startedBefore = true;
+			timerStatus = true;
+			secondsUntilActivation = document.getInt("time");
+			Logger.debug("Starting timer of {} from gamestate value with {} second(s)", this.getClass().getSimpleName(), secondsUntilActivation);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		if (secondsUntilActivation != originalSecondsUntilActivation) {
+			document.set("time", secondsUntilActivation);
+		}
 	}
 
 	protected abstract void onTimeActivation();
