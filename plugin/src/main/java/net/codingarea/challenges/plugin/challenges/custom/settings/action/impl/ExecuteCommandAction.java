@@ -50,7 +50,7 @@ public class ExecuteCommandAction extends AbstractChallengePlayerTargetAction {
 
 		CommandSender sender = Bukkit.getConsoleSender();
 		if (player != null) {
-			fullCommand = "execute as " + player.getName() + " run " + fullCommand;
+			fullCommand = "execute as " + player.getName() + " at " + player.getName() + " run " + fullCommand;
 		}
 
 		Bukkit.getServer().dispatchCommand(sender, fullCommand);
