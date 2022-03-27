@@ -60,7 +60,7 @@ public class DontStopRunningChallenge extends SettingModifier {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.CARROT_ON_A_STICK, Message.forName("item-dont-stop-running-challenge"));
+		return new ItemBuilder(Material.SADDLE, Message.forName("item-dont-stop-running-challenge"));
 	}
 
 	@ScheduledTask(ticks = 20)

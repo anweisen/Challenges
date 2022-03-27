@@ -38,7 +38,7 @@ public class EnderGamesChallenge extends TimedChallenge {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.ENDER_EYE, Message.forName("item-ender-games-challenge"));
+		return new ItemBuilder(Material.ENDER_PEARL, Message.forName("item-ender-games-challenge"));
 	}
 
 	@Nullable
