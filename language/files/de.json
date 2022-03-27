@@ -165,6 +165,7 @@
   "unable-to-find-bastion": "Es konnte §ckeine Bastion §7gefunden werden",
   "death-collected": "Todesgrund §e{0} §7wurde registriert",
   "item-collected": "Item §e{0} §7wurde registriert",
+  "items-to-collect": "§7Items zu sammeln §8» §e{0}",
   "backpacks-disabled": "Rucksäcke sind derzeit §cdeaktiviert",
   "backpack-opened": "Du hast den {0} §7geöffnet",
   "top-to-overworld": "Du wurdest zur §eOverworld §7teleportiert",
@@ -206,7 +207,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
   "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
-  "most-ores-points": "§e{0} §7Punkte",
+  "points-change": "§e{0} §7Punkte",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -268,6 +269,7 @@
   "bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
   "bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
   "bossbar-first-at-height-goal": "§8» §fZiel §8┃ §7Y: {0}",
+  "bossbar-respawn-end": "§8» §5Respawnte Mobs im End §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7Sekunden",
   "subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
@@ -566,6 +568,10 @@
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
     "Wenn ein *Entity* spawnt, spawnt ein *anderes*"
+  ],
+  "item-hotbar-randomizer-challenge": [
+    "§6HotBar Randomizer",
+    "Alle *paar Minuten* erhält jeder Spieler *zufällige Items*"
   ],
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
@@ -1020,6 +1026,12 @@
     "*Blöcke* auf denen du *gelaufen* bist,",
     "fliegen nach *einer Sekunde* in die *Luft*"
   ],
+  "item-respawn-end-challenge": [
+    "§5Mobs Respawnen In End",
+    "Entities die *getötet werden*,",
+    "respawnen im *End*"
+  ],
+
 
   "item-dragon-goal": [
     "§5Enderdrache",
@@ -1119,7 +1131,36 @@
   "item-find-elytra-goal": [
     "§fElytra Finden",
     "Der Spieler, der als *erstes*",
-    "eine Elytra findet, gewinnt"
+    "eine *Elytra findet*, gewinnt"
+  ],
+  "item-eat-cake-goal": [
+    "§fKuchen Essen",
+    "Der Spieler, der als *erstes*",
+    "einen *Kuchen isst*, gewinnt"
+  ],
+  "item-collect-horse-armor-goal": [
+    "§bSammle Pferderüstungen",
+    "Der Spieler, der als *erstes*",
+    "*alle Pferderüstungen* hat, gewinnt"
+  ],
+  "item-collect-ice-goal": [
+    "§bSammle Eisblöcke",
+    "Der Spieler, der als *erstes*",
+    "*alle Eisblöcke* und Schnee hat, gewinnt"
+  ],
+  "item-collect-swords-goal": [
+    "§9Sammle Schwerter",
+    "Der Spieler, der als *erstes*",
+    "*alle Schwerter* hat, gewinnt"
+  ],
+  "item-collect-workstations-item": [
+    "§6Sammle Arbeitsblöcke",
+    "Der Spieler, der als *erstes*",
+    "*alle Villager Arbeitsblöcke* hat, gewinnt"
+  ],
+  "item-eat-most-goal": [
+    "§6Am Meisten Essen",
+    "Der Spieler, der am *meisten isst*, gewinnt"
   ],
 
 
@@ -1177,7 +1218,13 @@
   ],
   "custom-no-changes": "Du hast an der Challenge §ckeine §7Änderungen gemacht",
   "custom-name-info": "Schreibe den Namen der Challenge in den Chat",
-  "custom-name-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
+  "custom-command-info": [
+    "Schreibe den Command den der Spieler ausführen soll §eohne / §7in den Chat",
+    "Erlaubte Commands: §e{0}",
+    "§cWeitere Commands können in der Config erlaubt werden"
+  ],
+  "custom-command-not-allowed": "Der Command §e{0} §7ist in der Config nicht als erlaubter Command angegeben",
+  "custom-chars-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
   "custom-not-loaded": [
     "",
     "Es sind derzeit keine Custom Challenges geladen.",
@@ -1316,6 +1363,15 @@
     "Nicht abrechenbare Auslöser: *Springen*, *Sneaken*, *Töten*",
     "*Advancement*, *Auf Leveln*, *In Flüssigkeit*"
   ],
+  "item-custom-action-command": [
+    "§4Command Ausführen",
+    "Lasse Spieler einen Command ausführen lassen",
+    "Die Commands werden für Spieler mit */execute as* von",
+    "der Konsole ausgeführt.",
+    "Erlaubte Commands werden in der Config eingestellt.",
+    "Der Spieler braucht *keine Rechte* auf den Command haben.",
+    "Spieler können *keine Plugin Commands* ausführen."
+  ],
   "item-custom-action-kill": [
     "§4Töten",
     "Töte Entities"
@@ -1360,6 +1416,9 @@
   "item-custom-action-boost_in_air": [
     "§fIn Luft Schleudern",
     "Schleudere Entities in die Luft"
+  ],
+  "item-custom-action-boost_in_air-strength": [
+    "§fStärke"
   ],
   "item-custom-action-potion_effect": [
     "§dTrank Effekt",
@@ -1447,6 +1506,10 @@
     "§aAktiver Spieler",
     "Die Aktion wird für den *aktiven Spieler* ausgeführt",
     "§7§oWenn das Entity kein Spieler ist, wird nichts passieren"
+  ],
+  "item-custom-setting-target-console": [
+    "§4Konsole",
+    "Die Aktion wird für die *Konsole* ausgeführt"
   ],
 
   "item-custom-setting-entity_type-any": "§cJegliches Entity",

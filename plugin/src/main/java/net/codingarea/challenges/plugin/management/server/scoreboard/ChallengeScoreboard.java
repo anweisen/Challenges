@@ -77,7 +77,7 @@ public final class ChallengeScoreboard {
 	}
 
 	public void applyHide(@Nonnull Player player) {
-		unregister(objectives.get(player));
+		unregister(objectives.remove(player));
 	}
 
 	public void update() {

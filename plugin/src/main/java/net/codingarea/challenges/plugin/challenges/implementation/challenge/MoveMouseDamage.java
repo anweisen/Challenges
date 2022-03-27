@@ -27,11 +27,11 @@ import java.util.UUID;
  * @since 2.0
  */
 @Since("2.0")
-public class NoMoveMouseChallenge extends SettingModifier {
+public class MoveMouseDamage extends SettingModifier {
 
 	private final Map<UUID, Entry<Float, Float>> lastView = new HashMap<>();
 
-	public NoMoveMouseChallenge() {
+	public MoveMouseDamage() {
 		super(MenuType.CHALLENGES, 60);
 	}
 

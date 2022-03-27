@@ -221,12 +221,14 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	@Override
 	public void writeGameState(@Nonnull Document document) {
+		super.writeGameState(document);
 		document.set("waterHeight", waterHeight);
 		document.set("lavaHeight", lavaHeight);
 	}
 
 	@Override
 	public void loadGameState(@Nonnull Document document) {
+		super.loadGameState(document);
 		waterHeight = document.getInt("waterHeight");
 		lavaHeight = document.getInt("lavaHeight");
 	}

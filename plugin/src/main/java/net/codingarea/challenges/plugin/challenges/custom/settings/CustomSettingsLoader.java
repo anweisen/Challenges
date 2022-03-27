@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.C
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ClearInventoryAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DamageEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DropRandomItemAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ExecuteCommandAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.FreezeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
@@ -104,6 +105,7 @@ public class CustomSettingsLoader {
     registerActions(
         new CancelEventAction("cancel"),
         new WinChallengeAction("win"),
+        new ExecuteCommandAction("command"),
         new KillEntityAction("kill"),
         new DamageEntityAction("damage"),
         new HealEntityAction("heal"),

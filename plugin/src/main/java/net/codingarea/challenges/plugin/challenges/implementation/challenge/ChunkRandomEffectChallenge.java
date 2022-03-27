@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Chunk;
 import org.bukkit.Location;
@@ -59,11 +60,11 @@ public class ChunkRandomEffectChallenge extends Setting {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onGameModeChange(PlayerGameModeChangeEvent event) {
+	public void onGameModeChange(PlayerIgnoreStatusChangeEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (ignoreGameMode(event.getNewGameMode()) && !ignoreGameMode(event.getPlayer().getGameMode())) {
+		if (event.isIgnored()) {
 			removeEffect(event.getPlayer(), event.getPlayer().getLocation());
-		} else if (!ignoreGameMode(event.getNewGameMode()) && ignoreGameMode(event.getPlayer().getGameMode())) {
+		} else {
 			addEffect(event.getPlayer(), event.getPlayer().getLocation());
 		}
 	}

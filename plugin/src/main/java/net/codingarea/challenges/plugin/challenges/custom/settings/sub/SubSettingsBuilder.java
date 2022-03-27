@@ -4,17 +4,19 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.TextInputSubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.impl.MessageManager;
-import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
-import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
 import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -36,20 +38,7 @@ public abstract class SubSettingsBuilder {
 		this.parent = parent;
 	}
 
-	public boolean open(Player player, IParentCustomGenerator parentGenerator, String title) {
-
-		if (hasSettings()) {
-			MenuGenerator generator = getGenerator(player, parentGenerator,
-					title + InventoryTitleManager.getTitleSplitter() + getKeyTranslation());
-			if (generator == null) return false;
-			generator.open(player, 0);
-			return true;
-		}
-
-		return false;
-	}
-
-	public abstract MenuGenerator getGenerator(Player player, IParentCustomGenerator parentGenerator, String title);
+	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
 	public abstract List<String> getDisplay(Map<String, String[]> activated);
 	public abstract boolean hasSettings();
 
@@ -134,6 +123,15 @@ public abstract class SubSettingsBuilder {
 		return builder;
 	}
 
+	public TextInputSubSettingsBuilder createTextInputChild(String key,
+			Consumer<Player> onOpen,
+			Predicate<AsyncPlayerChatEvent> isValid) {
+		TextInputSubSettingsBuilder builder = new TextInputSubSettingsBuilder(key,
+				this, onOpen, isValid);
+		this.child = builder;
+		return builder;
+	}
+
 	public static ChooseItemSubSettingsBuilder createChooseItem(String key) {
 		return new ChooseItemSubSettingsBuilder(key);
 	}
@@ -144,6 +142,12 @@ public abstract class SubSettingsBuilder {
 
 	public static ChooseMultipleItemSubSettingBuilder createChooseMultipleItem(String key) {
 		return new ChooseMultipleItemSubSettingBuilder(key);
+	}
+
+	public static TextInputSubSettingsBuilder createTextInput(String key,
+			Consumer<Player> onOpen,
+			Predicate<AsyncPlayerChatEvent> isValid) {
+		return new TextInputSubSettingsBuilder(key, onOpen, isValid);
 	}
 
 	public static EmptySubSettingsBuilder createEmpty() {

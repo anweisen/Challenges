@@ -68,8 +68,9 @@ public final class ScoreboardManager {
 		if (currentScoreboard == scoreboard) return;
 
 		// Remove old scoreboard
-		if (currentScoreboard != null)
+		if (currentScoreboard != null) {
 			Bukkit.getOnlinePlayers().forEach(currentScoreboard::applyHide);
+		}
 
 		currentScoreboard = scoreboard;
 

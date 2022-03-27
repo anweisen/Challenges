@@ -6,10 +6,8 @@ import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -30,7 +28,6 @@ import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.world.LootGenerateEvent;
-import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -109,9 +106,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
     if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
 
     if (updateOrReset(player)) {
-      Material material = IRandom.threadLocal().choose(
-          RandomItemAction.items);
-      InventoryUtils.giveItem(player.getInventory(), player.getLocation(), new ItemStack(material, 64));
+      InventoryUtils.giveItem(player.getInventory(), player.getLocation(), InventoryUtils.getRandomItem(false, false));
     }
   }
 

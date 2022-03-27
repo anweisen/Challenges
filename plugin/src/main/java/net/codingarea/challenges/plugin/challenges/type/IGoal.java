@@ -46,7 +46,7 @@ public interface IGoal extends IChallenge {
 	SoundSample getWinSound();
 
 	/**
-	 * This method will be called, when the challenges is being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) in order to determine the winner of this challenge run.
+	 * This method will be called, when the challenges is being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) and when there is no player supplier given in order to determine the winner of this challenge run.
 	 * If no players are added to the winners list, the {@link ChallengeEndCause#getNoWinnerMessage()} will be shown instead of the {@link ChallengeEndCause#getWinnerMessage()}.
 	 *
 	 * @param winners the list to which the winners should be added
