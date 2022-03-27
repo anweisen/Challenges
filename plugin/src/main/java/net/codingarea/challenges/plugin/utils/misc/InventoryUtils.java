@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import javax.annotation.Nonnull;
@@ -8,6 +9,7 @@ import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -26,6 +28,9 @@ import org.bukkit.inventory.ItemStack;
  * @since 2.0
  */
 public final class InventoryUtils {
+
+	private static final IRandom random;
+	private static final List<Material> items;
 
 	private InventoryUtils() { }
 
@@ -178,6 +183,17 @@ public final class InventoryUtils {
 		inventory.addItem(itemStack);
 	}
 
+	public static ItemStack getRandomItem(boolean onlyOne, boolean respectMaxStackSize) {
+		Material material = random.choose(items);
+		int stackSize = onlyOne ? 1 : (respectMaxStackSize && material.getMaxStackSize() == 1 ? 1 : random.range(1, respectMaxStackSize ? material.getMaxStackSize() : 64));
+		return new ItemStack(material, stackSize);
+	}
+
+	public static void giveRandomItem(@Nonnull Player player, int slot) {
+		InventoryUtils.giveItem(player.getInventory(),
+				player.getLocation(), new ItemStack(random.choose(items)));
+	}
+
 	/**
 	 * @return if a navigation item was clicked
 	 */
@@ -203,6 +219,12 @@ public final class InventoryUtils {
 			return false;
 		}
 		return false;
+	}
+
+	static {
+		random = IRandom.create();
+		items = new ArrayList<>(Arrays.asList(Material.values()));
+		items.removeIf(material -> !material.isItem());
 	}
 
 }

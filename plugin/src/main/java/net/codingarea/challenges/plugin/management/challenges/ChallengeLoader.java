@@ -99,9 +99,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(HydraNormalChallenge.class);
 		register(HydraPlusChallenge.class);
 		register(DupedSpawningChallenge.class);
-		register(LowDropRateChallenge.class);
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
+		register(HotBarRandomizerChallenge.class);
 		register(MobRandomizerChallenge.class);
 
 		register(ForceHeightChallenge.class);
@@ -147,7 +147,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(InvisibleMobsChallenge.class);
 		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
 		register(DontStopRunningChallenge.class);
-//		register(DamageTeleportChallenge.class);
 		register(LoopChallenge.class);
 		register(PickupItemLaunchChallenge.class);
 		register(FoodLaunchChallenge.class);
@@ -158,6 +157,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(RepeatInChunkChallenge.class);
 		register(BlockFlyInAirChallenge.class);
 		register(MobsRespawnInEndChallenge.class);
+		register(LowDropRateChallenge.class);
 
 		// Goal
 		register(KillEnderDragonGoal.class);

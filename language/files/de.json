@@ -569,6 +569,10 @@
     "§6Mob Randomizer",
     "Wenn ein *Entity* spawnt, spawnt ein *anderes*"
   ],
+  "item-hotbar-randomizer-challenge": [
+    "§6HotBar Randomizer",
+    "Alle *paar Minuten* erhält jeder Spieler *zufällige Items*"
+  ],
   "item-damage-block-challenge": [
     "§4Schaden pro Block",
     "Du bekommst *Schaden* durch",
