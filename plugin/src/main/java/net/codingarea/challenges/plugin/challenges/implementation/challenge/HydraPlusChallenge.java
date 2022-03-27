@@ -32,8 +32,11 @@ public class HydraPlusChallenge extends HydraChallenge {
 	@Override
 	public int getNewMobsCount(@Nonnull EntityType entityType) {
 		int currentCount = getGameStateData().getInt(entityType.name());
-		if (currentCount == 0) currentCount = 1;
-		currentCount *= currentCount;
+		if (currentCount == 0) {
+			currentCount = 2;
+		} else {
+			currentCount *= 2;
+		}
 		getGameStateData().set(entityType.name(), Math.min(currentCount, limit));
 		return currentCount;
 	}
