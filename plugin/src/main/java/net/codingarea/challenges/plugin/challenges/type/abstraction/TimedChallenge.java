@@ -1,13 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.policy.ExtraWorldPolicy;
-import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
-import org.bukkit.Bukkit;
-
 import javax.annotation.Nonnegative;
 import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import org.bukkit.Bukkit;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -63,7 +61,7 @@ public abstract class TimedChallenge extends SettingModifier {
 		restartTimer();
 	}
 
-	@ScheduledTask(ticks = 20, worldPolicy = ExtraWorldPolicy.ALWAYS)
+	@ScheduledTask(ticks = 20)
 	public final void handleTimedChallengeSecond() {
 
 		if (!startedBefore)
