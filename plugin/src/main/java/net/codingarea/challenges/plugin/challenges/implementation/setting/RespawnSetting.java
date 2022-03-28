@@ -55,11 +55,7 @@ public class RespawnSetting extends Setting {
 	}
 
 	public void checkAllPlayersDead() {
-		int playersAlive = 0;
-		for (Player current : Bukkit.getOnlinePlayers()) {
-			if (current.getGameMode() != GameMode.SPECTATOR)
-				playersAlive++;
-		}
+		int playersAlive = ChallengeAPI.getIngamePlayers().size();
 		if (playersAlive == 0) {
 			ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_FAILED);
 		}
