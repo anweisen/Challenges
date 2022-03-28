@@ -50,6 +50,7 @@ public class DamageRuleSetting extends Setting {
 		if (ChallengeAPI.isWorldInUse()) return;
 		if (isEnabled()) return;
 		if (!(event.getEntity() instanceof Player)) return;
+		if (event.getCause() == DamageCause.VOID) return; // Never ignore void to prevent falling infinitely
 		if (!causes.contains(event.getCause())) return;
 		event.setCancelled(true);
 	}

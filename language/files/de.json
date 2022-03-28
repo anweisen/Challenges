@@ -1165,7 +1165,10 @@
     "Der Spieler, der am *meisten isst*, gewinnt"
   ],
 
-
+  "item-damage-rule-none": [
+    "§6Genereller Schaden",
+    "Stellt ein, ob du Schaden bekommen kannst"
+  ],
   "item-damage-rule-fire": [
     "§6Feuer Schaden",
     "Stellt ein, ob du Schaden durch",
@@ -1203,6 +1206,11 @@
     "§5Magie Schaden",
     "Stellt ein, ob du Schaden durch",
     "*Gift*, *Wither* und andere *Tränke* bekommen kannst"
+  ],
+  "item-damage-rule-freeze": [
+    "§fFrost Schaden",
+    "Stellt ein, ob du Schaden durch",
+    "*Frost* bekommen kannst"
   ],
 
   "item-block-material": [

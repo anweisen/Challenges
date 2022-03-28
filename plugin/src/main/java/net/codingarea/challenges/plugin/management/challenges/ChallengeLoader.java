@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
@@ -194,14 +195,19 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(EatMostGoal.class);
 
 		// Damage Rules
-		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
-		registerDamageRule("attack",    Material.DIAMOND_SWORD,             DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION);
-		registerDamageRule("projectile",Material.ARROW,                     DamageCause.PROJECTILE);
-		registerDamageRule("fall",      Material.FEATHER,                   DamageCause.FALL);
-		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
-		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
-		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
-		registerDamageRule("magic",     Material.BREWING_STAND,             DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
+		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());
+		registerDamageRule("fire", Material.LAVA_BUCKET, DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA, DamageCause.HOT_FLOOR);
+		registerDamageRule("attack", Material.DIAMOND_SWORD, DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
+		registerDamageRule("projectile", Material.ARROW, DamageCause.PROJECTILE);
+		registerDamageRule("fall", Material.FEATHER, DamageCause.FALL);
+		registerDamageRule("explosion", Material.TNT, DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
+		registerDamageRule("drowning", PotionBuilder.createWaterBottle(), DamageCause.DROWNING);
+		registerDamageRule("block", Material.SAND, DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
+		registerDamageRule("magic", Material.BREWING_STAND, DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
+
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_17)) {
+			registerDamageRule("freeze", Material.POWDER_SNOW_BUCKET, DamageCause.FREEZE);
+		}
 
 		// Material Rules
 		registerMaterialRule("§cArmor", "Armor", ArmorUtils.getArmor());

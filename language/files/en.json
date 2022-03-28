@@ -1145,6 +1145,10 @@
   ],
 
 
+  "item-damage-rule-none": [
+    "§6General Damage",
+    "Sets whether you can get damage or not"
+  ],
   "item-damage-rule-fire": [
     "§6Fire Damage",
     "Sets whether you get *damage* from *Fire* and *Lava*"
@@ -1177,6 +1181,10 @@
     "§5Magic Damage",
     "Sets whether you get *damage* from",
     "*Poison, Wither or other Potions"
+  ],
+  "item-damage-rule-freeze": [
+    "§cFreeze Damage",
+    "Sets whether you get *damage* from *Freezing*"
   ],
 
   "item-block-material": [
