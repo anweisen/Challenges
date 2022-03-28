@@ -22,8 +22,6 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeScoreboard {
 
-	private int index = 0;
-
 	public static final class ScoreboardInstance {
 
 		private final String[] lines = new String[15];
@@ -91,13 +89,15 @@ public final class ChallengeScoreboard {
 		}
 
 		try {
+			if (objectives.containsKey(player)) {
+				unregister(objectives.remove(player));
+			}
 
 			ScoreboardInstance instance = new ScoreboardInstance();
 			content.accept(instance, player);
 
 			Collection<String> lines = instance.getLines();
 			if (lines.isEmpty()) {
-				unregister(objectives.get(player));
 				return;
 			}
 
@@ -109,7 +109,7 @@ public final class ChallengeScoreboard {
 				player.setScoreboard(scoreboard = Bukkit.getScoreboardManager().getNewScoreboard());
 			}
 
-			Objective objective = scoreboard.registerNewObjective(String.valueOf(index++), "dummy", String.valueOf(instance.getTitle()));
+			Objective objective = scoreboard.registerNewObjective(String.valueOf(player.getUniqueId().hashCode()), "dummy", String.valueOf(instance.getTitle()));
 			int score = lines.size();
 			for (String line : lines) {
 				if (line.isEmpty()) line = StringUtils.repeat(' ', score + 1);
@@ -118,7 +118,6 @@ public final class ChallengeScoreboard {
 			}
 
 			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-			unregister(objectives.get(player));
 			objectives.put(player, objective);
 
 		} catch (Exception ex) {
