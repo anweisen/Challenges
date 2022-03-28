@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.MaxHealthSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
@@ -21,7 +22,7 @@ public class ModifyMaxHealthAction extends AbstractChallengePlayerTargetAction {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true)
         .createValueChild().fill(builder -> {
           builder.addModifierSetting("health_offset",
-              new ItemBuilder(Material.RED_DYE,
+              new ItemBuilder(MaterialWrapper.RED_DYE,
                   Message.forName("item-custom-action-max_health-offset")),
               0, -20, 20,
               integer -> "", integer -> "HP §8(§e" + (integer / 2f) + " §c❤§8)");
@@ -30,7 +31,7 @@ public class ModifyMaxHealthAction extends AbstractChallengePlayerTargetAction {
 
   @Override
   public Material getMaterial() {
-    return Material.RED_DYE;
+    return MaterialWrapper.RED_DYE;
   }
 
   @Override

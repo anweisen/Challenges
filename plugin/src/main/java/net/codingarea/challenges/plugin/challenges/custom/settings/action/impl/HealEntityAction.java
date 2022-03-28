@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -22,7 +23,7 @@ public class HealEntityAction extends AbstractChallengeTargetAction {
       String prefix = DefaultItem.getItemPrefix();
       for (int i = 1; i < 21; i++) {
         builder.addSetting(
-            String.valueOf(i), new ItemBuilder(Material.RED_DYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
+            String.valueOf(i), new ItemBuilder(MaterialWrapper.RED_DYE, prefix + "§7" + (i / 2f) + " §c❤").setAmount(i).build());
       }
     }));
   }

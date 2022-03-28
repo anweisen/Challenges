@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import java.util.Map;
 import java.util.UUID;
 import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
@@ -48,7 +49,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
       Listener listener = new Listener() {
 
         @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-        public void onEntityExplosion(LootGenerateEvent event) {
+        public void onLootGenerate(LootGenerateEvent event) {
           if (!shouldExecuteEffect())
             return;
           event.setLoot(new LinkedList<>());
@@ -80,7 +81,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
   @NotNull
   @Override
   public ItemBuilder createDisplayItem() {
-    return new ItemBuilder(Material.OAK_SIGN, Message.forName("item-five-hundred-blocks-challenges"));
+    return new ItemBuilder(MaterialWrapper.SIGN, Message.forName("item-five-hundred-blocks-challenges"));
   }
 
   @Override
