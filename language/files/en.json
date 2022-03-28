@@ -46,8 +46,10 @@
   "no-such-material": "This material doesn't exist",
   "not-an-item": "§e{0} §7is not an item",
   "deprecated-plugin-version": [
-    "A new version of §e§lChallenges §7is available",
-    "Download: §e{0}"
+    "",
+    "An update for the plugin is available",
+    "Download: §e{0}",
+    ""
   ],
   "deprecated-config-version": [
     "A new version of the §econfig §7is available",
