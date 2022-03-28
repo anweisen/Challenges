@@ -50,8 +50,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
 		CustomChallenge challenge = customChallenges.remove(uuid);
 		if (challenge == null) return;
-		Challenges.getInstance().getChallengeManager().unregister(challenge);
-		unregister(challenge);
+		Challenges.getInstance().getChallengeLoader().unregister(challenge);
 		generateCustomChallenge(challenge, true, true);
 	}
 
