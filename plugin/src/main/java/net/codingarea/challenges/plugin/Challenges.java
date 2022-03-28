@@ -187,7 +187,8 @@ public final class Challenges extends BukkitModule {
 				new CustomEventListener(),
 				new HelpListener(),
 				new ChatInputListener(),
-				new GeneratorWorldsListener()
+				new GeneratorWorldsListener(),
+				new ScoreboardUpdateListener()
 		);
 	}
 
