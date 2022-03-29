@@ -186,26 +186,9 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 				return;
 			}
 
-			if (info.getSlot() == getNavigationSlots(page)[0]) {
-				SoundSample.CLICK.play(info.getPlayer());
-				if (page <= startPage || info.isShiftClick()) {
-					if (page == 0) {
-						onLeaveClick.accept(info.getPlayer());
-					} else {
-						open(info.getPlayer(), 0);
-					}
-				} else {
-					open(info.getPlayer(), page - 1);
-				}
-				return;
-			} else if (page < startPage) {
-				onPreChallengePageClicking(info, page);
 
-				return;
-			} else if (info.getSlot() == getNavigationSlots(page)[1]) {
-				SoundSample.CLICK.play(info.getPlayer());
-				if (page < (inventories.size() - startPage))
-					open(info.getPlayer(), page + 1);
+			if (page < startPage) {
+				onPreChallengePageClicking(info, page);
 				return;
 			}
 
@@ -221,6 +204,11 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 					break;
 				}
 				index++;
+			}
+
+			if (itemIndex >= 2) {
+				SoundSample.CLICK.play(info.getPlayer());
+				return;
 			}
 
 			if (index == getSlots().length) { // No possible bound slot was clicked

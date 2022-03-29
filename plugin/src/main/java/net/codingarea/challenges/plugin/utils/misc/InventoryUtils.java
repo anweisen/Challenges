@@ -200,13 +200,15 @@ public final class InventoryUtils {
 	public static boolean handleNavigationClicking(MenuGenerator generator, int[] navigationSlots, int page, MenuClickInfo info, Runnable onDoorClick) {
 		int pagesSwitching = info.isShiftClick() ? 5 : 1;
 		if (navigationSlots.length >= 1 && info.getSlot() == navigationSlots[0]) {
-			SoundSample.CLICK.play(info.getPlayer());
 			if (page <= 0) {
 				if (page == 0) {
 					onDoorClick.run();
+				} else {
+					SoundSample.CLICK.play(info.getPlayer());
 				}
 				return page == 0;
 			} else {
+				SoundSample.CLICK.play(info.getPlayer());
 				generator.open(info.getPlayer(), Math.max(page - pagesSwitching, 0));
 				return true;
 			}
