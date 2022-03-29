@@ -179,8 +179,7 @@ public final class BlockUtils {
 			}
 
 		} else {
-			System.out.println(offset);
-			block = location.getBlock().getLocation().subtract(0, offset, 0).getBlock();
+			block = location.clone().subtract(0, offset, 0).getBlock();
 		}
 
 		if (block == null) return null;
