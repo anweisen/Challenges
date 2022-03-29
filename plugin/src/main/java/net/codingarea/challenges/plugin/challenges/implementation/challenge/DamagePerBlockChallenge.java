@@ -30,7 +30,7 @@ public class DamagePerBlockChallenge extends SettingModifier {
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
+		if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getTo(), event.getFrom())) return;
 
 		event.getPlayer().setNoDamageTicks(0);
 		event.getPlayer().damage(getValue());

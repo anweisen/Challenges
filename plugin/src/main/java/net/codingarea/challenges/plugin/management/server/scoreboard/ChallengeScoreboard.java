@@ -109,7 +109,14 @@ public final class ChallengeScoreboard {
 				player.setScoreboard(scoreboard = Bukkit.getScoreboardManager().getNewScoreboard());
 			}
 
-			Objective objective = scoreboard.registerNewObjective(String.valueOf(player.getUniqueId().hashCode()), "dummy", String.valueOf(instance.getTitle()));
+			String name = String.valueOf(player.getUniqueId().hashCode());
+			// Unregister any old objective existing
+			Objective objective1 = scoreboard.getObjective(name);
+			if (objective1 != null) {
+				unregister(objective1);
+			}
+
+			Objective objective = scoreboard.registerNewObjective(name, "dummy", String.valueOf(instance.getTitle()));
 			int score = lines.size();
 			for (String line : lines) {
 				if (line.isEmpty()) line = StringUtils.repeat(' ', score + 1);

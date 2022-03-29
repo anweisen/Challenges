@@ -159,6 +159,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LoopChallenge.class);
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
+		register(BlockEffectChallenge.class);
 
 
 		// Goal

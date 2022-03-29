@@ -104,7 +104,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
     if (!shouldExecuteEffect()) return;
     Player player = event.getPlayer();
     if (ignorePlayer(player)) return;
-    if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
+    if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
 
     if (updateOrReset(player)) {
       InventoryUtils.giveItem(player.getInventory(), player.getLocation(), InventoryUtils.getRandomItem(false, false));

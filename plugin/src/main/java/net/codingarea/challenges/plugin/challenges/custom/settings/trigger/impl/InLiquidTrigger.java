@@ -36,7 +36,7 @@ public class InLiquidTrigger extends AbstractChallengeTrigger {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
-    if (BlockUtils.isSameBlock(event.getTo(), event.getFrom())) return;
+    if (BlockUtils.isSameBlockLocation(event.getTo(), event.getFrom())) return;
     if (event.getTo() == null) return;
 
     Material type = event.getTo().getBlock().getType();

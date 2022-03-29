@@ -34,7 +34,7 @@ public class BedrockWallChallenge extends SettingModifier {
 
 		Location location = event.getTo();
 		if (location == null) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), location)) return;
+		if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), location)) return;
 
 		Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
 			World world = event.getPlayer().getWorld();

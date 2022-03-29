@@ -31,7 +31,7 @@ public class FloorIsLavaChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
 		if (event.getTo() == null) return;
-		if (!BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
+		if (!BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
 
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			createMagmaFloor(event.getTo());

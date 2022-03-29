@@ -215,7 +215,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		if (targetBlock == null) return;
 		if (event.getTo() == null) return;
 
-		if (BlockUtils.isSameBlock(event.getTo(), targetBlock.getLocation().add(0, 1, 0))) {
+		if (BlockUtils.isSameBlockLocation(event.getTo(), targetBlock.getLocation().add(0, 1, 0))) {
 			if (++currentJump >= jumps) {
 				finishJumpAndRun();
 			} else {

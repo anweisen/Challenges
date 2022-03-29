@@ -125,10 +125,10 @@ public class RaceGoal extends SettingModifierGoal {
   public void onMove(PlayerMoveEvent event) {
     if (!shouldExecuteEffect()) return;
     if (ignorePlayer(event.getPlayer())) return;
-    if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
+    if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
     if (event.getTo().getWorld() != goal.getWorld()) return;
     if (event.getTo() == null) return;
-    if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), goal)) {
+    if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getTo(), goal)) {
       Message.forName("race-goal-reached").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
       ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED, () -> Collections.singletonList(event.getPlayer()));
       ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), event.getTo(), Particle.SPELL_MOB, 0.75, 2);
