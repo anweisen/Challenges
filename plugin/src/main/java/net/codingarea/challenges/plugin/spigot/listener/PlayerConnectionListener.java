@@ -51,80 +51,57 @@ public class PlayerConnectionListener implements Listener {
 		player.getLocation().getChunk().load(true);
 		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_MOB, 17, 1, 2);
 		Challenges.getInstance().getScoreboardManager().handleJoin(player);
-		boolean sentMessage = false;
-
-		if (messages) {
-			event.setJoinMessage(Prefix.CHALLENGES + Message.forName("join-message").asString(NameHelper.getName(event.getPlayer())));
-		}
 
 		if (player.hasPermission("challenges.gui")) {
 			if (Challenges.getInstance().isFirstInstall()) {
-				sentMessage = true;
 				player.sendMessage("");
 				player.sendMessage(Prefix.CHALLENGES + "§7Thanks for downloading §e§lChallenges§7!");
 				player.sendMessage(Prefix.CHALLENGES + "§7You can change the language in the §econfig.yml");
 				player.sendMessage(Prefix.CHALLENGES + "§7For more join our discord §ediscord.gg/74Ay5zF");
 			}
 
-			List<String> missingConfigSettings = Challenges.getInstance().getConfigManager()
-					.getMissingConfigSettings();
-			if (!missingConfigSettings.isEmpty()) {
-				if (!sentMessage) {
-					sentMessage = true;
-					player.sendMessage("");
-				}
-				String separator = Message.forName("missing-config-settings-separator").asString();
-				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES,
-						String.join(separator , missingConfigSettings));
-			} else if (!UpdateLoader.isNewestConfigVersion()) {
-				if (!sentMessage) {
-					sentMessage = true;
-					player.sendMessage("");
-				}
-				Message.forName("no-missing-config-settings").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());
-			}
-
 			if (timerPausedInfo && !startTimerOnJoin && ChallengeAPI.isPaused()) {
-				if (!sentMessage) {
-					sentMessage = true;
-					player.sendMessage("");
-				}
+				player.sendMessage("");
 				Message.forName("timer-paused-message").send(player, Prefix.CHALLENGES);
 			}
 		}
 
 		if (Challenges.getInstance().getStatsManager().isNoStatsAfterCheating() && Challenges.getInstance().getServerManager().hasCheated()) {
-			if (!sentMessage) {
-				sentMessage = true;
-				player.sendMessage("");
-			}
+			player.sendMessage("");
 			Message.forName("cheats-already-detected").send(player, Prefix.CHALLENGES);
 		}
 
 
 		if (startTimerOnJoin) {
-			if (!sentMessage) {
-				sentMessage = true;
-				player.sendMessage("");
-			}
+			player.sendMessage("");
 			ChallengeAPI.resumeTimer();
 		}
 
 		if (player.hasPermission("challenges.gui")) {
+			if (!UpdateLoader.isNewestConfigVersion()) {
+				player.sendMessage("");
+				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format(), UpdateLoader.getCurrentConfigVersion().format());
+			}
+
+			List<String> missingConfigSettings = Challenges.getInstance().getConfigManager().getMissingConfigSettings();
+			if (!missingConfigSettings.isEmpty()) {
+				player.sendMessage("");
+				String separator = Message.forName("missing-config-settings-separator").asString();
+				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES, String.join(separator , missingConfigSettings));
+			} else if (!UpdateLoader.isNewestConfigVersion()) {
+				player.sendMessage("");
+				Message.forName("no-missing-config-settings").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());
+			}
 			if (!UpdateLoader.isNewestPluginVersion()) {
-				if (!sentMessage) {
-					sentMessage = true;
-					player.sendMessage("");
-				}
+				player.sendMessage("");
 				Message.forName("deprecated-plugin-version").send(player, Prefix.CHALLENGES, "spigotmc.org/resources/" + UpdateLoader.RESOURCE_ID);
 			}
-			if (!UpdateLoader.isNewestConfigVersion()) {
-				if (!sentMessage) {
-					sentMessage = true;
-					player.sendMessage("");
-				}
-				Message.forName("deprecated-config-version").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());
-			}
+		}
+
+
+		if (messages) {
+			player.sendMessage("");
+			event.setJoinMessage(Prefix.CHALLENGES + Message.forName("join-message").asString(NameHelper.getName(event.getPlayer())));
 		}
 
 		if (Challenges.getInstance().getDatabaseManager().isConnected()) {

@@ -18,6 +18,7 @@ public final class UpdateLoader extends ContentLoader {
 	private static boolean newestPluginVersion = true;
 	private static boolean newestConfigVersion = true;
 	private static Version defaultConfigVersion;
+	private static Version currentConfigVersion;
 
 	@Override
 	protected void load() {
@@ -27,14 +28,14 @@ public final class UpdateLoader extends ContentLoader {
 			Version plugin = Challenges.getInstance().getVersion();
 			YamlConfiguration defaultConfig = Challenges.getInstance().getConfigManager().getDefaultConfig();
 			defaultConfigVersion = defaultConfig == null ? plugin : Version.parse(defaultConfig.getString("config-version"));
-			Version config = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
+			currentConfigVersion = Version.parse(Challenges.getInstance().getConfigDocument().getString("config-version"));
 			Version latestVersion = Version.parse(response);
 
 			if (latestVersion.isNewerThan(plugin)) {
 				Logger.info("A new version of Challenges is available: {}, you have {}", latestVersion, plugin);
 				newestPluginVersion = false;
 			}
-			if (defaultConfigVersion.isNewerThan(config)) {
+			if (defaultConfigVersion.isNewerThan(currentConfigVersion)) {
 				Logger.info("A new version of the config (plugins/Challenges/config.yml) is available");
 				newestConfigVersion = false;
 			}
@@ -46,6 +47,10 @@ public final class UpdateLoader extends ContentLoader {
 
 	public static Version getDefaultConfigVersion() {
 		return defaultConfigVersion;
+	}
+
+	public static Version getCurrentConfigVersion() {
+		return currentConfigVersion;
 	}
 
 	public static boolean isNewestConfigVersion() {

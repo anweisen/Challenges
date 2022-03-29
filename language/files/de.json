@@ -52,8 +52,8 @@
     ""
   ],
   "deprecated-config-version": [
-    "Eine neue Version der §eChallenges Config ({0}) §7ist verfügbar",
-    "Du kannst die alte config löschen oder die fehlenden Einstellungen manuell hinzufügen"
+    "Deine Plugin Config ist §cveraltet §7(§c{1} §7< §a{0})",
+    "Du kannst die alte Config löschen oder die fehlenden Einstellungen manuell hinzufügen"
   ],
   "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",
   "missing-config-settings-separator": "§7, §e",
