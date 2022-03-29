@@ -5,6 +5,8 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
+import net.codingarea.challenges.plugin.challenges.type.EmptyChallenge;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
 import org.bukkit.Material;
@@ -121,13 +123,14 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MovementItemRemovingChallenge.class);
 		register(DamageInventoryClearChallenge.class);
 		// 8
+		register(BlockEffectChallenge.class);
 		register(ChunkRandomEffectChallenge.class);
 		register(RandomPotionEffectChallenge.class);
 		register(PermanentEffectOnDamageChallenge.class);
 		register(InfectionChallenge.class);
 		register(InvisibleMobsChallenge.class);
-		register(MobsRespawnInEndChallenge.class);
-		register(EnderGamesChallenge.class);
+		register(EmptyChallenge.class, MenuType.CHALLENGES);
+
 		// 9
 		register(UncraftItemsChallenge.class);
 		register(OnlyDownChallenge.class);
@@ -159,7 +162,10 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LoopChallenge.class);
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
-		register(BlockEffectChallenge.class);
+		register(EmptyChallenge.class, MenuType.CHALLENGES);
+		// 13
+		register(MobsRespawnInEndChallenge.class);
+		register(EnderGamesChallenge.class);
 
 
 		// Goal

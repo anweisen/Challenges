@@ -1025,6 +1025,11 @@
     "§5Mobs Respawn In End",
     "*Killed mobs* respawn in *end dimension*"
   ],
+  "item-block-effect-challenge": [
+    "§3Random Block Effects",
+    "On *each block* you'll get",
+    "a random *potion effect*"
+  ],
 
 
   "item-dragon-goal": [

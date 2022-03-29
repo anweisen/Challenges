@@ -1033,6 +1033,11 @@
     "Entities die *getötet werden*,",
     "respawnen im *End*"
   ],
+  "item-block-effect-challenge": [
+    "§3Zufällige Block Effekte",
+    "Auf *jedem Block* bekommst du",
+    "einen *zufälligen Effekt*"
+  ],
 
 
   "item-dragon-goal": [
