@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
@@ -84,6 +85,11 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 		Inventory inventory = getInventories().get(page + startPage);
 		setSettingsItems(inventory, challenge, slot);
+
+		if (newSuffix && isNew(challenge)) {
+			inventory.setItem(slot+1, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
+			inventory.setItem(slot+28, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
+		}
 	}
 
 	public int getPageOfChallenge(IChallenge challenge) {
