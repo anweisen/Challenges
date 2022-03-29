@@ -12,8 +12,6 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
-import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 
@@ -74,20 +72,6 @@ public class RandomChallengeChallenge extends TimedChallenge {
 			lastUsed = null;
 		}
 		bossbar.hide();
-	}
-
-	@TimerTask(status = TimerStatus.RUNNING, async = false)
-	public void onStart() {
-		if (lastUsed != null) {
-			setEnabled(lastUsed, true);
-		}
-	}
-
-	@TimerTask(status = TimerStatus.PAUSED, async = false)
-	public void onPause() {
-		if (lastUsed != null) {
-			setEnabled(lastUsed, false);
-		}
 	}
 
 	@Override
