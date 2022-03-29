@@ -14,6 +14,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
@@ -50,7 +51,10 @@ public class EntityRandomEffectChallenge extends Setting {
 	protected void onDisable() {
 		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
-				entity.getActivePotionEffects().clear();
+				if (entity.getType() == EntityType.PLAYER) continue;
+				for (PotionEffect effect : entity.getActivePotionEffects()) {
+					entity.removePotionEffect(effect.getType());
+				}
 			}
 		}
 		random = null;
