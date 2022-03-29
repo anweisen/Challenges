@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nonnull;
@@ -79,7 +80,9 @@ public final class ChallengeScoreboard {
 	}
 
 	public void update() {
-		Bukkit.getOnlinePlayers().forEach(this::update);
+		for (Player player : new LinkedList<>(Bukkit.getOnlinePlayers())) {
+			update(player);
+		}
 	}
 
 	public void update(@Nonnull Player player) {
