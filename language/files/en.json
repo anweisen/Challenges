@@ -1030,6 +1030,11 @@
     "On *each block* you'll get",
     "a random *potion effect*"
   ],
+  "item-entity-effect-challenge": [
+    "§9Mobs Got Random Effects",
+    "*Every Mob* has a random",
+    "potion effect with *max amplifier*"
+  ],
 
 
   "item-dragon-goal": [

@@ -123,13 +123,13 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MovementItemRemovingChallenge.class);
 		register(DamageInventoryClearChallenge.class);
 		// 8
-		register(BlockEffectChallenge.class);
 		register(ChunkRandomEffectChallenge.class);
+		register(BlockEffectChallenge.class);
+		register(EntityRandomEffectChallenge.class);
 		register(RandomPotionEffectChallenge.class);
 		register(PermanentEffectOnDamageChallenge.class);
 		register(InfectionChallenge.class);
 		register(InvisibleMobsChallenge.class);
-		register(EmptyChallenge.class, MenuType.CHALLENGES);
 
 		// 9
 		register(UncraftItemsChallenge.class);
@@ -151,21 +151,20 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NewEntityOnJumpChallenge.class);
 		register(MobTransformationChallenge.class);
 		register(AllMobsToDeathPoint.class);
+		register(MobsRespawnInEndChallenge.class);
+		register(EnderGamesChallenge.class);
 		register(StoneSightChallenge.class);
 		register(MobSightDamageChallenge.class);
+		// 12
 		register(MoveMouseDamage.class);
 		register(InvertHealthChallenge.class);
-		// 12
+		register(LoopChallenge.class);
 		register(RandomItemChallenge.class);
 		register(RandomEventChallenge.class);
 		register(FiveHundredBlocksChallenge.class);
-		register(LoopChallenge.class);
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
-		register(EmptyChallenge.class, MenuType.CHALLENGES);
 		// 13
-		register(MobsRespawnInEndChallenge.class);
-		register(EnderGamesChallenge.class);
 
 
 		// Goal

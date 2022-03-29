@@ -1038,6 +1038,11 @@
     "Auf *jedem Block* bekommst du",
     "einen *zufälligen Effekt*"
   ],
+  "item-entity-effect-challenge": [
+    "§9Mobs Haben Random Effekte",
+    "*Jedes Mob* hat einen zufälligen",
+    "Effekt auf *höchster Stufe*"
+  ],
 
 
   "item-dragon-goal": [
