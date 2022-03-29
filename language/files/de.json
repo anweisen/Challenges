@@ -1030,7 +1030,7 @@
   ],
   "item-respawn-end-challenge": [
     "§5Mobs Respawnen In End",
-    "Entities die *getötet werden*,",
+    "Mobs die *getötet werden*,",
     "respawnen im *End*"
   ],
   "item-block-effect-challenge": [
