@@ -44,7 +44,6 @@ import java.util.stream.Collectors;
 @Since("2.0")
 public class MissingItemsChallenge extends TimedChallenge implements PlayerCommand {
 
-	private final IRandom random = IRandom.create();
 	private final Map<UUID, Tuple<Inventory, MenuPosition>> inventories = new HashMap<>();
 	private List<Material> materials;
 
@@ -65,7 +64,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 10);
+		return globalRandom.around(getValue() * 60, 10);
 	}
 
 	@Nonnull
@@ -190,7 +189,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	private Tuple<Inventory, Integer> generateMissingItemsInventory(@Nonnull ItemStack itemStack) {
 		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString("§9")));
 
-		int targetSlot = random.nextInt(inventory.getSize());
+		int targetSlot = globalRandom.nextInt(inventory.getSize());
 		inventory.setItem(targetSlot, itemStack);
 
 		for (int slot = 0; slot < inventory.getSize(); slot++) {
@@ -210,13 +209,13 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	private ItemStack getRandomItem(@Nonnull ItemStack blacklisted) {
 		if (materials == null) onEnable();
 
-		Material material = random.choose(materials);
+		Material material = globalRandom.choose(materials);
 		ItemStack itemStack = new ItemStack(material);
 
 		if (itemStack.getItemMeta() instanceof Damageable && 1 < material.getMaxDurability()) {
-			((Damageable) itemStack.getItemMeta()).setDamage(random.range(1, material.getMaxDurability()));
-		} else if (1 < itemStack.getMaxStackSize() && random.nextInt(100) <= 20) {
-			itemStack.setAmount(random.range(1, itemStack.getMaxStackSize()));
+			((Damageable) itemStack.getItemMeta()).setDamage(globalRandom.range(1, material.getMaxDurability()));
+		} else if (1 < itemStack.getMaxStackSize() && globalRandom.nextInt(100) <= 20) {
+			itemStack.setAmount(globalRandom.range(1, itemStack.getMaxStackSize()));
 		}
 
 		if (itemStack.isSimilar(blacklisted) && itemStack.getAmount() == blacklisted.getAmount()) {

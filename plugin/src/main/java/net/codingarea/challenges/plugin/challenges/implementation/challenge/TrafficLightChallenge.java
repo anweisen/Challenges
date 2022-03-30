@@ -30,7 +30,6 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	private static final int GREEN = 0, YELLOW = 1, RED = 2;
 
-	private final IRandom random = IRandom.create();
 	private int state;
 
 	public TrafficLightChallenge() {
@@ -82,7 +81,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 20);
+		return globalRandom.around(getValue() * 60, 20);
 	}
 
 	@Override

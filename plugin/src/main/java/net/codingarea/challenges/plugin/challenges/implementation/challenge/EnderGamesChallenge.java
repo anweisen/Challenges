@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -29,8 +28,6 @@ import java.util.stream.Collectors;
 @Since("2.0")
 public class EnderGamesChallenge extends TimedChallenge {
 
-	private final IRandom random = IRandom.create();
-
 	public EnderGamesChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
@@ -54,7 +51,7 @@ public class EnderGamesChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 20);
+		return globalRandom.around(getValue() * 60, 20);
 	}
 
 	@Override
@@ -74,7 +71,7 @@ public class EnderGamesChallenge extends TimedChallenge {
 				.filter(entity -> entity instanceof LivingEntity)
 				.collect(Collectors.toList());
 
-		Entity targetEntity = list.get(random.nextInt(list.size()));
+		Entity targetEntity = list.get(globalRandom.nextInt(list.size()));
 
 		Location playerLocation = player.getLocation().clone();
 		player.teleport(targetEntity.getLocation());

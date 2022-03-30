@@ -83,17 +83,17 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 	@Override
 	protected void chooseForcing() {
 		World world = ChallengeAPI.getGameWorld(Environment.NORMAL);
-		height = random.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
+		height = globalRandom.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return random.range(3 * 60 + 30, 5 * 60);
+		return globalRandom.range(3 * 60 + 30, 5 * 60);
 	}
 
 }

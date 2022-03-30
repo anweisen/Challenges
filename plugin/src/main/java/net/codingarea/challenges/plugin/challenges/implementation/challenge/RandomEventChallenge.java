@@ -39,7 +39,6 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	}
 
-	private final IRandom random = IRandom.create();
 	private final Event[] events;
 
 	public RandomEventChallenge() {
@@ -49,7 +48,7 @@ public class RandomEventChallenge extends TimedChallenge {
 			new SpawnEntitiesEvent(),
 				new HoleEvent(),
 				new FlyEvent(),
-			new CobWebEvent(),
+				new CobWebEvent(),
 				new ReplaceOresEvent(),
 				new SicknessEvent()
 		};
@@ -74,15 +73,15 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected void onTimeActivation() {
 		restartTimer();
-		Event event = random.choose(events);
+		Event event = globalRandom.choose(events);
 		Logger.debug("Running random event {}", event.getClass().getSimpleName());
-		event.getActivationMessage().broadcastRandom(random, Prefix.CHALLENGES);
+		event.getActivationMessage().broadcastRandom(globalRandom, Prefix.CHALLENGES);
 		broadcastFiltered(event::run);
 	}
 
@@ -111,10 +110,10 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			EntityType type = random.choose(EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF);
+			EntityType type = globalRandom.choose(EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF);
 
-			for (int i = 0; i < random.nextInt(5) + 5; i++) {
-				Location randomLocation = player.getLocation().add(random.nextInt(10) - 5, -10, random.nextInt(10 - 5));
+			for (int i = 0; i < globalRandom.nextInt(5) + 5; i++) {
+				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -10, globalRandom.nextInt(10 - 5));
 				if (randomLocation.getWorld() == null) return;
 				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
 					randomLocation.add(0, 1, 0);
@@ -173,7 +172,7 @@ public class RandomEventChallenge extends TimedChallenge {
 		@Override
 		public void run(@Nonnull Player player) {
 			for (int i = 0; i < 13; i++) {
-				Location randomLocation = player.getLocation().add(random.nextInt(10) - 5, -20, random.nextInt(10 - 5));
+				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -20, globalRandom.nextInt(10 - 5));
 				if (randomLocation.getWorld() == null) return;
 				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
 					randomLocation.add(0, 1, 0);

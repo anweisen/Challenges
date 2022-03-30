@@ -40,7 +40,6 @@ import java.util.UUID;
  */
 public class JumpAndRunChallenge extends WorldDependentChallenge {
 
-	private final IRandom random = IRandom.create();
 	private final List<UUID> lastPlayers = new ArrayList<>();
 
 	private int jumps = 4;
@@ -102,7 +101,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@Override
@@ -130,7 +129,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		lastBlock.setType(Material.GOLD_BLOCK);
 
 		Material type = getRandomBlockType();
-		targetBlock = new RandomJumpGenerator().next(random, lastBlock, type == Material.CYAN_TERRACOTTA || type == Material.EMERALD_BLOCK, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
+		targetBlock = new RandomJumpGenerator().next(globalRandom, lastBlock, type == Material.CYAN_TERRACOTTA || type == Material.EMERALD_BLOCK, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
 		targetBlock.setType(type);
 
 	}
@@ -148,7 +147,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 			Material.COBBLESTONE_WALL,
 			Material.SPRUCE_FENCE
 		};
-		return random.choose(materials);
+		return globalRandom.choose(materials);
 	}
 
 	@Nonnull
@@ -161,7 +160,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 			players = new ArrayList<>(Bukkit.getOnlinePlayers());
 			lastPlayers.clear();
 		}
-		return random.choose(players);
+		return globalRandom.choose(players);
 	}
 
 	protected void finishJumpAndRun() {

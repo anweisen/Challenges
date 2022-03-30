@@ -26,8 +26,6 @@ import org.bukkit.inventory.ItemStack;
  */
 public class WaterMLGChallenge extends WorldDependentChallenge {
 
-	private final IRandom random = IRandom.create();
-
 	public WaterMLGChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
@@ -51,7 +49,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 10);
+		return globalRandom.around(getValue() * 60, 10);
 	}
 
 	@Override

@@ -27,8 +27,6 @@ import java.util.List;
 @Since("2.0")
 public class RandomChallengeChallenge extends TimedChallenge {
 
-	private final IRandom random = IRandom.create();
-
 	private AbstractChallenge lastUsed;
 
 	public RandomChallengeChallenge() {
@@ -102,7 +100,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		challenges.removeIf(IChallenge::isEnabled);
 		if (challenges.isEmpty()) return;
 
-		AbstractChallenge challenge = (AbstractChallenge) random.choose(challenges);
+		AbstractChallenge challenge = (AbstractChallenge) globalRandom.choose(challenges);
 		String name = ChallengeHelper.getColoredChallengeName(challenge);
 		Message.forName("random-challenge-enabled").broadcast(Prefix.CHALLENGES, name);
 
@@ -125,7 +123,7 @@ public class RandomChallengeChallenge extends TimedChallenge {
 		if (enabled && challenge instanceof TimedChallenge) {
 			TimedChallenge timedChallenge = (TimedChallenge) challenge;
 			if (timedChallenge.isTimerRunning()) {
-				int seconds = random.range(10, 20);
+				int seconds = globalRandom.range(10, 20);
 				if (seconds < timedChallenge.getSecondsLeftUntilNextActivation())
 					timedChallenge.shortCountDownTo(seconds);
 			}

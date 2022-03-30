@@ -96,17 +96,17 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 		items.removeIf(material -> !material.isItem());
 		items.removeIf(BlockUtils::isTooHardToGet);
 
-		item = random.choose(items);
+		item = globalRandom.choose(items);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return random.range(5 * 60, 8 * 60);
+		return globalRandom.range(5 * 60, 8 * 60);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

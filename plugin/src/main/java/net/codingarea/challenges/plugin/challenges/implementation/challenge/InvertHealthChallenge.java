@@ -25,8 +25,6 @@ import javax.annotation.Nullable;
 @ExcludeFromRandomChallenges
 public class InvertHealthChallenge extends TimedChallenge {
 
-	private final IRandom random = IRandom.create();
-
 	public InvertHealthChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
@@ -50,7 +48,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 20);
+		return globalRandom.around(getValue() * 60, 20);
 	}
 
 	@Override
