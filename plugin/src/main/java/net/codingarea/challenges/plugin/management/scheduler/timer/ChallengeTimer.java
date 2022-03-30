@@ -109,10 +109,10 @@ public final class ChallengeTimer {
 		updateActionbar();
 		updateTimeRule();
 
+		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
-		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() != GameMode.CREATIVE)
