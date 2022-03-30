@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import net.anweisen.utilities.common.annotations.Since;
-import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -56,7 +55,7 @@ public class FreezeChallenge extends SettingModifier {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onMove(@Nonnull PlayerMoveEvent event) {
-		if (!ChallengeAPI.isStarted() || ChallengeAPI.isWorldInUse()) return;
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo() == null) return;
 		if (event.getTo().getY() == event.getFrom().getY() && event.getTo().getX() == event.getFrom().getX() && event.getTo().getZ() == event.getFrom().getZ()) return;

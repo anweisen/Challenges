@@ -1,43 +1,41 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
-import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class GamemodeCommand implements CommandExecutor, Completer {
+public class GamemodeCommand implements SenderCommand, Completer {
 
 	@Override
-	public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
-
+	public void onCommand(@NotNull CommandSender sender, @NotNull String[] args) throws Exception {
 		List<Player> targets = new ArrayList<>();
 
 		if (args.length <= 0) {
 			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "gm <gamemode> [player]");
-			return true;
+			return;
 		}
 
 		GameMode gamemode = getGameMode(args[0]);
 
 		if (gamemode == null) {
 			Message.forName("syntax").send(sender, Prefix.CHALLENGES, "gm <gamemode> [player]");
-			return true;
+			return;
 		}
 
 		if (args.length > 1) {
@@ -49,7 +47,7 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 
 		if (targets.isEmpty()) {
 			Message.forName("command-no-target").send(sender, Prefix.CHALLENGES);
-			return true;
+			return;
 		}
 
 		boolean otherPlayers = false;
@@ -66,7 +64,6 @@ public class GamemodeCommand implements CommandExecutor, Completer {
 			Message.forName("command-gamemode-gamemode-changed-others").send(sender, Prefix.CHALLENGES, gamemodeName, targets.size());
 		}
 
-		return true;
 	}
 
 	@Nullable

@@ -46,8 +46,10 @@
   "no-such-material": "This material doesn't exist",
   "not-an-item": "§e{0} §7is not an item",
   "deprecated-plugin-version": [
-    "A new version of §e§lChallenges §7is available",
-    "Download: §e{0}"
+    "",
+    "An update for the plugin is available",
+    "Download: §e{0}",
+    ""
   ],
   "deprecated-config-version": [
     "A new version of the §econfig §7is available",
@@ -162,6 +164,7 @@
   "unable-to-find-bastion": "§cNo bastion §7could be found",
   "death-collected": "Death reason §e{0} §7registered",
   "item-collected": "Item §e{0} §7registered",
+  "items-to-collect": "§7Items to collect §8» §e{0}",
   "backpacks-disabled": "Backpacks are currently §cdeactivated",
   "backpack-opened": "You opened the {0}",
   "top-to-overworld": "You have been teleported to the §eoverworld",
@@ -203,7 +206,7 @@
   "all-advancements-goal": "§7Advancements §8» §e{0}",
   "height-reached": "§e{0} §7reached §eY = {1} §7first!",
   "race-goal-reached": "§e{0} §7reached the goal!",
-  "most-ores-points": "§e{0} §7Points",
+  "points-change": "§e{0} §7Points",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -265,6 +268,7 @@
   "bossbar-race-goal-info": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blocks",
   "bossbar-race-goal": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1}",
   "bossbar-first-at-height-goal": "§8» §fGoal §8┃ §7Y: {0}",
+  "bossbar-respawn-end": "§8» §5Respawned Mobs in End §8┃ §e{0}",
 
   "subtitle-time-seconds": "§e{0} §7seconds",
   "subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
@@ -563,6 +567,10 @@
   "item-mob-randomizer-challenge": [
     "§6Mob Randomizer",
     "When an *Entity* spawns, it spawns *twice*"
+  ],
+  "item-hotbar-randomizer-challenge": [
+    "§6HotBar Randomizer",
+    "Every *few minutes* every player gets *random items*"
   ],
   "item-damage-block-challenge": [
     "§4Damage per Block",
@@ -1013,6 +1021,20 @@
     "*Blocks* you've *walked* on fly",
     "into the air after *one second*"
   ],
+  "item-respawn-end-challenge": [
+    "§5Mobs Respawn In End",
+    "*Killed mobs* respawn in *end dimension*"
+  ],
+  "item-block-effect-challenge": [
+    "§3Random Block Effects",
+    "On *each block* you'll get",
+    "a random *potion effect*"
+  ],
+  "item-entity-effect-challenge": [
+    "§5Mobs Got Random Effects",
+    "*Every Mob* has a random",
+    "potion effect with *max amplifier*"
+  ],
 
 
   "item-dragon-goal": [
@@ -1107,9 +1129,36 @@
     "§fFind Elytra",
     "The *player* that finds an elytra *wins*"
   ],
+  "item-eat-cake-goal": [
+    "§fEat Cake",
+    "The player that *eats a cake* first *wins*"
+  ],
+  "item-collect-horse-armor-goal": [
+    "§bCollect Horse Armor",
+    "The player that *collects* every",
+    "horse armor first *wins*"
+  ],
+  "item-collect-ice-goal": [
+    "§bCollect Ice Blocks",
+    "The player that *collects* every",
+    "ice blocks and snow first *wins*"
+  ],
+  "item-collect-swords-goal": [
+    "§9Collect Swords",
+    "The player that *collects* every",
+    "sword first *wins*"
+  ],
+  "item-collect-workstations-item": [
+    "§6Collect Workstations",
+    "The player that *collects* every",
+    "villager workstation first *wins*"
+  ],
 
 
-
+  "item-damage-rule-none": [
+    "§6General Damage",
+    "Sets whether you can get damage or not"
+  ],
   "item-damage-rule-fire": [
     "§6Fire Damage",
     "Sets whether you get *damage* from *Fire* and *Lava*"
@@ -1143,6 +1192,10 @@
     "Sets whether you get *damage* from",
     "*Poison, Wither or other Potions"
   ],
+  "item-damage-rule-freeze": [
+    "§cFreeze Damage",
+    "Sets whether you get *damage* from *Freezing*"
+  ],
 
   "item-block-material": [
     "{0}",
@@ -1158,7 +1211,13 @@
   ],
   "custom-no-changes": "You haven't made any changes",
   "custom-name-info": "Type the new name into the chat",
-  "custom-name-max_length": "You've reached the limit of {0} characters",
+  "custom-command-info": [
+    "Type the command §ewithout / §7in chat",
+    "Allowed commands: §e{0}",
+    "§cOther commands can be allowed in the config"
+  ],
+  "custom-command-not-allowed": "Command §e{0} §7is not set as allowed command in config",
+  "custom-chars-max_length": "You've reached the limit of {0} characters",
   "custom-not-loaded": [
     "",
     "There are no currently loaded challenges.",
@@ -1296,6 +1355,14 @@
     "Non preventable Trigger: *Jump*, *Sneak*, *Death*",
     "*Advancement*, *Level Up*, *In Liquid*"
   ],
+  "item-custom-action-command": [
+    "§4Execute Command",
+    "Make players execute commands.",
+    "Commands are executed for players via */execute as*.",
+    "Allowed commands can be set in plugin config.",
+    "The player doesn't need the *permission* to the commands.",
+    "Player aren't able to execute *plugin commands*."
+  ],
   "item-custom-action-kill": [
     "§4Kill",
     "Kill entities"
@@ -1340,6 +1407,9 @@
   "item-custom-action-boost_in_air": [
     "§fBoost In Air",
     "Boost entities into the air"
+  ],
+  "item-custom-action-boost_in_air-strength": [
+    "§fAmplifier"
   ],
   "item-custom-action-potion_effect": [
     "§dPotion Effect",
@@ -1422,6 +1492,10 @@
     "§aCurrent Player",
     "The action will be executed for the *active player*.",
     "§7§oIf the current entity is not a player nothing will be happen"
+  ],
+  "item-custom-setting-target-console": [
+    "§4Console",
+    "The action will be executed for the *console*"
   ],
 
   "item-custom-setting-entity_type-any": "§cAny Entity",

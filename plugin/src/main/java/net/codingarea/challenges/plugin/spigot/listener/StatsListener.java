@@ -127,7 +127,7 @@ public class StatsListener implements Listener {
 		if (AbstractChallenge.ignorePlayer(event.getPlayer())) return;
 		if (ChallengeAPI.isPaused()) return;
 		if (event.getTo() == null) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
+		if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
 		incrementStatistic(event.getPlayer(), Statistic.BLOCKS_TRAVELED, 1);
 	}
 

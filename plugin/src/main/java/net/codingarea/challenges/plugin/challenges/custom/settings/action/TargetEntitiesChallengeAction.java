@@ -67,6 +67,8 @@ public interface TargetEntitiesChallengeAction extends IChallengeAction {
         }
 
         return noPlayers;
+      case "console":
+        return Collections.singletonList(null);
     }
     if (triggerTarget == null) {
       return Lists.newLinkedList();

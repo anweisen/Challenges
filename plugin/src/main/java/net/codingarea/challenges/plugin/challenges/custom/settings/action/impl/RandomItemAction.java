@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Map;
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
@@ -13,15 +10,12 @@ import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
 public class RandomItemAction extends AbstractChallengeAction {
-
-  public static final List<Material> items;
 
   public RandomItemAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
@@ -42,17 +36,12 @@ public class RandomItemAction extends AbstractChallengeAction {
 
   public static void giveRandomItemToPlayer(@Nonnull Player player) {
     InventoryUtils.giveItem(player.getInventory(),
-        player.getLocation(), new ItemStack(AbstractChallengeAction.random.choose(items)));
+        player.getLocation(), InventoryUtils.getRandomItem(true, false));
   }
 
   @Override
   public Material getMaterial() {
     return Material.BEACON;
-  }
-
-  static {
-    items = new ArrayList<>(Arrays.asList(Material.values()));
-    items.removeIf(material -> !material.isItem());
   }
 
 }

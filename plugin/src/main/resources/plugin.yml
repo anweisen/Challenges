@@ -1,5 +1,5 @@
 name: Challenges
-version: 2.1.1
+version: 2.1.2
 author: CodingArea
 authors:
   - anweisen
@@ -12,7 +12,7 @@ load: POSTWORLD
 softdepend:
   - CloudNet-Bridge
 description: |
-  This plugin provides you with loads of challenges for beating minecraft or cometing with your friends.
+  This plugin provides you with lots of challenges for beating minecraft or competing against your friends.
   You can find more information on our discord: https://discord.gg/74Ay5zF.
 
 require:

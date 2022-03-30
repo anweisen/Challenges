@@ -46,14 +46,7 @@ public abstract class Setting extends AbstractChallenge {
 			if (enabled) onEnable();
 			else onDisable();
 		} catch (Exception exception) {
-			try {
-				enabled = !enabled;
-				if (enabled) onEnable();
-				else onDisable();
-				Challenges.getInstance().getLogger().error("Error while {} Setting {}", enabled ? "enabling" : "disabling", getClass().getSimpleName(), exception);
-			} catch (Exception exception1) {
-				Challenges.getInstance().getLogger().error("Error while toggling Setting {}", getClass().getSimpleName(), exception);
-			}
+			Challenges.getInstance().getLogger().error("Error while {} Setting {}", enabled ? "enabling" : "disabling", getClass().getSimpleName(), exception);
 		}
 
 		updateItems();

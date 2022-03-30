@@ -67,27 +67,36 @@ public class SubSettingsHelper {
 	}
 
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer) {
+		return createEntityTargetSettingsBuilder(everyMob, onlyPlayer, false);
+	}
+
+	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer, boolean console) {
 		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(
 				TARGET_ENTITY);
+
+		if (console) {
+			builder.addSetting("console", new ItemBuilder(Material.COMMAND_BLOCK_MINECART, Message.forName("item-custom-setting-target-console")));
+		}
+
 		if (!onlyPlayer) {
 			builder.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
-							Message.forName("item-custom-setting-target-current")).build());
+							Message.forName("item-custom-setting-target-current")));
 		}
 
 		builder.addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD,
-				Message.forName("item-custom-setting-target-current_player")).build());
+				Message.forName("item-custom-setting-target-current_player")));
 		builder.addSetting("random_player", new ItemBuilder(Material.ZOMBIE_HEAD,
-				Message.forName("item-custom-setting-target-random_player")).build());
+				Message.forName("item-custom-setting-target-random_player")));
 		builder.addSetting("every_player", new ItemBuilder(Material.PLAYER_HEAD,
-				Message.forName("item-custom-setting-target-every_player")).build());
+				Message.forName("item-custom-setting-target-every_player")));
 
 		if (everyMob && !onlyPlayer) {
 			builder.addSetting("every_mob", new ItemBuilder(Material.WITHER_SKELETON_SKULL,
-					Message.forName("item-custom-setting-target-every_mob")).build());
+					Message.forName("item-custom-setting-target-every_mob")));
 			builder.addSetting("every_mob_except_current", new ItemBuilder(Material.SKELETON_SKULL,
-					Message.forName("item-custom-setting-target-every_mob_except_current")).build());
+					Message.forName("item-custom-setting-target-every_mob_except_current")));
 			builder.addSetting("every_mob_except_players", new ItemBuilder(Material.SKELETON_SKULL,
-					Message.forName("item-custom-setting-target-every_mob_except_players")).build());
+					Message.forName("item-custom-setting-target-every_mob_except_players")));
 		}
 		return builder;
 	}

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
@@ -13,8 +14,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
-
-import javax.annotation.Nonnull;
+import org.bukkit.event.player.PlayerToggleSneakEvent;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -33,6 +33,20 @@ public class CheatListener implements Listener {
 	public void onGameModeChange(@Nonnull PlayerGameModeChangeEvent event) {
 		if (event.getNewGameMode() == GameMode.CREATIVE)
 			handleCheatsDetected(event.getPlayer());
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR)
+	public void onSneak(PlayerToggleSneakEvent event) {
+		if (!event.isSneaking()) return;
+//
+//		StructureManager manager = Bukkit.getStructureManager();
+//		Map<NamespacedKey, Structure> structures = manager.getStructures();
+//		//		Entry<NamespacedKey, Structure> entry = IRandom.threadLocal().choose(entries);
+////		Structure structure = entry.getValue();
+//		Structure structure = manager.getStructure(new NamespacedKey("minecraft", "shipwreck/rightsideup_backhalf"));
+//		structure.place(event.getPlayer().getLocation(), true, StructureRotation.NONE, Mirror.NONE, -1, 0,
+//				ThreadLocalRandom.current());
+
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

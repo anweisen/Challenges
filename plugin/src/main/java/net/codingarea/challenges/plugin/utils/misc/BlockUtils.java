@@ -19,7 +19,7 @@ public final class BlockUtils {
 
 	private BlockUtils() {}
 
-	public static boolean isSameBlock(@Nullable Location loc1, @Nullable Location loc2) {
+	public static boolean isSameBlockLocation(@Nullable Location loc1, @Nullable Location loc2) {
 		if (loc1 == null || loc2 == null) return true;
 		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.getBlockX() == loc2.getBlockX()
@@ -27,7 +27,7 @@ public final class BlockUtils {
 			&& loc1.getBlockZ() == loc2.getBlockZ();
 	}
 
-	public static boolean isSameBlockIgnoreHeight(@Nullable Location loc1, @Nullable Location loc2) {
+	public static boolean isSameBlockLocationIgnoreHeight(@Nullable Location loc1, @Nullable Location loc2) {
 		if (loc1 == null || loc2 == null) return false;
 		if (loc1.getWorld() != loc2.getWorld()) return false;
 		return loc1.getBlockX() == loc2.getBlockX()
@@ -96,7 +96,7 @@ public final class BlockUtils {
 
 	public static void createBlockPath(@Nullable Location from, @Nullable Location to, @Nonnull Material type, boolean playSound) {
 		if (from == null || to == null) return;
-		if (isSameBlockIgnoreHeight(from, to)) return;
+		if (isSameBlockLocationIgnoreHeight(from, to)) return;
 
 		setBlockNatural(getBlockBelow(to), type, playSound);
 	}
@@ -167,7 +167,22 @@ public final class BlockUtils {
 	 */
 	@Nullable
 	public static Block getBlockBelow(@Nonnull Location location, double offset, boolean ignoreNonSolid) {
-		Block block = location.getBlock().getLocation().subtract(0, offset, 0).getBlock();
+
+		Block block;
+		if (offset == -1) {
+			block = getBlockBelow(location, 0.1, ignoreNonSolid);
+			if (block == null) {
+				block = getBlockBelow(location, 1, ignoreNonSolid);
+				if (block == null) {
+					block = getBlockBelow(location, 1.5, ignoreNonSolid);
+				}
+			}
+
+		} else {
+			block = location.clone().subtract(0, offset, 0).getBlock();
+		}
+
+		if (block == null) return null;
 		if (ignoreNonSolid && !block.getType().isSolid()) {
 			return null;
 		}
@@ -184,9 +199,7 @@ public final class BlockUtils {
 
 	public static boolean isTooHardToGet(Material material) {
 		String name = material.name();
-		return isEndItem(material) ||
-				material == Material.NETHER_STAR ||
-				name.contains("EXPOSED") ||
+		return name.contains("EXPOSED") ||
 				name.contains("WEATHERED") ||
 				name.contains("OXIDIZED") ||
 				name.contains("BUD");

@@ -36,14 +36,12 @@ public abstract class CollectionGoal extends SettingGoal {
 
 	@Override
 	protected void onEnable() {
-		super.onEnable();
 		scoreboard.setContent(GoalHelper.createScoreboard(() -> getPoints(new AtomicInteger(), true)));
 		scoreboard.show();
 	}
 
 	@Override
 	protected void onDisable() {
-		super.onDisable();
 		scoreboard.hide();
 	}
 
@@ -100,6 +98,7 @@ public abstract class CollectionGoal extends SettingGoal {
 	public void loadGameState(@Nonnull Document document) {
 		super.loadGameState(document);
 
+		collections.clear();
 		Document scores = document.getDocument("scores");
 		for (String key : scores.keys()) {
 			try {
@@ -109,6 +108,10 @@ public abstract class CollectionGoal extends SettingGoal {
 			} catch (Exception ex) {
 				Logger.error("Could not load scores for {}", key);
 			}
+		}
+
+		if (scoreboard.isShown()) {
+			scoreboard.update();
 		}
 	}
 

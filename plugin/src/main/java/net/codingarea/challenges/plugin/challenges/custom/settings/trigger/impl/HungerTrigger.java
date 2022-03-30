@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
@@ -23,7 +24,8 @@ public class HungerTrigger extends AbstractChallengeTrigger {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onPickup(FoodLevelChangeEvent event) {
-    if (event.getFoodLevel() < event.getEntity().getFoodLevel()) {
+    if (!(event.getEntity() instanceof Player)) return;
+    if (event.getFoodLevel() < ((Player) event.getEntity()).getFoodLevel()) {
       createData()
           .entity(event.getEntity())
           .event(event)

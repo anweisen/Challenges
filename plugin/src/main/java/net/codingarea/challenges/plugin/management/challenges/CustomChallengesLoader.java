@@ -27,8 +27,11 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 
 	private final Map<UUID, CustomChallenge> customChallenges = new LinkedHashMap<>();
 
+	private final int maxNameLength;
+
 	public CustomChallengesLoader() {
 		super(Challenges.getInstance());
+		maxNameLength = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-name-length");
 	}
 
 	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, AbstractChallengeTrigger trigger,
@@ -47,8 +50,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 	public void unregisterCustomChallenge(@Nonnull UUID uuid) {
 		CustomChallenge challenge = customChallenges.remove(uuid);
 		if (challenge == null) return;
-		Challenges.getInstance().getChallengeManager().unregister(challenge);
-		unregister(challenge);
+		Challenges.getInstance().getChallengeLoader().unregister(challenge);
 		generateCustomChallenge(challenge, true, true);
 	}
 
@@ -123,6 +125,10 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		getCustomChallengesByTrigger(challengeExecutionData.getTrigger())
 				.forEach(customChallenge -> customChallenge
 						.onTriggerFulfilled(challengeExecutionData));
+	}
+
+	public int getMaxNameLength() {
+		return maxNameLength;
 	}
 
 	public Map<UUID, CustomChallenge> getCustomChallenges() {

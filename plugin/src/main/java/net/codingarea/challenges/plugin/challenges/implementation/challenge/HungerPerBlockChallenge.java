@@ -34,7 +34,7 @@ public class HungerPerBlockChallenge extends SettingModifier {
 	public void onPlayerMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockIgnoreHeight(event.getFrom(), event.getTo())) return;
+		if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
 		int newFoodLevel = event.getPlayer().getFoodLevel() - getValue();
 		event.getPlayer().setFoodLevel(Math.max(newFoodLevel, 0));
 	}

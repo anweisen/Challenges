@@ -26,7 +26,7 @@ public class StandsOnSpecificBlockTrigger extends AbstractChallengeTrigger {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
-    if (BlockUtils.isSameBlock(event.getTo(), event.getFrom())) return;
+    if (BlockUtils.isSameBlockLocation(event.getTo(), event.getFrom())) return;
     Block blockBelow = BlockUtils.getBlockBelow(
         event.getTo());
     if (blockBelow == null) return;

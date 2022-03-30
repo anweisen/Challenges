@@ -1,9 +1,12 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
+import net.codingarea.challenges.plugin.challenges.type.EmptyChallenge;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
 import org.bukkit.Material;
@@ -63,7 +66,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(TotemSaveDeathSetting.class);
 
 
-		// Challenges
+		// Challenges 1
 		register(RandomChallengeChallenge.class);
 		register(RandomizedHPChallenge.class);
 		register(OneDurabilityChallenge.class);
@@ -71,7 +74,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoExpChallenge.class);
 		register(WaterMLGChallenge.class);
 		register(HungerPerBlockChallenge.class);
-
+		// 2
 		register(DamagePerBlockChallenge.class);
 		register(SneakDamageChallenge.class);
 		register(JumpDamageChallenge.class);
@@ -79,7 +82,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockPlaceDamageChallenge.class);
 		register(AdvancementDamageChallenge.class);
 		register(DamagePerItemChallenge.class);
-
+		// 3
 		register(SurfaceHoleChallenge.class);
 		register(BedrockWallChallenge.class);
 		register(BedrockPathChallenge.class);
@@ -87,7 +90,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ChunkDeconstructionChallenge.class);
 		register(AllBlocksDisappearChallenge.class);
 		register(TsunamiChallenge.class);
-
+		// 4
 		register(JumpAndRunChallenge.class);
 		register(SnakeChallenge.class);
 		register(AnvilRainChallenge.class);
@@ -95,15 +98,15 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ReversedDamageChallenge.class);
 		register(DeathOnFallChallenge.class);
 		register(FoodOnceChallenge.class);
-
+		// 5
 		register(HydraNormalChallenge.class);
 		register(HydraPlusChallenge.class);
 		register(DupedSpawningChallenge.class);
-		register(LowDropRateChallenge.class);
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
+		register(HotBarRandomizerChallenge.class);
 		register(MobRandomizerChallenge.class);
-
+		// 6
 		register(ForceHeightChallenge.class);
 		register(ForceBlockChallenge.class);
 		register(ForceMobChallenge.class);
@@ -111,7 +114,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ForceBiomeChallenge.class);
 		register(MaxBiomeTimeChallenge.class);
 		register(MaxHeightTimeChallenge.class);
-
+		// 7
 		register(PermanentItemChallenge.class);
 		register(RandomItemDroppingChallenge.class);
 		register(RandomItemSwappingChallenge.class);
@@ -119,44 +122,50 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoDupedItemsChallenge.class);
 		register(MovementItemRemovingChallenge.class);
 		register(DamageInventoryClearChallenge.class);
+		// 8
+		register(ChunkRandomEffectChallenge.class);
+		register(BlockEffectChallenge.class);
+		register(EntityRandomEffectChallenge.class);
+		register(RandomPotionEffectChallenge.class);
+		register(PermanentEffectOnDamageChallenge.class);
+		register(InfectionChallenge.class);
+		register(InvisibleMobsChallenge.class);
 
+		// 9
+		register(UncraftItemsChallenge.class);
+		register(OnlyDownChallenge.class);
+		register(WaterAllergyChallenge.class);
+		register(FreezeChallenge.class);
+		register(IceFloorChallenge.class);
+		register(OnlyDirtChallenge.class);
+		register(RepeatInChunkChallenge.class);
+		// 10
+		register(PickupItemLaunchChallenge.class);
+		register(HigherJumpsChallenge.class);
+		register(FoodLaunchChallenge.class);
+		register(LowDropRateChallenge.class);
+		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
+		register(AlwaysRunningChallenge.class);
+		register(DontStopRunningChallenge.class);
+		// 11
+		register(NewEntityOnJumpChallenge.class);
+		register(MobTransformationChallenge.class);
+		register(AllMobsToDeathPoint.class);
+		register(MobsRespawnInEndChallenge.class);
+		register(EnderGamesChallenge.class);
+		register(StoneSightChallenge.class);
+		register(MobSightDamageChallenge.class);
+		// 12
+		register(MoveMouseDamage.class);
+		register(InvertHealthChallenge.class);
+		register(LoopChallenge.class);
 		register(RandomItemChallenge.class);
 		register(RandomEventChallenge.class);
-		register(NoMoveMouseChallenge.class);
-		register(FreezeChallenge.class);
-		register(HigherJumpsChallenge.class);
-		register(AlwaysRunningChallenge.class);
-		register(OnlyDownChallenge.class);
-
-		register(MobTransformationChallenge.class);
-		register(NewEntityOnJumpChallenge.class);
-		register(AllMobsToDeathPoint.class);
-		register(EnderGamesChallenge.class);
-		register(MobSightDamageChallenge.class);
-		register(StoneSightChallenge.class);
-		register(OnlyDirtChallenge.class);
-
-		register(InfectionChallenge.class);
-		register(PermanentEffectOnDamageChallenge.class);
-		register(RandomPotionEffectChallenge.class);
-		register(WaterAllergyChallenge.class);
-		register(InvertHealthChallenge.class);
-		register(IceFloorChallenge.class);
-		register(BlocksDisappearAfterTimeChallenge.class);
-
-		register(InvisibleMobsChallenge.class);
-		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
-		register(DontStopRunningChallenge.class);
-//		register(DamageTeleportChallenge.class);
-		register(LoopChallenge.class);
-		register(PickupItemLaunchChallenge.class);
-		register(FoodLaunchChallenge.class);
-		register(UncraftItemsChallenge.class);
-
 		register(FiveHundredBlocksChallenge.class);
-		register(ChunkRandomEffectChallenge.class);
-		register(RepeatInChunkChallenge.class);
 		register(BlockFlyInAirChallenge.class);
+		register(BlocksDisappearAfterTimeChallenge.class);
+		// 13
+
 
 		// Goal
 		register(KillEnderDragonGoal.class);
@@ -184,16 +193,27 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MostOresGoal.class);
 
 		register(FindElytraGoal.class);
+		register(EatCakeGoal.class);
+		register(CollectHorseAmorGoal.class);
+		register(CollectIceBlocksGoal.class);
+		register(CollectSwordsGoal.class);
+		register(CollectWorkstationsGoal.class);
+		register(EatMostGoal.class);
 
 		// Damage Rules
-		registerDamageRule("fire",      Material.LAVA_BUCKET,               DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA);
-		registerDamageRule("attack",    Material.DIAMOND_SWORD,             DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION);
-		registerDamageRule("projectile",Material.ARROW,                     DamageCause.PROJECTILE);
-		registerDamageRule("fall",      Material.FEATHER,                   DamageCause.FALL);
-		registerDamageRule("explosion", Material.TNT,                       DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
-		registerDamageRule("drowning",  PotionBuilder.createWaterBottle(),  DamageCause.DROWNING);
-		registerDamageRule("block",     Material.SAND,                      DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
-		registerDamageRule("magic",     Material.BREWING_STAND,             DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
+		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());
+		registerDamageRule("fire", Material.LAVA_BUCKET, DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA, DamageCause.HOT_FLOOR);
+		registerDamageRule("attack", Material.DIAMOND_SWORD, DamageCause.ENTITY_ATTACK, DamageCause.ENTITY_SWEEP_ATTACK, DamageCause.ENTITY_EXPLOSION, DamageCause.THORNS);
+		registerDamageRule("projectile", Material.ARROW, DamageCause.PROJECTILE);
+		registerDamageRule("fall", Material.FEATHER, DamageCause.FALL);
+		registerDamageRule("explosion", Material.TNT, DamageCause.ENTITY_EXPLOSION, DamageCause.BLOCK_EXPLOSION);
+		registerDamageRule("drowning", PotionBuilder.createWaterBottle(), DamageCause.DROWNING);
+		registerDamageRule("block", Material.SAND, DamageCause.FALLING_BLOCK, DamageCause.SUFFOCATION, DamageCause.CONTACT);
+		registerDamageRule("magic", Material.BREWING_STAND, DamageCause.MAGIC, DamageCause.POISON, DamageCause.WITHER);
+
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_17)) {
+			registerDamageRule("freeze", Material.POWDER_SNOW_BUCKET, DamageCause.FREEZE);
+		}
 
 		// Material Rules
 		registerMaterialRule("§cArmor", "Armor", ArmorUtils.getArmor());

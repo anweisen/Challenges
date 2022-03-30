@@ -167,6 +167,14 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return getPlayerData(player.getUniqueId());
 	}
 
+	public ChallengeScoreboard getScoreboard() {
+		return scoreboard;
+	}
+
+	public ChallengeBossBar getBossbar() {
+		return bossbar;
+	}
+
 	@Nonnull
 	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
 		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));

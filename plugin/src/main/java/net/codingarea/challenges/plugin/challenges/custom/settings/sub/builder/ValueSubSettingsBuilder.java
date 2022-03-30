@@ -24,7 +24,7 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class ValueSubSettingsBuilder extends SubSettingsBuilder {
+public class ValueSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
   private final LinkedHashMap<ValueSetting, String> defaultSettings = new LinkedHashMap<>();
 

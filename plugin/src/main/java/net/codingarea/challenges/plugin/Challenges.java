@@ -186,8 +186,9 @@ public final class Challenges extends BukkitModule {
 				new BlockDropListener(),
 				new CustomEventListener(),
 				new HelpListener(),
-				new CustomChallengeNamingListener(),
-				new GeneratorWorldsListener()
+				new ChatInputListener(),
+				new GeneratorWorldsListener(),
+				new ScoreboardUpdateListener()
 		);
 	}
 
@@ -226,10 +227,12 @@ public final class Challenges extends BukkitModule {
 		return gameWorldStorage;
 	}
 
+	@Nonnull
 	public CustomSettingsLoader getCustomSettingsLoader() {
 		return customSettingsLoader;
 	}
 
+	@Nonnull
 	public CustomChallengesLoader getCustomChallengesLoader() {
 		return customChallengesLoader;
 	}
@@ -292,6 +295,11 @@ public final class Challenges extends BukkitModule {
 	@Nonnull
 	public CloudSupportManager getCloudSupportManager() {
 		return cloudSupportManager;
+	}
+
+	@Nonnull
+	public ChallengeLoader getChallengeLoader() {
+		return challengeLoader;
 	}
 
 	@Nonnull

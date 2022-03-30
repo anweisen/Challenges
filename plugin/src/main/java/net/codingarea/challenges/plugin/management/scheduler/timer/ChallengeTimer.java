@@ -7,6 +7,7 @@ import net.anweisen.utilities.common.config.FileDocument;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -90,7 +91,7 @@ public final class ChallengeTimer {
 	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.PAUSED)
 	public void playPausedParticles() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getGameMode() == GameMode.SPECTATOR) continue;
+			if (AbstractChallenge.ignorePlayer(player)) continue;
 			Location location = player.getLocation();
 			if (location.getWorld() == null) continue;
 			location.getWorld().playEffect(location, Effect.ENDER_SIGNAL, 1);

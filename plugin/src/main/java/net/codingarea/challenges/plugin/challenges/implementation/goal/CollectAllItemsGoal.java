@@ -39,7 +39,6 @@ import java.util.List;
 @Since("2.0")
 public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 
-
 	private final int totalItemsCount;
 	private SeededRandomWrapper random;
 	private List<Material> allItemsToFind;

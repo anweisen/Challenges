@@ -1,6 +1,8 @@
 
 # User-specific stuff
 .idea/
+plugin/dependency-reduced-pom.xml
+mongo-connector/dependency-reduced-pom.xml
 
 # Test Sources
 **/src/test

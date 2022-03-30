@@ -24,7 +24,7 @@ public class MoveBlockTrigger extends AbstractChallengeTrigger {
 
   @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
   public void onMove(PlayerMoveEvent event) {
-    if (BlockUtils.isSameBlockIgnoreHeight(event.getTo(), event.getFrom())) return;
+    if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getTo(), event.getFrom())) return;
     createData()
         .entity(event.getPlayer())
         .event(event)

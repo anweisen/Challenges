@@ -12,8 +12,7 @@ import org.bukkit.entity.Player;
  */
 public abstract class AbstractChallengePlayerTargetAction extends AbstractChallengeTargetAction {
 
-  public AbstractChallengePlayerTargetAction(String name,
-      SubSettingsBuilder subSettingsBuilder) {
+  public AbstractChallengePlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
   }
 
@@ -28,7 +27,8 @@ public abstract class AbstractChallengePlayerTargetAction extends AbstractChalle
 
   @Override
   public void executeFor(Entity entity, Map<String, String[]> subActions) {
-    if (entity instanceof Player) {
+    // Entity is null if the target entity is the console
+    if (entity instanceof Player || entity == null) {
       executeForPlayer(((Player) entity), subActions);
     }
   }

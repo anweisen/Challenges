@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
@@ -294,9 +295,9 @@ public class RepeatInChunkChallenge extends Setting {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onGamemodeChange(PlayerGameModeChangeEvent event) {
+	public void onGamemodeChange(PlayerIgnoreStatusChangeEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (!ignoreGameMode(event.getNewGameMode()) && ignoreGameMode(event.getPlayer().getGameMode())) {
+		if (event.isNotIgnored()) {
 			updateSurroundingChunks(event.getPlayer().getLocation().getChunk(), false);
 		}
 	}

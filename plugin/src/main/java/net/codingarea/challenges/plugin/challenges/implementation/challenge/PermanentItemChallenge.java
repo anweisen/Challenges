@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
-import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -13,8 +13,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.inventory.Inventory;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -35,8 +33,7 @@ public class PermanentItemChallenge extends Setting {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
-		if (!isEnabled()) return;
-		if (ChallengeAPI.isWorldInUse()) return;
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		Inventory clickedInventory = event.getClickedInventory();
 		if (event.getCursor() == null) return;
@@ -54,8 +51,7 @@ public class PermanentItemChallenge extends Setting {
 
 	@EventHandler
 	public void onPlayerDropItem(@Nonnull PlayerDropItemEvent event) {
-		if (!isEnabled()) return;
-		if (ChallengeAPI.isWorldInUse()) return;
+		if (!shouldExecuteEffect()) return;
 		event.setCancelled(true);
 	}
 

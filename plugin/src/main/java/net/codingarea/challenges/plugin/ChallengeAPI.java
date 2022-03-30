@@ -116,4 +116,14 @@ public final class ChallengeAPI {
 		return Challenges.getInstance().getGameWorldStorage().getWorld(environment);
 	}
 
+	public static boolean isPlayerInGameWorld(@Nonnull Environment environment) {
+		World world = getGameWorld(environment);
+		for (Player player : world.getPlayers()) {
+			if (!AbstractChallenge.ignorePlayer(player)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 }

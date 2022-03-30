@@ -26,10 +26,12 @@ import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
+import net.codingarea.challenges.plugin.spigot.listener.ChatInputListener;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.entity.Player;
@@ -54,7 +56,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 	private Inventory inventory;
-	private boolean inNaming;
 
 	public InfoMenuGenerator(CustomChallenge customChallenge) {
 		this.uuid = customChallenge.getUniqueId();
@@ -78,7 +79,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.material = IRandom.threadLocal().choose(defaultMaterials);
 		this.name = "§7Custom §e#" +
 				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size()+1);
-		this.inNaming = false;
 	}
 
 	@Override
@@ -182,14 +182,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				trigger, subTriggers, action, subActions, true);
 	}
 
-	public boolean isInNaming() {
-		return inNaming;
-	}
-
-	public void setInNaming(boolean inNaming) {
-		this.inNaming = inNaming;
-	}
-
 	@Override
 	public String toString() {
 		return "InfoMenuGenerator{" +
@@ -198,7 +190,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				", subTriggers=" + subTriggers.entrySet() +
 				", action=" + action +
 				", subActions=" + subActions.entrySet() +
-				", inNaming=" + inNaming +
 				'}';
 	}
 
@@ -274,9 +265,25 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 					SoundSample.CLICK.play(player);
 					break;
 				case NAME_SLOT:
+
 					Message.forName("custom-name-info").send(player, Prefix.CUSTOM);
-					inNaming = true;
 					player.closeInventory();
+
+					ChatInputListener.setInputAction(player, event -> {
+						int maxNameLength = Challenges.getInstance().getCustomChallengesLoader()
+								.getMaxNameLength();
+						if (event.getMessage().length() > maxNameLength) {
+							Message.forName("custom-chars-max_length").send(event.getPlayer(), Prefix.CUSTOM, maxNameLength);
+							return;
+						}
+
+						Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
+							setName(ChatColor.translateAlternateColorCodes('&', event.getMessage()));
+							open(event.getPlayer(), 0);
+						});
+
+					});
+
 					break;
 				case MATERIAL_SLOT:
 					MaterialMenuGenerator materialMenuGenerator = new MaterialMenuGenerator(generator);

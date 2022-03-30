@@ -34,7 +34,6 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 
 	public DifficultySetting() {
 		super(MenuType.SETTINGS, 0, 3, 2);
-		setValue(getCurrentDifficulty().ordinal());
 	}
 
 	@Override

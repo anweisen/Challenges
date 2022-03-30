@@ -59,7 +59,7 @@ public class MostOresGoal extends PointsGoal {
 		if (ignorePlayer(event.getPlayer())) return;
 		int points = getPointsForOre(event.getBlock().getType());
 		if (points > 0) {
-			Message.forName("most-ores-points").send(event.getPlayer(), Prefix.CHALLENGES, "+" + points);
+			Message.forName("points-change").send(event.getPlayer(), Prefix.CHALLENGES, "+" + points);
 			SoundSample.PLING.play(event.getPlayer());
 			addPoints(event.getPlayer().getUniqueId(), points);
 		}
@@ -72,7 +72,7 @@ public class MostOresGoal extends PointsGoal {
 		int points = getPointsForOre(event.getBlock().getType());
 		if (points > 0) {
 			SoundSample.BASS_OFF.play(event.getPlayer());
-			Message.forName("most-ores-points").send(event.getPlayer(), Prefix.CHALLENGES, "-" + points);
+			Message.forName("points-change").send(event.getPlayer(), Prefix.CHALLENGES, "-" + points);
 			removePoints(event.getPlayer().getUniqueId(), points);
 		}
 	}

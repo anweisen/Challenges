@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
+import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nonnull;
@@ -21,8 +22,6 @@ import java.util.function.BiConsumer;
  * @since 2.0
  */
 public final class ChallengeScoreboard {
-
-	private int index = 0;
 
 	public static final class ScoreboardInstance {
 
@@ -77,11 +76,13 @@ public final class ChallengeScoreboard {
 	}
 
 	public void applyHide(@Nonnull Player player) {
-		unregister(objectives.get(player));
+		unregister(objectives.remove(player));
 	}
 
 	public void update() {
-		Bukkit.getOnlinePlayers().forEach(this::update);
+		for (Player player : new LinkedList<>(Bukkit.getOnlinePlayers())) {
+			update(player);
+		}
 	}
 
 	public void update(@Nonnull Player player) {
@@ -91,13 +92,15 @@ public final class ChallengeScoreboard {
 		}
 
 		try {
+			if (objectives.containsKey(player)) {
+				unregister(objectives.remove(player));
+			}
 
 			ScoreboardInstance instance = new ScoreboardInstance();
 			content.accept(instance, player);
 
 			Collection<String> lines = instance.getLines();
 			if (lines.isEmpty()) {
-				unregister(objectives.get(player));
 				return;
 			}
 
@@ -109,7 +112,14 @@ public final class ChallengeScoreboard {
 				player.setScoreboard(scoreboard = Bukkit.getScoreboardManager().getNewScoreboard());
 			}
 
-			Objective objective = scoreboard.registerNewObjective(String.valueOf(index++), "dummy", String.valueOf(instance.getTitle()));
+			String name = String.valueOf(player.getUniqueId().hashCode());
+			// Unregister any old objective existing
+			Objective objective1 = scoreboard.getObjective(name);
+			if (objective1 != null) {
+				unregister(objective1);
+			}
+
+			Objective objective = scoreboard.registerNewObjective(name, "dummy", String.valueOf(instance.getTitle()));
 			int score = lines.size();
 			for (String line : lines) {
 				if (line.isEmpty()) line = StringUtils.repeat(' ', score + 1);
@@ -118,7 +128,6 @@ public final class ChallengeScoreboard {
 			}
 
 			objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-			unregister(objectives.get(player));
 			objectives.put(player, objective);
 
 		} catch (Exception ex) {

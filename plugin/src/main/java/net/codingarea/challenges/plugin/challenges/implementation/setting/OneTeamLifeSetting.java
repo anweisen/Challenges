@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -41,7 +42,7 @@ public class OneTeamLifeSetting extends Setting {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player == event.getEntity()) continue;
 			if (ignorePlayer(player)) continue;
-			kill(player);
+			ChallengeHelper.kill(player);
 		}
 		AbstractChallenge.getFirstInstance(RespawnSetting.class).checkAllPlayersDead();
 		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = false);
