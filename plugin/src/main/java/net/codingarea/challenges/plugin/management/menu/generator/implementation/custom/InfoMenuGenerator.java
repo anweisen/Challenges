@@ -93,7 +93,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	public void updateItems() {
 		String currently = Message.forName("custom-info-currently").asString();
-		String none = Message.forName("custom-info-none").asString();
+		String none = Message.forName("none").asString();
 
 		// Save / Delete Item
 		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("item-custom-info-delete")).build());

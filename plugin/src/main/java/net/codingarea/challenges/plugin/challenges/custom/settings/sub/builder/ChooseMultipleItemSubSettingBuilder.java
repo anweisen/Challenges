@@ -64,7 +64,7 @@ public class ChooseMultipleItemSubSettingBuilder extends GeneratorSubSettingsBui
           String suffix = count == 0 ? "" : " §7+" + count;
           display.add(firstDisplay + suffix);
         } else {
-          display.add("§7" + getKeyTranslation() + " " + DefaultItem.getItemPrefix() + Message.forName("custom-info-none").asString());
+          display.add("§7" + getKeyTranslation() + " " + DefaultItem.getItemPrefix() + Message.forName("none").asString());
         }
 
       }

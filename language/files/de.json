@@ -20,6 +20,7 @@
   "open": "Öffnen",
   "everyone": "§5Alle",
   "player": "§6Aktiver Spieler",
+  "none": "Nichts",
   "timer-counting-up": "§8» §7Timer zählt §ahoch",
   "timer-counting-down": "§8» §7Timer zählt §crunter",
   "timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -1292,7 +1293,6 @@
   "custom-info-currently": "§7Eingestellt §8» §e",
   "custom-info-trigger": "§7Auslöser",
   "custom-info-action": "§7Aktion",
-  "custom-info-none": "Nichts",
 
   "item-custom-trigger-jump": [
     "§aSpieler Springt"

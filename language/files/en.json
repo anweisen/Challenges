@@ -1264,7 +1264,7 @@
   "custom-info-currently": "§7Set §8» §e",
   "custom-info-trigger": "§7Trigger",
   "custom-info-action": "§7Action",
-  "custom-info-none": "None",
+  "none": "None",
 
   "item-custom-trigger-jump": [
     "§aPlayer Jumps"
