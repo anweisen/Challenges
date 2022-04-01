@@ -198,6 +198,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectWorkstationsGoal.class);
 		register(EatMostGoal.class);
 
+		register(ForceItemBattleGoal.class);
+
 		// Damage Rules
 		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());
 		registerDamageRule("fire", Material.LAVA_BUCKET, DamageCause.FIRE, DamageCause.FIRE_TICK, DamageCause.LAVA, DamageCause.HOT_FLOOR);

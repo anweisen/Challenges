@@ -211,6 +211,10 @@
   "height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
   "race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
   "points-change": "§e{0} §7Punkte",
+  "force-item-battle-found": "Du hast §e{0} §7gefunden!",
+  "force-item-battle-new-item": "Item zu suchen: §e{0}",
+  "force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
+  "force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 
   "random-event-speed": [
     "Sonic? Bist du es?",
@@ -1179,6 +1183,14 @@
   "item-eat-most-goal": [
     "§6Am Meisten Essen",
     "Der Spieler, der am *meisten isst*, gewinnt"
+  ],
+  "item-force-item-battle-goal": [
+    "§5Force Item Battle",
+    "Jeder Spieler bekommt ein *zufälliges Item*,",
+    "dass er finden muss.",
+    "Wer am Ende die *meisten Items* hat, gewinnt",
+    "",
+    "Der eingestellte Wert left die Anzahl an *Jokern* fest."
   ],
 
   "item-damage-rule-none": [
