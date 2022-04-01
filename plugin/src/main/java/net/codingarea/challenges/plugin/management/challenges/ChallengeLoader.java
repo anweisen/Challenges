@@ -128,7 +128,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(PermanentEffectOnDamageChallenge.class);
 		register(InfectionChallenge.class);
 		register(InvisibleMobsChallenge.class);
-
 		// 9
 		register(UncraftItemsChallenge.class);
 		register(OnlyDownChallenge.class);
@@ -163,6 +162,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
 		// 13
+		register(RandomTeleportOnHitChallenge.class);
 
 
 		// Goal

@@ -1044,6 +1044,11 @@
     "*Jedes Mob* hat einen zufälligen",
     "Effekt auf *höchster Stufe*"
   ],
+  "item-mob-damage-teleport-challenge": [
+    "§5Mob Tausch Beim Schlagen",
+    "Jedes mal, wenn du einen *Mob schlägst*,",
+    "tauschst du mit einem *zufälligem Mob* die Position"
+  ],
 
 
   "item-dragon-goal": [
