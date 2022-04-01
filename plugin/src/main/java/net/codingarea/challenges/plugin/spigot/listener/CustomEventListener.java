@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.spigot.listener;
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -10,8 +11,10 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -58,13 +61,24 @@ public class CustomEventListener implements Listener {
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
-		if (!(event.getDamager() instanceof Player)) return;
+		Entity damager = event.getDamager();
+		if (damager instanceof Projectile) {
+			if (((Projectile) damager).getShooter() instanceof Entity) {
+				damager = (Entity) ((Projectile) damager).getShooter();
+			}
+		}
+		if (!(damager instanceof Player)) return;
 		if (!(event.getEntity() instanceof LivingEntity)) return;
 		LivingEntity entity = (LivingEntity) event.getEntity();
+
+		EntityDamageByPlayerEvent damageEvent = new EntityDamageByPlayerEvent(event.getEntity(), (Player) damager, event.getFinalDamage(), event);
+		Bukkit.getPluginManager().callEvent(damageEvent);
+
 		if (entity.getHealth() - event.getDamage() > 0) return;
-		EntityDeathByPlayerEvent deathEvent = new EntityDeathByPlayerEvent(event.getEntity(), (Player) event.getDamager(), event);
+		EntityDeathByPlayerEvent deathEvent = new EntityDeathByPlayerEvent(event.getEntity(), (Player) damager, event);
 		Bukkit.getPluginManager().callEvent(deathEvent);
 	}
+
 
 	@EventHandler(priority = EventPriority.HIGHEST)
 	public void onGameModeChange(PlayerGameModeChangeEvent event) {

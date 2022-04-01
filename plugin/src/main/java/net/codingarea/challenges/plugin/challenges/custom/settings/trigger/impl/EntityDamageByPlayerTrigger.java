@@ -3,13 +3,10 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
+import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import org.bukkit.Material;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -27,21 +24,13 @@ public class EntityDamageByPlayerTrigger extends AbstractChallengeTrigger {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onDeath(@Nonnull EntityDamageByEntityEvent event) {
+	public void onDeath(@Nonnull EntityDamageByPlayerEvent event) {
 
-		Entity damager = event.getDamager();
-
-		if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player) {
-			damager = ((Player) ((Projectile) damager).getShooter());
-		}
-
-		if (damager instanceof Player) {
-			createData()
-					.entity(event.getEntity())
-					.event(event)
-					.entityType(event.getEntityType())
-					.execute();
-		}
+		createData()
+				.entity(event.getDamager())
+				.event(event)
+				.entityType(event.getEntityType())
+				.execute();
 
 	}
 

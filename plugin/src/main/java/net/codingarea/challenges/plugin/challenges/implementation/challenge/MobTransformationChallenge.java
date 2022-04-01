@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
@@ -14,7 +15,6 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -53,12 +53,11 @@ public class MobTransformationChallenge extends Setting {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onEntityDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
+	public void onEntityDamageByPlayer(@Nonnull EntityDamageByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (!(event.getDamager() instanceof Player)) return;
 		if (event.getEntity() instanceof Player || !(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof EnderDragon) return;
 
-		Player player = (Player) event.getDamager();
+		Player player = event.getDamager();
 		if (ignorePlayer(player)) return;
 
 		EntityType type = getPlayerData(player).getEnum("type", event.getEntityType());

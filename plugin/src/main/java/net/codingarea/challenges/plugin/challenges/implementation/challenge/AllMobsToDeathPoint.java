@@ -5,12 +5,12 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
 
 import javax.annotation.Nonnull;
 import java.util.Collection;
@@ -27,13 +27,11 @@ public class AllMobsToDeathPoint extends Setting {
 	}
 
 	@EventHandler
-	public void onEntityDeath(@Nonnull EntityDamageByEntityEvent event) {
+	public void onEntityDeath(@Nonnull EntityDeathByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (event.getEntity() instanceof EnderDragon || event.getEntity() instanceof Player) return;
 		if (!(event.getEntity() instanceof LivingEntity)) return;
-		LivingEntity entity = (LivingEntity) event.getEntity();
-		if (entity.getHealth() - event.getDamage() > 0) return;
-		if (ChallengeHelper.ignoreDamager(event.getDamager())) return;
+		if (ignorePlayer(event.getKiller())) return;
 
 		teleportAllMobsOfType(event.getEntityType(), event.getEntity().getLocation());
 	}
