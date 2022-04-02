@@ -163,6 +163,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlocksDisappearAfterTimeChallenge.class);
 		// 13
 		register(RandomTeleportOnHitChallenge.class);
+		register(BlockMobsChallenge.class);
 
 
 		// Goal

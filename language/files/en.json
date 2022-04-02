@@ -1039,6 +1039,11 @@
     "*Every Mob* has a random",
     "potion effect with *max amplifier*"
   ],
+  "item-block-mob-challenge": [
+    "§cMob Blocks",
+    "A *random mob* spawns out of *every broken block*",
+    "and to *get the block* you have to *kill it*"
+  ],
 
 
   "item-dragon-goal": [

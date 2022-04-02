@@ -1053,6 +1053,11 @@
     "Jedes mal, wenn du einen *Mob schlägst*,",
     "tauschst du mit einem *zufälligem Mob* die Position"
   ],
+  "item-block-mob-challenge": [
+    "§cMob Blöcke",
+    "Aus jedem abgebautem Block, *spawnt ein Mob*,",
+    "dass *getötet* werden muss, um den Block *zu erhalten*"
+  ],
 
 
   "item-dragon-goal": [
