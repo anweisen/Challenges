@@ -29,7 +29,7 @@ public final class ItemDescription {
 
 	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String name, @Nonnull String[] formattedLore) {
 		this.colors = themeColors;
-		this.name = "§8» " + name;
+		this.name = Message.forName("item-prefix") + name;
 		this.originalName = name;
 		this.lore = formattedLore;
 	}
