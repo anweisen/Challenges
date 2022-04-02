@@ -207,6 +207,10 @@
   "height-reached": "§e{0} §7reached §eY = {1} §7first!",
   "race-goal-reached": "§e{0} §7reached the goal!",
   "points-change": "§e{0} §7Points",
+  "force-item-battle-found": "You've found §e{0}!",
+  "force-item-battle-new-item": "Item to find: §e{0}",
+  "force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
+  "force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 
   "random-event-speed": [
     "Sonic? Is it you?",
@@ -1152,6 +1156,14 @@
     "§6Collect Workstations",
     "The player that *collects* every",
     "villager workstation first *wins*"
+  ],
+  "item-force-item-battle-goal": [
+    "§5Force Item Battle",
+    "Each player gets *a random item* that",
+    "he has *to find*.",
+    "The player that *found* the *most items*, wins.",
+    "",
+    "The set value is equal to the amount of *jokers* available."
   ],
 
 
