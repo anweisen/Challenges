@@ -110,6 +110,7 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@Override
 	protected void onDisable() {
+		if (jokerItem == null) return; // Disable through plugin disable
 		broadcastFiltered(this::updateJokersInInventory);
 		scoreboard.hide();
 		jokerItem = null;
@@ -161,7 +162,10 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 			this.jokerUsed.put(uuid, jokerUsed);
 		}
 
-		if (scoreboard.isShown()) {
+		if (isEnabled()) {
+			if (ChallengeAPI.isStarted()) {
+				broadcastFiltered(this::setRandomItemIfCurrentlyNone);
+			}
 			scoreboard.update();
 			broadcastFiltered(this::updateJokersInInventory);
 			broadcastFiltered(this::updateDisplayStand);
@@ -318,6 +322,7 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler
 	public void onStatusChange(PlayerIgnoreStatusChangeEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (event.isNotIgnored()) {
 			setRandomItemIfCurrentlyNone(event.getPlayer());
 		}
