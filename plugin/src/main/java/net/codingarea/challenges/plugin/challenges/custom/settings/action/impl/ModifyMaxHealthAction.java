@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.MaxHealthSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -16,7 +16,7 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class ModifyMaxHealthAction extends AbstractChallengePlayerTargetAction {
+public class ModifyMaxHealthAction extends PlayerTargetAction {
 
   public ModifyMaxHealthAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true)
