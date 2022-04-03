@@ -10,19 +10,19 @@ import org.bukkit.entity.Entity;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public abstract class AbstractChallengeTargetAction extends AbstractChallengeAction implements TargetEntitiesChallengeAction {
+public abstract class EntityTargetAction extends ChallengeAction implements IEntityTargetAction {
 
-  public AbstractChallengeTargetAction(String name,
-      SubSettingsBuilder subSettingsBuilder) {
+  public EntityTargetAction(String name,
+                            SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
   }
 
-  public AbstractChallengeTargetAction(String name) {
+  public EntityTargetAction(String name) {
     super(name);
   }
 
-  public AbstractChallengeTargetAction(String name,
-      Supplier<SubSettingsBuilder> builderSupplier) {
+  public EntityTargetAction(String name,
+                            Supplier<SubSettingsBuilder> builderSupplier) {
     super(name, builderSupplier);
   }
 
@@ -30,7 +30,7 @@ public abstract class AbstractChallengeTargetAction extends AbstractChallengeAct
   public void execute(
       ChallengeExecutionData executionData,
       Map<String, String[]> subActions) {
-    for (Entity target : TargetEntitiesChallengeAction.getTargets(executionData.getEntity(), subActions)) {
+    for (Entity target : IEntityTargetAction.getTargets(executionData.getEntity(), subActions)) {
       executeFor(target, subActions);
     }
   }

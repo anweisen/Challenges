@@ -9,8 +9,8 @@ import javax.annotation.Nullable;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -30,13 +30,13 @@ public class CustomChallenge extends Setting {
 	private final UUID uuid;
 	private Material material;
 	private String name;
-	private AbstractChallengeTrigger trigger;
+	private ChallengeTrigger trigger;
 	private Map<String, String[]> subTriggers;
-	private AbstractChallengeAction action;
+	private ChallengeAction action;
 	private Map<String, String[]> subActions;
 
-	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, AbstractChallengeTrigger trigger,
-			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions) {
+	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, ChallengeTrigger trigger,
+						   Map<String, String[]> subTriggers, ChallengeAction action, Map<String, String[]> subActions) {
 		super(menuType);
 		this.uuid = uuid;
 		this.material = displayItem;
@@ -166,8 +166,8 @@ public class CustomChallenge extends Setting {
 		action.execute(challengeExecutionData, subActions);
 	}
 
-	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull AbstractChallengeTrigger trigger,
-			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions) {
+	public void applySettings(@Nonnull Material material, @Nonnull String name, @Nonnull ChallengeTrigger trigger,
+							  Map<String, String[]> subTriggers, ChallengeAction action, Map<String, String[]> subActions) {
 		this.material = material;
 		this.name = name;
 		this.trigger = trigger;
@@ -176,11 +176,11 @@ public class CustomChallenge extends Setting {
 		this.subActions = subActions;
 	}
 
-	public AbstractChallengeAction getAction() {
+	public ChallengeAction getAction() {
 		return action;
 	}
 
-	public AbstractChallengeTrigger getTrigger() {
+	public ChallengeTrigger getTrigger() {
 		return trigger;
 	}
 
