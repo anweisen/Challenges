@@ -1521,6 +1521,13 @@
     "Das Inventar wird geleert und der Spieler",
     "bekommt zufällige Items in die HotBar"
   ],
+  "item-custom-action-modify_border": [
+    "§bWorld Border Verändern",
+    "Mache die Worldborder §agrößer §7oder §ckleiner"
+  ],
+  "item-custom-action-modify_border-change": [
+    "§dVeränderung"
+  ],
 
 
   "item-custom-setting-target-current": [
@@ -1572,6 +1579,7 @@
   "custom-subsetting-value": "Werte Editor",
   "custom-subsetting-health_offset": "Veränderung",
   "custom-subsetting-length": "Länge",
-  "custom-subsetting-amplifier": "Stärke"
+  "custom-subsetting-amplifier": "Stärke",
+  "custom-subsetting-change": "Veränderung"
 
 }
