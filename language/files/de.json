@@ -1494,6 +1494,11 @@
     "§6Gewinnen",
     "Die Challenge wird von *bestimmten Spielern* gewonnen"
   ],
+  "item-custom-action-random_hotbar": [
+    "§eZufällige Hotbar",
+    "Das Inventar wird geleert und der Spieler",
+    "bekommt zufällige Items in die HotBar"
+  ],
 
 
   "item-custom-setting-target-current": [
