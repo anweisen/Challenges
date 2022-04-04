@@ -2,14 +2,14 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
 import org.bukkit.Material;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class CancelEventAction extends ChallengeAction {
+public class CancelEventAction extends AbstractChallengeAction {
 
   public static boolean inCanceling;
 

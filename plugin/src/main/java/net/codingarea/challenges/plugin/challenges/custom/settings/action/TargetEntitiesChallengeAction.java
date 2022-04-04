@@ -18,7 +18,7 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public interface IEntityTargetAction extends IChallengeAction {
+public interface TargetEntitiesChallengeAction extends IChallengeAction {
 
   @Override
   default void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {

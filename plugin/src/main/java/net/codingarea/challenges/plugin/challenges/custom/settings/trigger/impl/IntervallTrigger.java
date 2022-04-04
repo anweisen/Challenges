@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 import java.util.LinkedList;
 import java.util.List;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
@@ -15,7 +15,7 @@ import org.bukkit.Material;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class IntervallTrigger extends ChallengeTrigger {
+public class IntervallTrigger extends AbstractChallengeTrigger {
 
   public IntervallTrigger(String name) {
     super(name, SubSettingsBuilder.createChooseItem("time").fill(builder -> {

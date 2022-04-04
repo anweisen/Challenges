@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.FreezeChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -13,7 +13,7 @@ import org.bukkit.entity.LivingEntity;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class FreezeAction extends EntityTargetAction {
+public class FreezeAction extends AbstractChallengeTargetAction {
 
   FreezeChallenge instance = AbstractChallenge
       .getFirstInstance(FreezeChallenge.class);

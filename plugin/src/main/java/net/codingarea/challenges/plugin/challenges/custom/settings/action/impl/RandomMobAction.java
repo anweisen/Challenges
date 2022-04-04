@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
@@ -12,7 +12,7 @@ import org.bukkit.entity.EntityType;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class RandomMobAction extends EntityTargetAction {
+public class RandomMobAction extends AbstractChallengeTargetAction {
 
   public RandomMobAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false));
@@ -22,7 +22,7 @@ public class RandomMobAction extends EntityTargetAction {
   public void executeFor(Entity entity, Map<String, String[]> subActions) {
     if (entity.getLocation().getWorld() == null) return;
     for (int i = 0; i < 100; i++) {
-      EntityType value = ChallengeAction.random.choose(EntityType.values());
+      EntityType value = AbstractChallengeAction.random.choose(EntityType.values());
       if (value.isSpawnable()) {
         try {
           entity.getLocation().getWorld().spawnEntity(entity.getLocation(), value);

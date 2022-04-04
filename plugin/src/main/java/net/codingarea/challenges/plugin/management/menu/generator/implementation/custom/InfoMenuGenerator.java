@@ -17,8 +17,8 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -51,9 +51,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private final UUID uuid;
 	private String name;
 	private Material material;
-	private ChallengeTrigger trigger;
+	private AbstractChallengeTrigger trigger;
 	private Map<String, String[]> subTriggers;
-	private ChallengeAction action;
+	private AbstractChallengeAction action;
 	private Map<String, String[]> subActions;
 	private Inventory inventory;
 
@@ -251,7 +251,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				case CONDITION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.CONDITION,
 							"trigger", Message.forName("custom-title-trigger").asString(),
-							ChallengeTrigger.getMenuItems(),
+							AbstractChallengeTrigger.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);
@@ -259,7 +259,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				case ACTION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.ACTION,
 							"action", Message.forName("custom-title-action").asString(),
-							ChallengeAction.getMenuItems(),
+							AbstractChallengeAction.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getActionByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);

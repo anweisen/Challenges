@@ -10,18 +10,18 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public abstract class PlayerTargetAction extends EntityTargetAction {
+public abstract class AbstractChallengePlayerTargetAction extends AbstractChallengeTargetAction {
 
-  public PlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
+  public AbstractChallengePlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
     super(name, subSettingsBuilder);
   }
 
-  public PlayerTargetAction(String name) {
+  public AbstractChallengePlayerTargetAction(String name) {
     super(name);
   }
 
-  public PlayerTargetAction(String name,
-                            Supplier<SubSettingsBuilder> builderSupplier) {
+  public AbstractChallengePlayerTargetAction(String name,
+      Supplier<SubSettingsBuilder> builderSupplier) {
     super(name, builderSupplier);
   }
 

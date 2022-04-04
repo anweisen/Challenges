@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -16,7 +16,7 @@ import org.bukkit.entity.LivingEntity;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class HealEntityAction extends EntityTargetAction {
+public class HealEntityAction extends AbstractChallengeTargetAction {
 
   public HealEntityAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).createChooseItemChild("amount").fill(builder -> {
