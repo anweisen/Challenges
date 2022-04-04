@@ -39,8 +39,8 @@ public final class ChallengeAPI {
 		Challenges.getInstance().getChallengeTimer().pause(true);
 	}
 
-	public static void pauseTimer(boolean playInGameEffects) {
-		Challenges.getInstance().getChallengeTimer().pause(playInGameEffects);
+	public static void pauseTimer(boolean byPlayer) {
+		Challenges.getInstance().getChallengeTimer().pause(byPlayer);
 	}
 
 	public static void resumeTimer() {

@@ -128,7 +128,7 @@ public final class ChallengeTimer {
 
 	}
 
-	public void pause(boolean playInGameEffects) {
+	public void pause(boolean byPlayer) {
 		if (paused) return;
 		paused = true;
 
@@ -136,7 +136,7 @@ public final class ChallengeTimer {
 		updateTimeRule();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
-		if (playInGameEffects) {
+		if (byPlayer) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
 			SoundSample.BASS_OFF.broadcast();
@@ -158,7 +158,6 @@ public final class ChallengeTimer {
 				player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(getActionbar()));
 			}
 		}
-
 	}
 
 	@Nonnull
