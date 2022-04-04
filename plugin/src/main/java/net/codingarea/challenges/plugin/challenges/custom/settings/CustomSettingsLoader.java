@@ -105,8 +105,7 @@ public class CustomSettingsLoader {
         new InvertHealthAction("invert_health"),
         new WaterMLGAction("water_mlg"),
         new JumpAndRunAction("jnr"),
-        new RandomHotBarAction("random_hotbar"),
-        new ChangeWorldBorderAction("modify_border")
+        new RandomHotBarAction("random_hotbar")
     );
   }
 
