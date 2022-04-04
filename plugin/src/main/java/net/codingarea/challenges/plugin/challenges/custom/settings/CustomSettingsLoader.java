@@ -5,7 +5,29 @@ import java.util.Map;
 import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.*;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.AddPermanentEffectAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.BoostEntityInAirAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ClearInventoryAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DamageEntityAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DropRandomItemAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ExecuteCommandAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.FreezeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.InvertHealthAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.JumpAndRunAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ModifyMaxHealthAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.PotionEffectAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomPotionEffectAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SpawnEntityAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WinChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.AdvancementTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.CraftItemTrigger;
@@ -104,8 +126,7 @@ public class CustomSettingsLoader {
         new FreezeAction("freeze"),
         new InvertHealthAction("invert_health"),
         new WaterMLGAction("water_mlg"),
-        new JumpAndRunAction("jnr"),
-        new RandomHotBarAction("random_hotbar")
+        new JumpAndRunAction("jnr")
     );
   }
 
