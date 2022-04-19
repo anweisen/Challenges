@@ -189,11 +189,6 @@ public final class InventoryUtils {
 		return new ItemStack(material, stackSize);
 	}
 
-	public static void giveRandomItem(@Nonnull Player player, int slot) {
-		InventoryUtils.giveItem(player.getInventory(),
-				player.getLocation(), new ItemStack(random.choose(items)));
-	}
-
 	/**
 	 * @return if a navigation item was clicked
 	 */
