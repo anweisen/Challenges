@@ -53,7 +53,7 @@
     ""
   ],
   "deprecated-config-version": [
-    "Deine Plugin Config ist §cveraltet §7(§c{1} §7< §a{0})",
+    "Deine Plugin Config ist §cveraltet §7(§c{1} §7< §a{0}§7)",
     "Du kannst die alte Config löschen oder die fehlenden Einstellungen manuell hinzufügen"
   ],
   "missing-config-settings": "Folgende Einstellungen fehlen in der Config: §e{0}",

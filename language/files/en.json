@@ -52,7 +52,7 @@
     ""
   ],
   "deprecated-config-version": [
-    "A new version of the §econfig §7is available",
+    "The plugin config version is §coutdated §7(§c{1} §7< §a{0}§7)",
     "You can either manually add all missing settings or delete the old one"
   ],
   "missing-config-settings": "There are missing config settings: §e{0}",
