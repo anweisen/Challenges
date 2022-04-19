@@ -1479,6 +1479,19 @@
     "§6Win",
     "The challenge will be won *by specific players*"
   ],
+  "item-custom-action-random_hotbar": [
+    "§eRandom Hotbar",
+    "The inventory is emptied and the player",
+    "gets a full hotbar of random items"
+  ],
+  "item-custom-action-modify_border": [
+    "§bModify World Border",
+    "Make the world border §abigger or §ctinier"
+  ],
+  "item-custom-action-modify_border-change": [
+    "§dChange"
+  ],
+
 
   "item-custom-setting-target-current": [
     "§6Current Entity",
@@ -1528,6 +1541,7 @@
   "custom-subsetting-value": "Value Editor",
   "custom-subsetting-health_offset": "Change",
   "custom-subsetting-length": "Length",
-  "custom-subsetting-amplifier": "Amplifier"
+  "custom-subsetting-amplifier": "Amplifier",
+  "custom-subsetting-change": "Change"
 
 }

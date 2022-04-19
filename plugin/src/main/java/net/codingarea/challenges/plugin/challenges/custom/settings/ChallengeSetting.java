@@ -7,21 +7,21 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettin
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public abstract class AbstractChallengeSetting implements IChallengeSetting {
+public abstract class ChallengeSetting implements IChallengeSetting {
 
   private final String name;
   private final SubSettingsBuilder subSettingsBuilder;
 
-  public AbstractChallengeSetting(String name, SubSettingsBuilder subSettingsBuilder) {
+  public ChallengeSetting(String name, SubSettingsBuilder subSettingsBuilder) {
     this.name = name;
     this.subSettingsBuilder = subSettingsBuilder.build();
   }
 
-  public AbstractChallengeSetting(String name) {
+  public ChallengeSetting(String name) {
     this(name, SubSettingsBuilder.createEmpty());
   }
 
-  public AbstractChallengeSetting(String name, Supplier<SubSettingsBuilder> builderSupplier) {
+  public ChallengeSetting(String name, Supplier<SubSettingsBuilder> builderSupplier) {
     this(name, builderSupplier.get());
   }
 

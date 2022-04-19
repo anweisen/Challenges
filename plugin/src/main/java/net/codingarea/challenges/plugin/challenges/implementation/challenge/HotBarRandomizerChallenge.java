@@ -60,7 +60,6 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 		ChallengeHelper.playChallengeMinutesValueChangeTitle(this, getValue());
 	}
 
-
 	@Override
 	protected void onTimeActivation() {
 
@@ -73,7 +72,7 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 	/**
 	 * @param force if true only sets items if inventory is empty
 	 */
-	private void addItems(Player player, boolean force) {
+	public static void addItems(Player player, boolean force) {
 
 		if (!force && !player.getInventory().isEmpty()) {
 			return;

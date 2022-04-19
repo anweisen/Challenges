@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.RandomPotionEffectChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
@@ -14,7 +14,7 @@ import org.bukkit.potion.PotionEffectType;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class RandomPotionEffectAction extends AbstractChallengeTargetAction {
+public class RandomPotionEffectAction extends EntityTargetAction {
 
   public RandomPotionEffectAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).addChild(

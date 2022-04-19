@@ -562,7 +562,7 @@
   "item-traffic-light-challenge": [
     "§cAmpelchallenge",
     "Die *Ampel* schaltet alle paar Minuten um",
-    "Wenn du bei *rot* gehst stirbst du"
+    "Wenn du bei *rot* gehst, stirbst du"
   ],
   "item-block-randomizer-challenge": [
     "§6Block Randomizer",
@@ -618,7 +618,7 @@
   "item-damage-inv-clear-challenge": [
     "§cDamage Inventory Clear",
     "Die *Inventare* aller Spieler werden *geleert*,",
-    "wenn ein *Spieler* schaden erleidet"
+    "wenn ein *Spieler* Schaden erleidet"
   ],
   "item-no-trading-challenge": [
     "§2Kein Handeln",
@@ -648,7 +648,7 @@
   "item-jump-and-run-challenge": [
     "§6Jump and Run",
     "Alle *paar Minuten* musst du ein random *Jump and Run* machen,",
-    "welches jedes mal *schwerer* wird"
+    "welches jedes Mal *schwieriger* wird"
   ],
   "item-randomized-hp-challenge": [
     "§4Randomized HP",
@@ -743,7 +743,7 @@
     "*Mobs* halten oder du wirst *krank*"
   ],
   "item-only-down-challenge": [
-    "§cNur nach Unten",
+    "§cNur nach unten",
     "Wenn du *einen Block* nach",
     "*oben* gehst, *stirbst* du"
   ],
@@ -753,10 +753,10 @@
     "die gesetze Anzahl *Schaden*"
   ],
   "item-all-blocks-disappear-challenge": [
-    "§cAlle Blöcke Verschwinden",
+    "§cAlle Blöcke verschwinden",
     "Bei verschiedenen *Interaktionen*",
     "verschwinden alle *Blöcke* im *Chunk*",
-    "eines *betimmten Types*"
+    "eines *bestimmten Types*"
   ],
   "item-all-blocks-disappear-break-challenge": [
     "§bBeim Abbauen",
@@ -780,7 +780,7 @@
   ],
   "item-max-height-time-challenge": [
     "§9Maximale Höhen Zeit",
-    "Die *Zeit* die du auf jeder *Höhe*",
+    "Die *Zeit*, die du auf jeder *Höhe*",
     "sein darfst, ist *begrenzt*"
   ],
   "item-permanent-item-challenge": [
@@ -790,7 +790,7 @@
   ],
   "item-sneak-damage-challenge": [
     "§6Schaden pro Schleichen",
-    "Du *erleidest* den gesetzen",
+    "Du *erleidest* den gesetzten",
     "*Schaden*, wenn du *schleichst*"
   ],
   "item-jump-damage-challenge": [
@@ -992,7 +992,7 @@
     "unendlich oft, bis ein Spieler *schleicht*"
   ],
   "item-uncraft-challenge": [
-    "§6Items Craften sich zurück",
+    "§6Items craften sich zurück",
     "Alle *Items* in deinem Inventar *craften*",
     "sich alle paar Sekunden *zurück*"
   ],
@@ -1029,13 +1029,13 @@
     "werden in *jedem Chunk* platziert / zerstört"
   ],
   "item-blocks-fly-challenge": [
-    "§fBlöcke Fliegen In Luft",
-    "*Blöcke* auf denen du *gelaufen* bist,",
+    "§fBlöcke fliegen in die Luft",
+    "*Blöcke*, auf denen du *gelaufen* bist,",
     "fliegen nach *einer Sekunde* in die *Luft*"
   ],
   "item-respawn-end-challenge": [
-    "§5Mobs Respawnen In End",
-    "Mobs die *getötet werden*,",
+    "§5Mobs respawnen im End",
+    "Mobs, die *getötet werden*,",
     "respawnen im *End*"
   ],
   "item-block-effect-challenge": [
@@ -1516,6 +1516,18 @@
     "§6Gewinnen",
     "Die Challenge wird von *bestimmten Spielern* gewonnen"
   ],
+  "item-custom-action-random_hotbar": [
+    "§eZufällige Hotbar",
+    "Das Inventar wird geleert und der Spieler",
+    "bekommt zufällige Items in die HotBar"
+  ],
+  "item-custom-action-modify_border": [
+    "§bWorld Border Verändern",
+    "Mache die Worldborder §agrößer §7oder §ckleiner"
+  ],
+  "item-custom-action-modify_border-change": [
+    "§dVeränderung"
+  ],
 
 
   "item-custom-setting-target-current": [
@@ -1567,6 +1579,7 @@
   "custom-subsetting-value": "Werte Editor",
   "custom-subsetting-health_offset": "Veränderung",
   "custom-subsetting-length": "Länge",
-  "custom-subsetting-amplifier": "Stärke"
+  "custom-subsetting-amplifier": "Stärke",
+  "custom-subsetting-change": "Veränderung"
 
 }

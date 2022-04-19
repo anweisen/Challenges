@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerMoveEvent;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class InLiquidTrigger extends AbstractChallengeTrigger {
+public class InLiquidTrigger extends ChallengeTrigger {
 
   public InLiquidTrigger(String name) {
     super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.LIQUID).fill(builder -> {

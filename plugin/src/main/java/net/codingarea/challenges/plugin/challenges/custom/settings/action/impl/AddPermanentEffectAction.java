@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.PermanentEffectOnDamageChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class AddPermanentEffectAction extends AbstractChallengePlayerTargetAction {
+public class AddPermanentEffectAction extends PlayerTargetAction {
 
   PermanentEffectOnDamageChallenge instance = AbstractChallenge
       .getFirstInstance(PermanentEffectOnDamageChallenge.class);

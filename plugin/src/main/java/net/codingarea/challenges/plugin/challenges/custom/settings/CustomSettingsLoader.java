@@ -4,31 +4,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.AddPermanentEffectAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.BoostEntityInAirAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ClearInventoryAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DamageEntityAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.DropRandomItemAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ExecuteCommandAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.FreezeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HealEntityAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.HungerPlayerAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.InvertHealthAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.JumpAndRunAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.KillEntityAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.ModifyMaxHealthAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.PotionEffectAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomPotionEffectAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SpawnEntityAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.SwapRandomItemAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.UncraftInventoryAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WaterMLGAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.WinChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.*;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.AdvancementTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.CraftItemTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.DropItemTrigger;
@@ -60,8 +38,8 @@ import org.bukkit.Bukkit;
  */
 public class CustomSettingsLoader {
 
-  private final Map<String, AbstractChallengeTrigger> triggers;
-  private final Map<String, AbstractChallengeAction> actions;
+  private final Map<String, ChallengeTrigger> triggers;
+  private final Map<String, ChallengeAction> actions;
 
   public CustomSettingsLoader() {
     actions = new LinkedHashMap<>();
@@ -126,38 +104,40 @@ public class CustomSettingsLoader {
         new FreezeAction("freeze"),
         new InvertHealthAction("invert_health"),
         new WaterMLGAction("water_mlg"),
-        new JumpAndRunAction("jnr")
+        new JumpAndRunAction("jnr"),
+        new RandomHotBarAction("random_hotbar"),
+        new ChangeWorldBorderAction("modify_border")
     );
   }
 
-  public void registerTriggers(AbstractChallengeTrigger... trigger) {
-    for (AbstractChallengeTrigger trigger1 : trigger) {
+  public void registerTriggers(ChallengeTrigger... trigger) {
+    for (ChallengeTrigger trigger1 : trigger) {
       triggers.put(trigger1.getName(), trigger1);
       Bukkit.getPluginManager().registerEvents(trigger1, Challenges.getInstance());
     }
   }
 
-  public void registerActions(AbstractChallengeAction... action) {
-    for (AbstractChallengeAction action1 : action) {
+  public void registerActions(ChallengeAction... action) {
+    for (ChallengeAction action1 : action) {
       actions.put(action1.getName(), action1);
     }
   }
 
   @Nullable
-  public AbstractChallengeAction getActionByName(String name) {
+  public ChallengeAction getActionByName(String name) {
     return actions.get(name);
   }
 
   @Nullable
-  public AbstractChallengeTrigger getTriggerByName(String name) {
+  public ChallengeTrigger getTriggerByName(String name) {
     return triggers.get(name);
   }
 
-  public Map<String, AbstractChallengeAction> getActions() {
+  public Map<String, ChallengeAction> getActions() {
     return actions;
   }
 
-  public Map<String, AbstractChallengeTrigger> getTriggers() {
+  public Map<String, ChallengeTrigger> getTriggers() {
     return triggers;
   }
 

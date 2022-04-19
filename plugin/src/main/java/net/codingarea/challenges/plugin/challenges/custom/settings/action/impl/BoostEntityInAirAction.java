@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import java.util.Map;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -15,7 +15,7 @@ import org.bukkit.util.Vector;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class BoostEntityInAirAction extends AbstractChallengeTargetAction {
+public class BoostEntityInAirAction extends EntityTargetAction {
 
   public BoostEntityInAirAction(String name) {
     super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(true).createValueChild().fill(builder -> {
