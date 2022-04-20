@@ -1486,7 +1486,7 @@
   ],
   "item-custom-action-modify_border": [
     "§bModify World Border",
-    "Make the world border §abigger or §ctinier"
+    "Make the world border *bigger* or *tinier*"
   ],
   "item-custom-action-modify_border-change": [
     "§dChange"

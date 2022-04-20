@@ -1523,7 +1523,7 @@
   ],
   "item-custom-action-modify_border": [
     "§bWorld Border Verändern",
-    "Mache die Worldborder §agrößer §7oder §ckleiner"
+    "Mache die Worldborder *größer* §7oder *kleiner*"
   ],
   "item-custom-action-modify_border-change": [
     "§dVeränderung"
