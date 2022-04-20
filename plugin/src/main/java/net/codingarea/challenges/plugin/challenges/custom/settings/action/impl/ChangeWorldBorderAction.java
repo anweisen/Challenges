@@ -22,7 +22,7 @@ public class ChangeWorldBorderAction extends ChallengeAction {
     super(name, SubSettingsBuilder.createValueItem()
         .addModifierSetting(
             "change",
-            new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA, Message.forName("item-custom-action-change_border-change")),
+            new ItemBuilder(Material.MAGENTA_GLAZED_TERRACOTTA, Message.forName("item-custom-action-modify_border-change")),
             1, -10, 10
         ));
   }
