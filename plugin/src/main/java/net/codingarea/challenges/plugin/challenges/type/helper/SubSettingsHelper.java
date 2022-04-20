@@ -82,8 +82,7 @@ public class SubSettingsHelper {
 	}
 
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer, boolean console) {
-		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(
-				TARGET_ENTITY);
+		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(TARGET_ENTITY);
 
 		if (console) {
 			builder.addSetting("console", new ItemBuilder(Material.COMMAND_BLOCK_MINECART, Message.forName("item-custom-setting-target-console")));

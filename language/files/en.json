@@ -1498,6 +1498,10 @@
   "item-custom-action-modify_border-change": [
     "§dChange"
   ],
+  "item-custom-action-swap_mobs": [
+    "§5Swap mobs",
+    "Swap a mob with another of the same world"
+  ],
 
 
   "item-custom-setting-target-current": [
@@ -1550,6 +1554,7 @@
   "custom-subsetting-health_offset": "Change",
   "custom-subsetting-length": "Length",
   "custom-subsetting-amplifier": "Amplifier",
-  "custom-subsetting-change": "Change"
+  "custom-subsetting-change": "Change",
+  "custom-subsetting-swap_targets": "Swap Targets"
 
 }

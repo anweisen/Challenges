@@ -1,10 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
 import com.google.common.collect.Lists;
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -13,6 +9,11 @@ import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -30,10 +31,14 @@ public interface IEntityTargetAction extends IChallengeAction {
   void executeFor(Entity entity, Map<String, String[]> subActions);
 
   static List<Entity> getTargets(Entity triggerTarget, Map<String, String[]> subActions) {
-    if (!subActions.containsKey(SubSettingsHelper.TARGET_ENTITY)) {
+    return getTargets(triggerTarget, subActions, SubSettingsHelper.TARGET_ENTITY);
+  }
+
+  static List<Entity> getTargets(Entity triggerTarget, Map<String, String[]> subActions, String key) {
+    if (!subActions.containsKey(key)) {
       return Lists.newLinkedList();
     }
-    String targetEntity = subActions.get(SubSettingsHelper.TARGET_ENTITY)[0];
+    String targetEntity = subActions.get(key)[0];
 
     switch (targetEntity) {
       case "random_player":

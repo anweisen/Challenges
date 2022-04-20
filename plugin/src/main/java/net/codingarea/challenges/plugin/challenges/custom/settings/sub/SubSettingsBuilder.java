@@ -1,22 +1,19 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub;
 
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.*;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import net.anweisen.utilities.common.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.TextInputSubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
-import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.content.impl.MessageManager;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -24,7 +21,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public abstract class SubSettingsBuilder {
 
-	private final String key;
+	private String key;
 	private SubSettingsBuilder parent;
 	private SubSettingsBuilder child;
 
@@ -103,6 +100,11 @@ public abstract class SubSettingsBuilder {
 			return this;
 		}
 
+	}
+
+	public SubSettingsBuilder setKey(String key) {
+		this.key = key;
+		return this;
 	}
 
 	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {

@@ -86,7 +86,8 @@ public class CustomSettingsLoader {
         new WaterMLGAction("water_mlg"),
         new JumpAndRunAction("jnr"),
         new RandomHotBarAction("random_hotbar"),
-        new ChangeWorldBorderAction("modify_border")
+        new ChangeWorldBorderAction("modify_border"),
+		new SwapRandomMobAction("swap_mobs")
     );
   }
 

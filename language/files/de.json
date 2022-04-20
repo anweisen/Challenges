@@ -1534,6 +1534,11 @@
   "item-custom-action-modify_border-change": [
     "§dVeränderung"
   ],
+  "item-custom-action-swap_mobs": [
+    "§5Mobs tauschen",
+    "Tausche ein Mob mit einem zufälligen",
+    "anderem Mob aus der gleichen Welt"
+  ],
 
 
   "item-custom-setting-target-current": [
@@ -1587,6 +1592,7 @@
   "custom-subsetting-health_offset": "Veränderung",
   "custom-subsetting-length": "Länge",
   "custom-subsetting-amplifier": "Stärke",
-  "custom-subsetting-change": "Veränderung"
+  "custom-subsetting-change": "Veränderung",
+  "custom-subsetting-swap_targets": "Tausch Ziele"
 
 }

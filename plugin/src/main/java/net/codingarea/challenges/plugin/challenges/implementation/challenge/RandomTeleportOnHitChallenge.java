@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.List;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -11,9 +10,13 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -38,14 +41,21 @@ public class RandomTeleportOnHitChallenge extends Setting {
 		if (ignorePlayer(event.getDamager())) return;
 
 		World world = event.getDamager().getWorld();
-		List<LivingEntity> livingEntities = world.getLivingEntities();
+		List<LivingEntity> livingEntities = new ArrayList<>(world.getLivingEntities());
+		livingEntities.removeIf(entity -> entity == event.getDamager() || entity instanceof Player && ignorePlayer((Player) entity));
 		LivingEntity entity = globalRandom.choose(livingEntities);
 
-		entity.setInvisible(true);
-		Location playerLocation = event.getDamager().getLocation();
-		event.getDamager().teleport(entity.getLocation());
-		entity.teleport(playerLocation);
-		entity.setInvisible(false);
+		switchEntityLocations(entity, event.getDamager());
+	}
+
+	public static void switchEntityLocations(LivingEntity entity1, LivingEntity entity2) {
+		entity1.setInvisible(true);
+		entity2.setInvisible(false);
+		Location entity2Location = entity2.getLocation().clone();
+		entity2.teleport(entity1.getLocation());
+		entity1.teleport(entity2Location);
+		entity2.setInvisible(false);
+		entity1.setInvisible(false);
 	}
 
 }
