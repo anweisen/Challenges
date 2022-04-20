@@ -9,6 +9,8 @@ import org.bukkit.entity.Player;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -19,6 +21,18 @@ import java.util.concurrent.ThreadLocalRandom;
 public final class CommandHelper {
 
 	private CommandHelper() {}
+
+	public static List<String> getCompletions(CommandSender sender) {
+		LinkedList<String> list = new LinkedList<>();
+		Player player = sender instanceof Player ? ((Player) sender) : null;
+		Bukkit.getOnlinePlayers().forEach(player1 -> {
+			if (player == null || player.canSee(player1)) {
+				list.add(player1.getName());
+			}
+		});
+		list.addAll(Arrays.asList("@a", "@r", "@p", "@s"));
+		return list;
+	}
 
 	public static List<Player> getPlayers(@Nonnull CommandSender sender, @Nonnull String input) {
 		ArrayList<Player> list = new ArrayList<>();
@@ -35,7 +49,7 @@ public final class CommandHelper {
 			}
 			case "@p": {
 				if (senderLocation != null) {
-					Player nearestPlayer = getNearestPlayer(senderLocation, 500);
+					Player nearestPlayer = getNearestPlayer(senderLocation);
 					if (nearestPlayer != null) list.add(nearestPlayer);
 				}
 				break;
@@ -62,13 +76,21 @@ public final class CommandHelper {
 	}
 
 	@Nullable
-	public static Player getNearestPlayer(@Nonnull Location location, double maxRadius) {
+	public static Player getNearestPlayer(@Nonnull Location location) {
 		if (location.getWorld() == null) return null;
-		return (Player) location.getWorld().getNearbyEntities(location, maxRadius, maxRadius, maxRadius).stream()
-				.filter(entity -> entity instanceof Player)
-				.findFirst()
-				.orElse(null);
+		Player currentPlayer = null;
+		double playersDistance = -1;
 
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (location.getWorld() != player.getWorld()) continue;
+			double distance = location.distance(player.getLocation());
+			if (playersDistance == -1 || distance < playersDistance) {
+				currentPlayer = player;
+				playersDistance = distance;
+			}
+		}
+
+		return currentPlayer;
 	}
 
 }

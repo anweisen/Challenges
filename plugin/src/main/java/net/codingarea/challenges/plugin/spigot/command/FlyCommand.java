@@ -2,10 +2,12 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.CommandHelper;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import java.util.List;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
-public class FlyCommand implements SenderCommand {
+public class FlyCommand implements SenderCommand, Completer {
 
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
@@ -52,6 +54,12 @@ public class FlyCommand implements SenderCommand {
 		if (otherPlayers)
 			Message.forName("command-fly-toggled-others").send(sender, Prefix.CHALLENGES, targets.size());
 
+	}
+
+	@Nullable
+	@Override
+	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
+		return CommandHelper.getCompletions(sender);
 	}
 
 }
