@@ -1,12 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
@@ -30,6 +23,10 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
@@ -44,7 +41,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 		registerSetting("break", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.DIAMOND_PICKAXE, Message.forName("item-all-blocks-disappear-break-challenge")),
 				true
-				));
+		));
 		registerSetting("place", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.DIAMOND_BLOCK, Message.forName("item-all-blocks-disappear-place-challenge"))
 		));

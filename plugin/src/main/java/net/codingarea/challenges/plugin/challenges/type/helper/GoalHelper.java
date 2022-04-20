@@ -1,21 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.SortedMap;
-import java.util.TreeMap;
-import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.BiConsumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.function.ToIntBiFunction;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.collection.NumberFormatter;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -28,6 +12,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.BiConsumer;
+import java.util.function.Function;
+import java.util.function.Supplier;
+import java.util.function.ToIntBiFunction;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
@@ -36,7 +29,8 @@ public final class GoalHelper {
 
 	public static final int LEADERBOARD_SIZE = 9;
 
-	private GoalHelper() {}
+	private GoalHelper() {
+	}
 
 	public static void handleSetEnabled(@Nonnull IGoal goal, boolean enabled) {
 		if (Challenges.getInstance().getChallengeManager().getCurrentGoal() != goal && enabled) {

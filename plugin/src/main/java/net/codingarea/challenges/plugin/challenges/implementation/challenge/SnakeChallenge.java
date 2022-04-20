@@ -71,10 +71,11 @@ public class SnakeChallenge extends Setting {
 		if (!shouldExecuteEffect()) return;
 		if (event.getTo() == null) return;
 		if (event.getFrom().getBlock().equals(event.getTo().getBlock())) return;
-		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE)
+			return;
 
 		Block from = event.getFrom().clone().subtract(0, 1, 0).getBlock();
-		Block to = event.getTo().clone().subtract(0, 0.15,0).getBlock();
+		Block to = event.getTo().clone().subtract(0, 0.15, 0).getBlock();
 
 		if (from.getType().isSolid()) {
 			from.setType(BlockUtils.getTerracotta(getPlayersColor(event.getPlayer())), false);

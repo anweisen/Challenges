@@ -1,14 +1,8 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
-import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
-import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
-import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
-import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
-import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
-import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
+import net.codingarea.challenges.plugin.spigot.events.*;
 import org.bukkit.Bukkit;
 import org.bukkit.Statistic;
 import org.bukkit.entity.Entity;
@@ -23,6 +17,8 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerStatisticIncrementEvent;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

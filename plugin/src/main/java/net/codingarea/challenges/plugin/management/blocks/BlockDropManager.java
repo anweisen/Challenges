@@ -23,7 +23,8 @@ public final class BlockDropManager {
 
 	public static final class DropPriority {
 
-		private DropPriority() {}
+		private DropPriority() {
+		}
 
 		public static final byte
 				CUT_CLEAN = 10,
@@ -55,10 +56,13 @@ public final class BlockDropManager {
 	}
 
 	public static class RegisteredDrops extends RegisteredOptions<List<Material>> {
-		private RegisteredDrops() {}
+		private RegisteredDrops() {
+		}
 	}
+
 	public static class RegisteredChance extends RegisteredOptions<BooleanSupplier> {
-		private RegisteredChance() {}
+		private RegisteredChance() {
+		}
 	}
 
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
@@ -70,7 +74,8 @@ public final class BlockDropManager {
 	public Collection<ItemStack> getDrops(@Nonnull Block block) {
 		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
 		List<Material> customDrops = getCustomDrops(block.getType());
-		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
+		if (!customDrops.isEmpty())
+			return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
 		return block.getDrops();
 	}
 
@@ -78,7 +83,8 @@ public final class BlockDropManager {
 	public Collection<ItemStack> getDrops(@Nonnull Block block, @Nullable ItemStack tool) {
 		if (!getDropChance(block.getType()).getAsBoolean()) return new ArrayList<>();
 		List<Material> customDrops = getCustomDrops(block.getType());
-		if (!customDrops.isEmpty()) return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
+		if (!customDrops.isEmpty())
+			return customDrops.stream().map(ItemStack::new).collect(Collectors.toList());
 		return block.getDrops(tool);
 	}
 
@@ -158,7 +164,8 @@ public final class BlockDropManager {
 	}
 
 	public boolean isItemsDirectIntoInventory() {
-		if (directInventorySetting == null) directInventorySetting = AbstractChallenge.getFirstInstance(CutCleanSetting.class).getSetting("items->inventory");
+		if (directInventorySetting == null)
+			directInventorySetting = AbstractChallenge.getFirstInstance(CutCleanSetting.class).getSetting("items->inventory");
 		return directInventorySetting.isEnabled();
 	}
 

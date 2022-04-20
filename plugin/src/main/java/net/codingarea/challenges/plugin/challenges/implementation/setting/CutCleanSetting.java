@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
@@ -29,6 +24,12 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
+import java.util.function.Supplier;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -41,16 +42,16 @@ public class CutCleanSetting extends MenuSetting {
 		super(MenuType.SETTINGS, "CutClean");
 		registerSetting("iron->iron_ingot",
 				new ConvertDropSubSetting(() -> new ItemBuilder(Material.IRON_INGOT, Message.forName("item-cut-clean-iron-setting")), true,
-				Material.IRON_INGOT, "IRON_ORE", "DEEPSLATE_IRON_ORE"));
+						Material.IRON_INGOT, "IRON_ORE", "DEEPSLATE_IRON_ORE"));
 		registerSetting("gold->gold_ingot",
 				new ConvertDropSubSetting(() -> new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-cut-clean-gold-setting")), true,
-				Material.GOLD_INGOT, "GOLD_ORE", "DEEPSLATE_GOLD_ORE"));
+						Material.GOLD_INGOT, "GOLD_ORE", "DEEPSLATE_GOLD_ORE"));
 		registerSetting("coal->torch",
 				new ConvertDropSubSetting(() -> new ItemBuilder(Material.COAL, Message.forName("item-cut-clean-coal-setting")), false,
-				Material.TORCH, "COAL_ORE", "DEEPSLATE_COAL_ORE"));
+						Material.TORCH, "COAL_ORE", "DEEPSLATE_COAL_ORE"));
 		registerSetting("gravel->flint",
 				new ConvertDropSubSetting(() -> new ItemBuilder(Material.FLINT, Message.forName("item-cut-clean-flint-setting")), false,
-				Material.FLINT, "GRAVEL"));
+						Material.FLINT, "GRAVEL"));
 		registerSetting("ore->veins",
 				new BreakOreVeinsSubSetting(() -> new ItemBuilder(Material.GOLDEN_PICKAXE, Message.forName("item-cut-clean-vein-setting")), 1, 10));
 		registerSetting("items->inventory",
@@ -89,7 +90,7 @@ public class CutCleanSetting extends MenuSetting {
 		protected final Material to;
 
 		public ConvertDropSubSetting(@Nonnull Supplier<ItemBuilder> item, boolean enabledByDefault,
-				@Nonnull Material to, @Nonnull String... from) {
+									 @Nonnull Material to, @Nonnull String... from) {
 			super(item, enabledByDefault);
 
 			List<Material> materials = new ArrayList<>();
@@ -197,7 +198,7 @@ public class CutCleanSetting extends MenuSetting {
 
 					index.getAndIncrement();
 				}
-			},0, 2);
+			}, 0, 2);
 
 		}
 

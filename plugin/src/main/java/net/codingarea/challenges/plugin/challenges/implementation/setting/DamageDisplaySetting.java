@@ -35,7 +35,8 @@ public class DamageDisplaySetting extends Setting {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onDamage(@Nonnull EntityDamageEvent event) {
-		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled()) return;
+		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled())
+			return;
 		if (!(event.getEntity() instanceof Player)) return;
 		if (ChallengeHelper.finalDamageIsNull(event)) return;
 

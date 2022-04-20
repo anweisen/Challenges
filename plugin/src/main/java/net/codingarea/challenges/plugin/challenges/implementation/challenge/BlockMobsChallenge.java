@@ -1,9 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import com.google.common.collect.Lists;
-import java.util.Collection;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.database.EmptyDatabase.EmptyDatabaseQuery;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -22,6 +19,8 @@ import org.bukkit.inventory.EntityEquipment;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Collection;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

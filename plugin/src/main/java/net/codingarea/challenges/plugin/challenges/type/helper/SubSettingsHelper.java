@@ -90,7 +90,7 @@ public class SubSettingsHelper {
 
 		if (!onlyPlayer) {
 			builder.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
-							Message.forName("item-custom-setting-target-current")));
+					Message.forName("item-custom-setting-target-current")));
 		}
 
 		builder.addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD,
@@ -112,7 +112,7 @@ public class SubSettingsHelper {
 	}
 
 	public static SubSettingsBuilder createPotionSettingsBuilder(boolean potionType,
-			boolean potionTime) {
+																 boolean potionTime) {
 
 		SubSettingsBuilder potionSettings = SubSettingsBuilder.createValueItem().fill(builder -> {
 

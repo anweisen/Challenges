@@ -99,12 +99,12 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	private int getRarity(@Nonnull Biome biome) {
 		Object[][] mapping = {
-			{ "BADLANDS", 5 },
-			{ "JUNGLE", 4 },
-			{ "BAMBOO", 4 },
-			{ "MODIFIED", 3 },
-			{ "TALL", 3 },
-			{ "SWAMP", 2 },
+				{"BADLANDS", 5},
+				{"JUNGLE", 4},
+				{"BAMBOO", 4},
+				{"MODIFIED", 3},
+				{"TALL", 3},
+				{"SWAMP", 2},
 		};
 
 		for (Object[] pair : mapping) {

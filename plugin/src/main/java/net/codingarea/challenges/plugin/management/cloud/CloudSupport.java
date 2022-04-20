@@ -22,7 +22,7 @@ public interface CloudSupport {
 	void setIngame();
 
 	void setLobby();
-	
+
 	void startNewService();
 
 }

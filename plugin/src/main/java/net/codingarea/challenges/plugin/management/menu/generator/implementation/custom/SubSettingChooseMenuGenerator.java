@@ -1,10 +1,11 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import java.util.LinkedHashMap;
 import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.LinkedHashMap;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -25,7 +26,7 @@ public class SubSettingChooseMenuGenerator extends ChooseItemGenerator {
 
 	@Override
 	public String[] getSubTitles(int page) {
-		return new String[]{ title };
+		return new String[]{title};
 	}
 
 	@Override

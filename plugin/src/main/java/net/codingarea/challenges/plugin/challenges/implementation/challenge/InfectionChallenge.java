@@ -68,11 +68,11 @@ public class InfectionChallenge extends Setting {
 		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 15));
 		if (value == 1) {
 			if (!player.hasPotionEffect(PotionEffectType.WITHER)) {
-				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5*20, 2));
+				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5 * 20, 2));
 			}
 		} else {
 			player.removePotionEffect(PotionEffectType.POISON);
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 5*20, 4));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 5 * 20, 4));
 		}
 
 	}

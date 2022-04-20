@@ -1,8 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import java.util.Map;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
@@ -10,6 +8,9 @@ import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

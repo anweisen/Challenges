@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
-import java.util.List;
-import java.util.Map;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -11,6 +9,9 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

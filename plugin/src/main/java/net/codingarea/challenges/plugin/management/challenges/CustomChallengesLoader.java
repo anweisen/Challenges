@@ -1,11 +1,5 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
@@ -18,6 +12,9 @@ import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuG
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

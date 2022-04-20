@@ -64,7 +64,7 @@ public class TimberSetting extends SettingModifier {
 		List<Block> treeBlocks = getAllTreeBlocks(event.getBlock(), getValue() == LOGS_LEAVES);
 		ItemStack item = event.getPlayer().getInventory().getItemInMainHand();
 
-		final int[] index = { 0 };
+		final int[] index = {0};
 
 		Bukkit.getScheduler().runTaskTimer(plugin, timer -> {
 			for (int i = 0; i < 2 && !treeBlocks.isEmpty(); i++) {
@@ -132,8 +132,10 @@ public class TimberSetting extends SettingModifier {
 
 	public boolean isLeaveMaterial(@Nonnull Material logMaterial, @Nonnull Material leaveMaterial) {
 		// Exceptions like nether wood
-		if (logMaterial.name().equals("CRIMSON_STEM")) return leaveMaterial.name().equals("NETHER_WART_BLOCK") || leaveMaterial.name().equals("SHROOMLIGHT");
-		if (logMaterial.name().equals("WARPED_STEM")) return leaveMaterial.name().equals("WARPED_WART_BLOCK") || leaveMaterial.name().equals("SHROOMLIGHT");
+		if (logMaterial.name().equals("CRIMSON_STEM"))
+			return leaveMaterial.name().equals("NETHER_WART_BLOCK") || leaveMaterial.name().equals("SHROOMLIGHT");
+		if (logMaterial.name().equals("WARPED_STEM"))
+			return leaveMaterial.name().equals("WARPED_WART_BLOCK") || leaveMaterial.name().equals("SHROOMLIGHT");
 
 		int firstUnderscore = logMaterial.name().indexOf("_");
 		if (firstUnderscore == -1) return false;

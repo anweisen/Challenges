@@ -17,14 +17,14 @@ import org.jetbrains.annotations.NotNull;
 @Since("2.1.0")
 public class MinHeightGoal extends FirstPlayerAtHeightGoal {
 
-  public MinHeightGoal() {
-    setHeightToGetTo(BukkitReflectionUtils.getMinHeight(ChallengeAPI.getGameWorld(Environment.NORMAL)) + 1);
-  }
+	public MinHeightGoal() {
+		setHeightToGetTo(BukkitReflectionUtils.getMinHeight(ChallengeAPI.getGameWorld(Environment.NORMAL)) + 1);
+	}
 
-  @NotNull
-  @Override
-  public ItemBuilder createDisplayItem() {
-    return new ItemBuilder(Material.BEDROCK, Message.forName("item-min-height-goal").asItemDescription(getHeightToGetTo()));
-  }
+	@NotNull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.BEDROCK, Message.forName("item-min-height-goal").asItemDescription(getHeightToGetTo()));
+	}
 
 }

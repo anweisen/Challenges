@@ -34,13 +34,13 @@ import java.util.List;
  */
 public class TimerMenuGenerator extends MenuGenerator {
 
-	public static final int SIZE = 5*9;
-	public static final int[] NAVIGATION_SLOTS = { 36, 44 };
+	public static final int SIZE = 5 * 9;
+	public static final int[] NAVIGATION_SLOTS = {36, 44};
 	public static final int START_SLOT = 21;
 	public static final int MODE_SLOT = 23;
-	public static final int[] HOUR_SLOTS = { 11, 20, 29 };
-	public static final int[] MINUTE_SLOTS = { 13, 22, 31 };
-	public static final int[] SECOND_SLOTS = { 15, 24, 33 };
+	public static final int[] HOUR_SLOTS = {11, 20, 29};
+	public static final int[] MINUTE_SLOTS = {13, 22, 31};
+	public static final int[] SECOND_SLOTS = {15, 24, 33};
 
 	private final List<Inventory> inventories = new ArrayList<>();
 
@@ -48,7 +48,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 		ChallengeAPI.registerScheduler(this);
 	}
 
-	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
+	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING})
 	public void updateInventories() {
 		updateFirstPage();
 		updateSecondPage();
@@ -66,7 +66,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 
 	@ScheduledTask(ticks = 20)
 	public void updateSecondPage() {
-		setTimeNavigation(HOUR_SLOTS, Message.forName("hour"),Message.forName("hours"));
+		setTimeNavigation(HOUR_SLOTS, Message.forName("hour"), Message.forName("hours"));
 		setTimeNavigation(MINUTE_SLOTS, Message.forName("minute"), Message.forName("minutes"));
 		setTimeNavigation(SECOND_SLOTS, Message.forName("second"), Message.forName("seconds"));
 
@@ -77,10 +77,11 @@ public class TimerMenuGenerator extends MenuGenerator {
 		minutes %= 60;
 
 		Inventory inventory = inventories.get(1);
-		inventory.setItem(HOUR_SLOTS[1], getTimeItem(hours, Message.forName("hour"),Message.forName("hours")));
+		inventory.setItem(HOUR_SLOTS[1], getTimeItem(hours, Message.forName("hour"), Message.forName("hours")));
 		inventory.setItem(MINUTE_SLOTS[1], getTimeItem(minutes, Message.forName("minute"), Message.forName("minutes")));
 		inventory.setItem(SECOND_SLOTS[1], getTimeItem(seconds, Message.forName("second"), Message.forName("seconds")));
 	}
+
 	private void setTimeNavigation(@Nonnull int[] slots, @Nonnull Message singular, @Nonnull Message plural) {
 		Inventory inventory = inventories.get(1);
 		inventory.setItem(slots[0], getNavigationItem(true, singular, plural));
@@ -111,7 +112,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 	private Inventory createNewInventory(int page) {
 		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SIZE, InventoryTitleManager.getTitle(MenuType.TIMER, page));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
-		for (int i : new int[] { 1, 2, 6, 7, 9, 10, 16, 17, 27, 28, 34, 35, 37, 38, 39, 41, 42, 43 }) {
+		for (int i : new int[]{1, 2, 6, 7, 9, 10, 16, 17, 27, 28, 34, 35, 37, 38, 39, 41, 42, 43}) {
 			inventory.setItem(i, ItemBuilder.FILL_ITEM_2);
 		}
 		inventories.add(inventory);
@@ -163,7 +164,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 					return;
 				}
 			} else if (page == 1) {
-				for (int[] slots : new int[][] { HOUR_SLOTS, MINUTE_SLOTS, SECOND_SLOTS }) {
+				for (int[] slots : new int[][]{HOUR_SLOTS, MINUTE_SLOTS, SECOND_SLOTS}) {
 					for (int i = 0; i < 3; i++) {
 
 						if (info.getSlot() != slots[i]) continue;
@@ -177,7 +178,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 							return;
 						}
 
-						int amount = (slots == HOUR_SLOTS ? 60*60 : (slots == MINUTE_SLOTS ? 60 : 1));
+						int amount = (slots == HOUR_SLOTS ? 60 * 60 : (slots == MINUTE_SLOTS ? 60 : 1));
 						if (info.isShiftClick()) amount *= 10;
 
 						boolean plus = i == 0;

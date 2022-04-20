@@ -11,10 +11,10 @@ import java.util.function.BiPredicate;
  */
 public enum PlayerCountPolicy implements IPolicy {
 
-	ALWAYS  ((online, max) -> true),
-	EMPTY   ((online, max) -> online == 0),
+	ALWAYS((online, max) -> true),
+	EMPTY((online, max) -> online == 0),
 	SOMEONE((online, max) -> online > 0),
-	FULL    ((online, max) -> online.equals(max));
+	FULL((online, max) -> online.equals(max));
 
 	private final BiPredicate<Integer, Integer> check;
 

@@ -4,10 +4,10 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.TimerMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainCustomMenuGenerator;
+import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
 import java.util.function.Consumer;
-import org.bukkit.Material;
 
 /**
  * @author anweisen | https://github.com/anweisen

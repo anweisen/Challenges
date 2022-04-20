@@ -1,12 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
@@ -30,6 +23,14 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.BiConsumer;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -43,7 +44,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	private final List<Chunk> floodedChunks = new ArrayList<>();
 
 	private int waterHeight = Integer.MAX_VALUE,
-				lavaHeight = 0;
+			lavaHeight = 0;
 
 	public TsunamiChallenge() {
 		super(MenuType.CHALLENGES, 1, 40, 4);
@@ -135,7 +136,7 @@ public class TsunamiChallenge extends TimedChallenge {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	private void onPlayerMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer()))  return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo() == null) return;
 
 		Chunk newChunk = event.getTo().getChunk();
@@ -148,7 +149,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onTeleport(@Nonnull PlayerTeleportEvent event) {
-		if (ignorePlayer(event.getPlayer()))  return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (!shouldExecuteEffect()) return;
 		if (event.getTo() == null) return;
 
@@ -184,7 +185,7 @@ public class TsunamiChallenge extends TimedChallenge {
 		Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
 			for (int x = 0; x < 16; x++) {
 				for (int z = 0; z < 16; z++) {
-					for (int y = startAt+1; y <= height; y++) {
+					for (int y = startAt + 1; y <= height; y++) {
 						List<Block> blocks = blocksByDelay.computeIfAbsent(0, key -> new ArrayList<>(16));
 						Block block = chunk.getBlock(x, y, z);
 						Material type = block.getType();

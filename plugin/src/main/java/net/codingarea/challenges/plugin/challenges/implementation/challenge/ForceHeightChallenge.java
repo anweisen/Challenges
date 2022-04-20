@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
@@ -19,6 +16,10 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen

@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -13,6 +10,10 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

@@ -20,7 +20,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class CommandHelper {
 
-	private CommandHelper() {}
+	private CommandHelper() {
+	}
 
 	public static List<String> getCompletions(CommandSender sender) {
 		LinkedList<String> list = new LinkedList<>();
@@ -71,7 +72,8 @@ public final class CommandHelper {
 	@Nullable
 	public static Location getSenderLocation(@Nonnull CommandSender sender) {
 		if (sender instanceof Player) return ((Player) sender).getLocation();
-		if (sender instanceof BlockCommandSender) return ((BlockCommandSender) sender).getBlock().getLocation();
+		if (sender instanceof BlockCommandSender)
+			return ((BlockCommandSender) sender).getBlock().getLocation();
 		return null;
 	}
 

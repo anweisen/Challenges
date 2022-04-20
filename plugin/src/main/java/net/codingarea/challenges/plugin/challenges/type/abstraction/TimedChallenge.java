@@ -1,13 +1,14 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import org.bukkit.Bukkit;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -100,7 +101,8 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	public final void shortCountDownTo(@Nonnegative int seconds) {
 		if (!timerStatus) throw new IllegalArgumentException("Countdown is not started");
-		if (seconds > originalSecondsUntilActivation) throw new IllegalArgumentException("Cannot short countdown to a higher length than originally set");
+		if (seconds > originalSecondsUntilActivation)
+			throw new IllegalArgumentException("Cannot short countdown to a higher length than originally set");
 		this.secondsUntilActivation = seconds;
 	}
 

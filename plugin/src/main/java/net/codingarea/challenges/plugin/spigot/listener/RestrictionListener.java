@@ -125,7 +125,7 @@ public class RestrictionListener implements Listener {
 
 	@EventHandler(priority = EventPriority.LOW)
 	public void onDamage(@Nonnull VehicleDestroyEvent event) {
-		if (ChallengeAPI.isPaused() && !(event.getAttacker() instanceof Player && ((Player)event.getAttacker()).getGameMode() == GameMode.CREATIVE))
+		if (ChallengeAPI.isPaused() && !(event.getAttacker() instanceof Player && ((Player) event.getAttacker()).getGameMode() == GameMode.CREATIVE))
 			event.setCancelled(true);
 	}
 

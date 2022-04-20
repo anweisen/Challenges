@@ -1,15 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.Function;
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -29,6 +19,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.*;
+import java.util.Map.Entry;
+import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -99,11 +96,16 @@ public abstract class MenuSetting extends Setting {
 	@Nonnull
 	public static int[] getSlots(int amount) {
 		switch (amount) {
-			default: return new int[0];
-			case 1: return new int[] { 13 };
-			case 2: return new int[] { 12, 14 };
-			case 3: return new int[] { 11, 13, 15 };
-			case 4: return new int[] { 10, 12, 14, 16 };
+			default:
+				return new int[0];
+			case 1:
+				return new int[]{13};
+			case 2:
+				return new int[]{12, 14};
+			case 3:
+				return new int[]{11, 13, 15};
+			case 4:
+				return new int[]{10, 12, 14, 16};
 		}
 	}
 
@@ -186,6 +188,7 @@ public abstract class MenuSetting extends Setting {
 		private void setPage(int page) {
 			this.page = page;
 		}
+
 		private void setSlot(int slot) {
 			this.slot = slot;
 		}
@@ -226,11 +229,13 @@ public abstract class MenuSetting extends Setting {
 		}
 
 		public abstract int getAsInt();
+
 		public abstract boolean getAsBoolean();
 
 		public abstract void restoreDefaults();
 
 		public abstract void loadSettings(@Nonnull Document document);
+
 		public abstract void writeSettings(@Nonnull Document document);
 
 		public abstract void handleClick(@Nonnull ChallengeMenuClickInfo info);

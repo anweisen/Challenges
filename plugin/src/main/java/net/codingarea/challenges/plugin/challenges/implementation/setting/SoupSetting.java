@@ -35,7 +35,8 @@ public class SoupSetting extends Setting {
 	@EventHandler
 	public void onInteract(PlayerInteractEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
+		if (event.getAction() != Action.RIGHT_CLICK_AIR && event.getAction() != Action.RIGHT_CLICK_BLOCK)
+			return;
 		if (event.getItem() == null) return;
 		if (event.getItem().getType() != Material.MUSHROOM_STEW) return;
 

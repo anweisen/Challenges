@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
-import java.util.Map;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -8,6 +7,8 @@ import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
+
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

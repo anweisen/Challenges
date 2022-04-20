@@ -39,8 +39,8 @@ public class EnderGamesChallenge extends TimedChallenge {
 	}
 
 	@Nullable
-    @Override
-    protected String[] getSettingsDescription() {
+	@Override
+	protected String[] getSettingsDescription() {
 		return Message.forName("item-time-seconds-range-description").asArray(getValue() * 60 - 20, getValue() * 60 + 20);
 	}
 

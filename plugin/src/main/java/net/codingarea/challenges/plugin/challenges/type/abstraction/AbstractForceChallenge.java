@@ -15,7 +15,7 @@ import java.util.function.BiConsumer;
 public abstract class AbstractForceChallenge extends TimedChallenge {
 
 	public static final int WAITING = 0,
-							COUNTDOWN = 1;
+			COUNTDOWN = 1;
 
 	private int state = WAITING;
 
@@ -79,6 +79,7 @@ public abstract class AbstractForceChallenge extends TimedChallenge {
 	}
 
 	protected abstract void chooseForcing();
+
 	protected abstract int getForcingTime();
 
 	@Nonnull

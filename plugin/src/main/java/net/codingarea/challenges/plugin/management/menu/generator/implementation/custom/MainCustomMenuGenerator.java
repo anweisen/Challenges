@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.Challenges;
@@ -16,16 +15,17 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.Inventory;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
- *
  */
 public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 
-	public static final int[] SLOTS = { 10, 11, 12, 13, 14, 15, 16 };
-	public static final int[] NAVIGATION_SLOTS = { 36, 44 };
-	public static final int SIZE = 5*9;
+	public static final int[] SLOTS = {10, 11, 12, 13, 14, 15, 16};
+	public static final int[] NAVIGATION_SLOTS = {36, 44};
+	public static final int SIZE = 5 * 9;
 	private static final int VIEW_SLOT = 21;
 	private static final int CREATE_SLOT = 23;
 

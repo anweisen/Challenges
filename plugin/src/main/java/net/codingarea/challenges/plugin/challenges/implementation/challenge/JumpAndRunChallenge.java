@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
@@ -85,7 +84,9 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 				Message.forName("jnr-countdown-one").broadcast(Prefix.CHALLENGES);
 				SoundSample.BASS_OFF.broadcast();
 				break;
-			case 2: case 3: case 5:
+			case 2:
+			case 3:
+			case 5:
 				Message.forName("jnr-countdown").broadcast(Prefix.CHALLENGES, getSecondsLeftUntilNextActivation());
 				SoundSample.BASS_OFF.broadcast();
 				break;
@@ -139,13 +140,13 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		if (currentJump == jumps - 1) return Material.EMERALD_BLOCK;
 
 		Material[] materials = {
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.END_ROD,
-			Material.COBBLESTONE_WALL,
-			Material.SPRUCE_FENCE
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.END_ROD,
+				Material.COBBLESTONE_WALL,
+				Material.SPRUCE_FENCE
 		};
 		return globalRandom.choose(materials);
 	}

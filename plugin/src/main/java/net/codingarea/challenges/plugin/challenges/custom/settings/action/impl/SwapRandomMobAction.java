@@ -46,7 +46,7 @@ public class SwapRandomMobAction extends ChallengeAction {
 				if (!(target instanceof LivingEntity)) continue;
 				if (target.getWorld() == world) {
 					int i = targets.indexOf(target);
-					int targetIndex = i+1;
+					int targetIndex = i + 1;
 					if (targetIndex >= swapTargets.size()) targetIndex = 0;
 					LivingEntity teleportTarget = (LivingEntity) swapTargets.remove(targetIndex);
 					RandomTeleportOnHitChallenge.switchEntityLocations(teleportTarget, (LivingEntity) target);

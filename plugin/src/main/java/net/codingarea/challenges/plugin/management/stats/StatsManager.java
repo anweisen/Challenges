@@ -68,7 +68,7 @@ public final class StatsManager implements Listener {
 		}
 	}
 
-	private void store(@Nonnull UUID uuid, @Nonnull PlayerStats stats)  {
+	private void store(@Nonnull UUID uuid, @Nonnull PlayerStats stats) {
 		try {
 			Challenges.getInstance().getDatabaseManager().getDatabase()
 					.insertOrUpdate("challenges")
@@ -117,7 +117,7 @@ public final class StatsManager implements Listener {
 
 	@Nonnull
 	private List<PlayerStats> getAllStats() throws DatabaseException {
-		if (cachedLeaderboard != null && System.currentTimeMillis() - leaderboardCacheTimestamp < 3*60*1000) {
+		if (cachedLeaderboard != null && System.currentTimeMillis() - leaderboardCacheTimestamp < 3 * 60 * 1000) {
 			return cachedLeaderboard;
 		}
 

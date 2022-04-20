@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.OneTeamLifeSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.WorldDependentChallenge;
@@ -19,6 +16,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerBucketEmptyEvent;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -66,7 +66,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
 			teleportBack();
 			restartTimer();
-		}, 10*20);
+		}, 10 * 20);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

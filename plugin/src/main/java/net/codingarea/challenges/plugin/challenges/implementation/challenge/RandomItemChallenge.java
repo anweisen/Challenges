@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomItemAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
@@ -11,6 +9,9 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
@@ -19,7 +20,7 @@ import org.bukkit.Material;
 public class RandomItemChallenge extends TimedChallenge {
 
 	public RandomItemChallenge() {
-		super(MenuType.CHALLENGES, 1,60, 30, false);
+		super(MenuType.CHALLENGES, 1, 60, 30, false);
 	}
 
 	@Nonnull

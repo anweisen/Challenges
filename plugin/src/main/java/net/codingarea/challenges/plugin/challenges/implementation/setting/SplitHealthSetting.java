@@ -82,7 +82,7 @@ public class SplitHealthSetting extends Setting {
 		}
 		if (player == null) return;
 		setHealth(player, null);
- 	}
+	}
 
 	public void setHealth(@Nonnull Player player, @Nullable EntityDamageEvent damageEvent) {
 		if (!shouldExecuteEffect()) return;
@@ -98,9 +98,9 @@ public class SplitHealthSetting extends Setting {
 				health = attribute.getValue();
 			}
 
- 			if (health <= 0 && damageEvent != null) {
- 				currentPlayer.setLastDamageCause(damageEvent);
-		    }
+			if (health <= 0 && damageEvent != null) {
+				currentPlayer.setLastDamageCause(damageEvent);
+			}
 
 			currentPlayer.setHealth(health);
 		}

@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import java.net.URL;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import java.net.URL;
 
 /**
  * @author anweisen | https://github.com/anweisen

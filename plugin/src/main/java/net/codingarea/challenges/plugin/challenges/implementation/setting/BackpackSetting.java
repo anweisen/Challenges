@@ -31,7 +31,7 @@ import java.util.UUID;
 public class BackpackSetting extends SettingModifier implements PlayerCommand {
 
 	public static final int SHARED = 1,
-							PLAYER = 2;
+			PLAYER = 2;
 
 	private final int size;
 	private final Map<UUID, Inventory> backpacks = new HashMap<>();
@@ -39,7 +39,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 
 	public BackpackSetting() {
 		super(MenuType.SETTINGS, 1, 2, SHARED);
-		size = Math.max(Math.min(ChallengeConfigHelper.getSettingsDocument().getInt("backpack-size") * 9, 6*9), 9);
+		size = Math.max(Math.min(ChallengeConfigHelper.getSettingsDocument().getInt("backpack-size") * 9, 6 * 9), 9);
 		sharedBackpack = createInventory("§5Team Backpack");
 	}
 

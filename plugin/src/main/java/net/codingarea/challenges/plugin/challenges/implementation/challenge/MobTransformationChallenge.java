@@ -55,7 +55,8 @@ public class MobTransformationChallenge extends Setting {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onEntityDamageByPlayer(@Nonnull EntityDamageByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getEntity() instanceof Player || !(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof EnderDragon) return;
+		if (event.getEntity() instanceof Player || !(event.getEntity() instanceof LivingEntity) || event.getEntity() instanceof EnderDragon)
+			return;
 
 		Player player = event.getDamager();
 		if (ignorePlayer(player)) return;

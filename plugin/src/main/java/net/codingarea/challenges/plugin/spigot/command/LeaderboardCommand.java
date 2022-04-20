@@ -31,10 +31,11 @@ import java.util.List;
 public class LeaderboardCommand implements PlayerCommand {
 
 	protected static final int[] slots = StatsHelper.getSlots(1);
-	protected static final int[] navigationSlots = { 45, 53 };
+	protected static final int[] navigationSlots = {45, 53};
 	protected static final AnimatedInventory loadingInventory;
+
 	static {
-		loadingInventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 6*9, MenuPosition.HOLDER).setEndSound(null).setFrameSound(null);
+		loadingInventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 6 * 9, MenuPosition.HOLDER).setEndSound(null).setFrameSound(null);
 		loadingInventory.createAndAdd().fill(ItemBuilder.FILL_ITEM).setItem(31, new ItemBuilder(Material.BARRIER, "§8» §cLoading.."));
 	}
 
@@ -56,7 +57,7 @@ public class LeaderboardCommand implements PlayerCommand {
 	@Nonnull
 	@CheckReturnValue
 	public AnimatedInventory createInventory(@Nonnull Player player) {
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 4*9, MenuPosition.HOLDER);
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(), 4 * 9, MenuPosition.HOLDER);
 		StatsHelper.setAccent(inventory, 2);
 		SlottedMenuPosition position = new SlottedMenuPosition();
 		for (int i = 0; i < Statistic.values().length; i++) {
@@ -79,14 +80,14 @@ public class LeaderboardCommand implements PlayerCommand {
 	private void openMenu0(@Nonnull Player player, @Nonnull Statistic statistic, int page, boolean openInstant) {
 
 		int[] slots = {
-			10, 11, 12, 13, 14, 15, 16,
-			19, 20, 21, 22, 23, 24, 25,
-			28, 29, 30, 31, 32, 33, 34,
-			37, 38, 39, 40, 41, 42, 43
+				10, 11, 12, 13, 14, 15, 16,
+				19, 20, 21, 22, 23, 24, 25,
+				28, 29, 30, 31, 32, 33, 34,
+				37, 38, 39, 40, 41, 42, 43
 		};
 
 		String statisticName = StatsHelper.getNameMessage(statistic).asString();
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(ChatColor.stripColor(statisticName), page + 1), 6*9, MenuPosition.HOLDER);
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getLeaderboardTitle(ChatColor.stripColor(statisticName), page + 1), 6 * 9, MenuPosition.HOLDER);
 		inventory.createAndAdd().fill(ItemBuilder.FILL_ITEM);
 
 		List<PlayerStats> leaderboard = Challenges.getInstance().getStatsManager().getLeaderboard(statistic);

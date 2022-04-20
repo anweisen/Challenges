@@ -39,7 +39,7 @@ public class VillageCommand implements PlayerCommand {
 				player.teleport(finalVillage);
 				SoundSample.TELEPORT.play(player);
 				Message.forName("command-village-teleport").send(player, Prefix.CHALLENGES);
-			}, 20 /* run after 1 second to give the chunks/world time to load/generate */ );
+			}, 20 /* run after 1 second to give the chunks/world time to load/generate */);
 
 		});
 

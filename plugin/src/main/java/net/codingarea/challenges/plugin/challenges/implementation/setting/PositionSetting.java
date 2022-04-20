@@ -1,15 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -24,13 +14,8 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.Bukkit;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
+import org.bukkit.*;
 import org.bukkit.Particle.DustOptions;
-import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -38,6 +23,10 @@ import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -80,9 +69,9 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 					.sorted(Comparator.<Entry<String, Location>>comparingDouble(entry -> entry.getValue().distance(player.getLocation())).reversed())
 					.forEach(entry -> {
 
-				Location location = entry.getValue();
-				Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), entry.getKey(), (int) location.distance(player.getLocation()));
-			});
+						Location location = entry.getValue();
+						Message.forName("position").send(player, Prefix.POSITION, location.getBlockX(), location.getBlockY(), location.getBlockZ(), getWorldName(location), entry.getKey(), (int) location.distance(player.getLocation()));
+					});
 		} else if (args.length == 1) {
 			String name = args[0].toLowerCase();
 			Location position = positions.get(name);
@@ -92,7 +81,7 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 					SoundSample.BASS_OFF.play(player);
 					return;
 				}
-				 Message.forName("position").send(player, Prefix.POSITION, position.getBlockX(), position.getBlockY(), position.getBlockZ(), getWorldName(position), name, (int) position.distance(player.getLocation()));
+				Message.forName("position").send(player, Prefix.POSITION, position.getBlockX(), position.getBlockY(), position.getBlockZ(), getWorldName(position), name, (int) position.distance(player.getLocation()));
 				playParticleLine(player, position);
 			} else if (ChallengeAPI.isPaused()) {
 				Message.forName("timer-not-started").send(player, Prefix.POSITION);
@@ -119,9 +108,12 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 	public String getWorldName(@Nonnull Location location) {
 		if (location.getWorld() == null) return "?";
 		switch (location.getWorld().getEnvironment()) {
-			default:        return "Overworld";
-			case NETHER:    return "Nether";
-			case THE_END:   return "End";
+			default:
+				return "Overworld";
+			case NETHER:
+				return "Nether";
+			case THE_END:
+				return "End";
 		}
 	}
 
@@ -308,10 +300,14 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 
 	public static Environment getWorldEnvironment(@Nonnull String name) {
 		switch (name.toLowerCase()) {
-			default: return null;
-			case "overworld": return Environment.NORMAL;
-			case "nether": return Environment.NETHER;
-			case "end": return Environment.THE_END;
+			default:
+				return null;
+			case "overworld":
+				return Environment.NORMAL;
+			case "nether":
+				return Environment.NETHER;
+			case "end":
+				return Environment.THE_END;
 		}
 	}
 

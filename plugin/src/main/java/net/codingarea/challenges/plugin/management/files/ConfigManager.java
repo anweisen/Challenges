@@ -1,14 +1,5 @@
 package net.codingarea.challenges.plugin.management.files;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.LinkedList;
-import java.util.List;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -18,6 +9,12 @@ import net.anweisen.utilities.common.misc.FileUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.io.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -35,10 +32,10 @@ public final class ConfigManager {
 	}
 
 	public void loadConfigs() {
-		sessionConfig   = load("internal/session.json");
+		sessionConfig = load("internal/session.json");
 		gamestateConfig = load("internal/gamestate.json");
-		settingsConfig  = load("internal/settings.json");
-		customChallengesConfig  = load("internal/custom_challenges.json");
+		settingsConfig = load("internal/settings.json");
+		customChallengesConfig = load("internal/custom_challenges.json");
 
 		Challenges plugin = Challenges.getInstance();
 		Document config = plugin.getConfigDocument();

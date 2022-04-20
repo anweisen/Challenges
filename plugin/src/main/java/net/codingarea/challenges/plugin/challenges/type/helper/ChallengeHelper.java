@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
-import java.util.List;
-import java.util.stream.Collectors;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -32,6 +27,12 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageModifier;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.List;
+import java.util.stream.Collectors;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -41,7 +42,8 @@ public final class ChallengeHelper {
 
 	private static boolean inInstantKill = false;
 
-	private ChallengeHelper() {}
+	private ChallengeHelper() {
+	}
 
 	public static void kill(@Nonnull Player player) {
 
@@ -152,7 +154,8 @@ public final class ChallengeHelper {
 
 	public static Player getDamagerPlayer(@Nonnull Entity damager) {
 		if (damager instanceof Player) return ((Player) damager);
-		if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player) return ((Player) ((Projectile) damager).getShooter());
+		if (damager instanceof Projectile && ((Projectile) damager).getShooter() instanceof Player)
+			return ((Player) ((Projectile) damager).getShooter());
 		return null;
 	}
 

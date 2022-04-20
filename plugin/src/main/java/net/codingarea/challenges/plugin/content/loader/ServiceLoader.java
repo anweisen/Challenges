@@ -1,18 +1,19 @@
 package net.codingarea.challenges.plugin.content.loader;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.net.Inet4Address;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import javax.net.ssl.HttpsURLConnection;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IOUtils;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import org.bukkit.Bukkit;
+
+import javax.net.ssl.HttpsURLConnection;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.net.Inet4Address;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -41,8 +42,8 @@ public final class ServiceLoader extends ContentLoader {
 
 			String request = Document.create()
 					.set("address", Document.create()
-						.set("ip", Inet4Address.getLocalHost().getHostAddress())
-						.set("port", Bukkit.getPort())
+							.set("ip", Inet4Address.getLocalHost().getHostAddress())
+							.set("port", Bukkit.getPort())
 					).toString();
 
 			try (OutputStream output = connection.getOutputStream()) {

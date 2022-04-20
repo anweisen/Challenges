@@ -192,7 +192,8 @@ public class AnvilRainChallenge extends MenuSetting {
 		int blocks = getCount() < 16 ? 0 : 1;
 		while (blocks < 2 && origin.getBlockY() > 1) {
 
-			if (origin.getBlock().getType() == Material.WATER || origin.getBlock().getType() == Material.LAVA) return;
+			if (origin.getBlock().getType() == Material.WATER || origin.getBlock().getType() == Material.LAVA)
+				return;
 			origin.subtract(0, 1, 0);
 			if (origin.getBlock().isPassable()) blocks--;
 

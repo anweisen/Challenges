@@ -5,7 +5,6 @@ import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;

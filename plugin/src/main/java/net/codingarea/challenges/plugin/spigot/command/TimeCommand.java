@@ -134,8 +134,10 @@ public class TimeCommand implements PlayerCommand, Completer {
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
-		if (args.length <= 1) return Utils.filterRecommendations(args[0], "set", "subtract", "query", "day", "night", "noon", "midnight");
-		if (args[0].equalsIgnoreCase("set")) return Utils.filterRecommendations(args[1], "day", "night", "noon", "midnight");
+		if (args.length <= 1)
+			return Utils.filterRecommendations(args[0], "set", "subtract", "query", "day", "night", "noon", "midnight");
+		if (args[0].equalsIgnoreCase("set"))
+			return Utils.filterRecommendations(args[1], "day", "night", "noon", "midnight");
 		return new ArrayList<>();
 	}
 

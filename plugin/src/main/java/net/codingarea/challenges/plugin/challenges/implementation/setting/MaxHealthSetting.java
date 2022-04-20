@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
@@ -16,6 +15,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -77,7 +78,8 @@ public class MaxHealthSetting extends Modifier {
 
 	private void updateHealth(Player player) {
 		AttributeInstance attribute = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
-		if (attribute == null) return; // This should never happen because its a generic attribute, but just in case
+		if (attribute == null)
+			return; // This should never happen because its a generic attribute, but just in case
 		int newMaxHealth = getMaxHealth(player);
 		double oldMaxHealth = attribute.getBaseValue();
 

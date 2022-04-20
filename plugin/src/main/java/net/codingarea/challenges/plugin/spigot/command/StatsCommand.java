@@ -46,7 +46,7 @@ public class StatsCommand implements PlayerCommand {
 			return;
 		}
 
-		if (System.currentTimeMillis() - submitTimeByPlayer.getOrDefault(player, System.currentTimeMillis() - 10*1000) < 5*1000) {
+		if (System.currentTimeMillis() - submitTimeByPlayer.getOrDefault(player, System.currentTimeMillis() - 10 * 1000) < 5 * 1000) {
 			SoundSample.BASS_OFF.play(player);
 			return;
 		}
@@ -71,6 +71,7 @@ public class StatsCommand implements PlayerCommand {
 			open(player, player.getUniqueId(), player.getName());
 		});
 	}
+
 	private void handleCommand(@Nonnull Player player, @Nonnull String name) {
 		Challenges.getInstance().runAsync(() -> {
 			Player target = Bukkit.getPlayer(name);
@@ -96,7 +97,7 @@ public class StatsCommand implements PlayerCommand {
 		CloudSupportManager cloudSupport = Challenges.getInstance().getCloudSupportManager();
 		String coloredName = cloudSupport.isNameSupport() && cloudSupport.hasNameFor(uuid) ? cloudSupport.getColoredName(uuid) : name;
 
-		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5*9, MenuPosition.HOLDER);
+		AnimatedInventory inventory = new AnimatedInventory(InventoryTitleManager.getStatsTitle(name), 5 * 9, MenuPosition.HOLDER);
 		StatsHelper.setAccent(inventory, 3);
 		inventory.cloneLastAndAdd().setItem(13, new SkullBuilder(uuid, name, Message.forName("stats-of").asString(coloredName)).build());
 

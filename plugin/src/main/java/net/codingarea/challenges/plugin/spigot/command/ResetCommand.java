@@ -1,9 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
 import com.google.common.collect.Lists;
-import java.util.Collections;
-import java.util.List;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -14,6 +11,10 @@ import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.command.CommandSender;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -79,7 +80,7 @@ public class ResetCommand implements SenderCommand, Completer {
 				args[0], "confirm", "settings", "custom_challenges");
 		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) {
 			return args.length == 1 ?
-					Utils.filterRecommendations(args[args.length-1], "[seed]", "settings", "custom_challenges") :
+					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "custom_challenges") :
 					args[0].equalsIgnoreCase("confirm") ? Collections.singletonList("[seed]") : Lists
 							.newLinkedList();
 		}

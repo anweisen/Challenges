@@ -107,7 +107,7 @@ public final class PlayerInventoryManager implements Listener {
 		SoundSample.PLOP.play(event.getPlayer());
 	}
 
-	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
+	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING})
 	public void updateInventories() {
 		Bukkit.getOnlinePlayers().forEach(this::updateInventoryAuto);
 	}
@@ -168,7 +168,8 @@ public final class PlayerInventoryManager implements Listener {
 			Triple<ItemStack, Consumer<Player>, String> pair = pairs[i];
 			ItemStack expected = pair == null ? null : pair.getFirst();
 			ItemStack found = player.getInventory().getItem(i);
-			if (pair != null && pair.getThird() != null && !player.hasPermission(pair.getThird())) continue;
+			if (pair != null && pair.getThird() != null && !player.hasPermission(pair.getThird()))
+				continue;
 			if (expected != null && found == null) return false;
 			if (expected == null) continue;
 			if (expected.getType() != found.getType()) return false;
@@ -203,7 +204,8 @@ public final class PlayerInventoryManager implements Listener {
 				if (current == null) continue;
 				if (current.getType() != item.getType()) continue;
 				if (current.getItemMeta() == null) continue;
-				if (!current.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName())) continue;
+				if (!current.getItemMeta().getDisplayName().equals(item.getItemMeta().getDisplayName()))
+					continue;
 				player.getInventory().setItem(i, null);
 			}
 		}

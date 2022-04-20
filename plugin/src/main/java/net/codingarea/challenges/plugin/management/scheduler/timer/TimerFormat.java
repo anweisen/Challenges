@@ -14,19 +14,19 @@ public final class TimerFormat {
 	private final String seconds, minutes, hours, day, days;
 
 	public TimerFormat(@Nonnull Document document) {
-		 seconds = document.getString("seconds", "");
-		 minutes = document.getString("minutes", "");
-		 hours   = document.getString("hours", "");
-		 day     = document.getString("day", "");
-		 days    = document.getString("days", "");
+		seconds = document.getString("seconds", "");
+		minutes = document.getString("minutes", "");
+		hours = document.getString("hours", "");
+		day = document.getString("day", "");
+		days = document.getString("days", "");
 	}
 
 	public TimerFormat() {
 		seconds = "{mm}:{ss}";
 		minutes = "{mm}:{ss}";
-		hours   = "{hh}:{mm}:{ss}";
-		day     = "{d}:{hh}:{mm}:{ss}";
-		days    = "{d}:{hh}:{mm}:{ss}";
+		hours = "{hh}:{mm}:{ss}";
+		day = "{d}:{hh}:{mm}:{ss}";
+		days = "{d}:{hh}:{mm}:{ss}";
 	}
 
 	@Nonnull

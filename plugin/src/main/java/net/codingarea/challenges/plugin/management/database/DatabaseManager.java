@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.management.database;
 
-import java.lang.reflect.Constructor;
-import java.util.HashMap;
-import java.util.Map;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
@@ -21,6 +16,12 @@ import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.lang.reflect.Constructor;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author anweisen | https://github.com/anweisen

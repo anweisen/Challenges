@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
@@ -17,17 +12,16 @@ import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.Animals;
-import org.bukkit.entity.Drowned;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Guardian;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Monster;
-import org.bukkit.entity.WaterMob;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -199,15 +193,20 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 
 		private int getSpawnLimit(@Nonnull World world) {
 			switch (this) {
-				case AMBIENT:       return world.getAmbientSpawnLimit();
-				case HOSTILE:       return world.getMonsterSpawnLimit();
-				case ANIMAL:        return world.getAnimalSpawnLimit();
+				case AMBIENT:
+					return world.getAmbientSpawnLimit();
+				case HOSTILE:
+					return world.getMonsterSpawnLimit();
+				case ANIMAL:
+					return world.getAnimalSpawnLimit();
 				case WATER_AMBIENT: { // getWaterAmbientSpawnLimit is not available in lower versions like 1.13, default to water animal then
 					try {
 						return world.getWaterAmbientSpawnLimit();
-					} catch (Throwable ex) {}
+					} catch (Throwable ex) {
+					}
 				}
-				case WATER_ANIMAL:  return world.getWaterAnimalSpawnLimit();
+				case WATER_ANIMAL:
+					return world.getWaterAnimalSpawnLimit();
 			}
 			return 0;
 		}

@@ -1,9 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
-import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.type.IChallenge;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import org.bukkit.Bukkit;

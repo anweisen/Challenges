@@ -11,8 +11,8 @@ import java.util.function.BooleanSupplier;
  */
 public enum ExtraWorldPolicy implements IPolicy {
 
-	ALWAYS  (() -> true),
-	USED    (() -> ChallengeAPI.isWorldInUse()),
+	ALWAYS(() -> true),
+	USED(() -> ChallengeAPI.isWorldInUse()),
 	NOT_USED(() -> !ChallengeAPI.isWorldInUse());
 
 	private final BooleanSupplier check;

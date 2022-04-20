@@ -36,7 +36,9 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
+
 	public abstract List<String> getDisplay(Map<String, String[]> activated);
+
 	public abstract boolean hasSettings();
 
 	public SubSettingsBuilder getParent() {
@@ -82,6 +84,7 @@ public abstract class SubSettingsBuilder {
 
 	/**
 	 * Sets the highest parent of a child as the child of this builder.
+	 *
 	 * @param child one of the child builders that are added.
 	 * @return the highest parent of that child
 	 */
@@ -126,8 +129,8 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public TextInputSubSettingsBuilder createTextInputChild(String key,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+															Consumer<Player> onOpen,
+															Predicate<AsyncPlayerChatEvent> isValid) {
 		TextInputSubSettingsBuilder builder = new TextInputSubSettingsBuilder(key,
 				this, onOpen, isValid);
 		this.child = builder;
@@ -147,8 +150,8 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public static TextInputSubSettingsBuilder createTextInput(String key,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+															  Consumer<Player> onOpen,
+															  Predicate<AsyncPlayerChatEvent> isValid) {
 		return new TextInputSubSettingsBuilder(key, onOpen, isValid);
 	}
 

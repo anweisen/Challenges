@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.collection.SeededRandomWrapper;
@@ -27,6 +24,10 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

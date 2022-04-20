@@ -43,7 +43,7 @@ public class PlayerGlowSetting extends Setting {
 		updateEffects();
 	}
 
-	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING }, async = false)
+	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING}, async = false)
 	@ScheduledTask(ticks = 50, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void updateEffects() {
 		if (!shouldExecuteEffect()) {

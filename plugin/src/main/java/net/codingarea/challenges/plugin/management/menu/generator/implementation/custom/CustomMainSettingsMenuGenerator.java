@@ -1,9 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
-import java.util.function.Function;
 import net.codingarea.challenges.plugin.challenges.custom.settings.IChallengeSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
@@ -11,6 +7,11 @@ import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGene
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.function.Function;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -39,7 +40,7 @@ public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator impleme
 
 	@Override
 	public String[] getSubTitles(int page) {
-		return new String[]{ title };
+		return new String[]{title};
 	}
 
 	@Override
@@ -93,7 +94,8 @@ public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator impleme
 
 	@Override
 	public void decline(Player player) {
-		if (setting != null) this.subSettings = MapUtils.createStringArrayMap(key, setting.getName());
+		if (setting != null)
+			this.subSettings = MapUtils.createStringArrayMap(key, setting.getName());
 		open(player, 0);
 	}
 

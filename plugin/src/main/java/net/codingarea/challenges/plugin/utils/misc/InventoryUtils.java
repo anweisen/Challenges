@@ -1,11 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.concurrent.ThreadLocalRandom;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -22,6 +16,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -32,7 +33,8 @@ public final class InventoryUtils {
 	private static final IRandom random;
 	private static final List<Material> items;
 
-	private InventoryUtils() { }
+	private InventoryUtils() {
+	}
 
 	public static void fillInventory(@Nonnull Inventory inventory, @Nullable ItemStack item) {
 		for (int i = 0; i < inventory.getSize(); i++) {
@@ -158,7 +160,8 @@ public final class InventoryUtils {
 	public static void dropOrGiveItem(@Nonnull Inventory inventory, @Nonnull Location location, @Nonnull ItemStack itemStack) {
 		location = location.clone();
 		if (inventory.firstEmpty() == -1) {
-			if (location.getWorld() == null) location.setWorld(ChallengeAPI.getGameWorld(Environment.NORMAL));
+			if (location.getWorld() == null)
+				location.setWorld(ChallengeAPI.getGameWorld(Environment.NORMAL));
 			location.getWorld().dropItem(location, itemStack);
 			return;
 		}

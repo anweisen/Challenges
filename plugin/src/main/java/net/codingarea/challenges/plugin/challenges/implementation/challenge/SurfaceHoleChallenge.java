@@ -30,7 +30,8 @@ public class SurfaceHoleChallenge extends SettingModifier {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR)
+			return;
 
 		Location location = event.getTo();
 		if (location == null) return;

@@ -17,72 +17,104 @@ import java.util.Optional;
  */
 public final class ColorConversions {
 
-	private ColorConversions() {}
+	private ColorConversions() {
+	}
 
 	@Nonnull
 	public static ChatColor convertDyeColorToChatColor(@Nonnull DyeColor color) {
 		switch (color) {
-			case RED:           return ChatColor.RED;
-			case BLUE:          return ChatColor.DARK_BLUE;
-			case CYAN:          return ChatColor.DARK_AQUA;
-			case GRAY:          return ChatColor.DARK_GRAY;
-			case LIME:          return ChatColor.GREEN;
-			case GREEN:         return ChatColor.DARK_GREEN;
-			case PURPLE:        return ChatColor.DARK_PURPLE;
-			case YELLOW:        return ChatColor.YELLOW;
-			case LIGHT_BLUE:    return ChatColor.BLUE;
-			case LIGHT_GRAY:    return ChatColor.GRAY;
-			case BLACK:         return ChatColor.BLACK;
+			case RED:
+				return ChatColor.RED;
+			case BLUE:
+				return ChatColor.DARK_BLUE;
+			case CYAN:
+				return ChatColor.DARK_AQUA;
+			case GRAY:
+				return ChatColor.DARK_GRAY;
+			case LIME:
+				return ChatColor.GREEN;
+			case GREEN:
+				return ChatColor.DARK_GREEN;
+			case PURPLE:
+				return ChatColor.DARK_PURPLE;
+			case YELLOW:
+				return ChatColor.YELLOW;
+			case LIGHT_BLUE:
+				return ChatColor.BLUE;
+			case LIGHT_GRAY:
+				return ChatColor.GRAY;
+			case BLACK:
+				return ChatColor.BLACK;
 			case BROWN:
-			case ORANGE:        return ChatColor.GOLD;
+			case ORANGE:
+				return ChatColor.GOLD;
 			case PINK:
-			case MAGENTA:       return ChatColor.LIGHT_PURPLE;
+			case MAGENTA:
+				return ChatColor.LIGHT_PURPLE;
 			case WHITE:
-			default:            return ChatColor.WHITE;
+			default:
+				return ChatColor.WHITE;
 		}
 	}
 
 	@Nonnull
 	public static Material convertDyeColorToMaterial(@Nonnull DyeColor color) {
 		switch (color) {
-			case YELLOW:        return MaterialWrapper.YELLOW_DYE;
-			case RED:           return MaterialWrapper.RED_DYE;
-			case GREEN:         return MaterialWrapper.GREEN_DYE;
-			case BLACK:         return Material.INK_SAC;
-			case GRAY:          return Material.GRAY_DYE;
-			case LIGHT_GRAY:    return Material.LIGHT_GRAY_DYE;
-			case BLUE:          return Material.LAPIS_LAZULI;
-			case LIGHT_BLUE:    return Material.LIGHT_BLUE_DYE;
-			case MAGENTA:       return Material.MAGENTA_DYE;
-			case BROWN:         return Material.COCOA_BEANS;
-			case PURPLE:        return Material.PURPLE_DYE;
-			case ORANGE:        return Material.ORANGE_DYE;
-			case PINK:          return Material.PINK_DYE;
-			case LIME:          return Material.LIME_DYE;
-			case CYAN:          return Material.CYAN_DYE;
+			case YELLOW:
+				return MaterialWrapper.YELLOW_DYE;
+			case RED:
+				return MaterialWrapper.RED_DYE;
+			case GREEN:
+				return MaterialWrapper.GREEN_DYE;
+			case BLACK:
+				return Material.INK_SAC;
+			case GRAY:
+				return Material.GRAY_DYE;
+			case LIGHT_GRAY:
+				return Material.LIGHT_GRAY_DYE;
+			case BLUE:
+				return Material.LAPIS_LAZULI;
+			case LIGHT_BLUE:
+				return Material.LIGHT_BLUE_DYE;
+			case MAGENTA:
+				return Material.MAGENTA_DYE;
+			case BROWN:
+				return Material.COCOA_BEANS;
+			case PURPLE:
+				return Material.PURPLE_DYE;
+			case ORANGE:
+				return Material.ORANGE_DYE;
+			case PINK:
+				return Material.PINK_DYE;
+			case LIME:
+				return Material.LIME_DYE;
+			case CYAN:
+				return Material.CYAN_DYE;
 			case WHITE:
-			default:            return Material.BONE_MEAL;
+			default:
+				return Material.BONE_MEAL;
 		}
 	}
 
 	private static final Map<ChatColor, Color> colorsByChatColor = new HashMap<>();
+
 	static {
-		colorsByChatColor.put(ChatColor.BLACK,          Color.decode("#000000"));
-		colorsByChatColor.put(ChatColor.DARK_BLUE,      Color.decode("#0000A8"));
-		colorsByChatColor.put(ChatColor.DARK_GREEN,     Color.decode("#00A800"));
-		colorsByChatColor.put(ChatColor.DARK_AQUA,      Color.decode("#00A8A8"));
-		colorsByChatColor.put(ChatColor.DARK_RED,       Color.decode("#A80000"));
-		colorsByChatColor.put(ChatColor.DARK_PURPLE,    Color.decode("#A800A8"));
-		colorsByChatColor.put(ChatColor.GOLD,           Color.decode("#FBA800"));
-		colorsByChatColor.put(ChatColor.GRAY,           Color.decode("#A8A8A8"));
-		colorsByChatColor.put(ChatColor.DARK_GRAY,      Color.decode("#545454"));
-		colorsByChatColor.put(ChatColor.BLUE,           Color.decode("#5454FB"));
-		colorsByChatColor.put(ChatColor.GREEN,          Color.decode("#54FB54"));
-		colorsByChatColor.put(ChatColor.AQUA,           Color.decode("#54FBFB"));
-		colorsByChatColor.put(ChatColor.RED,            Color.decode("#FB5454"));
-		colorsByChatColor.put(ChatColor.LIGHT_PURPLE,   Color.decode("#FB54FB"));
-		colorsByChatColor.put(ChatColor.YELLOW,         Color.decode("#FBFB54"));
-		colorsByChatColor.put(ChatColor.WHITE,          Color.decode("#FBFBFB"));
+		colorsByChatColor.put(ChatColor.BLACK, Color.decode("#000000"));
+		colorsByChatColor.put(ChatColor.DARK_BLUE, Color.decode("#0000A8"));
+		colorsByChatColor.put(ChatColor.DARK_GREEN, Color.decode("#00A800"));
+		colorsByChatColor.put(ChatColor.DARK_AQUA, Color.decode("#00A8A8"));
+		colorsByChatColor.put(ChatColor.DARK_RED, Color.decode("#A80000"));
+		colorsByChatColor.put(ChatColor.DARK_PURPLE, Color.decode("#A800A8"));
+		colorsByChatColor.put(ChatColor.GOLD, Color.decode("#FBA800"));
+		colorsByChatColor.put(ChatColor.GRAY, Color.decode("#A8A8A8"));
+		colorsByChatColor.put(ChatColor.DARK_GRAY, Color.decode("#545454"));
+		colorsByChatColor.put(ChatColor.BLUE, Color.decode("#5454FB"));
+		colorsByChatColor.put(ChatColor.GREEN, Color.decode("#54FB54"));
+		colorsByChatColor.put(ChatColor.AQUA, Color.decode("#54FBFB"));
+		colorsByChatColor.put(ChatColor.RED, Color.decode("#FB5454"));
+		colorsByChatColor.put(ChatColor.LIGHT_PURPLE, Color.decode("#FB54FB"));
+		colorsByChatColor.put(ChatColor.YELLOW, Color.decode("#FBFB54"));
+		colorsByChatColor.put(ChatColor.WHITE, Color.decode("#FBFBFB"));
 	}
 
 	@Nonnull
@@ -105,13 +137,13 @@ public final class ColorConversions {
 
 	public static double calculateDifferenceBetweenColors(@Nonnull Color color1, @Nonnull Color color2) {
 
-		int diffRed   = Math.abs(color1.getRed()   - color2.getRed());
+		int diffRed = Math.abs(color1.getRed() - color2.getRed());
 		int diffGreen = Math.abs(color1.getGreen() - color2.getGreen());
-		int diffBlue  = Math.abs(color1.getBlue()  - color2.getBlue());
+		int diffBlue = Math.abs(color1.getBlue() - color2.getBlue());
 
-		float pctDiffRed    = (float) diffRed   / 255f;
-		float pctDiffGreen  = (float) diffGreen / 255f;
-		float pctDiffBlue   = (float) diffBlue  / 255f;
+		float pctDiffRed = (float) diffRed / 255f;
+		float pctDiffGreen = (float) diffGreen / 255f;
+		float pctDiffBlue = (float) diffBlue / 255f;
 
 		return (pctDiffRed + pctDiffGreen + pctDiffBlue) / 3f * 100;
 	}

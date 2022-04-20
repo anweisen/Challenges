@@ -11,7 +11,7 @@ import java.util.function.Predicate;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-public final class ListBuilder <T> {
+public final class ListBuilder<T> {
 
 	private final List<T> list = new ArrayList<>();
 

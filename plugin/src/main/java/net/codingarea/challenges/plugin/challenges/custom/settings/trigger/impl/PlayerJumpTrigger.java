@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

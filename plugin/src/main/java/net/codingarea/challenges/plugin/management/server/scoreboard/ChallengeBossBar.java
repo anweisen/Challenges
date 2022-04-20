@@ -1,9 +1,5 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
-import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -13,6 +9,11 @@ import org.bukkit.boss.BarColor;
 import org.bukkit.boss.BarStyle;
 import org.bukkit.boss.BossBar;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nonnull;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -28,7 +29,8 @@ public final class ChallengeBossBar {
 		private BarStyle style = BarStyle.SOLID;
 		private boolean visible = true;
 
-		private BossBarInstance() {}
+		private BossBarInstance() {
+		}
 
 		@Nonnull
 		public BossBarInstance setTitle(@Nonnull String title) {
@@ -38,7 +40,8 @@ public final class ChallengeBossBar {
 
 		@Nonnull
 		public BossBarInstance setProgress(double progress) {
-			if (progress < 0 || progress > 1) throw new IllegalArgumentException("Progress must be between 0 and 1; Got " + progress);
+			if (progress < 0 || progress > 1)
+				throw new IllegalArgumentException("Progress must be between 0 and 1; Got " + progress);
 			this.progress = progress;
 			return this;
 		}
@@ -54,6 +57,7 @@ public final class ChallengeBossBar {
 			this.style = style;
 			return this;
 		}
+
 		@Nonnull
 		public BossBarInstance setVisible(boolean visible) {
 			this.visible = visible;
@@ -63,7 +67,8 @@ public final class ChallengeBossBar {
 	}
 
 	private final Map<Player, BossBar> bossbars = new ConcurrentHashMap<>();
-	private BiConsumer<BossBarInstance, Player> content = (bossbar, player) -> {};
+	private BiConsumer<BossBarInstance, Player> content = (bossbar, player) -> {
+	};
 
 	private BossBar createBossbar(@Nonnull BossBarInstance instance) {
 		BossBar bossbar = Bukkit.createBossBar(instance.title, instance.color, instance.style);

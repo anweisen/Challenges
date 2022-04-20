@@ -28,7 +28,8 @@ public class PregameMovementSetting extends Setting {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (ChallengeAPI.isStarted() || isEnabled()) return;
-		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+		if (event.getPlayer().getGameMode() == GameMode.SPECTATOR || event.getPlayer().getGameMode() == GameMode.CREATIVE)
+			return;
 
 		Location to = event.getTo();
 		if (to == null) return;
@@ -48,7 +49,8 @@ public class PregameMovementSetting extends Setting {
 	}
 
 	private void findNearestBlock(@Nonnull Location location) {
-		for (; location.getBlockY() > 0 && location.getBlock().isPassable(); location.subtract(0, 1, 0));
+		for (; location.getBlockY() > 0 && location.getBlock().isPassable(); location.subtract(0, 1, 0))
+			;
 	}
 
 	@Nonnull

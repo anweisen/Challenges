@@ -1,10 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action;
 
-import java.util.Map;
-import java.util.function.Supplier;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+
+import java.util.Map;
+import java.util.function.Supplier;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -12,27 +13,27 @@ import org.bukkit.entity.Player;
  */
 public abstract class PlayerTargetAction extends EntityTargetAction {
 
-  public PlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
-    super(name, subSettingsBuilder);
-  }
+	public PlayerTargetAction(String name, SubSettingsBuilder subSettingsBuilder) {
+		super(name, subSettingsBuilder);
+	}
 
-  public PlayerTargetAction(String name) {
-    super(name);
-  }
+	public PlayerTargetAction(String name) {
+		super(name);
+	}
 
-  public PlayerTargetAction(String name,
-                            Supplier<SubSettingsBuilder> builderSupplier) {
-    super(name, builderSupplier);
-  }
+	public PlayerTargetAction(String name,
+							  Supplier<SubSettingsBuilder> builderSupplier) {
+		super(name, builderSupplier);
+	}
 
-  @Override
-  public void executeFor(Entity entity, Map<String, String[]> subActions) {
-    // Entity is null if the target entity is the console
-    if (entity instanceof Player || entity == null) {
-      executeForPlayer(((Player) entity), subActions);
-    }
-  }
+	@Override
+	public void executeFor(Entity entity, Map<String, String[]> subActions) {
+		// Entity is null if the target entity is the console
+		if (entity instanceof Player || entity == null) {
+			executeForPlayer(((Player) entity), subActions);
+		}
+	}
 
-  public abstract void executeForPlayer(Player player, Map<String, String[]> subActions);
+	public abstract void executeForPlayer(Player player, Map<String, String[]> subActions);
 
 }

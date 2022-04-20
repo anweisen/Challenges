@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -21,6 +16,12 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -88,7 +89,7 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 
 	@Override
 	public int getSize() {
-		return 5*9;
+		return 5 * 9;
 	}
 
 	@Override
@@ -97,7 +98,7 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 	}
 
 	public int getItemsPerPage() {
-		return 3*7;
+		return 3 * 7;
 	}
 
 	@Override
@@ -150,7 +151,9 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 	}
 
 	public abstract String[] getSubTitles(int page);
+
 	public abstract void onItemClick(Player player, String[] itemKeys);
+
 	public abstract void onBackToMenuItemClick(Player player);
 
 }

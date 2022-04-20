@@ -34,7 +34,8 @@ public class BedrockPathChallenge extends Setting {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR)
+			return;
 
 		BlockUtils.createBlockPath(event.getFrom(), event.getTo(), Material.BEDROCK);
 	}

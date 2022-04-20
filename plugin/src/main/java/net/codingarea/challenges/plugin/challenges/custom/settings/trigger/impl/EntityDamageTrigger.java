@@ -1,11 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.ItemBuilder.PotionBuilder;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
@@ -19,6 +13,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffectType;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

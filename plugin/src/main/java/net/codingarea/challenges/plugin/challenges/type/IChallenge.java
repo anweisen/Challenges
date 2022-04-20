@@ -11,9 +11,8 @@ import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 2.0
- *
  * @see ChallengeManager
+ * @since 2.0
  */
 public interface IChallenge extends GamestateSaveable {
 
@@ -73,6 +72,7 @@ public interface IChallenge extends GamestateSaveable {
 	void handleClick(@Nonnull ChallengeMenuClickInfo info);
 
 	void writeSettings(@Nonnull Document document);
+
 	void loadSettings(@Nonnull Document document);
 
 }

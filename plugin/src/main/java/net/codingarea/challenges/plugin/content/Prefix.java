@@ -17,12 +17,12 @@ public class Prefix {
 	private static final Map<String, Prefix> values = new HashMap<>();
 
 	public static final Prefix
-			CHALLENGES  = forName("challenges", "§6Challenges"),
-			CUSTOM      = forName("custom", "§bCustom"),
-			DAMAGE      = forName("damage", "§cDamage"),
-			POSITION    = forName("position", "§9Position"),
-			BACKPACK    = forName("backpack", "§aBackpack"),
-			TIMER       = forName("timer", "§5Timer");
+			CHALLENGES = forName("challenges", "§6Challenges"),
+			CUSTOM = forName("custom", "§bCustom"),
+			DAMAGE = forName("damage", "§cDamage"),
+			POSITION = forName("position", "§9Position"),
+			BACKPACK = forName("backpack", "§aBackpack"),
+			TIMER = forName("timer", "§5Timer");
 
 	private final String name;
 	private final String defaultValue;

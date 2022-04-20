@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Consumer;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -21,6 +16,12 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Consumer;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -87,8 +88,8 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 		setSettingsItems(inventory, challenge, slot);
 
 		if (newSuffix && isNew(challenge)) {
-			inventory.setItem(slot+1, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
-			inventory.setItem(slot+28, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
+			inventory.setItem(slot + 1, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
+			inventory.setItem(slot + 28, new ItemBuilder(Material.LIME_STAINED_GLASS_PANE, "§0").build());
 		}
 	}
 

@@ -177,7 +177,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 		if (player.hasPotionEffect(effectType)) {
 			PotionEffect effect = player.getPotionEffect(effectType);
-			if (effect != null && effect.getAmplifier() == amplifier-1) {
+			if (effect != null && effect.getAmplifier() == amplifier - 1) {
 				return;
 			}
 		}
@@ -249,7 +249,8 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == GLOBAL_EFFECT) return DefaultItem.create(Material.ENDER_CHEST, Message.forName("everyone").asString()).appendLore("", Message.forName("item-permanent-effect-target-everyone-description").asString());
+		if (getValue() == GLOBAL_EFFECT)
+			return DefaultItem.create(Material.ENDER_CHEST, Message.forName("everyone").asString()).appendLore("", Message.forName("item-permanent-effect-target-everyone-description").asString());
 		return DefaultItem.create(Material.CHEST, Message.forName("player").asString()).appendLore("", Message.forName("item-permanent-effect-target-player-description").asString());
 	}
 

@@ -21,7 +21,8 @@ import java.util.regex.Pattern;
  */
 public final class Utils {
 
-	private Utils() {}
+	private Utils() {
+	}
 
 	@Nonnull
 	public static List<String> filterRecommendations(@Nonnull String argument, @Nonnull String... recommendations) {

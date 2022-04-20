@@ -41,7 +41,8 @@ public class KillAllBossesGoal extends SettingGoal {
 	}
 
 	@Override
-	public void getWinnersOnEnd(@Nonnull List<Player> winners) { }
+	public void getWinnersOnEnd(@Nonnull List<Player> winners) {
+	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onKill(@Nonnull EntityDeathEvent event) {

@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
-import java.util.function.Supplier;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+
+import java.util.function.Supplier;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -9,34 +10,34 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettin
  */
 public abstract class ChallengeSetting implements IChallengeSetting {
 
-  private final String name;
-  private final SubSettingsBuilder subSettingsBuilder;
+	private final String name;
+	private final SubSettingsBuilder subSettingsBuilder;
 
-  public ChallengeSetting(String name, SubSettingsBuilder subSettingsBuilder) {
-    this.name = name;
-    this.subSettingsBuilder = subSettingsBuilder.build();
-  }
+	public ChallengeSetting(String name, SubSettingsBuilder subSettingsBuilder) {
+		this.name = name;
+		this.subSettingsBuilder = subSettingsBuilder.build();
+	}
 
-  public ChallengeSetting(String name) {
-    this(name, SubSettingsBuilder.createEmpty());
-  }
+	public ChallengeSetting(String name) {
+		this(name, SubSettingsBuilder.createEmpty());
+	}
 
-  public ChallengeSetting(String name, Supplier<SubSettingsBuilder> builderSupplier) {
-    this(name, builderSupplier.get());
-  }
+	public ChallengeSetting(String name, Supplier<SubSettingsBuilder> builderSupplier) {
+		this(name, builderSupplier.get());
+	}
 
-  public String getMessageSuffix() {
-    return name.toLowerCase();
-  }
+	public String getMessageSuffix() {
+		return name.toLowerCase();
+	}
 
-  @Override
-  public SubSettingsBuilder getSubSettingsBuilder() {
-    return subSettingsBuilder;
-  }
+	@Override
+	public SubSettingsBuilder getSubSettingsBuilder() {
+		return subSettingsBuilder;
+	}
 
-  @Override
-  public String getName() {
-    return name;
-  }
+	@Override
+	public String getName() {
+		return name;
+	}
 
 }

@@ -12,7 +12,8 @@ import javax.annotation.Nullable;
  */
 public final class ConsolePrint {
 
-	private ConsolePrint() {}
+	private ConsolePrint() {
+	}
 
 	public static void notSpigot() {
 		log("");

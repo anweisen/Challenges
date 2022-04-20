@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
-import java.util.List;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -19,6 +17,9 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -87,7 +88,7 @@ public class PlayerConnectionListener implements Listener {
 			if (!missingConfigSettings.isEmpty()) {
 				player.sendMessage("");
 				String separator = Message.forName("missing-config-settings-separator").asString();
-				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES, String.join(separator , missingConfigSettings));
+				Message.forName("missing-config-settings").send(player, Prefix.CHALLENGES, String.join(separator, missingConfigSettings));
 			} else if (!UpdateLoader.isNewestConfigVersion()) {
 				player.sendMessage("");
 				Message.forName("no-missing-config-settings").send(player, Prefix.CHALLENGES, UpdateLoader.getDefaultConfigVersion().format());

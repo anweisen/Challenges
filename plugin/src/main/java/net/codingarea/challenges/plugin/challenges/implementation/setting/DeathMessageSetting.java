@@ -27,7 +27,7 @@ import javax.annotation.Nonnull;
 public class DeathMessageSetting extends Modifier {
 
 	public static final int ENABLED = 2,
-							VANILLA = 3;
+			VANILLA = 3;
 
 	private boolean hide;
 
@@ -45,9 +45,12 @@ public class DeathMessageSetting extends Modifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
-			default:        return DefaultItem.disabled();
-			case ENABLED:   return DefaultItem.enabled();
-			case VANILLA:   return DefaultItem.create(MaterialWrapper.SIGN, "§6Vanilla");
+			default:
+				return DefaultItem.disabled();
+			case ENABLED:
+				return DefaultItem.enabled();
+			case VANILLA:
+				return DefaultItem.create(MaterialWrapper.SIGN, "§6Vanilla");
 		}
 	}
 

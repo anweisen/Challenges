@@ -55,8 +55,8 @@ public class NoDupedItemsChallenge extends Setting {
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onEntityPickUpItem(@Nonnull PlayerPickupItemEvent event) {
 		Bukkit.getScheduler().runTaskLater(plugin, () -> {
-		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
+			if (!shouldExecuteEffect()) return;
+			if (ignorePlayer(event.getPlayer())) return;
 			checkInventories();
 		}, 1);
 	}

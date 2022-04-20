@@ -14,55 +14,55 @@ import javax.annotation.Nonnull;
  */
 public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
 
-    private static final HandlerList handlers = new HandlerList();
+	private static final HandlerList handlers = new HandlerList();
 
-    private final Item item;
-    private boolean cancel = false;
-    private final int remaining;
+	private final Item item;
+	private boolean cancel = false;
+	private final int remaining;
 
-    public PlayerPickupItemEvent(@Nonnull Player player, @Nonnull Item item, int remaining) {
-        super(player);
-        this.item = item;
-        this.remaining = remaining;
-    }
+	public PlayerPickupItemEvent(@Nonnull Player player, @Nonnull Item item, int remaining) {
+		super(player);
+		this.item = item;
+		this.remaining = remaining;
+	}
 
-    /**
-     * Gets the Item picked up by the player.
-     *
-     * @return Item
-     */
-    @Nonnull
-    public Item getItem() {
-        return item;
-    }
+	/**
+	 * Gets the Item picked up by the player.
+	 *
+	 * @return Item
+	 */
+	@Nonnull
+	public Item getItem() {
+		return item;
+	}
 
-    /**
-     * Gets the amount remaining on the ground, if any
-     *
-     * @return amount remaining on the ground
-     */
-    public int getRemaining() {
-        return remaining;
-    }
+	/**
+	 * Gets the amount remaining on the ground, if any
+	 *
+	 * @return amount remaining on the ground
+	 */
+	public int getRemaining() {
+		return remaining;
+	}
 
-    @Override
-    public boolean isCancelled() {
-        return cancel;
-    }
+	@Override
+	public boolean isCancelled() {
+		return cancel;
+	}
 
-    @Override
-    public void setCancelled(boolean cancel) {
-        this.cancel = cancel;
-    }
+	@Override
+	public void setCancelled(boolean cancel) {
+		this.cancel = cancel;
+	}
 
-    @Nonnull
-    @Override
-    public HandlerList getHandlers() {
-        return handlers;
-    }
+	@Nonnull
+	@Override
+	public HandlerList getHandlers() {
+		return handlers;
+	}
 
-    @Nonnull
-    public static HandlerList getHandlerList() {
-        return handlers;
-    }
+	@Nonnull
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
 }

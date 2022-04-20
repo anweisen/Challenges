@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -43,9 +42,9 @@ public class RandomEventChallenge extends TimedChallenge {
 
 	public RandomEventChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 3, false);
-		events = new Event[] {
+		events = new Event[]{
 				new SpeedEvent(),
-			new SpawnEntitiesEvent(),
+				new SpawnEntitiesEvent(),
 				new HoleEvent(),
 				new FlyEvent(),
 				new CobWebEvent(),
@@ -95,7 +94,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10*20, 99));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10 * 20, 99));
 		}
 
 	}
@@ -156,7 +155,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 3*20, 5));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 3 * 20, 5));
 		}
 
 	}
@@ -228,9 +227,9 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 7*20, 0));
-			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 3*20, 1));
-			player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5*20, 1));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 7 * 20, 0));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 3 * 20, 1));
+			player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5 * 20, 1));
 		}
 	}
 

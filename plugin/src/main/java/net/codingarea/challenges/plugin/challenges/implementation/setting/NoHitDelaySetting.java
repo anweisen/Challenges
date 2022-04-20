@@ -29,7 +29,7 @@ public class NoHitDelaySetting extends Setting {
 		if (!(event.getEntity() instanceof LivingEntity)) return;
 		if (!shouldExecuteEffect()) return;
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> {
-			((LivingEntity)event.getEntity()).setNoDamageTicks(0);
+			((LivingEntity) event.getEntity()).setNoDamageTicks(0);
 		}, 1);
 	}
 

@@ -1,10 +1,5 @@
 package net.codingarea.challenges.plugin;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.loader.ContentLoader;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -15,13 +10,20 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Supplier;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 public final class ChallengeAPI {
 
-	private ChallengeAPI() {}
+	private ChallengeAPI() {
+	}
 
 	public static boolean isStarted() {
 		return Challenges.getInstance().getChallengeTimer().isStarted();
