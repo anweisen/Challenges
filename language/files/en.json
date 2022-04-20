@@ -1366,6 +1366,11 @@
   "item-custom-trigger-in_liquid": [
     "§9Player Is In Liquid"
   ],
+  "item-custom-trigger-get_item": [
+    "§aGet Item",
+    "Action will be executed *every time*",
+    "item is clicked or picked up"
+  ],
 
 
   "item-custom-action-cancel": [
@@ -1533,6 +1538,7 @@
   "item-custom-setting-entity_type-any": "§cAny Entity",
   "item-custom-setting-entity_type-player": "§aPlayer",
   "item-custom-setting-block-any": "§2Any Block",
+  "item-custom-setting-item-any": "§2Any Item",
 
   "custom-subsetting-target_entity": "Target Entity",
   "custom-subsetting-entity_type": "Entity Type",

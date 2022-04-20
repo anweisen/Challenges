@@ -1,36 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
-import java.util.LinkedHashMap;
-import java.util.Map;
-import javax.annotation.Nullable;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.*;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.AdvancementTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.CraftItemTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.DropItemTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.GainXPTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.InLiquidTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.LevelUpTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveBlockTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.BreakBlockTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.ConsumeItemTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDamageByPlayerTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDamageTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.EntityDeathTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.HungerTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.IntervallTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveCameraTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveDownTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.MoveUpTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PickupItemTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlaceBlockTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlayerJumpTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.PlayerSneakTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.StandsNotOnSpecificBlockTrigger;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.StandsOnSpecificBlockTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.*;
 import org.bukkit.Bukkit;
+
+import javax.annotation.Nullable;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -75,7 +54,8 @@ public class CustomSettingsLoader {
         new GainXPTrigger("gain_xp"),
         new LevelUpTrigger("level_up"),
         new CraftItemTrigger("item_craft"),
-        new InLiquidTrigger("in_liquid")
+        new InLiquidTrigger("in_liquid"),
+        new GetItemTrigger("get_item")
     );
   }
 

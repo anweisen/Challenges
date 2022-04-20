@@ -62,6 +62,17 @@ public class SubSettingsHelper {
 		});
 	}
 
+	public static ChooseMultipleItemSubSettingBuilder createItemSettingsBuilder() {
+		return SubSettingsBuilder.createChooseMultipleItem(ITEM).fill(builder -> {
+			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-item-any")).build());
+			for (Material material : Material.values()) {
+				if (material.isItem() && !BukkitReflectionUtils.isAir(material)) {
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
+				}
+			}
+		});
+	}
+
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob) {
 		return createEntityTargetSettingsBuilder(everyMob, false);
 	}

@@ -1399,6 +1399,10 @@
   "item-custom-trigger-in_liquid": [
     "§9Spieler In Flüssigkeit"
   ],
+  "item-custom-trigger-get_item": [
+    "§aItem bekommen",
+    "Aktion wird für *jedes* anklicken oder aufheben ausgeführt"
+  ],
 
 
   "item-custom-action-cancel": [
@@ -1571,6 +1575,7 @@
   "item-custom-setting-entity_type-any": "§cJegliches Entity",
   "item-custom-setting-entity_type-player": "§aSpieler",
   "item-custom-setting-block-any": "§2Jeglicher Block",
+  "item-custom-setting-item-any": "§2Jegliches Item",
 
   "custom-subsetting-target_entity": "Ziel Entity",
   "custom-subsetting-entity_type": "Entity Typ",
