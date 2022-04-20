@@ -151,6 +151,8 @@
   "command-fly-enabled": "Du kannst §anun fliegen",
   "command-fly-disabled": "Du kannst nun §cnicht mehr §7fliegen",
   "command-fly-toggled-others": "Du hast §eFly §7für §e{0} §7Spieler verändert",
+  "command-feed-fed": "Dein Hunger wurde §agestillt",
+  "command-feed-others": "Du hast den Hunger von §e{0} §7Spieler *gestillt*",
   "command-gamestate-reload": "Der Gamestate wurde §aneu geladen",
   "command-gamestate-reset": "Der Gamestate wurde §azurückgesetzt",
   "command-world-teleport": "Du wirst in die Welt §e{0} §7teleportiert",

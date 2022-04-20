@@ -156,6 +156,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new GamestateCommand(), "gamestate");
 		registerCommand(new VillageCommand(), "village");
 		registerCommand(new HealCommand(), "heal");
+		registerCommand(new FeedCommand(), "feed");
 		registerCommand(new SearchCommand(), "search");
 		registerListenerCommand(new InvseeCommand(), "invsee");
 		registerCommand(new FlyCommand(), "fly");

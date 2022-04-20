@@ -150,6 +150,8 @@
   "command-fly-enabled": "You can fly §anow",
   "command-fly-disabled": "You can §cno longer §7fly",
   "command-fly-toggled-others": "You toggled §efly §7for §e{0} §7player/s",
+  "command-feed-fed": "Your appetite was §esated",
+  "command-feed-others": "You satiated the appetite of §e{0} §7player/s",
   "command-gamestate-reload": "The gamestate was §areloaded",
   "command-gamestate-reset": "The gamestate was §areset",
   "command-world-teleport": "You'll be teleported into the §e{0}",
