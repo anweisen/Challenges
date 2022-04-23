@@ -271,6 +271,8 @@
 	"bossbar-race-goal": "§8» §fGoal §8┃ §7X: {0} §8/ §7Z: {1}",
 	"bossbar-first-at-height-goal": "§8» §fGoal §8┃ §7Y: {0}",
 	"bossbar-respawn-end": "§8» §5Respawned Mobs in End §8┃ §e{0}",
+	"bossbar-kill-all-bosses": "§8» §cAll Bosses §8┃ §e{0}/{1}",
+	"bossbar-kill-all-mobs": "§8» §cAll Mobs §8┃ §e{0}/{1}",
 	"subtitle-time-seconds": "§e{0} §7seconds",
 	"subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
 	"subtitle-time-minutes": "§e{0} §7minutes",
@@ -1083,7 +1085,11 @@
 	],
 	"item-all-bosses-goal": [
 		"§bAll Bosses",
-		"Each boss must has been killed once to win"
+		"Each boss must has to be killed once to win"
+	],
+	"item-all-mobs-goal": [
+		"§bAll Mobs",
+		"Each mob has to be killed once to win"
 	],
 	"item-all-items-goal": [
 		"§2All Items",

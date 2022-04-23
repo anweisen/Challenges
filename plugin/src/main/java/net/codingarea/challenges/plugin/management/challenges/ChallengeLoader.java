@@ -173,6 +173,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillAllBossesGoal.class);
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
+		register(KillAllMobsGoal.class);
 		register(LastManStandingGoal.class);
 
 		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
