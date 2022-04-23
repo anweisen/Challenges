@@ -86,6 +86,7 @@ public class AllAdvancementGoal extends PointsGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent event) {
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		updateAdvancements(event.getPlayer());
 		scoreboard.update();
@@ -93,10 +94,8 @@ public class AllAdvancementGoal extends PointsGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onGamemodeChange(PlayerGameModeChangeEvent event) {
-		Bukkit.getScheduler().runTask(plugin, () -> {
-			if (!shouldExecuteEffect()) return;
-			scoreboard.update();
-		});
+		if (!shouldExecuteEffect()) return;
+		Bukkit.getScheduler().runTask(plugin, (Runnable) scoreboard::update);
 	}
 
 	protected void updateAdvancements() {
