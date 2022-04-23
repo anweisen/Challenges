@@ -30,9 +30,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
@@ -318,20 +320,14 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onJoin(PlayerJoinEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		setRandomItemIfCurrentlyNone(event.getPlayer());
 	}
 
 	@ScheduledTask(ticks = 1, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void onTick() {
-		if (!isEnabled()) {
-			return;
-		}
+		if (!isEnabled()) return;
 		for (Player player : displayStands.keySet()) {
 			updateDisplayStand(player);
 		}
@@ -339,22 +335,12 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onClick(PlayerInventoryClickEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
-		if (event.getClickedInventory() == null) {
-			return;
-		}
-		if (event.getCurrentItem() == null) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		if (event.getClickedInventory() == null) return;
+		if (event.getCurrentItem() == null) return;
 		Material material = currentItem.get(event.getPlayer().getUniqueId());
-		if (material == null) {
-			return;
-		}
+		if (material == null) return;
 		if (material == event.getCurrentItem().getType()) {
 			handleItemFound(event.getPlayer());
 		}
@@ -362,16 +348,10 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPickup(PlayerPickupItemEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		Material material = currentItem.get(event.getPlayer().getUniqueId());
-		if (material == null) {
-			return;
-		}
+		if (material == null) return;
 		if (material == event.getItem().getItemStack().getType()) {
 			handleItemFound(event.getPlayer());
 		}
@@ -379,16 +359,10 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onInteract(PlayerInteractEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getAction() != Action.RIGHT_CLICK_AIR
-				&& event.getAction() != Action.RIGHT_CLICK_BLOCK) {
-			return;
-		}
+				&& event.getAction() != Action.RIGHT_CLICK_BLOCK) return;
 		if (jokerItem.isSimilar(event.getItem())) {
 			handleJokerUse(event.getPlayer());
 		}
@@ -396,25 +370,33 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onDropItem(PlayerDropItemEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (jokerItem.isSimilar(event.getItemDrop().getItemStack())) {
 			event.setCancelled(true);
 		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onDeath(PlayerDeathEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getEntity())) return;
+		event.getDrops().removeIf(itemStack -> jokerItem.isSimilar(itemStack));
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onRespawn(PlayerRespawnEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		Bukkit.getScheduler().runTask(plugin, () -> {
+			updateJokersInInventory(event.getPlayer());
+		});
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPlace(BlockPlaceEvent event) {
-		if (!shouldExecuteEffect()) {
-			return;
-		}
-		if (ignorePlayer(event.getPlayer())) {
-			return;
-		}
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (jokerItem.isSimilar(event.getItemInHand())) {
 			event.setCancelled(true);
 		}
