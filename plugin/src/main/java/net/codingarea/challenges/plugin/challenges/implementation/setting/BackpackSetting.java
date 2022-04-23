@@ -117,12 +117,13 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 			loadLegacy(document.getDocument(key), inventory);
 		} else {
 			try {
-				BukkitSerialization.fromBase64(inventory, document.getString(key));
+				String value = document.getString(key);
+				if (value == null) return;
+				BukkitSerialization.fromBase64(inventory, value);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
-
 
 	}
 
