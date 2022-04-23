@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
+import net.codingarea.challenges.plugin.utils.bukkit.container.BukkitSerialization;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -20,6 +21,7 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -100,18 +102,32 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	public void loadGameState(@Nonnull Document document) {
 		super.loadGameState(document);
 
-		Document shared = document.getDocument("shared");
-		load(shared, sharedBackpack);
+		loadChecked(document, "shared", sharedBackpack);
 
 		Document players = document.getDocument("players");
 		for (String key : players.keys()) {
-			Document backpack = players.getDocument(key);
-			load(backpack, backpacks.computeIfAbsent(UUID.fromString(key), k -> createInventory("§6Backpack")));
+			loadChecked(players, key, backpacks.computeIfAbsent(UUID.fromString(key), k -> createInventory("§6Backpack")));
 		}
 
 	}
 
-	protected void load(@Nonnull Document document, @Nonnull Inventory inventory) {
+	protected void loadChecked(@Nonnull Document document, @Nonnull String key, @Nonnull Inventory inventory) {
+
+		if (document.isDocument(key)) {
+			loadLegacy(document.getDocument(key), inventory);
+		} else {
+			try {
+				BukkitSerialization.fromBase64(inventory, document.getString(key));
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+
+
+	}
+
+	protected void loadLegacy(@Nonnull Document document, @Nonnull Inventory inventory) {
+
 		for (String key : document.keys()) {
 			try {
 				int index = Integer.parseInt(key);
@@ -126,21 +142,16 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	public void writeGameState(@Nonnull Document document) {
 		super.writeGameState(document);
 
-		Document shared = document.getDocument("shared");
-		write(shared, sharedBackpack);
+		write(document, "shared", sharedBackpack);
 
 		Document players = document.getDocument("players");
 		backpacks.forEach((uuid, inventory) -> {
-			Document backpack = players.getDocument(uuid.toString());
-			write(backpack, inventory);
+			write(players, uuid.toString(), inventory);
 		});
 	}
 
-	protected void write(@Nonnull Document document, @Nonnull Inventory inventory) {
-		for (int i = 0; i < inventory.getSize(); i++) {
-			ItemStack item = inventory.getItem(i);
-			document.set(String.valueOf(i), item);
-		}
+	protected void write(@Nonnull Document document, @Nonnull String key, @Nonnull Inventory inventory) {
+		document.set(key, BukkitSerialization.toBase64(inventory));
 	}
 
 	@Nonnull
