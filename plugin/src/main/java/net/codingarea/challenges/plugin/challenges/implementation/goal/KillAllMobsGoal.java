@@ -39,6 +39,8 @@ public class KillAllMobsGoal extends KillMobsGoal {
 		list.removeIf(type -> !type.isAlive());
 		list.remove(EntityType.GIANT);
 		list.remove(EntityType.ILLUSIONER);
+		list.remove(EntityType.PLAYER);
+		list.remove(EntityType.ARMOR_STAND);
 		return list;
 	}
 
