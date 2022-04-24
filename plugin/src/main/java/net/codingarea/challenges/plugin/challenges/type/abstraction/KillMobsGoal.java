@@ -24,20 +24,20 @@ import java.util.List;
  */
 public abstract class KillMobsGoal extends SettingGoal {
 
-	protected final List<EntityType> originalEntitiesToKill;
-	protected List<EntityType> entitiesToKill;
+	protected final List<EntityType> entitiesToKill;
+	protected List<EntityType> entitiesKilled;
 	private final boolean throughPlayer;
 
-	public KillMobsGoal(List<EntityType> entitiesToKill, boolean throughPlayer) {
-		this.originalEntitiesToKill = entitiesToKill;
+	public KillMobsGoal(List<EntityType> entitiesKilled, boolean throughPlayer) {
+		this.entitiesToKill = entitiesKilled;
 		this.throughPlayer = throughPlayer;
-		resetBossesToKill();
+		resetEntitiesToKill();
 	}
 
 	public abstract Message getBossbarMessage();
 
-	private void resetBossesToKill() {
-		entitiesToKill = new LinkedList<>(originalEntitiesToKill);
+	private void resetEntitiesToKill() {
+		entitiesKilled = new LinkedList<>();
 	}
 
 	@Override
@@ -48,10 +48,10 @@ public abstract class KillMobsGoal extends SettingGoal {
 	@Override
 	protected void onEnable() {
 		bossbar.setContent((bar, player) -> {
-			float i = 1 - ((float) entitiesToKill.size() / (float) originalEntitiesToKill.size());
+			float i = 1 - ((float) getEntitiesLeftToKill().size() / (float) entitiesToKill.size());
 			bar.setProgress(i);
 			bar.setColor(BarColor.GREEN);
-			bar.setTitle(getBossbarMessage().asString(originalEntitiesToKill.size() - entitiesToKill.size(), originalEntitiesToKill.size()));
+			bar.setTitle(getBossbarMessage().asString(entitiesKilled.size(), entitiesToKill.size()));
 		});
 		bossbar.show();
 	}
@@ -68,11 +68,12 @@ public abstract class KillMobsGoal extends SettingGoal {
 			if (event.getEntity().getKiller() == null) return;
 		}
 		if (!entitiesToKill.contains(event.getEntityType())) return;
-		entitiesToKill.remove(event.getEntityType());
-		Message.forName("boss-kill").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(event.getEntityType()), originalEntitiesToKill.size() - entitiesToKill.size(), originalEntitiesToKill.size());
+		if (entitiesKilled.contains(event.getEntityType())) return;
+		entitiesKilled.add(event.getEntityType());
+		Message.forName("mob-kill").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(event.getEntityType()), entitiesKilled.size(), entitiesToKill.size());
 		bossbar.update();
-		if (!entitiesToKill.isEmpty()) return;
-		resetBossesToKill();
+		if (!getEntitiesLeftToKill().isEmpty()) return;
+		resetEntitiesToKill();
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
 	}
 
@@ -80,14 +81,20 @@ public abstract class KillMobsGoal extends SettingGoal {
 	public void writeGameState(@Nonnull Document document) {
 		super.writeGameState(document);
 
-		document.set("entities", entitiesToKill);
+		document.set("entities", entitiesKilled);
 	}
 
 	@Override
 	public void loadGameState(@Nonnull Document document) {
 		super.loadGameState(document);
 
-		entitiesToKill = document.getEnumList("entities", EntityType.class);
+		entitiesKilled = document.getEnumList("entities", EntityType.class);
+	}
+
+	public List<EntityType> getEntitiesLeftToKill() {
+		LinkedList<EntityType> entityTypes = new LinkedList<>(entitiesToKill);
+		entityTypes.removeAll(entitiesKilled);
+		return entityTypes;
 	}
 
 }
