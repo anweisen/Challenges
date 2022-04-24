@@ -43,7 +43,7 @@ public class GeneratorWorldPortalManager implements GamestateSaveable {
 	}
 
 	@Override
-	public String getUniqueName() {
+	public String getUniqueGamestateName() {
 		return getClass().getSimpleName().toLowerCase();
 	}
 

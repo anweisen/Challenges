@@ -101,6 +101,12 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	@Override
+	public String getUniqueGamestateName() {
+		return getUniqueName();
+	}
+
+	@Nonnull
+	@Override
 	public String getUniqueName() {
 		return name != null ? name : (name = getClass().getSimpleName().toLowerCase()
 				.replace("setting", "")
@@ -156,7 +162,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	protected final Document getGameStateData() {
-		return plugin.getConfigManager().getGameStateConfig().getDocument(getUniqueName());
+		return plugin.getConfigManager().getGameStateConfig().getDocument(this.getUniqueGamestateName());
 	}
 
 	@Nonnull

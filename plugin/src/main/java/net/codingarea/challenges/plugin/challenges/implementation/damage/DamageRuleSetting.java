@@ -10,6 +10,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -33,7 +34,7 @@ public class DamageRuleSetting extends Setting {
 		this.preset = preset;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getUniqueName() {
 		return super.getUniqueName() + name;

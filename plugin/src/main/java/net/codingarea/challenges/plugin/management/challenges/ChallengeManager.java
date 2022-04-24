@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.management.challenges.entities.GamestateSaveable;
 import org.bukkit.entity.Player;
 
@@ -127,11 +128,22 @@ public final class ChallengeManager {
 		LinkedList<GamestateSaveable> list = new LinkedList<>(challenges);
 		list.addAll(additionalSaver);
 		for (GamestateSaveable challenge : list) {
-			String name = challenge.getUniqueName();
+			String name = challenge.getUniqueGamestateName();
 			if (!config.contains(name)) continue;
 			try {
 				Document document = config.getDocument(name);
 				challenge.loadGameState(document);
+
+				if (challenge instanceof AbstractChallenge) {
+					AbstractChallenge abstractChallenge = (AbstractChallenge) challenge;
+					if (abstractChallenge.getBossbar().isShown()) {
+						abstractChallenge.getBossbar().update();
+					}
+					if (abstractChallenge.getScoreboard().isShown()) {
+						abstractChallenge.getScoreboard().update();
+					}
+				}
+
 			} catch (Exception ex) {
 				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 			}
@@ -148,6 +160,16 @@ public final class ChallengeManager {
 		for (GamestateSaveable challenge : list) {
 			try {
 				challenge.loadGameState(Document.empty());
+
+				if (challenge instanceof AbstractChallenge) {
+					AbstractChallenge abstractChallenge = (AbstractChallenge) challenge;
+					if (abstractChallenge.getBossbar().isShown()) {
+						abstractChallenge.getBossbar().update();
+					}
+					if (abstractChallenge.getScoreboard().isShown()) {
+						abstractChallenge.getScoreboard().update();
+					}
+				}
 			} catch (Exception ex) {
 				Logger.error("Could not load gamestate for {}", challenge.getClass().getSimpleName(), ex);
 			}
@@ -159,7 +181,7 @@ public final class ChallengeManager {
 		list.addAll(additionalSaver);
 		for (GamestateSaveable challenge : list) {
 			try {
-				Document document = config.getDocument(challenge.getUniqueName());
+				Document document = config.getDocument(challenge.getUniqueGamestateName());
 				challenge.writeGameState(document);
 			} catch (Exception ex) {
 				Logger.error("Could not write gamestate of {}", challenge.getClass().getSimpleName(), ex);
@@ -177,7 +199,7 @@ public final class ChallengeManager {
 		for (IChallenge challenge : challenges) {
 			if (challenge instanceof CustomChallenge) continue;
 			try {
-				Document document = config.getDocument(challenge.getUniqueName());
+				Document document = config.getDocument(challenge.getUniqueGamestateName());
 				challenge.writeSettings(document);
 			} catch (Exception ex) {
 				Logger.error("Could not write settings of {}", challenge.getClass().getSimpleName(), ex);

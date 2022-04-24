@@ -20,7 +20,7 @@ import java.util.List;
 public class KillAllMobsGoal extends KillMobsGoal {
 
 	public KillAllMobsGoal() {
-		super(getAllMobsToKill(), true);
+		super(getAllMobsToKill());
 	}
 
 	@NotNull

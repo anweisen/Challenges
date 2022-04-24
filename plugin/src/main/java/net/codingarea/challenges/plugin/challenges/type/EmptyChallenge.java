@@ -40,6 +40,12 @@ public class EmptyChallenge implements IChallenge {
 
 	@NotNull
 	@Override
+	public String getUniqueGamestateName() {
+		return getUniqueName();
+	}
+
+	@NotNull
+	@Override
 	public String getUniqueName() {
 		return "empty";
 	}

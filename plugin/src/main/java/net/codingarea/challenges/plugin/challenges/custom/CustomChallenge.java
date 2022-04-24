@@ -198,7 +198,7 @@ public class CustomChallenge extends Setting {
 		return name;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getUniqueName() {
 		return uuid.toString();

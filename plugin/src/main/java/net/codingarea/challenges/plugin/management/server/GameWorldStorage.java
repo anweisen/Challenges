@@ -63,7 +63,7 @@ public class GameWorldStorage implements GamestateSaveable {
 	}
 
 	@Override
-	public String getUniqueName() {
+	public String getUniqueGamestateName() {
 		return getClass().getSimpleName().toLowerCase();
 	}
 

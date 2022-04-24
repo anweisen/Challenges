@@ -18,7 +18,7 @@ import java.util.Arrays;
 public class KillAllBossesGoal extends KillMobsGoal {
 
 	public KillAllBossesGoal() {
-		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN), false);
+		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN));
 	}
 
 	@Override

@@ -15,6 +15,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
@@ -98,7 +99,7 @@ public class BlockMaterialSetting extends Setting {
 
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getUniqueName() {
 		return "blockmaterial" + materials[0].name().toLowerCase();
