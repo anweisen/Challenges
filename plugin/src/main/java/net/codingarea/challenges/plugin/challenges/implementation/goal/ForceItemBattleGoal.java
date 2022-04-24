@@ -31,10 +31,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.PlayerDropItemEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
@@ -289,19 +286,31 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
 			World world = player1.getWorld();
 			ArmorStand entity = (ArmorStand) world
-					.spawnEntity(player1.getLocation().clone().add(0, 1, 0), EntityType.ARMOR_STAND);
+					.spawnEntity(player1.getLocation().clone().add(0, 1.5, 0), EntityType.ARMOR_STAND);
 			entity.setInvisible(true);
 			entity.setInvulnerable(true);
 			entity.setGravity(false);
 			entity.setMarker(true);
+			entity.setSilent(true);
 			return entity;
 		});
 		Material item = currentItem.get(player.getUniqueId());
 		if (item == null) {
 			item = Material.AIR;
 		}
-		armorStand.getEquipment().setHelmet(new ItemStack(item));
-		armorStand.teleport(player.getLocation().clone().add(0, 1, 0));
+		armorStand.teleport(player.getLocation().clone().add(0, 1.5, 0));
+		armorStand.setVelocity(player.getVelocity());
+		ItemStack helmet = armorStand.getEquipment().getHelmet();
+		if (helmet == null || helmet.getType() != item) {
+			armorStand.getEquipment().setHelmet(new ItemStack(item));
+		}
+	}
+
+	@EventHandler(ignoreCancelled = true)
+	public void onTeleport(PlayerTeleportEvent event) {
+		if (!shouldExecuteEffect()) return;
+		if (ignorePlayer(event.getPlayer())) return;
+		updateDisplayStand(event.getPlayer());
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
@@ -315,6 +324,12 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		if (!shouldExecuteEffect()) return;
 		if (event.isNotIgnored()) {
 			setRandomItemIfCurrentlyNone(event.getPlayer());
+			updateDisplayStand(event.getPlayer());
+		} else {
+			ArmorStand stand = displayStands.get(event.getPlayer());
+			if (stand != null) {
+				stand.remove();
+			}
 		}
 	}
 
@@ -323,6 +338,7 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		setRandomItemIfCurrentlyNone(event.getPlayer());
+		updateDisplayStand(event.getPlayer());
 	}
 
 	@ScheduledTask(ticks = 1, async = false, timerPolicy = TimerPolicy.ALWAYS)
@@ -330,6 +346,15 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		if (!isEnabled()) return;
 		for (Player player : displayStands.keySet()) {
 			updateDisplayStand(player);
+		}
+	}
+
+	@EventHandler(priority = EventPriority.HIGH)
+	public void onQuit(PlayerQuitEvent event) {
+		if (!shouldExecuteEffect()) return;
+		ArmorStand stand = displayStands.get(event.getPlayer());
+		if (stand != null) {
+			stand.remove();
 		}
 	}
 
