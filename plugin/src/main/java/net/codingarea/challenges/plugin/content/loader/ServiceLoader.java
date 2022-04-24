@@ -26,6 +26,7 @@ public final class ServiceLoader extends ContentLoader {
 	 * (https://github.com/anweisen/Challenges/blob/master/endpoint.txt)
 	 * Usually localhost but can be changed to block certain servers from using the plugin.
 	 *
+	 * //-
 	 *
 	 * As we were working for a long time on this project we didn't want people using OUR plugin as
 	 * a gamemode or sorts on THEIR public servers.
@@ -43,6 +44,10 @@ public final class ServiceLoader extends ContentLoader {
 	 *
 	 * We do NOT want any information of the users of this plugin and we have NO INTEREST in saving ANYTHING inside our databases.
 	 * We HAVE NEVER and we WILL NEVER save ANY information about any user of this plugin through this connection.
+	 *
+	 * //-
+	 *
+	 * Is planned to be replaced by a non pinging solution in a newer version.
 	 *
 	 */
 	@Override
