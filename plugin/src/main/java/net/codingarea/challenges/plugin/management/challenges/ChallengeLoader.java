@@ -174,32 +174,33 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
 		register(KillAllMobsGoal.class);
-		register(LastManStandingGoal.class);
 
+		register(KillAllMonsterGoal.class);
+		register(LastManStandingGoal.class);
 		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
+
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
-
 		register(FinishRaidGoal.class);
 		register(MostEmeraldsGoal.class);
 		register(AllAdvancementGoal.class);
 		register(MaxHeightGoal.class);
 		register(MinHeightGoal.class);
+
 		register(RaceGoal.class);
 		register(MostOresGoal.class);
-
 		register(FindElytraGoal.class);
 		register(EatCakeGoal.class);
 		register(CollectHorseAmorGoal.class);
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
+
 		register(CollectWorkstationsGoal.class);
 		register(EatMostGoal.class);
-
 		register(ForceItemBattleGoal.class);
 
 		// Damage Rules

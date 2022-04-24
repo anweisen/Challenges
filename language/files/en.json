@@ -273,6 +273,7 @@
 	"bossbar-respawn-end": "§8» §5Respawned Mobs in End §8┃ §e{0}",
 	"bossbar-kill-all-bosses": "§8» §cAll Bosses §8┃ §e{0}/{1}",
 	"bossbar-kill-all-mobs": "§8» §cAll Mobs §8┃ §e{0}/{1}",
+	"bossbar-kill-all-monster": "§8» §cAll Monsters §8┃ §e{0}/{1}",
 	"subtitle-time-seconds": "§e{0} §7seconds",
 	"subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
 	"subtitle-time-minutes": "§e{0} §7minutes",
@@ -1090,6 +1091,10 @@
 	"item-all-mobs-goal": [
 		"§bAll Mobs",
 		"Each mob has to be killed once to win"
+	],
+	"item-all-monster-goal": [
+		"§bAll Monsters",
+		"Each monster has to be killed once to win"
 	],
 	"item-all-items-goal": [
 		"§2All Items",
