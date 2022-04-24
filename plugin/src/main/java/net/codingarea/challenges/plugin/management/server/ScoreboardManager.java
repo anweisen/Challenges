@@ -43,7 +43,7 @@ public final class ScoreboardManager {
 		updateAll();
 	}
 
-	@TimerTask(status = { TimerStatus.RUNNING, TimerStatus.PAUSED })
+	@TimerTask(status = {TimerStatus.RUNNING, TimerStatus.PAUSED})
 	public void updateAll() {
 		for (ChallengeBossBar bossbar : bossbars) {
 			bossbar.update();

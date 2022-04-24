@@ -89,22 +89,22 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 				.filter(biome -> !biome.name().contains("VOID"))
 				.toArray(length -> new Biome[length]);
 
-		biome = random.choose(biomes);
+		biome = globalRandom.choose(biomes);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return random.around(getRarity(biome) * 60 * 6, 60);
+		return globalRandom.around(getRarity(biome) * 60 * 6, 60);
 	}
 
 	private int getRarity(@Nonnull Biome biome) {
 		Object[][] mapping = {
-			{ "BADLANDS", 5 },
-			{ "JUNGLE", 4 },
-			{ "BAMBOO", 4 },
-			{ "MODIFIED", 3 },
-			{ "TALL", 3 },
-			{ "SWAMP", 2 },
+				{"BADLANDS", 5},
+				{"JUNGLE", 4},
+				{"BAMBOO", 4},
+				{"MODIFIED", 3},
+				{"TALL", 3},
+				{"SWAMP", 2},
 		};
 
 		for (Object[] pair : mapping) {
@@ -117,7 +117,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60 * 3, 60);
+		return globalRandom.around(getValue() * 60 * 3, 60);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

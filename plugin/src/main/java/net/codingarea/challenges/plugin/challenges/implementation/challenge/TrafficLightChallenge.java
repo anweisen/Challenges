@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -30,7 +29,6 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	private static final int GREEN = 0, YELLOW = 1, RED = 2;
 
-	private final IRandom random = IRandom.create();
 	private int state;
 
 	public TrafficLightChallenge() {
@@ -82,7 +80,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 20);
+		return globalRandom.around(getValue() * 60, 20);
 	}
 
 	@Override

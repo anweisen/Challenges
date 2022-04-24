@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.RandomMobAction;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -45,11 +46,8 @@ public class NewEntityOnJumpChallenge extends Setting {
 
 	private void spawnRandomEntity(@Nonnull Location location) {
 		if (location.getWorld() == null) return;
-		try {
-			location.getWorld().spawnEntity(location, EntityType.values()[random.nextInt(EntityType.values().length)]);
-		} catch (IllegalArgumentException | IllegalStateException ex) {
-			spawnRandomEntity(location);
-		}
+		EntityType type = globalRandom.choose(RandomMobAction.getSpawnableMobs());
+		location.getWorld().spawnEntity(location, type);
 	}
 
 }

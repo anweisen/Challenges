@@ -109,7 +109,7 @@ public class TimerCommand implements SenderCommand, Completer {
 		} else if (args.length == 2 && "mode".equalsIgnoreCase(args[0])) {
 			return Utils.filterRecommendations(args[1], "up", "down");
 		} else if ("set".equalsIgnoreCase(args[0])) {
-			return StringUtils.isNumber(last) ? Utils.filterRecommendations(last, last + "m", last + "h", last + "d", last + "w") : last.isEmpty() ? Arrays.asList("10", "30", "60", "120") :  Collections.singletonList(last);
+			return StringUtils.isNumber(last) ? Utils.filterRecommendations(last, last + "m", last + "h", last + "d", last + "w") : last.isEmpty() ? Arrays.asList("10", "30", "60", "120") : Collections.singletonList(last);
 		}
 		return new ArrayList<>();
 	}

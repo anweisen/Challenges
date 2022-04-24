@@ -49,7 +49,7 @@ public final class CloudSupportManager implements Listener {
 
 		if (type.equals("none")) return;
 
-		support =  loadSupport(type);
+		support = loadSupport(type);
 		ChallengeAPI.registerScheduler(this);
 		Challenges.getInstance().registerListener(this);
 
@@ -62,16 +62,22 @@ public final class CloudSupportManager implements Listener {
 
 	private CloudSupport loadSupport(@Nonnull String name) {
 		switch (name) {
-			default: return null;
-			case "cloudnet": case "cloudnet3": return new CloudNet3Support();
-			case "cloudnet2": return new CloudNet2Support();
+			default:
+				return null;
+			case "cloudnet":
+			case "cloudnet3":
+				return new CloudNet3Support();
+			case "cloudnet2":
+				return new CloudNet2Support();
 		}
 	}
 
 	@Nonnull
 	public String getColoredName(@Nonnull Player player) {
-		if (support == null) throw new IllegalStateException("No support loaded! Check compatibility before use");
-		if (cachedColoredNames.containsKey(player.getUniqueId())) return cachedColoredNames.get(player.getUniqueId());
+		if (support == null)
+			throw new IllegalStateException("No support loaded! Check compatibility before use");
+		if (cachedColoredNames.containsKey(player.getUniqueId()))
+			return cachedColoredNames.get(player.getUniqueId());
 
 		try {
 			return cacheColoredName(player.getUniqueId(), support.getColoredName(player));
@@ -83,7 +89,8 @@ public final class CloudSupportManager implements Listener {
 
 	@Nonnull
 	public String getColoredName(@Nonnull UUID uuid) {
-		if (support == null) throw new IllegalStateException("No support loaded! Check compatibility before use");
+		if (support == null)
+			throw new IllegalStateException("No support loaded! Check compatibility before use");
 		if (cachedColoredNames.containsKey(uuid)) return cachedColoredNames.get(uuid);
 
 		try {
@@ -121,7 +128,7 @@ public final class CloudSupportManager implements Listener {
 
 			if (startNewService && !startedNewService)
 				support.startNewService();
-				startedNewService = true;
+			startedNewService = true;
 		} catch (NoClassDefFoundError ex) {
 			Logger.error("Unable to set to ingame with cloud support '{}', missing dependencies", type);
 		}

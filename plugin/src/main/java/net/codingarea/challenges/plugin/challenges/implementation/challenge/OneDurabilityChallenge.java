@@ -36,7 +36,8 @@ public class OneDurabilityChallenge extends Setting {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onInventoryClick(@Nonnull InventoryClickEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getWhoClicked() instanceof Player && ignorePlayer((Player) event.getWhoClicked())) return;
+		if (event.getWhoClicked() instanceof Player && ignorePlayer((Player) event.getWhoClicked()))
+			return;
 		if (event.getCurrentItem() != null) setDurability(event.getCurrentItem());
 		if (event.getCursor() != null) setDurability(event.getCursor());
 	}

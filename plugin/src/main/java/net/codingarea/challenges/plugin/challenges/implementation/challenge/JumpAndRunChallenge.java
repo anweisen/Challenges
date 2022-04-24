@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
@@ -40,7 +39,6 @@ import java.util.UUID;
  */
 public class JumpAndRunChallenge extends WorldDependentChallenge {
 
-	private final IRandom random = IRandom.create();
 	private final List<UUID> lastPlayers = new ArrayList<>();
 
 	private int jumps = 4;
@@ -86,7 +84,9 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 				Message.forName("jnr-countdown-one").broadcast(Prefix.CHALLENGES);
 				SoundSample.BASS_OFF.broadcast();
 				break;
-			case 2: case 3: case 5:
+			case 2:
+			case 3:
+			case 5:
 				Message.forName("jnr-countdown").broadcast(Prefix.CHALLENGES, getSecondsLeftUntilNextActivation());
 				SoundSample.BASS_OFF.broadcast();
 				break;
@@ -102,7 +102,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@Override
@@ -130,7 +130,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		lastBlock.setType(Material.GOLD_BLOCK);
 
 		Material type = getRandomBlockType();
-		targetBlock = new RandomJumpGenerator().next(random, lastBlock, type == Material.CYAN_TERRACOTTA || type == Material.EMERALD_BLOCK, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
+		targetBlock = new RandomJumpGenerator().next(globalRandom, lastBlock, type == Material.CYAN_TERRACOTTA || type == Material.EMERALD_BLOCK, type != Material.COBBLESTONE_WALL && type != Material.SPRUCE_FENCE);
 		targetBlock.setType(type);
 
 	}
@@ -140,15 +140,15 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 		if (currentJump == jumps - 1) return Material.EMERALD_BLOCK;
 
 		Material[] materials = {
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.CYAN_TERRACOTTA,
-			Material.END_ROD,
-			Material.COBBLESTONE_WALL,
-			Material.SPRUCE_FENCE
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.CYAN_TERRACOTTA,
+				Material.END_ROD,
+				Material.COBBLESTONE_WALL,
+				Material.SPRUCE_FENCE
 		};
-		return random.choose(materials);
+		return globalRandom.choose(materials);
 	}
 
 	@Nonnull
@@ -161,7 +161,7 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 			players = new ArrayList<>(Bukkit.getOnlinePlayers());
 			lastPlayers.clear();
 		}
-		return random.choose(players);
+		return globalRandom.choose(players);
 	}
 
 	protected void finishJumpAndRun() {

@@ -11,9 +11,9 @@ import java.util.function.Predicate;
  */
 public enum ChallengeStatusPolicy implements IPolicy {
 
-	ALWAYS  (challenge -> true),
+	ALWAYS(challenge -> true),
 	DISABLED(challenge -> !challenge.isEnabled()),
-	ENABLED (challenge -> challenge.isEnabled());
+	ENABLED(challenge -> challenge.isEnabled());
 
 	private final Predicate<IChallenge> check;
 

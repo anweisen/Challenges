@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -18,13 +17,10 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
-import org.bukkit.Bukkit;
-import org.bukkit.Effect;
-import org.bukkit.GameMode;
-import org.bukkit.GameRule;
-import org.bukkit.Location;
-import org.bukkit.World;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -109,10 +105,10 @@ public final class ChallengeTimer {
 		updateActionbar();
 		updateTimeRule();
 
+		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
 		Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-started"));
 		Challenges.getInstance().getServerManager().setNotFresh();
-		Message.forName("timer-was-started").broadcast(Prefix.TIMER);
 
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getGameMode() != GameMode.CREATIVE)
@@ -128,7 +124,7 @@ public final class ChallengeTimer {
 
 	}
 
-	public void pause(boolean byPlayer) {
+	public void pause(boolean playInGameEffects) {
 		if (paused) return;
 		paused = true;
 
@@ -136,7 +132,7 @@ public final class ChallengeTimer {
 		updateTimeRule();
 
 		Challenges.getInstance().getScheduler().fireTimerStatusChange();
-		if (byPlayer) {
+		if (playInGameEffects) {
 			Challenges.getInstance().getTitleManager().sendTimerStatusTitle(Message.forName("title-timer-paused"));
 			Message.forName("timer-was-paused").broadcast(Prefix.TIMER);
 			SoundSample.BASS_OFF.broadcast();
@@ -153,11 +149,12 @@ public final class ChallengeTimer {
 	public void updateActionbar() {
 		if (sentEmpty && hidden) return;
 		if (hidden) sentEmpty = true;
-		String actionbar = hidden ? "" : getActionbar();
-
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(actionbar));
+		if (!hidden) {
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(getActionbar()));
+			}
 		}
+
 	}
 
 	@Nonnull

@@ -15,7 +15,8 @@ public final class MessageManager {
 
 	private static final Map<String, Message> cache = new ConcurrentHashMap<>();
 
-	private MessageManager() {}
+	private MessageManager() {
+	}
 
 	@Nonnull
 	@CheckReturnValue

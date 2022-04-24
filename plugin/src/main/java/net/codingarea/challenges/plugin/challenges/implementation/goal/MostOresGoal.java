@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
@@ -13,6 +12,8 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -32,7 +33,7 @@ public class MostOresGoal extends PointsGoal {
 			case EMERALD_ORE:
 			case DEEPSLATE_EMERALD_ORE:
 				return 15;
-			case 	DIAMOND_ORE:
+			case DIAMOND_ORE:
 			case DEEPSLATE_DIAMOND_ORE:
 				return 10;
 			case LAPIS_ORE:

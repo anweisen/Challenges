@@ -41,8 +41,7 @@ public class InvseeCommand implements PlayerCommand, Listener {
 			chestPlateSlot = 47,
 			leggingsSlot = 48,
 			bootsSlot = 49,
-			offHandSlot = 52
-	;
+			offHandSlot = 52;
 
 	private final Map<Player, Inventory> inventories = new HashMap<>();
 
@@ -73,7 +72,8 @@ public class InvseeCommand implements PlayerCommand, Listener {
 
 		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle("§9" + NameHelper.getName(player)));
 		inventories.put(player, inventory);
-		MenuPosition.set(player, event -> {});
+		MenuPosition.set(player, event -> {
+		});
 		updateInventoryContents(inventory, player.getInventory());
 		return inventory;
 	}

@@ -17,7 +17,8 @@ import java.net.URL;
  */
 public final class ImageUtils {
 
-	private ImageUtils() {}
+	private ImageUtils() {
+	}
 
 	public static final char IMAGE_CHAR = '█';
 
@@ -39,7 +40,7 @@ public final class ImageUtils {
 			StringBuilder text = new StringBuilder();
 			for (int x = 0; x < image.getWidth(); x++) {
 				text.append(ColorConversions.convertAwtColorToChatColor(new Color(image.getRGB(x, y))))
-					.append(IMAGE_CHAR);
+						.append(IMAGE_CHAR);
 			}
 			output[y] = text.toString();
 		}

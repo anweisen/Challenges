@@ -21,7 +21,8 @@ public final class DatabaseHelper {
 
 	private static final Map<UUID, String> cachedTextures = new HashMap<>();
 
-	private DatabaseHelper() {}
+	private DatabaseHelper() {
+	}
 
 	@Nullable
 	public static String getPlayerTextures(@Nonnull Player player) {

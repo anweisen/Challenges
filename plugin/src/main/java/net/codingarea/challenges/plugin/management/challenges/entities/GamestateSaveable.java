@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.management.challenges.entities;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -9,8 +10,10 @@ import net.anweisen.utilities.common.config.Document;
  */
 public interface GamestateSaveable {
 
-  String getUniqueName();
-  void writeGameState(@Nonnull Document document);
-  void loadGameState(@Nonnull Document document);
+	String getUniqueGamestateName();
+
+	void writeGameState(@Nonnull Document document);
+
+	void loadGameState(@Nonnull Document document);
 
 }

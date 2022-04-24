@@ -1,14 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -17,9 +8,9 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
@@ -37,13 +28,16 @@ import org.bukkit.Sound;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
+import javax.annotation.Nonnull;
+import java.util.*;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
 public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGenerator {
 
-	public static final int DELETE_SLOT = 19+9, SAVE_SLOT = 25+9, CONDITION_SLOT = 21+9, ACTION_SLOT = 23+9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
+	public static final int DELETE_SLOT = 19 + 9, SAVE_SLOT = 25 + 9, CONDITION_SLOT = 21 + 9, ACTION_SLOT = 23 + 9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
 
 	private static final Material[] defaultMaterials;
 	private static final boolean savePlayerChallenges;
@@ -51,9 +45,9 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private final UUID uuid;
 	private String name;
 	private Material material;
-	private AbstractChallengeTrigger trigger;
+	private ChallengeTrigger trigger;
 	private Map<String, String[]> subTriggers;
-	private AbstractChallengeAction action;
+	private ChallengeAction action;
 	private Map<String, String[]> subActions;
 	private Inventory inventory;
 
@@ -78,22 +72,22 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.uuid = UUID.randomUUID();
 		this.material = IRandom.threadLocal().choose(defaultMaterials);
 		this.name = "§7Custom §e#" +
-				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size()+1);
+				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() + 1);
 	}
 
 	@Override
 	public void generateInventories() {
-		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6*9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Info"));
+		inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(MenuType.CUSTOM, "Info"));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 
 		updateItems();
 
-		InventoryUtils.setNavigationItems(inventory, new int[]{36+9}, true, InventorySetter.INVENTORY, 0, 1);
+		InventoryUtils.setNavigationItems(inventory, new int[]{36 + 9}, true, InventorySetter.INVENTORY, 0, 1);
 	}
 
 	public void updateItems() {
 		String currently = Message.forName("custom-info-currently").asString();
-		String none = Message.forName("custom-info-none").asString();
+		String none = Message.forName("none").asString();
 
 		// Save / Delete Item
 		inventory.setItem(DELETE_SLOT, new ItemBuilder(Material.BARRIER, Message.forName("item-custom-info-delete")).build());
@@ -205,7 +199,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		@Override
 		public void handleClick(@Nonnull MenuClickInfo info) {
-			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36+9}, page, info, () -> 				Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0))) {
+			if (InventoryUtils.handleNavigationClicking(generator, new int[]{36 + 9}, page, info, () -> Challenges.getInstance().getMenuManager().openMenu(info.getPlayer(), MenuType.CUSTOM, 0))) {
 				return;
 			}
 
@@ -251,7 +245,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				case CONDITION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.CONDITION,
 							"trigger", Message.forName("custom-title-trigger").asString(),
-							AbstractChallengeTrigger.getMenuItems(),
+							ChallengeTrigger.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);
@@ -259,7 +253,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				case ACTION_SLOT:
 					new CustomMainSettingsMenuGenerator(generator, SettingType.ACTION,
 							"action", Message.forName("custom-title-action").asString(),
-							AbstractChallengeAction.getMenuItems(),
+							ChallengeAction.getMenuItems(),
 							s -> Challenges.getInstance().getCustomSettingsLoader().getActionByName(s))
 							.open(player, 0);
 					SoundSample.CLICK.play(player);

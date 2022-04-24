@@ -94,8 +94,8 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
 	private boolean isSearched(@Nonnull Material material) {
 		return getValue() == OVERWORLD && isLog(material) ||
-			   getValue() == NETHER && isNetherLog(material) ||
-			   getValue() == BOTH && (isLog(material) || isNetherLog(material));
+				getValue() == NETHER && isNetherLog(material) ||
+				getValue() == BOTH && (isLog(material) || isNetherLog(material));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

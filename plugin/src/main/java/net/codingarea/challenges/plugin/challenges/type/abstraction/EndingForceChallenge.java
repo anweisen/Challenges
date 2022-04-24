@@ -68,6 +68,7 @@ public abstract class EndingForceChallenge extends AbstractForceChallenge {
 	protected abstract boolean isFailing(@Nonnull Player player);
 
 	protected abstract void broadcastFailedMessage(@Nonnull Player player);
+
 	protected abstract void broadcastSuccessMessage();
 
 }

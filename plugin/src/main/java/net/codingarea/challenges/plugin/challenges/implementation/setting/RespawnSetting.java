@@ -9,7 +9,10 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
-import org.bukkit.*;
+import org.bukkit.GameMode;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -68,7 +71,8 @@ public class RespawnSetting extends Setting {
 		Player player = event.getPlayer();
 		Location locationBeforeRespawn = locationsBeforeRespawn.remove(player);
 		if (locationBeforeRespawn == null) return;
-		if (locationBeforeRespawn.getY() < 0) return; // If the player dies in the void (y <= 0), we dont want him to spawn there, he would die again
+		if (locationBeforeRespawn.getY() < 0)
+			return; // If the player dies in the void (y <= 0), we dont want him to spawn there, he would die again
 		event.setRespawnLocation(locationBeforeRespawn);
 	}
 

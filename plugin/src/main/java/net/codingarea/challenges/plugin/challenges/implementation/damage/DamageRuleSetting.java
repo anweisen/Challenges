@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.damage;
 
-import java.util.Arrays;
-import java.util.List;
-import javax.annotation.Nonnull;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -13,6 +10,11 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
+import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -32,7 +34,7 @@ public class DamageRuleSetting extends Setting {
 		this.preset = preset;
 	}
 
-	@Nonnull
+	@NotNull
 	@Override
 	public String getUniqueName() {
 		return super.getUniqueName() + name;
@@ -49,7 +51,8 @@ public class DamageRuleSetting extends Setting {
 		if (ChallengeAPI.isWorldInUse()) return;
 		if (isEnabled()) return;
 		if (!(event.getEntity() instanceof Player)) return;
-		if (event.getCause() == DamageCause.VOID || event.getCause() == DamageCause.CUSTOM) return; // Never ignore void or custom to prevent different issues
+		if (event.getCause() == DamageCause.VOID || event.getCause() == DamageCause.CUSTOM)
+			return; // Never ignore void or custom to prevent different issues
 		if (!causes.contains(event.getCause())) return;
 		event.setCancelled(true);
 	}

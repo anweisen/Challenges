@@ -1,9 +1,5 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import java.util.LinkedList;
-import java.util.List;
-import java.util.function.Supplier;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
@@ -21,6 +17,11 @@ import org.bukkit.World.Environment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+
+import javax.annotation.Nonnull;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.function.Supplier;
 
 /**
  * @author anweisen | https://github.com/anweisen

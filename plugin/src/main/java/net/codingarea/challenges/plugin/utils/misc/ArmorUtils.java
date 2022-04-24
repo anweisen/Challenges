@@ -8,10 +8,11 @@ import org.bukkit.Material;
  */
 public final class ArmorUtils {
 
-	private ArmorUtils() {}
+	private ArmorUtils() {
+	}
 
 	public static Material[] getArmor() {
-		return new Material[] {
+		return new Material[]{
 				Material.IRON_CHESTPLATE, Material.IRON_LEGGINGS, Material.IRON_BOOTS, Material.IRON_HELMET,
 				Material.DIAMOND_CHESTPLATE, Material.DIAMOND_LEGGINGS, Material.DIAMOND_BOOTS, Material.DIAMOND_HELMET,
 				Material.GOLDEN_CHESTPLATE, Material.GOLDEN_LEGGINGS, Material.GOLDEN_BOOTS, Material.GOLDEN_HELMET,

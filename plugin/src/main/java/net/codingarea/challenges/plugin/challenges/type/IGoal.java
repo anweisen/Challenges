@@ -12,9 +12,8 @@ import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 2.0
- *
  * @see ChallengeManager
+ * @since 2.0
  */
 public interface IGoal extends IChallenge {
 

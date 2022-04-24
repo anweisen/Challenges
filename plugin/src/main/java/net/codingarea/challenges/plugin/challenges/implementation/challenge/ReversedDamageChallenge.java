@@ -3,15 +3,11 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Projectile;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.projectiles.ProjectileSource;
 
 import javax.annotation.Nonnull;
 
@@ -32,24 +28,12 @@ public class ReversedDamageChallenge extends Setting {
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
-	public void onDamageByEntity(@Nonnull EntityDamageByEntityEvent event) {
+	public void onDamageByPlayer(@Nonnull EntityDamageByPlayerEvent event) {
 		if (!shouldExecuteEffect()) return;
-		LivingEntity damager;
-		if (event.getDamager() instanceof Projectile) {
-			ProjectileSource shooter = ((Projectile) event.getDamager()).getShooter();
-			if (shooter instanceof Player) {
-				damager = (LivingEntity) shooter;
-			} else {
-				return;
-			}
-		} else if (event.getDamager() instanceof Player) {
-			damager = ((LivingEntity) event.getDamager());
-		} else {
-			return;
-		}
+		if (ignorePlayer(event.getDamager())) return;
 
 		double damage = event.getFinalDamage();
-		damager.damage(damage);
+		event.getDamager().damage(damage);
 	}
 
 }

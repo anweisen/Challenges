@@ -45,18 +45,25 @@ public interface Message {
 	ItemDescription asItemDescription(@Nonnull Object... args);
 
 	void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+
 	void sendRandom(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
+
 	void sendRandom(@Nonnull IRandom random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args);
+
 	void broadcastRandom(@Nonnull Prefix prefix, @Nonnull Object... args);
+
 	void broadcastRandom(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	void broadcastTitle(@Nonnull Object... args);
+
 	void sendTitle(@Nonnull Player player, @Nonnull Object... args);
+
 	void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args);
 
 	void setValue(@Nonnull String value);
+
 	void setValue(@Nonnull String[] value);
 
 	@Nonnull

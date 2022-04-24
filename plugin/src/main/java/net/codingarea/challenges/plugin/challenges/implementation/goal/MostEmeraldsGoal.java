@@ -47,9 +47,11 @@ public class MostEmeraldsGoal extends PointsGoal {
 		PlayerInventory inventory = player.getInventory();
 		int count = 0;
 		for (ItemStack itemStack : inventory.getContents()) {
-			if (itemStack != null && itemStack.getType() == Material.EMERALD) count += itemStack.getAmount();
+			if (itemStack != null && itemStack.getType() == Material.EMERALD)
+				count += itemStack.getAmount();
 		}
-		if (player.getItemOnCursor().getType() == Material.EMERALD) count += player.getItemOnCursor().getAmount();
+		if (player.getItemOnCursor().getType() == Material.EMERALD)
+			count += player.getItemOnCursor().getAmount();
 		return count;
 	}
 

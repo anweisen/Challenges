@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.common.annotations.DeprecatedSince;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -32,6 +33,7 @@ import java.util.function.Consumer;
 public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	protected static final Challenges plugin = Challenges.getInstance();
+	protected static final IRandom globalRandom = IRandom.create();
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
@@ -99,6 +101,12 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	@Override
+	public String getUniqueGamestateName() {
+		return getUniqueName();
+	}
+
+	@Nonnull
+	@Override
 	public String getUniqueName() {
 		return name != null ? name : (name = getClass().getSimpleName().toLowerCase()
 				.replace("setting", "")
@@ -154,7 +162,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	protected final Document getGameStateData() {
-		return plugin.getConfigManager().getGameStateConfig().getDocument(getUniqueName());
+		return plugin.getConfigManager().getGameStateConfig().getDocument(this.getUniqueGamestateName());
 	}
 
 	@Nonnull

@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -13,6 +12,8 @@ import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.PlayerDeathEvent;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -56,7 +57,8 @@ public class ImmediateRespawnSetting extends Setting {
 			for (World world : Bukkit.getWorlds()) {
 				world.setGameRule(GameRule.DO_IMMEDIATE_RESPAWN, false);
 			}
-		} catch (NoSuchFieldError ignored) { }
+		} catch (NoSuchFieldError ignored) {
+		}
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

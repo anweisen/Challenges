@@ -1,9 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -24,6 +20,11 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
 import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -51,19 +52,27 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	@Override
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
-			case 0:     return DefaultItem.create(Material.LIME_DYE, "§aPeaceful");
-			case 1:     return DefaultItem.create(MaterialWrapper.GREEN_DYE, "§2Easy");
-			case 2:     return DefaultItem.create(Material.ORANGE_DYE, "§6Normal");
-			default:    return DefaultItem.create(MaterialWrapper.RED_DYE, "§cHard");
+			case 0:
+				return DefaultItem.create(Material.LIME_DYE, "§aPeaceful");
+			case 1:
+				return DefaultItem.create(MaterialWrapper.GREEN_DYE, "§2Easy");
+			case 2:
+				return DefaultItem.create(Material.ORANGE_DYE, "§6Normal");
+			default:
+				return DefaultItem.create(MaterialWrapper.RED_DYE, "§cHard");
 		}
 	}
 
 	private String getDifficultyName() {
 		switch (getValue()) {
-			case 0:     return "§aPeaceful";
-			case 1:     return "§2Easy";
-			case 2:     return "§6Normal";
-			default:    return "§cHard";
+			case 0:
+				return "§aPeaceful";
+			case 1:
+				return "§2Easy";
+			case 2:
+				return "§6Normal";
+			default:
+				return "§cHard";
 		}
 	}
 
@@ -128,10 +137,14 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	private int getDifficultyValue(@Nonnull String input) {
 
 		switch (input.toLowerCase()) {
-			case "peaceful": return 0;
-			case "easy": return 1;
-			case "normal": return 2;
-			case "hard": return 3;
+			case "peaceful":
+				return 0;
+			case "easy":
+				return 1;
+			case "normal":
+				return 2;
+			case "hard":
+				return 3;
 		}
 
 		try {

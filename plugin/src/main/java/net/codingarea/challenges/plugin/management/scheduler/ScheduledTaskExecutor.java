@@ -9,9 +9,8 @@ import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 2.0
- *
  * @see ScheduleManager
+ * @since 2.0
  */
 final class ScheduledTaskExecutor extends AbstractTaskExecutor {
 
@@ -33,7 +32,7 @@ final class ScheduledTaskExecutor extends AbstractTaskExecutor {
 		BukkitScheduler scheduler = Bukkit.getScheduler();
 		Challenges plugin = Challenges.getInstance();
 		task = config.isAsync() ? scheduler.runTaskTimerAsynchronously(plugin, this, 0, config.getRate()) :
-								  scheduler.runTaskTimer(plugin, this, 0, config.getRate());
+				scheduler.runTaskTimer(plugin, this, 0, config.getRate());
 	}
 
 	@Nonnull

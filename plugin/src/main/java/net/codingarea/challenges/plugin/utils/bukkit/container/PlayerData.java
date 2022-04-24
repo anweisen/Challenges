@@ -32,12 +32,12 @@ public final class PlayerData {
 
 	public PlayerData(@Nonnull Player player) {
 		this(player.getGameMode(), player.getLocation(), player.getInventory().getContents(), player.getInventory().getArmorContents(),
-			 player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot(),
-			 player.getAllowFlight(), player.isFlying());
+				player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot(),
+				player.getAllowFlight(), player.isFlying());
 	}
 
 	public PlayerData(@Nonnull GameMode gamemode, @Nonnull Location location, @Nonnull ItemStack[] inventory, @Nonnull ItemStack[] armor,
-	                  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot, boolean allowedFlight, boolean flying) {
+					  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot, boolean allowedFlight, boolean flying) {
 		this.gamemode = gamemode;
 		this.location = location;
 		this.inventory = inventory;

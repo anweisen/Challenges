@@ -24,18 +24,19 @@ public final class ItemDescription {
 	private final String originalName;
 
 	public static ItemDescription empty() {
-		return new ItemDescription(new String[] { "§e" }, Message.NULL, new String[0]);
+		return new ItemDescription(new String[]{"§e"}, Message.NULL, new String[0]);
 	}
 
 	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String name, @Nonnull String[] formattedLore) {
 		this.colors = themeColors;
-		this.name = "§8» " + name;
+		this.name = Message.forName("item-prefix") + name;
 		this.originalName = name;
 		this.lore = formattedLore;
 	}
 
 	public ItemDescription(@Nonnull String[] description) {
-		if (description.length == 0) throw new IllegalArgumentException("Invalid item description: Cannot be empty");
+		if (description.length == 0)
+			throw new IllegalArgumentException("Invalid item description: Cannot be empty");
 
 		originalName = description[0];
 		name = Message.forName("item-prefix") + originalName;

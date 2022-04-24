@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -9,6 +8,8 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -35,6 +36,12 @@ public class EmptyChallenge implements IChallenge {
 	@Override
 	public void handleShutdown() {
 
+	}
+
+	@NotNull
+	@Override
+	public String getUniqueGamestateName() {
+		return getUniqueName();
 	}
 
 	@NotNull

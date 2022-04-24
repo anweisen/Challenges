@@ -100,7 +100,7 @@ public class ModuleChallengeLoader {
 	}
 
 	public final void registerDamageRule(@Nonnull String name, @Nonnull ItemBuilder preset, @Nonnull DamageCause... causes) {
-		register(DamageRuleSetting.class, new Class[] { ItemBuilder.class, String.class, DamageCause[].class }, preset, name, causes);
+		register(DamageRuleSetting.class, new Class[]{ItemBuilder.class, String.class, DamageCause[].class}, preset, name, causes);
 	}
 
 	public final void registerMaterialRule(@Nonnull String title, @Nonnull String replacement, @Nonnull Material... materials) {
@@ -112,7 +112,7 @@ public class ModuleChallengeLoader {
 	}
 
 	public final void registerMaterialRule(@Nonnull String name, @Nonnull ItemBuilder preset, Object[] replacements, @Nonnull Material... materials) {
-		register(BlockMaterialSetting.class, new Class[] { String.class, ItemBuilder.class, Object[].class, Material[].class }, name, preset, replacements, materials);
+		register(BlockMaterialSetting.class, new Class[]{String.class, ItemBuilder.class, Object[].class, Material[].class}, name, preset, replacements, materials);
 	}
 
 
@@ -124,7 +124,7 @@ public class ModuleChallengeLoader {
 		Challenges.getInstance().getChallengeManager().unregister(challenge);
 		Challenges.getInstance().getScheduler().unregister(challenge);
 		Challenges.getInstance().getConfigManager().getSettingsConfig().remove(challenge.getUniqueName());
-		Challenges.getInstance().getConfigManager().getGameStateConfig().remove(challenge.getUniqueName());
+		Challenges.getInstance().getConfigManager().getGameStateConfig().remove(challenge.getUniqueGamestateName());
 
 		if (challenge instanceof Listener) {
 			HandlerList.unregisterAll((Listener) challenge);

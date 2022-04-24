@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.content.impl;
 
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
@@ -13,6 +10,10 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nonnull;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -30,12 +31,14 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String asString(@Nonnull Object... args) {
-		if (value == null)                      return Message.NULL;
+		if (value == null) return Message.NULL;
 		if (value instanceof String && args.length == 0) return (String) value;
-		if (value instanceof String)            return StringUtils.format((String) value, args);
-		if (value instanceof String[] && args.length == 0) return StringUtils.getArrayAsString((String[]) value, "\n");
-		if (value instanceof String[])          return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
-		if (value instanceof ItemDescription)   return ((ItemDescription)value).getName();
+		if (value instanceof String) return StringUtils.format((String) value, args);
+		if (value instanceof String[] && args.length == 0)
+			return StringUtils.getArrayAsString((String[]) value, "\n");
+		if (value instanceof String[])
+			return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
+		if (value instanceof ItemDescription) return ((ItemDescription) value).getName();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
 		return Message.NULL;
 	}
@@ -57,19 +60,23 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
-		if (value == null)                      return new String[] { Message.unknown(name) };
-		if (value instanceof String[])          return StringUtils.format((String[]) value, args);
-		if (value instanceof String)            return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
-		if (value instanceof ItemDescription)   return ((ItemDescription)value).getLore();
+		if (value == null) return new String[]{Message.unknown(name)};
+		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
+		if (value instanceof String)
+			return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
+		if (value instanceof ItemDescription) return ((ItemDescription) value).getLore();
 		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return new String[] { Message.NULL };
+		return new String[]{Message.NULL};
 	}
 
 	@Nonnull
 	@Override
 	public ItemDescription asItemDescription(@Nonnull Object... args) {
-		if (value == null)                      { Message.unknown(name); return ItemDescription.empty(); }
-		if (value instanceof ItemDescription)   return (ItemDescription) value;
+		if (value == null) {
+			Message.unknown(name);
+			return ItemDescription.empty();
+		}
+		if (value instanceof ItemDescription) return (ItemDescription) value;
 		return new ItemDescription(asArray(args));
 	}
 
@@ -111,7 +118,7 @@ public class MessageImpl implements Message {
 
 	private void doSendLine(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String line) {
 		if (line.trim().isEmpty()) sender.accept(line);
-		else                       sender.accept(prefix + line);
+		else sender.accept(prefix + line);
 	}
 
 	@Override
@@ -139,9 +146,9 @@ public class MessageImpl implements Message {
 	}
 
 	protected void sendTitle(@Nonnull String[] title, @Nonnull BiConsumer<String, String> send) {
-		if (title.length == 0)      send.accept("", "");
+		if (title.length == 0) send.accept("", "");
 		else if (title.length == 1) send.accept(title[0], "");
-		else                        send.accept(title[0], title[1]);
+		else send.accept(title[0], title[1]);
 	}
 
 	@Override

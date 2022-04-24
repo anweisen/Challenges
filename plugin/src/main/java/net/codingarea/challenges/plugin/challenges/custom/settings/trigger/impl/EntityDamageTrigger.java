@@ -1,14 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Random;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.ItemBuilder.PotionBuilder;
 import net.anweisen.utilities.common.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -20,11 +14,14 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.potion.PotionEffectType;
 
+import javax.annotation.Nonnull;
+import java.util.*;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
-public class EntityDamageTrigger extends AbstractChallengeTrigger {
+public class EntityDamageTrigger extends ChallengeTrigger {
 
 	public EntityDamageTrigger(String name) {
 		super(name, SubSettingsHelper.createEntityTypeSettingsBuilder(true, true).createChooseMultipleChild("damage_cause").fill(builder -> {

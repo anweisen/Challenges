@@ -12,7 +12,8 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeConfigHelper {
 
-	private ChallengeConfigHelper() {}
+	private ChallengeConfigHelper() {
+	}
 
 	private static final Document settingsDocument;
 

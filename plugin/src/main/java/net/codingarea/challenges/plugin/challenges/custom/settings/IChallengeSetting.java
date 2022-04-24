@@ -10,8 +10,11 @@ import org.bukkit.Material;
 public interface IChallengeSetting {
 
 	SubSettingsBuilder getSubSettingsBuilder();
+
 	String getName();
+
 	Material getMaterial();
+
 	String getMessage();
 
 }

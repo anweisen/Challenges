@@ -35,30 +35,30 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 	public RandomPotionEffectChallenge() {
 		super(MenuType.CHALLENGES, "Random Effect");
 		registerSetting("time", new NumberSubSetting(
-				() -> new ItemBuilder(Material.CLOCK, Message.forName("item-random-effect-time-challenge")),
-				value -> null,
-				value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
-				1,
-				60,
-				30
+						() -> new ItemBuilder(Material.CLOCK, Message.forName("item-random-effect-time-challenge")),
+						value -> null,
+						value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
+						1,
+						60,
+						30
 				)
 		);
 		registerSetting("length", new NumberSubSetting(
-				() -> new ItemBuilder(Material.ARROW, Message.forName("item-random-effect-length-challenge")),
-				value -> null,
-				value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
-				1,
-				20,
-				10
+						() -> new ItemBuilder(Material.ARROW, Message.forName("item-random-effect-length-challenge")),
+						value -> null,
+						value -> "§e" + value + " §7" + Message.forName(value == 1 ? "second" : "seconds").asString(),
+						1,
+						20,
+						10
 				)
 		);
 		registerSetting("amplifier", new NumberSubSetting(
-				() -> new ItemBuilder(Material.STONE_SWORD, Message.forName("item-random-effect-amplifier-challenge")),
-				value -> null,
-				value -> "§7" + Message.forName("amplifier") + " §e" + value,
-				1,
-				8,
-				3
+						() -> new ItemBuilder(Material.STONE_SWORD, Message.forName("item-random-effect-amplifier-challenge")),
+						value -> null,
+						value -> "§7" + Message.forName("amplifier") + " §e" + value,
+						1,
+						8,
+						3
 				)
 		);
 

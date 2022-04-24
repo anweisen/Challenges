@@ -35,9 +35,8 @@ import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
- * @since 2.0
- *
  * @see net.codingarea.challenges.plugin.management.stats.StatsManager
+ * @since 2.0
  */
 public class StatsListener implements Listener {
 
@@ -69,7 +68,8 @@ public class StatsListener implements Listener {
 
 		if (event.getDamager() instanceof Player) {
 			Player player = (Player) event.getDamager();
-			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
+			if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE)
+				return;
 			incrementStatistic(player, Statistic.DAMAGE_DEALT, event.getFinalDamage());
 
 			if (event.getEntity() instanceof EnderDragon && !dragonDamager.contains(player))

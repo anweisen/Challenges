@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -24,8 +23,6 @@ import javax.annotation.Nullable;
 @Since("2.0")
 @ExcludeFromRandomChallenges
 public class InvertHealthChallenge extends TimedChallenge {
-
-	private final IRandom random = IRandom.create();
 
 	public InvertHealthChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
@@ -50,7 +47,7 @@ public class InvertHealthChallenge extends TimedChallenge {
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 20);
+		return globalRandom.around(getValue() * 60, 20);
 	}
 
 	@Override

@@ -36,7 +36,7 @@ public abstract class KillEntityGoal extends SettingGoal {
 		this(entity, world, false);
 	}
 
-	public KillEntityGoal(EntityType entity, Environment world, boolean enabledByDefault ) {
+	public KillEntityGoal(EntityType entity, Environment world, boolean enabledByDefault) {
 		super(enabledByDefault);
 		this.entity = entity;
 		this.environment = world;
@@ -52,7 +52,8 @@ public abstract class KillEntityGoal extends SettingGoal {
 		if (!isEnabled() || !ChallengeAPI.isStarted()) return;
 		LivingEntity entity = event.getEntity();
 		if (entity.getType() != this.entity) return;
-		if (environment != null && event.getEntity().getWorld().getEnvironment() != environment) return;
+		if (environment != null && event.getEntity().getWorld().getEnvironment() != environment)
+			return;
 		if (oneWinner) {
 			winner = event.getEntity().getKiller();
 			if (killerNeeded && winner == null) {

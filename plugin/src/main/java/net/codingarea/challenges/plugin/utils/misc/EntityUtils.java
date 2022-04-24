@@ -10,7 +10,8 @@ import javax.annotation.Nonnull;
  */
 public final class EntityUtils {
 
-	private EntityUtils() {}
+	private EntityUtils() {
+	}
 
 	public static Vector getSucceedingVelocity(@Nonnull Vector vector) {
 		return new Vector(vector.getX(), getSucceedingVelocity(vector.getY()), vector.getX());

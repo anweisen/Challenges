@@ -10,10 +10,9 @@ import org.bukkit.command.CommandSender;
 import javax.annotation.Nonnull;
 
 /**
- * @deprecated Not working as intended. Therefore removed from the plugin entirely for the time being.
- *
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
+ * @deprecated Not working as intended. Therefore removed from the plugin entirely for the time being.
  */
 @Deprecated
 public class ReloadCommand implements SenderCommand {

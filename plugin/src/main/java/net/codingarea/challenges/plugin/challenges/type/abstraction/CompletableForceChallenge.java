@@ -45,6 +45,7 @@ public abstract class CompletableForceChallenge extends AbstractForceChallenge {
 	}
 
 	protected abstract void broadcastFailedMessage();
+
 	protected abstract void broadcastSuccessMessage(@Nonnull Player player);
 
 }

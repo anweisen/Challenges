@@ -30,7 +30,8 @@ public class BedrockWallChallenge extends SettingModifier {
 	@EventHandler
 	public void onMove(@Nonnull PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
-		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR) return;
+		if (event.getPlayer().getGameMode() == GameMode.CREATIVE || event.getPlayer().getGameMode() == GameMode.SPECTATOR)
+			return;
 
 		Location location = event.getTo();
 		if (location == null) return;
@@ -40,7 +41,7 @@ public class BedrockWallChallenge extends SettingModifier {
 			World world = event.getPlayer().getWorld();
 
 			List<Block> blocks = new ArrayList<>();
-			for (int y = BukkitReflectionUtils.getMinHeight(world)+1; y < world.getMaxHeight(); y++) {
+			for (int y = BukkitReflectionUtils.getMinHeight(world) + 1; y < world.getMaxHeight(); y++) {
 				Location blockLocation = location.clone();
 				blockLocation.setY(y);
 				blocks.add(blockLocation.getBlock());

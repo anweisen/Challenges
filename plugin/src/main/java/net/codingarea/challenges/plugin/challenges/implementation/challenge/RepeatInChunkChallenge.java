@@ -1,13 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import com.google.common.collect.Lists;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Objects;
-import java.util.Set;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.pair.Triple;
@@ -31,12 +24,14 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.event.vehicle.VehicleMoveEvent;
 import org.bukkit.event.world.ChunkUnloadEvent;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -175,7 +170,7 @@ public class RepeatInChunkChallenge extends Setting {
 
 				if (onlyBorder) {
 
-					if (x!=-range && x!=range && z!=-range && z!=range) {
+					if (x != -range && x != range && z != -range && z != range) {
 						continue;
 					}
 
@@ -263,7 +258,7 @@ public class RepeatInChunkChallenge extends Setting {
 	public void onMove(PlayerMoveEvent event) {
 		if (event.getTo() == null) return;
 		if (!shouldExecuteEffect()) return;
-				if (ignorePlayer(event.getPlayer())) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo().getChunk() == event.getFrom().getChunk()) return;
 		updateSurroundingChunks(event.getTo().getChunk(), true);
 	}
@@ -289,7 +284,7 @@ public class RepeatInChunkChallenge extends Setting {
 	public void onTeleport(PlayerTeleportEvent event) {
 		if (event.getTo() == null) return;
 		if (!shouldExecuteEffect()) return;
-				if (ignorePlayer(event.getPlayer())) return;
+		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo().getChunk() == event.getFrom().getChunk()) return;
 		updateSurroundingChunks(event.getTo().getChunk(), false);
 	}

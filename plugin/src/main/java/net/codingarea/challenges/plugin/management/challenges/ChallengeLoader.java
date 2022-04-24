@@ -5,8 +5,6 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
-import net.codingarea.challenges.plugin.challenges.type.EmptyChallenge;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
 import org.bukkit.Material;
@@ -130,7 +128,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(PermanentEffectOnDamageChallenge.class);
 		register(InfectionChallenge.class);
 		register(InvisibleMobsChallenge.class);
-
 		// 9
 		register(UncraftItemsChallenge.class);
 		register(OnlyDownChallenge.class);
@@ -165,6 +162,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
 		// 13
+		register(RandomTeleportOnHitChallenge.class);
+		register(BlockMobsChallenge.class);
 
 
 		// Goal
@@ -174,31 +173,35 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillAllBossesGoal.class);
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
-		register(LastManStandingGoal.class);
+		register(KillAllMobsGoal.class);
 
+		register(KillAllMonsterGoal.class);
+		register(LastManStandingGoal.class);
 		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
+
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
-
 		register(FinishRaidGoal.class);
 		register(MostEmeraldsGoal.class);
 		register(AllAdvancementGoal.class);
 		register(MaxHeightGoal.class);
 		register(MinHeightGoal.class);
+
 		register(RaceGoal.class);
 		register(MostOresGoal.class);
-
 		register(FindElytraGoal.class);
 		register(EatCakeGoal.class);
 		register(CollectHorseAmorGoal.class);
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
+
 		register(CollectWorkstationsGoal.class);
 		register(EatMostGoal.class);
+		register(ForceItemBattleGoal.class);
 
 		// Damage Rules
 		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());

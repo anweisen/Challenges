@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
@@ -15,6 +14,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
 import org.bukkit.event.player.PlayerToggleSneakEvent;
+
+import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -82,10 +83,10 @@ public class CheatListener implements Listener {
 
 	private boolean hasPermission(@Nonnull Player player, @Nonnull String command) {
 		String[] prefixes = {
-			"challenges.",
-			"minecraft.command.",
-			"essentials.",
-			"bukkit."
+				"challenges.",
+				"minecraft.command.",
+				"essentials.",
+				"bukkit."
 		};
 
 		for (String prefix : prefixes) {

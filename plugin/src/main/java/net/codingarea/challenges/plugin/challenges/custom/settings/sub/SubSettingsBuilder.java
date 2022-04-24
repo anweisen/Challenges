@@ -1,22 +1,19 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub;
 
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.*;
+import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
+import org.bukkit.entity.Player;
+import org.bukkit.event.player.AsyncPlayerChatEvent;
+
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
-import net.anweisen.utilities.common.misc.StringUtils;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseItemSubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ChooseMultipleItemSubSettingBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.EmptySubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.TextInputSubSettingsBuilder;
-import net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder.ValueSubSettingsBuilder;
-import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.content.impl.MessageManager;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
-import org.bukkit.entity.Player;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -24,7 +21,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
  */
 public abstract class SubSettingsBuilder {
 
-	private final String key;
+	private String key;
 	private SubSettingsBuilder parent;
 	private SubSettingsBuilder child;
 
@@ -39,7 +36,9 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
+
 	public abstract List<String> getDisplay(Map<String, String[]> activated);
+
 	public abstract boolean hasSettings();
 
 	public SubSettingsBuilder getParent() {
@@ -85,6 +84,7 @@ public abstract class SubSettingsBuilder {
 
 	/**
 	 * Sets the highest parent of a child as the child of this builder.
+	 *
 	 * @param child one of the child builders that are added.
 	 * @return the highest parent of that child
 	 */
@@ -103,6 +103,11 @@ public abstract class SubSettingsBuilder {
 			return this;
 		}
 
+	}
+
+	public SubSettingsBuilder setKey(String key) {
+		this.key = key;
+		return this;
 	}
 
 	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {
@@ -124,8 +129,8 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public TextInputSubSettingsBuilder createTextInputChild(String key,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+															Consumer<Player> onOpen,
+															Predicate<AsyncPlayerChatEvent> isValid) {
 		TextInputSubSettingsBuilder builder = new TextInputSubSettingsBuilder(key,
 				this, onOpen, isValid);
 		this.child = builder;
@@ -145,8 +150,8 @@ public abstract class SubSettingsBuilder {
 	}
 
 	public static TextInputSubSettingsBuilder createTextInput(String key,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+															  Consumer<Player> onOpen,
+															  Predicate<AsyncPlayerChatEvent> isValid) {
 		return new TextInputSubSettingsBuilder(key, onOpen, isValid);
 	}
 

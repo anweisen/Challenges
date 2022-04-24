@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -25,8 +24,6 @@ import org.jetbrains.annotations.NotNull;
 @Since("2.1.2")
 public class EntityRandomEffectChallenge extends Setting {
 
-	private IRandom random;
-
 	public EntityRandomEffectChallenge() {
 		super(MenuType.CHALLENGES);
 	}
@@ -39,7 +36,6 @@ public class EntityRandomEffectChallenge extends Setting {
 
 	@Override
 	protected void onEnable() {
-		random = IRandom.create();
 		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
 				addRandomEffect(entity);
@@ -57,7 +53,6 @@ public class EntityRandomEffectChallenge extends Setting {
 				}
 			}
 		}
-		random = null;
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -70,7 +65,7 @@ public class EntityRandomEffectChallenge extends Setting {
 	public void addRandomEffect(LivingEntity entity) {
 		if (entity.getType() == EntityType.PLAYER) return;
 		PotionEffectType[] types = PotionEffectType.values();
-		PotionEffectType type = random.choose(types);
+		PotionEffectType type = globalRandom.choose(types);
 		entity.addPotionEffect(type.createEffect(Integer.MAX_VALUE, 255));
 	}
 

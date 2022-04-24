@@ -1,11 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder;
 
 import com.google.common.collect.Lists;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.function.Consumer;
-import java.util.function.Predicate;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
@@ -15,6 +10,12 @@ import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -30,21 +31,22 @@ public class TextInputSubSettingsBuilder extends SubSettingsBuilder {
 	}
 
 	public TextInputSubSettingsBuilder(String key, SubSettingsBuilder parent) {
-		this(key, parent, event -> {}, event -> true);
+		this(key, parent, event -> {
+		}, event -> true);
 	}
 
 	public TextInputSubSettingsBuilder(String key,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+									   Consumer<Player> onOpen,
+									   Predicate<AsyncPlayerChatEvent> isValid) {
 		super(key);
 		this.onOpen = onOpen;
 		this.isValid = isValid;
 	}
 
 	public TextInputSubSettingsBuilder(String key,
-			SubSettingsBuilder parent,
-			Consumer<Player> onOpen,
-			Predicate<AsyncPlayerChatEvent> isValid) {
+									   SubSettingsBuilder parent,
+									   Consumer<Player> onOpen,
+									   Predicate<AsyncPlayerChatEvent> isValid) {
 		super(key, parent);
 		this.onOpen = onOpen;
 		this.isValid = isValid;

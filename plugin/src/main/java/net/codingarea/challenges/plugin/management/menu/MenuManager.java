@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu;
 
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
@@ -17,6 +16,8 @@ import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.entity.Player;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
@@ -24,7 +25,7 @@ import org.bukkit.entity.Player;
 public final class MenuManager {
 
 	public static final String MANAGE_GUI_PERMISSION = "challenges.manage";
-	public static final int[] GUI_SLOTS = { 30, 32, 19, 25, 11, 15, 4 };
+	public static final int[] GUI_SLOTS = {30, 32, 19, 25, 11, 15, 4};
 
 	private AnimatedInventory gui;
 	private final boolean displayNewInFront;
@@ -42,8 +43,8 @@ public final class MenuManager {
 
 	public void generateMainMenu() {
 
-		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5*9, MenuPosition.HOLDER);
-		gui.addFrame(new AnimationFrame(5*9).fill(ItemBuilder.FILL_ITEM));
+		gui = new AnimatedInventory(InventoryTitleManager.getMainMenuTitle(), 5 * 9, MenuPosition.HOLDER);
+		gui.addFrame(new AnimationFrame(5 * 9).fill(ItemBuilder.FILL_ITEM));
 		gui.cloneLastAndAdd().setAccent(39, 41);
 		gui.cloneLastAndAdd().setAccent(38, 42);
 		gui.cloneLastAndAdd().setAccent(37, 43);
@@ -56,7 +57,7 @@ public final class MenuManager {
 		gui.cloneLastAndAdd().setAccent(2, 6);
 
 		MenuType[] values = MenuType.values();
-		for (int i = 0; i < values.length; i+=2) {
+		for (int i = 0; i < values.length; i += 2) {
 
 			AnimationFrame frame = gui.getLastFrame().clone();
 
@@ -64,9 +65,9 @@ public final class MenuManager {
 			frame.setItem(GUI_SLOTS[i], new ItemBuilder(first.getDisplayItem()).name(
 					DefaultItem.getItemPrefix() + first.getDisplayName()).hideAttributes());
 
-			if (values.length > i+1) {
-				MenuType second = values[i+1];
-				frame.setItem(GUI_SLOTS[i+1], new ItemBuilder(second.getDisplayItem()).name(
+			if (values.length > i + 1) {
+				MenuType second = values[i + 1];
+				frame.setItem(GUI_SLOTS[i + 1], new ItemBuilder(second.getDisplayItem()).name(
 						DefaultItem.getItemPrefix() + second.getDisplayName()).hideAttributes());
 			}
 
@@ -106,7 +107,7 @@ public final class MenuManager {
 
 	/**
 	 * @return If the specified menu page could be opened.
-	 *         The menu may not be opened, when there are no challenges registered to that menu or the languages are not loaded
+	 * The menu may not be opened, when there are no challenges registered to that menu or the languages are not loaded
 	 */
 	public boolean openMenu(@Nonnull Player player, @Nonnull MenuType type, int page) {
 		if (!generated) {

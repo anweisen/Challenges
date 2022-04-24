@@ -1,5 +1,5 @@
 name: Challenges
-version: 2.1.2
+version: 2.1.3
 author: CodingArea
 authors:
   - anweisen
@@ -115,6 +115,10 @@ commands:
     usage: "/heal [player]"
     description: "Heals yourself or other players"
     permission: "challenges.heal"
+  feed:
+    usage: "/feed [player]"
+    description: "Reset food level of yourself or other players"
+    permission: "challenges.feed"
   invsee:
     usage: "/invsee <player>"
     description: "Opens an inventory of another player"

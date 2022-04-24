@@ -16,12 +16,7 @@ import net.codingarea.challenges.plugin.management.inventory.PlayerInventoryMana
 import net.codingarea.challenges.plugin.management.menu.MenuManager;
 import net.codingarea.challenges.plugin.management.scheduler.ScheduleManager;
 import net.codingarea.challenges.plugin.management.scheduler.timer.ChallengeTimer;
-import net.codingarea.challenges.plugin.management.server.GeneratorWorldPortalManager;
-import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
-import net.codingarea.challenges.plugin.management.server.ScoreboardManager;
-import net.codingarea.challenges.plugin.management.server.ServerManager;
-import net.codingarea.challenges.plugin.management.server.TitleManager;
-import net.codingarea.challenges.plugin.management.server.WorldManager;
+import net.codingarea.challenges.plugin.management.server.*;
 import net.codingarea.challenges.plugin.management.stats.StatsManager;
 import net.codingarea.challenges.plugin.spigot.command.*;
 import net.codingarea.challenges.plugin.spigot.listener.*;
@@ -156,6 +151,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new GamestateCommand(), "gamestate");
 		registerCommand(new VillageCommand(), "village");
 		registerCommand(new HealCommand(), "heal");
+		registerCommand(new FeedCommand(), "feed");
 		registerCommand(new SearchCommand(), "search");
 		registerListenerCommand(new InvseeCommand(), "invsee");
 		registerCommand(new FlyCommand(), "fly");

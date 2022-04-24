@@ -40,13 +40,13 @@ public class SlotLimitSetting extends Modifier {
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.BARRIER, Message.forName("item-slot-limit-setting"));
 	}
-	
+
 	@Override
 	protected void onValueChange() {
 		updateSlots();
 	}
 
-	@TimerTask(status = { TimerStatus.PAUSED, TimerStatus.RUNNING })
+	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING})
 	public void updateSlots() {
 		Bukkit.getOnlinePlayers().forEach(this::updateSlots);
 	}

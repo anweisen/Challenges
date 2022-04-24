@@ -16,7 +16,6 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
@@ -96,17 +95,17 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 		items.removeIf(material -> !material.isItem());
 		items.removeIf(BlockUtils::isTooHardToGet);
 
-		item = random.choose(items);
+		item = globalRandom.choose(items);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return random.range(5 * 60, 8 * 60);
+		return globalRandom.range(5 * 60, 8 * 60);
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

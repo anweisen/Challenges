@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
-import java.util.List;
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
@@ -10,6 +7,10 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
+
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
+import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -20,7 +21,9 @@ public abstract class MenuGenerator {
 	private MenuType menuType;
 
 	public abstract void generateInventories();
+
 	public abstract List<Inventory> getInventories();
+
 	public abstract MenuPosition getMenuPosition(@Nonnegative int page);
 
 	public boolean hasInventoryOpen(Player player) {
@@ -30,7 +33,8 @@ public abstract class MenuGenerator {
 
 	public int getPage(Player player) {
 		MenuPosition menuPosition = MenuPosition.get(player);
-		if (menuPosition instanceof GeneratorMenuPosition) return ((GeneratorMenuPosition) menuPosition).getPage();
+		if (menuPosition instanceof GeneratorMenuPosition)
+			return ((GeneratorMenuPosition) menuPosition).getPage();
 		return 0;
 	}
 

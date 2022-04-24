@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
-import java.util.Collections;
-import java.util.concurrent.atomic.AtomicInteger;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
@@ -15,6 +12,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import java.util.Collections;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi

@@ -1,7 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -26,6 +24,9 @@ import org.bukkit.event.player.PlayerDropItemEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -60,7 +61,6 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 		ChallengeHelper.playChallengeMinutesValueChangeTitle(this, getValue());
 	}
 
-
 	@Override
 	protected void onTimeActivation() {
 
@@ -73,7 +73,7 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 	/**
 	 * @param force if true only sets items if inventory is empty
 	 */
-	private void addItems(Player player, boolean force) {
+	public static void addItems(Player player, boolean force) {
 
 		if (!force && !player.getInventory().isEmpty()) {
 			return;

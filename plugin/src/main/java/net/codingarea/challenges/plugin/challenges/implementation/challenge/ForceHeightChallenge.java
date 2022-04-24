@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.function.BiConsumer;
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
@@ -19,6 +16,10 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.function.BiConsumer;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -83,17 +84,17 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 	@Override
 	protected void chooseForcing() {
 		World world = ChallengeAPI.getGameWorld(Environment.NORMAL);
-		height = random.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
+		height = globalRandom.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
 	}
 
 	@Override
 	protected int getSecondsUntilNextActivation() {
-		return random.around(getValue() * 60, 30);
+		return globalRandom.around(getValue() * 60, 30);
 	}
 
 	@Override
 	protected int getForcingTime() {
-		return random.range(3 * 60 + 30, 5 * 60);
+		return globalRandom.range(3 * 60 + 30, 5 * 60);
 	}
 
 }

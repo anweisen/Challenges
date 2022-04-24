@@ -1,23 +1,20 @@
 package net.codingarea.challenges.plugin.management.challenges;
 
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengeAction;
-import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.AbstractChallengeTrigger;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.IChallengeTrigger;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
+
+import javax.annotation.Nonnull;
+import java.util.*;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -34,8 +31,8 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 		maxNameLength = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-name-length");
 	}
 
-	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, AbstractChallengeTrigger trigger,
-			Map<String, String[]> subTriggers, AbstractChallengeAction action, Map<String, String[]> subActions, boolean generate) {
+	public CustomChallenge registerCustomChallenge(@Nonnull UUID uuid, Material material, String name, ChallengeTrigger trigger,
+												   Map<String, String[]> subTriggers, ChallengeAction action, Map<String, String[]> subActions, boolean generate) {
 		CustomChallenge challenge = customChallenges.getOrDefault(uuid, new CustomChallenge(MenuType.CUSTOM, uuid, material, name, trigger, subTriggers, action, subActions));
 		if (!customChallenges.containsKey(uuid)) {
 			customChallenges.put(uuid, challenge);
@@ -66,9 +63,9 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 				UUID uuid = UUID.fromString(key);
 				String name = doc.getString("name");
 				Material material = doc.getEnum("material", Material.class);
-				AbstractChallengeTrigger trigger = Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(doc.getString("trigger"));
+				ChallengeTrigger trigger = Challenges.getInstance().getCustomSettingsLoader().getTriggerByName(doc.getString("trigger"));
 				Map<String, String[]> subTriggers = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subTrigger"));
-				AbstractChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(doc.getString("action"));
+				ChallengeAction action = Challenges.getInstance().getCustomSettingsLoader().getActionByName(doc.getString("action"));
 				Map<String, String[]> subActions = MapUtils.createSubSettingsMapFromDocument(doc.getDocument("subActions"));
 
 				CustomChallenge challenge = registerCustomChallenge(uuid, material, name, trigger, subTriggers, action, subActions, false);

@@ -62,6 +62,17 @@ public class SubSettingsHelper {
 		});
 	}
 
+	public static ChooseMultipleItemSubSettingBuilder createItemSettingsBuilder() {
+		return SubSettingsBuilder.createChooseMultipleItem(ITEM).fill(builder -> {
+			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-item-any")).build());
+			for (Material material : Material.values()) {
+				if (material.isItem() && !BukkitReflectionUtils.isAir(material)) {
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils.getEnumName(material)).build());
+				}
+			}
+		});
+	}
+
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob) {
 		return createEntityTargetSettingsBuilder(everyMob, false);
 	}
@@ -71,8 +82,7 @@ public class SubSettingsHelper {
 	}
 
 	public static SubSettingsBuilder createEntityTargetSettingsBuilder(boolean everyMob, boolean onlyPlayer, boolean console) {
-		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(
-				TARGET_ENTITY);
+		ChooseItemSubSettingsBuilder builder = SubSettingsBuilder.createChooseItem(TARGET_ENTITY);
 
 		if (console) {
 			builder.addSetting("console", new ItemBuilder(Material.COMMAND_BLOCK_MINECART, Message.forName("item-custom-setting-target-console")));
@@ -80,7 +90,7 @@ public class SubSettingsHelper {
 
 		if (!onlyPlayer) {
 			builder.addSetting("current", new ItemBuilder(Material.DRAGON_HEAD,
-							Message.forName("item-custom-setting-target-current")));
+					Message.forName("item-custom-setting-target-current")));
 		}
 
 		builder.addSetting("current_player", new ItemBuilder(Material.PLAYER_HEAD,
@@ -102,7 +112,7 @@ public class SubSettingsHelper {
 	}
 
 	public static SubSettingsBuilder createPotionSettingsBuilder(boolean potionType,
-			boolean potionTime) {
+																 boolean potionTime) {
 
 		SubSettingsBuilder potionSettings = SubSettingsBuilder.createValueItem().fill(builder -> {
 

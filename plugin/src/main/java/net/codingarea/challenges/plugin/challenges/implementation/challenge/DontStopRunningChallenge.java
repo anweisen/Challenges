@@ -97,7 +97,8 @@ public class DontStopRunningChallenge extends SettingModifier {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getTo() == null) return;
-		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ() && event.getFrom().getY() == event.getTo().getY()) return;
+		if (event.getFrom().getX() == event.getTo().getX() && event.getFrom().getZ() == event.getTo().getZ() && event.getFrom().getY() == event.getTo().getY())
+			return;
 		playerStandingCount.remove(event.getPlayer());
 	}
 

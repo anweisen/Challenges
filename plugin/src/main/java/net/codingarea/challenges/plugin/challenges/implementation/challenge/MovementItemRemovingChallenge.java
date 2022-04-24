@@ -58,7 +58,8 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 		if (getValue() == BLOCK) {
 			if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getFrom(), event.getTo())) return;
 		} else {
-			if (BlockUtils.isSameChunk(event.getFrom().getChunk(), event.getTo().getChunk())) return;
+			if (BlockUtils.isSameChunk(event.getFrom().getChunk(), event.getTo().getChunk()))
+				return;
 		}
 
 		InventoryUtils.removeRandomItem(event.getPlayer().getInventory());

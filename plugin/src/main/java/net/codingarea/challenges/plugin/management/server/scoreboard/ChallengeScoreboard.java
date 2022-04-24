@@ -8,7 +8,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Score;
 import org.bukkit.scoreboard.Scoreboard;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,8 @@ public final class ChallengeScoreboard {
 		private String title = Message.forName("scoreboard-title").asString();
 		private int linesIndex = 0;
 
-		private ScoreboardInstance() {}
+		private ScoreboardInstance() {
+		}
 
 		@Nonnull
 		public ScoreboardInstance setTitle(@Nonnull String title) {
@@ -39,7 +39,8 @@ public final class ChallengeScoreboard {
 
 		@Nonnull
 		public ScoreboardInstance addLine(@Nonnull String text) {
-			if (linesIndex >= lines.length) throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
+			if (linesIndex >= lines.length)
+				throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
 			lines[linesIndex++] = text;
 			return this;
 		}
@@ -69,7 +70,8 @@ public final class ChallengeScoreboard {
 	}
 
 	private final Map<Player, Objective> objectives = new ConcurrentHashMap<>();
-	private BiConsumer<ScoreboardInstance, Player> content = (scoreboard, player) -> {};
+	private BiConsumer<ScoreboardInstance, Player> content = (scoreboard, player) -> {
+	};
 
 	public void setContent(@Nonnull BiConsumer<ScoreboardInstance, Player> content) {
 		this.content = content;

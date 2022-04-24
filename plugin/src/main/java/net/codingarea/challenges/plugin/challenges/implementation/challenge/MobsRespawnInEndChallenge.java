@@ -1,8 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
@@ -17,16 +14,16 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.boss.BarColor;
-import org.bukkit.entity.EnderDragon;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
+import org.bukkit.entity.*;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -90,14 +87,14 @@ public class MobsRespawnInEndChallenge extends Setting {
 
 			if (entity instanceof LivingEntity) {
 				entity.setVelocity(Vector.getRandom().multiply(ThreadLocalRandom.current().nextBoolean() ? -1 : 1).setY(0));
-				((LivingEntity) entity).setNoDamageTicks(20*5);
+				((LivingEntity) entity).setNoDamageTicks(20 * 5);
 			}
 		}
 	}
 
 	private void increaseEntityToSpawnCount(EntityType type) {
 		Integer count = toSpawnEntities.getOrDefault(type, 0);
-		toSpawnEntities.put(type, count+1);
+		toSpawnEntities.put(type, count + 1);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -105,7 +102,8 @@ public class MobsRespawnInEndChallenge extends Setting {
 		if (!shouldExecuteEffect()) return;
 		if (event.getEntity() instanceof Player || event.getEntity() instanceof EnderDragon) return;
 		if (event.getEntity().getLocation().getWorld() == null) return;
-		if (event.getEntity().getLocation().getWorld().getEnvironment() == World.Environment.THE_END) return;
+		if (event.getEntity().getLocation().getWorld().getEnvironment() == World.Environment.THE_END)
+			return;
 		if (ChallengeHelper.ignoreDamager(event.getKiller())) return;
 		addEntityToSpawn(event.getEntityType());
 		SoundSample.PLING.play((event.getKiller()));
@@ -113,7 +111,8 @@ public class MobsRespawnInEndChallenge extends Setting {
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
 	public void onWorldChange(PlayerTeleportEvent event) {
-		if (event.getTo() == null || event.getTo().getWorld() == null || event.getTo().getWorld() == event.getFrom().getWorld()) return;
+		if (event.getTo() == null || event.getTo().getWorld() == null || event.getTo().getWorld() == event.getFrom().getWorld())
+			return;
 		if (event.getTo().getWorld().getEnvironment() != World.Environment.THE_END) return;
 
 		for (Map.Entry<EntityType, Integer> entry : toSpawnEntities.entrySet()) {

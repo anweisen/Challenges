@@ -38,9 +38,12 @@ public class FoodOnceChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
-			case 1: return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
-			case 2: return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
-			default: return super.createSettingsItem();
+			case 1:
+				return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+			case 2:
+				return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
+			default:
+				return super.createSettingsItem();
 		}
 	}
 

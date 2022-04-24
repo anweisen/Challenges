@@ -74,12 +74,12 @@ public class StoneSightChallenge extends Setting {
 	@Nonnull
 	private Material getRandomStone() {
 		Material[] materials = {
-			Material.STONE,
-			Material.STONE,
-			Material.STONE,
-			Material.COBBLESTONE,
-			Material.COBBLESTONE,
-			Material.MOSSY_COBBLESTONE
+				Material.STONE,
+				Material.STONE,
+				Material.STONE,
+				Material.COBBLESTONE,
+				Material.COBBLESTONE,
+				Material.MOSSY_COBBLESTONE
 		};
 		return materials[random.nextInt(materials.length)];
 	}

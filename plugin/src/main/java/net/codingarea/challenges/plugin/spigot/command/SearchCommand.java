@@ -73,7 +73,7 @@ public class SearchCommand implements SenderCommand, Completer {
 						.filter(Material::isItem)
 						.map(material -> material.name().toLowerCase())
 						.collect(Collectors.toList()
-				);
+						);
 	}
 
 }

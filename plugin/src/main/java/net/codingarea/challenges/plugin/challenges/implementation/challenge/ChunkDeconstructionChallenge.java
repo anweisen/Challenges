@@ -76,7 +76,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 		Block lowestBreakableBlock = getLowestBreakableBlock(block);
 		if (lowestBreakableBlock == null) return;
 
-			lowestBreakableBlock.setType(Material.AIR, true);
+		lowestBreakableBlock.setType(Material.AIR, true);
 	}
 
 	@Nullable
@@ -99,7 +99,8 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 	private List<Chunk> getChunksToDeconstruct() {
 		return new ListBuilder<Chunk>().fill(builder ->
 				Bukkit.getOnlinePlayers().forEach(player -> {
-					if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE) return;
+					if (player.getGameMode() == GameMode.SPECTATOR || player.getGameMode() == GameMode.CREATIVE)
+						return;
 					builder.addIfNotContains(player.getLocation().getChunk());
 				})
 		).build();

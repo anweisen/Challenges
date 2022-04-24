@@ -1,9 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
-import java.util.List;
-import java.util.Map;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.custom.settings.action.AbstractChallengePlayerTargetAction;
+import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -12,11 +10,14 @@ import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.2
  */
-public class ExecuteCommandAction extends AbstractChallengePlayerTargetAction {
+public class ExecuteCommandAction extends PlayerTargetAction {
 
 	// Static because cannot be accessed before super has been called
 	public static int maxCommandLength = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-command-length");
