@@ -186,7 +186,7 @@
 	"all-items-skipped": "Item §e{0} §7skipped",
 	"all-items-already-finished": "All items has been already found",
 	"all-items-found": "Item §e{0} §7registered by §e{1}",
-	"boss-kill": "The §e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
+	"mob-kill": "§e{0} §ehas been killed §8(§e{1} §7/ §e{2}§8)",
 	"endergames-teleport": "Swapped with §e{0}",
 	"force-height-fail": "§e{0} §7was on the §cwrong §7height §8(§e{1}§8)",
 	"force-height-success": "All players were on the §aright §7height",

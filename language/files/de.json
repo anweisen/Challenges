@@ -187,7 +187,7 @@
 	"all-items-skipped": "Item §e{0} §7geskippt",
 	"all-items-already-finished": "Es wurden bereits alle Items gefunden",
 	"all-items-found": "Das Item §e{0} §7wurde von §e{1} §7registriert",
-	"boss-kill": "Der §e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
+	"mob-kill": "§e{0} §7wurde besiegt §8(§e{1} §7/ §e{2}§8)",
 	"endergames-teleport": "Du wurdest mit §e{0} §7getauscht",
 	"force-height-fail": "§e{0} §7war auf der §cfalschen Höhe §8(§e{1}§8)",
 	"force-height-success": "Alle Spieler waren auf der §arichtigen Höhe",
