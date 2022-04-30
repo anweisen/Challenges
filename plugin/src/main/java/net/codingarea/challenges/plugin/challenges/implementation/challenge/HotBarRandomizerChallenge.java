@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -37,6 +38,7 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 
 	public HotBarRandomizerChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5);
+		setCategory(ChallengeCategory.RANDOMIZER);
 	}
 
 	@NotNull

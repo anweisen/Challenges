@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -37,6 +38,7 @@ public class NoDupedItemsChallenge extends Setting {
 
 	public NoDupedItemsChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(ChallengeCategory.INVENTORY);
 	}
 
 	@Nonnull

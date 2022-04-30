@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.*;
@@ -25,6 +26,7 @@ public class BedrockWallChallenge extends SettingModifier {
 
 	public BedrockWallChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 30);
+		setCategory(ChallengeCategory.DESTROY);
 	}
 
 	@EventHandler

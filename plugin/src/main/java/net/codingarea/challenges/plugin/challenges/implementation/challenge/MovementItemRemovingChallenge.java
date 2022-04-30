@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -27,6 +28,7 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 
 	public MovementItemRemovingChallenge() {
 		super(MenuType.CHALLENGES, 1, 2, 2);
+		setCategory(ChallengeCategory.INVENTORY);
 	}
 
 	@Nonnull

@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,7 @@ public class BlockBreakDamageChallenge extends SettingModifier {
 
 	public BlockBreakDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 60);
+		setCategory(ChallengeCategory.DAMAGE);
 	}
 
 	@EventHandler

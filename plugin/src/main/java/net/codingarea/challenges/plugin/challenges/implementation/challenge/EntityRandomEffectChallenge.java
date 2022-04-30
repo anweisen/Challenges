@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -26,6 +27,7 @@ public class EntityRandomEffectChallenge extends Setting {
 
 	public EntityRandomEffectChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(ChallengeCategory.EFFECT);
 	}
 
 	@NotNull

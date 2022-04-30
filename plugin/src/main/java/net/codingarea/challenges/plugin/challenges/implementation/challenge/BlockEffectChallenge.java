@@ -7,7 +7,10 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
+import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
+import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -41,6 +44,7 @@ public class BlockEffectChallenge extends Setting {
 
 	public BlockEffectChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(ChallengeCategory.EFFECT);
 	}
 
 	@NotNull
@@ -51,10 +55,18 @@ public class BlockEffectChallenge extends Setting {
 
 	@Override
 	protected void onEnable() {
+		currentPotionEffects = new HashMap<>();
+		if (!shouldExecuteEffect()) return;
 		broadcastFiltered(player -> {
 			addEffect(player, player.getLocation(), null);
 		});
-		currentPotionEffects = new HashMap<>();
+	}
+
+	@TimerTask(status = TimerStatus.RUNNING)
+	public void onStart() {
+		broadcastFiltered(player -> {
+			addEffect(player, player.getLocation(), null);
+		});
 	}
 
 	@Override

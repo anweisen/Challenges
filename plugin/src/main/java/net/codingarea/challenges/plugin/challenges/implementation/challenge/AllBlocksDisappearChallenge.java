@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHe
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Chunk;
@@ -38,6 +39,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 
 	public AllBlocksDisappearChallenge() {
 		super(MenuType.CHALLENGES, "All Blocks Disappear");
+		setCategory(ChallengeCategory.DESTROY);
 		registerSetting("break", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.DIAMOND_PICKAXE, Message.forName("item-all-blocks-disappear-break-challenge")),
 				true

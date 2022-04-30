@@ -12,6 +12,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -48,6 +49,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	public MissingItemsChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
+		setCategory(ChallengeCategory.INVENTORY);
 	}
 
 	@Nullable

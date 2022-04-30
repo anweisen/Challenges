@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import com.google.common.collect.ImmutableList;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -33,7 +34,7 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	private final boolean newSuffix;
 	private final int startPage;
-	private final Consumer<Player> onLeaveClick;
+	protected Consumer<Player> onLeaveClick;
 
 	public ChallengeMenuGenerator(int startPage, Consumer<Player> onLeaveClick) {
 		newSuffix = Challenges.getInstance().getConfigDocument().getBoolean("new-suffix");
@@ -250,6 +251,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	private static boolean mayManageSettings(@Nonnull Player player) {
 		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
+	}
+
+	public List<IChallenge> getChallenges() {
+		return ImmutableList.copyOf(challenges);
 	}
 
 }

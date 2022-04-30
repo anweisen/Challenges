@@ -3,11 +3,13 @@ package net.codingarea.challenges.plugin.challenges.type;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.annotation.Nonnull;
 
@@ -54,6 +56,12 @@ public class EmptyChallenge implements IChallenge {
 	@Override
 	public MenuType getType() {
 		return menuType;
+	}
+
+	@Nullable
+	@Override
+	public ChallengeCategory getCategory() {
+		return null;
 	}
 
 	@NotNull

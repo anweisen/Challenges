@@ -4,10 +4,12 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.challenges.entities.GamestateSaveable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -62,6 +64,9 @@ public interface IChallenge extends GamestateSaveable {
 	 */
 	@Nonnull
 	MenuType getType();
+
+	@Nullable
+	ChallengeCategory getCategory();
 
 	@Nonnull
 	ItemStack getDisplayItem();

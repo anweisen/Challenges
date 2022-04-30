@@ -357,6 +357,46 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
+
+	"lore-category-activated": "§7Aktiviert §8» §a{0}§8/§7{1}",
+	"category-misc": [
+		"§9Miscellaneous",
+		"Challenges, die *keiner Kategorie*",
+		"zugeordnet werden können"
+	],
+	"category-randomizer": [
+		"§6Randomizer",
+		"Erlebe ein komplett",
+		"*durcheinandergebrachtes* Spiel"
+	],
+	"category-limited_time": [
+		"§aLimitierte Zeit",
+		"Du wirst bei verschiedenen",
+		"Faktoren *Zeitlich eingeschränkt*"
+	],
+	"category-force": [
+		"§3Zwischenziele",
+		"Du musst *bestimmte Zwischenziele*",
+		"erfüllen, sonst stirbst du"
+	],
+	"category-destroy": [
+		"§4Zerstörung",
+		"Die Welt wird nicht mehr",
+		"*wiedererkennbar* sein"
+	],
+	"category-damage": [
+		"§cSchaden",
+		"Neue *Schadens Regeln*"
+	],
+	"category-effect": [
+		"§5Effekte",
+		"Erlebe verrückte *Effekte*"
+	],
+	"category-inventory": [
+		"§6Inventory",
+		"Dein Inventar wird *verdreht*"
+	],
+
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",

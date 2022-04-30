@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
@@ -27,6 +28,7 @@ public class JumpDamageChallenge extends SettingModifier {
 
 	public JumpDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 60);
+		setCategory(ChallengeCategory.DAMAGE);
 	}
 
 	@Nonnull
