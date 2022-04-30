@@ -1,7 +1,8 @@
 package net.codingarea.challenges.plugin.management.menu;
 
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.CategorisedMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.CategorisedMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SmallCategorisedMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.TimerMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.MainCustomMenuGenerator;
@@ -17,7 +18,7 @@ import java.util.function.Consumer;
 public enum MenuType {
 
 	TIMER("Timer", "§6Timer", Material.CLOCK, new TimerMenuGenerator(), false),
-	GOAL("Goal", "§5Goal", Material.COMPASS, new SettingsMenuGenerator()),
+	GOAL("Goal", "§5Goal", Material.COMPASS, new SmallCategorisedMenuGenerator()),
 	DAMAGE("Damage", "§7Damage", Material.IRON_SWORD, new SettingsMenuGenerator()),
 	ITEMS_BLOCKS("Items & Blocks", "§4Blocks & Items", Material.STICK, new SettingsMenuGenerator()),
 	CHALLENGES("Challenges", "§cChallenges", Material.BOOK, new CategorisedMenuGenerator()),
