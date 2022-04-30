@@ -1036,6 +1036,11 @@
 		"A *random mob* spawns out of *every broken block*",
 		"and to *get the block* you have to *kill it*"
 	],
+	"entity-loot-randomizer-challenge": [
+		"§6Entity Loot Randomizer",
+		"If you *kill a mob*, it drops *random items*",
+		"instead of its loot"
+	],
 	"item-dragon-goal": [
 		"§5Ender Dragon",
 		"Kill the *Ender Dragon* to win"

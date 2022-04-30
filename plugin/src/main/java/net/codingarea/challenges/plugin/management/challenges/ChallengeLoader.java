@@ -160,6 +160,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MobsRespawnInEndChallenge.class);
 		register(MobTransformationChallenge.class);
 		register(BlockMobsChallenge.class);
+		register(EntityLootRandomizerChallenge.class);
 
 		// Custom World
 		register(WaterMLGChallenge.class);
