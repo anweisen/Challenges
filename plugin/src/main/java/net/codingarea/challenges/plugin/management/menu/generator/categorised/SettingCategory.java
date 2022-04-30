@@ -28,8 +28,8 @@ public class SettingCategory {
 
 	//Goals
 	public static final SettingCategory KILL_ENTITY = new SettingCategory(1, Material.BOW, () -> Message.forName("category-kill_entity"));
-	public static final SettingCategory SCORE_POINTS = new SettingCategory(3, Material.CHEST, () -> Message.forName("category-score_points"));
-	public static final SettingCategory FASTEST_TIME = new SettingCategory(4, Material.CLOCK, () -> Message.forName("category-fastest_time"));
+	public static final SettingCategory SCORE_POINTS = new SettingCategory(2, Material.CHEST, () -> Message.forName("category-score_points"));
+	public static final SettingCategory FASTEST_TIME = new SettingCategory(3, Material.CLOCK, () -> Message.forName("category-fastest_time"));
 
 	// Lowest priority will be displayed first
 	private final int priority;
