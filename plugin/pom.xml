@@ -158,6 +158,7 @@
                             <artifactSet>
                                 <includes>
                                     <include>com.github.anweisen.Utility:commons</include>
+                                    <include>com.github.anweisen.Utility:common-utils</include>
                                     <include>com.github.anweisen.Utility:bukkit-utils</include>
                                     <include>com.github.anweisen.Utility:database-api</include>
                                     <include>com.github.anweisen.Utility:database-sql</include>
