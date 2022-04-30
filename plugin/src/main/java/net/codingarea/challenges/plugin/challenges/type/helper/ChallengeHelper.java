@@ -12,7 +12,7 @@ import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
-import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
+import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -66,7 +66,7 @@ public final class ChallengeHelper {
 	}
 
 	public static void updateItems(@Nonnull IChallenge challenge) {
-		challenge.getType().executeWithGenerator(SettingsMenuGenerator.class, gen -> gen.updateItem(challenge));
+		challenge.getType().executeWithGenerator(ChallengeMenuGenerator.class, gen -> gen.updateItem(challenge));
 	}
 
 	public static boolean canInstaKillOnEnable(@Nonnull IChallenge challenge) {

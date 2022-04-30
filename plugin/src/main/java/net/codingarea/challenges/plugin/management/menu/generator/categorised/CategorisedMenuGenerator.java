@@ -25,14 +25,14 @@ import java.util.stream.Collectors;
  */
 public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 
-	private final Map<ChallengeCategory, SettingsMenuGenerator> categories = new HashMap<>();
+	private final Map<ChallengeCategory, CategorisedSettingsMenuGenerator> categories = new HashMap<>();
 
 	@Override
 	public void addChallengeToCache(@NotNull IChallenge challenge) {
 		ChallengeCategory category = challenge.getCategory() != null ? challenge.getCategory() : ChallengeCategory.MISC;
 		if (!categories.containsKey(challenge.getCategory())) {
 			categories.computeIfAbsent(category, challengeCategory -> {
-				SettingsMenuGenerator generator = new CategorisedSettingsMenuGenerator(this, category);
+				CategorisedSettingsMenuGenerator generator = new CategorisedSettingsMenuGenerator(this, category);
 				generator.setMenuType(getMenuType());
 				return generator;
 			});
@@ -41,19 +41,12 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	}
 
 	@Override
-	public void generateInventories() {
-		super.generateInventories();
-
-	}
-
-	@Override
 	public void generatePage(@NotNull Inventory inventory, int page) {
 
-
 		int i = 0;
-		for (Map.Entry<ChallengeCategory, SettingsMenuGenerator> entry : getCategoriesForPage(page)) {
+		for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
 			ChallengeCategory category = entry.getKey();
-			SettingsMenuGenerator generator = entry.getValue();
+			CategorisedSettingsMenuGenerator generator = entry.getValue();
 
 			ItemBuilder builder = category.getDisplayItem();
 			long activatedCount = generator.getChallenges().stream().filter(IChallenge::isEnabled).count();
@@ -70,11 +63,22 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	@Override
 	public void updateItem(IChallenge challenge) {
 		generateInventories();
+
+		for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : categories.entrySet()) {
+			if (entry.getValue().getChallenges().contains(challenge)) {
+				entry.getValue().updateGeneratorItem(challenge);
+			}
+		}
+
 	}
 
 	@Override
 	public int getPagesCount() {
-		return (int) (Math.ceil((double) categories.size() / (getSlots().length*2)));
+		return (int) (Math.ceil((double) categories.size() / getEntriesPerPage()));
+	}
+
+	public int getEntriesPerPage() {
+		return 14;
 	}
 
 	@Override
@@ -89,7 +93,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			}
 
 			int i = 0;
-			for (Map.Entry<ChallengeCategory, SettingsMenuGenerator> entry : getCategoriesForPage(page)) {
+			for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
 				int slot = i + 10;
 				if (i >= 7) slot += 2;
 				if (slot == info.getSlot()) {
@@ -104,15 +108,16 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 		};
 	}
 
-	private List<Map.Entry<ChallengeCategory, SettingsMenuGenerator>> getCategoriesForPage(int page) {
+	private List<Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator>> getCategoriesForPage(int page) {
 
-		List<Map.Entry<ChallengeCategory, SettingsMenuGenerator>> list = categories.entrySet()
+		List<Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator>> list = categories.entrySet()
 				.stream()
 				.sorted(Comparator.comparingInt(value -> value.getKey().getPriority()))
 				.collect(Collectors.toList());
 
-		int startIndex = page*14;
-		int endIndex = Math.min(page*14+14, categories.size());
+		int entriesPerPage = getEntriesPerPage();
+		int startIndex = page* entriesPerPage;
+		int endIndex = Math.min(page* entriesPerPage + entriesPerPage, categories.size());
 
 		return list.subList(startIndex, endIndex);
 	}
@@ -140,6 +145,10 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 		@Override
 		public void updateItem(IChallenge challenge) {
 			generator.updateItem(challenge);
+			super.updateItem(challenge);
+		}
+
+		public void updateGeneratorItem(IChallenge challenge) {
 			super.updateItem(challenge);
 		}
 
