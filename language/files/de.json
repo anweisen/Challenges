@@ -428,7 +428,7 @@
 	],
 	"item-one-life-setting": [
 		"§cEin Teamleben",
-		"*Jeder* stirbt wenn *einer stirbt*"
+		"*Jeder* stirbt, wenn *einer stirbt*"
 	],
 	"item-respawn-setting": [
 		"§4Respawn",
@@ -448,7 +448,7 @@
 	],
 	"item-soup-setting": [
 		"§cSuppen Heilung",
-		"Wenn du eine *Pilzsuppe Suppe* benutzt,",
+		"Wenn du eine *Pilzsuppe* benutzt,",
 		"wirst du um *4 Herzen* geheilt"
 	],
 	"item-damage-setting": [
@@ -534,8 +534,8 @@
 	],
 	"item-keep-inventory-setting": [
 		"§5Keep Inventory",
-		"Du verlierst keine *Items*",
-		"Wenn du *stirbst*"
+		"Du verlierst keine *Items*,",
+		"wenn du *stirbst*"
 	],
 	"item-no-item-damage-setting": [
 		"§5Kein Itemschaden",
@@ -597,7 +597,7 @@
 		"Es gibt keinen *Attack Cooldown*"
 	],
 	"item-totem-save-setting": [
-		"§6Challenge Tot Rettung",
+		"§6Challenge Tod Rettung",
 		"Wenn du durch eine Challenge *instant*",
 		"*stirbst*, können *Totems* dich retten"
 	],
