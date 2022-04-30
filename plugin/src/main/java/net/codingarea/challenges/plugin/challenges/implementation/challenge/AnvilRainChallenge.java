@@ -34,7 +34,7 @@ public class AnvilRainChallenge extends MenuSetting {
 
 	public AnvilRainChallenge() {
 		super(MenuType.CHALLENGES, "Anvil Rain");
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 		registerSetting("time", new NumberSubSetting(
 						() -> new ItemBuilder(Material.CLOCK, Message.forName("item-anvil-rain-time-challenge")),
 						value -> null,

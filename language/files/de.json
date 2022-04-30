@@ -379,8 +379,8 @@
 		"Du musst *bestimmte Zwischenziele*",
 		"erfüllen, sonst stirbst du"
 	],
-	"category-destroy": [
-		"§4Zerstörung",
+	"category-world": [
+		"§4Weltveränderung",
 		"Die Welt wird nicht mehr",
 		"*wiedererkennbar* sein"
 	],
@@ -396,6 +396,20 @@
 		"§6Inventory",
 		"Dein Inventar wird *verdreht*"
 	],
+	"category-movement": [
+		"§aBewegung",
+		"Du wirst in deinen Bewegungen *eingeschränkt*"
+	],
+	"category-entities": [
+		"§bEntities",
+		"Entities werden *verändert*"
+	],
+	"category-extra_world": [
+		"§aExtra Welt",
+		"Challenges, die in einer",
+		"*anderen Welt* spielen"
+	],
+
 
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",

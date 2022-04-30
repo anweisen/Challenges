@@ -76,16 +76,6 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	public int getPagesCount() {
 		return (int) (Math.ceil((double) categories.size() / (getSlots().length*2)));
 	}
-//
-//	@Override
-//	public int getSize() {
-//		return 3*9;
-//	}
-//
-//	@Override
-//	public int[] getNavigationSlots(int page) {
-//		return new int[] { 18, 26 };
-//	}
 
 	@Override
 	public MenuPosition getMenuPosition(int page) {

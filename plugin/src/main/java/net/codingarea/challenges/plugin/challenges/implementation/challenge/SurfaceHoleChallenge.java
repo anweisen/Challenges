@@ -26,7 +26,7 @@ public class SurfaceHoleChallenge extends SettingModifier {
 
 	public SurfaceHoleChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 30);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@EventHandler

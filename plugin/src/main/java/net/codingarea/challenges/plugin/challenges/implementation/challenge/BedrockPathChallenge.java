@@ -24,7 +24,7 @@ public class BedrockPathChallenge extends Setting {
 
 	public BedrockPathChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@Nonnull

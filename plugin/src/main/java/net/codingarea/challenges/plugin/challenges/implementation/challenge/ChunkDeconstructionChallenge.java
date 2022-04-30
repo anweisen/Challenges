@@ -24,7 +24,7 @@ public class ChunkDeconstructionChallenge extends TimedChallenge {
 
 	public ChunkDeconstructionChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 20);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@Nonnull

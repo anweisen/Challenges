@@ -39,7 +39,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 
 	public AllBlocksDisappearChallenge() {
 		super(MenuType.CHALLENGES, "All Blocks Disappear");
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 		registerSetting("break", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.DIAMOND_PICKAXE, Message.forName("item-all-blocks-disappear-break-challenge")),
 				true

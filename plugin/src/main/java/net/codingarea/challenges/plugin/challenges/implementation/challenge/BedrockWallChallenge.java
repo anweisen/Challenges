@@ -26,7 +26,7 @@ public class BedrockWallChallenge extends SettingModifier {
 
 	public BedrockWallChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 30);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@EventHandler

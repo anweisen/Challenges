@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
@@ -28,6 +29,7 @@ public class FreezeChallenge extends SettingModifier {
 
 	public FreezeChallenge() {
 		super(MenuType.CHALLENGES, 5, 60, 20);
+		setCategory(ChallengeCategory.DAMAGE);
 	}
 
 	@Nonnull

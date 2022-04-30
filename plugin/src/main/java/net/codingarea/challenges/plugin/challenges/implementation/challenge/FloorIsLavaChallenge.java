@@ -25,7 +25,7 @@ public class FloorIsLavaChallenge extends SettingModifier {
 
 	public FloorIsLavaChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 30);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@EventHandler

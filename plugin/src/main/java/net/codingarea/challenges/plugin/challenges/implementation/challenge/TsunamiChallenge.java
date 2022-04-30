@@ -49,7 +49,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	public TsunamiChallenge() {
 		super(MenuType.CHALLENGES, 1, 40, 4);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@Nonnull

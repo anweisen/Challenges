@@ -34,7 +34,7 @@ public class SnakeChallenge extends Setting {
 
 	public SnakeChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@Nonnull

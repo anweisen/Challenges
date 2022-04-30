@@ -46,7 +46,7 @@ public class RepeatInChunkChallenge extends Setting {
 
 	public RepeatInChunkChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.DESTROY);
+		setCategory(ChallengeCategory.WORLD);
 	}
 
 	@NotNull

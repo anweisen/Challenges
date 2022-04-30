@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -44,6 +45,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
 
 	public FiveHundredBlocksChallenge() {
 		super(MenuType.CHALLENGES, 1, 5, 5);
+		setCategory(ChallengeCategory.MOVEMENT);
 
 		// Loot Generate Event was added in 1.15
 		try {
