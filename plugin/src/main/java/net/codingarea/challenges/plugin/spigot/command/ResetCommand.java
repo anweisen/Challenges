@@ -77,7 +77,7 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		if (confirmReset && args.length == 1) return Utils.filterRecommendations(
-				args[0], "confirm", "settings", "custom_challenges");
+				args[0], "confirm", "settings", "customs");
 		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) {
 			return args.length == 1 ?
 					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "customs") :
