@@ -367,7 +367,7 @@
 	"menu-custom": "§aBenutzerdefiniert",
 
 	"lore-category-activated": "§7Aktiviert §8» §a{0}§8/§7{1}",
-	"category-misc": [
+	"category-misc_challenge": [
 		"§9Miscellaneous",
 		"Challenges, die *keiner Kategorie*",
 		"zugeordnet werden können"
@@ -380,7 +380,7 @@
 	"category-limited_time": [
 		"§aLimitierte Zeit",
 		"Du wirst bei verschiedenen",
-		"Faktoren *Zeitlich eingeschränkt*"
+		"Faktoren *zeitlich eingeschränkt*"
 	],
 	"category-force": [
 		"§3Zwischenziele",
@@ -417,18 +417,23 @@
 		"Challenges, die in einer",
 		"*anderen Welt* spielen"
 	],
+	"category-misc_goal": [
+		"§9Miscellaneous",
+		"Ziele, die *keiner Kategorie*",
+		"zugeordnet werden können"
+	],
 	"category-kill_entity": [
-		"§bEntity töten",
+		"§cEntity töten",
 		"Töte *bestimmte Entities*,",
 		"um zu gewinnen"
 	],
 	"category-score_points": [
-		"§bMeiste Punkte",
+		"§eMeiste Punkte",
 		"Erziele die *meisten Punkte* in",
 		"einem *bestimmten Bereich*."
 	],
 	"category-fastest_time": [
-		"§bSchnellste Zeit",
+		"§6Schnellste Zeit",
 		"Sei der *schnellste Spieler*, der",
 		"das Ziel erfüllt"
 	],
@@ -839,7 +844,7 @@
 	],
 	"item-max-biome-time-challenge": [
 		"§2Maximale Biom Zeit",
-		"Die *Zeit* die du in jedem *Biom*",
+		"Die *Zeit*, die du in jedem *Biom*",
 		"sein darfst, ist *begrenzt*"
 	],
 	"item-max-height-time-challenge": [

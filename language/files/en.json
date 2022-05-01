@@ -366,6 +366,73 @@
 	"menu-settings": "§eSettings",
 	"menu-custom": "§aCustom",
 
+	"lore-category-activated": "§7Activated §8» §a{0}§8/§7{1}",
+	"category-misc_challenge": [
+		"§9Miscellaneous",
+		"Challenges that *couldn't be*",
+		"*assigned* with a category"
+	],
+	"category-randomizer": [
+		"§6Randomizer",
+		"Erlebe ein komplett",
+		"*durcheinandergebrachtes* Spiel"
+	],
+	"category-limited_time": [
+		"§aLimited Time",
+		"Some things are timely restricted"
+	],
+	"category-force": [
+		"§3Force",
+		"You have to fulfill specific",
+		"*intermediate goals* to survive"
+	],
+	"category-world": [
+		"§4World Change",
+		"The world will be *modified* significant"
+	],
+	"category-damage": [
+		"§cSchaden",
+		"New *damage rules*"
+	],
+	"category-effect": [
+		"§5Effekte",
+		"Have fun with *lots of effects*"
+	],
+	"category-inventory": [
+		"§6Inventory",
+		"You'll have problems managing *your inventory*"
+	],
+	"category-movement": [
+		"§aBewegung",
+		"You're *restricted in your movements*"
+	],
+	"category-entities": [
+		"§bEntities",
+		"Entities will be *modified*"
+	],
+	"category-extra_world": [
+		"§aExtra Welt",
+		"Challenges that will *send*",
+		"you to *another world*"
+	],
+	"category-misc_goal": [
+		"§9Miscellaneous",
+		"Goals that *couldn't be*",
+		"*assigned* with a category"
+	],
+	"category-kill_entity": [
+		"§cEntities töten",
+		"Kill *specific entities* to win"
+	],
+	"category-score_points": [
+		"§eBest Score",
+		"Get the best score *to win*"
+	],
+	"category-fastest_time": [
+		"§6Fastest Time",
+		"Be the fastest *to win*"
+	],
+
 	"item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
 	"item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",
