@@ -358,6 +358,14 @@
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
 
+	"menu-timer": "§6Timer",
+	"menu-goal": "§5Ziel",
+	"menu-damage": "§7Schaden",
+	"menu-item_blocks": "§4Blöcke & Items",
+	"menu-challenges": "§cChallenges",
+	"menu-settings": "§eEinstellungen",
+	"menu-custom": "§aBenutzerdefiniert",
+
 	"lore-category-activated": "§7Aktiviert §8» §a{0}§8/§7{1}",
 	"category-misc": [
 		"§9Miscellaneous",

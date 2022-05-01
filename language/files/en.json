@@ -357,6 +357,15 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistics §8┃ §e/stats §8•",
+
+	"menu-timer": "§6Timer",
+	"menu-goal": "§5Goal",
+	"menu-damage": "§7Schaden",
+	"menu-item_blocks": "§4Blocks & Items",
+	"menu-challenges": "§cChallenges",
+	"menu-settings": "§eSettings",
+	"menu-custom": "§aCustom",
+
 	"item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
 	"item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",
