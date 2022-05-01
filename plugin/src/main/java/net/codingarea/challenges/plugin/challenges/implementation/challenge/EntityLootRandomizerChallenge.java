@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -20,6 +21,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
 
     public EntityLootRandomizerChallenge() {
         super(MenuType.CHALLENGES);
+        setCategory(SettingCategory.ENTITIES);
     }
 
     @NotNull
