@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.content.impl;
 
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
@@ -22,7 +21,7 @@ import java.util.function.Consumer;
 public class MessageImpl implements Message {
 
 	protected final String name;
-	protected Object value;
+	protected String[] value;
 
 	public MessageImpl(@Nonnull String name) {
 		this.name = name;
@@ -32,15 +31,7 @@ public class MessageImpl implements Message {
 	@Override
 	public String asString(@Nonnull Object... args) {
 		if (value == null) return Message.NULL;
-		if (value instanceof String && args.length == 0) return (String) value;
-		if (value instanceof String) return StringUtils.format((String) value, args);
-		if (value instanceof String[] && args.length == 0)
-			return StringUtils.getArrayAsString((String[]) value, "\n");
-		if (value instanceof String[])
-			return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
-		if (value instanceof ItemDescription) return ((ItemDescription) value).getName();
-		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return Message.NULL;
+		return String.join("\n", value);
 	}
 
 	@Nonnull
@@ -60,13 +51,8 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
-		if (value == null) return new String[]{Message.unknown(name)};
-		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
-		if (value instanceof String)
-			return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
-		if (value instanceof ItemDescription) return ((ItemDescription) value).getLore();
-		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return new String[]{Message.NULL};
+		if (value == null) return new String[]{ Message.unknown(name) };
+		return StringUtils.format(value);
 	}
 
 	@Nonnull
@@ -76,7 +62,6 @@ public class MessageImpl implements Message {
 			Message.unknown(name);
 			return ItemDescription.empty();
 		}
-		if (value instanceof ItemDescription) return (ItemDescription) value;
 		return new ItemDescription(asArray(args));
 	}
 
@@ -149,11 +134,6 @@ public class MessageImpl implements Message {
 		if (title.length == 0) send.accept("", "");
 		else if (title.length == 1) send.accept(title[0], "");
 		else send.accept(title[0], title[1]);
-	}
-
-	@Override
-	public void setValue(@Nonnull String value) {
-		this.value = value;
 	}
 
 	@Override

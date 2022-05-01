@@ -125,7 +125,7 @@ public final class LanguageLoader extends ContentLoader {
 				Message message = Message.forName(entry.getKey());
 				JsonElement element = entry.getValue();
 				if (element.isJsonPrimitive()) {
-					message.setValue(element.getAsString());
+					message.setValue(new String[] { element.getAsString() });
 					messages++;
 				} else if (element.isJsonArray()) {
 					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));

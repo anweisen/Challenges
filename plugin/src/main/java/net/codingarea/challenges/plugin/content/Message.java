@@ -62,8 +62,6 @@ public interface Message {
 
 	void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args);
 
-	void setValue(@Nonnull String value);
-
 	void setValue(@Nonnull String[] value);
 
 	@Nonnull
