@@ -508,9 +508,7 @@
 		"Different *settings* to simplify",
 		"the *farming* of items"
 	],
-	"menu-cut-clean-setting-settings": [
-		"CutClean"
-	],
+	"menu-cut-clean-setting-settings": "CutClean",
 	"item-cut-clean-gold-setting": [
 		"§6Gold",
 		"*Gold ore* will be directly dropped as *Gold ingot*"
@@ -831,9 +829,7 @@
 		"*blocks* of a certain type",
 		"disappear in the same chunk"
 	],
-	"menu-all-blocks-disappear-challenge-settings": [
-		"All blocks disappear"
-	],
+	"menu-all-blocks-disappear-challenge-settings": "All blocks disappear",
 	"item-all-blocks-disappear-break-challenge": [
 		"§bBy breaking",
 		"If you *break* a *block* all blocks",
@@ -905,9 +901,7 @@
 		"You get a *random potion effect*",
 		"in a set *interval*"
 	],
-	"menu-random-effect-challenge-settings": [
-		"Random Effects"
-	],
+	"menu-random-effect-challenge-settings": "Random Effects",
 	"item-random-effect-time-challenge": [
 		"§6Interval",
 		"The *interval* you get the *effect* in"
@@ -934,9 +928,7 @@
 		"§cAnvil Rain",
 		"*Anvils* are falling from the *sky*"
 	],
-	"menu-anvil-rain-challenge-settings": [
-		"Anvil Rain"
-	],
+	"menu-anvil-rain-challenge-settings": "Anvil Rain",
 	"item-anvil-rain-time-challenge": [
 		"§6Interval",
 		"The *interval*, the *anvils* are spawning in"
@@ -1183,15 +1175,9 @@
 		"§6Collect Wood",
 		"Who first collected all types of wood set wins"
 	],
-	"item-collect-wood-goal-overworld": [
-		"§aOverworld"
-	],
-	"item-collect-wood-goal-nether": [
-		"§cNether"
-	],
-	"item-collect-wood-goal-both": [
-		"§9Both"
-	],
+	"item-collect-wood-goal-overworld": "§aOverworld",
+	"item-collect-wood-goal-nether": "§cNether",
+	"item-collect-wood-goal-both": "§9Both",
 	"item-all-bosses-goal": [
 		"§bAll Bosses",
 		"Each boss must has to be killed once to win"
