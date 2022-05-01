@@ -1137,11 +1137,13 @@
 		"Aus jedem abgebautem Block, *spawnt ein Mob*,",
 		"dass *getötet* werden muss, um den Block *zu erhalten*"
 	],
-	"entity-loot-randomizer-challenge": [
+	"item-entity-loot-randomizer-challenge": [
 		"§6Entity Loot Randomizer",
 		"Wenn du *ein Mob tötest*, droppt dieses anstelle",
 		"seines Loots *zufällige Items*"
 	],
+	"item-entity-loot-randomizer-challenge-randomize_loot": "§6Zufälliger Loot",
+	"item-entity-loot-randomizer-challenge-swap_loot": "§5Vertauschter Loot",
 	"item-dragon-goal": [
 		"§5Enderdrache",
 		"Töte den *Enderdrachen* um zu gewinnen"
