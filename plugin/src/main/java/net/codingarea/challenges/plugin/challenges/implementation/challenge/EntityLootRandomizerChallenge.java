@@ -21,7 +21,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
 
     public EntityLootRandomizerChallenge() {
         super(MenuType.CHALLENGES);
-        setCategory(SettingCategory.ENTITIES);
+        setCategory(SettingCategory.RANDOMIZER);
     }
 
     @NotNull
