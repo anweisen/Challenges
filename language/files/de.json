@@ -21,7 +21,7 @@
 	"everyone": "§5Alle",
 	"player": "§6Aktiver Spieler",
 	"none": "Nichts",
-	"inventory-color": "§c",
+	"inventory-color": "§9",
 	"timer-counting-up": "§8» §7Timer zählt §ahoch",
 	"timer-counting-down": "§8» §7Timer zählt §crunter",
 	"timer-is-paused": "§8» §7Timer ist §cpausiert",
