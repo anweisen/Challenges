@@ -31,7 +31,7 @@ public class MessageImpl implements Message {
 	@Override
 	public String asString(@Nonnull Object... args) {
 		if (value == null) return Message.NULL;
-		return String.join("\n", value);
+		return String.join("\n", asArray(args));
 	}
 
 	@Nonnull
@@ -52,7 +52,7 @@ public class MessageImpl implements Message {
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
 		if (value == null) return new String[]{ Message.unknown(name) };
-		return StringUtils.format(value);
+		return StringUtils.format(value, args);
 	}
 
 	@Nonnull
