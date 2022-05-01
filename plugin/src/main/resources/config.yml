@@ -164,6 +164,10 @@ no-stats-after-cheating: false
 # - Will download languages from github development branch (https://github.com/anweisen/Challenges/tree/development).
 dev-mode: false
 
+# Set a path to a json language file on your computer to use the translations out of this file.
+# Useful when developing with the plugin
+# direct-language-file: C:\PathToWorkDic\Challenges\language\files\de.json
+
 database:
   # Available database types:
   # - mysql
