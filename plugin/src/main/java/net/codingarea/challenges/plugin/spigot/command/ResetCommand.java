@@ -46,7 +46,7 @@ public class ResetCommand implements SenderCommand, Completer {
 				Challenges.getInstance().getChallengeManager().restoreDefaults();
 				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
 				return;
-			} else if (args.length > 0 && args[0].equalsIgnoreCase("custom_challenges")) {
+			} else if (args.length > 0 && args[0].equalsIgnoreCase("customs")) {
 				Challenges.getInstance().getCustomChallengesLoader().resetChallenges();
 				Message.forName("player-custom_challenges-reset").broadcast(Prefix.CHALLENGES);
 				return;
@@ -80,7 +80,7 @@ public class ResetCommand implements SenderCommand, Completer {
 				args[0], "confirm", "settings", "custom_challenges");
 		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) {
 			return args.length == 1 ?
-					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "custom_challenges") :
+					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "customs") :
 					args[0].equalsIgnoreCase("confirm") ? Collections.singletonList("[seed]") : Lists
 							.newLinkedList();
 		}
