@@ -21,6 +21,7 @@
 	"everyone": "§5Alle",
 	"player": "§6Aktiver Spieler",
 	"none": "Nichts",
+	"inventory-color": "§c",
 	"timer-counting-up": "§8» §7Timer zählt §ahoch",
 	"timer-counting-down": "§8» §7Timer zählt §crunter",
 	"timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -360,6 +361,7 @@
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
 
+	"menu-title": "Menu",
 	"menu-timer": "§6Timer",
 	"menu-goal": "§5Ziel",
 	"menu-damage": "§7Schaden",

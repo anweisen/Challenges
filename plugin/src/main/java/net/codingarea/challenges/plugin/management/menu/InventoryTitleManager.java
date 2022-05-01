@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import net.codingarea.challenges.plugin.content.Message;
+
 import javax.annotation.Nonnull;
 
 /**
@@ -13,12 +15,12 @@ public final class InventoryTitleManager {
 
 	@Nonnull
 	public static String getTitle(@Nonnull String name) {
-		return "§8» " + name;
+		return "§8» " + Message.forName("inventory-color").asString() + name;
 	}
 
 	@Nonnull
 	public static String getMainMenuTitle() {
-		return getTitle("§9Menu");
+		return getTitle(Message.forName("menu-title").asString());
 	}
 
 	@Nonnull
@@ -33,7 +35,7 @@ public final class InventoryTitleManager {
 
 	@Nonnull
 	public static String getTitle(@Nonnull String menu, String... sub) {
-		String name = "§9" + menu;
+		String name = menu;
 		for (String s : sub) {
 			name += getTitleSplitter() + s;
 		}
@@ -42,12 +44,12 @@ public final class InventoryTitleManager {
 
 	@Nonnull
 	public static String getTitleSplitter() {
-		return " §8┃ §9";
+		return " §8┃ " + Message.forName("inventory-color").asString();
 	}
 
 	@Nonnull
 	public static String getMenuSettingTitle(@Nonnull MenuType menu, @Nonnull String name, int page, boolean showPages) {
-		return getTitle("§9" + menu.getName() + " §8┃ §9" + name + (showPages && false ? " §8• §9" + (page + 1) : ""));
+		return getTitle(menu.getName() + getTitleSplitter() + name + (showPages && false ? " §8• " + Message.forName("inventory-color") + (page + 1) : ""));
 	}
 
 	@Nonnull

@@ -188,7 +188,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	}
 
 	private Tuple<Inventory, Integer> generateMissingItemsInventory(@Nonnull ItemStack itemStack) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString("§9")));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString(Message.forName("inventory-color").asString())));
 
 		int targetSlot = globalRandom.nextInt(inventory.getSize());
 		inventory.setItem(targetSlot, itemStack);
