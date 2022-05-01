@@ -25,6 +25,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 	}
 
 	public void enable() {
+
 		// Settings
 		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);
@@ -72,13 +73,35 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		register(HotBarRandomizerChallenge.class);
+		register(EntityLootRandomizerChallenge.class);
 		register(MobRandomizerChallenge.class);
 		register(RandomItemDroppingChallenge.class);
-		register(RandomItemSwappingChallenge.class);
 		register(RandomItemRemovingChallenge.class);
+		register(RandomItemSwappingChallenge.class);
 		register(RandomItemChallenge.class);
 		register(RandomEventChallenge.class);
 		register(RandomTeleportOnHitChallenge.class);
+
+		// Force
+		register(ForceHeightChallenge.class);
+		register(ForceBlockChallenge.class);
+		register(ForceMobChallenge.class);
+		register(ForceItemChallenge.class);
+		register(ForceBiomeChallenge.class);
+		register(TrafficLightChallenge.class);
+
+		// Entities
+		register(HydraNormalChallenge.class);
+		register(HydraPlusChallenge.class);
+		register(DupedSpawningChallenge.class);
+		register(NewEntityOnJumpChallenge.class);
+		register(InvisibleMobsChallenge.class);
+		register(StoneSightChallenge.class);
+		register(MobSightDamageChallenge.class);
+		register(AllMobsToDeathPoint.class);
+		register(MobsRespawnInEndChallenge.class);
+		register(MobTransformationChallenge.class);
+		register(BlockMobsChallenge.class);
 
 		// Damage
 		register(DamagePerBlockChallenge.class);
@@ -117,18 +140,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LoopChallenge.class);
 		register(IceFloorChallenge.class);
 
-		// Limited Time
-		register(MaxBiomeTimeChallenge.class);
-		register(MaxHeightTimeChallenge.class);
-
-		// Force
-		register(ForceHeightChallenge.class);
-		register(ForceBlockChallenge.class);
-		register(ForceMobChallenge.class);
-		register(ForceItemChallenge.class);
-		register(ForceBiomeChallenge.class);
-		register(TrafficLightChallenge.class);
-
 		// Inventory
 		register(PermanentItemChallenge.class);
 		register(NoDupedItemsChallenge.class);
@@ -148,19 +159,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MoveMouseDamage.class);
 		register(FiveHundredBlocksChallenge.class);
 
-		// Entities
-		register(HydraNormalChallenge.class);
-		register(HydraPlusChallenge.class);
-		register(DupedSpawningChallenge.class);
-		register(NewEntityOnJumpChallenge.class);
-		register(InvisibleMobsChallenge.class);
-		register(StoneSightChallenge.class);
-		register(MobSightDamageChallenge.class);
-		register(AllMobsToDeathPoint.class);
-		register(MobsRespawnInEndChallenge.class);
-		register(MobTransformationChallenge.class);
-		register(BlockMobsChallenge.class);
-		register(EntityLootRandomizerChallenge.class);
+		// Limited Time
+		register(MaxBiomeTimeChallenge.class);
+		register(MaxHeightTimeChallenge.class);
 
 		// Custom World
 		register(WaterMLGChallenge.class);
@@ -178,6 +179,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 
 
 		// Goal
+
+		// Kill
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
 		register(KillElderGuardianGoal.class);
@@ -185,34 +188,37 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
 		register(KillAllMobsGoal.class);
-
 		register(KillAllMonsterGoal.class);
-		register(LastManStandingGoal.class);
-		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
+
+		// Score Points
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
+		register(MostEmeraldsGoal.class);
+		register(MostOresGoal.class);
+		register(EatMostGoal.class);
+		register(ForceItemBattleGoal.class);
 
+		// Fastest Time
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
 		register(FinishRaidGoal.class);
-		register(MostEmeraldsGoal.class);
 		register(AllAdvancementGoal.class);
 		register(MaxHeightGoal.class);
 		register(MinHeightGoal.class);
-
 		register(RaceGoal.class);
-		register(MostOresGoal.class);
 		register(FindElytraGoal.class);
 		register(EatCakeGoal.class);
 		register(CollectHorseAmorGoal.class);
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
-
 		register(CollectWorkstationsGoal.class);
-		register(EatMostGoal.class);
-		register(ForceItemBattleGoal.class);
+
+		// Misc
+		register(LastManStandingGoal.class);
+		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
+
 
 		// Damage Rules
 		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());
