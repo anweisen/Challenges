@@ -68,6 +68,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void checkConfig() {
+		saveResource("hotbar-items.yml", false);
 		if (getConfigDocument().getVersion("config-version", Version.parse("1.0")).isOlderThan(Version.parse("2.0"))) {
 			saveResource("config.yml", true);
 			reloadConfig();

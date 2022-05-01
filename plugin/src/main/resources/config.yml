@@ -73,12 +73,6 @@ design:
   empty-line-above: true
   empty-line-underneath: true
 
-# Players with the permission 'challenges.gui' will have items in their hotbar
-# while the timer is paused, for controlling some settings.
-inventory-menu:
-  control: true
-  stats: false
-
 # Toggles join and quit messages
 # These can be edited in the corresponding language file
 join-quit-messages: true
