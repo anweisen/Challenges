@@ -31,8 +31,8 @@ import java.util.function.Consumer;
 public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	protected final List<IChallenge> challenges = new LinkedList<>();
+	protected final boolean newSuffix;
 
-	private final boolean newSuffix;
 	private final int startPage;
 	protected Consumer<Player> onLeaveClick;
 

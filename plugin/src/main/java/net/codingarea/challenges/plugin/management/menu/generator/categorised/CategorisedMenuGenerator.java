@@ -54,6 +54,14 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 
 			int slot = i + 10;
 			if (i >= 7) slot += 2;
+
+			for (IChallenge challenge : generator.getChallenges()) {
+				if (newSuffix && isNew(challenge)) {
+					builder.appendName(" " + Message.forName("new-challenge"));
+					break;
+				}
+			}
+
 			inventory.setItem(slot, builder.build());
 			i++;
 		}
