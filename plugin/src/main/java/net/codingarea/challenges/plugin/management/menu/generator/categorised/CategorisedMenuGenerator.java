@@ -62,8 +62,10 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			CategorisedSettingsMenuGenerator generator = entry.getValue();
 
 			ItemBuilder builder = category.getDisplayItem();
-			long activatedCount = generator.getChallenges().stream().filter(IChallenge::isEnabled).count();
-			builder.appendLore("", Message.forName("lore-category-activated").asString(activatedCount, generator.getChallenges().size()));
+			String attachment = getLoreAttachment(generator);
+			if (!attachment.isEmpty()) {
+				builder.appendLore("", attachment);
+			}
 
 			int slot = i + 10;
 			if (i >= 7) slot += 2;
@@ -79,6 +81,20 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			i++;
 		}
 
+	}
+
+	private String getLoreAttachment(CategorisedSettingsMenuGenerator generator) {
+
+		if (getMenuType() == MenuType.GOAL) {
+			for (IChallenge challenge : generator.getChallenges()) {
+				if (challenge.isEnabled()) {
+					return Message.forName("lore-category-activated").asString();
+				}
+			}
+			return Message.forName("lore-category-deactivated").asString();
+		}
+		long activatedCount = generator.getChallenges().stream().filter(IChallenge::isEnabled).count();
+		return Message.forName("lore-category-activated-count").asString(activatedCount, generator.getChallenges().size());
 	}
 
 	@Override
