@@ -47,9 +47,9 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!newNether) return DefaultItem.enabled();
-		if (getValue() == OVERWORLD) return DefaultItem.create(Material.OAK_LOG, "§aOverworld");
-		if (getValue() == NETHER) return DefaultItem.create(Material.WARPED_STEM, "§cNether");
-		return DefaultItem.create(Material.CRYING_OBSIDIAN, "§9Both");
+		if (getValue() == OVERWORLD) return DefaultItem.create(Material.OAK_LOG, Message.forName("item-collect-wood-goal-overworld"));
+		if (getValue() == NETHER) return DefaultItem.create(Material.WARPED_STEM, Message.forName("item-collect-wood-goal-nether"));
+		return DefaultItem.create(Material.CRYING_OBSIDIAN, Message.forName("item-collect-wood-goal-both"));
 	}
 
 	@Override

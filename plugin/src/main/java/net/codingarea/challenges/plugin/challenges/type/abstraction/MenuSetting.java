@@ -6,6 +6,7 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.bukkit.utils.menu.positions.EmptyMenuPosition;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
@@ -35,11 +36,11 @@ public abstract class MenuSetting extends Setting {
 
 	private final Map<String, SubSetting> settings = new LinkedHashMap<>();
 	private final List<Inventory> inventories = new ArrayList<>();
-	private final String menuTitle;
+	private final Message title;
 
-	public MenuSetting(@Nonnull MenuType menu, @Nonnull String menuTitle) {
+	public MenuSetting(@Nonnull MenuType menu, @Nonnull Message title) {
 		super(menu);
-		this.menuTitle = menuTitle;
+		this.title = title;
 	}
 
 	protected final void generateInventories() {
@@ -87,7 +88,7 @@ public abstract class MenuSetting extends Setting {
 
 	@Nonnull
 	private Inventory createNewInventory(int page, int pagesAmount) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenuGenerator.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenuGenerator.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), title.asString(), page, pagesAmount > 1));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
