@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.bukkit.command;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -31,7 +30,7 @@ public class ForwardingCommand implements SenderCommand, TabCompleter {
 
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
-		Bukkit.dispatchCommand(sender, forwardCommand + " " + StringUtils.getArrayAsString(args, " "));
+		Bukkit.dispatchCommand(sender, forwardCommand + " " + String.join(" ", args));
 	}
 
 	@Nullable

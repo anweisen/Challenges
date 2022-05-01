@@ -35,7 +35,7 @@ public class SearchCommand implements SenderCommand, Completer {
 			return;
 		}
 
-		String input = StringUtils.getArrayAsString(args, "_").toUpperCase();
+		String input = String.join("_", args).toUpperCase();
 		Material material = Utils.getMaterial(input);
 
 		if (material == null) {
