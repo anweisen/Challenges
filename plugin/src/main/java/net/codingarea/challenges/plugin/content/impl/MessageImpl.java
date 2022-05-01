@@ -6,6 +6,8 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.utils.misc.FontUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -52,7 +54,10 @@ public class MessageImpl implements Message {
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
 		if (value == null) return new String[]{ Message.unknown(name) };
-		return StringUtils.format(value, args);
+		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		boolean capsFont = false;
+		if (loader != null) capsFont = loader.isSmallCapsFont();
+		return capsFont ? FontUtils.toSmallCaps(StringUtils.format(value, args)) : StringUtils.format(value, args);
 	}
 
 	@Nonnull

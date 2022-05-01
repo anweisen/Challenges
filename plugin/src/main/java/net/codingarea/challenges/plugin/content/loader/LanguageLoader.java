@@ -12,6 +12,7 @@ import net.anweisen.utilities.common.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
+import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -31,11 +32,15 @@ public final class LanguageLoader extends ContentLoader {
 
 	private static volatile boolean loaded = false;
 	private String language;
+	private boolean smallCapsFont;
 
 	@Override
 	protected void load() {
 
 		Document config = Challenges.getInstance().getConfigDocument();
+
+		smallCapsFont = config.getBoolean("small-caps", false);
+
 		if (config.contains(DIRECT_FILE_PATH)) {
 			language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
 			String path = config.getString(DIRECT_FILE_PATH);
@@ -149,6 +154,10 @@ public final class LanguageLoader extends ContentLoader {
 
 	public String getLanguage() {
 		return language;
+	}
+
+	public boolean isSmallCapsFont() {
+		return smallCapsFont;
 	}
 
 }

@@ -106,8 +106,11 @@ public final class LoaderRegistry {
 
 	@SuppressWarnings("unchecked")
 	public <T extends ContentLoader> T getFirstLoaderByClass(@Nonnull Class<T> clazz) {
-		ContentLoader loader = loaders.stream().filter(contentLoader -> contentLoader.getClass().equals(clazz)).findFirst().orElse(null);
-		if (loader == null) return null;
-		return (T) loader;
+		for (ContentLoader loader : loaders) {
+			if (loader.getClass().equals(clazz)) {
+				return (T) loader;
+			}
+		}
+		return null;
 	}
 }

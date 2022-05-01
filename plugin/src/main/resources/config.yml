@@ -22,12 +22,16 @@
 # The config-version is even with the version of the default config.
 # You will be notified, when this version is older than the of the default in the plugin jar.
 # We recommend regenerating the config to get access to new features / settings.
-config-version: "2.1.2"
+config-version: "2.1.4"
 
 # Currently supported by default
 # - en (English)
 # - de (German / Deutsch)
 language: "de"
+
+# Makes text from the plugin appear in the 'small caps' font
+# Example: ᴛʜɪs ɪs sᴍᴀʟʟ ᴄᴀᴘs
+small-caps: false
 
 timer:
   stopped-message: "§8• §7Timer §c§lpaused §8•"
