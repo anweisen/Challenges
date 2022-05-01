@@ -25,11 +25,11 @@ import java.util.stream.Collectors;
  */
 public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 
-	private final Map<ChallengeCategory, CategorisedSettingsMenuGenerator> categories = new HashMap<>();
+	private final Map<SettingCategory, CategorisedSettingsMenuGenerator> categories = new HashMap<>();
 
 	@Override
 	public void addChallengeToCache(@NotNull IChallenge challenge) {
-		ChallengeCategory category = challenge.getCategory() != null ? challenge.getCategory() : ChallengeCategory.MISC;
+		SettingCategory category = challenge.getCategory() != null ? challenge.getCategory() : SettingCategory.MISC;
 		if (!categories.containsKey(challenge.getCategory())) {
 			categories.computeIfAbsent(category, challengeCategory -> {
 				CategorisedSettingsMenuGenerator generator = new CategorisedSettingsMenuGenerator(this, category);
@@ -44,8 +44,8 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	public void generatePage(@NotNull Inventory inventory, int page) {
 
 		int i = 0;
-		for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
-			ChallengeCategory category = entry.getKey();
+		for (Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
+			SettingCategory category = entry.getKey();
 			CategorisedSettingsMenuGenerator generator = entry.getValue();
 
 			ItemBuilder builder = category.getDisplayItem();
@@ -64,7 +64,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	public void updateItem(IChallenge challenge) {
 		generateInventories();
 
-		for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : categories.entrySet()) {
+		for (Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator> entry : categories.entrySet()) {
 			if (entry.getValue().getChallenges().contains(challenge)) {
 				entry.getValue().updateGeneratorItem(challenge);
 			}
@@ -93,7 +93,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			}
 
 			int i = 0;
-			for (Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
+			for (Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator> entry : getCategoriesForPage(page)) {
 				int slot = i + 10;
 				if (i >= 7) slot += 2;
 				if (slot == info.getSlot()) {
@@ -108,9 +108,9 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 		};
 	}
 
-	private List<Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator>> getCategoriesForPage(int page) {
+	private List<Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator>> getCategoriesForPage(int page) {
 
-		List<Map.Entry<ChallengeCategory, CategorisedSettingsMenuGenerator>> list = categories.entrySet()
+		List<Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator>> list = categories.entrySet()
 				.stream()
 				.sorted(Comparator.comparingInt(value -> value.getKey().getPriority()))
 				.collect(Collectors.toList());
@@ -125,9 +125,9 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 	public static class CategorisedSettingsMenuGenerator extends SettingsMenuGenerator {
 
 		private final CategorisedMenuGenerator generator;
-		private final ChallengeCategory category;
+		private final SettingCategory category;
 
-		public CategorisedSettingsMenuGenerator(CategorisedMenuGenerator generator, ChallengeCategory category) {
+		public CategorisedSettingsMenuGenerator(CategorisedMenuGenerator generator, SettingCategory category) {
 			this.generator = generator;
 			this.category = category;
 			this.onLeaveClick = player -> {

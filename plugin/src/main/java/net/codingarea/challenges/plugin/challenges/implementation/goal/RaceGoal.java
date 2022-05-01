@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -43,6 +44,7 @@ public class RaceGoal extends SettingModifierGoal {
 
 	public RaceGoal() {
 		super(MenuType.GOAL, 1, 30, 5);
+		setCategory(SettingCategory.FASTEST_TIME);
 	}
 
 	@Override

@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ItemCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -21,6 +22,7 @@ public class CollectHorseAmorGoal extends ItemCollectionGoal {
 
 	public CollectHorseAmorGoal() {
 		super();
+		setCategory(SettingCategory.FASTEST_TIME);
 		List<Material> targets = new ArrayList<>(Arrays.asList(
 				Material.DIAMOND_HORSE_ARMOR,
 				Material.GOLDEN_HORSE_ARMOR,

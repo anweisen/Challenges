@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -26,7 +26,7 @@ public class RandomItemSwappingChallenge extends TimedChallenge {
 
 	public RandomItemSwappingChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 5);
-		setCategory(ChallengeCategory.RANDOMIZER);
+		setCategory(SettingCategory.RANDOMIZER);
 	}
 
 	@Nonnull

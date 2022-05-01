@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -20,7 +20,7 @@ public class ReversedDamageChallenge extends Setting {
 
 	public ReversedDamageChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.DAMAGE);
+		setCategory(SettingCategory.DAMAGE);
 	}
 
 	@Nonnull

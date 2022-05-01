@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.FirstPlayerAtHeightGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.World.Environment;
@@ -18,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 public class MinHeightGoal extends FirstPlayerAtHeightGoal {
 
 	public MinHeightGoal() {
+		setCategory(SettingCategory.FASTEST_TIME);
 		setHeightToGetTo(BukkitReflectionUtils.getMinHeight(ChallengeAPI.getGameWorld(Environment.NORMAL)) + 1);
 	}
 

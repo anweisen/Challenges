@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
@@ -23,7 +23,7 @@ public class OnlyDownChallenge extends Setting {
 
 	public OnlyDownChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.MOVEMENT);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull

@@ -409,7 +409,19 @@
 		"Challenges, die in einer",
 		"*anderen Welt* spielen"
 	],
-
+	"category-kill_entity": [
+		"§bEntity töten"
+	],
+	"category-score_points": [
+		"§bMeiste Punkte",
+		"Erziele die *meisten Punkte* in",
+		"einem *bestimmten Bereich*."
+	],
+	"category-fastest_time": [
+		"§bSchnellste Zeit",
+		"Sei der *schnellste Spieler*, der",
+		"das Ziel erfüllt"
+	],
 
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",

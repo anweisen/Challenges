@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,11 @@ import javax.annotation.Nonnull;
  */
 @Since("2.1.1")
 public class MostOresGoal extends PointsGoal {
+
+	public MostOresGoal() {
+		super();
+		setCategory(SettingCategory.SCORE_POINTS);
+	}
 
 	@NotNull
 	@Override

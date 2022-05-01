@@ -6,7 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.WorldDepende
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,7 +29,7 @@ public class WaterMLGChallenge extends WorldDependentChallenge {
 
 	public WaterMLGChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
-		setCategory(ChallengeCategory.EXTRA_WORLD);
+		setCategory(SettingCategory.EXTRA_WORLD);
 	}
 
 	@Nonnull

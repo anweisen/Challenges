@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -23,6 +24,11 @@ import javax.annotation.Nonnull;
  */
 @Since("2.0.2")
 public class MostEmeraldsGoal extends PointsGoal {
+
+	public MostEmeraldsGoal() {
+		super();
+		setCategory(SettingCategory.SCORE_POINTS);
+	}
 
 	@Nonnull
 	@Override
