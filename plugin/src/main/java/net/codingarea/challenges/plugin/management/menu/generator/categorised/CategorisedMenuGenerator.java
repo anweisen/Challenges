@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
+import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -14,7 +15,7 @@ import org.bukkit.inventory.Inventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Comparator;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,11 +26,11 @@ import java.util.stream.Collectors;
  */
 public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 
-	private final Map<SettingCategory, CategorisedSettingsMenuGenerator> categories = new HashMap<>();
+	private final Map<SettingCategory, CategorisedSettingsMenuGenerator> categories = new LinkedHashMap<>();
 
 	@Override
 	public void addChallengeToCache(@NotNull IChallenge challenge) {
-		SettingCategory category = challenge.getCategory() != null ? challenge.getCategory() : SettingCategory.MISC;
+		SettingCategory category = challenge.getCategory() != null ? challenge.getCategory() : getMiscCategory();
 		if (!categories.containsKey(challenge.getCategory())) {
 			categories.computeIfAbsent(category, challengeCategory -> {
 				CategorisedSettingsMenuGenerator generator = new CategorisedSettingsMenuGenerator(this, category);
@@ -38,6 +39,18 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			});
 		}
 		categories.get(category).addChallengeToCache(challenge);
+	}
+
+	@Override
+	public void resetChallengeCache() {
+		categories.clear();
+	}
+
+	private SettingCategory getMiscCategory() {
+		if (getMenuType() == MenuType.GOAL) {
+			return SettingCategory.MISC_GOAL;
+		}
+		return SettingCategory.MISC_CHALLENGE;
 	}
 
 	@Override
@@ -120,6 +133,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 
 		List<Map.Entry<SettingCategory, CategorisedSettingsMenuGenerator>> list = categories.entrySet()
 				.stream()
+				// Priority might be removed in a future version
 				.sorted(Comparator.comparingInt(value -> value.getKey().getPriority()))
 				.collect(Collectors.toList());
 
