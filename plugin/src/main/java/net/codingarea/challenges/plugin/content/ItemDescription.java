@@ -77,6 +77,7 @@ public final class ItemDescription {
 		// Start at 1, first entry is not content of lore
 		for (int i = 1; i < origin.length; i++) {
 			StringBuilder line = new StringBuilder();
+			line.append(colorBefore);
 			for (char c : origin[i].toCharArray()) {
 				if (c == '*') {
 					if (inColor) {

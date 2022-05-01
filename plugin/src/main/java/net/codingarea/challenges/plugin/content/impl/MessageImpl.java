@@ -138,10 +138,6 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void setValue(@Nonnull String[] value) {
-		for (int i = 0; i < value.length; i++) {
-			if (value[i] != null && !value[i].startsWith("§") && !value[i].startsWith("{") && !value[i].trim().isEmpty())
-				value[i] = "§7" + value[i];
-		}
 		this.value = value;
 	}
 
