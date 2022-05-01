@@ -410,7 +410,9 @@
 		"*anderen Welt* spielen"
 	],
 	"category-kill_entity": [
-		"§bEntity töten"
+		"§bEntity töten",
+		"Töte *bestimmte Entities*,",
+		"um zu gewinnen"
 	],
 	"category-score_points": [
 		"§bMeiste Punkte",
