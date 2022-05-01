@@ -29,7 +29,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
     @NotNull
     @Override
     public ItemBuilder createDisplayItem() {
-        return new ItemBuilder(Material.HOPPER_MINECART, Message.forName("entity-loot-randomizer-challenge"));
+        return new ItemBuilder(Material.FURNACE_MINECART, Message.forName("entity-loot-randomizer-challenge"));
     }
 
     @Override
