@@ -4,7 +4,7 @@ import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.collection.SeededRandomWrapper;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 
 import javax.annotation.Nonnull;
 
@@ -18,12 +18,12 @@ public abstract class RandomizerSetting extends Setting {
 
 	public RandomizerSetting(@Nonnull MenuType menu) {
 		super(menu);
-		setCategory(ChallengeCategory.RANDOMIZER);
+		setCategory(SettingCategory.RANDOMIZER);
 	}
 
 	public RandomizerSetting(@Nonnull MenuType menu, boolean enabledByDefault) {
 		super(menu, enabledByDefault);
-		setCategory(ChallengeCategory.RANDOMIZER);
+		setCategory(SettingCategory.RANDOMIZER);
 	}
 
 	protected abstract void reloadRandomization();

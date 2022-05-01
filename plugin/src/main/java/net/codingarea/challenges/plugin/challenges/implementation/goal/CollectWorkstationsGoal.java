@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ItemCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -24,6 +25,7 @@ public class CollectWorkstationsGoal extends ItemCollectionGoal {
 				Material.BREWING_STAND, Material.SMITHING_TABLE, Material.CAULDRON,
 				Material.LOOM, Material.STONECUTTER, Material.BARREL
 		);
+		setCategory(SettingCategory.FASTEST_TIME);
 	}
 
 	@NotNull

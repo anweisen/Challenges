@@ -8,7 +8,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -33,7 +33,7 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 
 	public ForceHeightChallenge() {
 		super(MenuType.CHALLENGES, 2, 15);
-		setCategory(ChallengeCategory.FORCE);
+		setCategory(SettingCategory.FORCE);
 	}
 
 	@Nonnull

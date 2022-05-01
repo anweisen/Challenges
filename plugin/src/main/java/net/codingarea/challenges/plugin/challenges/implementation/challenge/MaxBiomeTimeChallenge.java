@@ -6,7 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -28,7 +28,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 
 	public MaxBiomeTimeChallenge() {
 		super(MenuType.CHALLENGES, 3, 20);
-		setCategory(ChallengeCategory.LIMITED_TIME);
+		setCategory(SettingCategory.LIMITED_TIME);
 	}
 
 	@Override

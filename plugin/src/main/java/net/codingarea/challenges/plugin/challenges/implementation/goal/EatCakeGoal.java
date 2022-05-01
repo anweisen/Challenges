@@ -4,6 +4,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -23,6 +24,11 @@ import java.util.List;
  */
 @Since("2.1.2")
 public class EatCakeGoal extends SettingGoal {
+
+	public EatCakeGoal() {
+		super();
+		setCategory(SettingCategory.FASTEST_TIME);
+	}
 
 	@Override
 	public void getWinnersOnEnd(@NotNull List<Player> winners) {

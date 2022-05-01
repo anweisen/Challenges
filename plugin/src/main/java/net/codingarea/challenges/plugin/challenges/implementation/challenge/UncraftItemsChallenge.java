@@ -5,7 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -27,7 +27,7 @@ public class UncraftItemsChallenge extends TimedChallenge {
 
 	public UncraftItemsChallenge() {
 		super(MenuType.CHALLENGES, 5, 60, 20);
-		setCategory(ChallengeCategory.INVENTORY);
+		setCategory(SettingCategory.INVENTORY);
 	}
 
 	@Nonnull

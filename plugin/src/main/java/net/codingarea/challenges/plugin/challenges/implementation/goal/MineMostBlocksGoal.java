@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -18,6 +19,7 @@ public class MineMostBlocksGoal extends PointsGoal {
 
 	public MineMostBlocksGoal() {
 		super();
+		setCategory(SettingCategory.SCORE_POINTS);
 	}
 
 	@Nonnull

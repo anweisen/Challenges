@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -22,6 +23,7 @@ public class CollectMostDeathsGoal extends CollectionGoal {
 
 	public CollectMostDeathsGoal() {
 		super(DamageCause.values());
+		setCategory(SettingCategory.SCORE_POINTS);
 	}
 
 	@Nonnull

@@ -4,7 +4,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.EntityDeathByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Location;
@@ -24,7 +24,7 @@ public class AllMobsToDeathPoint extends Setting {
 
 	public AllMobsToDeathPoint() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.ENTITIES);
+		setCategory(SettingCategory.ENTITIES);
 	}
 
 	@EventHandler

@@ -8,7 +8,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -40,7 +40,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
 
 	protected final MenuType menu;
-	protected ChallengeCategory category;
+	protected SettingCategory category;
 	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
 	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
 
@@ -66,11 +66,11 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Override
-	public ChallengeCategory getCategory() {
+	public SettingCategory getCategory() {
 		return category;
 	}
 
-	public void setCategory(ChallengeCategory category) {
+	public void setCategory(SettingCategory category) {
 		this.category = category;
 	}
 

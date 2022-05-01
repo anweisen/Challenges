@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -36,6 +37,7 @@ public class AllAdvancementGoal extends PointsGoal {
 	private final int advancementCount;
 
 	public AllAdvancementGoal() {
+		setCategory(SettingCategory.FASTEST_TIME);
 		allAdvancements = new LinkedList<>();
 		Bukkit.getServer().advancementIterator().forEachRemaining(advancement -> {
 			if (!advancement.getKey().toString().contains("minecraft:recipes/")) {

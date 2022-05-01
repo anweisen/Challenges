@@ -5,7 +5,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -32,7 +32,7 @@ public class InvisibleMobsChallenge extends Setting {
 
 	public InvisibleMobsChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.ENTITIES);
+		setCategory(SettingCategory.ENTITIES);
 	}
 
 	@Override

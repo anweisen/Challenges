@@ -5,7 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -31,7 +31,7 @@ public class StoneSightChallenge extends Setting {
 
 	public StoneSightChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.ENTITIES);
+		setCategory(SettingCategory.ENTITIES);
 	}
 
 	@Nonnull

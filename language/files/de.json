@@ -409,7 +409,21 @@
 		"Challenges, die in einer",
 		"*anderen Welt* spielen"
 	],
-
+	"category-kill_entity": [
+		"§bEntity töten",
+		"Töte *bestimmte Entities*,",
+		"um zu gewinnen"
+	],
+	"category-score_points": [
+		"§bMeiste Punkte",
+		"Erziele die *meisten Punkte* in",
+		"einem *bestimmten Bereich*."
+	],
+	"category-fastest_time": [
+		"§bSchnellste Zeit",
+		"Sei der *schnellste Spieler*, der",
+		"das Ziel erfüllt"
+	],
 
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
@@ -428,7 +442,7 @@
 	],
 	"item-one-life-setting": [
 		"§cEin Teamleben",
-		"*Jeder* stirbt wenn *einer stirbt*"
+		"*Jeder* stirbt, wenn *einer stirbt*"
 	],
 	"item-respawn-setting": [
 		"§4Respawn",
@@ -448,7 +462,7 @@
 	],
 	"item-soup-setting": [
 		"§cSuppen Heilung",
-		"Wenn du eine *Pilzsuppe Suppe* benutzt,",
+		"Wenn du eine *Pilzsuppe* benutzt,",
 		"wirst du um *4 Herzen* geheilt"
 	],
 	"item-damage-setting": [
@@ -534,8 +548,8 @@
 	],
 	"item-keep-inventory-setting": [
 		"§5Keep Inventory",
-		"Du verlierst keine *Items*",
-		"Wenn du *stirbst*"
+		"Du verlierst keine *Items*,",
+		"wenn du *stirbst*"
 	],
 	"item-no-item-damage-setting": [
 		"§5Kein Itemschaden",
@@ -597,7 +611,7 @@
 		"Es gibt keinen *Attack Cooldown*"
 	],
 	"item-totem-save-setting": [
-		"§6Challenge Tot Rettung",
+		"§6Challenge Tod Rettung",
 		"Wenn du durch eine Challenge *instant*",
 		"*stirbst*, können *Totems* dich retten"
 	],
@@ -1099,6 +1113,11 @@
 		"§cMob Blöcke",
 		"Aus jedem abgebautem Block, *spawnt ein Mob*,",
 		"dass *getötet* werden muss, um den Block *zu erhalten*"
+	],
+	"entity-loot-randomizer-challenge": [
+		"§6Entity Loot Randomizer",
+		"Wenn du *ein Mob tötest*, droppt dieses anstelle",
+		"seines Loots *zufällige Items*"
 	],
 	"item-dragon-goal": [
 		"§5Enderdrache",

@@ -10,7 +10,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -46,7 +46,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	public PermanentEffectOnDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 2);
-		setCategory(ChallengeCategory.EFFECT);
+		setCategory(SettingCategory.EFFECT);
 	}
 
 	@Nonnull

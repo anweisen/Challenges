@@ -6,7 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -34,7 +34,7 @@ public class MoveMouseDamage extends SettingModifier {
 
 	public MoveMouseDamage() {
 		super(MenuType.CHALLENGES, 60);
-		setCategory(ChallengeCategory.MOVEMENT);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull

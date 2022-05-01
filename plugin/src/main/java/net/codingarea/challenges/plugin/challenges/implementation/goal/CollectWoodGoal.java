@@ -6,6 +6,7 @@ import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifierCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
@@ -33,6 +34,7 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
 	public CollectWoodGoal() {
 		super(1, newNether ? 3 : 1);
+		setCategory(SettingCategory.FASTEST_TIME);
 	}
 
 	@Nonnull

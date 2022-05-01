@@ -7,7 +7,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -44,7 +44,7 @@ public class BlockEffectChallenge extends Setting {
 
 	public BlockEffectChallenge() {
 		super(MenuType.CHALLENGES);
-		setCategory(ChallengeCategory.EFFECT);
+		setCategory(SettingCategory.EFFECT);
 	}
 
 	@NotNull

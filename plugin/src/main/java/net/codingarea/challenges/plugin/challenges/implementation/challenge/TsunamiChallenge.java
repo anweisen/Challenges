@@ -8,7 +8,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
-import net.codingarea.challenges.plugin.management.menu.generator.categorised.ChallengeCategory;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Bukkit;
@@ -49,7 +49,7 @@ public class TsunamiChallenge extends TimedChallenge {
 
 	public TsunamiChallenge() {
 		super(MenuType.CHALLENGES, 1, 40, 4);
-		setCategory(ChallengeCategory.WORLD);
+		setCategory(SettingCategory.WORLD);
 	}
 
 	@Nonnull
