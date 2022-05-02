@@ -32,7 +32,6 @@ public final class Utils {
 			if (current.toLowerCase().startsWith(argument))
 				list.add(current);
 		}
-		Collections.sort(list);
 		return list;
 	}
 
