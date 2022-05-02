@@ -56,8 +56,9 @@ public class MostOresGoal extends PointsGoal {
 			case REDSTONE_ORE:
 			case DEEPSLATE_REDSTONE_ORE:
 				return 2;
+			default:
+				return 0;
 		}
-		return 0;
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

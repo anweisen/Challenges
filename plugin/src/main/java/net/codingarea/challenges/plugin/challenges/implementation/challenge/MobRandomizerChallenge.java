@@ -207,8 +207,9 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 				}
 				case WATER_ANIMAL:
 					return world.getWaterAnimalSpawnLimit();
+				default:
+					return 0;
 			}
-			return 0;
 		}
 
 	}
