@@ -88,7 +88,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ForceMobChallenge.class);
 		register(ForceItemChallenge.class);
 		register(ForceBiomeChallenge.class);
-		register(TrafficLightChallenge.class);
 
 		// Entities
 		register(HydraNormalChallenge.class);
@@ -150,6 +149,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MovementItemRemovingChallenge.class);
 
 		// Movement
+		register(TrafficLightChallenge.class);
 		register(HungerPerBlockChallenge.class);
 		register(OnlyDownChallenge.class);
 		register(OnlyDirtChallenge.class);

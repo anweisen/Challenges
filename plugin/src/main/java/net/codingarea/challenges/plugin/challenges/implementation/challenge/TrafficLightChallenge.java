@@ -34,7 +34,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	public TrafficLightChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5);
-		setCategory(SettingCategory.FORCE);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull
