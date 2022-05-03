@@ -34,7 +34,7 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 	int currentTime = 0;
 
 	public RandomPotionEffectChallenge() {
-		super(MenuType.CHALLENGES, "Random Effect");
+		super(MenuType.CHALLENGES, Message.forName("menu-random-effect-challenge-settings"));
 		setCategory(SettingCategory.EFFECT);
 		registerSetting("time", new NumberSubSetting(
 						() -> new ItemBuilder(Material.CLOCK, Message.forName("item-random-effect-time-challenge")),

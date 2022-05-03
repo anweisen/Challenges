@@ -513,6 +513,7 @@
 		"Verschiedene *Einstellungen*, die",
 		"das *Farmen* von Items *einfacher* machen"
 	],
+	"menu-cut-clean-setting-settings": "CutClean",
 	"item-cut-clean-gold-setting": [
 		"§6Gold",
 		"*Golderz* wird direkt zu *Goldbarren*"
@@ -833,6 +834,7 @@
 		"verschwinden alle *Blöcke* im *Chunk*",
 		"eines *bestimmten Types*"
 	],
+	"menu-all-blocks-disappear-challenge-settings": "Alle Blöcke verschwinden",
 	"item-all-blocks-disappear-break-challenge": [
 		"§bBeim Abbauen",
 		"Wenn du einen Block *abbaust*, werden",
@@ -904,6 +906,7 @@
 		"Du bekommst in einem gesetzen *Intervall*",
 		"einen *zufälligen Trank Effekt*"
 	],
+	"menu-random-effect-challenge-settings": "Random Effekte",
 	"item-random-effect-time-challenge": [
 		"§6Intervall",
 		"Das *Intervall*, in dem man",
@@ -933,6 +936,7 @@
 		"§cAmboss Regen",
 		"Vom *Himmel* fallen *Ambosse*"
 	],
+	"menu-anvil-rain-challenge-settings": "Amboss Regen",
 	"item-anvil-rain-time-challenge": [
 		"§6Intervall",
 		"Das *Intervall*, in",
@@ -1133,10 +1137,9 @@
 		"Aus jedem abgebautem Block, *spawnt ein Mob*,",
 		"dass *getötet* werden muss, um den Block *zu erhalten*"
 	],
-	"entity-loot-randomizer-challenge": [
+	"item-entity-loot-randomizer-challenge": [
 		"§6Entity Loot Randomizer",
-		"Wenn du *ein Mob tötest*, droppt dieses anstelle",
-		"seines Loots *zufällige Items*"
+		"Alle Mob Drops sind *zufällig vertauscht*."
 	],
 	"item-dragon-goal": [
 		"§5Enderdrache",
@@ -1189,6 +1192,9 @@
 		"Wer als *erstes* alle *Holzarten*, die",
 		"*eingestellt* sind, gesammelt hat, gewinnt"
 	],
+	"item-collect-wood-goal-overworld": "§aOverworld",
+	"item-collect-wood-goal-nether": "§cNether",
+	"item-collect-wood-goal-both": "§9Beide",
 	"item-all-bosses-goal": [
 		"§bAlle Bosse",
 		"Es müssen *alle Bosse* einmal",

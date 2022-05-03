@@ -508,6 +508,7 @@
 		"Different *settings* to simplify",
 		"the *farming* of items"
 	],
+	"menu-cut-clean-setting-settings": "CutClean",
 	"item-cut-clean-gold-setting": [
 		"§6Gold",
 		"*Gold ore* will be directly dropped as *Gold ingot*"
@@ -828,6 +829,7 @@
 		"*blocks* of a certain type",
 		"disappear in the same chunk"
 	],
+	"menu-all-blocks-disappear-challenge-settings": "All blocks disappear",
 	"item-all-blocks-disappear-break-challenge": [
 		"§bBy breaking",
 		"If you *break* a *block* all blocks",
@@ -899,6 +901,7 @@
 		"You get a *random potion effect*",
 		"in a set *interval*"
 	],
+	"menu-random-effect-challenge-settings": "Random Effects",
 	"item-random-effect-time-challenge": [
 		"§6Interval",
 		"The *interval* you get the *effect* in"
@@ -925,6 +928,7 @@
 		"§cAnvil Rain",
 		"*Anvils* are falling from the *sky*"
 	],
+	"menu-anvil-rain-challenge-settings": "Anvil Rain",
 	"item-anvil-rain-time-challenge": [
 		"§6Interval",
 		"The *interval*, the *anvils* are spawning in"
@@ -1118,10 +1122,9 @@
 		"A *random mob* spawns out of *every broken block*",
 		"and to *get the block* you have to *kill it*"
 	],
-	"entity-loot-randomizer-challenge": [
+	"item-entity-loot-randomizer-challenge": [
 		"§6Entity Loot Randomizer",
-		"If you *kill a mob*, it drops *random items*",
-		"instead of its loot"
+		"All mob drops are *randomly swapped*."
 	],
 	"item-dragon-goal": [
 		"§5Ender Dragon",
@@ -1171,6 +1174,9 @@
 		"§6Collect Wood",
 		"Who first collected all types of wood set wins"
 	],
+	"item-collect-wood-goal-overworld": "§aOverworld",
+	"item-collect-wood-goal-nether": "§cNether",
+	"item-collect-wood-goal-both": "§9Both",
 	"item-all-bosses-goal": [
 		"§bAll Bosses",
 		"Each boss must has to be killed once to win"

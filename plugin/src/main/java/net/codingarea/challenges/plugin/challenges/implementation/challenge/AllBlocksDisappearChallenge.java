@@ -38,7 +38,7 @@ public class AllBlocksDisappearChallenge extends MenuSetting {
 	private final int stackDropLimit;
 
 	public AllBlocksDisappearChallenge() {
-		super(MenuType.CHALLENGES, "All Blocks Disappear");
+		super(MenuType.CHALLENGES, Message.forName("menu-all-blocks-disappear-challenge-settings"));
 		setCategory(SettingCategory.WORLD);
 		registerSetting("break", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.DIAMOND_PICKAXE, Message.forName("item-all-blocks-disappear-break-challenge")),
