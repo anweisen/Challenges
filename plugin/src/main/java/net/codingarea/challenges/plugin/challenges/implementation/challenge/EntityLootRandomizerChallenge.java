@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -24,7 +25,8 @@ import java.util.stream.Collectors;
 
 @Since("2.1.4")
 public class EntityLootRandomizerChallenge extends RandomizerSetting {
-    protected final Map<EntityType, LootTable> randomization = new HashMap<>();
+
+    protected Map<EntityType, LootTable> randomization;
 
     public EntityLootRandomizerChallenge() {
         super(MenuType.CHALLENGES);
@@ -39,8 +41,10 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
 
     @Override
     protected void reloadRandomization() {
+        randomization = new HashMap<>();
+
         List<EntityType> from = new ArrayList<>(Arrays.asList(EntityType.values()));
-        from.removeIf(entityType -> !getEntitiesWithLoot().contains(entityType));
+        from.removeIf(entityType -> !getLootableEntities().contains(entityType));
         random.shuffle(from);
         from.removeIf(Objects::isNull);
 
@@ -65,7 +69,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         }
     }
 
-    private List<EntityType> getEntitiesWithLoot() {
+    private List<EntityType> getLootableEntities() {
         return new ListBuilder<>(EntityType.values())
                 .removeIf(type -> !type.isSpawnable())
                 .removeIf(type -> !type.isAlive())
@@ -73,22 +77,6 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
                 .remove(EntityType.GIANT)
                 .remove(EntityType.ILLUSIONER)
                 .remove(EntityType.ZOMBIE_HORSE)
-
-                //Remove Mobs that drop no items
-                .remove(EntityType.ARMOR_STAND)
-                .remove(EntityType.AXOLOTL)
-                .remove(EntityType.BAT)
-                .remove(EntityType.BEE)
-                .remove(EntityType.ENDERMITE)
-                .remove(EntityType.FOX)
-                .remove(EntityType.GOAT)
-                .remove(EntityType.OCELOT)
-                .remove(EntityType.SILVERFISH)
-                .remove(EntityType.VEX)
-                .remove(EntityType.VILLAGER)
-                .remove(EntityType.WANDERING_TRADER)
-                .remove(EntityType.WOLF)
-
                 .build();
     }
 
@@ -101,7 +89,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
     public void onEntityDeath(EntityDeathEvent event) {
         if(!isEnabled()) return;
         LivingEntity entity = event.getEntity();
-        if(!getEntitiesWithLoot().contains(entity.getType())) return;
+        if(!getLootableEntities().contains(entity.getType())) return;
         event.getDrops().clear();
         if(!randomization.containsKey(entity.getType())) return;
 
@@ -118,4 +106,20 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         Collection<ItemStack> newDrops = lootTable.populateLoot(random.asRandom(), builder.build());
         event.getDrops().addAll(newDrops);
     }
+
+    public List<EntityType> getDropForMaterial(Material material, Player entityForLootTable) {
+        List<EntityType> entityTypes = new LinkedList<>();
+        for (Map.Entry<EntityType, LootTable> entry : randomization.entrySet()) {
+            LootContext.Builder builder = new LootContext.Builder(entityForLootTable.getLocation())
+                    .lootedEntity(entityForLootTable).killer(entityForLootTable).lootingModifier(1000);
+            Collection<ItemStack> drops = entry.getValue().populateLoot(random.asRandom(), builder.build());
+            for (ItemStack drop : drops) {
+                if (drop.getType() == material) {
+                    entityTypes.add(entry.getKey());
+                }
+            }
+        }
+        return entityTypes;
+    }
+
 }
