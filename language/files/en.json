@@ -141,7 +141,10 @@
 	"command-search-result": "§e{0} §7drops from §e{1}",
 	"command-searchloot-disabled": "The entity loot randomizer challenge is currently §cdeactivated",
 	"command-searchloot-nothing": "The loot of §e{0} §7isn't dropped by any specific entity",
-	"command-searchloot-result": "The loot of §e{0} §7is dropped by §e{1}",
+	"command-searchloot-result": [
+		"§e{0} §7drops the loot of §e{1}",
+		"The loot of §e{0} §7is dropped by §e{2}"
+	],
 	"command-time-set": "Time was changed to §e{0} §7Ticks §8(§7ca. §e{1}§8)",
 	"command-time-set-exact": "Time was changed to §e{0} §8(§e{1} §7Ticks§8)",
 	"command-time-query": [
