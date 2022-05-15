@@ -141,7 +141,10 @@
 	"command-search-result": "§e{0} §7droppt aus §e{1}",
 	"command-searchloot-disabled": "Die Entity Loot Randomizer Challenge ist aktuell §cdeaktiviert",
 	"command-searchloot-nothing": "Der Loot von §e{0} §7wird durch kein spezielles Entity gedroppt",
-	"command-searchloot-result": "Der Loot von §e{0} §7wird von §e{1} §7gedroppt",
+	"command-searchloot-result": [
+		"§e{0} §7droppt den Loot von §e{1}",
+		"Der Loot von §e{0} §7wird von §e{2} §7gedroppt"
+	],
 	"command-time-set": "Die Zeit wurde auf §e{0} §7Ticks §8(§7ca. §e{1}§8) §7geändert",
 	"command-time-set-exact": "Die Zeit wurde auf §e{0} §8(§e{1} §7Ticks§8) §7geändert",
 	"command-time-query": [

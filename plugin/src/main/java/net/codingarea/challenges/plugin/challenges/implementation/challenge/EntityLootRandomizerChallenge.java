@@ -106,6 +106,10 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         event.getDrops().addAll(newDrops);
     }
 
+    public LootTable getLootTableForEntity(EntityType entityType) {
+        return randomization.get(entityType);
+    }
+
     public Optional<EntityType> getEntityForLootTable(LootTable lootTable) {
         return randomization.entrySet().stream()
                 .filter(entry -> entry.getValue().equals(lootTable))

@@ -50,18 +50,19 @@ public class SearchLootCommand implements SenderCommand, Completer {
             return;
         }
 
-        LootTable lootTable;
+        LootTable givenLootTable;
         try {
-            lootTable = LootTables.valueOf(entityType.name()).getLootTable();
+            givenLootTable = LootTables.valueOf(entityType.name()).getLootTable();
         } catch (IllegalArgumentException exception) {
             Message.forName("no-loot").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
             return;
         }
 
-        Optional<EntityType> optionalEntity = lootRandomizerInstance.getEntityForLootTable(lootTable);
+        Optional<EntityType> optionalEntity = lootRandomizerInstance.getEntityForLootTable(givenLootTable);
+        LootTable droppedLootTable = lootRandomizerInstance.getLootTableForEntity(entityType);
 
         if(optionalEntity.isPresent()) {
-            Message.forName("command-searchloot-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType), StringUtils.getEnumName(optionalEntity.get()));
+            Message.forName("command-searchloot-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType), StringUtils.getEnumName(droppedLootTable.getKey().getKey().replace("entities/", "")), StringUtils.getEnumName(optionalEntity.get()));
         } else {
             Message.forName("command-searchloot-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
         }
