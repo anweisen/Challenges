@@ -3,19 +3,14 @@ package net.codingarea.challenges.plugin.spigot.command;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.challenges.implementation.challenge.EntityLootRandomizerChallenge;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.RegisteredDrops;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -66,18 +61,6 @@ public class SearchCommand implements SenderCommand, Completer {
 		} else {
 			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
 		}
-
-		EntityLootRandomizerChallenge instance = AbstractChallenge.getFirstInstance(EntityLootRandomizerChallenge.class);
-
-		Player entity = Bukkit.getOnlinePlayers().stream().findFirst().get();
-
-		List<EntityType> types =  instance.getDropForMaterial(material, entity);
-		System.out.println(types);
-
-		if (!types.isEmpty()) {
-			sender.sendMessage(material.name() + " -> " + types);
-		}
-
 	}
 
 	@Nullable

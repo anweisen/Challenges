@@ -47,6 +47,9 @@
 	"undefined": "undefined",
 	"no-such-material": "This material doesn't exist",
 	"not-an-item": "§e{0} §7is not an item",
+	"no-such-entity": "This entity doesn't exist",
+	"not-alive": "§e{0} §7is not a living entity",
+	"no-loot": "§e{0} §7doesn't have any drops",
 	"deprecated-plugin-version": [
 		"",
 		"An update for the plugin is available",
@@ -136,6 +139,9 @@
 	"command-difficulty-current": "Current difficulty is §e{0}",
 	"command-search-nothing": "§e{0} §7is not dropped by any special block",
 	"command-search-result": "§e{0} §7drops from §e{1}",
+	"command-searchloot-disabled": "The entity loot randomizer challenge is currently §cdeactivated",
+	"command-searchloot-nothing": "The loot of §e{0} §7isn't dropped by any specific entity",
+	"command-searchloot-result": "The loot of §e{0} §7is dropped by §e{1}",
 	"command-time-set": "Time was changed to §e{0} §7Ticks §8(§7ca. §e{1}§8)",
 	"command-time-set-exact": "Time was changed to §e{0} §8(§e{1} §7Ticks§8)",
 	"command-time-query": [
