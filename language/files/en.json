@@ -224,6 +224,10 @@
 	"force-item-battle-new-item": "Item to find: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
 	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-mob-battle-killed": "You've killed §e{0}!",
+	"force-mob-battle-new-mob": "Mob to kill: §e{0}",
+	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
+	"force-mob-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Is it you?",
 		"Woahh! That's fast"
@@ -459,6 +463,7 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
 	"item-blocks-description": "§8» Blocks to walk: §e{0}",
 	"item-range-blocks-description": "§8» §7Range: §e{0} §7Block",
+	"item-force-battle-description": "§8» §7Jokers: §e{0}",
 	"item-difficulty-setting": [
 		"§aDifficulty",
 		"Sets the *Difficulty*"
@@ -1271,6 +1276,14 @@
 		"Each player gets *a random item* that",
 		"he has *to find*.",
 		"The player that *found* the *most items*, wins.",
+		"",
+		"The set value is equal to the amount of *jokers* available."
+	],
+	"item-force-mob-battle-goal": [
+		"§bForce Mob Battle",
+		"Each player gets *a random mob* that",
+		"he has to *kill*.",
+		"The player that *killed* the *most mobs*, wins.",
 		"",
 		"The set value is equal to the amount of *jokers* available."
 	],

@@ -37,6 +37,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -208,6 +209,12 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 	@Override
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.END_CRYSTAL, Message.forName("item-force-item-battle-goal"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-force-battle-description").asArray(getValue());
 	}
 
 	private int getUsableJokers(UUID uuid) {
