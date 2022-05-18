@@ -1301,9 +1301,18 @@
 		"§5Force Item Battle",
 		"Jeder Spieler bekommt ein *zufälliges Item*,",
 		"das er finden muss.",
-		"Wer am Ende die *meisten Items* hat, gewinnt",
-		"",
-		"Der eingestellte Wert legt die Anzahl an *Jokern* fest."
+		"Wer am Ende die *meisten Items* hat, gewinnt"
+	],
+	"menu-force-item-battle-goal-settings": "Force Item Battle",
+	"item-force-item-battle-goal-jokers": [
+		"§6Anzahl der Joker",
+		"Die *Anzahl* der *Joker*,",
+		"die jeder Spieler hat"
+	],
+	"item-force-item-battle-goal-give-item": [
+		"§bItem bei Skippen geben",
+		"Wenn ein Spieler ein Item *skippt*,",
+		"wird dieses in sein *Inventar hinzugefügt*"
 	],
 	"item-force-mob-battle-goal": [
 		"§bForce Mob Battle",

@@ -1275,9 +1275,18 @@
 		"§5Force Item Battle",
 		"Each player gets *a random item* that",
 		"he has *to find*.",
-		"The player that *found* the *most items*, wins.",
-		"",
-		"The set value is equal to the amount of *jokers* available."
+		"The player that *found* the *most items*, wins."
+	],
+	"menu-force-item-battle-goal-settings": "Force Item Battle",
+	"item-force-item-battle-goal-jokers": [
+		"§6Number of jokers",
+		"The *amount* of *jokers*",
+		"hat every player has"
+	],
+	"item-force-item-battle-goal-give-item": [
+		"§bGive Item On Skip",
+		"If a player *skips* an item,",
+		"they will *receive* it"
 	],
 	"item-force-mob-battle-goal": [
 		"§bForce Mob Battle",

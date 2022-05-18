@@ -7,7 +7,7 @@ import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifierGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -37,7 +37,6 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nullable;
 import java.util.*;
 import java.util.Map.Entry;
 import java.util.stream.Collectors;
@@ -47,7 +46,7 @@ import java.util.stream.Collectors;
  * @since 2.1.3
  */
 @Since("2.1.3")
-public class ForceItemBattleGoal extends SettingModifierGoal {
+public class ForceItemBattleGoal extends MenuGoal {
 
 	private final Map<UUID, List<Material>> foundItems = new HashMap<>();
 	private final Map<UUID, Material> currentItem = new HashMap<>();
@@ -58,8 +57,21 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 	private Material[] itemsPossibleToFind;
 
 	public ForceItemBattleGoal() {
-		super(MenuType.GOAL, 1, 20, 5);
+		super(MenuType.GOAL, Message.forName("menu-force-item-battle-goal-settings"));
 		setCategory(SettingCategory.SCORE_POINTS);
+
+		registerSetting("jokers", new NumberSubSetting(
+				() -> new ItemBuilder(Material.BARRIER, Message.forName("item-force-item-battle-goal-jokers")),
+				value -> null,
+				value -> "§e" + value,
+				1,
+				20,
+				5
+		));
+		registerSetting("give-item", new BooleanSubSetting(
+				() -> new ItemBuilder(Material.CHEST, Message.forName("item-force-item-battle-goal-give-item")),
+				false
+		));
 	}
 
 	@Override
@@ -107,11 +119,6 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		itemsPossibleToFind = null;
 		displayStands.values().forEach(Entity::remove);
 		displayStands = null;
-	}
-
-	@Override
-	protected void onValueChange() {
-		broadcastFiltered(this::updateJokersInInventory);
 	}
 
 	@Override
@@ -211,14 +218,8 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		return new ItemBuilder(Material.END_CRYSTAL, Message.forName("item-force-item-battle-goal"));
 	}
 
-	@Nullable
-	@Override
-	protected String[] getSettingsDescription() {
-		return Message.forName("item-force-battle-description").asArray(getValue());
-	}
-
 	private int getUsableJokers(UUID uuid) {
-		return Math.max(0, getValue() - jokerUsed.getOrDefault(uuid, 0));
+		return Math.max(0, getJokers() - jokerUsed.getOrDefault(uuid, 0));
 	}
 
 	private void handleItemFound(Player player) {
@@ -254,6 +255,9 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		int jokerUsed = this.jokerUsed.getOrDefault(player.getUniqueId(), 0);
 		jokerUsed++;
 		this.jokerUsed.put(player.getUniqueId(), jokerUsed);
+		if(giveItemOnSkip()) {
+			InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), currentItem.get(player.getUniqueId()));
+		}
 		handleItemFound(player);
 		updateJokersInInventory(player);
 	}
@@ -356,6 +360,7 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		for (Player player : displayStands.keySet()) {
 			updateDisplayStand(player);
 		}
+		broadcastFiltered(this::updateJokersInInventory);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -436,4 +441,11 @@ public class ForceItemBattleGoal extends SettingModifierGoal {
 		}
 	}
 
+	private int getJokers() {
+		return getSetting("jokers").getAsInt();
+	}
+
+	private boolean giveItemOnSkip() {
+		return getSetting("give-item").getAsBoolean();
+	}
 }
