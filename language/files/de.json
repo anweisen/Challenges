@@ -167,6 +167,7 @@
 	"command-back-no-locations": "Du hast dich noch §cnicht §7teleportiert",
 	"command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
 	"command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
+	"command-result-no-battle-active": "Es ist aktuell §ckein Force-Battle aktiviert",
 	"traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
 	"player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
 	"death-message": "§e{0} §7ist gestorben",

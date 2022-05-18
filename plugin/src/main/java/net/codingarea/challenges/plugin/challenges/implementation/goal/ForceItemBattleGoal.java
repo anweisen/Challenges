@@ -199,6 +199,35 @@ public class ForceItemBattleGoal extends MenuGoal {
 
 	}
 
+	public void sendResult(@NotNull Player player) {
+
+		Bukkit.getScheduler().runTask(plugin, () -> {
+			int place = 0;
+			int placeValue = -1;
+
+			List<Entry<UUID, List<Material>>> list = foundItems.entrySet().stream()
+					.sorted(Comparator.comparingInt(value -> value.getValue().size()))
+					.collect(Collectors.toList());
+			Collections.reverse(list);
+
+			Message.forName("force-item-battle-leaderboard").send(player, Prefix.CHALLENGES);
+
+			for (Entry<UUID, List<Material>> entry : list) {
+				if (entry.getValue().size() > placeValue) {
+					place++;
+					placeValue = entry.getValue().size();
+				}
+				UUID uuid = entry.getKey();
+				OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+				ChatColor color = getPlaceColor(place);
+				Message.forName("force-item-battle-leaderboard-entry")
+						.send(player, Prefix.CHALLENGES, color, place, NameHelper.getName(offlinePlayer), entry.getValue().size());
+			}
+
+		});
+
+	}
+
 	ChatColor getPlaceColor(int place) {
 		switch (place) {
 			case 1:

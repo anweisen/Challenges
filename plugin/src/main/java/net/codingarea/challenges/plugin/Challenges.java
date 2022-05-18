@@ -173,6 +173,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ForwardingCommand("time set night"), "night");
 		registerCommand(new ForwardingCommand("time set noon"), "noon");
 		registerCommand(new ForwardingCommand("time set midnight"), "midnight");
+		registerCommand(new ResultCommand(), "result");
 	}
 
 	private void registerListeners() {

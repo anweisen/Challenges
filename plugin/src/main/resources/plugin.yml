@@ -211,3 +211,7 @@ commands:
   openmissingitems:
     usage: "/openmissingitems"
     description: "Reopens the missing items inventory"
+  result:
+    usage: "/result"
+    description: "Shows the result of the current force battle (if enabled)"
+    permission: "challenges.result"
