@@ -173,7 +173,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
             Message.forName("force-mob-battle-leaderboard").broadcast(Prefix.CHALLENGES);
 
             for (Map.Entry<UUID, List<EntityType>> entry : list) {
-                if (entry.getValue().size() > placeValue) {
+                if (entry.getValue().size() != placeValue) {
                     place++;
                     placeValue = entry.getValue().size();
                 }
@@ -202,7 +202,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
             Message.forName("force-mob-battle-leaderboard").send(player, Prefix.CHALLENGES);
 
             for (Map.Entry<UUID, List<EntityType>> entry : list) {
-                if (entry.getValue().size() > placeValue) {
+                if (entry.getValue().size() != placeValue) {
                     place++;
                     placeValue = entry.getValue().size();
                 }

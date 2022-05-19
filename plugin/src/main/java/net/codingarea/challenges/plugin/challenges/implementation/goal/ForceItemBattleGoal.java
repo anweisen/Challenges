@@ -184,7 +184,7 @@ public class ForceItemBattleGoal extends MenuGoal {
 			Message.forName("force-item-battle-leaderboard").broadcast(Prefix.CHALLENGES);
 
 			for (Entry<UUID, List<Material>> entry : list) {
-				if (entry.getValue().size() > placeValue) {
+				if (entry.getValue().size() != placeValue) {
 					place++;
 					placeValue = entry.getValue().size();
 				}
@@ -213,7 +213,7 @@ public class ForceItemBattleGoal extends MenuGoal {
 			Message.forName("force-item-battle-leaderboard").send(player, Prefix.CHALLENGES);
 
 			for (Entry<UUID, List<Material>> entry : list) {
-				if (entry.getValue().size() > placeValue) {
+				if (entry.getValue().size() != placeValue) {
 					place++;
 					placeValue = entry.getValue().size();
 				}
