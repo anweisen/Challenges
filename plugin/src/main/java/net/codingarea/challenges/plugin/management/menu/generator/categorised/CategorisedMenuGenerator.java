@@ -135,6 +135,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 				if (i >= 7) slot += 2;
 				if (slot == info.getSlot()) {
 					SettingsMenuGenerator generator = entry.getValue();
+					SoundSample.CLICK.play(info.getPlayer());
 					generator.open(info.getPlayer(), 0);
 					return;
 				}
@@ -169,6 +170,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 			this.generator = generator;
 			this.category = category;
 			this.onLeaveClick = player -> {
+				SoundSample.CLICK.play(player);
 				generator.open(player, 0);
 			};
 		}
