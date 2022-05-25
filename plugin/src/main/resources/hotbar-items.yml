@@ -34,4 +34,4 @@ leaderboard:
 stats:
   enabled: false
   slot: 8
-  material: PLAYER_HEAD # Will be automatically turned into the head of the current player
+  material: PLAYER_HEAD # PLAYER_HEAD will be automatically turned into the head of the current player
