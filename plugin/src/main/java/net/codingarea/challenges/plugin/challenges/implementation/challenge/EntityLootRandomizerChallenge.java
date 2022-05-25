@@ -1,13 +1,20 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.misc.StringUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
+import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
+import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
+import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
+import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
@@ -19,12 +26,15 @@ import org.bukkit.loot.LootTable;
 import org.bukkit.loot.LootTables;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
 @Since("2.2.0")
-public class EntityLootRandomizerChallenge extends RandomizerSetting {
-    protected final Map<EntityType, LootTable> randomization = new HashMap<>();
+public class EntityLootRandomizerChallenge extends RandomizerSetting implements SenderCommand, Completer {
+
+    protected Map<EntityType, LootTable> randomization;
 
     public EntityLootRandomizerChallenge() {
         super(MenuType.CHALLENGES);
@@ -39,8 +49,10 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
 
     @Override
     protected void reloadRandomization() {
+        randomization = new HashMap<>();
+
         List<EntityType> from = new ArrayList<>(Arrays.asList(EntityType.values()));
-        from.removeIf(entityType -> !getEntitiesWithLoot().contains(entityType));
+        from.removeIf(entityType -> !getLootableEntities().contains(entityType));
         random.shuffle(from);
         from.removeIf(Objects::isNull);
 
@@ -65,7 +77,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         }
     }
 
-    private List<EntityType> getEntitiesWithLoot() {
+    public List<EntityType> getLootableEntities() {
         return new ListBuilder<>(EntityType.values())
                 .removeIf(type -> !type.isSpawnable())
                 .removeIf(type -> !type.isAlive())
@@ -73,22 +85,6 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
                 .remove(EntityType.GIANT)
                 .remove(EntityType.ILLUSIONER)
                 .remove(EntityType.ZOMBIE_HORSE)
-
-                //Remove Mobs that drop no items
-                .remove(EntityType.ARMOR_STAND)
-                .remove(EntityType.AXOLOTL)
-                .remove(EntityType.BAT)
-                .remove(EntityType.BEE)
-                .remove(EntityType.ENDERMITE)
-                .remove(EntityType.FOX)
-                .remove(EntityType.GOAT)
-                .remove(EntityType.OCELOT)
-                .remove(EntityType.SILVERFISH)
-                .remove(EntityType.VEX)
-                .remove(EntityType.VILLAGER)
-                .remove(EntityType.WANDERING_TRADER)
-                .remove(EntityType.WOLF)
-
                 .build();
     }
 
@@ -101,7 +97,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
     public void onEntityDeath(EntityDeathEvent event) {
         if(!isEnabled()) return;
         LivingEntity entity = event.getEntity();
-        if(!getEntitiesWithLoot().contains(entity.getType())) return;
+        if(!getLootableEntities().contains(entity.getType())) return;
         event.getDrops().clear();
         if(!randomization.containsKey(entity.getType())) return;
 
@@ -118,4 +114,71 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         Collection<ItemStack> newDrops = lootTable.populateLoot(random.asRandom(), builder.build());
         event.getDrops().addAll(newDrops);
     }
+
+    public LootTable getLootTableForEntity(EntityType entityType) {
+        return randomization.get(entityType);
+    }
+
+    public Optional<EntityType> getEntityForLootTable(LootTable lootTable) {
+        return randomization.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(lootTable))
+                .map(Map.Entry::getKey)
+                .findFirst();
+    }
+
+    @Override
+    public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
+
+        if(!isEnabled()) {
+            Message.forName("command-searchloot-disabled").send(sender, Prefix.CHALLENGES);
+            return;
+        }
+
+        if (args.length == 0) {
+            Message.forName("syntax").send(sender, Prefix.CHALLENGES, "searchloot <entity>");
+            return;
+        }
+
+        String input = String.join("_", args).toUpperCase();
+        EntityType entityType = Utils.getEntityType(input);
+
+        if (entityType == null) {
+            Message.forName("no-such-entity").send(sender, Prefix.CHALLENGES);
+            return;
+        }
+        if (!entityType.isAlive()) {
+            Message.forName("not-alive").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+            return;
+        }
+
+        LootTable givenLootTable;
+        try {
+            givenLootTable = LootTables.valueOf(entityType.name()).getLootTable();
+        } catch (IllegalArgumentException exception) {
+            Message.forName("no-loot").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+            return;
+        }
+
+        Optional<EntityType> optionalEntity = getEntityForLootTable(givenLootTable);
+        LootTable droppedLootTable = getLootTableForEntity(entityType);
+
+        if(optionalEntity.isPresent()) {
+            Message.forName("command-searchloot-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType), StringUtils.getEnumName(droppedLootTable.getKey().getKey().replace("entities/", "")), StringUtils.getEnumName(optionalEntity.get()));
+        } else {
+            Message.forName("command-searchloot-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+        }
+
+    }
+
+    @Nullable
+    @Override
+    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
+        EntityLootRandomizerChallenge instance = AbstractChallenge.getFirstInstance(EntityLootRandomizerChallenge.class);
+        return args.length != 1 ? null :
+                instance.getLootableEntities().stream()
+                        .map(material -> material.name().toLowerCase())
+                        .collect(Collectors.toList()
+                        );
+    }
+
 }

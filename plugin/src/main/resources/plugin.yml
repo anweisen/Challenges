@@ -67,6 +67,10 @@ commands:
     usage: "/search <item>"
     description: "Shows you from which block the given item will be dropped through eg. block randomizer"
     permission: "challenges.search"
+  searchloot:
+    usage: "/searchloot <entity>"
+    description: "Shows you which entity drops the loot of the given entity through entity loot randomizer"
+    permission: "challenges.searchloot"
   position:
     usage: "/pos [name]"
     description: "Allows you to save locations"
@@ -207,3 +211,7 @@ commands:
   openmissingitems:
     usage: "/openmissingitems"
     description: "Reopens the missing items inventory"
+  result:
+    usage: "/result"
+    description: "Shows the result of the current force battle (if enabled)"
+    permission: "challenges.result"

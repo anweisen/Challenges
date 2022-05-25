@@ -61,7 +61,6 @@ public class SearchCommand implements SenderCommand, Completer {
 		} else {
 			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
 		}
-
 	}
 
 	@Nullable

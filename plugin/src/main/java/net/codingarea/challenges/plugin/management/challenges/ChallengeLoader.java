@@ -73,7 +73,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		register(HotBarRandomizerChallenge.class);
-		register(EntityLootRandomizerChallenge.class);
+		registerWithCommand(EntityLootRandomizerChallenge.class, "searchloot");
 		register(MobRandomizerChallenge.class);
 		register(RandomItemDroppingChallenge.class);
 		register(RandomItemRemovingChallenge.class);
@@ -199,6 +199,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MostOresGoal.class);
 		register(EatMostGoal.class);
 		register(ForceItemBattleGoal.class);
+		register(ForceMobBattleGoal.class);
 
 		// Fastest Time
 		register(FirstOneToDieGoal.class);
