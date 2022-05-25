@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Since("2.1.4")
+@Since("2.2.0")
 public class EntityLootRandomizerChallenge extends RandomizerSetting implements SenderCommand, Completer {
 
     protected Map<EntityType, LootTable> randomization;

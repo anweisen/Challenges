@@ -107,7 +107,7 @@ public final class DatabaseManager {
 				ExecutedQuery execute = sqlDatabase.query("challenges").select("custom_challenges").execute();
 			} catch (DatabaseException databaseException) {
 				try {
-					sqlDatabase.prepare("ALTER TABLE `challenges` ADD COLUMN `custom_challenges` varchar(60000)").execute();
+					sqlDatabase.prepare("ALTER TABLE `challenges` ADD COLUMN `custom_challenges` text(60000)").execute();
 					Challenges.getInstance().getLogger().info("Creating not existing column 'custom_challenges' in SQL Database");
 				} catch (Exception exception) {
 					Challenges.getInstance().getLogger().error("Failed to create non existing column 'custom_challenges' in SQL Database");
