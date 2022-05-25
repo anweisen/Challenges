@@ -73,7 +73,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockRandomizerChallenge.class);
 		register(CraftingRandomizerChallenge.class);
 		register(HotBarRandomizerChallenge.class);
-		register(EntityLootRandomizerChallenge.class);
+		registerWithCommand(EntityLootRandomizerChallenge.class, "searchloot");
 		register(MobRandomizerChallenge.class);
 		register(RandomItemDroppingChallenge.class);
 		register(RandomItemRemovingChallenge.class);
