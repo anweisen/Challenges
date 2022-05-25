@@ -22,7 +22,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Since("2.1.4")
+@Since("2.2.0")
 public class EntityLootRandomizerChallenge extends RandomizerSetting {
     protected final Map<EntityType, LootTable> randomization = new HashMap<>();
 
