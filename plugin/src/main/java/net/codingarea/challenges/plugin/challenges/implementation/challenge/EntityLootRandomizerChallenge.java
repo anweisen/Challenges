@@ -10,7 +10,6 @@ import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDeathEvent;
@@ -69,7 +68,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         }
     }
 
-    private List<EntityType> getLootableEntities() {
+    public List<EntityType> getLootableEntities() {
         return new ListBuilder<>(EntityType.values())
                 .removeIf(type -> !type.isSpawnable())
                 .removeIf(type -> !type.isAlive())
@@ -107,19 +106,15 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting {
         event.getDrops().addAll(newDrops);
     }
 
-    public List<EntityType> getDropForMaterial(Material material, Player entityForLootTable) {
-        List<EntityType> entityTypes = new LinkedList<>();
-        for (Map.Entry<EntityType, LootTable> entry : randomization.entrySet()) {
-            LootContext.Builder builder = new LootContext.Builder(entityForLootTable.getLocation())
-                    .lootedEntity(entityForLootTable).killer(entityForLootTable).lootingModifier(1000);
-            Collection<ItemStack> drops = entry.getValue().populateLoot(random.asRandom(), builder.build());
-            for (ItemStack drop : drops) {
-                if (drop.getType() == material) {
-                    entityTypes.add(entry.getKey());
-                }
-            }
-        }
-        return entityTypes;
+    public LootTable getLootTableForEntity(EntityType entityType) {
+        return randomization.get(entityType);
+    }
+
+    public Optional<EntityType> getEntityForLootTable(LootTable lootTable) {
+        return randomization.entrySet().stream()
+                .filter(entry -> entry.getValue().equals(lootTable))
+                .map(Map.Entry::getKey)
+                .findFirst();
     }
 
 }

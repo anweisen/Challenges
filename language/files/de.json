@@ -47,6 +47,9 @@
 	"undefined": "undefiniert",
 	"no-such-material": "Dieses Material gibt es nicht",
 	"not-an-item": "§e{0} §7ist kein Item",
+	"no-such-entity": "Dieses Entity existiert nicht",
+	"not-alive": "§e{0} §7ist kein lebendes Entity",
+	"no-loot": "§e{0} §7hat keine Drops",
 	"deprecated-plugin-version": [
 		"",
 		"§7Ein neues Update ist verfügbar!",
@@ -136,6 +139,12 @@
 	"command-difficulty-current": "Die derzeitige Schwierigkeit ist §e{0}",
 	"command-search-nothing": "§e{0} §7wird durch keinen speziellen Block gedroppt",
 	"command-search-result": "§e{0} §7droppt aus §e{1}",
+	"command-searchloot-disabled": "Die Entity Loot Randomizer Challenge ist aktuell §cdeaktiviert",
+	"command-searchloot-nothing": "Der Loot von §e{0} §7wird durch kein spezielles Entity gedroppt",
+	"command-searchloot-result": [
+		"§e{0} §7droppt den Loot von §e{1}",
+		"Der Loot von §e{0} §7wird von §e{2} §7gedroppt"
+	],
 	"command-time-set": "Die Zeit wurde auf §e{0} §7Ticks §8(§7ca. §e{1}§8) §7geändert",
 	"command-time-set-exact": "Die Zeit wurde auf §e{0} §8(§e{1} §7Ticks§8) §7geändert",
 	"command-time-query": [
@@ -158,6 +167,7 @@
 	"command-back-no-locations": "Du hast dich noch §cnicht §7teleportiert",
 	"command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
 	"command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
+	"command-result-no-battle-active": "Es ist aktuell §ckein Force-Battle aktiviert",
 	"traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
 	"player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
 	"death-message": "§e{0} §7ist gestorben",
@@ -215,6 +225,10 @@
 	"force-item-battle-new-item": "Item zu suchen: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
 	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-mob-battle-killed": "Du hast §e{0} §7gefunden!",
+	"force-mob-battle-new-mob": "Mob zu suchen: §e{0}",
+	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
+	"force-mob-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -455,6 +469,7 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 	"item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
 	"item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
+	"item-force-battle-description": "§8» §7Joker: §e{0}",
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"
@@ -1286,8 +1301,25 @@
 	"item-force-item-battle-goal": [
 		"§5Force Item Battle",
 		"Jeder Spieler bekommt ein *zufälliges Item*,",
-		"dass er finden muss.",
-		"Wer am Ende die *meisten Items* hat, gewinnt",
+		"das er finden muss.",
+		"Wer am Ende die *meisten Items* hat, gewinnt"
+	],
+	"menu-force-item-battle-goal-settings": "Force Item Battle",
+	"item-force-item-battle-goal-jokers": [
+		"§6Anzahl der Joker",
+		"Die *Anzahl* der *Joker*,",
+		"die jeder Spieler hat"
+	],
+	"item-force-item-battle-goal-give-item": [
+		"§bItem bei Skippen geben",
+		"Wenn ein Spieler ein Item *skippt*,",
+		"wird dieses in sein *Inventar hinzugefügt*"
+	],
+	"item-force-mob-battle-goal": [
+		"§bForce Mob Battle",
+		"Jeder Spieler bekommt ein *zufälliges Mob*,",
+		"das er töten muss.",
+		"Wer am Ende die *meisten Mobs* getötet hat, gewinnt",
 		"",
 		"Der eingestellte Wert legt die Anzahl an *Jokern* fest."
 	],

@@ -154,6 +154,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new HealCommand(), "heal");
 		registerCommand(new FeedCommand(), "feed");
 		registerCommand(new SearchCommand(), "search");
+		registerCommand(new SearchLootCommand(), "searchloot");
 		registerListenerCommand(new InvseeCommand(), "invsee");
 		registerCommand(new FlyCommand(), "fly");
 		registerCommand(new WorldCommand(), "world");
@@ -172,6 +173,7 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ForwardingCommand("time set night"), "night");
 		registerCommand(new ForwardingCommand("time set noon"), "noon");
 		registerCommand(new ForwardingCommand("time set midnight"), "midnight");
+		registerCommand(new ResultCommand(), "result");
 	}
 
 	private void registerListeners() {
