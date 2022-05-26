@@ -42,6 +42,7 @@ import java.util.stream.Collectors;
  * @since 2.1.4
  */
 public class ForceMobBattleGoal extends SettingModifierGoal {
+
     private final Map<UUID, List<EntityType>> killedMobs = new HashMap<>();
     private final Map<UUID, EntityType> currentMob = new HashMap<>();
     private final Map<UUID, Integer> jokerUsed = new HashMap<>();
@@ -372,6 +373,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
         if (ignorePlayer(event.getPlayer())) return;
         setRandomMobIfCurrentlyNone(event.getPlayer());
         updateDisplayStand(event.getPlayer());
+        updateJokersInInventory(event.getPlayer());
     }
 
     @ScheduledTask(ticks = 1, async = false, timerPolicy = TimerPolicy.ALWAYS)
