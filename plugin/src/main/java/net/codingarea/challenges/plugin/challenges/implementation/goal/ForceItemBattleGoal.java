@@ -381,6 +381,7 @@ public class ForceItemBattleGoal extends MenuGoal {
 		if (ignorePlayer(event.getPlayer())) return;
 		setRandomItemIfCurrentlyNone(event.getPlayer());
 		updateDisplayStand(event.getPlayer());
+		updateJokersInInventory(event.getPlayer());
 	}
 
 	@ScheduledTask(ticks = 1, async = false, timerPolicy = TimerPolicy.ALWAYS)
