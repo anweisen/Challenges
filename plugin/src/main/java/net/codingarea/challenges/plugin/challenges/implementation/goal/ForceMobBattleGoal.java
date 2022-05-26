@@ -321,7 +321,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
         ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
             World world = player1.getWorld();
             ArmorStand entity = (ArmorStand) world
-                    .spawnEntity(player1.getLocation().clone().add(0, 1.5, 0), EntityType.ARMOR_STAND);
+                    .spawnEntity(player1.getLocation().clone().add(0, 2, 0), EntityType.ARMOR_STAND);
             entity.setInvisible(true);
             entity.setInvulnerable(true);
             entity.setGravity(false);
@@ -336,7 +336,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
             armorStand.setCustomNameVisible(true);
             armorStand.setCustomName(StringUtils.getEnumName(mob));
         }
-        armorStand.teleport(player.getLocation().clone().add(0, 1.5, 0));
+        armorStand.teleport(player.getLocation().clone().add(0, 2, 0));
         armorStand.setVelocity(player.getVelocity());
     }
 
@@ -387,7 +387,7 @@ public class ForceMobBattleGoal extends SettingModifierGoal {
     @EventHandler(priority = EventPriority.HIGH)
     public void onQuit(PlayerQuitEvent event) {
         if (!shouldExecuteEffect()) return;
-        ArmorStand stand = displayStands.get(event.getPlayer());
+        ArmorStand stand = displayStands.remove(event.getPlayer());
         if (stand != null) {
             stand.remove();
         }

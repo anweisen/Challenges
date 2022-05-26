@@ -396,7 +396,7 @@ public class ForceItemBattleGoal extends MenuGoal {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onQuit(PlayerQuitEvent event) {
 		if (!shouldExecuteEffect()) return;
-		ArmorStand stand = displayStands.get(event.getPlayer());
+		ArmorStand stand = displayStands.remove(event.getPlayer());
 		if (stand != null) {
 			stand.remove();
 		}
