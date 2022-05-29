@@ -2,9 +2,9 @@ package net.codingarea.challenges.plugin.spigot.command;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.ForceItemBattleGoal;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.ForceMobBattleGoal;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
+import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.challenges.type.IGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
@@ -24,15 +24,11 @@ public class ResultCommand implements PlayerCommand {
             return;
         }
 
-        ForceItemBattleGoal forceItemBattleInstance = AbstractChallenge.getFirstInstance(ForceItemBattleGoal.class);
-        if(forceItemBattleInstance.isEnabled()) {
-            forceItemBattleInstance.sendResult(player);
-            return;
-        }
+        IGoal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 
-        ForceMobBattleGoal forceMobBattleInstance = AbstractChallenge.getFirstInstance(ForceMobBattleGoal.class);
-        if(forceMobBattleInstance.isEnabled()) {
-            forceMobBattleInstance.sendResult(player);
+        if(currentGoal instanceof ForceBattleGoal) {
+            ForceBattleGoal forceBattleGoal = (ForceBattleGoal) currentGoal;
+            forceBattleGoal.sendResult(player);
             return;
         }
 
