@@ -1,8 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
@@ -12,10 +15,8 @@ import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Material;
-import org.bukkit.World;
+import net.codingarea.challenges.plugin.utils.misc.NameHelper;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
@@ -31,20 +32,24 @@ import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
  * @since 2.2.0
  */
-public abstract class ForceBattleGoal extends MenuGoal {
+public abstract class ForceBattleGoal<T> extends MenuGoal {
     private ItemStack jokerItem;
     private Map<Player, ArmorStand> displayStands;
 
     protected final Map<UUID, Integer> jokerUsed = new HashMap<>();
+    protected final Map<UUID, List<T>> foundTargets = new HashMap<>();
+    protected final Map<UUID, T> currentTarget = new HashMap<>();
+    protected T[] targetsPossibleToFind;
 
     public ForceBattleGoal(@NotNull MenuType menu, @NotNull Message title) {
         super(menu, title);
-        setCategory(SettingCategory.SCORE_POINTS);
+        setCategory(SettingCategory.SCORE_POINTS);;
 
         registerSetting("jokers", new NumberSubSetting(
                 () -> new ItemBuilder(Material.BARRIER, Message.forName("item-force-battle-goal-jokers")),
@@ -59,12 +64,34 @@ public abstract class ForceBattleGoal extends MenuGoal {
     @Override
     protected void onEnable() {
         jokerItem = new ItemBuilder(Material.BARRIER, "§cJoker").build();
-
         displayStands = new HashMap<>();
+
+        targetsPossibleToFind = getTargetsPossibleToFind();
 
         broadcastFiltered(this::updateJokersInInventory);
         broadcastFiltered(this::updateDisplayStand);
 
+        scoreboard.setContent((board, player) -> {
+            List<Player> ingamePlayers = ChallengeAPI.getIngamePlayers();
+            int emptyLinesAvailable = 15 - ingamePlayers.size();
+
+            if (emptyLinesAvailable > 0) {
+                board.addLine("");
+                emptyLinesAvailable--;
+            }
+
+            for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
+                Player ingamePlayer = ingamePlayers.get(i);
+                T target = currentTarget.get(ingamePlayer.getUniqueId());
+                String display = target == null ? Message.forName("none").asString()
+                        : getTargetName(target);
+                board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
+            }
+
+            if (emptyLinesAvailable > 0) {
+                board.addLine("");
+            }
+        });
         scoreboard.show();
     }
 
@@ -76,7 +103,10 @@ public abstract class ForceBattleGoal extends MenuGoal {
         displayStands.values().forEach(Entity::remove);
         displayStands = null;
         scoreboard.hide();
+        targetsPossibleToFind = null;
     }
+
+    protected abstract T[] getTargetsPossibleToFind();
 
     private void updateJokersInInventory(Player player) {
         PlayerInventory inventory = player.getInventory();
@@ -136,10 +166,21 @@ public abstract class ForceBattleGoal extends MenuGoal {
     @Override
     public void loadGameState(@NotNull Document document) {
         this.jokerUsed.clear();
+        this.currentTarget.clear();
+        this.foundTargets.clear();
 
         List<Document> players = document.getDocumentList("players");
         for (Document player : players) {
             UUID uuid = player.getUUID("uuid");
+
+            T currentTarget = getTargetFromDocument(player, "currentTarget");
+
+            if (currentTarget != null) {
+                this.currentTarget.put(uuid, currentTarget);
+            }
+            List<T> foundItems = getListFromDocument(player, "foundTargets");
+            this.foundTargets.put(uuid, foundItems);
+
             int jokerUsed = player.getInt("jokerUsed");
             this.jokerUsed.put(uuid, jokerUsed);
         }
@@ -154,13 +195,118 @@ public abstract class ForceBattleGoal extends MenuGoal {
         }
     }
 
-    public abstract void setRandomTargetIfCurrentlyNone(Player player);
+    @Override
+    public void writeGameState(@NotNull Document document) {
+        List<Document> playersDocuments = new LinkedList<>();
+        for (Map.Entry<UUID, T> entry : currentTarget.entrySet()) {
+            List<T> foundItems = this.foundTargets.get(entry.getKey());
+            int jokerUsed = this.jokerUsed.getOrDefault(entry.getKey(), 0);
+            GsonDocument playerDocument = new GsonDocument();
+            playerDocument.set("uuid", entry.getKey());
+            playerDocument.set("currentTarget", entry.getValue());
+            playerDocument.set("foundTargets", foundItems);
+            playerDocument.set("jokerUsed", jokerUsed);
+            playersDocuments.add(playerDocument);
+        }
 
-    public abstract void setRandomTarget(Player player);
+        document.set("players", playersDocuments);
+    }
 
-    public abstract void handleTargetFound(Player player);
+    public abstract T getTargetFromDocument(Document document, String key);
 
-    public abstract void sendResult(@NotNull Player player);
+    public abstract List<T> getListFromDocument(Document document, String key);
+
+    public void setRandomTargetIfCurrentlyNone(Player player) {
+        if (currentTarget.containsKey(player.getUniqueId())) {
+            return;
+        }
+        setRandomTarget(player);
+    }
+
+    public void setRandomTarget(Player player) {
+        T target = globalRandom.choose(targetsPossibleToFind);
+        currentTarget.put(player.getUniqueId(), target);
+        scoreboard.update();
+        updateDisplayStand(player);
+        getNewTargetMessage()
+                .send(player, Prefix.CHALLENGES, getTargetName(target));
+        SoundSample.PLING.play(player);
+    }
+
+    protected abstract Message getNewTargetMessage();
+
+    public void handleTargetFound(Player player) {
+        T foundTarget = currentTarget.get(player.getUniqueId());
+        if (foundTarget != null) {
+            List<T> list = foundTargets
+                    .computeIfAbsent(player.getUniqueId(), uuid -> new LinkedList<>());
+            list.add(foundTarget);
+            Message.forName("force-item-battle-found")
+                    .send(player, Prefix.CHALLENGES, getTargetName(foundTarget));
+        }
+        setRandomTarget(player);
+    }
+
+    public abstract String getTargetName(T target);
+
+    @Override
+    public void getWinnersOnEnd(@NotNull List<Player> winners) {
+
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            int place = 0;
+            int placeValue = -1;
+
+            List<Map.Entry<UUID, List<T>>> list = foundTargets.entrySet().stream()
+                    .sorted(Comparator.comparingInt(value -> value.getValue().size()))
+                    .collect(Collectors.toList());
+            Collections.reverse(list);
+
+            getLeaderboardTitleMessage().broadcast(Prefix.CHALLENGES);
+
+            for (Map.Entry<UUID, List<T>> entry : list) {
+                if (entry.getValue().size() != placeValue) {
+                    place++;
+                    placeValue = entry.getValue().size();
+                }
+                UUID uuid = entry.getKey();
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+                ChatColor color = getPlaceColor(place);
+                Message.forName("force-battle-leaderboard-entry")
+                        .broadcast(Prefix.CHALLENGES, color, place, NameHelper.getName(offlinePlayer), entry.getValue().size());
+            }
+
+        });
+
+    }
+
+    public void sendResult(@NotNull Player player) {
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            int place = 0;
+            int placeValue = -1;
+
+            List<Map.Entry<UUID, List<T>>> list = foundTargets.entrySet().stream()
+                    .sorted(Comparator.comparingInt(value -> value.getValue().size()))
+                    .collect(Collectors.toList());
+            Collections.reverse(list);
+
+            getLeaderboardTitleMessage().broadcast(Prefix.CHALLENGES);
+
+            for (Map.Entry<UUID, List<T>> entry : list) {
+                if (entry.getValue().size() != placeValue) {
+                    place++;
+                    placeValue = entry.getValue().size();
+                }
+                UUID uuid = entry.getKey();
+                OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(uuid);
+                ChatColor color = getPlaceColor(place);
+                Message.forName("force-battle-leaderboard-entry")
+                        .send(player, Prefix.CHALLENGES, color, place, NameHelper.getName(offlinePlayer), entry.getValue().size());
+            }
+
+        });
+    }
+
+    protected abstract Message getLeaderboardTitleMessage();
 
     protected ChatColor getPlaceColor(int place) {
         switch (place) {

@@ -224,11 +224,10 @@
 	"force-item-battle-found": "Du hast §e{0} §7gefunden!",
 	"force-item-battle-new-item": "Item zu suchen: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
-	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"force-mob-battle-killed": "Du hast §e{0} §7gefunden!",
 	"force-mob-battle-new-mob": "Mob zu suchen: §e{0}",
 	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
-	"force-mob-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
