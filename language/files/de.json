@@ -469,7 +469,11 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 	"item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
 	"item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
-	"item-force-battle-description": "§8» §7Joker: §e{0}",
+	"item-force-battle-goal-jokers": [
+		"§6Anzahl der Joker",
+		"Die *Anzahl* der *Joker*,",
+		"die jeder Spieler hat"
+	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"
@@ -1305,11 +1309,6 @@
 		"Wer am Ende die *meisten Items* hat, gewinnt"
 	],
 	"menu-force-item-battle-goal-settings": "Force Item Battle",
-	"item-force-item-battle-goal-jokers": [
-		"§6Anzahl der Joker",
-		"Die *Anzahl* der *Joker*,",
-		"die jeder Spieler hat"
-	],
 	"item-force-item-battle-goal-give-item": [
 		"§bItem bei Skippen geben",
 		"Wenn ein Spieler ein Item *skippt*,",
@@ -1318,11 +1317,9 @@
 	"item-force-mob-battle-goal": [
 		"§bForce Mob Battle",
 		"Jeder Spieler bekommt ein *zufälliges Mob*,",
-		"das er töten muss.",
-		"Wer am Ende die *meisten Mobs* getötet hat, gewinnt",
-		"",
-		"Der eingestellte Wert legt die Anzahl an *Jokern* fest."
+		"das er töten muss."
 	],
+	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
 	"item-damage-rule-none": [
 		"§6Genereller Schaden",
 		"Stellt ein, ob du Schaden bekommen kannst"
