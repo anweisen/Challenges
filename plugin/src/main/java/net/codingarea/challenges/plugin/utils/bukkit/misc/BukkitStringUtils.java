@@ -12,6 +12,7 @@ import org.bukkit.entity.EntityType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
@@ -51,6 +52,7 @@ public class BukkitStringUtils {
 
 		boolean lastWasParagraph = false;
 		ChatColor currentColor = null;
+		List<ChatColor> currentFormatting = new LinkedList<>();
 
 		StringBuilder argument = new StringBuilder();
 		TextComponent currentText = new TextComponent();
@@ -60,7 +62,18 @@ public class BukkitStringUtils {
 				lastWasParagraph = true;
 			} else {
 				if (lastWasParagraph) {
-					currentColor = ChatColor.getByChar(c);
+					ChatColor newColor = ChatColor.getByChar(c);
+					if (!newColor.isColor()) {
+						if (newColor == ChatColor.RESET) {
+							currentFormatting.clear();
+							currentColor = null;
+						} else {
+							currentFormatting.add(newColor);
+						}
+					} else {
+						currentColor = newColor;
+						currentFormatting.clear();
+					}
 				}
 				lastWasParagraph = false;
 			}
@@ -81,8 +94,13 @@ public class BukkitStringUtils {
 					currentText = new TextComponent();
 					TextComponent e = new TextComponent("§e");
 
-					if (replacement instanceof TextComponent) {
-						replacement = new TextComponent("§" + currentColor.getChar() + ((TextComponent) replacement).getText());
+					if (currentColor != null) {
+						if (replacement instanceof TextComponent) {
+							replacement = new TextComponent("§" + currentColor.getChar() + ((TextComponent) replacement).getText());
+						} else {
+							replacement.setColor(currentColor.asBungee());
+						}
+						currentColor = null;
 					}
 
 					e.addExtra(replacement);
