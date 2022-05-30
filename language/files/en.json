@@ -224,11 +224,13 @@
 	"force-item-battle-found": "You've found §e{0}!",
 	"force-item-battle-new-item": "Item to find: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
-	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"force-mob-battle-killed": "You've killed §e{0}!",
 	"force-mob-battle-new-mob": "Mob to kill: §e{0}",
 	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
-	"force-mob-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-advancement-battle-completed": "You've completed §e{0}!",
+	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
+	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
+	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Is it you?",
 		"Woahh! That's fast"
@@ -464,7 +466,11 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7All players are getting the effect",
 	"item-blocks-description": "§8» Blocks to walk: §e{0}",
 	"item-range-blocks-description": "§8» §7Range: §e{0} §7Block",
-	"item-force-battle-description": "§8» §7Jokers: §e{0}",
+	"item-force-battle-goal-jokers": [
+		"§6Number of jokers",
+		"The *amount* of *jokers*",
+		"hat every player has"
+	],
 	"item-difficulty-setting": [
 		"§aDifficulty",
 		"Sets the *Difficulty*"
@@ -1279,11 +1285,6 @@
 		"The player that *found* the *most items*, wins."
 	],
 	"menu-force-item-battle-goal-settings": "Force Item Battle",
-	"item-force-item-battle-goal-jokers": [
-		"§6Number of jokers",
-		"The *amount* of *jokers*",
-		"hat every player has"
-	],
 	"item-force-item-battle-goal-give-item": [
 		"§bGive Item On Skip",
 		"If a player *skips* an item,",
@@ -1293,10 +1294,15 @@
 		"§bForce Mob Battle",
 		"Each player gets *a random mob* that",
 		"he has to *kill*.",
-		"The player that *killed* the *most mobs*, wins.",
-		"",
-		"The set value is equal to the amount of *jokers* available."
+		"The player that *killed* the *most mobs*, wins."
 	],
+	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-force-advancement-battle-goal": [
+		"§6Force Advancement Battle",
+		"Each player gets a *random advancement*,",
+		"that he has to complete."
+	],
+	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-damage-rule-none": [
 		"§6General Damage",
 		"Sets whether you can get damage or not"

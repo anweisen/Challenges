@@ -218,17 +218,19 @@
 	"loops-cleared": "§e{0} §7Loops abgebrochen",
 	"stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 	"all-advancements-goal": "§7Advancements §8» §e{0}",
-	"height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
+	"Chalheight-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
 	"race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
 	"points-change": "§e{0} §7Punkte",
 	"force-item-battle-found": "Du hast §e{0} §7gefunden!",
 	"force-item-battle-new-item": "Item zu suchen: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
-	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"force-mob-battle-killed": "Du hast §e{0} §7gefunden!",
 	"force-mob-battle-new-mob": "Mob zu suchen: §e{0}",
 	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
-	"force-mob-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-advancement-battle-completed": "Du hast §e{0} §7erzielt!",
+	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
+	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
+	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -469,7 +471,11 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 	"item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
 	"item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
-	"item-force-battle-description": "§8» §7Joker: §e{0}",
+	"item-force-battle-goal-jokers": [
+		"§6Anzahl der Joker",
+		"Die *Anzahl* der *Joker*,",
+		"die jeder Spieler hat"
+	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"
@@ -1305,11 +1311,6 @@
 		"Wer am Ende die *meisten Items* hat, gewinnt"
 	],
 	"menu-force-item-battle-goal-settings": "Force Item Battle",
-	"item-force-item-battle-goal-jokers": [
-		"§6Anzahl der Joker",
-		"Die *Anzahl* der *Joker*,",
-		"die jeder Spieler hat"
-	],
 	"item-force-item-battle-goal-give-item": [
 		"§bItem bei Skippen geben",
 		"Wenn ein Spieler ein Item *skippt*,",
@@ -1318,11 +1319,15 @@
 	"item-force-mob-battle-goal": [
 		"§bForce Mob Battle",
 		"Jeder Spieler bekommt ein *zufälliges Mob*,",
-		"das er töten muss.",
-		"Wer am Ende die *meisten Mobs* getötet hat, gewinnt",
-		"",
-		"Der eingestellte Wert legt die Anzahl an *Jokern* fest."
+		"das er töten muss."
 	],
+	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-force-advancement-battle-goal": [
+		"§6Force Advancement Battle",
+		"Jeder Spieler bekommt ein *zufälliges*",
+		"*Advancement*, welches er erreichen muss."
+	],
+	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-damage-rule-none": [
 		"§6Genereller Schaden",
 		"Stellt ein, ob du Schaden bekommen kannst"
