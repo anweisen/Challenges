@@ -7,7 +7,10 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleG
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.ComponentBuilder;
+import net.md_5.bungee.api.chat.HoverEvent;
+import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -96,7 +99,13 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 
     @Override
     public Object getTargetMessageReplacement(Advancement target) {
-        return new TextComponent(getTargetName(target));
+        String replace = target.getKey().getKey().replace("/", ".");
+        TranslatableComponent component = new TranslatableComponent("advancements." + replace + ".title");
+        TranslatableComponent translatableComponent = new TranslatableComponent("advancements." + replace + ".description");
+        translatableComponent.setColor(ChatColor.GREEN);
+        HoverEvent event = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(translatableComponent).create());
+        component.setHoverEvent(event);
+        return component;
     }
 
     @Override
