@@ -74,6 +74,11 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	}
 
 	@Override
+	public Object getTargetMessageReplacement(Material target) {
+		return target;
+	}
+
+	@Override
 	protected Message getNewTargetMessage() {
 		return Message.forName("force-item-battle-new-item");
 	}

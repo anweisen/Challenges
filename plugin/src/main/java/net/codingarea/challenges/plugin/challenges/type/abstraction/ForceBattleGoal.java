@@ -88,8 +88,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
                 Player ingamePlayer = ingamePlayers.get(i);
                 T target = currentTarget.get(ingamePlayer.getUniqueId());
-                String display = target == null ? Message.forName("none").asString()
-                        : getTargetName(target);
+                String display = target == null ? Message.forName("none").asString() : getTargetName(target);
                 board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
             }
 
@@ -238,7 +237,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
         scoreboard.update();
         updateDisplayStand(player);
         getNewTargetMessage()
-                .send(player, Prefix.CHALLENGES, getTargetName(target));
+                .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
         SoundSample.PLING.play(player);
     }
 
@@ -253,10 +252,12 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
                     .computeIfAbsent(player.getUniqueId(), uuid -> new LinkedList<>());
             list.add(foundTarget);
             Message.forName("force-item-battle-found")
-                    .send(player, Prefix.CHALLENGES, getTargetName(foundTarget));
+                    .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
         }
         setRandomTarget(player);
     }
+
+    public abstract Object getTargetMessageReplacement(T target);
 
     public abstract String getTargetName(T target);
 

@@ -7,10 +7,14 @@ import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.misc.FontUtils;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.BiConsumer;
@@ -52,12 +56,27 @@ public class MessageImpl implements Message {
 
 	@Nonnull
 	@Override
+	public BaseComponent asRandomComponent(@NotNull IRandom random, @Nonnull Prefix prefix, @NotNull Object... args) {
+		BaseComponent[] array = asComponentArray(prefix, args);
+		if (array.length == 0) return new TextComponent(Message.unknown(name));
+		return random.choose(array);
+	}
+
+	@Nonnull
+	@Override
 	public String[] asArray(@Nonnull Object... args) {
 		if (value == null) return new String[]{ Message.unknown(name) };
 		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
 		boolean capsFont = false;
 		if (loader != null) capsFont = loader.isSmallCapsFont();
 		return capsFont ? FontUtils.toSmallCaps(StringUtils.format(value, args)) : StringUtils.format(value, args);
+	}
+
+	@Nonnull
+	@Override
+	public BaseComponent[] asComponentArray(@Nonnull Prefix prefix, @NotNull Object... args) {
+		if (value == null) return new TextComponent[] { new TextComponent(Message.unknown(name)) };
+		return BukkitStringUtils.format(prefix, value, args);
 	}
 
 	@Nonnull
@@ -72,7 +91,7 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLines(target::sendMessage, prefix, asArray(args));
+		doSendLines(component -> target.spigot().sendMessage(component), prefix, asComponentArray(prefix, args));
 	}
 
 	@Override
@@ -82,12 +101,12 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void sendRandom(@Nonnull IRandom random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLine(target::sendMessage, prefix, asRandomString(random, args));
+		doSendLine(components -> target.spigot().sendMessage(components), prefix, asRandomComponent(random, prefix, args));
 	}
 
 	@Override
 	public void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLines(Bukkit::broadcastMessage, prefix, asArray(args));
+		doSendLines(components -> Bukkit.spigot().broadcast(components), prefix, asComponentArray(prefix, args));
 	}
 
 	@Override
@@ -97,18 +116,25 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void broadcastRandom(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLine(Bukkit::broadcastMessage, prefix, asRandomString(random, args));
+		doSendLine(component -> Bukkit.spigot().broadcast(component), prefix, asRandomComponent(random, prefix, args));
 	}
 
-	private void doSendLines(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String[] lines) {
-		for (String line : lines) {
+	private void doSendLines(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent[] components) {
+		for (BaseComponent line : components) {
 			doSendLine(sender, prefix, line);
 		}
 	}
 
-	private void doSendLine(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String line) {
-		if (line.trim().isEmpty()) sender.accept(line);
-		else sender.accept(prefix + line);
+	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent components) {
+//		if (components.length == 0 || components[0].toLegacyText().isEmpty()) {
+//			sender.accept(components);
+//		} else {
+//			ArrayList<BaseComponent> list = new ArrayList<>();
+//			list.add(0, new TextComponent(prefix.toString()));
+//			list.addAll(Arrays.asList(components));
+//			sender.accept(list.toArray(new BaseComponent[0]));
+//		}
+		sender.accept(components);
 	}
 
 	@Override

@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleG
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -91,6 +92,11 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     @Override
     protected Message getTargetFoundMessage() {
         return Message.forName("force-advancement-battle-completed");
+    }
+
+    @Override
+    public Object getTargetMessageReplacement(Advancement target) {
+        return new TextComponent(getTargetName(target));
     }
 
     @Override

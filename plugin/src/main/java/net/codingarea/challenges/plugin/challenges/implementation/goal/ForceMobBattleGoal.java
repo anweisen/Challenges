@@ -96,6 +96,11 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
         return StringUtils.getEnumName(target);
     }
 
+    @Override
+    public Object getTargetMessageReplacement(EntityType target) {
+        return target;
+    }
+
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
     public void onKill(@Nonnull EntityDeathEvent event) {
         if(!shouldExecuteEffect()) return;
