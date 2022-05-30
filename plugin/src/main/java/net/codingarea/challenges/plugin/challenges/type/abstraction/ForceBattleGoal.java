@@ -59,6 +59,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
                 20,
                 5
         ));
+        registerSetting("showScoreboard", new BooleanSubSetting(
+                () -> new ItemBuilder(Material.BOOK, Message.forName("item-force-battle-show-scoreboard")),
+                true
+        ));
     }
 
     @Override
@@ -92,7 +96,9 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
                 board.addLine("");
             }
         });
-        scoreboard.show();
+        if(showScoreboard()) {
+            scoreboard.show();
+        }
     }
 
     @Override
@@ -377,6 +383,11 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
         for (Player player : displayStands.keySet()) {
             updateDisplayStand(player);
         }
+        if(!scoreboard.isShown() && showScoreboard()) {
+            scoreboard.show();
+        } else if(scoreboard.isShown() && !showScoreboard()) {
+            scoreboard.hide();
+        }
         broadcastFiltered(this::updateJokersInInventory);
     }
 
@@ -436,5 +447,9 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
     private int getJokers() {
         return getSetting("jokers").getAsInt();
+    }
+
+    private boolean showScoreboard() {
+        return getSetting("showScoreboard").getAsBoolean();
     }
 }
