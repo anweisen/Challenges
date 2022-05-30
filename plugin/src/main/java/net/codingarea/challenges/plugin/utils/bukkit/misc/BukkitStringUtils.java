@@ -9,6 +9,7 @@ import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
+import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class BukkitStringUtils {
 							current instanceof BaseComponent ? (BaseComponent) current :
 							current instanceof Material ? new TranslatableComponent((((Material) current).isBlock() ? "block" : "item") + "." + ((Material) current).getKey().getNamespace() + "." + ((Material) current).getKey().getKey()) :
 							current instanceof EntityType ? new TranslatableComponent("entity." + ((EntityType) current).getKey().getNamespace() + "." + ((EntityType) current).getKey().getKey()) :
+							current instanceof PotionEffectType ? new TranslatableComponent("effect." + ((PotionEffectType) current).getKey().getNamespace() + "." + ((PotionEffectType) current).getKey().getKey()) :
 							current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>)current).get())) :
 									current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>)current).call())) :
 											new TextComponent(String.valueOf(current));
