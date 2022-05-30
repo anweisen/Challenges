@@ -476,6 +476,9 @@
 		"Die *Anzahl* der *Joker*,",
 		"die jeder Spieler hat"
 	],
+	"item-force-battle-show-scoreboard": [
+		"§bScoreboard anzeigen"
+	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"

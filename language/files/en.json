@@ -471,6 +471,9 @@
 		"The *amount* of *jokers*",
 		"hat every player has"
 	],
+	"item-force-battle-show-scoreboard": [
+		"§bShow Scoreboard"
+	],
 	"item-difficulty-setting": [
 		"§aDifficulty",
 		"Sets the *Difficulty*"
