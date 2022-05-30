@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
@@ -24,8 +25,9 @@ import java.util.List;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
- * @since 2.1.4
+ * @since 2.2.0
  */
+@Since("2.2.0")
 public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     public ForceMobBattleGoal() {
@@ -66,7 +68,7 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     @Override
     public double getDisplayStandYOffset() {
-        return 2;
+        return 2.0D;
     }
 
     @Override
@@ -82,6 +84,11 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
     @Override
     protected Message getNewTargetMessage() {
         return Message.forName("force-mob-battle-killed");
+    }
+
+    @Override
+    protected Message getTargetFoundMessage() {
+        return Message.forName("force-mob-battle-new-mob");
     }
 
     @Override

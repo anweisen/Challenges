@@ -79,6 +79,11 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	}
 
 	@Override
+	protected Message getTargetFoundMessage() {
+		return Message.forName("force-item-battle-new-item");
+	}
+
+	@Override
 	public void handleJokerUse(Player player) {
 		super.handleJokerUse(player);
 		if(giveItemOnSkip()) {
@@ -125,7 +130,7 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 
 	@Override
 	public double getDisplayStandYOffset() {
-		return 1.5D;
+		return 0;
 	}
 
 	private boolean giveItemOnSkip() {

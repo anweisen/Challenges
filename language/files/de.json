@@ -218,7 +218,7 @@
 	"loops-cleared": "§e{0} §7Loops abgebrochen",
 	"stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 	"all-advancements-goal": "§7Advancements §8» §e{0}",
-	"height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
+	"Chalheight-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
 	"race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
 	"points-change": "§e{0} §7Punkte",
 	"force-item-battle-found": "Du hast §e{0} §7gefunden!",
@@ -227,6 +227,9 @@
 	"force-mob-battle-killed": "Du hast §e{0} §7gefunden!",
 	"force-mob-battle-new-mob": "Mob zu suchen: §e{0}",
 	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
+	"force-advancement-battle-completed": "Du hast §e{0} §7erzielt!",
+	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
+	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
@@ -1319,6 +1322,12 @@
 		"das er töten muss."
 	],
 	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-force-advancement-battle-goal": [
+		"§6Force Advancement Battle",
+		"Jeder Spieler bekommt ein *zufälliges*",
+		"*Advancement*, welches er erreichen muss."
+	],
+	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-damage-rule-none": [
 		"§6Genereller Schaden",
 		"Stellt ein, ob du Schaden bekommen kannst"

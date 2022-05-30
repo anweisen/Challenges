@@ -227,6 +227,9 @@
 	"force-mob-battle-killed": "You've killed §e{0}!",
 	"force-mob-battle-new-mob": "Mob to kill: §e{0}",
 	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
+	"force-advancement-battle-completed": "You've completed §e{0}!",
+	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
+	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Is it you?",
@@ -1291,9 +1294,15 @@
 		"§bForce Mob Battle",
 		"Each player gets *a random mob* that",
 		"he has to *kill*.",
-		"The player that *killed* the *most mobs*, wins.",
+		"The player that *killed* the *most mobs*, wins."
 	],
 	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-force-advancement-battle-goal": [
+		"§6Force Advancement Battle",
+		"Each player gets a *random advancement*,",
+		"that he has to complete."
+	],
+	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-damage-rule-none": [
 		"§6General Damage",
 		"Sets whether you can get damage or not"

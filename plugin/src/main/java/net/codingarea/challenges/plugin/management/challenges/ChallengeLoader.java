@@ -200,6 +200,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(EatMostGoal.class);
 		register(ForceItemBattleGoal.class);
 		register(ForceMobBattleGoal.class);
+		register(ForceAdvancementBattleGoal.class);
 
 		// Fastest Time
 		register(FirstOneToDieGoal.class);

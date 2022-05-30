@@ -235,6 +235,8 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
     protected abstract Message getNewTargetMessage();
 
+    protected abstract Message getTargetFoundMessage();
+
     public void handleTargetFound(Player player) {
         T foundTarget = currentTarget.get(player.getUniqueId());
         if (foundTarget != null) {
