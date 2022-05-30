@@ -48,7 +48,7 @@ public interface IChallenge extends GamestateSaveable {
 	 * Returns the internal name of this challenges.
 	 * This name will be used for saving and assigning the right settings or gamestate.
 	 * If multiple instances of class are registered, they must not return the same value.
-	 * Multiple challenges cannot have the same name.
+	 * Multiple challenges should not have the same name.
 	 *
 	 * @return the internal name of this challenge
 	 */
