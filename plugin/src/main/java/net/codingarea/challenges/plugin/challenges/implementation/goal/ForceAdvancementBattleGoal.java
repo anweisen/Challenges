@@ -67,11 +67,6 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     }
 
     @Override
-    public double getDisplayStandYOffset() {
-        return 2.0D;
-    }
-
-    @Override
     public Advancement getTargetFromDocument(Document document, String key) {
         String advancementKey = document.getString(key);
         NamespacedKey namespacedKey = NamespacedKey.minecraft(advancementKey);
@@ -111,6 +106,11 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     }
 
     @Override
+    public boolean isSmall() {
+        return false;
+    }
+
+    @Override
     public void setRandomTarget(Player player) {
         super.setRandomTarget(player);
         resetAdvancementProgress(player, currentTarget.get(player.getUniqueId()));
@@ -125,4 +125,5 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
             handleTargetFound(player);
         }
     }
+
 }

@@ -74,6 +74,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
         broadcastFiltered(this::updateJokersInInventory);
         broadcastFiltered(this::updateDisplayStand);
+        broadcastFiltered(this::setRandomTargetIfCurrentlyNone);
 
         scoreboard.setContent((board, player) -> {
             List<Player> ingamePlayers = ChallengeAPI.getIngamePlayers();
@@ -151,7 +152,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
         ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
             World world = player1.getWorld();
             ArmorStand entity = (ArmorStand) world
-                    .spawnEntity(player1.getLocation().clone().add(0, getDisplayStandYOffset(), 0), EntityType.ARMOR_STAND);
+                    .spawnEntity(player1.getLocation().clone().add(0, 0.1, 0), EntityType.ARMOR_STAND);
             entity.setInvisible(true);
             entity.setInvulnerable(true);
             entity.setGravity(false);
@@ -159,15 +160,17 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             entity.setSilent(true);
             return entity;
         });
-        armorStand.teleport(player.getLocation().clone().add(0, getDisplayStandYOffset(), 0));
-        armorStand.setVelocity(player.getVelocity());
+       player.addPassenger(armorStand);
+       if (isSmall()) {
+           armorStand.setSmall(true);
+       }
 
         handleDisplayStandUpdate(player, armorStand);
     }
 
     public abstract void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand);
 
-    public abstract double getDisplayStandYOffset();
+    public abstract boolean isSmall();
 
     @Override
     public void loadGameState(@NotNull Document document) {
@@ -361,7 +364,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             setRandomTargetIfCurrentlyNone(event.getPlayer());
             updateDisplayStand(event.getPlayer());
         } else {
-            ArmorStand stand = displayStands.get(event.getPlayer());
+            ArmorStand stand = displayStands.remove(event.getPlayer());
             if (stand != null) {
                 stand.remove();
             }

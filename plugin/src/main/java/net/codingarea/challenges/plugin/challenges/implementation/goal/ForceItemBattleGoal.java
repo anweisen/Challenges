@@ -84,6 +84,11 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	}
 
 	@Override
+	public boolean isSmall() {
+		return true;
+	}
+
+	@Override
 	public void handleJokerUse(Player player) {
 		super.handleJokerUse(player);
 		if(giveItemOnSkip()) {
@@ -128,12 +133,8 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 		}
 	}
 
-	@Override
-	public double getDisplayStandYOffset() {
-		return 0;
-	}
-
 	private boolean giveItemOnSkip() {
 		return getSetting("give-item").getAsBoolean();
 	}
+
 }

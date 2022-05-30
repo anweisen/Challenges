@@ -67,11 +67,6 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
     }
 
     @Override
-    public double getDisplayStandYOffset() {
-        return 2.0D;
-    }
-
-    @Override
     public EntityType getTargetFromDocument(Document document, String key) {
         return document.getEnum(key, EntityType.class);
     }
@@ -92,6 +87,11 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
     }
 
     @Override
+    public boolean isSmall() {
+        return false;
+    }
+
+    @Override
     public String getTargetName(EntityType target) {
         return StringUtils.getEnumName(target);
     }
@@ -108,4 +108,5 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
             handleTargetFound(killer);
         }
     }
+
 }
