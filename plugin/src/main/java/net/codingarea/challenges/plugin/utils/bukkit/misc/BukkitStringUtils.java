@@ -7,6 +7,7 @@ import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TextComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
@@ -27,8 +28,8 @@ public class BukkitStringUtils {
 	@Nonnull
 	public static BaseComponent[] format(@Nonnull Prefix prefix, @Nonnull String[] array, @Nonnull Object... args) {
 		List<BaseComponent> results = new ArrayList<>();
-		for (int i = 0; i < array.length; i++) {
-			String s = array[i];
+		for (String value : array) {
+			String s = value;
 			if (!s.isEmpty()) {
 				s = prefix + s;
 			}
@@ -88,6 +89,7 @@ public class BukkitStringUtils {
 							current instanceof BaseComponent ? (BaseComponent) current :
 							current instanceof Material ? new TranslatableComponent((((Material) current).isBlock() ? "block" : "item") + "." + ((Material) current).getKey().getNamespace() + "." + ((Material) current).getKey().getKey()) :
 							current instanceof EntityType ? new TranslatableComponent("entity." + ((EntityType) current).getKey().getNamespace() + "." + ((EntityType) current).getKey().getKey()) :
+							current instanceof GameMode ? new TranslatableComponent("selectWorld.gameMode." + ((GameMode) current).name().toLowerCase()) :
 							current instanceof PotionEffectType ? new TranslatableComponent("effect." + ((PotionEffectType) current).getKey().getNamespace() + "." + ((PotionEffectType) current).getKey().getKey()) :
 							current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>)current).get())) :
 									current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>)current).call())) :

@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
@@ -52,17 +51,16 @@ public class GamemodeCommand implements SenderCommand, Completer {
 		}
 
 		boolean otherPlayers = false;
-		String gamemodeName = StringUtils.getEnumName(gamemode);
 
 		for (Player player : targets) {
-			Message.forName("command-gamemode-gamemode-changed").send(player, Prefix.CHALLENGES, gamemodeName);
+			Message.forName("command-gamemode-gamemode-changed").send(player, Prefix.CHALLENGES, gamemode);
 			player.setGameMode(gamemode);
 			if (player != sender)
 				otherPlayers = true;
 
 		}
 		if (otherPlayers) {
-			Message.forName("command-gamemode-gamemode-changed-others").send(sender, Prefix.CHALLENGES, gamemodeName, targets.size());
+			Message.forName("command-gamemode-gamemode-changed-others").send(sender, Prefix.CHALLENGES, gamemode, targets.size());
 		}
 
 	}
