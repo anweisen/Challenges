@@ -98,9 +98,32 @@ public class BukkitStringUtils {
 
 					if (currentColor != null) {
 						if (replacement instanceof TextComponent) {
-							replacement = new TextComponent("§" + currentColor.getChar() + ((TextComponent) replacement).getText());
+							String prefix = "§" + currentColor.getChar();
+							for (ChatColor color : currentFormatting) {
+								prefix += "§" + color.getChar();
+							}
+							replacement = new TextComponent(prefix + ((TextComponent) replacement).getText());
 						} else {
 							replacement.setColor(currentColor.asBungee());
+							for (ChatColor color : currentFormatting) {
+								switch (color) {
+									case BOLD:
+										replacement.setBold(true);
+										break;
+									case MAGIC:
+										replacement.setObfuscated(true);
+										break;
+									case ITALIC:
+										replacement.setItalic(true);
+										break;
+									case STRIKETHROUGH:
+										replacement.setStrikethrough(true);
+										break;
+									case UNDERLINE:
+										replacement.setUnderlined(true);
+										break;
+								}
+							}
 						}
 						currentColor = null;
 					}
