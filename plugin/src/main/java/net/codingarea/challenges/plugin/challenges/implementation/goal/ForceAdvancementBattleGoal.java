@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -65,6 +66,20 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
             armorStand.setCustomNameVisible(true);
             armorStand.setCustomName(getTargetName(advancement));
         }
+    }
+
+    @Override
+    public void setTargetInDocument(Document document, String key, Advancement target) {
+        document.set(key, target.getKey().getKey());
+    }
+
+    @Override
+    public void setFoundListInDocument(Document document, String key, List<Advancement> target) {
+        List<String> foundItems = new LinkedList<>();
+        for (Advancement advancement : target) {
+            foundItems.add(advancement.getKey().getKey());
+        }
+        document.set(key, foundItems);
     }
 
     @Override
