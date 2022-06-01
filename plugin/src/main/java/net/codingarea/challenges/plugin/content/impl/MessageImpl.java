@@ -66,7 +66,7 @@ public class MessageImpl implements Message {
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
 		if (value == null) return new String[]{ Message.unknown(name) };
-		args = BukkitStringUtils.replaceArgumentStrings(args, true);
+		args = BukkitStringUtils.replaceArguments(args, true);
 		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
 		boolean capsFont = false;
 		if (loader != null) capsFont = loader.isSmallCapsFont();

@@ -51,7 +51,7 @@ public class BukkitStringUtils {
 	@Nonnull
 	public static List<BaseComponent> format(@Nonnull String sequence, @Nonnull Object... args) {
 
-		args = replaceArgumentStrings(args, false);
+		args = replaceArguments(args, false);
 
 		List<BaseComponent> results = new ArrayList<>();
 		char start = '{', end = '}';
@@ -164,7 +164,7 @@ public class BukkitStringUtils {
 		return results;
 	}
 
-	public static Object[] replaceArgumentStrings(Object[] args, boolean toStrings) {
+	public static Object[] replaceArguments(Object[] args, boolean toStrings) {
 		args = Arrays.copyOf(args, args.length);
 		for (int i = 0; i < args.length; i++) {
 			Object arg = args[i];
