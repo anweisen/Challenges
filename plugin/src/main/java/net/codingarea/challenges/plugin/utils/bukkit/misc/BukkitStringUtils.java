@@ -3,17 +3,18 @@ package net.codingarea.challenges.plugin.utils.bukkit.misc;
 import net.anweisen.utilities.common.collection.WrappedException;
 import net.anweisen.utilities.common.logging.ILogger;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.md_5.bungee.api.chat.BaseComponent;
-import net.md_5.bungee.api.chat.TextComponent;
-import net.md_5.bungee.api.chat.TranslatableComponent;
+import net.md_5.bungee.api.chat.*;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
+import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -48,6 +49,9 @@ public class BukkitStringUtils {
 
 	@Nonnull
 	public static List<BaseComponent> format(@Nonnull String sequence, @Nonnull Object... args) {
+
+		args = replaceArgumentStrings(args, false);
+
 		List<BaseComponent> results = new ArrayList<>();
 		char start = '{', end = '}';
 		boolean inArgument = false;
@@ -87,13 +91,9 @@ public class BukkitStringUtils {
 					Object current = args[arg];
 					BaseComponent replacement =
 							current instanceof BaseComponent ? (BaseComponent) current :
-							current instanceof Material ? new TranslatableComponent((((Material) current).isBlock() ? "block" : "item") + "." + ((Material) current).getKey().getNamespace() + "." + ((Material) current).getKey().getKey()) :
-							current instanceof EntityType ? new TranslatableComponent("entity." + ((EntityType) current).getKey().getNamespace() + "." + ((EntityType) current).getKey().getKey()) :
-							current instanceof GameMode ? new TranslatableComponent("selectWorld.gameMode." + ((GameMode) current).name().toLowerCase()) :
-							current instanceof PotionEffectType ? new TranslatableComponent("effect." + ((PotionEffectType) current).getKey().getNamespace() + "." + ((PotionEffectType) current).getKey().getKey()) :
-							current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>)current).get())) :
-									current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>)current).call())) :
-											new TextComponent(String.valueOf(current));
+									current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>) current).get())) :
+											current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>) current).call())) :
+													new TextComponent(String.valueOf(current));
 					results.add(currentText);
 					currentText = new TextComponent();
 					TextComponent e = new TextComponent("§e");
@@ -161,6 +161,69 @@ public class BukkitStringUtils {
 			results.add(new TextComponent(String.valueOf(argument)));
 		}
 		return results;
+	}
+
+	public static Object[] replaceArgumentStrings(Object[] args, boolean toStrings) {
+		args = Arrays.copyOf(args, args.length);
+		for (int i = 0; i < args.length; i++) {
+			Object arg = args[i];
+
+			args[i] = arg instanceof Material ? getItemName((Material) arg) :
+					arg instanceof EntityType ? getEntityName((EntityType) arg) :
+					arg instanceof PotionEffectType ? getPotionEffectName((PotionEffectType) arg) :
+					arg instanceof GameMode ? getGameModeName((GameMode) arg) :
+					arg instanceof Advancement ? getAdvancementComponent((Advancement) arg) :
+					arg;
+
+			if (toStrings) {
+				if (arg instanceof BaseComponent) {
+					args[i] = ((BaseComponent) arg).toPlainText();
+				}
+			}
+
+		}
+		return args;
+	}
+
+	public static TranslatableComponent getItemName(@Nonnull Material material) {
+		NamespacedKey key = material.getKey();
+		return new TranslatableComponent((material.isBlock() ? "block" : "item") + "." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static TranslatableComponent getEntityName(@Nonnull EntityType type) {
+		NamespacedKey key = type.getKey();
+		return new TranslatableComponent("entity." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static TranslatableComponent getPotionEffectName(@Nonnull PotionEffectType type) {
+		NamespacedKey key = type.getKey();
+		return new TranslatableComponent("effect." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static TranslatableComponent getGameModeName(@Nonnull GameMode gameMode) {
+		return new TranslatableComponent("selectWorld.gameMode." + gameMode.name().toLowerCase());
+	}
+
+	public static BaseComponent getAdvancementTitle(@Nonnull Advancement advancement) {
+		String replace = advancement.getKey().getKey().replace("/", ".");
+		return new TranslatableComponent("advancements." + correctAdvancementKeys(replace) + ".title");
+	}
+
+	public static BaseComponent getAdvancementDescription(@Nonnull Advancement advancement) {
+		String replace = advancement.getKey().getKey().replace("/", ".");
+		return new TranslatableComponent("advancements." + correctAdvancementKeys(replace) + ".description");
+	}
+
+	public static BaseComponent getAdvancementComponent(@Nonnull Advancement advancement) {
+		BaseComponent title = getAdvancementTitle(advancement);
+		BaseComponent description = getAdvancementDescription(advancement);
+		description.setColor(net.md_5.bungee.api.ChatColor.GREEN);
+		title.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(description).create()));
+		return title;
+	}
+
+	private static String correctAdvancementKeys(String s) {
+		return s.replace("bred_all_animals", "breed_all_animals").replace("obtain_netherite_hoe", "netherite_hoe"); // mc sucks
 	}
 
 }

@@ -5,11 +5,8 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
-import net.md_5.bungee.api.ChatColor;
-import net.md_5.bungee.api.chat.ComponentBuilder;
-import net.md_5.bungee.api.chat.HoverEvent;
-import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -99,24 +96,12 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 
     @Override
     public Object getTargetMessageReplacement(Advancement target) {
-        String replace = target.getKey().getKey().replace("/", ".");
-        String corrected = correctAdvancementKeys(replace);
-        TranslatableComponent component = new TranslatableComponent("advancements." + corrected + ".title");
-        TranslatableComponent translatableComponent = new TranslatableComponent("advancements." + corrected + ".description");
-        translatableComponent.setColor(ChatColor.GREEN);
-        HoverEvent event = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(translatableComponent).create());
-        component.setHoverEvent(event);
-        return component;
+        return BukkitStringUtils.getAdvancementComponent(target);
     }
 
     @Override
     public String getTargetName(Advancement target) {
-        String replace = target.getKey().getKey().replace("/", ".");
-        return new TranslatableComponent("advancements." + correctAdvancementKeys(replace) + ".title").toPlainText();
-    }
-
-    private String correctAdvancementKeys(String s) {
-        return s.replace("bred_all_animals", "breed_all_animals").replace("obtain_netherite_hoe", "netherite_hoe"); // mc sucks
+        return BukkitStringUtils.getAdvancementTitle(target).toPlainText();
     }
 
     @Override
