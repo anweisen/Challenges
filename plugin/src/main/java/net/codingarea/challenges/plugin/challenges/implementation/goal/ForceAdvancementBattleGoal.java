@@ -100,8 +100,9 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     @Override
     public Object getTargetMessageReplacement(Advancement target) {
         String replace = target.getKey().getKey().replace("/", ".");
-        TranslatableComponent component = new TranslatableComponent("advancements." + replace + ".title");
-        TranslatableComponent translatableComponent = new TranslatableComponent("advancements." + replace + ".description");
+        String corrected = correctAdvancementKeys(replace);
+        TranslatableComponent component = new TranslatableComponent("advancements." + corrected + ".title");
+        TranslatableComponent translatableComponent = new TranslatableComponent("advancements." + corrected + ".description");
         translatableComponent.setColor(ChatColor.GREEN);
         HoverEvent event = new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(translatableComponent).create());
         component.setHoverEvent(event);
@@ -113,6 +114,8 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
         String key = target.getKey().getKey();
         key = key.split("/")[1];
         return StringUtils.getEnumName(key);
+    private String correctAdvancementKeys(String s) {
+        return s.replace("bred_all_animals", "breed_all_animals").replace("obtain_netherite_hoe", "netherite_hoe"); // mc sucks
     }
 
     @Override
