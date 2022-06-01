@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -147,7 +146,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting implements 
             return;
         }
         if (!entityType.isAlive()) {
-            Message.forName("not-alive").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+            Message.forName("not-alive").send(sender, Prefix.CHALLENGES, entityType);
             return;
         }
 
@@ -155,7 +154,7 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting implements 
         try {
             givenLootTable = LootTables.valueOf(entityType.name()).getLootTable();
         } catch (IllegalArgumentException exception) {
-            Message.forName("no-loot").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+            Message.forName("no-loot").send(sender, Prefix.CHALLENGES, entityType);
             return;
         }
 
@@ -163,9 +162,9 @@ public class EntityLootRandomizerChallenge extends RandomizerSetting implements 
         LootTable droppedLootTable = getLootTableForEntity(entityType);
 
         if(optionalEntity.isPresent()) {
-            Message.forName("command-searchloot-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType), StringUtils.getEnumName(droppedLootTable.getKey().getKey().replace("entities/", "")), StringUtils.getEnumName(optionalEntity.get()));
+            Message.forName("command-searchloot-result").send(sender, Prefix.CHALLENGES, entityType, droppedLootTable, optionalEntity.get());
         } else {
-            Message.forName("command-searchloot-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(entityType));
+            Message.forName("command-searchloot-nothing").send(sender, Prefix.CHALLENGES, entityType);
         }
 
     }

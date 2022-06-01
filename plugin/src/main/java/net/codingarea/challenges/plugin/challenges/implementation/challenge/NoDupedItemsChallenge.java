@@ -1,8 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.Triple;
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.collection.pair.Triple;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -81,7 +80,7 @@ public class NoDupedItemsChallenge extends Setting {
 						Prefix.CHALLENGES,
 						NameHelper.getName(result.getFirst()),
 						NameHelper.getName(result.getSecond()),
-						StringUtils.getEnumName(result.getThird())
+						result.getThird()
 				);
 				kill(result.getFirst());
 				kill(result.getSecond());

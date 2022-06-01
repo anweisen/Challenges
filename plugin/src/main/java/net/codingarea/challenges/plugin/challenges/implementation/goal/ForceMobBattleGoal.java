@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
@@ -93,7 +93,7 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     @Override
     public String getTargetName(EntityType target) {
-        return StringUtils.getEnumName(target);
+        return BukkitStringUtils.getEntityName(target).toPlainText();
     }
 
     @Override

@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -37,7 +36,7 @@ public class MobTransformationChallenge extends Setting {
 		bossbar.setContent((bossbar, player) -> {
 			bossbar.setColor(BarColor.GREEN);
 			EntityType type = getPlayerData(player).getEnum("type", EntityType.class);
-			String typeName = type == null ? "None" : StringUtils.getEnumName(type);
+			Object typeName = type == null ? "None" : type;
 			bossbar.setTitle(Message.forName("bossbar-mob-transformation").asString(typeName));
 		});
 		bossbar.show();

@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifierCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -122,7 +121,7 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 
 	private void handleCollect(@Nonnull Player player, @Nonnull Material material) {
 		collect(player, material, () -> {
-			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, material);
 			SoundSample.PLING.play(player);
 		});
 	}

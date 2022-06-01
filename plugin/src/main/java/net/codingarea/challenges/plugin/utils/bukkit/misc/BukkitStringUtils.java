@@ -10,6 +10,7 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.entity.EntityType;
+import org.bukkit.loot.LootTable;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
@@ -168,18 +169,20 @@ public class BukkitStringUtils {
 		for (int i = 0; i < args.length; i++) {
 			Object arg = args[i];
 
-			args[i] = arg instanceof Material ? getItemName((Material) arg) :
+			arg = arg instanceof Material ? getItemName((Material) arg) :
 					arg instanceof EntityType ? getEntityName((EntityType) arg) :
 					arg instanceof PotionEffectType ? getPotionEffectName((PotionEffectType) arg) :
 					arg instanceof GameMode ? getGameModeName((GameMode) arg) :
 					arg instanceof Advancement ? getAdvancementComponent((Advancement) arg) :
+					arg instanceof LootTable ? getEntityName((LootTable) arg) :
 					arg;
 
 			if (toStrings) {
 				if (arg instanceof BaseComponent) {
-					args[i] = ((BaseComponent) arg).toPlainText();
+					arg = ((BaseComponent) arg).toPlainText();
 				}
 			}
+			args[i] = arg;
 
 		}
 		return args;
@@ -190,9 +193,15 @@ public class BukkitStringUtils {
 		return new TranslatableComponent((material.isBlock() ? "block" : "item") + "." + key.getNamespace() + "." + key.getKey());
 	}
 
+
 	public static TranslatableComponent getEntityName(@Nonnull EntityType type) {
 		NamespacedKey key = type.getKey();
 		return new TranslatableComponent("entity." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static TranslatableComponent getEntityName(@Nonnull LootTable type) {
+		NamespacedKey key = type.getKey();
+		return new TranslatableComponent("entity." + key.getNamespace() + "." + key.getKey().replace("entities/", ""));
 	}
 
 	public static TranslatableComponent getPotionEffectName(@Nonnull PotionEffectType type) {
