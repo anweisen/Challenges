@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -111,9 +110,10 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 
     @Override
     public String getTargetName(Advancement target) {
-        String key = target.getKey().getKey();
-        key = key.split("/")[1];
-        return StringUtils.getEnumName(key);
+        String replace = target.getKey().getKey().replace("/", ".");
+        return new TranslatableComponent("advancements." + correctAdvancementKeys(replace) + ".title").toPlainText();
+    }
+
     private String correctAdvancementKeys(String s) {
         return s.replace("bred_all_animals", "breed_all_animals").replace("obtain_netherite_hoe", "netherite_hoe"); // mc sucks
     }
