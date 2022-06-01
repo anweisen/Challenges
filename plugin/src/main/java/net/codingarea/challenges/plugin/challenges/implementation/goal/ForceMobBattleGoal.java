@@ -78,12 +78,12 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     @Override
     protected Message getNewTargetMessage() {
-        return Message.forName("force-mob-battle-killed");
+        return Message.forName("force-mob-battle-new-mob");
     }
 
     @Override
     protected Message getTargetFoundMessage() {
-        return Message.forName("force-mob-battle-new-mob");
+        return Message.forName("force-mob-battle-killed");
     }
 
     @Override

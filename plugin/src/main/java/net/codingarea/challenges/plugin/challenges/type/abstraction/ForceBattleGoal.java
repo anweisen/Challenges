@@ -251,8 +251,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             List<T> list = foundTargets
                     .computeIfAbsent(player.getUniqueId(), uuid -> new LinkedList<>());
             list.add(foundTarget);
-            Message.forName("force-item-battle-found")
-                    .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
+            getTargetFoundMessage().send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
         }
         setRandomTarget(player);
     }
