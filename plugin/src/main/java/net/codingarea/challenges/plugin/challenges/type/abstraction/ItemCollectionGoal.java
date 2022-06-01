@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -33,7 +32,7 @@ public abstract class ItemCollectionGoal extends CollectionGoal {
 
 	protected void handleCollect(@Nonnull Player player, @Nonnull Material material) {
 		collect(player, material, () -> {
-			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, material);
 			SoundSample.PLING.play(player);
 		});
 	}

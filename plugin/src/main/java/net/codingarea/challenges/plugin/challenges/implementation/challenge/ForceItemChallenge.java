@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -76,18 +75,18 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asString(StringUtils.getEnumName(item), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asString(item, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-item-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(item));
+		Message.forName("force-item-fail").broadcast(Prefix.CHALLENGES, item);
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-item-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(item));
+		Message.forName("force-item-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), item);
 	}
 
 	@Override

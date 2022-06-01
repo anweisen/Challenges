@@ -56,7 +56,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
                 value -> null,
                 value -> "§e" + value,
                 1,
-                20,
+                200,
                 5
         ));
         registerSetting("showScoreboard", new BooleanSubSetting(
@@ -88,8 +88,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
                 Player ingamePlayer = ingamePlayers.get(i);
                 T target = currentTarget.get(ingamePlayer.getUniqueId());
-                String display = target == null ? Message.forName("none").asString()
-                        : getTargetName(target);
+                String display = target == null ? Message.forName("none").asString() : getTargetName(target);
                 board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
             }
 
@@ -152,7 +151,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
         ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
             World world = player1.getWorld();
             ArmorStand entity = (ArmorStand) world
-                    .spawnEntity(player1.getLocation().clone().add(0, 0.1, 0), EntityType.ARMOR_STAND);
+                    .spawnEntity(player1.getLocation().clone().add(0, 1, 0), EntityType.ARMOR_STAND);
             entity.setInvisible(true);
             entity.setInvulnerable(true);
             entity.setGravity(false);
@@ -212,13 +211,21 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             int jokerUsed = this.jokerUsed.getOrDefault(entry.getKey(), 0);
             GsonDocument playerDocument = new GsonDocument();
             playerDocument.set("uuid", entry.getKey());
-            playerDocument.set("currentTarget", entry.getValue());
-            playerDocument.set("foundTargets", foundItems);
+            setTargetInDocument(playerDocument, "currentTarget", entry.getValue());
+            setFoundListInDocument(playerDocument, "foundTargets", foundItems);
             playerDocument.set("jokerUsed", jokerUsed);
             playersDocuments.add(playerDocument);
         }
 
         document.set("players", playersDocuments);
+    }
+
+    public void setTargetInDocument(Document document, String key, T target) {
+        document.set(key, target);
+    }
+
+    public void setFoundListInDocument(Document document, String key, List<T> target) {
+        document.set(key, target);
     }
 
     public abstract T getTargetFromDocument(Document document, String key);
@@ -238,7 +245,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
         scoreboard.update();
         updateDisplayStand(player);
         getNewTargetMessage()
-                .send(player, Prefix.CHALLENGES, getTargetName(target));
+                .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
         SoundSample.PLING.play(player);
     }
 
@@ -252,11 +259,12 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
             List<T> list = foundTargets
                     .computeIfAbsent(player.getUniqueId(), uuid -> new LinkedList<>());
             list.add(foundTarget);
-            Message.forName("force-item-battle-found")
-                    .send(player, Prefix.CHALLENGES, getTargetName(foundTarget));
+            getTargetFoundMessage().send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
         }
         setRandomTarget(player);
     }
+
+    public abstract Object getTargetMessageReplacement(T target);
 
     public abstract String getTargetName(T target);
 

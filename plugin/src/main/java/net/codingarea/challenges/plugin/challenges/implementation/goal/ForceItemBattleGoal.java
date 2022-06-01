@@ -3,12 +3,12 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
@@ -70,7 +70,12 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 
 	@Override
 	public String getTargetName(Material target) {
-		return StringUtils.getEnumName(target);
+		return BukkitStringUtils.getItemName(target).toPlainText();
+	}
+
+	@Override
+	public Object getTargetMessageReplacement(Material target) {
+		return target;
 	}
 
 	@Override
@@ -80,7 +85,7 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 
 	@Override
 	protected Message getTargetFoundMessage() {
-		return Message.forName("force-item-battle-new-item");
+		return Message.forName("force-item-battle-found");
 	}
 
 	@Override

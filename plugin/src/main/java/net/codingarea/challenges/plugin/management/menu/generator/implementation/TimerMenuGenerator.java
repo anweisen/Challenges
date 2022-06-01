@@ -7,6 +7,7 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
@@ -46,6 +47,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 
 	public TimerMenuGenerator() {
 		ChallengeAPI.registerScheduler(this);
+		Challenges.getInstance().getLoaderRegistry().subscribe(LanguageLoader.class, this::generateInventories);
 	}
 
 	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING})

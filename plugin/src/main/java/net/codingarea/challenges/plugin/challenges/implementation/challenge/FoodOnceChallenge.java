@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -59,14 +58,14 @@ public class FoodOnceChallenge extends SettingModifier {
 
 		Material type = event.getItem().getType();
 		if (hasEaten(event.getPlayer(), type)) {
-			Message.forName("food-once-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+			Message.forName("food-once-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 			kill(event.getPlayer(), 1);
 		} else {
 			addFood(event.getPlayer(), type);
 			if (teamFoodsActivated()) {
-				Message.forName("food-once-new-food-team").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+				Message.forName("food-once-new-food-team").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 			} else {
-				Message.forName("food-once-new-food").send(event.getPlayer(), Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+				Message.forName("food-once-new-food").send(event.getPlayer(), Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 
 			}
 		}

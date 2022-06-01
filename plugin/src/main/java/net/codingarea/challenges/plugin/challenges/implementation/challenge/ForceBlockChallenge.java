@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -65,7 +64,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asString(StringUtils.getEnumName(block), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asString(block, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
@@ -84,7 +83,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage(@Nonnull Player player) {
-		Message.forName("force-block-fail").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(player.getLocation().subtract(0, 1, 0).getBlock().getType()));
+		Message.forName("force-block-fail").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), player.getLocation().subtract(0, 1, 0).getBlock().getType());
 	}
 
 	@Override

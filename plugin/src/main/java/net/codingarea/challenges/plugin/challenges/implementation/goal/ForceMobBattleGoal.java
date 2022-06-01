@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
@@ -78,12 +78,12 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     @Override
     protected Message getNewTargetMessage() {
-        return Message.forName("force-mob-battle-killed");
+        return Message.forName("force-mob-battle-new-mob");
     }
 
     @Override
     protected Message getTargetFoundMessage() {
-        return Message.forName("force-mob-battle-new-mob");
+        return Message.forName("force-mob-battle-killed");
     }
 
     @Override
@@ -93,7 +93,12 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 
     @Override
     public String getTargetName(EntityType target) {
-        return StringUtils.getEnumName(target);
+        return BukkitStringUtils.getEntityName(target).toPlainText();
+    }
+
+    @Override
+    public Object getTargetMessageReplacement(EntityType target) {
+        return target;
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.content;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -36,10 +37,16 @@ public interface Message {
 	String asRandomString(@Nonnull IRandom random, @Nonnull Object... args);
 
 	@Nonnull
+	BaseComponent asRandomComponent(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args);
+
+	@Nonnull
 	String asRandomString(@Nonnull Object... args);
 
 	@Nonnull
 	String[] asArray(@Nonnull Object... args);
+
+	@Nonnull
+	BaseComponent[] asComponentArray(@Nonnull Prefix prefix, @Nonnull Object... args);
 
 	@Nonnull
 	ItemDescription asItemDescription(@Nonnull Object... args);

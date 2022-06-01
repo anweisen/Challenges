@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -20,6 +20,7 @@ import org.bukkit.event.player.PlayerAdvancementDoneEvent;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -48,7 +49,8 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     protected Advancement[] getTargetsPossibleToFind() {
         List<Advancement> advancements = new ArrayList<>();
         Bukkit.getServer().advancementIterator().forEachRemaining(advancement -> {
-            if (!advancement.getKey().toString().contains("minecraft:recipes/")) {
+            String string = advancement.getKey().toString();
+            if (!string.contains("minecraft:recipes/") && !string.endsWith("root")) {
                 advancements.add(advancement);
             }
         });
@@ -64,6 +66,20 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
             armorStand.setCustomNameVisible(true);
             armorStand.setCustomName(getTargetName(advancement));
         }
+    }
+
+    @Override
+    public void setTargetInDocument(Document document, String key, Advancement target) {
+        document.set(key, target.getKey().getKey());
+    }
+
+    @Override
+    public void setFoundListInDocument(Document document, String key, List<Advancement> target) {
+        List<String> foundItems = new LinkedList<>();
+        for (Advancement advancement : target) {
+            foundItems.add(advancement.getKey().getKey());
+        }
+        document.set(key, foundItems);
     }
 
     @Override
@@ -94,10 +110,13 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     }
 
     @Override
+    public Object getTargetMessageReplacement(Advancement target) {
+        return BukkitStringUtils.getAdvancementComponent(target);
+    }
+
+    @Override
     public String getTargetName(Advancement target) {
-        String key = target.getKey().getKey();
-        key = key.split("/")[1];
-        return StringUtils.getEnumName(key);
+        return BukkitStringUtils.getAdvancementTitle(target).toPlainText();
     }
 
     @Override

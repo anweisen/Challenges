@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
@@ -21,8 +20,7 @@ public class ConsumeItemTrigger extends ChallengeTrigger {
 		super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.ITEM).fill(builder -> {
 			for (Material material : Material.values()) {
 				if (material.isEdible()) {
-					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils
-							.getEnumName(material)).build());
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + material).build());
 				}
 			}
 		}));

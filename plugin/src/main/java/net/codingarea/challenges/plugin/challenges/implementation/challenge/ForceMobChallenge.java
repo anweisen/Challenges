@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -71,18 +70,18 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-mob-instruction").asString(StringUtils.getEnumName(entity), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-mob-instruction").asString(entity, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(entity));
+		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, entity);
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(entity));
+		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), entity);
 	}
 
 	@Override
