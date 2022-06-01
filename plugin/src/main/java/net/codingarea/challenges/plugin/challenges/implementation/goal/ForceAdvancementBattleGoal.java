@@ -51,7 +51,8 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     protected Advancement[] getTargetsPossibleToFind() {
         List<Advancement> advancements = new ArrayList<>();
         Bukkit.getServer().advancementIterator().forEachRemaining(advancement -> {
-            if (!advancement.getKey().toString().contains("minecraft:recipes/")) {
+            String string = advancement.getKey().toString();
+            if (!string.contains("minecraft:recipes/") && !string.endsWith("root")) {
                 advancements.add(advancement);
             }
         });
