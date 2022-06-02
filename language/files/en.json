@@ -167,7 +167,7 @@
 	"command-back-no-locations": "You §cweren't §7teleported yet",
 	"command-back-teleported": "You were teleported §e{0} §7location back",
 	"command-back-teleported-multiple": "You were teleported §e{0} §7locations back",
-	"command-result-no-battle-active": "There is currently §cno Force Battle enabled",
+	"command-result-no-battle-active": "There is currently §cno §7Force Battle enabled",
 	"traffic-light-challenge-fail": "§e{0} §7went over §cred",
 	"player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",
 	"death-message": "§e{0} §7died",
