@@ -40,7 +40,7 @@ public class AllAdvancementGoal extends PointsGoal {
 		setCategory(SettingCategory.FASTEST_TIME);
 		allAdvancements = new LinkedList<>();
 		Bukkit.getServer().advancementIterator().forEachRemaining(advancement -> {
-			if (!advancement.getKey().toString().contains("minecraft:recipes/")) {
+			if (!advancement.getKey().toString().contains(":recipes/")) {
 				allAdvancements.add(advancement);
 			}
 		});
@@ -79,7 +79,7 @@ public class AllAdvancementGoal extends PointsGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAdvancement(PlayerAdvancementDoneEvent event) {
-		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+		if (event.getAdvancement().getKey().toString().contains(":recipes/")) return;
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		updateAdvancements(event.getPlayer());

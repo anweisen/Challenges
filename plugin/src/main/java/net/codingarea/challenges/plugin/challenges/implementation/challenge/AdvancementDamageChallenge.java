@@ -46,7 +46,7 @@ public class AdvancementDamageChallenge extends SettingModifier {
 	public void onPlayerAdvancementDone(@Nonnull PlayerAdvancementDoneEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+		if (event.getAdvancement().getKey().toString().contains(":recipes/")) return;
 
 		event.getPlayer().setNoDamageTicks(0);
 		event.getPlayer().damage(getValue());
