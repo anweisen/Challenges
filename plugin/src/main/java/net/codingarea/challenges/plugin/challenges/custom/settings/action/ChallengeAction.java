@@ -33,11 +33,6 @@ public abstract class ChallengeAction extends ChallengeSetting implements
 		super(name, builderSupplier);
 	}
 
-	@Override
-	public final String getMessage() {
-		return "item-custom-action-" + getMessageSuffix();
-	}
-
 	public static LinkedHashMap<String, ItemStack> getMenuItems() {
 		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
@@ -46,6 +41,11 @@ public abstract class ChallengeAction extends ChallengeSetting implements
 		}
 
 		return map;
+	}
+
+	@Override
+	public final String getMessage() {
+		return "item-custom-action-" + getMessageSuffix();
 	}
 
 }

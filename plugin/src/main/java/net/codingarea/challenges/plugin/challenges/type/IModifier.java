@@ -11,13 +11,13 @@ public interface IModifier {
 	@Nonnegative
 	int getValue();
 
+	void setValue(int value);
+
 	@Nonnegative
 	int getMinValue();
 
 	@Nonnegative
 	int getMaxValue();
-
-	void setValue(int value);
 
 	void playValueChangeTitle();
 

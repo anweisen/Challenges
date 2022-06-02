@@ -22,13 +22,13 @@ public class PlayerInventoryClickEvent extends InventoryClickEventWrapper {
 	}
 
 	@Nonnull
-	public Player getPlayer() {
-		return player;
+	public static HandlerList getHandlerList() {
+		return handlers;
 	}
 
 	@Nonnull
-	public static HandlerList getHandlerList() {
-		return handlers;
+	public Player getPlayer() {
+		return player;
 	}
 
 	@Nonnull

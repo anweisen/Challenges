@@ -30,31 +30,6 @@ public class UncraftItemsChallenge extends TimedChallenge {
 		setCategory(SettingCategory.INVENTORY);
 	}
 
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.CRAFTING_TABLE, Message.forName("item-uncraft-challenge"));
-	}
-
-	@Nullable
-	@Override
-	protected String[] getSettingsDescription() {
-		return Message.forName("item-time-seconds-description").asArray(getValue());
-	}
-
-	@Override
-	protected int getSecondsUntilNextActivation() {
-		return getValue();
-	}
-
-	@Override
-	protected void onTimeActivation() {
-		restartTimer();
-
-		broadcastFiltered(UncraftItemsChallenge::uncraftInventory);
-
-	}
-
 	public static void uncraftInventory(@Nonnull Player player) {
 
 		PlayerInventory inventory = player.getInventory();
@@ -139,6 +114,31 @@ public class UncraftItemsChallenge extends TimedChallenge {
 		}
 
 		return ingredients;
+	}
+
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.CRAFTING_TABLE, Message.forName("item-uncraft-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-time-seconds-description").asArray(getValue());
+	}
+
+	@Override
+	protected int getSecondsUntilNextActivation() {
+		return getValue();
+	}
+
+	@Override
+	protected void onTimeActivation() {
+		restartTimer();
+
+		broadcastFiltered(UncraftItemsChallenge::uncraftInventory);
+
 	}
 
 }

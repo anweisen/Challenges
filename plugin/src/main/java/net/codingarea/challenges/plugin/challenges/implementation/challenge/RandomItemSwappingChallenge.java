@@ -29,6 +29,25 @@ public class RandomItemSwappingChallenge extends TimedChallenge {
 		setCategory(SettingCategory.RANDOMIZER);
 	}
 
+	public static void swapRandomItems(Player player) {
+		if (player.getInventory().getContents().length <= 0) return;
+		int slot = InventoryUtils.getRandomFullSlot(player.getInventory());
+		if (slot == -1) return;
+		swapItemToRandomSlot(
+				player.getInventory(),
+				InventoryUtils.getRandomFullSlot(player.getInventory()),
+				InventoryUtils.getRandomSlot(player.getInventory())
+		);
+	}
+
+	private static void swapItemToRandomSlot(@Nonnull Inventory inventory, int slot1, int slot2) {
+		if (slot1 == -1 || slot2 == -1) return;
+		ItemStack item1 = inventory.getItem(slot1);
+		ItemStack item2 = inventory.getItem(slot2);
+		inventory.setItem(slot1, item2);
+		inventory.setItem(slot2, item1);
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -64,25 +83,6 @@ public class RandomItemSwappingChallenge extends TimedChallenge {
 
 		});
 
-	}
-
-	public static void swapRandomItems(Player player) {
-		if (player.getInventory().getContents().length <= 0) return;
-		int slot = InventoryUtils.getRandomFullSlot(player.getInventory());
-		if (slot == -1) return;
-		swapItemToRandomSlot(
-				player.getInventory(),
-				InventoryUtils.getRandomFullSlot(player.getInventory()),
-				InventoryUtils.getRandomSlot(player.getInventory())
-		);
-	}
-
-	private static void swapItemToRandomSlot(@Nonnull Inventory inventory, int slot1, int slot2) {
-		if (slot1 == -1 || slot2 == -1) return;
-		ItemStack item1 = inventory.getItem(slot1);
-		ItemStack item2 = inventory.getItem(slot2);
-		inventory.setItem(slot1, item2);
-		inventory.setItem(slot2, item1);
 	}
 
 }

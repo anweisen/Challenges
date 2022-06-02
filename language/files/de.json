@@ -376,7 +376,6 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
-
 	"menu-title": "Menu",
 	"menu-timer": "§6Timer",
 	"menu-goal": "§5Ziel",
@@ -385,7 +384,6 @@
 	"menu-challenges": "§cChallenges",
 	"menu-settings": "§eEinstellungen",
 	"menu-custom": "§aBenutzerdefiniert",
-
 	"lore-category-activated-count": "§7Aktiviert §8» §a{0}§8/§7{1}",
 	"lore-category-activated": "§7Aktiviert §8» §aJa",
 	"lore-category-deactivated": "§7Aktiviert §8» §cNein",
@@ -459,7 +457,6 @@
 		"Sei der *schnellste Spieler*, der",
 		"das Ziel erfüllt"
 	],
-
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",

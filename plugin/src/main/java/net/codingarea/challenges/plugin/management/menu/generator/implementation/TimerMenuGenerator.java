@@ -125,6 +125,24 @@ public class TimerMenuGenerator extends MenuGenerator {
 		InventoryUtils.setNavigationItemsToInventory(inventories, NAVIGATION_SLOTS);
 	}
 
+	@Override
+	public void generateInventories() {
+		createNewInventory(0);
+		createNewInventory(1);
+		setNavigation();
+		updateInventories();
+	}
+
+	@Override
+	public List<Inventory> getInventories() {
+		return inventories;
+	}
+
+	@Override
+	public MenuPosition getMenuPosition(int page) {
+		return new TimerMenuPosition(page);
+	}
+
 	private class TimerMenuPosition implements MenuPosition {
 
 		private final int page;
@@ -208,24 +226,6 @@ public class TimerMenuGenerator extends MenuGenerator {
 			return player.hasPermission("challenges.timer");
 		}
 
-	}
-
-	@Override
-	public void generateInventories() {
-		createNewInventory(0);
-		createNewInventory(1);
-		setNavigation();
-		updateInventories();
-	}
-
-	@Override
-	public List<Inventory> getInventories() {
-		return inventories;
-	}
-
-	@Override
-	public MenuPosition getMenuPosition(int page) {
-		return new TimerMenuPosition(page);
 	}
 
 }

@@ -61,6 +61,11 @@ public class ModifierSetting extends ValueSetting implements IModifier {
 	}
 
 	@Override
+	public void setValue(int value) {
+		tempValue = value;
+	}
+
+	@Override
 	public int getMinValue() {
 		return min;
 	}
@@ -68,11 +73,6 @@ public class ModifierSetting extends ValueSetting implements IModifier {
 	@Override
 	public int getMaxValue() {
 		return max;
-	}
-
-	@Override
-	public void setValue(int value) {
-		tempValue = value;
 	}
 
 	@Override

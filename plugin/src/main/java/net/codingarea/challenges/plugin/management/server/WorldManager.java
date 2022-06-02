@@ -27,64 +27,18 @@ import java.util.UUID;
  */
 public final class WorldManager {
 
-	public static class WorldSettings {
-
-		private boolean placeBlocks = false;
-		private boolean destroyBlocks = false;
-		private boolean dropItems = false;
-		private boolean pickupItems = false;
-
-		public void setDestroyBlocks(boolean destroyBlocks) {
-			this.destroyBlocks = destroyBlocks;
-		}
-
-		public void setPlaceBlocks(boolean placeBlocks) {
-			this.placeBlocks = placeBlocks;
-		}
-
-		public void setDropItems(boolean dropItems) {
-			this.dropItems = dropItems;
-		}
-
-		public void setPickupItems(boolean pickupItems) {
-			this.pickupItems = pickupItems;
-		}
-
-		public boolean isDestroyBlocks() {
-			return destroyBlocks;
-		}
-
-		public boolean isPlaceBlocks() {
-			return placeBlocks;
-		}
-
-		public boolean isDropItems() {
-			return dropItems;
-		}
-
-		public boolean isPickupItems() {
-			return pickupItems;
-		}
-
-	}
-
 	private static final String customSeedWorldPrefix = "pregenerated_";
-
-	private boolean shutdownBecauseOfReset = false;
-
 	private final boolean restartOnReset;
 	private final boolean enableFreshReset;
 	private final long customSeed;
 	private final String levelName;
 	private final String[] worlds;
-	private boolean useCustomSeed;
-
 	private final Map<UUID, PlayerData> playerData = new HashMap<>();
-
+	private boolean shutdownBecauseOfReset = false;
+	private boolean useCustomSeed;
 	private WorldSettings settings = new WorldSettings();
 	private World world;
 	private boolean worldIsInUse;
-
 	public WorldManager() {
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
 		restartOnReset = pluginConfig.getBoolean("restart-on-reset");
@@ -388,6 +342,47 @@ public final class WorldManager {
 	@Nonnull
 	public WorldSettings getSettings() {
 		return settings;
+	}
+
+	public static class WorldSettings {
+
+		private boolean placeBlocks = false;
+		private boolean destroyBlocks = false;
+		private boolean dropItems = false;
+		private boolean pickupItems = false;
+
+		public boolean isDestroyBlocks() {
+			return destroyBlocks;
+		}
+
+		public void setDestroyBlocks(boolean destroyBlocks) {
+			this.destroyBlocks = destroyBlocks;
+		}
+
+		public boolean isPlaceBlocks() {
+			return placeBlocks;
+		}
+
+		public void setPlaceBlocks(boolean placeBlocks) {
+			this.placeBlocks = placeBlocks;
+		}
+
+		public boolean isDropItems() {
+			return dropItems;
+		}
+
+		public void setDropItems(boolean dropItems) {
+			this.dropItems = dropItems;
+		}
+
+		public boolean isPickupItems() {
+			return pickupItems;
+		}
+
+		public void setPickupItems(boolean pickupItems) {
+			this.pickupItems = pickupItems;
+		}
+
 	}
 
 }

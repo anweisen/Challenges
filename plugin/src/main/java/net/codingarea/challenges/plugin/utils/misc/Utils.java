@@ -40,7 +40,7 @@ public final class Utils {
 		String url = "https://api.mojang.com/users/profiles/minecraft/" + name;
 		String content = IOUtils.toString(new URL(url));
 		Document document = Document.parseJson(content);
-		return Optional.ofNullable(matchUUID(document.getString("id"))).orElseThrow(() -> new IOException());
+		return Optional.ofNullable(matchUUID(document.getString("id"))).orElseThrow(IOException::new);
 	}
 
 	@Nullable

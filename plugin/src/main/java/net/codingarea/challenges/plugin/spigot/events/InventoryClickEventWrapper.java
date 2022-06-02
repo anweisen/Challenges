@@ -83,26 +83,22 @@ public abstract class InventoryClickEventWrapper extends Event {
 		return event.getResult();
 	}
 
+	public void setResult(@Nonnull Result result) {
+		event.setResult(result);
+	}
+
 	@Nullable
 	public ItemStack getCurrentItem() {
 		return event.getCurrentItem();
 	}
 
+	public void setCurrentItem(@Nullable ItemStack item) {
+		event.setCurrentItem(item);
+	}
+
 	@Nonnull
 	public List<HumanEntity> getViewers() {
 		return event.getViewers();
-	}
-
-	public void setCancelled(boolean cancel) {
-		event.setCancelled(cancel);
-	}
-
-	public void setResult(@Nonnull Result result) {
-		event.setResult(result);
-	}
-
-	public void setCurrentItem(@Nullable ItemStack item) {
-		event.setCurrentItem(item);
 	}
 
 	@Nonnull
@@ -112,6 +108,10 @@ public abstract class InventoryClickEventWrapper extends Event {
 
 	public boolean isCancelled() {
 		return event.isCancelled();
+	}
+
+	public void setCancelled(boolean cancel) {
+		event.setCancelled(cancel);
 	}
 
 	public boolean isRightClick() {

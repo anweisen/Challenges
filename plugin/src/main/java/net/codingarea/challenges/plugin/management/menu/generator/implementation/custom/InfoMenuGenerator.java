@@ -42,6 +42,13 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	private static final Material[] defaultMaterials;
 	private static final boolean savePlayerChallenges;
 
+	static {
+		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		list.removeIf(material1 -> !material1.isItem());
+		defaultMaterials = list.toArray(new Material[0]);
+	}
+
 	private final UUID uuid;
 	private String name;
 	private Material material;
@@ -73,6 +80,14 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.material = IRandom.threadLocal().choose(defaultMaterials);
 		this.name = "§7Custom §e#" +
 				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() + 1);
+	}
+
+	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
+		List<String> display = new LinkedList<>();
+		for (SubSettingsBuilder child : builder.getAllChildren()) {
+			display.addAll(child.getDisplay(activated));
+		}
+		return display;
 	}
 
 	@Override
@@ -187,6 +202,18 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				'}';
 	}
 
+	public void openChallengeMenu(Player player) {
+		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
+				.getCustomChallenges().get(uuid);
+		if (challenge == null) {
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+		} else {
+			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
+			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu are in the same generator
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
+		}
+	}
+
 	public class InfoMenuPosition implements MenuPosition {
 
 		private final int page;
@@ -290,33 +317,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		public InfoMenuGenerator getGenerator() {
 			return generator;
 		}
-	}
-
-	public void openChallengeMenu(Player player) {
-		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
-				.getCustomChallenges().get(uuid);
-		if (challenge == null) {
-			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
-		} else {
-			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
-			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu are in the same generator
-			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
-		}
-	}
-
-	static {
-		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
-		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
-		list.removeIf(material1 -> !material1.isItem());
-		defaultMaterials = list.toArray(new Material[0]);
-	}
-
-	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
-		List<String> display = new LinkedList<>();
-		for (SubSettingsBuilder child : builder.getAllChildren()) {
-			display.addAll(child.getDisplay(activated));
-		}
-		return display;
 	}
 
 }

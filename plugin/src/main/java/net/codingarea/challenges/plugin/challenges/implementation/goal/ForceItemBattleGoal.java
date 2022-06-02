@@ -96,7 +96,7 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	@Override
 	public void handleJokerUse(Player player) {
 		super.handleJokerUse(player);
-		if(giveItemOnSkip()) {
+		if (giveItemOnSkip()) {
 			InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), currentTarget.get(player.getUniqueId()));
 		}
 	}

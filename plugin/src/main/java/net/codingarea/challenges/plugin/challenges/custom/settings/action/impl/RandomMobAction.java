@@ -22,8 +22,24 @@ public class RandomMobAction extends EntityTargetAction {
 	private static final EntityType[] spannableMobs;
 	private static final EntityType[] livingMobs;
 
+	static {
+		List<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
+		list = list.stream().filter(EntityType::isSpawnable).collect(Collectors.toList());
+		spannableMobs = list.toArray(new EntityType[0]);
+		list = list.stream().filter(EntityType::isAlive).collect(Collectors.toList());
+		livingMobs = list.toArray(new EntityType[0]);
+	}
+
 	public RandomMobAction(String name) {
 		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false));
+	}
+
+	public static EntityType[] getSpawnableMobs() {
+		return spannableMobs;
+	}
+
+	public static EntityType[] getLivingMobs() {
+		return livingMobs;
 	}
 
 	@Override
@@ -36,22 +52,6 @@ public class RandomMobAction extends EntityTargetAction {
 	@Override
 	public Material getMaterial() {
 		return Material.BLAZE_SPAWN_EGG;
-	}
-
-	public static EntityType[] getSpawnableMobs() {
-		return spannableMobs;
-	}
-
-	public static EntityType[] getLivingMobs() {
-		return livingMobs;
-	}
-
-	static {
-		List<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
-		list = list.stream().filter(EntityType::isSpawnable).collect(Collectors.toList());
-		spannableMobs = list.toArray(new EntityType[0]);
-		list = list.stream().filter(EntityType::isAlive).collect(Collectors.toList());
-		livingMobs = list.toArray(new EntityType[0]);
 	}
 
 }

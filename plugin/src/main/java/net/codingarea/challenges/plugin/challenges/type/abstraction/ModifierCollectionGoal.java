@@ -38,13 +38,6 @@ public abstract class ModifierCollectionGoal extends CollectionGoal implements I
 	}
 
 	@Override
-	public void setEnabled(boolean enabled) {
-		if (isEnabled() == enabled) return;
-		GoalHelper.handleSetEnabled(this, enabled);
-		super.setEnabled(enabled);
-	}
-
-	@Override
 	public void restoreDefaults() {
 		setValue(defaultValue);
 	}
@@ -72,9 +65,27 @@ public abstract class ModifierCollectionGoal extends CollectionGoal implements I
 	}
 
 	@Override
+	public void setEnabled(boolean enabled) {
+		if (isEnabled() == enabled) return;
+		GoalHelper.handleSetEnabled(this, enabled);
+		super.setEnabled(enabled);
+	}
+
+	@Override
 	@Nonnegative
 	public final int getValue() {
 		return value;
+	}
+
+	@Override
+	public void setValue(int value) {
+		if (value > max) throw new IllegalArgumentException("value > max");
+		if (value < min) throw new IllegalArgumentException("value < min");
+		this.value = value;
+
+		if (isEnabled()) onValueChange();
+
+		updateItems();
 	}
 
 	@Override
@@ -87,17 +98,6 @@ public abstract class ModifierCollectionGoal extends CollectionGoal implements I
 	@Nonnegative
 	public final int getMinValue() {
 		return min;
-	}
-
-	@Override
-	public void setValue(int value) {
-		if (value > max) throw new IllegalArgumentException("value > max");
-		if (value < min) throw new IllegalArgumentException("value < min");
-		this.value = value;
-
-		if (isEnabled()) onValueChange();
-
-		updateItems();
 	}
 
 	@Override

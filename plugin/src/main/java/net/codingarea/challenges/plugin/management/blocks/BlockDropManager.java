@@ -21,53 +21,8 @@ import java.util.stream.Collectors;
  */
 public final class BlockDropManager {
 
-	public static final class DropPriority {
-
-		private DropPriority() {
-		}
-
-		public static final byte
-				CUT_CLEAN = 10,
-				RANDOMIZER = 5,
-				CHANCE = -128;
-	}
-
-	private static abstract class RegisteredOptions<T> {
-
-		private final SortedMap<Byte, T> optionByPriority = new TreeMap<>(Collections.reverseOrder());
-
-		public void setOption(byte priority, @Nonnull T option) {
-			optionByPriority.put(priority, option);
-		}
-
-		public void resetOption(byte priority) {
-			optionByPriority.remove(priority);
-		}
-
-		@Nonnull
-		public Optional<T> getFirst() {
-			return optionByPriority.values().stream().findFirst();
-		}
-
-		public boolean isEmpty() {
-			return optionByPriority.isEmpty();
-		}
-
-	}
-
-	public static class RegisteredDrops extends RegisteredOptions<List<Material>> {
-		private RegisteredDrops() {
-		}
-	}
-
-	public static class RegisteredChance extends RegisteredOptions<BooleanSupplier> {
-		private RegisteredChance() {
-		}
-	}
-
 	private final Map<Material, RegisteredDrops> drops = new HashMap<>();
 	private final Map<Material, RegisteredChance> chance = new HashMap<>();
-
 	private SubSetting directInventorySetting;
 
 	@Nonnull
@@ -167,6 +122,50 @@ public final class BlockDropManager {
 		if (directInventorySetting == null)
 			directInventorySetting = AbstractChallenge.getFirstInstance(CutCleanSetting.class).getSetting("items->inventory");
 		return directInventorySetting.isEnabled();
+	}
+
+	public static final class DropPriority {
+
+		public static final byte
+				CUT_CLEAN = 10,
+				RANDOMIZER = 5,
+				CHANCE = -128;
+
+		private DropPriority() {
+		}
+	}
+
+	private static abstract class RegisteredOptions<T> {
+
+		private final SortedMap<Byte, T> optionByPriority = new TreeMap<>(Collections.reverseOrder());
+
+		public void setOption(byte priority, @Nonnull T option) {
+			optionByPriority.put(priority, option);
+		}
+
+		public void resetOption(byte priority) {
+			optionByPriority.remove(priority);
+		}
+
+		@Nonnull
+		public Optional<T> getFirst() {
+			return optionByPriority.values().stream().findFirst();
+		}
+
+		public boolean isEmpty() {
+			return optionByPriority.isEmpty();
+		}
+
+	}
+
+	public static class RegisteredDrops extends RegisteredOptions<List<Material>> {
+		private RegisteredDrops() {
+		}
+	}
+
+	public static class RegisteredChance extends RegisteredOptions<BooleanSupplier> {
+		private RegisteredChance() {
+		}
 	}
 
 }

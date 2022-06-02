@@ -13,11 +13,11 @@ public class SmallCategorisedMenuGenerator extends CategorisedMenuGenerator {
 
 	@Override
 	public int getSize() {
-		return 9*3;
+		return 9 * 3;
 	}
 
 	@Override
 	public int[] getNavigationSlots(int page) {
-		return new int[] { 18, 26 };
+		return new int[]{18, 26};
 	}
 }

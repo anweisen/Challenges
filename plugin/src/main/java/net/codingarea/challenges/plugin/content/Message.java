@@ -31,6 +31,12 @@ public interface Message {
 	}
 
 	@Nonnull
+	@CheckReturnValue
+	static Message forName(@Nonnull String name) {
+		return MessageManager.getOrCreateMessage(name);
+	}
+
+	@Nonnull
 	String asString(@Nonnull Object... args);
 
 	@Nonnull
@@ -73,11 +79,5 @@ public interface Message {
 
 	@Nonnull
 	String getName();
-
-	@Nonnull
-	@CheckReturnValue
-	static Message forName(@Nonnull String name) {
-		return MessageManager.getOrCreateMessage(name);
-	}
 
 }

@@ -38,20 +38,6 @@ public abstract class Setting extends AbstractChallenge {
 		playStatusUpdateTitle();
 	}
 
-	public void setEnabled(boolean enabled) {
-		if (this.enabled == enabled) return;
-		this.enabled = enabled;
-
-		try {
-			if (enabled) onEnable();
-			else onDisable();
-		} catch (Exception exception) {
-			Challenges.getInstance().getLogger().error("Error while {} Setting {}", enabled ? "enabling" : "disabling", getClass().getSimpleName(), exception);
-		}
-
-		updateItems();
-	}
-
 	@Override
 	public void restoreDefaults() {
 		setEnabled(enabledByDefault);
@@ -84,6 +70,20 @@ public abstract class Setting extends AbstractChallenge {
 	@Override
 	public boolean isEnabled() {
 		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		if (this.enabled == enabled) return;
+		this.enabled = enabled;
+
+		try {
+			if (enabled) onEnable();
+			else onDisable();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("Error while {} Setting {}", enabled ? "enabling" : "disabling", getClass().getSimpleName(), exception);
+		}
+
+		updateItems();
 	}
 
 	@Override

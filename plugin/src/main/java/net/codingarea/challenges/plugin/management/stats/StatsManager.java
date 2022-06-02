@@ -41,6 +41,11 @@ public final class StatsManager implements Listener {
 		noStatsAfterCheating = enabled && Challenges.getInstance().getConfigDocument().getBoolean("no-stats-after-cheating");
 	}
 
+	@Nonnull
+	public static Comparator<PlayerStats> getStatsComparator(@Nonnull Statistic statistic) {
+		return Comparator.<PlayerStats>comparingDouble(value -> value.getStatisticValue(statistic)).reversed();
+	}
+
 	public void register() {
 		if (enabled) {
 			StatsListener listener = new StatsListener();
@@ -186,11 +191,6 @@ public final class StatsManager implements Listener {
 
 	public boolean isNoStatsAfterCheating() {
 		return noStatsAfterCheating;
-	}
-
-	@Nonnull
-	public static Comparator<PlayerStats> getStatsComparator(@Nonnull Statistic statistic) {
-		return Comparator.<PlayerStats>comparingDouble(value -> value.getStatisticValue(statistic)).reversed();
 	}
 
 }

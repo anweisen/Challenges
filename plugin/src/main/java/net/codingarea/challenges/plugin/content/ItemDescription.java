@@ -23,10 +23,6 @@ public final class ItemDescription {
 	private final String name;
 	private final String originalName;
 
-	public static ItemDescription empty() {
-		return new ItemDescription(new String[]{"§e"}, Message.NULL, new String[0]);
-	}
-
 	public ItemDescription(@Nonnull String[] themeColors, @Nonnull String name, @Nonnull String[] formattedLore) {
 		this.colors = themeColors;
 		this.name = Message.forName("item-prefix") + name;
@@ -45,6 +41,10 @@ public final class ItemDescription {
 		List<String> loreOutput = new ArrayList<>();
 		fillLore(description, loreOutput);
 		lore = loreOutput.toArray(new String[0]);
+	}
+
+	public static ItemDescription empty() {
+		return new ItemDescription(new String[]{"§e"}, Message.NULL, new String[0]);
 	}
 
 	@Nonnull

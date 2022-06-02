@@ -17,10 +17,10 @@ import java.net.URL;
  */
 public final class ImageUtils {
 
+	public static final char IMAGE_CHAR = '█';
+
 	private ImageUtils() {
 	}
-
-	public static final char IMAGE_CHAR = '█';
 
 	@Nullable
 	public static BufferedImage getImage(@Nonnull String url) throws IOException {

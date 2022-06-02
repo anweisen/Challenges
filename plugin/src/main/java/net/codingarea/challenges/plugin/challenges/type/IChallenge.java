@@ -66,7 +66,7 @@ public interface IChallenge extends GamestateSaveable {
 	MenuType getType();
 
 	@Nullable
-    SettingCategory getCategory();
+	SettingCategory getCategory();
 
 	@Nonnull
 	ItemStack getDisplayItem();

@@ -50,6 +50,18 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 		this(0);
 	}
 
+	public static boolean playNoPermissionsEffect(@Nonnull Player player) {
+		MenuManager menuManager = Challenges.getInstance().getMenuManager();
+		if (!menuManager.permissionToManageGUI()) return false;
+		if (mayManageSettings(player)) return false;
+		menuManager.playNoPermissionsEffect(player);
+		return true;
+	}
+
+	private static boolean mayManageSettings(@Nonnull Player player) {
+		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
+	}
+
 	@Override
 	public MenuPosition getMenuPosition(int page) {
 		return new ChallengeMenuPositionGenerator(this, page);
@@ -175,6 +187,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	}
 
+	public List<IChallenge> getChallenges() {
+		return ImmutableList.copyOf(challenges);
+	}
+
 	private class ChallengeMenuPositionGenerator extends GeneratorMenuPosition {
 
 		public ChallengeMenuPositionGenerator(MenuGenerator generator, int page) {
@@ -239,22 +255,6 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 		}
 
-	}
-
-	public static boolean playNoPermissionsEffect(@Nonnull Player player) {
-		MenuManager menuManager = Challenges.getInstance().getMenuManager();
-		if (!menuManager.permissionToManageGUI()) return false;
-		if (mayManageSettings(player)) return false;
-		menuManager.playNoPermissionsEffect(player);
-		return true;
-	}
-
-	private static boolean mayManageSettings(@Nonnull Player player) {
-		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
-	}
-
-	public List<IChallenge> getChallenges() {
-		return ImmutableList.copyOf(challenges);
 	}
 
 }

@@ -33,6 +33,12 @@ public final class InventoryUtils {
 	private static final IRandom random;
 	private static final List<Material> items;
 
+	static {
+		random = IRandom.create();
+		items = new ArrayList<>(Arrays.asList(Material.values()));
+		items.removeIf(material -> !material.isItem());
+	}
+
 	private InventoryUtils() {
 	}
 
@@ -46,16 +52,6 @@ public final class InventoryUtils {
 		for (int i : slots) {
 			inventory.setItem(i, item);
 		}
-	}
-
-	@FunctionalInterface
-	public interface InventorySetter<I> {
-
-		InventorySetter<AnimationFrame> FRAME = AnimationFrame::setItem;
-		InventorySetter<Inventory> INVENTORY = (inventory, slot, item) -> inventory.setItem(slot, item.build());
-
-		void set(@Nonnull I inventory, int slot, @Nonnull ItemBuilder item);
-
 	}
 
 	public static void setNavigationItemsToInventory(@Nonnull List<Inventory> inventories, @Nonnull int[] navigationSlots) {
@@ -221,10 +217,14 @@ public final class InventoryUtils {
 		return false;
 	}
 
-	static {
-		random = IRandom.create();
-		items = new ArrayList<>(Arrays.asList(Material.values()));
-		items.removeIf(material -> !material.isItem());
+	@FunctionalInterface
+	public interface InventorySetter<I> {
+
+		InventorySetter<AnimationFrame> FRAME = AnimationFrame::setItem;
+		InventorySetter<Inventory> INVENTORY = (inventory, slot, item) -> inventory.setItem(slot, item.build());
+
+		void set(@Nonnull I inventory, int slot, @Nonnull ItemBuilder item);
+
 	}
 
 }

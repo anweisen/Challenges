@@ -21,51 +21,6 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeBossBar {
 
-	public static final class BossBarInstance {
-
-		private String title = "";
-		private double progress = 1;
-		private BarColor color = BarColor.WHITE;
-		private BarStyle style = BarStyle.SOLID;
-		private boolean visible = true;
-
-		private BossBarInstance() {
-		}
-
-		@Nonnull
-		public BossBarInstance setTitle(@Nonnull String title) {
-			this.title = title;
-			return this;
-		}
-
-		@Nonnull
-		public BossBarInstance setProgress(double progress) {
-			if (progress < 0 || progress > 1)
-				throw new IllegalArgumentException("Progress must be between 0 and 1; Got " + progress);
-			this.progress = progress;
-			return this;
-		}
-
-		@Nonnull
-		public BossBarInstance setColor(@Nonnull BarColor color) {
-			this.color = color;
-			return this;
-		}
-
-		@Nonnull
-		public BossBarInstance setStyle(@Nonnull BarStyle style) {
-			this.style = style;
-			return this;
-		}
-
-		@Nonnull
-		public BossBarInstance setVisible(boolean visible) {
-			this.visible = visible;
-			return this;
-		}
-
-	}
-
 	private final Map<Player, BossBar> bossbars = new ConcurrentHashMap<>();
 	private BiConsumer<BossBarInstance, Player> content = (bossbar, player) -> {
 	};
@@ -137,6 +92,51 @@ public final class ChallengeBossBar {
 
 	public final boolean isShown() {
 		return Challenges.getInstance().getScoreboardManager().isShown(this);
+	}
+
+	public static final class BossBarInstance {
+
+		private String title = "";
+		private double progress = 1;
+		private BarColor color = BarColor.WHITE;
+		private BarStyle style = BarStyle.SOLID;
+		private boolean visible = true;
+
+		private BossBarInstance() {
+		}
+
+		@Nonnull
+		public BossBarInstance setTitle(@Nonnull String title) {
+			this.title = title;
+			return this;
+		}
+
+		@Nonnull
+		public BossBarInstance setProgress(double progress) {
+			if (progress < 0 || progress > 1)
+				throw new IllegalArgumentException("Progress must be between 0 and 1; Got " + progress);
+			this.progress = progress;
+			return this;
+		}
+
+		@Nonnull
+		public BossBarInstance setColor(@Nonnull BarColor color) {
+			this.color = color;
+			return this;
+		}
+
+		@Nonnull
+		public BossBarInstance setStyle(@Nonnull BarStyle style) {
+			this.style = style;
+			return this;
+		}
+
+		@Nonnull
+		public BossBarInstance setVisible(boolean visible) {
+			this.visible = visible;
+			return this;
+		}
+
 	}
 
 }

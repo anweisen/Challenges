@@ -27,15 +27,13 @@ import java.util.UUID;
 public final class CloudSupportManager implements Listener {
 
 	private final Map<UUID, String> cachedColoredNames = new HashMap<>();
-
-	private boolean startedNewService = false;
 	private final boolean nameSupport;
 	private final boolean resetToLobby;
 	private final boolean setIngame;
 	private final String type;
-
-	private CloudSupport support;
 	private final boolean startNewService;
+	private boolean startedNewService = false;
+	private CloudSupport support;
 
 	public CloudSupportManager() {
 		Document config = Challenges.getInstance().getConfigDocument().getDocument("cloud-support");
