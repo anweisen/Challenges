@@ -43,10 +43,10 @@ public class SubSettingsHelper {
 				try {
 					Material spawnEgg = Material.valueOf(type.name() + "_SPAWN_EGG");
 					builder.addSetting(type.name(), new ItemBuilder(spawnEgg,
-							DefaultItem.getItemPrefix() + BukkitStringUtils.getEntityName(type)).build());
+							DefaultItem.getItemPrefix() + BukkitStringUtils.getEntityName(type).toPlainText()).build());
 				} catch (Exception ex) {
 					builder.addSetting(type.name(), new ItemBuilder(Material.STRUCTURE_VOID,
-							DefaultItem.getItemPrefix() + BukkitStringUtils.getEntityName((type))));
+							DefaultItem.getItemPrefix() + BukkitStringUtils.getEntityName(type).toPlainText()));
 				}
 			}
 		});
@@ -57,7 +57,7 @@ public class SubSettingsHelper {
 			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-block-any")).build());
 			for (Material material : Material.values()) {
 				if (material.isBlock() && material.isItem() && !BukkitReflectionUtils.isAir(material)) {
-					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material)).build());
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
 			}
 		});
@@ -68,7 +68,7 @@ public class SubSettingsHelper {
 			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-item-any")).build());
 			for (Material material : Material.values()) {
 				if (material.isItem() && !BukkitReflectionUtils.isAir(material)) {
-					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material)).build());
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
 			}
 		});
