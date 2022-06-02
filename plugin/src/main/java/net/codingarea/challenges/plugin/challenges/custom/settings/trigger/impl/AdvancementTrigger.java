@@ -23,7 +23,7 @@ public class AdvancementTrigger extends ChallengeTrigger {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onPickup(PlayerAdvancementDoneEvent event) {
-		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+		if (event.getAdvancement().getKey().toString().contains(":recipes/")) return;
 		createData().entity(event.getPlayer()).execute();
 	}
 

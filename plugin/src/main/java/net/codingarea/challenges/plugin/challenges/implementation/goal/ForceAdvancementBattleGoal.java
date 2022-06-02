@@ -70,14 +70,14 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 
     @Override
     public void setTargetInDocument(Document document, String key, Advancement target) {
-        document.set(key, target.getKey().getKey());
+        document.set(key, target.getKey().toString());
     }
 
     @Override
     public void setFoundListInDocument(Document document, String key, List<Advancement> target) {
         List<String> foundItems = new LinkedList<>();
         for (Advancement advancement : target) {
-            foundItems.add(advancement.getKey().getKey());
+            foundItems.add(advancement.getKey().toString());
         }
         document.set(key, foundItems);
     }
@@ -85,8 +85,13 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
     @Override
     public Advancement getTargetFromDocument(Document document, String key) {
         String advancementKey = document.getString(key);
-        NamespacedKey namespacedKey = NamespacedKey.minecraft(advancementKey);
-        return Bukkit.getAdvancement(namespacedKey);
+        try {
+            NamespacedKey namespacedKey = NamespacedKey.fromString(advancementKey);
+            return Bukkit.getAdvancement(namespacedKey);
+        } catch (Exception exception) {
+            // DON'T EXIST
+        }
+        return null;
     }
 
     @Override
@@ -94,7 +99,11 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
         List<String> advancementKeys = document.getStringList(key);
         List<Advancement> advancements = new ArrayList<>();
         for (String advancementKey : advancementKeys) {
-            advancements.add(Bukkit.getAdvancement(NamespacedKey.minecraft(advancementKey)));
+            try {
+                advancements.add(Bukkit.getAdvancement(NamespacedKey.fromString(advancementKey)));
+            } catch (Exception exception) {
+                // DON'T EXIST
+            }
         }
         return advancements;
     }
