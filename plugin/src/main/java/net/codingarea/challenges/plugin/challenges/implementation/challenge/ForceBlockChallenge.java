@@ -99,6 +99,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 				.filter(Material::isBlock)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.filter(material -> !BlockUtils.isTooHardToGet(material))
+				.filter(material -> !material.name().contains("WALL"))
 				.toArray(length -> new Material[length]);
 		block = globalRandom.choose(materials);
 	}
