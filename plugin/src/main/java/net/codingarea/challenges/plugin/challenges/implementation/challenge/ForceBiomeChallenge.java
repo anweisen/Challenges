@@ -75,7 +75,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-biome-failed").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(biome));
+		Message.forName("force-biome-fail").broadcast(Prefix.CHALLENGES, BukkitStringUtils.getBiomeName(biome));
 	}
 
 	@Override
