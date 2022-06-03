@@ -83,8 +83,8 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 				bossbar.setTitle(Message.forName("bossbar-all-items-finished").asString());
 				return;
 			}
-
-			bossbar.setTitle(Message.forName("bossbar-all-items-current-max").asString(currentItem, totalItemsCount - itemsToFind.size() + 1, totalItemsCount));
+      
+			bossbar.setTitle(Message.forName("bossbar-all-items-current-max").asComponent(currentItem, totalItemsCount - itemsToFind.size() + 1, totalItemsCount));
 		});
 		bossbar.show();
 	}

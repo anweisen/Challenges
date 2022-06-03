@@ -64,7 +64,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asString(block, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asComponent(block, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 

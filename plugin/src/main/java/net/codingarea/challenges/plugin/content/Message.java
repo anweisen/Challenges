@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -40,6 +41,9 @@ public interface Message {
 	String asString(@Nonnull Object... args);
 
 	@Nonnull
+	BaseComponent asComponent(@Nonnull Object... args);
+
+	@Nonnull
 	String asRandomString(@Nonnull IRandom random, @Nonnull Object... args);
 
 	@Nonnull
@@ -52,7 +56,7 @@ public interface Message {
 	String[] asArray(@Nonnull Object... args);
 
 	@Nonnull
-	BaseComponent[] asComponentArray(@Nonnull Prefix prefix, @Nonnull Object... args);
+	BaseComponent[] asComponentArray(@Nullable Prefix prefix, @Nonnull Object... args);
 
 	@Nonnull
 	ItemDescription asItemDescription(@Nonnull Object... args);
