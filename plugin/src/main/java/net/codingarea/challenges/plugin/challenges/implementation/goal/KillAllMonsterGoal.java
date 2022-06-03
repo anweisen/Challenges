@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.KillMobsGoal;
 import net.codingarea.challenges.plugin.content.Message;
@@ -34,11 +35,13 @@ public class KillAllMonsterGoal extends KillMobsGoal {
 		list.add(EntityType.ENDER_DRAGON);
 		list.add(EntityType.SHULKER);
 		list.add(EntityType.GHAST);
-		list.add(EntityType.HOGLIN);
 		list.add(EntityType.MAGMA_CUBE);
 		list.add(EntityType.SLIME);
 		list.remove(EntityType.GIANT);
 		list.remove(EntityType.ILLUSIONER);
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_16)) {
+			list.add(EntityType.HOGLIN);
+		}
 		return list;
 	}
 
