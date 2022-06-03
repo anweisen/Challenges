@@ -77,7 +77,7 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asString(item, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asComponent(item, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
