@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
@@ -12,6 +11,7 @@ import net.codingarea.challenges.plugin.management.challenges.annotations.Exclud
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
@@ -71,7 +71,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-biome-instruction").asString(StringUtils.getEnumName(biome), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-biome-instruction").asComponent(biome, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
@@ -82,7 +82,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-biome-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(biome));
+		Message.forName("force-biome-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), BukkitStringUtils.getBiomeName(biome));
 	}
 
 	@Override
@@ -91,7 +91,8 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 				.filter(biome -> !biome.name().contains("END"))
 				.filter(biome -> !biome.name().contains("MUSHROOM"))
 				.filter(biome -> !biome.name().contains("VOID"))
-				.toArray(length -> new Biome[length]);
+				.filter(biome -> biome != Biome.CUSTOM)
+				.toArray(Biome[]::new);
 
 		biome = globalRandom.choose(biomes);
 	}

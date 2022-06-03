@@ -9,6 +9,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
 import org.bukkit.loot.LootTable;
 import org.bukkit.potion.PotionEffectType;
@@ -24,7 +25,7 @@ import java.util.function.Supplier;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
- * @since 1.0
+ * @since 2.2.0
  */
 public class BukkitStringUtils {
 
@@ -173,6 +174,7 @@ public class BukkitStringUtils {
 			arg = arg instanceof Material ? getItemName((Material) arg) :
 					arg instanceof EntityType ? getEntityName((EntityType) arg) :
 					arg instanceof PotionEffectType ? getPotionEffectName((PotionEffectType) arg) :
+					arg instanceof Biome ? getBiomeName((Biome) arg) :
 					arg instanceof GameMode ? getGameModeName((GameMode) arg) :
 					arg instanceof Advancement ? getAdvancementComponent((Advancement) arg) :
 					arg instanceof LootTable ? getEntityName((LootTable) arg) :
@@ -208,6 +210,11 @@ public class BukkitStringUtils {
 	public static TranslatableComponent getPotionEffectName(@Nonnull PotionEffectType type) {
 		NamespacedKey key = type.getKey();
 		return new TranslatableComponent("effect." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static TranslatableComponent getBiomeName(@Nonnull Biome biome) {
+		NamespacedKey key = biome.getKey();
+		return new TranslatableComponent("biome." + key.getNamespace() + "." + key.getKey());
 	}
 
 	public static TranslatableComponent getGameModeName(@Nonnull GameMode gameMode) {
