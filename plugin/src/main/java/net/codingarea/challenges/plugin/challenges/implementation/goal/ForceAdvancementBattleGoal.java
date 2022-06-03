@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
@@ -86,7 +87,7 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	public Advancement getTargetFromDocument(Document document, String key) {
 		String advancementKey = document.getString(key);
 		try {
-			NamespacedKey namespacedKey = NamespacedKey.fromString(advancementKey);
+			NamespacedKey namespacedKey = BukkitReflectionUtils.fromString(advancementKey);
 			return Bukkit.getAdvancement(namespacedKey);
 		} catch (Exception exception) {
 			// DON'T EXIST
@@ -100,7 +101,7 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 		List<Advancement> advancements = new ArrayList<>();
 		for (String advancementKey : advancementKeys) {
 			try {
-				advancements.add(Bukkit.getAdvancement(NamespacedKey.fromString(advancementKey)));
+				advancements.add(Bukkit.getAdvancement(BukkitReflectionUtils.fromString(advancementKey)));
 			} catch (Exception exception) {
 				// DON'T EXIST
 			}
