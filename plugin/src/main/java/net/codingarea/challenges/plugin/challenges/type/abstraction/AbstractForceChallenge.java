@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.type.abstraction;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
+import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
@@ -87,6 +88,10 @@ public abstract class AbstractForceChallenge extends TimedChallenge {
 
 	public final int getState() {
 		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 }

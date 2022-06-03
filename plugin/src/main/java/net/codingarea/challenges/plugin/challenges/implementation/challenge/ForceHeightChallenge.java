@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -17,6 +18,7 @@ import org.bukkit.World;
 import org.bukkit.World.Environment;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -97,6 +99,21 @@ public class ForceHeightChallenge extends EndingForceChallenge {
 	@Override
 	protected int getForcingTime() {
 		return globalRandom.range(3 * 60 + 30, 5 * 60);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			height = document.getInt("target");
+			setState(COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", height);
 	}
 
 }

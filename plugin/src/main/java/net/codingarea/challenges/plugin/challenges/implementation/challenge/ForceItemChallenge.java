@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -24,6 +25,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -132,6 +134,21 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 			if (material != this.item) return;
 			completeForcing(event.getPlayer());
 		}, 1);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			item = document.getEnum("target", Material.class);
+			setState(item == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", item);
 	}
 
 }

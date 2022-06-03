@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -16,6 +17,7 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -109,6 +111,21 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 	@Override
 	protected int getForcingTime() {
 		return globalRandom.range(4 * 60, 6 * 60);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			block = document.getEnum("target", Material.class);
+			setState(block == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", block);
 	}
 
 }
