@@ -78,12 +78,6 @@
             <version>3.0.2</version>
         </dependency>
 
-        <!-- Reflection Util -->
-        <dependency>
-            <groupId>dev.array21</groupId>
-            <artifactId>bukkit-reflection-util</artifactId>
-            <version>1.1.2</version>
-        </dependency>
     </dependencies>
 
     <repositories>
@@ -168,7 +162,6 @@
                                     <include>com.github.anweisen.Utility:bukkit-utils</include>
                                     <include>com.github.anweisen.Utility:database-api</include>
                                     <include>com.github.anweisen.Utility:database-sql</include>
-                                    <include>dev.array21:bukkit-reflection-util</include>
                                 </includes>
                             </artifactSet>
                         </configuration>

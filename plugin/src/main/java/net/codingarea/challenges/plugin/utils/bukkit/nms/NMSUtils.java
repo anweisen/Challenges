@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
-import dev.array21.bukkitreflectionlib.ReflectionUtil;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.boss.BossBar;
@@ -32,7 +31,7 @@ public final class NMSUtils {
         Object component = toIChatBaseComponent(baseComponent);
 
         try {
-            Class<?> bossBattleClass = getClass("world.Bossbattle");
+            Class<?> bossBattleClass = getClass("world.BossBattle");
             Class<?> craftBossBarClass = ReflectionUtil.getBukkitClass("boss.CraftBossBar");
             Object bossBattleObject = ReflectionUtil.invokeMethod(craftBossBarClass, bossBar, "getHandle");
             ReflectionUtil.invokeMethod(bossBattleClass, bossBattleObject, "a", new Class[]{ getComponentClass() }, new Object[]{component});
