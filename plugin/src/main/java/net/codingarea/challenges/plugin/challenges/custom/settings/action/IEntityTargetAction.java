@@ -21,15 +21,6 @@ import java.util.Map;
  */
 public interface IEntityTargetAction extends IChallengeAction {
 
-	@Override
-	default void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {
-		for (Entity target : getTargets(executionData.getEntity(), subActions)) {
-			executeFor(target, subActions);
-		}
-	}
-
-	void executeFor(Entity entity, Map<String, String[]> subActions);
-
 	static List<Entity> getTargets(Entity triggerTarget, Map<String, String[]> subActions) {
 		return getTargets(triggerTarget, subActions, SubSettingsHelper.TARGET_ENTITY);
 	}
@@ -80,5 +71,14 @@ public interface IEntityTargetAction extends IChallengeAction {
 		}
 		return Lists.newArrayList(triggerTarget);
 	}
+
+	@Override
+	default void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {
+		for (Entity target : getTargets(executionData.getEntity(), subActions)) {
+			executeFor(target, subActions);
+		}
+	}
+
+	void executeFor(Entity entity, Map<String, String[]> subActions);
 
 }

@@ -252,9 +252,9 @@ public class LoopChallenge extends Setting {
 
 	private static class BlockBreakLoop implements Loop {
 
-		private ItemStack itemStack;
 		private final Player player;
 		private final BlockFace blockFace;
+		private ItemStack itemStack;
 		private Block currentBlock;
 
 		public BlockBreakLoop(ItemStack itemStack, Player player, BlockFace blockFace, Block currentBlock) {

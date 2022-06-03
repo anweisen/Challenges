@@ -22,53 +22,6 @@ import java.util.function.BiConsumer;
  */
 public final class ChallengeScoreboard {
 
-	public static final class ScoreboardInstance {
-
-		private final String[] lines = new String[15];
-		private String title = Message.forName("scoreboard-title").asString();
-		private int linesIndex = 0;
-
-		private ScoreboardInstance() {
-		}
-
-		@Nonnull
-		public ScoreboardInstance setTitle(@Nonnull String title) {
-			this.title = title;
-			return this;
-		}
-
-		@Nonnull
-		public ScoreboardInstance addLine(@Nonnull String text) {
-			if (linesIndex >= lines.length)
-				throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
-			lines[linesIndex++] = text;
-			return this;
-		}
-
-		@Nonnull
-		public Collection<String> getLines() {
-			List<String> list = new ArrayList<>();
-			for (String line : lines) {
-				if (line == null) continue;
-				list.add(line);
-			}
-			return list;
-		}
-
-		@Nullable
-		public String getTitle() {
-			return title;
-		}
-
-		@Override
-		public String toString() {
-			return "ScoreboardInstance{" +
-					"lines=" + Arrays.toString(lines) +
-					", title='" + title + '\'' +
-					'}';
-		}
-	}
-
 	private final Map<Player, Objective> objectives = new ConcurrentHashMap<>();
 	private BiConsumer<ScoreboardInstance, Player> content = (scoreboard, player) -> {
 	};
@@ -156,6 +109,53 @@ public final class ChallengeScoreboard {
 			objective.unregister();
 		} catch (Exception ex) {
 			Logger.error("Unable to unregister objective " + objective.getName());
+		}
+	}
+
+	public static final class ScoreboardInstance {
+
+		private final String[] lines = new String[15];
+		private String title = Message.forName("scoreboard-title").asString();
+		private int linesIndex = 0;
+
+		private ScoreboardInstance() {
+		}
+
+		@Nonnull
+		public ScoreboardInstance addLine(@Nonnull String text) {
+			if (linesIndex >= lines.length)
+				throw new IllegalStateException("All lines are already used! (" + lines.length + ")");
+			lines[linesIndex++] = text;
+			return this;
+		}
+
+		@Nonnull
+		public Collection<String> getLines() {
+			List<String> list = new ArrayList<>();
+			for (String line : lines) {
+				if (line == null) continue;
+				list.add(line);
+			}
+			return list;
+		}
+
+		@Nullable
+		public String getTitle() {
+			return title;
+		}
+
+		@Nonnull
+		public ScoreboardInstance setTitle(@Nonnull String title) {
+			this.title = title;
+			return this;
+		}
+
+		@Override
+		public String toString() {
+			return "ScoreboardInstance{" +
+					"lines=" + Arrays.toString(lines) +
+					", title='" + title + '\'' +
+					'}';
 		}
 	}
 

@@ -31,6 +31,10 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 
 	private static final int maxCustomChallenges;
 
+	static {
+		maxCustomChallenges = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-challenges");
+	}
+
 	public MainCustomMenuGenerator() {
 		super(1);
 	}
@@ -104,10 +108,6 @@ public class MainCustomMenuGenerator extends ChallengeMenuGenerator {
 	@Override
 	public int[] getNavigationSlots(int page) {
 		return page == 0 ? new int[]{NAVIGATION_SLOTS[0]} : NAVIGATION_SLOTS;
-	}
-
-	static {
-		maxCustomChallenges = Challenges.getInstance().getConfigDocument().getInt("custom-challenge-settings.max-challenges");
 	}
 
 }

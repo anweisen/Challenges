@@ -167,7 +167,7 @@
 	"command-back-no-locations": "You §cweren't §7teleported yet",
 	"command-back-teleported": "You were teleported §e{0} §7location back",
 	"command-back-teleported-multiple": "You were teleported §e{0} §7locations back",
-	"command-result-no-battle-active": "There is currently §cno Force Battle enabled",
+	"command-result-no-battle-active": "There is currently §cno §7Force Battle enabled",
 	"traffic-light-challenge-fail": "§e{0} §7went over §cred",
 	"player-damage-display": "§e{0} §7took §7{1} §7damage by §e{2}",
 	"death-message": "§e{0} §7died",
@@ -377,7 +377,6 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistics §8┃ §e/stats §8•",
-
 	"menu-title": "Menu",
 	"menu-timer": "§6Timer",
 	"menu-goal": "§5Goal",
@@ -386,7 +385,6 @@
 	"menu-challenges": "§cChallenges",
 	"menu-settings": "§eSettings",
 	"menu-custom": "§aCustom",
-
 	"lore-category-activated-count": "§7Activated §8» §a{0}§8/§7{1}",
 	"lore-category-activated": "§7Activated §8» §aYes",
 	"lore-category-deactivated": "§7Activated §8» §cNo",
@@ -454,7 +452,6 @@
 		"§6Fastest Time",
 		"Be the fastest *to win*"
 	],
-
 	"item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
 	"item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",

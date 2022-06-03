@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -77,12 +76,12 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(entity));
+		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, entity);
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(entity));
+		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), entity);
 	}
 
 	@Override

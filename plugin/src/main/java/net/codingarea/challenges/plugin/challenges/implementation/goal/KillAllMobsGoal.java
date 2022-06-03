@@ -25,6 +25,16 @@ public class KillAllMobsGoal extends KillMobsGoal {
 		setCategory(SettingCategory.KILL_ENTITY);
 	}
 
+	static List<EntityType> getAllMobsToKill() {
+		LinkedList<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
+		list.removeIf(type -> !type.isAlive());
+		list.remove(EntityType.GIANT);
+		list.remove(EntityType.ILLUSIONER);
+		list.remove(EntityType.PLAYER);
+		list.remove(EntityType.ARMOR_STAND);
+		return list;
+	}
+
 	@NotNull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -34,16 +44,6 @@ public class KillAllMobsGoal extends KillMobsGoal {
 	@Override
 	public Message getBossbarMessage() {
 		return Message.forName("bossbar-kill-all-mobs");
-	}
-
-	static List<EntityType> getAllMobsToKill() {
-		LinkedList<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
-		list.removeIf(type -> !type.isAlive());
-		list.remove(EntityType.GIANT);
-		list.remove(EntityType.ILLUSIONER);
-		list.remove(EntityType.PLAYER);
-		list.remove(EntityType.ARMOR_STAND);
-		return list;
 	}
 
 }

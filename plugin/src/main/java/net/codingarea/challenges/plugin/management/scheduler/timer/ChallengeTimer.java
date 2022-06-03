@@ -30,15 +30,14 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeTimer {
 
+	private final TimerFormat format;
+	private final String stoppedMessage, upMessage, downMessage;
+	private final boolean specificStartSounds, defaultStartSound;
 	private long time = 0;
 	private boolean countingUp = true;
 	private boolean paused = true;
 	private boolean hidden = false;
 	private boolean sentEmpty;
-
-	private final TimerFormat format;
-	private final String stoppedMessage, upMessage, downMessage;
-	private final boolean specificStartSounds, defaultStartSound;
 
 	public ChallengeTimer() {
 
@@ -200,17 +199,6 @@ public final class ChallengeTimer {
 		updateActionbar();
 	}
 
-	public void setCountingUp(boolean countingUp) {
-		if (this.countingUp == countingUp) return;
-
-		this.countingUp = countingUp;
-		updateActionbar();
-		TimerMenuGenerator menuGenerator = (TimerMenuGenerator) MenuType.TIMER.getMenuGenerator();
-		menuGenerator.updateFirstPage();
-		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
-		SoundSample.BASS_ON.broadcast();
-	}
-
 	public void setHidden(boolean hide) {
 		this.sentEmpty = false;
 		this.hidden = hide;
@@ -246,6 +234,17 @@ public final class ChallengeTimer {
 
 	public boolean isCountingUp() {
 		return countingUp;
+	}
+
+	public void setCountingUp(boolean countingUp) {
+		if (this.countingUp == countingUp) return;
+
+		this.countingUp = countingUp;
+		updateActionbar();
+		TimerMenuGenerator menuGenerator = (TimerMenuGenerator) MenuType.TIMER.getMenuGenerator();
+		menuGenerator.updateFirstPage();
+		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
+		SoundSample.BASS_ON.broadcast();
 	}
 
 }

@@ -34,6 +34,11 @@ public class MessageImpl implements Message {
 	}
 
 	@Nonnull
+	protected static IRandom defaultRandom() {
+		return IRandom.threadLocal();
+	}
+
+	@Nonnull
 	@Override
 	public String asString(@Nonnull Object... args) {
 		if (value == null) return Message.NULL;
@@ -79,7 +84,8 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String[] asArray(@Nonnull Object... args) {
-		if (value == null) return new String[]{ Message.unknown(name) };
+		if (value == null) return new String[]{Message.unknown(name)};
+		args = BukkitStringUtils.replaceArguments(args, true);
 		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
 		boolean capsFont = false;
 		if (loader != null) capsFont = loader.isSmallCapsFont();
@@ -195,11 +201,6 @@ public class MessageImpl implements Message {
 	@Override
 	public String toString() {
 		return asString();
-	}
-
-	@Nonnull
-	protected static IRandom defaultRandom() {
-		return IRandom.threadLocal();
 	}
 
 }

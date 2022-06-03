@@ -155,8 +155,8 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 				.collect(Collectors.toList());
 
 		int entriesPerPage = getEntriesPerPage();
-		int startIndex = page* entriesPerPage;
-		int endIndex = Math.min(page* entriesPerPage + entriesPerPage, categories.size());
+		int startIndex = page * entriesPerPage;
+		int endIndex = Math.min(page * entriesPerPage + entriesPerPage, categories.size());
 
 		return list.subList(startIndex, endIndex);
 	}
@@ -179,7 +179,7 @@ public class CategorisedMenuGenerator extends SettingsMenuGenerator {
 		protected String getTitle(int page) {
 			String[] strings = category.getMessageSupplier().get().asArray();
 			String display = strings.length == 0 ? "" : ChatColor.stripColor(strings[0]);
-			return InventoryTitleManager.getTitle(getMenuType(), display, String.valueOf(page+1));
+			return InventoryTitleManager.getTitle(getMenuType(), display, String.valueOf(page + 1));
 		}
 
 		@Override

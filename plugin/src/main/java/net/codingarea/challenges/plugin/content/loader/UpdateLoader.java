@@ -21,6 +21,22 @@ public final class UpdateLoader extends ContentLoader {
 	private static Version defaultConfigVersion;
 	private static Version currentConfigVersion;
 
+	public static Version getDefaultConfigVersion() {
+		return defaultConfigVersion;
+	}
+
+	public static Version getCurrentConfigVersion() {
+		return currentConfigVersion;
+	}
+
+	public static boolean isNewestConfigVersion() {
+		return newestConfigVersion;
+	}
+
+	public static boolean isNewestPluginVersion() {
+		return newestPluginVersion;
+	}
+
 	@Override
 	protected void load() {
 		try {
@@ -44,22 +60,6 @@ public final class UpdateLoader extends ContentLoader {
 		} catch (Exception ex) {
 			Logger.error("Could not check for update: {}", ex.getMessage());
 		}
-	}
-
-	public static Version getDefaultConfigVersion() {
-		return defaultConfigVersion;
-	}
-
-	public static Version getCurrentConfigVersion() {
-		return currentConfigVersion;
-	}
-
-	public static boolean isNewestConfigVersion() {
-		return newestConfigVersion;
-	}
-
-	public static boolean isNewestPluginVersion() {
-		return newestPluginVersion;
 	}
 
 }

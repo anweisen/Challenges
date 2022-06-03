@@ -32,12 +32,6 @@ import javax.annotation.Nonnull;
 public final class Challenges extends BukkitModule {
 
 	private static Challenges instance;
-
-	@Nonnull
-	public static Challenges getInstance() {
-		return instance;
-	}
-
 	private PlayerInventoryManager playerInventoryManager;
 	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
@@ -59,6 +53,11 @@ public final class Challenges extends BukkitModule {
 	private MetricsLoader metricsLoader;
 	private GameWorldStorage gameWorldStorage;
 	private GeneratorWorldPortalManager generatorWorldPortalManager;
+
+	@Nonnull
+	public static Challenges getInstance() {
+		return instance;
+	}
 
 	@Override
 	protected void handleLoad() {

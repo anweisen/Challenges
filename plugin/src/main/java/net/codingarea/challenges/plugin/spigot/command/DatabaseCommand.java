@@ -129,14 +129,6 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 
 	}
 
-	private interface DatabaseCommandExecutor {
-		void save(Player player) throws Exception;
-
-		void load(Player player) throws Exception;
-
-		void reset(Player player) throws Exception;
-	}
-
 	/**
 	 * Checks for disabled features and sends a proper messages to indicate that
 	 */
@@ -149,7 +141,6 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 		return false;
 	}
 
-
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
@@ -161,6 +152,15 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 			return Utils.filterRecommendations(args[1], databaseExecutors.keySet().toArray(new String[0]));
 		}
 		return Lists.newLinkedList();
+	}
+
+
+	private interface DatabaseCommandExecutor {
+		void save(Player player) throws Exception;
+
+		void load(Player player) throws Exception;
+
+		void reset(Player player) throws Exception;
 	}
 
 }

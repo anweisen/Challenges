@@ -41,6 +41,21 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 		setCategory(SettingCategory.RANDOMIZER);
 	}
 
+	/**
+	 * @param force if true only sets items if inventory is empty
+	 */
+	public static void addItems(Player player, boolean force) {
+
+		if (!force && !player.getInventory().isEmpty()) {
+			return;
+		}
+
+		player.getInventory().clear();
+		for (int i = 0; i < 9; i++) {
+			player.getInventory().setItem(i, InventoryUtils.getRandomItem(false, true));
+		}
+	}
+
 	@NotNull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -70,21 +85,6 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 			addItems(player, true);
 		});
 		restartTimer();
-	}
-
-	/**
-	 * @param force if true only sets items if inventory is empty
-	 */
-	public static void addItems(Player player, boolean force) {
-
-		if (!force && !player.getInventory().isEmpty()) {
-			return;
-		}
-
-		player.getInventory().clear();
-		for (int i = 0; i < 9; i++) {
-			player.getInventory().setItem(i, InventoryUtils.getRandomItem(false, true));
-		}
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING)

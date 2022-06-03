@@ -4,7 +4,6 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.common.collection.IRandom;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.CustomChallenge;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
@@ -18,6 +17,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChallengeMenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.spigot.listener.ChatInputListener;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
@@ -41,6 +41,13 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	private static final Material[] defaultMaterials;
 	private static final boolean savePlayerChallenges;
+
+	static {
+		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		list.removeIf(material1 -> !material1.isItem());
+		defaultMaterials = list.toArray(new Material[0]);
+	}
 
 	private final UUID uuid;
 	private String name;
@@ -73,6 +80,14 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		this.material = IRandom.threadLocal().choose(defaultMaterials);
 		this.name = "§7Custom §e#" +
 				(Challenges.getInstance().getCustomChallengesLoader().getCustomChallenges().size() + 1);
+	}
+
+	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
+		List<String> display = new LinkedList<>();
+		for (SubSettingsBuilder child : builder.getAllChildren()) {
+			display.addAll(child.getDisplay(activated));
+		}
+		return display;
 	}
 
 	@Override
@@ -114,7 +129,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		// Display Item
 		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(material == null ? Material.BARRIER : material, Message.forName("item-custom-info-material"))
-				.appendLore(currently + (material != null ? StringUtils.getEnumName(material) : none)).build());
+				.appendLore(currently + (material != null ? BukkitStringUtils.getItemName(material) : none)).build());
 
 		// Name Item
 		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("item-custom-info-name"))
@@ -185,6 +200,18 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				", action=" + action +
 				", subActions=" + subActions.entrySet() +
 				'}';
+	}
+
+	public void openChallengeMenu(Player player) {
+		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
+				.getCustomChallenges().get(uuid);
+		if (challenge == null) {
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
+		} else {
+			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
+			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu are in the same generator
+			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
+		}
 	}
 
 	public class InfoMenuPosition implements MenuPosition {
@@ -290,33 +317,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 		public InfoMenuGenerator getGenerator() {
 			return generator;
 		}
-	}
-
-	public void openChallengeMenu(Player player) {
-		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
-				.getCustomChallenges().get(uuid);
-		if (challenge == null) {
-			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, 0);
-		} else {
-			ChallengeMenuGenerator menuGenerator = (ChallengeMenuGenerator) MenuType.CUSTOM.getMenuGenerator();
-			int page = menuGenerator.getPageOfChallenge(challenge) + 1; // +1 because the main and challenge menu are in the same generator
-			Challenges.getInstance().getMenuManager().openMenu(player, MenuType.CUSTOM, page);
-		}
-	}
-
-	static {
-		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
-		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
-		list.removeIf(material1 -> !material1.isItem());
-		defaultMaterials = list.toArray(new Material[0]);
-	}
-
-	public static List<String> getSubSettingsDisplay(SubSettingsBuilder builder, Map<String, String[]> activated) {
-		List<String> display = new LinkedList<>();
-		for (SubSettingsBuilder child : builder.getAllChildren()) {
-			display.addAll(child.getDisplay(activated));
-		}
-		return display;
 	}
 
 }

@@ -30,6 +30,21 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 		setCategory(SettingCategory.RANDOMIZER);
 	}
 
+	public static void dropRandomItem(Player player) {
+		if (player.getInventory().getContents().length <= 0) return;
+		dropRandomItem(player.getLocation(), player.getInventory());
+	}
+
+	public static void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
+		if (location.getWorld() == null) return;
+		int slot = InventoryUtils.getRandomFullSlot(inventory);
+		if (slot == -1) return;
+		ItemStack item = inventory.getItem(slot);
+		if (item == null) return;
+		inventory.setItem(slot, null);
+		InventoryUtils.dropItemByPlayer(location, item);
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -63,21 +78,6 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 				dropRandomItem(player);
 			}
 		});
-	}
-
-	public static void dropRandomItem(Player player) {
-		if (player.getInventory().getContents().length <= 0) return;
-		dropRandomItem(player.getLocation(), player.getInventory());
-	}
-
-	public static void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
-		if (location.getWorld() == null) return;
-		int slot = InventoryUtils.getRandomFullSlot(inventory);
-		if (slot == -1) return;
-		ItemStack item = inventory.getItem(slot);
-		if (item == null) return;
-		inventory.setItem(slot, null);
-		InventoryUtils.dropItemByPlayer(location, item);
 	}
 
 }

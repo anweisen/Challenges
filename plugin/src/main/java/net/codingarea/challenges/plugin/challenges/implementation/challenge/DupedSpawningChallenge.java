@@ -19,6 +19,8 @@ import javax.annotation.Nonnull;
  */
 public class DupedSpawningChallenge extends Setting {
 
+	private boolean inCustomSpawn = false;
+
 	public DupedSpawningChallenge() {
 		super(MenuType.CHALLENGES);
 		setCategory(SettingCategory.ENTITIES);
@@ -29,8 +31,6 @@ public class DupedSpawningChallenge extends Setting {
 	public ItemBuilder createDisplayItem() {
 		return new ItemBuilder(Material.ELDER_GUARDIAN_SPAWN_EGG, Message.forName("item-duped-spawning-challenge"));
 	}
-
-	private boolean inCustomSpawn = false;
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onSpawn(@Nonnull EntitySpawnEvent event) {

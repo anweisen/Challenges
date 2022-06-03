@@ -17,6 +17,27 @@ import java.util.Optional;
  */
 public final class ColorConversions {
 
+	private static final Map<ChatColor, Color> colorsByChatColor = new HashMap<>();
+
+	static {
+		colorsByChatColor.put(ChatColor.BLACK, Color.decode("#000000"));
+		colorsByChatColor.put(ChatColor.DARK_BLUE, Color.decode("#0000A8"));
+		colorsByChatColor.put(ChatColor.DARK_GREEN, Color.decode("#00A800"));
+		colorsByChatColor.put(ChatColor.DARK_AQUA, Color.decode("#00A8A8"));
+		colorsByChatColor.put(ChatColor.DARK_RED, Color.decode("#A80000"));
+		colorsByChatColor.put(ChatColor.DARK_PURPLE, Color.decode("#A800A8"));
+		colorsByChatColor.put(ChatColor.GOLD, Color.decode("#FBA800"));
+		colorsByChatColor.put(ChatColor.GRAY, Color.decode("#A8A8A8"));
+		colorsByChatColor.put(ChatColor.DARK_GRAY, Color.decode("#545454"));
+		colorsByChatColor.put(ChatColor.BLUE, Color.decode("#5454FB"));
+		colorsByChatColor.put(ChatColor.GREEN, Color.decode("#54FB54"));
+		colorsByChatColor.put(ChatColor.AQUA, Color.decode("#54FBFB"));
+		colorsByChatColor.put(ChatColor.RED, Color.decode("#FB5454"));
+		colorsByChatColor.put(ChatColor.LIGHT_PURPLE, Color.decode("#FB54FB"));
+		colorsByChatColor.put(ChatColor.YELLOW, Color.decode("#FBFB54"));
+		colorsByChatColor.put(ChatColor.WHITE, Color.decode("#FBFBFB"));
+	}
+
 	private ColorConversions() {
 	}
 
@@ -94,27 +115,6 @@ public final class ColorConversions {
 			default:
 				return Material.BONE_MEAL;
 		}
-	}
-
-	private static final Map<ChatColor, Color> colorsByChatColor = new HashMap<>();
-
-	static {
-		colorsByChatColor.put(ChatColor.BLACK, Color.decode("#000000"));
-		colorsByChatColor.put(ChatColor.DARK_BLUE, Color.decode("#0000A8"));
-		colorsByChatColor.put(ChatColor.DARK_GREEN, Color.decode("#00A800"));
-		colorsByChatColor.put(ChatColor.DARK_AQUA, Color.decode("#00A8A8"));
-		colorsByChatColor.put(ChatColor.DARK_RED, Color.decode("#A80000"));
-		colorsByChatColor.put(ChatColor.DARK_PURPLE, Color.decode("#A800A8"));
-		colorsByChatColor.put(ChatColor.GOLD, Color.decode("#FBA800"));
-		colorsByChatColor.put(ChatColor.GRAY, Color.decode("#A8A8A8"));
-		colorsByChatColor.put(ChatColor.DARK_GRAY, Color.decode("#545454"));
-		colorsByChatColor.put(ChatColor.BLUE, Color.decode("#5454FB"));
-		colorsByChatColor.put(ChatColor.GREEN, Color.decode("#54FB54"));
-		colorsByChatColor.put(ChatColor.AQUA, Color.decode("#54FBFB"));
-		colorsByChatColor.put(ChatColor.RED, Color.decode("#FB5454"));
-		colorsByChatColor.put(ChatColor.LIGHT_PURPLE, Color.decode("#FB54FB"));
-		colorsByChatColor.put(ChatColor.YELLOW, Color.decode("#FBFB54"));
-		colorsByChatColor.put(ChatColor.WHITE, Color.decode("#FBFBFB"));
 	}
 
 	@Nonnull

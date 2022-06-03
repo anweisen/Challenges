@@ -28,6 +28,15 @@ public class InvertHealthChallenge extends TimedChallenge {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
 	}
 
+	public static void invertHealth(Player player) {
+		double health = player.getMaxHealth() - player.getHealth();
+		if (health <= 0) {
+			ChallengeHelper.kill(player);
+			return;
+		}
+		player.setHealth(health);
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -59,15 +68,6 @@ public class InvertHealthChallenge extends TimedChallenge {
 			invertHealth(player);
 		}
 		restartTimer();
-	}
-
-	public static void invertHealth(Player player) {
-		double health = player.getMaxHealth() - player.getHealth();
-		if (health <= 0) {
-			ChallengeHelper.kill(player);
-			return;
-		}
-		player.setHealth(health);
 	}
 
 }

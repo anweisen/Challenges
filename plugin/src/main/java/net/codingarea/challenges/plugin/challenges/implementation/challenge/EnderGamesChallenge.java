@@ -2,7 +2,6 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -75,7 +74,7 @@ public class EnderGamesChallenge extends TimedChallenge {
 
 		Location playerLocation = player.getLocation().clone();
 		player.teleport(targetEntity.getLocation());
-		Message.forName("endergames-teleport").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(targetEntity.getType()));
+		Message.forName("endergames-teleport").send(player, Prefix.CHALLENGES, targetEntity.getType());
 		targetEntity.teleport(playerLocation);
 
 	}

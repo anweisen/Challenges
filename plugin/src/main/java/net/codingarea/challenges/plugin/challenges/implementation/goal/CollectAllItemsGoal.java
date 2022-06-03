@@ -5,7 +5,6 @@ import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.SeededRandomWrapper;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingGoal;
 import net.codingarea.challenges.plugin.content.Message;
@@ -84,7 +83,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 				bossbar.setTitle(Message.forName("bossbar-all-items-finished").asString());
 				return;
 			}
-
+      
 			bossbar.setTitle(Message.forName("bossbar-all-items-current-max").asComponent(currentItem, totalItemsCount - itemsToFind.size() + 1, totalItemsCount));
 		});
 		bossbar.show();
@@ -108,7 +107,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 			return;
 		}
 
-		Message.forName("all-items-skipped").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(currentItem));
+		Message.forName("all-items-skipped").broadcast(Prefix.CHALLENGES, currentItem);
 		SoundSample.PLING.broadcast();
 		nextItem();
 		bossbar.update();
@@ -142,7 +141,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(player)) return;
 		if (currentItem != material) return;
-		Message.forName("all-items-found").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(currentItem), NameHelper.getName(player));
+		Message.forName("all-items-found").broadcast(Prefix.CHALLENGES, currentItem, NameHelper.getName(player));
 		SoundSample.PLING.broadcast();
 		nextItem();
 		bossbar.update();

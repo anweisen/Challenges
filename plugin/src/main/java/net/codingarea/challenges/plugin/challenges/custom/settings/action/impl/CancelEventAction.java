@@ -18,17 +18,6 @@ public class CancelEventAction extends ChallengeAction {
 		super(name);
 	}
 
-
-	@Override
-	public Material getMaterial() {
-		return Material.BARRIER;
-	}
-
-	@Override
-	public void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {
-		inCanceling = true;
-	}
-
 	public static void onPreTrigger() {
 		inCanceling = false;
 	}
@@ -39,6 +28,16 @@ public class CancelEventAction extends ChallengeAction {
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public Material getMaterial() {
+		return Material.BARRIER;
+	}
+
+	@Override
+	public void execute(ChallengeExecutionData executionData, Map<String, String[]> subActions) {
+		inCanceling = true;
 	}
 
 }

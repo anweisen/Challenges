@@ -23,6 +23,18 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 		this.parent = parent;
 	}
 
+	public static LinkedHashMap<String, ItemStack> createMaterialsMap() {
+		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
+
+		for (Material material : Material.values()) {
+			if (BukkitReflectionUtils.isAir(material)) continue;
+			if (!material.isItem()) continue;
+			map.put(material.name(), new ItemStack(material));
+		}
+
+		return map;
+	}
+
 	@Override
 	public String[] getSubTitles(int page) {
 		return new String[]{"Material"};
@@ -36,18 +48,6 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 	@Override
 	public void onBackToMenuItemClick(Player player) {
 		parent.decline(player);
-	}
-
-	public static LinkedHashMap<String, ItemStack> createMaterialsMap() {
-		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
-
-		for (Material material : Material.values()) {
-			if (BukkitReflectionUtils.isAir(material)) continue;
-			if (!material.isItem()) continue;
-			map.put(material.name(), new ItemStack(material));
-		}
-
-		return map;
 	}
 
 }

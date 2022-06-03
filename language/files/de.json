@@ -167,7 +167,7 @@
 	"command-back-no-locations": "Du hast dich noch §cnicht §7teleportiert",
 	"command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
 	"command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
-	"command-result-no-battle-active": "Es ist aktuell §ckein Force-Battle aktiviert",
+	"command-result-no-battle-active": "Es ist aktuell §ckein §7Force-Battle aktiviert",
 	"traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
 	"player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
 	"death-message": "§e{0} §7ist gestorben",
@@ -376,7 +376,6 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
-
 	"menu-title": "Menu",
 	"menu-timer": "§6Timer",
 	"menu-goal": "§5Ziel",
@@ -385,7 +384,6 @@
 	"menu-challenges": "§cChallenges",
 	"menu-settings": "§eEinstellungen",
 	"menu-custom": "§aBenutzerdefiniert",
-
 	"lore-category-activated-count": "§7Aktiviert §8» §a{0}§8/§7{1}",
 	"lore-category-activated": "§7Aktiviert §8» §aJa",
 	"lore-category-deactivated": "§7Aktiviert §8» §cNein",
@@ -459,7 +457,6 @@
 		"Sei der *schnellste Spieler*, der",
 		"das Ziel erfüllt"
 	],
-
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",

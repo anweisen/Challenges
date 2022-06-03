@@ -12,13 +12,13 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeConfigHelper {
 
-	private ChallengeConfigHelper() {
-	}
-
 	private static final Document settingsDocument;
 
 	static {
 		settingsDocument = Challenges.getInstance().getConfigDocument().getDocument("challenge-settings");
+	}
+
+	private ChallengeConfigHelper() {
 	}
 
 	@Nonnull

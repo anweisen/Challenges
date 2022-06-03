@@ -22,6 +22,11 @@ public class RandomItemAction extends ChallengeAction {
 		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
 	}
 
+	public static void giveRandomItemToPlayer(@Nonnull Player player) {
+		InventoryUtils.giveItem(player.getInventory(),
+				player.getLocation(), InventoryUtils.getRandomItem(true, false));
+	}
+
 	@Override
 	public void execute(
 			ChallengeExecutionData executionData,
@@ -33,11 +38,6 @@ public class RandomItemAction extends ChallengeAction {
 				giveRandomItemToPlayer(player);
 			}
 		}
-	}
-
-	public static void giveRandomItemToPlayer(@Nonnull Player player) {
-		InventoryUtils.giveItem(player.getInventory(),
-				player.getLocation(), InventoryUtils.getRandomItem(true, false));
 	}
 
 	@Override

@@ -28,6 +28,20 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 		this.items = items;
 	}
 
+	private static int getNextMiddleSlot(@Nonnegative int currentSlot) {
+		if (currentSlot >= 53) return currentSlot;
+		if (isSideSlot(currentSlot)) return getNextMiddleSlot(currentSlot + 1);
+		return currentSlot;
+	}
+
+	private static boolean isSideSlot(@Nonnegative int slot) {
+		return slot % 9 == 0 || slot % 9 == 8;
+	}
+
+	private static boolean isTopOrBottomSlot(@Nonnegative int slot) {
+		return slot < 9 || slot > 35;
+	}
+
 	@Override
 	public MenuPosition getMenuPosition(int page) {
 		return new GeneratorMenuPosition(this, page) {
@@ -93,20 +107,6 @@ public abstract class ChooseItemGenerator extends MultiPageMenuGenerator {
 			lastSlot++;
 		}
 
-	}
-
-	private static int getNextMiddleSlot(@Nonnegative int currentSlot) {
-		if (currentSlot >= 53) return currentSlot;
-		if (isSideSlot(currentSlot)) return getNextMiddleSlot(currentSlot + 1);
-		return currentSlot;
-	}
-
-	private static boolean isSideSlot(@Nonnegative int slot) {
-		return slot % 9 == 0 || slot % 9 == 8;
-	}
-
-	private static boolean isTopOrBottomSlot(@Nonnegative int slot) {
-		return slot < 9 || slot > 35;
 	}
 
 	@Override

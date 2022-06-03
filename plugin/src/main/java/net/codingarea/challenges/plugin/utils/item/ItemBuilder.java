@@ -350,12 +350,6 @@ public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBu
 
 	public static class PotionBuilder extends ItemBuilder {
 
-		@Nonnull
-		@CheckReturnValue
-		public static ItemBuilder createWaterBottle() {
-			return new ItemBuilder.PotionBuilder(Material.POTION).setColor(Color.BLUE).hideAttributes();
-		}
-
 		public PotionBuilder(@Nonnull Material material) {
 			super(material);
 		}
@@ -378,6 +372,12 @@ public class ItemBuilder extends net.anweisen.utilities.bukkit.utils.item.ItemBu
 
 		public PotionBuilder(@Nonnull ItemStack item) {
 			super(item);
+		}
+
+		@Nonnull
+		@CheckReturnValue
+		public static ItemBuilder createWaterBottle() {
+			return new ItemBuilder.PotionBuilder(Material.POTION).setColor(Color.BLUE).hideAttributes();
 		}
 
 		@Nonnull

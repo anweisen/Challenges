@@ -31,6 +31,16 @@ public class RandomTeleportOnHitChallenge extends Setting {
 		setCategory(SettingCategory.RANDOMIZER);
 	}
 
+	public static void switchEntityLocations(LivingEntity entity1, LivingEntity entity2) {
+		entity1.setInvisible(true);
+		entity2.setInvisible(false);
+		Location entity2Location = entity2.getLocation().clone();
+		entity2.teleport(entity1.getLocation());
+		entity1.teleport(entity2Location);
+		entity2.setInvisible(false);
+		entity1.setInvisible(false);
+	}
+
 	@NotNull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -48,16 +58,6 @@ public class RandomTeleportOnHitChallenge extends Setting {
 		LivingEntity entity = globalRandom.choose(livingEntities);
 
 		switchEntityLocations(entity, event.getDamager());
-	}
-
-	public static void switchEntityLocations(LivingEntity entity1, LivingEntity entity2) {
-		entity1.setInvisible(true);
-		entity2.setInvisible(false);
-		Location entity2Location = entity2.getLocation().clone();
-		entity2.teleport(entity1.getLocation());
-		entity1.teleport(entity2Location);
-		entity2.setInvisible(false);
-		entity1.setInvisible(false);
 	}
 
 }

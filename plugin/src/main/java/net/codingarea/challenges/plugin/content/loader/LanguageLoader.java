@@ -12,7 +12,6 @@ import net.anweisen.utilities.common.misc.GsonUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.logging.ConsolePrint;
-import org.bukkit.Bukkit;
 
 import javax.annotation.Nonnull;
 import java.io.File;
@@ -33,6 +32,10 @@ public final class LanguageLoader extends ContentLoader {
 	private static volatile boolean loaded = false;
 	private String language;
 	private boolean smallCapsFont;
+
+	public static boolean isLoaded() {
+		return loaded;
+	}
 
 	@Override
 	protected void load() {
@@ -130,7 +133,7 @@ public final class LanguageLoader extends ContentLoader {
 				Message message = Message.forName(entry.getKey());
 				JsonElement element = entry.getValue();
 				if (element.isJsonPrimitive()) {
-					message.setValue(new String[] { element.getAsString() });
+					message.setValue(new String[]{element.getAsString()});
 					messages++;
 				} else if (element.isJsonArray()) {
 					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
@@ -146,10 +149,6 @@ public final class LanguageLoader extends ContentLoader {
 		} catch (Exception ex) {
 			Logger.error("Could not read languages", ex);
 		}
-	}
-
-	public static boolean isLoaded() {
-		return loaded;
 	}
 
 	public String getLanguage() {

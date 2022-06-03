@@ -66,6 +66,17 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 
 	}
 
+	@Nullable
+	public static PotionEffectType getNewRandomEffect(@Nonnull LivingEntity entity) {
+		List<PotionEffectType> activeEffects = entity.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
+
+		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
+		possibleEffects.removeAll(activeEffects);
+		possibleEffects.remove(PotionEffectType.HEAL);
+		possibleEffects.remove(PotionEffectType.HARM);
+		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -91,17 +102,6 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		PotionEffectType effect = getNewRandomEffect(entity);
 		if (effect == null) return;
 		applyEffect(entity, effect);
-	}
-
-	@Nullable
-	public static PotionEffectType getNewRandomEffect(@Nonnull LivingEntity entity) {
-		List<PotionEffectType> activeEffects = entity.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
-
-		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
-		possibleEffects.removeAll(activeEffects);
-		possibleEffects.remove(PotionEffectType.HEAL);
-		possibleEffects.remove(PotionEffectType.HARM);
-		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
 	}
 
 	private void applyEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType) {
