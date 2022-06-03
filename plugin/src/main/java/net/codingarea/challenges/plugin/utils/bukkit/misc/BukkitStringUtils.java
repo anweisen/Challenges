@@ -17,10 +17,7 @@ import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.Callable;
 import java.util.function.Supplier;
 
@@ -220,13 +217,35 @@ public class BukkitStringUtils {
 	}
 
 	public static TranslatableComponent getPotionEffectName(@Nonnull PotionEffectType type) {
-		NamespacedKey key = type.getKey();
-		return new TranslatableComponent("effect." + key.getNamespace() + "." + key.getKey());
+
+		String key;
+		String namespace = "minecraft";
+
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_14)) {
+			NamespacedKey namespacedKey = type.getKey();
+			key = namespacedKey.getKey();
+			namespace = namespacedKey.getNamespace();
+		} else {
+			key = type.getName().toLowerCase();
+		}
+
+
+		return new TranslatableComponent("effect." + namespace + "." + key);
 	}
 
 	public static TranslatableComponent getBiomeName(@Nonnull Biome biome) {
-		NamespacedKey key = biome.getKey();
-		return new TranslatableComponent("biome." + key.getNamespace() + "." + key.getKey());
+		String key;
+		String namespace = "minecraft";
+
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_14)) {
+			NamespacedKey namespacedKey = biome.getKey();
+			key = namespacedKey.getKey();
+			namespace = namespacedKey.getNamespace();
+		} else {
+			key = biome.name().toLowerCase();
+		}
+
+		return new TranslatableComponent("biome." + namespace + "." + key);
 	}
 
 	public static TranslatableComponent getGameModeName(@Nonnull GameMode gameMode) {
