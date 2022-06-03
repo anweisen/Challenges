@@ -91,7 +91,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 				.filter(biome -> !biome.name().contains("END"))
 				.filter(biome -> !biome.name().contains("MUSHROOM"))
 				.filter(biome -> !biome.name().contains("VOID"))
-				.filter(biome -> biome != Biome.CUSTOM)
+				.filter(biome -> !biome.name().equals("CUSTOM"))
 				.toArray(Biome[]::new);
 
 		biome = globalRandom.choose(biomes);
