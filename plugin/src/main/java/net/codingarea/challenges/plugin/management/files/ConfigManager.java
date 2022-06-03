@@ -73,9 +73,9 @@ public final class ConfigManager {
 			defaultConfig.load(defaultConfigTempFile);
 
 			return defaultConfig;
-		} catch (IOException | NullPointerException | InvalidConfigurationException e) {
+		} catch (IOException | NullPointerException | InvalidConfigurationException exception) {
 			plugin.getLogger().severe("Error while checking missing keys in the current config");
-			e.printStackTrace();
+			Challenges.getInstance().getLogger().error("", exception);
 		}
 
 		return null;

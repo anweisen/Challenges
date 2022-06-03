@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.codingarea.challenges.plugin.Challenges;
+
 import java.lang.reflect.*;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
@@ -35,7 +37,7 @@ public class ReflectionUtil {
 			useNewSpigotPackaging = majorVersion >= 17;
 
 		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-			e.printStackTrace();
+			Challenges.getInstance().getLogger().error("", e);
 		}
 	}
 

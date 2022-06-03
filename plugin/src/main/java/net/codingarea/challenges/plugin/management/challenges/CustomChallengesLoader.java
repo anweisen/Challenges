@@ -73,7 +73,7 @@ public class CustomChallengesLoader extends ModuleChallengeLoader {
 
 			} catch (Exception exception) {
 				Challenges.getInstance().getLogger().error("Something went wrong while initializing custom challenge {} :: {}", key, exception.getMessage());
-				exception.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 
 		}

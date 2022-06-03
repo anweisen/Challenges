@@ -111,7 +111,7 @@ public final class DatabaseManager {
 					Challenges.getInstance().getLogger().info("Creating not existing column 'custom_challenges' in SQL Database");
 				} catch (Exception exception) {
 					Challenges.getInstance().getLogger().error("Failed to create non existing column 'custom_challenges' in SQL Database");
-					exception.printStackTrace();
+					Challenges.getInstance().getLogger().error("", exception);
 				}
 			}
 

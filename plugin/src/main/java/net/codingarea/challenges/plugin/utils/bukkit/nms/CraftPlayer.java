@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.codingarea.challenges.plugin.Challenges;
 import org.bukkit.entity.Player;
 
 /**
@@ -15,7 +16,7 @@ public class CraftPlayer {
 		try {
 			CLASS = ReflectionUtil.getBukkitClass("entity.CraftPlayer");
 		} catch (Exception e) {
-			e.printStackTrace();
+			Challenges.getInstance().getLogger().error(e);
 		}
 	}
 

@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -120,8 +121,8 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 				String value = document.getString(key);
 				if (value == null) return;
 				BukkitSerialization.fromBase64(inventory, value);
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException exception) {
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 

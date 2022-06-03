@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.codingarea.challenges.plugin.Challenges;
+
 /**
  * @author TobiasDeBruijn | https://github.com/TobiasDeBruijn
  * @source https://github.com/TobiasDeBruijn/BukkitReflectionUtil
@@ -16,8 +18,8 @@ public class PlayerConnection {
             } else {
                 packetClass = ReflectionUtil.getMinecraftClass("network.protocol.Packet");
             }
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 		}
 	}
 

@@ -25,8 +25,8 @@ public class ReloadCommand implements SenderCommand {
 			Bukkit.getPluginManager().disablePlugin(plugin);
 			plugin.onLoad();
 			Bukkit.getPluginManager().enablePlugin(plugin);
-		} catch (Exception ex) {
-			ex.printStackTrace();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 			Message.forName("reload-failed").broadcast(Prefix.CHALLENGES);
 		}
 		Message.forName("reload-success").broadcast(Prefix.CHALLENGES);

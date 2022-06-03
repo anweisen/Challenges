@@ -65,7 +65,7 @@ public class GeneratorWorldPortalManager implements GamestateSaveable {
 				lastWorldLocations.put(uuid, location);
 			} catch (Exception exception) {
 				Challenges.getInstance().getLogger().error("Couldn't load last location of: " + key);
-				exception.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 	}

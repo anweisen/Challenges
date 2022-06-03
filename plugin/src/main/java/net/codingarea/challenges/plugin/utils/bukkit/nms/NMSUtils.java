@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.codingarea.challenges.plugin.Challenges;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.chat.ComponentSerializer;
 import org.bukkit.boss.BossBar;
@@ -22,8 +23,8 @@ public final class NMSUtils {
             Class<?> craftEntityClass = ReflectionUtil.getBukkitClass("entity.CraftEntity");
             Object entityObject = ReflectionUtil.invokeMethod(craftEntityClass, entity, "getHandle");
             ReflectionUtil.invokeMethod(entityClass, entityObject, "a", new Class[]{ componentClass }, new Object[]{componentObject});
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            Challenges.getInstance().getLogger().error("", exception);
         }
     }
 
@@ -35,8 +36,8 @@ public final class NMSUtils {
             Class<?> craftBossBarClass = ReflectionUtil.getBukkitClass("boss.CraftBossBar");
             Object bossBattleObject = ReflectionUtil.invokeMethod(craftBossBarClass, bossBar, "getHandle");
             ReflectionUtil.invokeMethod(bossBattleClass, bossBattleObject, "a", new Class[]{ getComponentClass() }, new Object[]{component});
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            Challenges.getInstance().getLogger().error("", exception);
         }
 
     }
@@ -46,8 +47,8 @@ public final class NMSUtils {
         try {
             Class<?> componentSerializerClass = getClass("network.chat.IChatBaseComponent$ChatSerializer");
             return ReflectionUtil.invokeMethod(componentSerializerClass, null, "a", new Class[]{String.class}, new Object[]{json});
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception exception) {
+            Challenges.getInstance().getLogger().error("", exception);
         }
         return null;
     }
@@ -66,7 +67,7 @@ public final class NMSUtils {
                 return ReflectionUtil.getNmsClass(className);
             }
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
         return null;
     }

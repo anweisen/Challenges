@@ -92,7 +92,7 @@ public class ModifierSetting extends ValueSetting implements IModifier {
 		} catch (Exception exception) {
 			Challenges.getInstance().getLogger().severe("Something went wrong while parsing the "
 					+ "value of subsetting " + getKey() + " with value " + value);
-			exception.printStackTrace();
+			Challenges.getInstance().getLogger().error("", exception);
 		}
 
 		return 0;

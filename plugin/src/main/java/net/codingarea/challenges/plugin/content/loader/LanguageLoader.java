@@ -92,9 +92,9 @@ public final class LanguageLoader extends ContentLoader {
 
 					Logger.debug("Writing language {} to {}", name, file);
 					verifyLanguage(language, file, name);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					Logger.error("Could not download language for {}. {}: {}", element, ex.getClass().getSimpleName(), ex.getMessage());
+				} catch (Exception exception) {
+					Challenges.getInstance().getLogger().error("", exception);
+					Logger.error("Could not download language for {}. {}: {}", element, exception.getClass().getSimpleName(), exception.getMessage());
 				}
 			}
 

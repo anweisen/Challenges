@@ -180,7 +180,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
 			} catch (IllegalArgumentException exception) {
 				plugin.getLogger().severe("Error while loading 500 Blocks Challenge, "
 						+ "key '" + key + "' is not a valid uuid");
-				exception.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 	}
