@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.misc;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.collection.WrappedException;
 import net.anweisen.utilities.common.logging.ILogger;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -198,8 +199,19 @@ public class BukkitStringUtils {
 
 
 	public static TranslatableComponent getEntityName(@Nonnull EntityType type) {
-		NamespacedKey key = type.getKey();
-		return new TranslatableComponent("entity." + key.getNamespace() + "." + key.getKey());
+
+		String key;
+		String namespace = "minecraft";
+
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_14)) {
+			NamespacedKey namespacedKey = type.getKey();
+			key = namespacedKey.getKey();
+			namespace = namespacedKey.getNamespace();
+		} else {
+			key = type.getName();
+		}
+
+		return new TranslatableComponent("entity." + namespace + "." + key);
 	}
 
 	public static TranslatableComponent getEntityName(@Nonnull LootTable type) {
