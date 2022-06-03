@@ -150,7 +150,11 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	@Override
 	public void loadGameState(@NotNull Document document) {
-		if (document.contains("time")) {
+		if (document.isEmpty()) {
+			startedBefore = true;
+			timerStatus = true;
+			restartTimer();
+		} else if (document.contains("time")) {
 			startedBefore = true;
 			timerStatus = true;
 			secondsUntilActivation = document.getInt("time");
