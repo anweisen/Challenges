@@ -24,7 +24,7 @@ public class SkipTimerCommand implements SenderCommand, Completer {
 			if (!challenge.isEnabled()) continue;
 			if (challenge instanceof TimedChallenge) {
 				TimedChallenge timedChallenge = (TimedChallenge) challenge;
-				timedChallenge.restartTimer(1);
+				timedChallenge.setSecondsUntilActivation(0);
 			}
 		}
 	}

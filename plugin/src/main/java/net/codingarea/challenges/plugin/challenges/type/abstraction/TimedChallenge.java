@@ -119,7 +119,7 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	protected float getProgress() {
-		return (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
+		return getOriginalSecondsUntilActivation() == 0 ? 1 : (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
 	}
 
 	protected void handleCountdown() {
@@ -131,7 +131,11 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	protected abstract int getSecondsUntilNextActivation();
 
-	public void restartTimer(int seconds) {
+	public void setSecondsUntilActivation(int secondsUntilActivation) {
+		this.secondsUntilActivation = secondsUntilActivation;
+	}
+
+	protected void restartTimer(int seconds) {
 		Logger.debug("Restarting timer of {} with {} second(s)", this.getClass().getSimpleName(), seconds);
 
 		startedBefore = true;
