@@ -1147,6 +1147,11 @@
 		"§6Entity Loot Randomizer",
 		"All mob drops are *randomly swapped*."
 	],
+	"item-no-shared-advancements-challenge": [
+		"§2No Shared Advancements",
+		"You're *not allowed* to get *advancements* someone else",
+		"*already did*. Else *you'll die*."
+	],
 	"item-dragon-goal": [
 		"§5Ender Dragon",
 		"Kill the *Ender Dragon* to win"

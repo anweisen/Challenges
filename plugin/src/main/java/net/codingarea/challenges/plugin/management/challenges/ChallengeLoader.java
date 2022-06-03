@@ -176,6 +176,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LowDropRateChallenge.class);
 		register(EnderGamesChallenge.class);
 		register(InvertHealthChallenge.class);
+		register(NoSharedAdvancementsChallenge.class);
 
 
 		// Goal

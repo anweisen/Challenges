@@ -1162,6 +1162,11 @@
 		"§6Entity Loot Randomizer",
 		"Alle Mob Drops sind *zufällig vertauscht*."
 	],
+	"item-no-shared-advancements-challenge": [
+		"§2Keine Gleichen Advancements",
+		"Spieler dürfen *nicht* die *gleichen Advancements*",
+		"abschließen, sonst *stirbt* der *Spieler*"
+	],
 	"item-dragon-goal": [
 		"§5Enderdrache",
 		"Töte den *Enderdrachen* um zu gewinnen"
