@@ -13,6 +13,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -26,11 +27,11 @@ import java.util.function.Supplier;
 public class BukkitStringUtils {
 
 	@Nonnull
-	public static BaseComponent[] format(@Nonnull Prefix prefix, @Nonnull String[] array, @Nonnull Object... args) {
+	public static BaseComponent[] format(@Nullable Prefix prefix, @Nonnull String[] array, @Nonnull Object... args) {
 		List<BaseComponent> results = new ArrayList<>();
 		for (String value : array) {
 			String s = value;
-			if (!s.isEmpty()) {
+			if (!s.isEmpty() && prefix != null) {
 				s = prefix + s;
 			}
 			BaseComponent comp = null;

@@ -14,9 +14,9 @@ import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -42,6 +42,20 @@ public class MessageImpl implements Message {
 
 	@Nonnull
 	@Override
+	public BaseComponent asComponent(@Nonnull Object... args) {
+		if (value == null) return new TextComponent(Message.NULL);
+		BaseComponent[] components = asComponentArray(null, args);
+		BaseComponent first = null;
+		// TODO: This will bug with colors as they wont be added to the next line
+		for (BaseComponent component : components) {
+			if (first == null) first = component;
+			else first.addExtra(component);
+		}
+		return first == null ? new TextComponent() : first;
+	}
+
+	@Nonnull
+	@Override
 	public String asRandomString(@Nonnull Object... args) {
 		return asRandomString(defaultRandom(), args);
 	}
@@ -56,7 +70,7 @@ public class MessageImpl implements Message {
 
 	@Nonnull
 	@Override
-	public BaseComponent asRandomComponent(@NotNull IRandom random, @Nonnull Prefix prefix, @NotNull Object... args) {
+	public BaseComponent asRandomComponent(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args) {
 		BaseComponent[] array = asComponentArray(prefix, args);
 		if (array.length == 0) return new TextComponent(Message.unknown(name));
 		return random.choose(array);
@@ -74,7 +88,7 @@ public class MessageImpl implements Message {
 
 	@Nonnull
 	@Override
-	public BaseComponent[] asComponentArray(@Nonnull Prefix prefix, @NotNull Object... args) {
+	public BaseComponent[] asComponentArray(@Nullable Prefix prefix, @Nonnull Object... args) {
 		if (value == null) return new TextComponent[] { new TextComponent(Message.unknown(name)) };
 		return BukkitStringUtils.format(prefix, value, args);
 	}
