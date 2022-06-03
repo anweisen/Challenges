@@ -41,14 +41,14 @@ public class MessageImpl implements Message {
 	@Nonnull
 	@Override
 	public String asString(@Nonnull Object... args) {
-		if (value == null) return Message.NULL;
+		if (value == null) return name;
 		return String.join("\n", asArray(args));
 	}
 
 	@Nonnull
 	@Override
 	public BaseComponent asComponent(@Nonnull Object... args) {
-		if (value == null) return new TextComponent(Message.NULL);
+		if (value == null) return new TextComponent(name);
 		BaseComponent[] components = asComponentArray(null, args);
 		BaseComponent first = null;
 		// TODO: This will bug with colors as they wont be added to the next line

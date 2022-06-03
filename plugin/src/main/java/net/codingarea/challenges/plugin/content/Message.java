@@ -28,7 +28,7 @@ public interface Message {
 			Logger.warn("Tried accessing unknown messages '{}'", name);
 		}
 
-		return NULL;
+		return name;
 	}
 
 	@Nonnull
