@@ -41,14 +41,14 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == 1) return DefaultItem.create(Material.GRASS_BLOCK, "§6Block");
-		return DefaultItem.create(Material.BOOK, "§6Chunk");
+		if (getValue() == BLOCK) return DefaultItem.create(Material.GRASS_BLOCK, Message.forName("item-block-chunk-item-remove-challenge-block"));
+		return DefaultItem.create(Material.BOOK, Message.forName("item-block-chunk-item-remove-challenge-chunk"));
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		if (getValue() == BLOCK) ChallengeHelper.playChangeChallengeValueTitle(this, "§6Block");
-		else ChallengeHelper.playChangeChallengeValueTitle(this, "§6Chunk");
+		if (getValue() == BLOCK) ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-block-chunk-item-remove-challenge-block"));
+		else ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-block-chunk-item-remove-challenge-chunk"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

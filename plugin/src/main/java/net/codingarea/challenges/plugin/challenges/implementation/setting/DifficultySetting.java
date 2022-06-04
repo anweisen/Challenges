@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -53,26 +54,26 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
 			case 0:
-				return DefaultItem.create(Material.LIME_DYE, "§aPeaceful");
+				return DefaultItem.create(Material.LIME_DYE, getDifficultyName());
 			case 1:
-				return DefaultItem.create(MaterialWrapper.GREEN_DYE, "§2Easy");
+				return DefaultItem.create(MaterialWrapper.GREEN_DYE, getDifficultyName());
 			case 2:
-				return DefaultItem.create(Material.ORANGE_DYE, "§6Normal");
+				return DefaultItem.create(Material.ORANGE_DYE, getDifficultyName());
 			default:
-				return DefaultItem.create(MaterialWrapper.RED_DYE, "§cHard");
+				return DefaultItem.create(MaterialWrapper.RED_DYE, getDifficultyName());
 		}
 	}
 
 	private String getDifficultyName() {
 		switch (getValue()) {
 			case 0:
-				return "§aPeaceful";
+				return "§a" + BukkitStringUtils.getDifficultyName(Difficulty.PEACEFUL).toPlainText();
 			case 1:
-				return "§2Easy";
+				return "§2" + BukkitStringUtils.getDifficultyName(Difficulty.EASY).toPlainText();
 			case 2:
-				return "§6Normal";
+				return "§6" + BukkitStringUtils.getDifficultyName(Difficulty.NORMAL).toPlainText();
 			default:
-				return "§cHard";
+				return "§c" + BukkitStringUtils.getDifficultyName(Difficulty.HARD).toPlainText();
 		}
 	}
 
@@ -112,7 +113,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
 
 		if (args.length == 0) {
-			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyName());
+			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyByValue(getValue()));
 			return;
 		}
 
@@ -123,7 +124,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 		}
 
 		setValue(difficulty);
-		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyName());
+		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyByValue(getValue()));
 
 	}
 

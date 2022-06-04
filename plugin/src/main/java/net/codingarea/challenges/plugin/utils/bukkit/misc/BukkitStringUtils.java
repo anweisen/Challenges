@@ -5,10 +5,7 @@ import net.anweisen.utilities.common.collection.WrappedException;
 import net.anweisen.utilities.common.logging.ILogger;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.md_5.bungee.api.chat.*;
-import org.bukkit.ChatColor;
-import org.bukkit.GameMode;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
+import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.EntityType;
@@ -176,6 +173,7 @@ public class BukkitStringUtils {
 					arg instanceof GameMode ? getGameModeName((GameMode) arg) :
 					arg instanceof Advancement ? getAdvancementComponent((Advancement) arg) :
 					arg instanceof LootTable ? getEntityName((LootTable) arg) :
+					arg instanceof Difficulty ? getDifficultyName((Difficulty) arg) :
 					arg;
 
 			if (toStrings) {
@@ -272,6 +270,10 @@ public class BukkitStringUtils {
 
 	private static String correctAdvancementKeys(String s) {
 		return s.replace("bred_all_animals", "breed_all_animals").replace("obtain_netherite_hoe", "netherite_hoe"); // mc sucks
+	}
+
+	public static TranslatableComponent getDifficultyName(@Nonnull Difficulty difficulty) {
+		return new TranslatableComponent("options.difficulty." + difficulty.name().toLowerCase());
 	}
 
 }

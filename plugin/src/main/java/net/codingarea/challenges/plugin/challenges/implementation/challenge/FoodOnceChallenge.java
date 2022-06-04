@@ -38,9 +38,9 @@ public class FoodOnceChallenge extends SettingModifier {
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
 			case 1:
-				return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+				return DefaultItem.create(Material.PLAYER_HEAD, Message.forName("item-food-once-challenge-player"));
 			case 2:
-				return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
+				return DefaultItem.create(Material.ENDER_CHEST, Message.forName("item-food-once-challenge-everyone"));
 			default:
 				return super.createSettingsItem();
 		}
@@ -48,7 +48,7 @@ public class FoodOnceChallenge extends SettingModifier {
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 1 ? "§6Player" : "§5Everyone");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 1 ? Message.forName("item-food-once-challenge-player") : Message.forName("item-food-once-challenge-everyone"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
