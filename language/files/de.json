@@ -461,6 +461,7 @@
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",
 	"item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
+	"item-heart-start-description": "§8» §7Start: §e{0} §c❤",
 	"item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
 	"item-chance-description": "§8» §7Chance: §e{0}%",
 	"item-launcher-description": "§8» §7Stärke: §e{0}",
@@ -1333,6 +1334,10 @@
 		"*Advancement*, welches er erreichen muss."
 	],
 	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
+	"item-get-full-health-goal": [
+		"§aGet Full Health",
+		"The first player to gain full health wins."
+	],
 	"item-damage-rule-none": [
 		"§6Genereller Schaden",
 		"Stellt ein, ob du Schaden bekommen kannst"

@@ -456,6 +456,7 @@
 	"item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",
 	"item-heart-damage-description": "§8» §7Damage: §e{0} §c❤",
+	"item-heart-start-description": "§8» §7Start: §e{0} §c❤",
 	"item-max-health-description": "§8» §7Max health: §e{0} §c❤",
 	"item-chance-description": "§8» §7Chance: §e{0}%",
 	"item-launcher-description": "§8» §7Strength: §e{0}",
@@ -1301,11 +1302,15 @@
 		"he has to *kill*.",
 		"The player that *killed* the *most mobs*, wins."
 	],
-	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
 	"item-force-advancement-battle-goal": [
 		"§6Force Advancement Battle",
 		"Each player gets a *random advancement*,",
 		"that he has to complete."
+	],
+	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-get-full-health-goal": [
+		"§aGet Full Health",
+		"The first player to gain full health wins."
 	],
 	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-damage-rule-none": [

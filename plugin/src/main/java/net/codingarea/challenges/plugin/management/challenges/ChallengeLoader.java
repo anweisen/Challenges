@@ -217,6 +217,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
 		register(CollectWorkstationsGoal.class);
+		register(GetFullHealthGoal.class);
 
 		// Misc
 		register(LastManStandingGoal.class);
