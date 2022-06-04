@@ -13,7 +13,6 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -57,17 +56,6 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 			}
 		});
 		return advancements.toArray(new Advancement[0]);
-	}
-
-	@Override
-	public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
-		Advancement advancement = currentTarget.get(player.getUniqueId());
-		if (advancement == null) {
-			armorStand.setCustomNameVisible(false);
-		} else {
-			armorStand.setCustomNameVisible(true);
-			armorStand.setCustomName(getTargetName(advancement));
-		}
 	}
 
 	@Override
@@ -133,11 +121,6 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	@Override
 	protected Message getLeaderboardTitleMessage() {
 		return Message.forName("force-advancement-battle-leaderboard");
-	}
-
-	@Override
-	public boolean isSmall() {
-		return false;
 	}
 
 	@Override

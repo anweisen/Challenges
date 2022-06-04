@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
@@ -27,7 +27,7 @@ import java.util.List;
  * @since 2.2.0
  */
 @Since("2.2.0")
-public class ForceBlockBattleGoal extends ForceBattleGoal<Material> {
+public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<Material> {
 
     public ForceBlockBattleGoal() {
         super(MenuType.GOAL, Message.forName("menu-force-block-battle-goal-settings"));
@@ -86,11 +86,6 @@ public class ForceBlockBattleGoal extends ForceBattleGoal<Material> {
     @Override
     protected Message getTargetFoundMessage() {
         return Message.forName("force-block-battle-found");
-    }
-
-    @Override
-    public boolean isSmall() {
-        return true;
     }
 
     @Override

@@ -9,7 +9,6 @@ import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -56,17 +55,6 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 	}
 
 	@Override
-	public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
-		EntityType mob = currentTarget.get(player.getUniqueId());
-		if (mob == null) {
-			armorStand.setCustomNameVisible(false);
-		} else {
-			armorStand.setCustomNameVisible(true);
-			armorStand.setCustomName(getTargetName(mob));
-		}
-	}
-
-	@Override
 	public EntityType getTargetFromDocument(Document document, String key) {
 		return document.getEnum(key, EntityType.class);
 	}
@@ -84,11 +72,6 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 	@Override
 	protected Message getTargetFoundMessage() {
 		return Message.forName("force-mob-battle-killed");
-	}
-
-	@Override
-	public boolean isSmall() {
-		return false;
 	}
 
 	@Override
