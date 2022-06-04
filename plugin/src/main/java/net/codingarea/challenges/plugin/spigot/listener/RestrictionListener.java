@@ -72,7 +72,7 @@ public class RestrictionListener implements Listener {
 	}
 
 	@EventHandler(priority = EventPriority.LOW)
-	public void onFoodLevelChange(@Nonnull EntityRegainHealthEvent event) {
+	public void onEntityRegainHealth(@Nonnull EntityRegainHealthEvent event) {
 		if (ChallengeAPI.isPaused())
 			event.setCancelled(true);
 	}
