@@ -47,13 +47,13 @@ public class TimberSetting extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == LOGS_LEAVES)
-			return DefaultItem.create(Material.OAK_LEAVES, "§6Logs §7& §2Leaves");
-		return DefaultItem.create(Material.OAK_LOG, "§6Logs");
+			return DefaultItem.create(Material.OAK_LEAVES, Message.forName("item-timber-setting-logs-and-leaves"));
+		return DefaultItem.create(Material.OAK_LOG, Message.forName("item-timber-setting-logs"));
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == LOGS_LEAVES ? "§6Logs §7& §2Leaves" : "§6Logs");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == LOGS_LEAVES ? Message.forName("item-timber-setting-logs-and-leaves") : Message.forName("item-timber-setting-logs"));
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

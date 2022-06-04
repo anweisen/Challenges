@@ -56,8 +56,8 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == SHARED)
-			return DefaultItem.create(Material.ENDER_CHEST, "§5Team");
-		return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+			return DefaultItem.create(Material.ENDER_CHEST, Message.forName("item-backpack-setting-team"));
+		return DefaultItem.create(Material.PLAYER_HEAD, Message.forName("item-backpack-setting-player"));
 	}
 
 
@@ -65,10 +65,10 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	public void playValueChangeTitle() {
 		switch (getValue()) {
 			case SHARED:
-				ChallengeHelper.playChangeChallengeValueTitle(this, "§5Team");
+				ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-backpack-setting-team"));
 				break;
 			case PLAYER:
-				ChallengeHelper.playChangeChallengeValueTitle(this, "§6Player");
+				ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-backpack-setting-player"));
 				break;
 			default:
 				ChallengeHelper.playToggleChallengeTitle(this, false);

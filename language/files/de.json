@@ -506,6 +506,7 @@
 		"§6Todesnachrichten",
 		"Schaltet *Todesnachrichten* ein/aus"
 	],
+	"item-death-message-setting-vanilla": "§6Vanilla",
 	"item-pvp-setting": [
 		"§9PvP"
 	],
@@ -543,6 +544,8 @@
 		"Erlaubt es dir, *deinen Backpack* oder den",
 		"*Team Backpack* mit */backpack* zu öffnen"
 	],
+	"item-backpack-setting-team": "§5Team",
+	"item-backpack-setting-player": "§6Player",
 	"item-cut-clean-setting": [
 		"§9CutClean",
 		"Verschiedene *Einstellungen*, die",
@@ -601,6 +604,8 @@
 		"Du kannst einen *Baum* zerstören,",
 		"indem du *einen Block* des Baumes abbaust"
 	],
+	"item-timber-setting-logs": "§6Baumstämme",
+	"item-timber-setting-logs-and-leaves": "§6Baumstämme §7und §2Blätter",
 	"item-keep-inventory-setting": [
 		"§5Keep Inventory",
 		"Du verlierst keine *Items*,",
@@ -635,6 +640,7 @@
 		"Stellt ein, *ob* und",
 		"*wie* man *regeneriert*"
 	],
+	"item-regeneration-setting-not_natural": "§6Nicht natürlich",
 	"item-immediate-respawn-setting": [
 		"§6Direkter Respawn",
 		"Wenn du stirbst, *respawnst* du *automatisch,*",
@@ -809,6 +815,8 @@
 		"Du kannst jeden *Essen*",
 		"nur einmal *essen*"
 	],
+	"item-food-once-challenge-player": "§6Spieler",
+	"item-food-once-challenge-everyone": "§5Jeder",
 	"item-chunk-deconstruction-challenge": [
 		"§bChunk Deconstruction",
 		"*Chunks*, in denen sich Spieler befinden,",
@@ -1014,6 +1022,8 @@
 		"den du dich *fortbewegst*, ein Item",
 		"aus deinem Inventar *gelöscht*"
 	],
+	"item-block-chunk-item-remove-challenge-block": "§6Block",
+	"item-block-chunk-item-remove-challenge-chunk": "§6Chunk",
 	"item-higher-jumps-challenge": [
 		"§aHigher Jumps",
 		"*Umso öfter* du springst,",
