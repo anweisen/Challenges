@@ -47,7 +47,7 @@ public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
         ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
             World world = player1.getWorld();
             ArmorStand entity = (ArmorStand) world
-                    .spawnEntity(player1.getLocation().clone().add(0, 1, 0), EntityType.ARMOR_STAND);
+                    .spawnEntity(player1.getLocation().clone().add(0, 2, 0), EntityType.ARMOR_STAND);
             entity.setVisible(false);
             entity.setInvulnerable(true);
             entity.setGravity(false);
@@ -56,8 +56,8 @@ public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
             entity.setSmall(true);
             return entity;
         });
-        armorStand.teleport(player.getLocation().clone().add(0, 2, 0));
         armorStand.setVelocity(player.getVelocity().clone().multiply(2));
+        armorStand.teleport(player.getLocation().clone().add(0, 2, 0));
 
         handleDisplayStandUpdate(player, armorStand);
     }
