@@ -56,7 +56,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 				value -> null,
 				value -> "§e" + value,
 				1,
-				200,
+				32,
 				5
 		));
 		registerSetting("showScoreboard", new BooleanSubSetting(
@@ -218,7 +218,9 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 			GsonDocument playerDocument = new GsonDocument();
 			playerDocument.set("uuid", entry.getKey());
 			setTargetInDocument(playerDocument, "currentTarget", entry.getValue());
-			setFoundListInDocument(playerDocument, "foundTargets", foundItems);
+			if (foundItems != null) {
+				setFoundListInDocument(playerDocument, "foundTargets", foundItems);
+			}
 			playerDocument.set("jokerUsed", jokerUsed);
 			playersDocuments.add(playerDocument);
 		}
