@@ -36,6 +36,7 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	}
 
 	private void resetAdvancementProgress(Player player, Advancement advancement) {
+		if (advancement == null) return;
 		AdvancementProgress progress = player.getAdvancementProgress(advancement);
 		progress.getAwardedCriteria().forEach(progress::revokeCriteria);
 	}

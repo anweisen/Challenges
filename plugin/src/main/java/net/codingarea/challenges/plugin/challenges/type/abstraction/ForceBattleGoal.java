@@ -63,6 +63,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 				() -> new ItemBuilder(Material.BOOK, Message.forName("item-force-battle-show-scoreboard")),
 				true
 		));
+		registerSetting("dupedTargets", new BooleanSubSetting(
+				() -> new ItemBuilder(Material.PAPER, Message.forName("item-force-battle-duped-targets")),
+				true
+		));
 	}
 
 	@Override
@@ -121,7 +125,9 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 		int jokersInInventory = 0;
 
-		for (ItemStack itemStack : new LinkedList<>(Arrays.asList(inventory.getContents()))) {
+		LinkedList<ItemStack> itemStacks = new LinkedList<>(Arrays.asList(inventory.getContents()));
+		itemStacks.add(player.getItemOnCursor());
+		for (ItemStack itemStack : itemStacks) {
 			if (jokerItem.isSimilar(itemStack)) {
 				if (enabled) {
 					jokersInInventory += itemStack.getAmount();
@@ -240,13 +246,25 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	}
 
 	public void setRandomTarget(Player player) {
-		T target = globalRandom.choose(targetsPossibleToFind);
-		currentTarget.put(player.getUniqueId(), target);
-		scoreboard.update();
+
+		LinkedList<T> list = new LinkedList<>(Arrays.asList(targetsPossibleToFind));
+		if (!getSetting("dupedTargets").getAsBoolean()) {
+			list.removeAll(foundTargets.getOrDefault(player.getUniqueId(), new LinkedList<>()));
+		}
+
+		if (!list.isEmpty()) {
+			T target = globalRandom.choose(list);
+			currentTarget.put(player.getUniqueId(), target);
+			getNewTargetMessage()
+					.send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
+			SoundSample.PLING.play(player);
+		} else {
+			currentTarget.remove(player.getUniqueId());
+			SoundSample.BASS_OFF.play(player);
+		}
 		updateDisplayStand(player);
-		getNewTargetMessage()
-				.send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
-		SoundSample.PLING.play(player);
+		scoreboard.update();
+
 	}
 
 	protected abstract Message getNewTargetMessage();
@@ -345,6 +363,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	}
 
 	public void handleJokerUse(Player player) {
+		if (currentTarget.get(player.getUniqueId()) == null) {
+			setRandomTargetIfCurrentlyNone(player);
+			return;
+		}
 		int jokerUsed = this.jokerUsed.getOrDefault(player.getUniqueId(), 0);
 		jokerUsed++;
 		this.jokerUsed.put(player.getUniqueId(), jokerUsed);

@@ -479,6 +479,9 @@
 	"item-force-battle-show-scoreboard": [
 		"§bShow Scoreboard"
 	],
+	"item-force-battle-duped-targets": [
+		"§cDuped Targets"
+	],
 	"item-difficulty-setting": [
 		"§aDifficulty",
 		"Sets the *Difficulty*"
