@@ -230,6 +230,9 @@
 	"force-advancement-battle-completed": "You've completed §e{0}!",
 	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
 	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
+	"force-block-battle-found": "You've found §e{0}!",
+	"force-block-battle-new-block": "Block to find: §e{0}",
+	"force-block-battle-leaderboard": "§8➜ §7Force Block Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Is it you?",
@@ -1323,6 +1326,17 @@
 		"The first player to gain full health wins."
 	],
 	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
+	"item-force-block-battle-goal": [
+		"§aForce Block Battle",
+		"Every player gets a *random*",
+		"*block*, on which he has to stand"
+	],
+	"menu-force-block-battle-goal-settings": "Force Block Battle",
+	"item-force-block-battle-goal-give-block": [
+		"§bGive Block On Skip",
+		"If a player *skips* a block,",
+		"they will *receive* it"
+	],
 	"item-damage-rule-none": [
 		"§6General Damage",
 		"Sets whether you can get damage or not"

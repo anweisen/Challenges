@@ -230,6 +230,9 @@
 	"force-advancement-battle-completed": "Du hast §e{0} §7erzielt!",
 	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
 	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
+	"force-block-battle-found": "Du hast §e{0} §7gefunden!",
+	"force-block-battle-new-block": "Block zu suchen: §e{0}",
+	"force-block-battle-leaderboard": "§8➜ §7Force Block Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
@@ -1344,6 +1347,17 @@
 		"*Advancement*, welches er erreichen muss."
 	],
 	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
+	"item-force-block-battle-goal": [
+		"§aForce Block Battle",
+		"Jeder Spieler bekommt einen *zufälligen*",
+		"*Block*, auf welchem er stehen muss"
+	],
+	"menu-force-block-battle-goal-settings": "Force Block Battle",
+	"item-force-block-battle-goal-give-block": [
+		"§bBlock bei Skippen geben",
+		"Wenn ein Spieler einen Block *skippt*,",
+		"wird dieser in sein *Inventar hinzugefügt*"
+	],
 	"item-get-full-health-goal": [
 		"§aRegeneriere Volle Leben",
 		"The first player to gain full health wins."

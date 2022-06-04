@@ -65,7 +65,7 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	@NotNull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.END_CRYSTAL, Message.forName("item-force-item-battle-goal"));
+		return new ItemBuilder(Material.ITEM_FRAME, Message.forName("item-force-item-battle-goal"));
 	}
 
 	@Override
