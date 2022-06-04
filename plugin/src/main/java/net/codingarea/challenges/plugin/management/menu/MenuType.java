@@ -22,7 +22,7 @@ public enum MenuType {
 	TIMER("timer", Material.CLOCK, new TimerMenuGenerator(), false),
 	GOAL("goal", Material.COMPASS, new SmallCategorisedMenuGenerator()),
 	DAMAGE("damage", Material.IRON_SWORD, new SettingsMenuGenerator()),
-	ITEMS_BLOCKS("item_blocks", Material.STICK, new SettingsMenuGenerator()),
+	ITEMS("item_blocks", Material.STICK, new SettingsMenuGenerator()),
 	CHALLENGES("challenges", Material.BOOK, new CategorisedMenuGenerator()),
 	SETTINGS("settings", Material.COMPARATOR, new SettingsMenuGenerator()),
 	CUSTOM("custom", Material.WRITABLE_BOOK, new MainCustomMenuGenerator());
