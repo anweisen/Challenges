@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
+import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -43,16 +44,25 @@ public class SlotLimitSetting extends Modifier {
 
 	@Override
 	protected void onValueChange() {
-		updateSlots();
+		update();
 	}
 
-	@TimerTask(status = {TimerStatus.PAUSED, TimerStatus.RUNNING})
-	public void updateSlots() {
+	@TimerTask(status = { TimerStatus.RUNNING })
+	public void updateDelayed() {
+		Bukkit.getScheduler().runTaskLater(plugin, this::update, 1);
+	}
+
+	@TimerTask(status = { TimerStatus.PAUSED }, async = false)
+	public void update() {
 		Bukkit.getOnlinePlayers().forEach(this::updateSlots);
 	}
 
 	private void updateSlots(@Nonnull Player player) {
 		for (int i = 0; i < 36; i++) {
+			if (ignorePlayer(player)) {
+				unBlockSlot(player, i);
+				continue;
+			}
 			if (isBlocked(i) && ChallengeAPI.isStarted()) {
 				blockSlot(player, i);
 			} else {
@@ -80,7 +90,13 @@ public class SlotLimitSetting extends Modifier {
 
 		ItemStack item = player.getInventory().getItem(slot);
 		if (item != null && !item.isSimilar(ItemBuilder.BLOCKED_ITEM)) {
-			player.getWorld().dropItemNaturally(player.getLocation(), item);
+			if (!Bukkit.isPrimaryThread()) {
+				Bukkit.getScheduler().runTask(plugin, () -> {
+					player.getWorld().dropItemNaturally(player.getLocation(), item);
+				});
+			} else {
+				player.getWorld().dropItemNaturally(player.getLocation(), item);
+			}
 		}
 		player.getInventory().setItem(slot, ItemBuilder.BLOCKED_ITEM);
 	}
@@ -138,6 +154,13 @@ public class SlotLimitSetting extends Modifier {
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onRespawn(PlayerRespawnEvent event) {
 		updateSlots(event.getPlayer());
+	}
+
+	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+	public void onPlayerIgnoreStatusChange(PlayerIgnoreStatusChangeEvent event) {
+		Bukkit.getScheduler().runTask(plugin, () -> {
+			updateSlots(event.getPlayer());
+		});
 	}
 
 }
