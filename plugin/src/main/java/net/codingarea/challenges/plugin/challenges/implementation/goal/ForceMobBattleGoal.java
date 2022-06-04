@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleG
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
@@ -62,7 +63,7 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 			armorStand.setCustomNameVisible(false);
 		} else {
 			armorStand.setCustomNameVisible(true);
-			armorStand.setCustomName(getTargetName(mob));
+			NMSUtils.setEntityName(armorStand, BukkitStringUtils.getEntityName(mob));
 		}
 	}
 
