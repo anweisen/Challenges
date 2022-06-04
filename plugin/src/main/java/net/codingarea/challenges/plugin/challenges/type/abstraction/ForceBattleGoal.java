@@ -152,7 +152,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 			World world = player1.getWorld();
 			ArmorStand entity = (ArmorStand) world
 					.spawnEntity(player1.getLocation().clone().add(0, 1, 0), EntityType.ARMOR_STAND);
-			entity.setInvisible(true);
+			entity.setVisible(false);
 			entity.setInvulnerable(true);
 			entity.setGravity(false);
 			entity.setMarker(true);
