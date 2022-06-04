@@ -64,7 +64,7 @@ challenge-settings:
 custom-challenge-settings:
   # Keep in mind that when using an SQL database there is a maxiumum of what can be stored in one column.
   # Setting these values too high could result in players overreaching this limit.
-  # Character data limit per player = 60.000 | 30 Challenges take approximately 7.000 characters to save
+  # Character data limit per player = 30.000 | 30 Challenges take approximately 7.000 characters to save
   max-challenges: 60
   max-name-length: 30
   # Determines which commands or how long the command can be that is executed by the execute command action.

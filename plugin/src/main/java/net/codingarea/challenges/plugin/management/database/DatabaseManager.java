@@ -91,7 +91,7 @@ public final class DatabaseManager {
 					new SQLColumn("textures", "varchar", 500),
 					new SQLColumn("stats", "varchar", 1500),
 					new SQLColumn("config", "varchar", 15000),
-					new SQLColumn("custom_challenges", "text", 60000)
+					new SQLColumn("custom_challenges", "text", 30000)
 			);
 			loadMigration();
 		});
