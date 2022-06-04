@@ -156,4 +156,15 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 		}
 	}
 
+	@Override
+	public void handleTargetFound(Player player) {
+		Advancement advancement = currentTarget.get(player.getUniqueId());
+		super.handleTargetFound(player);
+		if (advancement != null) {
+			AdvancementProgress progress = player.getAdvancementProgress(advancement);
+			for(String criteria : progress.getRemainingCriteria()) {
+				progress.awardCriteria(criteria);
+			}
+		}
+	}
 }
