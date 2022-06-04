@@ -12,21 +12,23 @@ import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
-import org.bukkit.*;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
+import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
+import org.bukkit.Material;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.PlayerDeathEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerDropItemEvent;
+import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.jetbrains.annotations.NotNull;
@@ -44,7 +46,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	protected final Map<UUID, T> currentTarget = new HashMap<>();
 	protected T[] targetsPossibleToFind;
 	private ItemStack jokerItem;
-	private Map<Player, ArmorStand> displayStands;
 
 	public ForceBattleGoal(@NotNull MenuType menu, @NotNull Message title) {
 		super(menu, title);
@@ -72,12 +73,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	@Override
 	protected void onEnable() {
 		jokerItem = new ItemBuilder(Material.BARRIER, "§cJoker").build();
-		displayStands = new HashMap<>();
 
 		targetsPossibleToFind = getTargetsPossibleToFind();
 
 		broadcastFiltered(this::updateJokersInInventory);
-		broadcastFiltered(this::updateDisplayStand);
 		broadcastFiltered(this::setRandomTargetIfCurrentlyNone);
 
 		scoreboard.setContent((board, player) -> {
@@ -110,8 +109,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		if (jokerItem == null) return; // Disable through plugin disable
 		broadcastFiltered(this::updateJokersInInventory);
 		jokerItem = null;
-		displayStands.values().forEach(Entity::remove);
-		displayStands = null;
 		scoreboard.hide();
 		targetsPossibleToFind = null;
 	}
@@ -153,30 +150,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 	}
 
-	public void updateDisplayStand(Player player) {
-		ArmorStand armorStand = displayStands.computeIfAbsent(player, player1 -> {
-			World world = player1.getWorld();
-			ArmorStand entity = (ArmorStand) world
-					.spawnEntity(player1.getLocation().clone().add(0, 1, 0), EntityType.ARMOR_STAND);
-			entity.setVisible(false);
-			entity.setInvulnerable(true);
-			entity.setGravity(false);
-			entity.setMarker(true);
-			entity.setSilent(true);
-			return entity;
-		});
-		player.addPassenger(armorStand);
-		if (isSmall()) {
-			armorStand.setSmall(true);
-		}
-
-		handleDisplayStandUpdate(player, armorStand);
-	}
-
-	public abstract void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand);
-
-	public abstract boolean isSmall();
-
 	@Override
 	public void loadGameState(@NotNull Document document) {
 		this.jokerUsed.clear();
@@ -205,7 +178,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 			}
 			scoreboard.update();
 			broadcastFiltered(this::updateJokersInInventory);
-			broadcastFiltered(this::updateDisplayStand);
 		}
 	}
 
@@ -264,7 +236,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 			currentTarget.remove(player.getUniqueId());
 			SoundSample.BASS_OFF.play(player);
 		}
-		updateDisplayStand(player);
 		scoreboard.update();
 
 	}
@@ -376,31 +347,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		updateJokersInInventory(player);
 	}
 
-	@EventHandler(ignoreCancelled = true)
-	public void onTeleport(PlayerTeleportEvent event) {
-		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
-		updateDisplayStand(event.getPlayer());
-	}
-
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
 	public void onStart() {
 		broadcastFiltered(this::setRandomTargetIfCurrentlyNone);
 		broadcastFiltered(this::updateJokersInInventory);
-	}
-
-	@EventHandler
-	public void onStatusChange(PlayerIgnoreStatusChangeEvent event) {
-		if (!shouldExecuteEffect()) return;
-		if (event.isNotIgnored()) {
-			setRandomTargetIfCurrentlyNone(event.getPlayer());
-			updateDisplayStand(event.getPlayer());
-		} else {
-			ArmorStand stand = displayStands.remove(event.getPlayer());
-			if (stand != null) {
-				stand.remove();
-			}
-		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -408,31 +358,19 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		setRandomTargetIfCurrentlyNone(event.getPlayer());
-		updateDisplayStand(event.getPlayer());
 		updateJokersInInventory(event.getPlayer());
 	}
 
 	@ScheduledTask(ticks = 1, async = false, timerPolicy = TimerPolicy.ALWAYS)
 	public void onTick() {
 		if (!isEnabled()) return;
-		for (Player player : displayStands.keySet()) {
-			updateDisplayStand(player);
-		}
+
 		if (!scoreboard.isShown() && showScoreboard()) {
 			scoreboard.show();
 		} else if (scoreboard.isShown() && !showScoreboard()) {
 			scoreboard.hide();
 		}
 		broadcastFiltered(this::updateJokersInInventory);
-	}
-
-	@EventHandler(priority = EventPriority.HIGH)
-	public void onQuit(PlayerQuitEvent event) {
-		if (!shouldExecuteEffect()) return;
-		ArmorStand stand = displayStands.remove(event.getPlayer());
-		if (stand != null) {
-			stand.remove();
-		}
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)

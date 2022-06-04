@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -28,7 +28,7 @@ import java.util.List;
  * @since 2.1.3
  */
 @Since("2.1.3")
-public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
+public class ForceItemBattleGoal extends ForceBattleDisplayGoal<Material> {
 
 	public ForceItemBattleGoal() {
 		super(MenuType.GOAL, Message.forName("menu-force-item-battle-goal-settings"));
@@ -86,11 +86,6 @@ public class ForceItemBattleGoal extends ForceBattleGoal<Material> {
 	@Override
 	protected Message getTargetFoundMessage() {
 		return Message.forName("force-item-battle-found");
-	}
-
-	@Override
-	public boolean isSmall() {
-		return true;
 	}
 
 	@Override

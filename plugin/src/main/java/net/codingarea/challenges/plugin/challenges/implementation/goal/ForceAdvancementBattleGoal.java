@@ -7,14 +7,12 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleG
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -58,17 +56,6 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 			}
 		});
 		return advancements.toArray(new Advancement[0]);
-	}
-
-	@Override
-	public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
-		Advancement advancement = currentTarget.get(player.getUniqueId());
-		if (advancement == null) {
-			armorStand.setCustomNameVisible(false);
-		} else {
-			armorStand.setCustomNameVisible(true);
-			NMSUtils.setEntityName(armorStand, BukkitStringUtils.getAdvancementTitle(advancement));
-		}
 	}
 
 	@Override
@@ -134,11 +121,6 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	@Override
 	protected Message getLeaderboardTitleMessage() {
 		return Message.forName("force-advancement-battle-leaderboard");
-	}
-
-	@Override
-	public boolean isSmall() {
-		return false;
 	}
 
 	@Override
