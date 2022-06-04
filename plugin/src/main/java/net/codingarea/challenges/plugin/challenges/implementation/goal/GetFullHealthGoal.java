@@ -81,6 +81,7 @@ public class GetFullHealthGoal extends SettingModifierGoal {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onHealthChange(EntityRegainHealthEvent event) {
 		if (!(event.getEntity() instanceof Player)) return;
+		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer((Player) event.getEntity())) return;
 		AttributeInstance attribute = ((Player) event.getEntity()).getAttribute(Attribute.GENERIC_MAX_HEALTH);
 		Bukkit.getScheduler().runTask(plugin, () -> {
