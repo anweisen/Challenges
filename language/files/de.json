@@ -1335,7 +1335,7 @@
 	],
 	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
 	"item-get-full-health-goal": [
-		"§aGet Full Health",
+		"§aRegeneriere Volle Leben",
 		"The first player to gain full health wins."
 	],
 	"item-damage-rule-none": [
