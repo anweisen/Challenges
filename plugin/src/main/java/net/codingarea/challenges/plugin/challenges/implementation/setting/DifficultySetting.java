@@ -12,6 +12,9 @@ import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -65,16 +68,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	}
 
 	private String getDifficultyName() {
-		switch (getValue()) {
-			case 0:
-				return "§a" + BukkitStringUtils.getDifficultyName(Difficulty.PEACEFUL).toPlainText();
-			case 1:
-				return "§2" + BukkitStringUtils.getDifficultyName(Difficulty.EASY).toPlainText();
-			case 2:
-				return "§6" + BukkitStringUtils.getDifficultyName(Difficulty.NORMAL).toPlainText();
-			default:
-				return "§c" + BukkitStringUtils.getDifficultyName(Difficulty.HARD).toPlainText();
-		}
+		return getDifficultyComponent().toLegacyText();
 	}
 
 	@Override
@@ -113,7 +107,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
 
 		if (args.length == 0) {
-			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyByValue(getValue()));
+			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyComponent());
 			return;
 		}
 
@@ -124,8 +118,27 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 		}
 
 		setValue(difficulty);
-		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyByValue(getValue()));
+		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyComponent());
 
+	}
+
+	private BaseComponent getDifficultyComponent() {
+		TranslatableComponent name = BukkitStringUtils.getDifficultyName(getDifficultyByValue(getValue()));
+		switch (getValue()) {
+			case 0:
+				name.setColor(ChatColor.GREEN);
+				break;
+			case 1:
+				name.setColor(ChatColor.DARK_GREEN);
+				break;
+			case 2:
+				name.setColor(ChatColor.GOLD);
+				break;
+			default:
+				name.setColor(ChatColor.RED);
+				break;
+		}
+		return name;
 	}
 
 	@Nullable

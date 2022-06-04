@@ -104,7 +104,9 @@ public class BukkitStringUtils {
 							}
 							replacement = new TextComponent(prefix + ((TextComponent) replacement).getText());
 						} else {
-							replacement.setColor(currentColor.asBungee());
+							if (replacement.getColor() == net.md_5.bungee.api.ChatColor.WHITE) {
+								replacement.setColor(currentColor.asBungee());
+							}
 							for (ChatColor color : currentFormatting) {
 								switch (color) {
 									case BOLD:
