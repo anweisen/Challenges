@@ -92,46 +92,39 @@ public class BukkitStringUtils {
 									current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>) current).get())) :
 											current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>) current).call())) :
 													new TextComponent(String.valueOf(current));
-					results.add(currentText);
-					currentText = new TextComponent();
-					TextComponent e = new TextComponent("§e");
 
-					if (currentColor != null) {
-						if (replacement instanceof TextComponent) {
-							String prefix = "§" + currentColor.getChar();
-							for (ChatColor color : currentFormatting) {
-								prefix += "§" + color.getChar();
-							}
-							replacement = new TextComponent(prefix + ((TextComponent) replacement).getText());
-						} else {
-							if (replacement.getColor() == net.md_5.bungee.api.ChatColor.WHITE) {
-								replacement.setColor(currentColor.asBungee());
-							}
-							for (ChatColor color : currentFormatting) {
-								switch (color) {
-									case BOLD:
-										replacement.setBold(true);
-										break;
-									case MAGIC:
-										replacement.setObfuscated(true);
-										break;
-									case ITALIC:
-										replacement.setItalic(true);
-										break;
-									case STRIKETHROUGH:
-										replacement.setStrikethrough(true);
-										break;
-									case UNDERLINE:
-										replacement.setUnderlined(true);
-										break;
-								}
+					if (replacement instanceof TextComponent) {
+						currentText.setText(currentText.getText() + ((TextComponent) replacement).getText());
+					} else {
+						results.add(currentText);
+						currentText = new TextComponent();
+
+						if (currentColor != null && replacement.getColor() == net.md_5.bungee.api.ChatColor.WHITE) {
+							replacement.setColor(currentColor.asBungee());
+						}
+						for (ChatColor color : currentFormatting) {
+							switch (color) {
+								case BOLD:
+									replacement.setBold(true);
+									break;
+								case MAGIC:
+									replacement.setObfuscated(true);
+									break;
+								case ITALIC:
+									replacement.setItalic(true);
+									break;
+								case STRIKETHROUGH:
+									replacement.setStrikethrough(true);
+									break;
+								case UNDERLINE:
+									replacement.setUnderlined(true);
+									break;
 							}
 						}
-						currentColor = null;
+						results.add(replacement);
 					}
 
-					e.addExtra(replacement);
-					results.add(e);
+					currentColor = null;
 				} catch (NumberFormatException | IndexOutOfBoundsException ex) {
 					ILogger.forThisClass().warn("Invalid argument index '{}'", argument);
 					results.add(new TextComponent(String.valueOf(start)));
@@ -154,7 +147,7 @@ public class BukkitStringUtils {
 			currentText = new TextComponent(currentText.getText() + c);
 		}
 		if (!currentText.getText().isEmpty()) {
-			results.add(new TextComponent(currentText));
+			results.add(currentText);
 		}
 		if (argument.length() > 0) {
 			results.add(new TextComponent(String.valueOf(start)));
