@@ -31,7 +31,7 @@ public class ChallengesCommand implements PlayerCommand, Completer {
 
 		if(args.length == 1) {
 			String menuName = args[0].toUpperCase();
-			try{
+			try {
 				MenuType menuType = MenuType.valueOf(menuName);
 				Challenges.getInstance().getMenuManager().openMenu(player, menuType, 0);
 			} catch (IllegalArgumentException exception) {

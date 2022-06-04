@@ -452,6 +452,13 @@
 		"§6Fastest Time",
 		"Be the fastest *to win*"
 	],
+	"category-force_battle": [
+		"§bForce Battles",
+		"Fulfill the given *intermediate goals*",
+		"to earn points.",
+		"",
+		"The player with the *most points* wins."
+	],
 	"item-time-seconds-description": "§8» §7Time: §e{0} §7seconds",
 	"item-time-seconds-range-description": "§8» §7Time: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Time: §e{0} §7minutes",

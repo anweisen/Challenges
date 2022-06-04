@@ -48,7 +48,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 	public ForceBattleGoal(@NotNull MenuType menu, @NotNull Message title) {
 		super(menu, title);
-		setCategory(SettingCategory.SCORE_POINTS);
+		setCategory(SettingCategory.FORCE_BATTLE);
 		;
 
 		registerSetting("jokers", new NumberSubSetting(
@@ -463,4 +463,5 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	private boolean showScoreboard() {
 		return getSetting("showScoreboard").getAsBoolean();
 	}
+
 }

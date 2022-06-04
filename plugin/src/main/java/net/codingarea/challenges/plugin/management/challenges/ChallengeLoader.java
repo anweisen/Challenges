@@ -199,9 +199,6 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(MostEmeraldsGoal.class);
 		register(MostOresGoal.class);
 		register(EatMostGoal.class);
-		register(ForceItemBattleGoal.class);
-		register(ForceMobBattleGoal.class);
-		register(ForceAdvancementBattleGoal.class);
 
 		// Fastest Time
 		register(FirstOneToDieGoal.class);
@@ -218,6 +215,11 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CollectSwordsGoal.class);
 		register(CollectWorkstationsGoal.class);
 		register(GetFullHealthGoal.class);
+
+		// Force battle
+		register(ForceItemBattleGoal.class);
+		register(ForceMobBattleGoal.class);
+		register(ForceAdvancementBattleGoal.class);
 
 		// Misc
 		register(LastManStandingGoal.class);
