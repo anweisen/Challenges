@@ -56,7 +56,8 @@ public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
             entity.setSmall(true);
             return entity;
         });
-        player.addPassenger(armorStand);
+        armorStand.teleport(player.getLocation().clone().add(0, 2, 0));
+        armorStand.setVelocity(player.getVelocity().clone().multiply(2));
 
         handleDisplayStandUpdate(player, armorStand);
     }
