@@ -101,7 +101,7 @@ enable-default-start-sounds: true
 # Otherwise the dragon sound will always be played.
 enable-specific-start-sounds: true
 
-# If the challenge is win, a sound will be played if provided
+# If the challenge is won, a sound will be played if provided
 enabled-win-sounds: true
 
 # A title will be shown to all players when the timer is paused/started/reset,
