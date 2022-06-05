@@ -53,7 +53,7 @@ public final class ChallengeHelper {
 		}
 
 		inInstantKill = true;
-		player.damage(player.getHealth());
+		player.damage(Integer.MAX_VALUE);
 		inInstantKill = false;
 	}
 
