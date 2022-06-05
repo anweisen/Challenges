@@ -17,6 +17,8 @@ import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -145,16 +147,32 @@ public class MessageImpl implements Message {
 		}
 	}
 
-	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent components) {
-//		if (components.length == 0 || components[0].toLegacyText().isEmpty()) {
-//			sender.accept(components);
-//		} else {
-//			ArrayList<BaseComponent> list = new ArrayList<>();
-//			list.add(0, new TextComponent(prefix.toString()));
-//			list.addAll(Arrays.asList(components));
-//			sender.accept(list.toArray(new BaseComponent[0]));
-//		}
-		sender.accept(components);
+	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent component) {
+		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		boolean capsFont = false;
+		if (loader != null) capsFont = loader.isSmallCapsFont();
+
+		BaseComponent component1 = component;
+		if (capsFont) {
+			if (component1 instanceof TextComponent) {
+				component1 = new TextComponent(FontUtils.toSmallCaps(((TextComponent) component1).getText()));
+			}
+			if (component != null) {
+				List<BaseComponent> extra = component.getExtra();
+				if (extra != null) {
+					component.setExtra(new LinkedList<>());
+					for (BaseComponent baseComponent : extra) {
+						if (baseComponent instanceof TextComponent) {
+							String text = ((TextComponent) baseComponent).getText();
+							component1.addExtra(new TextComponent(text));
+						} else {
+							component1.addExtra(baseComponent);
+						}
+					}
+				}
+			}
+		}
+		sender.accept(component1);
 	}
 
 	@Override
