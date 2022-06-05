@@ -70,7 +70,7 @@ custom-challenge-settings:
   # Determines which commands or how long the command can be that is executed by the execute command action.
   max-command-length: 50
   # Commands MUST be in lowercase
-  allowed-commands-to-execute: [ "give", "item", "fill", "setblock", "summon", "kill" ]
+  allowed-commands-to-execute: [ "give", "item", "fill", "setblock", "summon", "kill", "worldborder", "time", "weather", "teleport", "tp", "difficulty", "playsound", "xp" ]
 
 # This will change the item design in the challenges menu
 design:
