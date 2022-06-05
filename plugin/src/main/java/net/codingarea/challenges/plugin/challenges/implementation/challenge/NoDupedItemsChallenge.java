@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.pair.Triple;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
@@ -82,8 +83,8 @@ public class NoDupedItemsChallenge extends Setting {
 						NameHelper.getName(result.getSecond()),
 						result.getThird()
 				);
-				kill(result.getFirst());
-				kill(result.getSecond());
+				ChallengeHelper.kill(result.getFirst());
+				ChallengeHelper.kill(result.getSecond());
 			}
 
 		}

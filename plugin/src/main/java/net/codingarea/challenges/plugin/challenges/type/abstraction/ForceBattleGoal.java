@@ -41,6 +41,7 @@ import java.util.stream.Collectors;
  * @since 2.2.0
  */
 public abstract class ForceBattleGoal<T> extends MenuGoal {
+
 	protected final Map<UUID, Integer> jokerUsed = new HashMap<>();
 	protected final Map<UUID, List<T>> foundTargets = new HashMap<>();
 	protected final Map<UUID, T> currentTarget = new HashMap<>();

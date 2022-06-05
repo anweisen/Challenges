@@ -23,6 +23,7 @@ import java.util.Map;
  * @since 2.2.0
  */
 public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
+
     private Map<Player, ArmorStand> displayStands;
 
     public ForceBattleDisplayGoal(@NotNull MenuType menu, @NotNull Message title) {
@@ -115,4 +116,5 @@ public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
             stand.remove();
         }
     }
+
 }

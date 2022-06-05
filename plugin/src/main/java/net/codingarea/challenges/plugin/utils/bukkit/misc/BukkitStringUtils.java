@@ -89,9 +89,9 @@ public class BukkitStringUtils {
 					Object current = args[arg];
 					BaseComponent replacement =
 							current instanceof BaseComponent ? (BaseComponent) current :
-									current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>) current).get())) :
-											current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>) current).call())) :
-													new TextComponent(String.valueOf(current));
+							current instanceof Supplier ? new TextComponent(String.valueOf(((Supplier<?>) current).get())) :
+							current instanceof Callable ? new TextComponent(String.valueOf(((Callable<?>) current).call())) :
+							new TextComponent(String.valueOf(current));
 
 					if (replacement instanceof TextComponent) {
 						currentText.setText(currentText.getText() + ((TextComponent) replacement).getText());

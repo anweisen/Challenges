@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -39,7 +40,7 @@ public class OnlyDownChallenge extends Setting {
 		if (event.getTo() == null) return;
 		if (event.getTo().getBlockY() <= event.getFrom().getBlockY()) return;
 		Message.forName("only-down-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-		kill(event.getPlayer());
+		ChallengeHelper.kill(event.getPlayer());
 	}
 
 }

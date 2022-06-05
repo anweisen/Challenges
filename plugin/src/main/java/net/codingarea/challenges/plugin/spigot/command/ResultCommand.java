@@ -27,7 +27,7 @@ public class ResultCommand implements PlayerCommand {
 		IGoal currentGoal = Challenges.getInstance().getChallengeManager().getCurrentGoal();
 
 		if (currentGoal instanceof ForceBattleGoal) {
-			ForceBattleGoal forceBattleGoal = (ForceBattleGoal) currentGoal;
+			ForceBattleGoal<?> forceBattleGoal = (ForceBattleGoal<?>) currentGoal;
 			forceBattleGoal.sendResult(player);
 			return;
 		}

@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -29,7 +30,7 @@ public class NoExpChallenge extends Setting {
 		if (ignorePlayer(event.getPlayer())) return;
 		if (event.getAmount() <= 0) return;
 		Message.forName("exp-picked-up").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
-		event.getPlayer().damage(event.getPlayer().getHealth());
+		ChallengeHelper.kill(event.getPlayer());
 	}
 
 	@Nonnull
