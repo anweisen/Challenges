@@ -1196,6 +1196,10 @@
 		"§bElder Guardian",
 		"Kill an *Elder Guardian* to win"
 	],
+	"item-warden-goal": [
+		"§5Warden",
+		"Kill an *Warden* to win"
+	],
 	"item-most-deaths-goal": [
 		"§6Most Deaths",
 		"Who *collects* the most *different deaths* wins"
@@ -1229,6 +1233,10 @@
 	"item-collect-wood-goal-both": "§9Both",
 	"item-all-bosses-goal": [
 		"§bAll Bosses",
+		"Each boss must has to be killed once to win"
+	],
+	"item-all-bosses-new-goal": [
+		"§5All Bosses (+ Warden)",
 		"Each boss must has to be killed once to win"
 	],
 	"item-all-mobs-goal": [

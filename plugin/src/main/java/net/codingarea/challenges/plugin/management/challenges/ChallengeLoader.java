@@ -185,7 +185,9 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
 		register(KillElderGuardianGoal.class);
+		register(KillWardenGoal.class);
 		register(KillAllBossesGoal.class);
+		register(KillAllBossesNewGoal.class);
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
 		register(KillAllMobsGoal.class);

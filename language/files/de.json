@@ -1203,6 +1203,10 @@
 		"§bElder Guardian",
 		"Töte einen *Elder Guardian* um zu gewinnen"
 	],
+	"item-warden-goal": [
+		"§5Warden",
+		"Töte einen *Warden* um zu gewinnen"
+	],
 	"item-iron-golem-goal": [
 		"§bEisengolem",
 		"Töte einen *Eisengolem* um zu gewinnen"
@@ -1247,6 +1251,11 @@
 	"item-collect-wood-goal-both": "§9Beide",
 	"item-all-bosses-goal": [
 		"§bAlle Bosse",
+		"Es müssen *alle Bosse* einmal",
+		"*getötet* werden, um zu *gewinnen*"
+	],
+	"item-all-bosses-new-goal": [
+		"§5Alle Bosse (+ Warden)",
 		"Es müssen *alle Bosse* einmal",
 		"*getötet* werden, um zu *gewinnen*"
 	],

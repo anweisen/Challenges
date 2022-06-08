@@ -1,39 +1,42 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.KillMobsGoal;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.KillEntityGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.EntityType;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 
 /**
- * @author KxmischesDomi | https://github.com/kxmischesdomi
+ * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
 @Since("2.0")
-public class KillAllBossesGoal extends KillMobsGoal {
+@RequireVersion(MinecraftVersion.V1_19)
+public class KillWardenGoal extends KillEntityGoal {
 
-	public KillAllBossesGoal() {
-		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN));
+	public KillWardenGoal() {
+		super(EntityType.WARDEN);
 		setCategory(SettingCategory.KILL_ENTITY);
-	}
-
-	@Override
-	public Message getBossbarMessage() {
-		return Message.forName("bossbar-kill-all-bosses");
 	}
 
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.DIAMOND_SWORD, Message.forName("item-all-bosses-goal"));
+		return new ItemBuilder(Material.ECHO_SHARD, Message.forName("item-warden-goal"));
+	}
+
+	@Nonnull
+	@Override
+	public SoundSample getStartSound() {
+		return new SoundSample().addSound(Sound.ENTITY_WARDEN_EMERGE, 0.2f);
 	}
 
 }

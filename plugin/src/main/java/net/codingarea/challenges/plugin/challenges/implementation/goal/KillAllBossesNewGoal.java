@@ -18,10 +18,11 @@ import java.util.Arrays;
  * @since 2.0
  */
 @Since("2.0")
-public class KillAllBossesGoal extends KillMobsGoal {
+@RequireVersion(MinecraftVersion.V1_19)
+public class KillAllBossesNewGoal extends KillMobsGoal {
 
-	public KillAllBossesGoal() {
-		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN));
+	public KillAllBossesNewGoal() {
+		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN, EntityType.WARDEN));
 		setCategory(SettingCategory.KILL_ENTITY);
 	}
 
@@ -33,7 +34,7 @@ public class KillAllBossesGoal extends KillMobsGoal {
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.DIAMOND_SWORD, Message.forName("item-all-bosses-goal"));
+		return new ItemBuilder(Material.NETHERITE_SWORD, Message.forName("item-all-bosses-new-goal"));
 	}
 
 }
