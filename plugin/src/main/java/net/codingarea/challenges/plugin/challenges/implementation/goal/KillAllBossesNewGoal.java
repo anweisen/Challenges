@@ -17,7 +17,7 @@ import java.util.Arrays;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-@Since("2.0")
+@Since("2.2.0")
 @RequireVersion(MinecraftVersion.V1_19)
 public class KillAllBossesNewGoal extends KillMobsGoal {
 
