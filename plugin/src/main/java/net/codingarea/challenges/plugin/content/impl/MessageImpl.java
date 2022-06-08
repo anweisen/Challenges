@@ -1,17 +1,24 @@
 package net.codingarea.challenges.plugin.content.impl;
 
-import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.ItemDescription;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
+import net.codingarea.challenges.plugin.utils.misc.FontUtils;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
@@ -22,25 +29,36 @@ import java.util.function.Consumer;
 public class MessageImpl implements Message {
 
 	protected final String name;
-	protected Object value;
+	protected String[] value;
 
 	public MessageImpl(@Nonnull String name) {
 		this.name = name;
 	}
 
 	@Nonnull
+	protected static IRandom defaultRandom() {
+		return IRandom.threadLocal();
+	}
+
+	@Nonnull
 	@Override
 	public String asString(@Nonnull Object... args) {
-		if (value == null) return Message.NULL;
-		if (value instanceof String && args.length == 0) return (String) value;
-		if (value instanceof String) return StringUtils.format((String) value, args);
-		if (value instanceof String[] && args.length == 0)
-			return StringUtils.getArrayAsString((String[]) value, "\n");
-		if (value instanceof String[])
-			return StringUtils.getArrayAsString(StringUtils.format((String[]) value, args), "\n");
-		if (value instanceof ItemDescription) return ((ItemDescription) value).getName();
-		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return Message.NULL;
+		if (value == null) return name;
+		return String.join("\n", asArray(args));
+	}
+
+	@Nonnull
+	@Override
+	public BaseComponent asComponent(@Nonnull Object... args) {
+		if (value == null) return new TextComponent(name);
+		BaseComponent[] components = asComponentArray(null, args);
+		BaseComponent first = null;
+		// TODO: This will bug with colors as they wont be added to the next line
+		for (BaseComponent component : components) {
+			if (first == null) first = component;
+			else first.addExtra(component);
+		}
+		return first == null ? new TextComponent() : first;
 	}
 
 	@Nonnull
@@ -59,14 +77,28 @@ public class MessageImpl implements Message {
 
 	@Nonnull
 	@Override
+	public BaseComponent asRandomComponent(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args) {
+		BaseComponent[] array = asComponentArray(prefix, args);
+		if (array.length == 0) return new TextComponent(Message.unknown(name));
+		return random.choose(array);
+	}
+
+	@Nonnull
+	@Override
 	public String[] asArray(@Nonnull Object... args) {
 		if (value == null) return new String[]{Message.unknown(name)};
-		if (value instanceof String[]) return StringUtils.format((String[]) value, args);
-		if (value instanceof String)
-			return StringUtils.getStringAsArray(StringUtils.format((String) value, args));
-		if (value instanceof ItemDescription) return ((ItemDescription) value).getLore();
-		Logger.error("Message '{}' has an illegal value {}", name, value.getClass().getName());
-		return new String[]{Message.NULL};
+		args = BukkitStringUtils.replaceArguments(args, true);
+		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		boolean capsFont = false;
+		if (loader != null) capsFont = loader.isSmallCapsFont();
+		return capsFont ? FontUtils.toSmallCaps(StringUtils.format(value, args)) : StringUtils.format(value, args);
+	}
+
+	@Nonnull
+	@Override
+	public BaseComponent[] asComponentArray(@Nullable Prefix prefix, @Nonnull Object... args) {
+		if (value == null) return new TextComponent[] { new TextComponent(Message.unknown(name)) };
+		return BukkitStringUtils.format(prefix, value, args);
 	}
 
 	@Nonnull
@@ -76,13 +108,12 @@ public class MessageImpl implements Message {
 			Message.unknown(name);
 			return ItemDescription.empty();
 		}
-		if (value instanceof ItemDescription) return (ItemDescription) value;
 		return new ItemDescription(asArray(args));
 	}
 
 	@Override
 	public void send(@Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLines(target::sendMessage, prefix, asArray(args));
+		doSendLines(component -> target.spigot().sendMessage(component), prefix, asComponentArray(prefix, args));
 	}
 
 	@Override
@@ -92,12 +123,12 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void sendRandom(@Nonnull IRandom random, @Nonnull CommandSender target, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLine(target::sendMessage, prefix, asRandomString(random, args));
+		doSendLine(components -> target.spigot().sendMessage(components), prefix, asRandomComponent(random, prefix, args));
 	}
 
 	@Override
 	public void broadcast(@Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLines(Bukkit::broadcastMessage, prefix, asArray(args));
+		doSendLines(components -> Bukkit.spigot().broadcast(components), prefix, asComponentArray(prefix, args));
 	}
 
 	@Override
@@ -107,18 +138,41 @@ public class MessageImpl implements Message {
 
 	@Override
 	public void broadcastRandom(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args) {
-		doSendLine(Bukkit::broadcastMessage, prefix, asRandomString(random, args));
+		doSendLine(component -> Bukkit.spigot().broadcast(component), prefix, asRandomComponent(random, prefix, args));
 	}
 
-	private void doSendLines(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String[] lines) {
-		for (String line : lines) {
+	private void doSendLines(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent[] components) {
+		for (BaseComponent line : components) {
 			doSendLine(sender, prefix, line);
 		}
 	}
 
-	private void doSendLine(@Nonnull Consumer<? super String> sender, @Nonnull Prefix prefix, @Nonnull String line) {
-		if (line.trim().isEmpty()) sender.accept(line);
-		else sender.accept(prefix + line);
+	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent component) {
+		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		boolean capsFont = false;
+		if (loader != null) capsFont = loader.isSmallCapsFont();
+
+		BaseComponent component1 = component;
+		if (capsFont) {
+			if (component1 instanceof TextComponent) {
+				component1 = new TextComponent(FontUtils.toSmallCaps(((TextComponent) component1).getText()));
+			}
+			if (component != null) {
+				List<BaseComponent> extra = component.getExtra();
+				if (extra != null) {
+					component.setExtra(new LinkedList<>());
+					for (BaseComponent baseComponent : extra) {
+						if (baseComponent instanceof TextComponent) {
+							String text = ((TextComponent) baseComponent).getText();
+							component1.addExtra(new TextComponent(text));
+						} else {
+							component1.addExtra(baseComponent);
+						}
+					}
+				}
+			}
+		}
+		sender.accept(component1);
 	}
 
 	@Override
@@ -152,16 +206,7 @@ public class MessageImpl implements Message {
 	}
 
 	@Override
-	public void setValue(@Nonnull String value) {
-		this.value = value;
-	}
-
-	@Override
 	public void setValue(@Nonnull String[] value) {
-		for (int i = 0; i < value.length; i++) {
-			if (value[i] != null && !value[i].startsWith("§") && !value[i].startsWith("{") && !value[i].trim().isEmpty())
-				value[i] = "§7" + value[i];
-		}
 		this.value = value;
 	}
 
@@ -174,11 +219,6 @@ public class MessageImpl implements Message {
 	@Override
 	public String toString() {
 		return asString();
-	}
-
-	@Nonnull
-	protected static IRandom defaultRandom() {
-		return IRandom.threadLocal();
 	}
 
 }

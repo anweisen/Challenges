@@ -26,11 +26,9 @@ public final class MenuManager {
 
 	public static final String MANAGE_GUI_PERMISSION = "challenges.manage";
 	public static final int[] GUI_SLOTS = {30, 32, 19, 25, 11, 15, 4};
-
-	private AnimatedInventory gui;
 	private final boolean displayNewInFront;
 	private final boolean permissionToManageGUI;
-
+	private AnimatedInventory gui;
 	private boolean generated = false;
 
 	public MenuManager() {
@@ -126,6 +124,15 @@ public final class MenuManager {
 		return displayNewInFront;
 	}
 
+	public void playNoPermissionsEffect(@Nonnull Player player) {
+		SoundSample.BASS_OFF.play(player);
+		Message.forName("no-permission").send(player, Prefix.CHALLENGES);
+	}
+
+	public boolean permissionToManageGUI() {
+		return permissionToManageGUI;
+	}
+
 	private class MainMenuPosition implements MenuPosition {
 
 		@Override
@@ -145,15 +152,6 @@ public final class MenuManager {
 
 		}
 
-	}
-
-	public void playNoPermissionsEffect(@Nonnull Player player) {
-		SoundSample.BASS_OFF.play(player);
-		Message.forName("no-permission").send(player, Prefix.CHALLENGES);
-	}
-
-	public boolean permissionToManageGUI() {
-		return permissionToManageGUI;
 	}
 
 }

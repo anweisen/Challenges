@@ -1,9 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -21,8 +21,7 @@ public class ConsumeItemTrigger extends ChallengeTrigger {
 		super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.ITEM).fill(builder -> {
 			for (Material material : Material.values()) {
 				if (material.isEdible()) {
-					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + StringUtils
-							.getEnumName(material)).build());
+					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
 			}
 		}));
@@ -38,8 +37,7 @@ public class ConsumeItemTrigger extends ChallengeTrigger {
 		createData()
 				.entity(event.getPlayer())
 				.event(event)
-				.data(
-						SubSettingsHelper.ITEM, SubSettingsHelper.ANY, event.getItem().getType().name())
+				.data(SubSettingsHelper.ITEM, SubSettingsHelper.ANY, event.getItem().getType().name())
 				.execute();
 	}
 

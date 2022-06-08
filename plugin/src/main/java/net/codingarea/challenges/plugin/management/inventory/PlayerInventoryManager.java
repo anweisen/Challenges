@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.pair.Triple;
 import net.anweisen.utilities.common.config.Document;
+import net.anweisen.utilities.common.config.FileDocument;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
@@ -23,6 +24,8 @@ import org.bukkit.event.player.*;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.function.Consumer;
 
 /**
@@ -31,18 +34,32 @@ import java.util.function.Consumer;
  */
 public final class PlayerInventoryManager implements Listener {
 
-	private final boolean stats, control;
-	private final boolean enabled;
+	private final List<HotbarItem> hotbarItems;
 
 	public PlayerInventoryManager() {
 		Challenges.getInstance().registerListener(this);
 		ChallengeAPI.registerScheduler(this);
 		ChallengeAPI.subscribeLoader(LanguageLoader.class, () -> Bukkit.getOnlinePlayers().forEach(Challenges.getInstance().getPlayerInventoryManager()::updateInventoryAuto));
 
-		Document config = Challenges.getInstance().getConfigDocument().getDocument("inventory-menu");
-		control = config.getBoolean("control");
-		stats = config.getBoolean("stats");
-		enabled = stats || control;
+		hotbarItems = new LinkedList<>();
+		loadItems();
+	}
+
+	public void loadItems() {
+		FileDocument config = Challenges.getInstance().getConfig("hotbar-items.yml");
+		loadItem(config.getDocument("timer"), "item-menu-timer", "challenges.timer", p -> p.performCommand("timer"));
+		loadItem(config.getDocument("challenges"), "item-menu-challenges", "challenges.gui", p -> p.performCommand("challenges"));
+		loadItem(config.getDocument("start"), "item-menu-start", "challenges.timer", p -> p.performCommand("start"));
+		loadItem(config.getDocument("leaderboard"), "item-menu-leaderboard", null, p -> p.performCommand("leaderboard"));
+		loadItem(config.getDocument("stats"), "item-menu-stats", null, p -> p.performCommand("stats"));
+	}
+
+	public void loadItem(Document config, String message, String permission, Consumer<Player> action) {
+		if (!config.getBoolean("enabled", false)) return;
+		int slot = config.getInt("slot", 0);
+		Material material = config.getEnum("material", Material.BARRIER);
+		HotbarItem item = new HotbarItem(slot, message, material, action, permission);
+		hotbarItems.add(item);
 	}
 
 	public void handleDisable() {
@@ -151,7 +168,7 @@ public final class PlayerInventoryManager implements Listener {
 	}
 
 	private void updateInventoryPaused(@Nonnull Player player, @Nonnull GameMode gamemode, boolean join, boolean alive) {
-		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR || !enabled) {
+		if (gamemode == GameMode.CREATIVE || gamemode == GameMode.SPECTATOR) {
 			removeItems(player);
 			return;
 		}
@@ -225,37 +242,61 @@ public final class PlayerInventoryManager implements Listener {
 	private Triple<ItemStack, Consumer<Player>, String>[] createItemPairs(@Nonnull Player player) {
 		Triple<ItemStack, Consumer<Player>, String>[] pairs = new Triple[9];
 
-		if (control) {
-			pairs[3] = new Triple<>(
-					new ItemBuilder(Material.CLOCK, Message.forName("item-menu-timer").asString()).build(),
-					p -> p.performCommand("timer"),
-					"challenges.timer"
-			);
-			pairs[4] = new Triple<>(
-					new ItemBuilder(Material.BOOK, Message.forName("item-menu-challenges").asString()).build(),
-					p -> p.performCommand("challenges"),
-					"challenges.gui"
-			);
-			pairs[5] = new Triple<>(
-					new ItemBuilder(Material.LIME_DYE, Message.forName("item-menu-start").asString()).build(),
-					p -> p.performCommand("start"),
-					"challenges.timer"
-			);
-		}
-		if (stats) {
-			pairs[0] = new Triple<>(
-					new ItemBuilder(Material.GOLD_INGOT, Message.forName("item-menu-leaderboard").asString()).build(),
-					p -> p.performCommand("leaderboard"),
-					null
-			);
-			pairs[8] = new Triple<>(
-					new SkullBuilder(player.getUniqueId(), player.getName(), Message.forName("item-menu-stats").asString()).build(),
-					p -> player.performCommand("stats"),
-					null
+		for (HotbarItem item : hotbarItems) {
+
+			ItemStack stack;
+			if (item.getMaterial() == Material.PLAYER_HEAD) {
+				stack = new SkullBuilder(player.getUniqueId(), player.getName(), Message.forName(item.getMessage()).asString()).build();
+			} else {
+				stack = new ItemBuilder(item.getMaterial(), Message.forName(item.getMessage()).asString()).build();
+			}
+
+			pairs[item.getSlot()] = new Triple<>(
+					stack,
+					item.getAction(),
+					item.getPermission()
 			);
 		}
 
 		return pairs;
+	}
+
+	public static class HotbarItem {
+
+		private final int slot;
+		private final String message;
+		private final Material material;
+		private final Consumer<Player> action;
+		private final String permission;
+
+		public HotbarItem(int slot, String message, Material material, Consumer<Player> action, String permission) {
+			this.slot = slot;
+			this.message = message;
+			this.material = material;
+			this.action = action;
+			this.permission = permission;
+		}
+
+		public int getSlot() {
+			return slot;
+		}
+
+		public String getMessage() {
+			return message;
+		}
+
+		public Material getMaterial() {
+			return material;
+		}
+
+		public Consumer<Player> getAction() {
+			return action;
+		}
+
+		public String getPermission() {
+			return permission;
+		}
+
 	}
 
 }

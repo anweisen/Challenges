@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -26,6 +27,22 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 
 	public RandomItemDroppingChallenge() {
 		super(MenuType.CHALLENGES, 1, 60, 5);
+		setCategory(SettingCategory.RANDOMIZER);
+	}
+
+	public static void dropRandomItem(Player player) {
+		if (player.getInventory().getContents().length <= 0) return;
+		dropRandomItem(player.getLocation(), player.getInventory());
+	}
+
+	public static void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
+		if (location.getWorld() == null) return;
+		int slot = InventoryUtils.getRandomFullSlot(inventory);
+		if (slot == -1) return;
+		ItemStack item = inventory.getItem(slot);
+		if (item == null) return;
+		inventory.setItem(slot, null);
+		InventoryUtils.dropItemByPlayer(location, item);
 	}
 
 	@Nonnull
@@ -61,21 +78,6 @@ public class RandomItemDroppingChallenge extends TimedChallenge {
 				dropRandomItem(player);
 			}
 		});
-	}
-
-	public static void dropRandomItem(Player player) {
-		if (player.getInventory().getContents().length <= 0) return;
-		dropRandomItem(player.getLocation(), player.getInventory());
-	}
-
-	public static void dropRandomItem(@Nonnull Location location, @Nonnull Inventory inventory) {
-		if (location.getWorld() == null) return;
-		int slot = InventoryUtils.getRandomFullSlot(inventory);
-		if (slot == -1) return;
-		ItemStack item = inventory.getItem(slot);
-		if (item == null) return;
-		inventory.setItem(slot, null);
-		InventoryUtils.dropItemByPlayer(location, item);
 	}
 
 }

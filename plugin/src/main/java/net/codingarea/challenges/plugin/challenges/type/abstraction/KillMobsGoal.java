@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -69,7 +68,7 @@ public abstract class KillMobsGoal extends SettingGoal {
 		if (entitiesKilled.contains(event.getEntityType())) return;
 		entitiesKilled.add(event.getEntityType());
 		if (entitiesToKill.contains(event.getEntityType())) {
-			Message.forName("mob-kill").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(event.getEntityType()), getEntitiesKilled().size(), entitiesToKill.size());
+			Message.forName("mob-kill").broadcast(Prefix.CHALLENGES, event.getEntityType(), getEntitiesKilled().size(), entitiesToKill.size());
 			bossbar.update();
 			if (!getEntitiesLeftToKill().isEmpty()) return;
 			resetEntitiesToKill();

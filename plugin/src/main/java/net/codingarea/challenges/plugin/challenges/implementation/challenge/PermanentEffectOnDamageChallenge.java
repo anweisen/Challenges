@@ -4,12 +4,12 @@ import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
@@ -45,6 +45,7 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 
 	public PermanentEffectOnDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 2);
+		setCategory(SettingCategory.EFFECT);
 	}
 
 	@Nonnull
@@ -143,9 +144,9 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 		}
 
 		if (effectsToEveryone()) {
-			Message.forName("new-effect").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(potionEffectType.getName()), amplifier);
+			Message.forName("new-effect").broadcast(Prefix.CHALLENGES, potionEffectType, amplifier);
 		} else {
-			Message.forName("new-effect").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(potionEffectType.getName()), amplifier);
+			Message.forName("new-effect").send(player, Prefix.CHALLENGES, potionEffectType, amplifier);
 		}
 
 		getGameStateData().set(path, effects);

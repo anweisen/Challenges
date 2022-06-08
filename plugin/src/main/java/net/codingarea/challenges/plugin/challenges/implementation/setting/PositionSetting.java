@@ -44,6 +44,19 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		Challenges.getInstance().registerCommand(new SetPosCommand(), "setposition");
 	}
 
+	public static Environment getWorldEnvironment(@Nonnull String name) {
+		switch (name.toLowerCase()) {
+			default:
+				return null;
+			case "overworld":
+				return Environment.NORMAL;
+			case "nether":
+				return Environment.NETHER;
+			case "end":
+				return Environment.THE_END;
+		}
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -296,19 +309,6 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 			return new LinkedList<>();
 		}
 
-	}
-
-	public static Environment getWorldEnvironment(@Nonnull String name) {
-		switch (name.toLowerCase()) {
-			default:
-				return null;
-			case "overworld":
-				return Environment.NORMAL;
-			case "nether":
-				return Environment.NETHER;
-			case "end":
-				return Environment.THE_END;
-		}
 	}
 
 }

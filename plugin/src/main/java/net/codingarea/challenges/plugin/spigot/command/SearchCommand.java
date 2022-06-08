@@ -35,7 +35,7 @@ public class SearchCommand implements SenderCommand, Completer {
 			return;
 		}
 
-		String input = StringUtils.getArrayAsString(args, "_").toUpperCase();
+		String input = String.join("_", args).toUpperCase();
 		Material material = Utils.getMaterial(input);
 
 		if (material == null) {
@@ -43,7 +43,7 @@ public class SearchCommand implements SenderCommand, Completer {
 			return;
 		}
 		if (!material.isItem()) {
-			Message.forName("not-an-item").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("not-an-item").send(sender, Prefix.CHALLENGES, material);
 			return;
 		}
 
@@ -57,11 +57,10 @@ public class SearchCommand implements SenderCommand, Completer {
 		}
 
 		if (blocks.isEmpty()) {
-			Message.forName("command-search-nothing").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("command-search-nothing").send(sender, Prefix.CHALLENGES, material);
 		} else {
-			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, StringUtils.getEnumName(material), StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
+			Message.forName("command-search-result").send(sender, Prefix.CHALLENGES, material, StringUtils.getIterableAsString(blocks, ", ", StringUtils::getEnumName));
 		}
-
 	}
 
 	@Nullable

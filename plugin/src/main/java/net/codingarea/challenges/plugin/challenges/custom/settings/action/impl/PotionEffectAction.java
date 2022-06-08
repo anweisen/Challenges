@@ -36,7 +36,7 @@ public class PotionEffectAction extends EntityTargetAction {
 				livingEntity.addPotionEffect(effect);
 			} catch (Exception exception) {
 				Challenges.getInstance().getLogger().severe("Error while adding potion effect to player");
-				exception.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 	}

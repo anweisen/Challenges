@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -34,6 +35,7 @@ public class ChunkRandomEffectChallenge extends Setting {
 
 	public ChunkRandomEffectChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.EFFECT);
 	}
 
 	@NotNull

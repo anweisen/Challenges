@@ -1,9 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.function.BiConsumer;
@@ -78,6 +80,14 @@ public abstract class AbstractForceChallenge extends TimedChallenge {
 		bossbar.hide();
 	}
 
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.isEmpty()) {
+			state = WAITING;
+		}
+	}
+
 	protected abstract void chooseForcing();
 
 	protected abstract int getForcingTime();
@@ -87,6 +97,10 @@ public abstract class AbstractForceChallenge extends TimedChallenge {
 
 	public final int getState() {
 		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
 	}
 
 }

@@ -39,7 +39,7 @@ public class SpawnEntityAction extends EntityTargetAction {
 				world.spawnEntity(entity.getLocation(), type);
 
 			} catch (Exception exception) {
-				Logger.error(exception);
+				Logger.error("", exception);
 			}
 
 		}

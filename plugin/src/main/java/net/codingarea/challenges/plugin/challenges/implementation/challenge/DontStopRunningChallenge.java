@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -33,6 +34,7 @@ public class DontStopRunningChallenge extends SettingModifier {
 
 	public DontStopRunningChallenge() {
 		super(MenuType.CHALLENGES, 3, 30, 10);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Override

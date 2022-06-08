@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -33,6 +34,7 @@ public class TrafficLightChallenge extends TimedChallenge {
 
 	public TrafficLightChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull

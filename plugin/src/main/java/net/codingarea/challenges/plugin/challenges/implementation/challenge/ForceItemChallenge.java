@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
@@ -24,6 +25,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,6 +46,7 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 	public ForceItemChallenge() {
 		super(MenuType.CHALLENGES, 2, 15);
+		setCategory(SettingCategory.FORCE);
 	}
 
 	@Nonnull
@@ -74,18 +77,18 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asString(StringUtils.getEnumName(item), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-item-instruction").asComponent(item, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-item-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(item));
+		Message.forName("force-item-fail").broadcast(Prefix.CHALLENGES, item);
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-item-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(item));
+		Message.forName("force-item-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), item);
 	}
 
 	@Override
@@ -131,6 +134,21 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 			if (material != this.item) return;
 			completeForcing(event.getPlayer());
 		}, 1);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			item = document.getEnum("target", Material.class);
+			setState(item == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", item);
 	}
 
 }

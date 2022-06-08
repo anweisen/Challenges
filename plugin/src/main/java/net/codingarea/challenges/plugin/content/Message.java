@@ -3,11 +3,13 @@ package net.codingarea.challenges.plugin.content;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.content.impl.MessageManager;
+import net.md_5.bungee.api.chat.BaseComponent;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 import javax.annotation.CheckReturnValue;
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -26,20 +28,35 @@ public interface Message {
 			Logger.warn("Tried accessing unknown messages '{}'", name);
 		}
 
-		return NULL;
+		return name;
+	}
+
+	@Nonnull
+	@CheckReturnValue
+	static Message forName(@Nonnull String name) {
+		return MessageManager.getOrCreateMessage(name);
 	}
 
 	@Nonnull
 	String asString(@Nonnull Object... args);
 
 	@Nonnull
+	BaseComponent asComponent(@Nonnull Object... args);
+
+	@Nonnull
 	String asRandomString(@Nonnull IRandom random, @Nonnull Object... args);
+
+	@Nonnull
+	BaseComponent asRandomComponent(@Nonnull IRandom random, @Nonnull Prefix prefix, @Nonnull Object... args);
 
 	@Nonnull
 	String asRandomString(@Nonnull Object... args);
 
 	@Nonnull
 	String[] asArray(@Nonnull Object... args);
+
+	@Nonnull
+	BaseComponent[] asComponentArray(@Nullable Prefix prefix, @Nonnull Object... args);
 
 	@Nonnull
 	ItemDescription asItemDescription(@Nonnull Object... args);
@@ -62,17 +79,9 @@ public interface Message {
 
 	void sendTitleInstant(@Nonnull Player player, @Nonnull Object... args);
 
-	void setValue(@Nonnull String value);
-
 	void setValue(@Nonnull String[] value);
 
 	@Nonnull
 	String getName();
-
-	@Nonnull
-	@CheckReturnValue
-	static Message forName(@Nonnull String name) {
-		return MessageManager.getOrCreateMessage(name);
-	}
 
 }

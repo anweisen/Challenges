@@ -9,8 +9,12 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.md_5.bungee.api.ChatColor;
+import net.md_5.bungee.api.chat.BaseComponent;
+import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Bukkit;
 import org.bukkit.Difficulty;
 import org.bukkit.Material;
@@ -53,27 +57,18 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
 			case 0:
-				return DefaultItem.create(Material.LIME_DYE, "§aPeaceful");
+				return DefaultItem.create(Material.LIME_DYE, getDifficultyName());
 			case 1:
-				return DefaultItem.create(MaterialWrapper.GREEN_DYE, "§2Easy");
+				return DefaultItem.create(MaterialWrapper.GREEN_DYE, getDifficultyName());
 			case 2:
-				return DefaultItem.create(Material.ORANGE_DYE, "§6Normal");
+				return DefaultItem.create(Material.ORANGE_DYE, getDifficultyName());
 			default:
-				return DefaultItem.create(MaterialWrapper.RED_DYE, "§cHard");
+				return DefaultItem.create(MaterialWrapper.RED_DYE, getDifficultyName());
 		}
 	}
 
 	private String getDifficultyName() {
-		switch (getValue()) {
-			case 0:
-				return "§aPeaceful";
-			case 1:
-				return "§2Easy";
-			case 2:
-				return "§6Normal";
-			default:
-				return "§cHard";
-		}
+		return getDifficultyComponent().toLegacyText();
 	}
 
 	@Override
@@ -112,7 +107,7 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) throws Exception {
 
 		if (args.length == 0) {
-			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyName());
+			Message.forName("command-difficulty-current").send(sender, Prefix.CHALLENGES, getDifficultyComponent());
 			return;
 		}
 
@@ -123,8 +118,27 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 		}
 
 		setValue(difficulty);
-		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyName());
+		Message.forName("command-difficulty-change").broadcast(Prefix.CHALLENGES, getDifficultyComponent());
 
+	}
+
+	private BaseComponent getDifficultyComponent() {
+		TranslatableComponent name = BukkitStringUtils.getDifficultyName(getDifficultyByValue(getValue()));
+		switch (getValue()) {
+			case 0:
+				name.setColor(ChatColor.GREEN);
+				break;
+			case 1:
+				name.setColor(ChatColor.DARK_GREEN);
+				break;
+			case 2:
+				name.setColor(ChatColor.GOLD);
+				break;
+			default:
+				name.setColor(ChatColor.RED);
+				break;
+		}
+		return name;
 	}
 
 	@Nullable

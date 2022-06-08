@@ -32,12 +32,6 @@ import javax.annotation.Nonnull;
 public final class Challenges extends BukkitModule {
 
 	private static Challenges instance;
-
-	@Nonnull
-	public static Challenges getInstance() {
-		return instance;
-	}
-
 	private PlayerInventoryManager playerInventoryManager;
 	private ScoreboardManager scoreboardManager;
 	private ChallengeManager challengeManager;
@@ -60,6 +54,11 @@ public final class Challenges extends BukkitModule {
 	private GameWorldStorage gameWorldStorage;
 	private GeneratorWorldPortalManager generatorWorldPortalManager;
 
+	@Nonnull
+	public static Challenges getInstance() {
+		return instance;
+	}
+
 	@Override
 	protected void handleLoad() {
 		checkConfig();
@@ -68,6 +67,7 @@ public final class Challenges extends BukkitModule {
 	}
 
 	private void checkConfig() {
+		saveResource("hotbar-items.yml", false);
 		if (getConfigDocument().getVersion("config-version", Version.parse("1.0")).isOlderThan(Version.parse("2.0"))) {
 			saveResource("config.yml", true);
 			reloadConfig();
@@ -171,6 +171,8 @@ public final class Challenges extends BukkitModule {
 		registerCommand(new ForwardingCommand("time set night"), "night");
 		registerCommand(new ForwardingCommand("time set noon"), "noon");
 		registerCommand(new ForwardingCommand("time set midnight"), "midnight");
+		registerCommand(new ResultCommand(), "result");
+		registerCommand(new SkipTimerCommand(), "skiptimer");
 	}
 
 	private void registerListeners() {

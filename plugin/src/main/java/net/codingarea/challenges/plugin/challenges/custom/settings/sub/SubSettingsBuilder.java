@@ -35,6 +35,28 @@ public abstract class SubSettingsBuilder {
 		this.parent = parent;
 	}
 
+	public static ChooseItemSubSettingsBuilder createChooseItem(String key) {
+		return new ChooseItemSubSettingsBuilder(key);
+	}
+
+	public static ValueSubSettingsBuilder createValueItem() {
+		return new ValueSubSettingsBuilder();
+	}
+
+	public static ChooseMultipleItemSubSettingBuilder createChooseMultipleItem(String key) {
+		return new ChooseMultipleItemSubSettingBuilder(key);
+	}
+
+	public static TextInputSubSettingsBuilder createTextInput(String key,
+															  Consumer<Player> onOpen,
+															  Predicate<AsyncPlayerChatEvent> isValid) {
+		return new TextInputSubSettingsBuilder(key, onOpen, isValid);
+	}
+
+	public static EmptySubSettingsBuilder createEmpty() {
+		return new EmptySubSettingsBuilder();
+	}
+
 	public abstract boolean open(Player player, IParentCustomGenerator parentGenerator, String title);
 
 	public abstract List<String> getDisplay(Map<String, String[]> activated);
@@ -45,12 +67,29 @@ public abstract class SubSettingsBuilder {
 		return parent;
 	}
 
+	public SubSettingsBuilder setParent(SubSettingsBuilder parent) {
+
+		SubSettingsBuilder parentBuilder = getParent();
+		if (parentBuilder != null) {
+			return parentBuilder.setParent(parent);
+		} else {
+			this.parent = parent;
+			return this;
+		}
+
+	}
+
 	public SubSettingsBuilder getChild() {
 		return child;
 	}
 
 	public String getKey() {
 		return key;
+	}
+
+	public SubSettingsBuilder setKey(String key) {
+		this.key = key;
+		return this;
 	}
 
 	public String getKeyTranslation() {
@@ -93,23 +132,6 @@ public abstract class SubSettingsBuilder {
 		return child;
 	}
 
-	public SubSettingsBuilder setParent(SubSettingsBuilder parent) {
-
-		SubSettingsBuilder parentBuilder = getParent();
-		if (parentBuilder != null) {
-			return parentBuilder.setParent(parent);
-		} else {
-			this.parent = parent;
-			return this;
-		}
-
-	}
-
-	public SubSettingsBuilder setKey(String key) {
-		this.key = key;
-		return this;
-	}
-
 	public ChooseItemSubSettingsBuilder createChooseItemChild(String key) {
 		ChooseItemSubSettingsBuilder builder = new ChooseItemSubSettingsBuilder(key, this);
 		this.child = builder;
@@ -135,28 +157,6 @@ public abstract class SubSettingsBuilder {
 				this, onOpen, isValid);
 		this.child = builder;
 		return builder;
-	}
-
-	public static ChooseItemSubSettingsBuilder createChooseItem(String key) {
-		return new ChooseItemSubSettingsBuilder(key);
-	}
-
-	public static ValueSubSettingsBuilder createValueItem() {
-		return new ValueSubSettingsBuilder();
-	}
-
-	public static ChooseMultipleItemSubSettingBuilder createChooseMultipleItem(String key) {
-		return new ChooseMultipleItemSubSettingBuilder(key);
-	}
-
-	public static TextInputSubSettingsBuilder createTextInput(String key,
-															  Consumer<Player> onOpen,
-															  Predicate<AsyncPlayerChatEvent> isValid) {
-		return new TextInputSubSettingsBuilder(key, onOpen, isValid);
-	}
-
-	public static EmptySubSettingsBuilder createEmpty() {
-		return new EmptySubSettingsBuilder();
 	}
 
 }

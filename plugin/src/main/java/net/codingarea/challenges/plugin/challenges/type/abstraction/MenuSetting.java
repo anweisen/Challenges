@@ -6,6 +6,7 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.bukkit.utils.menu.positions.EmptyMenuPosition;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
+import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.SettingsMenuGenerator;
@@ -35,11 +36,27 @@ public abstract class MenuSetting extends Setting {
 
 	private final Map<String, SubSetting> settings = new LinkedHashMap<>();
 	private final List<Inventory> inventories = new ArrayList<>();
-	private final String menuTitle;
+	private final Message title;
 
-	public MenuSetting(@Nonnull MenuType menu, @Nonnull String menuTitle) {
+	public MenuSetting(@Nonnull MenuType menu, @Nonnull Message title) {
 		super(menu);
-		this.menuTitle = menuTitle;
+		this.title = title;
+	}
+
+	@Nonnull
+	public static int[] getSlots(int amount) {
+		switch (amount) {
+			default:
+				return new int[0];
+			case 1:
+				return new int[]{13};
+			case 2:
+				return new int[]{12, 14};
+			case 3:
+				return new int[]{11, 13, 15};
+			case 4:
+				return new int[]{10, 12, 14, 16};
+		}
 	}
 
 	protected final void generateInventories() {
@@ -87,26 +104,10 @@ public abstract class MenuSetting extends Setting {
 
 	@Nonnull
 	private Inventory createNewInventory(int page, int pagesAmount) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenuGenerator.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), menuTitle, page, pagesAmount > 1));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, SettingsMenuGenerator.SIZE, InventoryTitleManager.getMenuSettingTitle(getType(), title.asString(), page, pagesAmount > 1));
 		InventoryUtils.fillInventory(inventory, ItemBuilder.FILL_ITEM);
 		inventories.add(inventory);
 		return inventory;
-	}
-
-	@Nonnull
-	public static int[] getSlots(int amount) {
-		switch (amount) {
-			default:
-				return new int[0];
-			case 1:
-				return new int[]{13};
-			case 2:
-				return new int[]{12, 14};
-			case 3:
-				return new int[]{11, 13, 15};
-			case 4:
-				return new int[]{10, 12, 14, 16};
-		}
 	}
 
 	protected final void registerSetting(@Nonnull String name, @Nonnull SubSetting setting) {
@@ -430,16 +431,16 @@ public abstract class MenuSetting extends Setting {
 			this.setValue(defaultValue);
 		}
 
+		public int getValue() {
+			return value;
+		}
+
 		public void setValue(int value) {
 			if (this.value == value) return;
 			this.value = value;
 
 			updateItems();
 			onValueChange();
-		}
-
-		public int getValue() {
-			return value;
 		}
 
 		@Override

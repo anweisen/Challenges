@@ -33,21 +33,6 @@ public class Prefix {
 		this.name = name;
 	}
 
-	public void setValue(@Nullable String value) {
-		this.value = value == null ? null : value.endsWith(" ") ? value : value + " ";
-	}
-
-	@Nonnull
-	@Override
-	public String toString() {
-		return (value == null ? defaultValue : value) + "§7";
-	}
-
-	@Nonnull
-	public String getName() {
-		return name;
-	}
-
 	@Nonnull
 	@CheckReturnValue
 	public static Collection<Prefix> values() {
@@ -69,6 +54,21 @@ public class Prefix {
 	@Nonnull
 	public static String getDefaultValueFor(@Nonnull String value) {
 		return "§8§l┃ " + value + " §8┃ ";
+	}
+
+	public void setValue(@Nullable String value) {
+		this.value = value == null ? null : value.endsWith(" ") ? value : value + " ";
+	}
+
+	@Nonnull
+	@Override
+	public String toString() {
+		return (value == null ? defaultValue : value) + "§7";
+	}
+
+	@Nonnull
+	public String getName() {
+		return name;
 	}
 
 }

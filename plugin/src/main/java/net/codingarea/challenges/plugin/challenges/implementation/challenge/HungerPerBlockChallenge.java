@@ -4,6 +4,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import org.bukkit.Material;
@@ -22,6 +23,7 @@ public class HungerPerBlockChallenge extends SettingModifier {
 
 	public HungerPerBlockChallenge() {
 		super(MenuType.CHALLENGES, 1, 20, 2);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull

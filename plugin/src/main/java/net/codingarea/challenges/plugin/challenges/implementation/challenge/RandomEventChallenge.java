@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -29,19 +30,11 @@ import javax.annotation.Nullable;
 @Since("2.0")
 public class RandomEventChallenge extends TimedChallenge {
 
-	public interface Event {
-
-		@Nonnull
-		Message getActivationMessage();
-
-		void run(@Nonnull Player player);
-
-	}
-
 	private final Event[] events;
 
 	public RandomEventChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 3, false);
+		setCategory(SettingCategory.RANDOMIZER);
 		events = new Event[]{
 				new SpeedEvent(),
 				new SpawnEntitiesEvent(),
@@ -84,6 +77,15 @@ public class RandomEventChallenge extends TimedChallenge {
 		broadcastFiltered(event::run);
 	}
 
+	public interface Event {
+
+		@Nonnull
+		Message getActivationMessage();
+
+		void run(@Nonnull Player player);
+
+	}
+
 	public static class SpeedEvent implements Event {
 
 		@Nonnull
@@ -95,30 +97,6 @@ public class RandomEventChallenge extends TimedChallenge {
 		@Override
 		public void run(@Nonnull Player player) {
 			player.addPotionEffect(new PotionEffect(PotionEffectType.SPEED, 10 * 20, 99));
-		}
-
-	}
-
-	public class SpawnEntitiesEvent implements Event {
-
-		@Nonnull
-		@Override
-		public Message getActivationMessage() {
-			return Message.forName("random-event-entities");
-		}
-
-		@Override
-		public void run(@Nonnull Player player) {
-			EntityType type = globalRandom.choose(EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF);
-
-			for (int i = 0; i < globalRandom.nextInt(5) + 5; i++) {
-				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -10, globalRandom.nextInt(10 - 5));
-				if (randomLocation.getWorld() == null) return;
-				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
-					randomLocation.add(0, 1, 0);
-
-				randomLocation.getWorld().spawnEntity(randomLocation, type);
-			}
 		}
 
 	}
@@ -156,28 +134,6 @@ public class RandomEventChallenge extends TimedChallenge {
 		@Override
 		public void run(@Nonnull Player player) {
 			player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, 3 * 20, 5));
-		}
-
-	}
-
-	public class CobWebEvent implements Event {
-
-		@Nonnull
-		@Override
-		public Message getActivationMessage() {
-			return Message.forName("random-event-webs");
-		}
-
-		@Override
-		public void run(@Nonnull Player player) {
-			for (int i = 0; i < 13; i++) {
-				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -20, globalRandom.nextInt(10 - 5));
-				if (randomLocation.getWorld() == null) return;
-				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
-					randomLocation.add(0, 1, 0);
-
-				randomLocation.getBlock().setType(Material.COBWEB, false);
-			}
 		}
 
 	}
@@ -231,6 +187,52 @@ public class RandomEventChallenge extends TimedChallenge {
 			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 3 * 20, 1));
 			player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5 * 20, 1));
 		}
+	}
+
+	public class SpawnEntitiesEvent implements Event {
+
+		@Nonnull
+		@Override
+		public Message getActivationMessage() {
+			return Message.forName("random-event-entities");
+		}
+
+		@Override
+		public void run(@Nonnull Player player) {
+			EntityType type = globalRandom.choose(EntityType.PIG, EntityType.CHICKEN, EntityType.CAT, EntityType.SILVERFISH, EntityType.WOLF);
+
+			for (int i = 0; i < globalRandom.nextInt(5) + 5; i++) {
+				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -10, globalRandom.nextInt(10 - 5));
+				if (randomLocation.getWorld() == null) return;
+				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
+					randomLocation.add(0, 1, 0);
+
+				randomLocation.getWorld().spawnEntity(randomLocation, type);
+			}
+		}
+
+	}
+
+	public class CobWebEvent implements Event {
+
+		@Nonnull
+		@Override
+		public Message getActivationMessage() {
+			return Message.forName("random-event-webs");
+		}
+
+		@Override
+		public void run(@Nonnull Player player) {
+			for (int i = 0; i < 13; i++) {
+				Location randomLocation = player.getLocation().add(globalRandom.nextInt(10) - 5, -20, globalRandom.nextInt(10 - 5));
+				if (randomLocation.getWorld() == null) return;
+				while (!randomLocation.getBlock().isPassable() && randomLocation.getBlockY() < randomLocation.getWorld().getMaxHeight())
+					randomLocation.add(0, 1, 0);
+
+				randomLocation.getBlock().setType(Material.COBWEB, false);
+			}
+		}
+
 	}
 
 }

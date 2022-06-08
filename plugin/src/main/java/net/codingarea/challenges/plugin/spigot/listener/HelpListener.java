@@ -2,6 +2,9 @@ package net.codingarea.challenges.plugin.spigot.listener;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
+import net.codingarea.challenges.plugin.utils.misc.FontUtils;
+import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -40,12 +43,21 @@ public class HelpListener implements Listener {
 
 		Player sender = event.getPlayer();
 
-		sender.sendMessage(Prefix.CHALLENGES + "§7This server is running §e§lChallenges §ev" + Challenges.getInstance().getVersion());
-		sender.sendMessage(Prefix.CHALLENGES + "");
-		sender.sendMessage(Prefix.CHALLENGES + "§7Made by §eCodingArea §8(§eanweisen §7& §eKxmischesDomi§8)");
-		sender.sendMessage(Prefix.CHALLENGES + "§7Visit the source at §egithub.com/anweisen/Challenges");
-		sender.sendMessage(Prefix.CHALLENGES + "§7Download at §espigotmc.org/resources/80548");
-		sender.sendMessage(Prefix.CHALLENGES + "§7For more join our discord §ediscord.gg/74Ay5zF");
+		sendMessage(sender, "§7This server is running §e§lChallenges §ev" + Challenges.getInstance().getVersion());
+		sendMessage(sender, "");
+		sendMessage(sender, "§7Made by §eCodingArea §8(§eanweisen & KxmischesDomi§8)");
+		sendMessage(sender, "§7Visit the source at §egithub.com/anweisen/Challenges");
+		sendMessage(sender, "§7Download at §espigotmc.org/resources/80548");
+		sendMessage(sender, "§7For more join our discord §ediscord.gg/74Ay5zF");
+
+	}
+
+	public void sendMessage(CommandSender sender, String msg) {
+		LanguageLoader languageLoader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		if (languageLoader != null && languageLoader.isSmallCapsFont()) {
+			msg = FontUtils.toSmallCaps(msg);
+		}
+		sender.sendMessage(Prefix.CHALLENGES + msg);
 
 	}
 

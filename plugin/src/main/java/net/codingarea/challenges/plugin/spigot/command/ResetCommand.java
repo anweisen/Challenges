@@ -35,26 +35,33 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public void onCommand(@Nonnull CommandSender sender, @Nonnull String[] args) {
 
-		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && ChallengeAPI.isFresh()) {
-			Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
-			SoundSample.BASS_OFF.playIfPlayer(sender);
-			return;
-		}
-
 		if (confirmReset && (args.length < 1 || !args[0].equalsIgnoreCase("confirm")) || (args.length > 0 && !args[0].equalsIgnoreCase("confirm"))) {
 			if (args.length > 0 && args[0].equalsIgnoreCase("settings")) {
 				Challenges.getInstance().getChallengeManager().restoreDefaults();
-				Message.forName("player-config-reset").broadcast(Prefix.CHALLENGES);
+				Message.forName("config-reset").broadcast(Prefix.CHALLENGES);
 				return;
-			} else if (args.length > 0 && args[0].equalsIgnoreCase("custom_challenges")) {
+			} else if (args.length > 0 && args[0].equalsIgnoreCase("customs")) {
 				Challenges.getInstance().getCustomChallengesLoader().resetChallenges();
-				Message.forName("player-custom_challenges-reset").broadcast(Prefix.CHALLENGES);
+				Message.forName("custom_challenges-reset").broadcast(Prefix.CHALLENGES);
 				return;
 			}
+
+			if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && ChallengeAPI.isFresh()) {
+				Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
+				SoundSample.BASS_OFF.playIfPlayer(sender);
+				return;
+			}
+
 			if (confirmReset) {
 				Message.forName("confirm-reset").send(sender, Prefix.CHALLENGES, "reset confirm");
 				return;
 			}
+		}
+
+		if (!Challenges.getInstance().getWorldManager().isEnableFreshReset() && ChallengeAPI.isFresh()) {
+			Message.forName("no-fresh-reset").send(sender, Prefix.CHALLENGES);
+			SoundSample.BASS_OFF.playIfPlayer(sender);
+			return;
 		}
 
 		Long seed = null;
@@ -77,10 +84,10 @@ public class ResetCommand implements SenderCommand, Completer {
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		if (confirmReset && args.length == 1) return Utils.filterRecommendations(
-				args[0], "confirm", "settings", "custom_challenges");
+				args[0], "confirm", "settings", "customs");
 		if (seedResetCommand && ((confirmReset && args.length == 2) || args.length == 1)) {
 			return args.length == 1 ?
-					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "custom_challenges") :
+					Utils.filterRecommendations(args[args.length - 1], "[seed]", "settings", "customs") :
 					args[0].equalsIgnoreCase("confirm") ? Collections.singletonList("[seed]") : Lists
 							.newLinkedList();
 		}

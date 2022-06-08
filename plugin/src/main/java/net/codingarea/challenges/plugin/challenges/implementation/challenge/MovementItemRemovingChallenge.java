@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -27,6 +28,7 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 
 	public MovementItemRemovingChallenge() {
 		super(MenuType.CHALLENGES, 1, 2, 2);
+		setCategory(SettingCategory.INVENTORY);
 	}
 
 	@Nonnull
@@ -39,14 +41,14 @@ public class MovementItemRemovingChallenge extends SettingModifier {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (!isEnabled()) return DefaultItem.disabled();
-		if (getValue() == 1) return DefaultItem.create(Material.GRASS_BLOCK, "§6Block");
-		return DefaultItem.create(Material.BOOK, "§6Chunk");
+		if (getValue() == BLOCK) return DefaultItem.create(Material.GRASS_BLOCK, Message.forName("item-block-chunk-item-remove-challenge-block"));
+		return DefaultItem.create(Material.BOOK, Message.forName("item-block-chunk-item-remove-challenge-chunk"));
 	}
 
 	@Override
 	public void playValueChangeTitle() {
-		if (getValue() == BLOCK) ChallengeHelper.playChangeChallengeValueTitle(this, "§6Block");
-		else ChallengeHelper.playChangeChallengeValueTitle(this, "§6Chunk");
+		if (getValue() == BLOCK) ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-block-chunk-item-remove-challenge-block"));
+		else ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-block-chunk-item-remove-challenge-chunk"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

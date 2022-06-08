@@ -24,6 +24,11 @@ public class EntityDeathByPlayerEvent extends EntityEvent implements Cancellable
 		this.parentEvent = parent;
 	}
 
+	@NotNull
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+
 	public Player getKiller() {
 		return killer;
 	}
@@ -41,11 +46,6 @@ public class EntityDeathByPlayerEvent extends EntityEvent implements Cancellable
 	@NotNull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	@NotNull
-	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 

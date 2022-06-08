@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.challenges.type.helper.GoalHelper;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -36,9 +37,10 @@ public class AllAdvancementGoal extends PointsGoal {
 	private final int advancementCount;
 
 	public AllAdvancementGoal() {
+		setCategory(SettingCategory.FASTEST_TIME);
 		allAdvancements = new LinkedList<>();
 		Bukkit.getServer().advancementIterator().forEachRemaining(advancement -> {
-			if (!advancement.getKey().toString().contains("minecraft:recipes/")) {
+			if (!advancement.getKey().toString().contains(":recipes/")) {
 				allAdvancements.add(advancement);
 			}
 		});
@@ -77,7 +79,7 @@ public class AllAdvancementGoal extends PointsGoal {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onAdvancement(PlayerAdvancementDoneEvent event) {
-		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+		if (event.getAdvancement().getKey().toString().contains(":recipes/")) return;
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
 		updateAdvancements(event.getPlayer());

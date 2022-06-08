@@ -6,12 +6,14 @@ import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.pair.Tuple;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.InventoryTitleManager;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -48,6 +50,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	public MissingItemsChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5, false);
+		setCategory(SettingCategory.INVENTORY);
 	}
 
 	@Nullable
@@ -186,7 +189,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 	}
 
 	private Tuple<Inventory, Integer> generateMissingItemsInventory(@Nonnull ItemStack itemStack) {
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString("§9")));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("missing-items-inventory").asString(Message.forName("inventory-color").asString())));
 
 		int targetSlot = globalRandom.nextInt(inventory.getSize());
 		inventory.setItem(targetSlot, itemStack);
@@ -195,9 +198,9 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 			if (slot == targetSlot) continue;
 			try {
 				inventory.setItem(slot, getRandomItem(itemStack));
-			} catch (Exception ex) {
+			} catch (Exception exception) {
 				inventory.setItem(slot, new ItemStack(Material.BARRIER));
-				ex.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 
 		}

@@ -54,6 +54,16 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 				Challenges.getInstance().getChallengeManager().loadSettings(config);
 				Message.forName("player-config-loaded").send(player, Prefix.CHALLENGES);
 			}
+
+			@Override
+			public void reset(Player player) throws Exception {
+				if (checkFeatureDisabled(savePlayerConfigs, player)) return;
+				Challenges.getInstance().getDatabaseManager().getDatabase().update("challenges")
+						.where("uuid", player.getUniqueId())
+						.set("config", null)
+						.execute();
+				Message.forName("player-config-reset").send(player, Prefix.CHALLENGES);
+			}
 		});
 		databaseExecutors.put("customs", new DatabaseCommandExecutor() {
 
@@ -74,6 +84,16 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 						.execute().firstOrEmpty().getDocument("custom_challenges");
 				Challenges.getInstance().getChallengeManager().loadCustomChallenges(config);
 				Message.forName("player-custom_challenges-loaded").send(player, Prefix.CHALLENGES);
+			}
+
+			@Override
+			public void reset(Player player) throws Exception {
+				if (checkFeatureDisabled(savePlayerChallenges, player)) return;
+				Challenges.getInstance().getDatabaseManager().getDatabase().update("challenges")
+						.where("uuid", player.getUniqueId())
+						.set("custom_challenges", null)
+						.execute();
+				Message.forName("player-custom_challenges-reset").send(player, Prefix.CHALLENGES);
 			}
 		});
 	}
@@ -100,16 +120,13 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 			case "load":
 				executor.load(player);
 				break;
+			case "reset":
+				executor.reset(player);
+				break;
 			default:
 				Message.forName("syntax").send(player, Prefix.CHALLENGES, "database <save/load/reset> <settings/customs>");
 		}
 
-	}
-
-	private interface DatabaseCommandExecutor {
-		void save(Player player) throws Exception;
-
-		void load(Player player) throws Exception;
 	}
 
 	/**
@@ -124,18 +141,26 @@ public class DatabaseCommand implements PlayerCommand, TabCompleter {
 		return false;
 	}
 
-
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command,
 									  @NotNull String alias, @NotNull String[] args) {
 
 		if (args.length <= 1) {
-			return Utils.filterRecommendations(args[0], "save", "load");
+			return Utils.filterRecommendations(args[0], "save", "load", "reset");
 		} else if (args.length <= 2) {
 			return Utils.filterRecommendations(args[1], databaseExecutors.keySet().toArray(new String[0]));
 		}
 		return Lists.newLinkedList();
+	}
+
+
+	private interface DatabaseCommandExecutor {
+		void save(Player player) throws Exception;
+
+		void load(Player player) throws Exception;
+
+		void reset(Player player) throws Exception;
 	}
 
 }

@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.R
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -31,6 +32,7 @@ public class BlockMobsChallenge extends Setting {
 
 	public BlockMobsChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.ENTITIES);
 	}
 
 	@NotNull

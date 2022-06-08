@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -9,7 +9,9 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
+import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
@@ -19,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.player.PlayerMoveEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -37,6 +40,7 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 	public ForceBiomeChallenge() {
 		super(MenuType.CHALLENGES, 2, 20, 5);
+		setCategory(SettingCategory.FORCE);
 	}
 
 	@Nonnull
@@ -67,18 +71,18 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-biome-instruction").asString(StringUtils.getEnumName(biome), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-biome-instruction").asComponent(biome, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-biome-failed").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(biome));
+		Message.forName("force-biome-fail").broadcast(Prefix.CHALLENGES, BukkitStringUtils.getBiomeName(biome));
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-biome-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(biome));
+		Message.forName("force-biome-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), BukkitStringUtils.getBiomeName(biome));
 	}
 
 	@Override
@@ -87,7 +91,8 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 				.filter(biome -> !biome.name().contains("END"))
 				.filter(biome -> !biome.name().contains("MUSHROOM"))
 				.filter(biome -> !biome.name().contains("VOID"))
-				.toArray(length -> new Biome[length]);
+				.filter(biome -> !biome.name().equals("CUSTOM"))
+				.toArray(Biome[]::new);
 
 		biome = globalRandom.choose(biomes);
 	}
@@ -126,6 +131,21 @@ public class ForceBiomeChallenge extends CompletableForceChallenge {
 		if (event.getTo() == null) return;
 		if (event.getTo().getBlock().getBiome() != biome) return;
 		completeForcing(event.getPlayer());
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			biome = document.getEnum("target", Biome.class);
+			setState(biome == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", biome);
 	}
 
 }

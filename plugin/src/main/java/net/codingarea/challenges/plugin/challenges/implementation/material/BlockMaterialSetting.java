@@ -32,7 +32,7 @@ public class BlockMaterialSetting extends Setting {
 	private final Material[] materials;
 
 	public BlockMaterialSetting(@Nonnull String name, @Nonnull ItemBuilder preset, @Nonnull Object[] replacements, @Nonnull Material... materials) {
-		super(MenuType.ITEMS_BLOCKS, true);
+		super(MenuType.ITEMS, true);
 		this.name = name;
 		this.preset = preset;
 		this.replacements = replacements;

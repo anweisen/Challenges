@@ -46,16 +46,6 @@ public abstract class SettingModifier extends Modifier {
 		}
 	}
 
-	public void setEnabled(boolean enabled) {
-		if (this.enabled == enabled) return;
-		this.enabled = enabled;
-
-		if (enabled) onEnable();
-		else onDisable();
-
-		updateItems();
-	}
-
 	@Override
 	public void restoreDefaults() {
 		super.restoreDefaults();
@@ -77,6 +67,16 @@ public abstract class SettingModifier extends Modifier {
 	@Override
 	public final boolean isEnabled() {
 		return enabled;
+	}
+
+	public void setEnabled(boolean enabled) {
+		if (this.enabled == enabled) return;
+		this.enabled = enabled;
+
+		if (enabled) onEnable();
+		else onDisable();
+
+		updateItems();
 	}
 
 	public void playStatusUpdateTitle() {

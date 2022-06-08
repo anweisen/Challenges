@@ -25,6 +25,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 	}
 
 	public void enable() {
+
 		// Settings
 		registerWithCommand(DifficultySetting.class, "difficulty");
 		register(RegenerationSetting.class);
@@ -64,15 +65,44 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(TotemSaveDeathSetting.class);
 
 
-		// Challenges 1
+		// Challenges
+
+		// Randomizer
 		register(RandomChallengeChallenge.class);
 		register(RandomizedHPChallenge.class);
-		register(OneDurabilityChallenge.class);
-		register(NoTradingChallenge.class);
-		register(NoExpChallenge.class);
-		register(WaterMLGChallenge.class);
-		register(HungerPerBlockChallenge.class);
-		// 2
+		register(BlockRandomizerChallenge.class);
+		register(CraftingRandomizerChallenge.class);
+		register(HotBarRandomizerChallenge.class);
+		registerWithCommand(EntityLootRandomizerChallenge.class, "searchloot");
+		register(MobRandomizerChallenge.class);
+		register(RandomItemDroppingChallenge.class);
+		register(RandomItemRemovingChallenge.class);
+		register(RandomItemSwappingChallenge.class);
+		register(RandomItemChallenge.class);
+		register(RandomEventChallenge.class);
+		register(RandomTeleportOnHitChallenge.class);
+
+		// Force
+		register(ForceHeightChallenge.class);
+		register(ForceBlockChallenge.class);
+		register(ForceMobChallenge.class);
+		register(ForceItemChallenge.class);
+		register(ForceBiomeChallenge.class);
+
+		// Entities
+		register(HydraNormalChallenge.class);
+		register(HydraPlusChallenge.class);
+		register(DupedSpawningChallenge.class);
+		register(NewEntityOnJumpChallenge.class);
+		register(InvisibleMobsChallenge.class);
+		register(StoneSightChallenge.class);
+		register(MobSightDamageChallenge.class);
+		register(AllMobsToDeathPoint.class);
+		register(MobsRespawnInEndChallenge.class);
+		register(MobTransformationChallenge.class);
+		register(BlockMobsChallenge.class);
+
+		// Damage
 		register(DamagePerBlockChallenge.class);
 		register(SneakDamageChallenge.class);
 		register(JumpDamageChallenge.class);
@@ -80,128 +110,124 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlockPlaceDamageChallenge.class);
 		register(AdvancementDamageChallenge.class);
 		register(DamagePerItemChallenge.class);
-		// 3
-		register(SurfaceHoleChallenge.class);
-		register(BedrockWallChallenge.class);
-		register(BedrockPathChallenge.class);
-		register(FloorIsLavaChallenge.class);
-		register(ChunkDeconstructionChallenge.class);
-		register(AllBlocksDisappearChallenge.class);
-		register(TsunamiChallenge.class);
-		// 4
-		register(JumpAndRunChallenge.class);
-		register(SnakeChallenge.class);
-		register(AnvilRainChallenge.class);
-		register(TrafficLightChallenge.class);
-		register(ReversedDamageChallenge.class);
+		register(WaterAllergyChallenge.class);
 		register(DeathOnFallChallenge.class);
-		register(FoodOnceChallenge.class);
-		// 5
-		register(HydraNormalChallenge.class);
-		register(HydraPlusChallenge.class);
-		register(DupedSpawningChallenge.class);
-		register(BlockRandomizerChallenge.class);
-		register(CraftingRandomizerChallenge.class);
-		register(HotBarRandomizerChallenge.class);
-		register(MobRandomizerChallenge.class);
-		// 6
-		register(ForceHeightChallenge.class);
-		register(ForceBlockChallenge.class);
-		register(ForceMobChallenge.class);
-		register(ForceItemChallenge.class);
-		register(ForceBiomeChallenge.class);
-		register(MaxBiomeTimeChallenge.class);
-		register(MaxHeightTimeChallenge.class);
-		// 7
-		register(PermanentItemChallenge.class);
-		register(RandomItemDroppingChallenge.class);
-		register(RandomItemSwappingChallenge.class);
-		register(RandomItemRemovingChallenge.class);
-		register(NoDupedItemsChallenge.class);
-		register(MovementItemRemovingChallenge.class);
-		register(DamageInventoryClearChallenge.class);
-		// 8
+		register(ReversedDamageChallenge.class);
+		register(FreezeChallenge.class);
+
+		// Effect
 		register(ChunkRandomEffectChallenge.class);
 		register(BlockEffectChallenge.class);
 		register(EntityRandomEffectChallenge.class);
 		register(RandomPotionEffectChallenge.class);
 		register(PermanentEffectOnDamageChallenge.class);
 		register(InfectionChallenge.class);
-		register(InvisibleMobsChallenge.class);
-		// 9
-		register(UncraftItemsChallenge.class);
-		register(OnlyDownChallenge.class);
-		register(WaterAllergyChallenge.class);
-		register(FreezeChallenge.class);
-		register(IceFloorChallenge.class);
-		register(OnlyDirtChallenge.class);
+
+		// World
+		register(SurfaceHoleChallenge.class);
+		register(BedrockWallChallenge.class);
+		register(BedrockPathChallenge.class);
+		register(FloorIsLavaChallenge.class);
+		register(ChunkDeconstructionChallenge.class);
+		register(AllBlocksDisappearChallenge.class);
+		register(AnvilRainChallenge.class);
+		register(TsunamiChallenge.class);
 		register(RepeatInChunkChallenge.class);
-		// 10
-		register(PickupItemLaunchChallenge.class);
-		register(HigherJumpsChallenge.class);
-		register(FoodLaunchChallenge.class);
-		register(LowDropRateChallenge.class);
-		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
-		register(AlwaysRunningChallenge.class);
-		register(DontStopRunningChallenge.class);
-		// 11
-		register(NewEntityOnJumpChallenge.class);
-		register(MobTransformationChallenge.class);
-		register(AllMobsToDeathPoint.class);
-		register(MobsRespawnInEndChallenge.class);
-		register(EnderGamesChallenge.class);
-		register(StoneSightChallenge.class);
-		register(MobSightDamageChallenge.class);
-		// 12
-		register(MoveMouseDamage.class);
-		register(InvertHealthChallenge.class);
-		register(LoopChallenge.class);
-		register(RandomItemChallenge.class);
-		register(RandomEventChallenge.class);
-		register(FiveHundredBlocksChallenge.class);
+		register(SnakeChallenge.class);
 		register(BlockFlyInAirChallenge.class);
 		register(BlocksDisappearAfterTimeChallenge.class);
-		// 13
-		register(RandomTeleportOnHitChallenge.class);
-		register(BlockMobsChallenge.class);
+		register(LoopChallenge.class);
+		register(IceFloorChallenge.class);
+
+		// Inventory
+		register(PermanentItemChallenge.class);
+		register(NoDupedItemsChallenge.class);
+		register(DamageInventoryClearChallenge.class);
+		register(UncraftItemsChallenge.class);
+		registerWithCommand(MissingItemsChallenge.class, "openmissingitems");
+		register(PickupItemLaunchChallenge.class);
+		register(MovementItemRemovingChallenge.class);
+
+		// Movement
+		register(TrafficLightChallenge.class);
+		register(HungerPerBlockChallenge.class);
+		register(OnlyDownChallenge.class);
+		register(OnlyDirtChallenge.class);
+		register(HigherJumpsChallenge.class);
+		register(AlwaysRunningChallenge.class);
+		register(DontStopRunningChallenge.class);
+		register(MoveMouseDamage.class);
+		register(FiveHundredBlocksChallenge.class);
+
+		// Limited Time
+		register(MaxBiomeTimeChallenge.class);
+		register(MaxHeightTimeChallenge.class);
+
+		// Custom World
+		register(WaterMLGChallenge.class);
+		register(JumpAndRunChallenge.class);
+
+		// Misc
+		register(OneDurabilityChallenge.class);
+		register(NoTradingChallenge.class);
+		register(NoExpChallenge.class);
+		register(FoodOnceChallenge.class);
+		register(FoodLaunchChallenge.class);
+		register(LowDropRateChallenge.class);
+		register(EnderGamesChallenge.class);
+		register(InvertHealthChallenge.class);
+		register(NoSharedAdvancementsChallenge.class);
 
 
 		// Goal
+
+		// Kill
 		register(KillEnderDragonGoal.class);
 		register(KillWitherGoal.class);
 		register(KillElderGuardianGoal.class);
+		register(KillWardenGoal.class);
 		register(KillAllBossesGoal.class);
+		register(KillAllBossesNewGoal.class);
 		register(KillIronGolemGoal.class);
 		register(KillSnowGolemGoal.class);
 		register(KillAllMobsGoal.class);
-
 		register(KillAllMonsterGoal.class);
-		register(LastManStandingGoal.class);
-		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
+
+		// Score Points
 		register(CollectMostDeathsGoal.class);
 		register(CollectMostItemsGoal.class);
 		register(MineMostBlocksGoal.class);
 		register(CollectMostExpGoal.class);
+		register(MostEmeraldsGoal.class);
+		register(MostOresGoal.class);
+		register(EatMostGoal.class);
 
+		// Fastest Time
 		register(FirstOneToDieGoal.class);
 		register(CollectWoodGoal.class);
 		register(FinishRaidGoal.class);
-		register(MostEmeraldsGoal.class);
 		register(AllAdvancementGoal.class);
 		register(MaxHeightGoal.class);
 		register(MinHeightGoal.class);
-
 		register(RaceGoal.class);
-		register(MostOresGoal.class);
 		register(FindElytraGoal.class);
 		register(EatCakeGoal.class);
 		register(CollectHorseAmorGoal.class);
 		register(CollectIceBlocksGoal.class);
 		register(CollectSwordsGoal.class);
-
 		register(CollectWorkstationsGoal.class);
-		register(EatMostGoal.class);
+		register(GetFullHealthGoal.class);
+
+		// Force battle
 		register(ForceItemBattleGoal.class);
+		register(ForceMobBattleGoal.class);
+		register(ForceAdvancementBattleGoal.class);
+		register(ForceBlockBattleGoal.class);
+
+		// Misc
+		register(LastManStandingGoal.class);
+		registerWithCommand(CollectAllItemsGoal.class, "skipitem");
+
 
 		// Damage Rules
 		registerDamageRule("none", Material.TOTEM_OF_UNDYING, DamageCause.values());

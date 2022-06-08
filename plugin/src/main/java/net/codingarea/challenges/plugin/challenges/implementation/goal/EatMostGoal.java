@@ -4,6 +4,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.PointsGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -18,6 +19,11 @@ import org.jetbrains.annotations.NotNull;
  */
 @Since("2.1.2")
 public class EatMostGoal extends PointsGoal {
+
+	public EatMostGoal() {
+		super();
+		setCategory(SettingCategory.SCORE_POINTS);
+	}
 
 	@NotNull
 	@Override

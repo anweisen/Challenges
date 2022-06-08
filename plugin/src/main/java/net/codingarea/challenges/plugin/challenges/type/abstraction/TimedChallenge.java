@@ -119,7 +119,7 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	protected float getProgress() {
-		return (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
+		return getOriginalSecondsUntilActivation() == 0 ? 1 : (float) (getSecondsLeftUntilNextActivation()) / getOriginalSecondsUntilActivation();
 	}
 
 	protected void handleCountdown() {
@@ -130,6 +130,10 @@ public abstract class TimedChallenge extends SettingModifier {
 	}
 
 	protected abstract int getSecondsUntilNextActivation();
+
+	public void setSecondsUntilActivation(int secondsUntilActivation) {
+		this.secondsUntilActivation = secondsUntilActivation;
+	}
 
 	protected void restartTimer(int seconds) {
 		Logger.debug("Restarting timer of {} with {} second(s)", this.getClass().getSimpleName(), seconds);
@@ -146,7 +150,11 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	@Override
 	public void loadGameState(@NotNull Document document) {
-		if (document.contains("time")) {
+		if (document.isEmpty()) {
+			startedBefore = true;
+			timerStatus = true;
+			restartTimer();
+		} else if (document.contains("time")) {
 			startedBefore = true;
 			timerStatus = true;
 			secondsUntilActivation = document.getInt("time");

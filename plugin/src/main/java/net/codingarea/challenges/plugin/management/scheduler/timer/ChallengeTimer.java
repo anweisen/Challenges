@@ -9,12 +9,14 @@ import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.content.loader.LanguageLoader;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.TimerMenuGenerator;
 import net.codingarea.challenges.plugin.management.scheduler.policy.PlayerCountPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
+import net.codingarea.challenges.plugin.utils.misc.FontUtils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.*;
@@ -28,15 +30,14 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeTimer {
 
+	private final TimerFormat format;
+	private final String stoppedMessage, upMessage, downMessage;
+	private final boolean specificStartSounds, defaultStartSound;
 	private long time = 0;
 	private boolean countingUp = true;
 	private boolean paused = true;
 	private boolean hidden = false;
 	private boolean sentEmpty;
-
-	private final TimerFormat format;
-	private final String stoppedMessage, upMessage, downMessage;
-	private final boolean specificStartSounds, defaultStartSound;
 
 	public ChallengeTimer() {
 
@@ -161,7 +162,14 @@ public final class ChallengeTimer {
 	private String getActionbar() {
 		String message = !paused || (!countingUp && time > 0) ? (countingUp ? upMessage : downMessage) : stoppedMessage;
 		String time = getFormattedTime();
-		return message.replace("{time}", time);
+		message = message.replace("{time}", time);
+		return isSmallCaps() ? FontUtils.toSmallCaps(message) : message;
+	}
+
+	private boolean isSmallCaps() {
+		LanguageLoader languageLoader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
+		if (languageLoader == null) return false;
+		return languageLoader.isSmallCapsFont();
 	}
 
 	public synchronized void loadSession() {
@@ -189,17 +197,6 @@ public final class ChallengeTimer {
 	public void setSeconds(long seconds) {
 		this.time = seconds;
 		updateActionbar();
-	}
-
-	public void setCountingUp(boolean countingUp) {
-		if (this.countingUp == countingUp) return;
-
-		this.countingUp = countingUp;
-		updateActionbar();
-		TimerMenuGenerator menuGenerator = (TimerMenuGenerator) MenuType.TIMER.getMenuGenerator();
-		menuGenerator.updateFirstPage();
-		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
-		SoundSample.BASS_ON.broadcast();
 	}
 
 	public void setHidden(boolean hide) {
@@ -237,6 +234,17 @@ public final class ChallengeTimer {
 
 	public boolean isCountingUp() {
 		return countingUp;
+	}
+
+	public void setCountingUp(boolean countingUp) {
+		if (this.countingUp == countingUp) return;
+
+		this.countingUp = countingUp;
+		updateActionbar();
+		TimerMenuGenerator menuGenerator = (TimerMenuGenerator) MenuType.TIMER.getMenuGenerator();
+		menuGenerator.updateFirstPage();
+		Message.forName("timer-mode-set-" + (countingUp ? "up" : "down")).broadcast(Prefix.TIMER);
+		SoundSample.BASS_ON.broadcast();
 	}
 
 }

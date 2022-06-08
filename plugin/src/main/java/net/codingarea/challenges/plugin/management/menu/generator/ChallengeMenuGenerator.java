@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import com.google.common.collect.ImmutableList;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
@@ -30,10 +31,10 @@ import java.util.function.Consumer;
 public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	protected final List<IChallenge> challenges = new LinkedList<>();
+	protected final boolean newSuffix;
 
-	private final boolean newSuffix;
 	private final int startPage;
-	private final Consumer<Player> onLeaveClick;
+	protected Consumer<Player> onLeaveClick;
 
 	public ChallengeMenuGenerator(int startPage, Consumer<Player> onLeaveClick) {
 		newSuffix = Challenges.getInstance().getConfigDocument().getBoolean("new-suffix");
@@ -47,6 +48,18 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	public ChallengeMenuGenerator() {
 		this(0);
+	}
+
+	public static boolean playNoPermissionsEffect(@Nonnull Player player) {
+		MenuManager menuManager = Challenges.getInstance().getMenuManager();
+		if (!menuManager.permissionToManageGUI()) return false;
+		if (mayManageSettings(player)) return false;
+		menuManager.playNoPermissionsEffect(player);
+		return true;
+	}
+
+	private static boolean mayManageSettings(@Nonnull Player player) {
+		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
 	}
 
 	@Override
@@ -174,6 +187,10 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 	}
 
+	public List<IChallenge> getChallenges() {
+		return ImmutableList.copyOf(challenges);
+	}
+
 	private class ChallengeMenuPositionGenerator extends GeneratorMenuPosition {
 
 		public ChallengeMenuPositionGenerator(MenuGenerator generator, int page) {
@@ -238,18 +255,6 @@ public abstract class ChallengeMenuGenerator extends MultiPageMenuGenerator {
 
 		}
 
-	}
-
-	public static boolean playNoPermissionsEffect(@Nonnull Player player) {
-		MenuManager menuManager = Challenges.getInstance().getMenuManager();
-		if (!menuManager.permissionToManageGUI()) return false;
-		if (mayManageSettings(player)) return false;
-		menuManager.playNoPermissionsEffect(player);
-		return true;
-	}
-
-	private static boolean mayManageSettings(@Nonnull Player player) {
-		return player.hasPermission(MenuManager.MANAGE_GUI_PERMISSION);
 	}
 
 }

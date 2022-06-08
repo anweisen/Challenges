@@ -70,7 +70,7 @@ public class InvseeCommand implements PlayerCommand, Listener {
 			return inventories.get(player);
 		}
 
-		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle("§9" + NameHelper.getName(player)));
+		Inventory inventory = Bukkit.createInventory(MenuPosition.HOLDER, 6 * 9, InventoryTitleManager.getTitle(Message.forName("inventory-color").asString() + NameHelper.getName(player)));
 		inventories.put(player, inventory);
 		MenuPosition.set(player, event -> {
 		});

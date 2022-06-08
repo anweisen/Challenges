@@ -22,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 public final class ServiceLoader extends ContentLoader {
 
 	/**
-	 * Pings the domain from the enpoint.txt on github to check if the current IP is blocked.
+	 * Pings the domain from the endpoint.txt on github to check if the current IP is blocked.
 	 * (https://github.com/anweisen/Challenges/blob/master/endpoint.txt)
 	 * Usually localhost but can be changed to block certain servers from using the plugin.
 	 *
@@ -34,7 +34,7 @@ public final class ServiceLoader extends ContentLoader {
 	 * that would be able to remove this part of the code.
 	 *
 	 * This code part is completely disabled and DOESN'T ping any of coding-area servers as of the time this comment is written.
-	 * This is done by putting 'localhost' inside the 'enpoint.txt' in the github repository.
+	 * This is done by putting 'localhost' inside the 'endpoint.txt' in the github repository.
 	 *
 	 * We are aware that many people as they saw this code part though that we'd save ips and other server information
 	 * and as words spread many people thought bad about us and this project.

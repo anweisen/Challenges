@@ -23,6 +23,11 @@ public class PlayerJumpEvent extends PlayerEvent implements Cancellable {
 		this.event = statisticIncrementEvent;
 	}
 
+	@Nonnull
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+
 	@Override
 	public boolean isCancelled() {
 		return event.isCancelled();
@@ -36,11 +41,6 @@ public class PlayerJumpEvent extends PlayerEvent implements Cancellable {
 	@Nonnull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	@Nonnull
-	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 

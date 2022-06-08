@@ -1,13 +1,14 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.collection.Triple;
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.collection.pair.Triple;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -37,6 +38,7 @@ public class NoDupedItemsChallenge extends Setting {
 
 	public NoDupedItemsChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.INVENTORY);
 	}
 
 	@Nonnull
@@ -79,10 +81,10 @@ public class NoDupedItemsChallenge extends Setting {
 						Prefix.CHALLENGES,
 						NameHelper.getName(result.getFirst()),
 						NameHelper.getName(result.getSecond()),
-						StringUtils.getEnumName(result.getThird())
+						result.getThird()
 				);
-				kill(result.getFirst());
-				kill(result.getSecond());
+				ChallengeHelper.kill(result.getFirst());
+				ChallengeHelper.kill(result.getSecond());
 			}
 
 		}

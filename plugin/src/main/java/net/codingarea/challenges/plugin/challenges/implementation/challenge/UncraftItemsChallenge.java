@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
@@ -26,31 +27,7 @@ public class UncraftItemsChallenge extends TimedChallenge {
 
 	public UncraftItemsChallenge() {
 		super(MenuType.CHALLENGES, 5, 60, 20);
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.CRAFTING_TABLE, Message.forName("item-uncraft-challenge"));
-	}
-
-	@Nullable
-	@Override
-	protected String[] getSettingsDescription() {
-		return Message.forName("item-time-seconds-description").asArray(getValue());
-	}
-
-	@Override
-	protected int getSecondsUntilNextActivation() {
-		return getValue();
-	}
-
-	@Override
-	protected void onTimeActivation() {
-		restartTimer();
-
-		broadcastFiltered(UncraftItemsChallenge::uncraftInventory);
-
+		setCategory(SettingCategory.INVENTORY);
 	}
 
 	public static void uncraftInventory(@Nonnull Player player) {
@@ -137,6 +114,31 @@ public class UncraftItemsChallenge extends TimedChallenge {
 		}
 
 		return ingredients;
+	}
+
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.CRAFTING_TABLE, Message.forName("item-uncraft-challenge"));
+	}
+
+	@Nullable
+	@Override
+	protected String[] getSettingsDescription() {
+		return Message.forName("item-time-seconds-description").asArray(getValue());
+	}
+
+	@Override
+	protected int getSecondsUntilNextActivation() {
+		return getValue();
+	}
+
+	@Override
+	protected void onTimeActivation() {
+		restartTimer();
+
+		broadcastFiltered(UncraftItemsChallenge::uncraftInventory);
+
 	}
 
 }

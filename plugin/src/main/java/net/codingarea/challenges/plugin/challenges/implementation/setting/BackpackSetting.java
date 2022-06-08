@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeConfigHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -55,8 +56,8 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	@Override
 	public ItemBuilder createSettingsItem() {
 		if (getValue() == SHARED)
-			return DefaultItem.create(Material.ENDER_CHEST, "§5Team");
-		return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+			return DefaultItem.create(Material.ENDER_CHEST, Message.forName("item-backpack-setting-team"));
+		return DefaultItem.create(Material.PLAYER_HEAD, Message.forName("item-backpack-setting-player"));
 	}
 
 
@@ -64,10 +65,10 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 	public void playValueChangeTitle() {
 		switch (getValue()) {
 			case SHARED:
-				ChallengeHelper.playChangeChallengeValueTitle(this, "§5Team");
+				ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-backpack-setting-team"));
 				break;
 			case PLAYER:
-				ChallengeHelper.playChangeChallengeValueTitle(this, "§6Player");
+				ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-backpack-setting-player"));
 				break;
 			default:
 				ChallengeHelper.playToggleChallengeTitle(this, false);
@@ -120,8 +121,8 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 				String value = document.getString(key);
 				if (value == null) return;
 				BukkitSerialization.fromBase64(inventory, value);
-			} catch (IOException e) {
-				e.printStackTrace();
+			} catch (IOException exception) {
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 

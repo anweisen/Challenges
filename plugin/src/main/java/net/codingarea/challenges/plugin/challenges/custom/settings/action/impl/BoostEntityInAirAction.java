@@ -41,7 +41,7 @@ public class BoostEntityInAirAction extends EntityTargetAction {
 		try {
 			strength = Integer.parseInt(subActions.get("strength")[0]);
 		} catch (NumberFormatException exception) {
-			Logger.error(exception);
+			Logger.error("", exception);
 		}
 
 		Vector velocityToAdd = new Vector(0, 1, 0).multiply(strength);

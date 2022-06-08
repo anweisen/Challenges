@@ -21,6 +21,7 @@
 	"everyone": "§5Alle",
 	"player": "§6Aktiver Spieler",
 	"none": "Nichts",
+	"inventory-color": "§9",
 	"timer-counting-up": "§8» §7Timer zählt §ahoch",
 	"timer-counting-down": "§8» §7Timer zählt §crunter",
 	"timer-is-paused": "§8» §7Timer ist §cpausiert",
@@ -46,6 +47,9 @@
 	"undefined": "undefiniert",
 	"no-such-material": "Dieses Material gibt es nicht",
 	"not-an-item": "§e{0} §7ist kein Item",
+	"no-such-entity": "Dieses Entity existiert nicht",
+	"not-alive": "§e{0} §7ist kein lebendes Entity",
+	"no-loot": "§e{0} §7hat keine Drops",
 	"deprecated-plugin-version": [
 		"",
 		"§7Ein neues Update ist verfügbar!",
@@ -76,12 +80,14 @@
 		"Auf diesem Server wurde §cgecheated",
 		"Es können §ckeine weiteren §7Statistiken gesammelt werden"
 	],
+	"custom_challenges-reset": "Die §eLokalen §7Challenges wurden §aerfolgreich zurückgesetzt",
+	"config-reset": "Die §eLokalen §7Einstellungen wurden §aerfolgreich zurückgesetzt",
 	"player-config-loaded": "Deine Einstellungen wurden §aerfolgreich geladen",
 	"player-config-saved": "Deine Einstellungen wurden §aerfolgreich gespeichert",
-	"player-config-reset": "Die Einstellungen wurden §aerfolgreich zurückgesetzt",
+	"player-config-reset": "Deine Einstellungen wurden §aerfolgreich zurückgesetzt",
 	"player-custom_challenges-loaded": "Deine Challenges wurden §aerfolgreich geladen",
 	"player-custom_challenges-saved": "Deine Challenges wurden §aerfolgreich gespeichert",
-	"player-custom_challenges-reset": "Die Challenges wurden §aerfolgreich zurückgesetzt",
+	"player-custom_challenges-reset": "Deine Challenges wurden §aerfolgreich zurückgesetzt",
 	"item-prefix": "§8» ",
 	"item-setting-info": "§8➟ {0}",
 	"stat-dragon-killed": "Drachen getötet",
@@ -129,10 +135,16 @@
 	"command-weather-set-thunder": "Wetter zu §estürmisch §7geändert",
 	"command-invsee-open": "Inventar von §e{0} §7geöffnet",
 	"command-enderchest-open": "Du hast deine §5Enderchest §7geöffnet",
-	"command-difficulty-change": "Schwierigkeit auf §e{0} §7geändert",
-	"command-difficulty-current": "Die derzeitige Schwierigkeit ist §e{0}",
+	"command-difficulty-change": "Schwierigkeit auf {0} §7geändert",
+	"command-difficulty-current": "Die derzeitige Schwierigkeit ist {0}",
 	"command-search-nothing": "§e{0} §7wird durch keinen speziellen Block gedroppt",
 	"command-search-result": "§e{0} §7droppt aus §e{1}",
+	"command-searchloot-disabled": "Die Entity Loot Randomizer Challenge ist aktuell §cdeaktiviert",
+	"command-searchloot-nothing": "Der Loot von §e{0} §7wird durch kein spezielles Entity gedroppt",
+	"command-searchloot-result": [
+		"§e{0} §7droppt den Loot von §e{1}",
+		"Der Loot von §e{0} §7wird von §e{2} §7gedroppt"
+	],
 	"command-time-set": "Die Zeit wurde auf §e{0} §7Ticks §8(§7ca. §e{1}§8) §7geändert",
 	"command-time-set-exact": "Die Zeit wurde auf §e{0} §8(§e{1} §7Ticks§8) §7geändert",
 	"command-time-query": [
@@ -155,6 +167,7 @@
 	"command-back-no-locations": "Du hast dich noch §cnicht §7teleportiert",
 	"command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
 	"command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
+	"command-result-no-battle-active": "Es ist aktuell §ckein §7Force-Battle aktiviert",
 	"traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
 	"player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
 	"death-message": "§e{0} §7ist gestorben",
@@ -205,13 +218,22 @@
 	"loops-cleared": "§e{0} §7Loops abgebrochen",
 	"stopped-moving": "§e{0} §7hat sich zu lange nicht bewegt",
 	"all-advancements-goal": "§7Advancements §8» §e{0}",
-	"height-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
+	"Chalheight-reached": "§e{0} §7hat Höhe §e{1} §7erreicht!",
 	"race-goal-reached": "§e{0} §7hat das Ziel erreicht!",
 	"points-change": "§e{0} §7Punkte",
 	"force-item-battle-found": "Du hast §e{0} §7gefunden!",
 	"force-item-battle-new-item": "Item zu suchen: §e{0}",
 	"force-item-battle-leaderboard": "§8➜ §7Force Item Battle Leaderboard",
-	"force-item-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-mob-battle-killed": "Du hast §e{0} §7gefunden!",
+	"force-mob-battle-new-mob": "Mob zu suchen: §e{0}",
+	"force-mob-battle-leaderboard": "§8➜ §7Force Mob Battle Leaderboard",
+	"force-advancement-battle-completed": "Du hast §e{0} §7erzielt!",
+	"force-advancement-battle-new-advancement": "Nächstes Advancement: §e{0}",
+	"force-advancement-battle-leaderboard": "§8➜ §7Force Advancement Battle Leaderboard",
+	"force-block-battle-found": "Du hast §e{0} §7gefunden!",
+	"force-block-battle-new-block": "Block zu suchen: §e{0}",
+	"force-block-battle-leaderboard": "§8➜ §7Force Block Battle Leaderboard",
+	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -357,10 +379,99 @@
 	"item-menu-timer": "§8• §5Timer §8┃ §e/timer §8•",
 	"item-menu-leaderboard": "§8• §6Leaderboard §8┃ §e/leaderboard §8•",
 	"item-menu-stats": "§8• §2Statistiken §8┃ §e/stats §8•",
+	"menu-title": "Menu",
+	"menu-timer": "§6Timer",
+	"menu-goal": "§5Ziel",
+	"menu-damage": "§7Schaden",
+	"menu-item_blocks": "§4Blöcke & Items",
+	"menu-challenges": "§cChallenges",
+	"menu-settings": "§eEinstellungen",
+	"menu-custom": "§aBenutzerdefiniert",
+	"lore-category-activated-count": "§7Aktiviert §8» §a{0}§8/§7{1}",
+	"lore-category-activated": "§7Aktiviert §8» §aJa",
+	"lore-category-deactivated": "§7Aktiviert §8» §cNein",
+	"category-misc_challenge": [
+		"§9Miscellaneous",
+		"Challenges, die *keiner Kategorie*",
+		"zugeordnet werden können"
+	],
+	"category-randomizer": [
+		"§6Randomizer",
+		"Erlebe ein komplett",
+		"*durcheinandergebrachtes* Spiel"
+	],
+	"category-limited_time": [
+		"§aLimitierte Zeit",
+		"Du wirst bei verschiedenen",
+		"Faktoren *zeitlich eingeschränkt*"
+	],
+	"category-force": [
+		"§3Zwischenziele (Force)",
+		"Du musst *bestimmte Zwischenziele*",
+		"erfüllen, sonst stirbst du"
+	],
+	"category-world": [
+		"§4Weltveränderung",
+		"Die Welt wird nicht mehr",
+		"*wiedererkennbar* sein"
+	],
+	"category-damage": [
+		"§cSchaden",
+		"Neue *Schadens Regeln*"
+	],
+	"category-effect": [
+		"§5Effekte",
+		"Erlebe verrückte *Effekte*"
+	],
+	"category-inventory": [
+		"§6Inventory",
+		"Dein Inventar wird *verdreht*"
+	],
+	"category-movement": [
+		"§aBewegung",
+		"Du wirst in deinen Bewegungen *eingeschränkt*"
+	],
+	"category-entities": [
+		"§bEntities",
+		"Entities werden *verändert*"
+	],
+	"category-extra_world": [
+		"§aExtra Welt",
+		"Challenges, die in einer",
+		"*anderen Welt* spielen"
+	],
+	"category-misc_goal": [
+		"§9Miscellaneous",
+		"Ziele, die *keiner Kategorie*",
+		"zugeordnet werden können"
+	],
+	"category-kill_entity": [
+		"§cEntity töten",
+		"Töte *bestimmte Entities*,",
+		"um zu gewinnen"
+	],
+	"category-score_points": [
+		"§eMeiste Punkte",
+		"Erziele die *meisten Punkte* in",
+		"einem *bestimmten Bereich*."
+	],
+	"category-fastest_time": [
+		"§6Schnellste Zeit",
+		"Sei der *schnellste Spieler*, der",
+		"das Ziel erfüllt"
+	],
+	"category-force_battle": [
+		"§bForce Battles",
+		"Erfülle die *vorgegebenen Zwischenziele*,",
+		"um Punkte zu erhalten.",
+		"",
+		"Der Spieler mit den *meisten Punkten* gewinnt."
+	],
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
 	"item-time-seconds-range-description": "§8» §7Zeit: §e{0}-{1} §7Sekunden",
 	"item-time-minutes-description": "§8» §7Zeit: §e{0} §7Minuten",
 	"item-heart-damage-description": "§8» §7Schaden: §e{0} §c❤",
+	"item-heart-start-description": "§8» §7Start: §e{0} §c❤",
 	"item-max-health-description": "§8» §7Maximale Leben: §e{0} §c❤",
 	"item-chance-description": "§8» §7Chance: §e{0}%",
 	"item-launcher-description": "§8» §7Stärke: §e{0}",
@@ -368,13 +479,24 @@
 	"item-permanent-effect-target-everyone-description": "§8» §7Alle erhalten den Effekt",
 	"item-blocks-description": "§8» §7Blöcke zu laufen: §e{0}",
 	"item-range-blocks-description": "§8» §7Reichweite: §e{0} §7Blöcke",
+	"item-force-battle-goal-jokers": [
+		"§6Anzahl der Joker",
+		"Die *Anzahl* der *Joker*,",
+		"die jeder Spieler hat"
+	],
+	"item-force-battle-show-scoreboard": [
+		"§bScoreboard anzeigen"
+	],
+	"item-force-battle-duped-targets": [
+		"§cDoppelte Ziele"
+	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"
 	],
 	"item-one-life-setting": [
 		"§cEin Teamleben",
-		"*Jeder* stirbt wenn *einer stirbt*"
+		"*Jeder* stirbt, wenn *einer stirbt*"
 	],
 	"item-respawn-setting": [
 		"§4Respawn",
@@ -384,6 +506,7 @@
 		"§6Todesnachrichten",
 		"Schaltet *Todesnachrichten* ein/aus"
 	],
+	"item-death-message-setting-vanilla": "§6Vanilla",
 	"item-pvp-setting": [
 		"§9PvP"
 	],
@@ -394,7 +517,7 @@
 	],
 	"item-soup-setting": [
 		"§cSuppen Heilung",
-		"Wenn du eine *Pilzsuppe Suppe* benutzt,",
+		"Wenn du eine *Pilzsuppe* benutzt,",
 		"wirst du um *4 Herzen* geheilt"
 	],
 	"item-damage-setting": [
@@ -421,11 +544,14 @@
 		"Erlaubt es dir, *deinen Backpack* oder den",
 		"*Team Backpack* mit */backpack* zu öffnen"
 	],
+	"item-backpack-setting-team": "§5Team",
+	"item-backpack-setting-player": "§6Player",
 	"item-cut-clean-setting": [
 		"§9CutClean",
 		"Verschiedene *Einstellungen*, die",
 		"das *Farmen* von Items *einfacher* machen"
 	],
+	"menu-cut-clean-setting-settings": "CutClean",
 	"item-cut-clean-gold-setting": [
 		"§6Gold",
 		"*Golderz* wird direkt zu *Goldbarren*"
@@ -478,10 +604,12 @@
 		"Du kannst einen *Baum* zerstören,",
 		"indem du *einen Block* des Baumes abbaust"
 	],
+	"item-timber-setting-logs": "§6Baumstämme",
+	"item-timber-setting-logs-and-leaves": "§6Baumstämme §7und §2Blätter",
 	"item-keep-inventory-setting": [
 		"§5Keep Inventory",
-		"Du verlierst keine *Items*",
-		"Wenn du *stirbst*"
+		"Du verlierst keine *Items*,",
+		"wenn du *stirbst*"
 	],
 	"item-no-item-damage-setting": [
 		"§5Kein Itemschaden",
@@ -512,6 +640,7 @@
 		"Stellt ein, *ob* und",
 		"*wie* man *regeneriert*"
 	],
+	"item-regeneration-setting-not_natural": "§6Nicht natürlich",
 	"item-immediate-respawn-setting": [
 		"§6Direkter Respawn",
 		"Wenn du stirbst, *respawnst* du *automatisch,*",
@@ -543,7 +672,7 @@
 		"Es gibt keinen *Attack Cooldown*"
 	],
 	"item-totem-save-setting": [
-		"§6Challenge Tot Rettung",
+		"§6Challenge Tod Rettung",
 		"Wenn du durch eine Challenge *instant*",
 		"*stirbst*, können *Totems* dich retten"
 	],
@@ -683,9 +812,11 @@
 	],
 	"item-food-once-challenge": [
 		"§cFood Once",
-		"Du kannst jeden *Essen*",
+		"Du kannst jedes *Essen*",
 		"nur einmal *essen*"
 	],
+	"item-food-once-challenge-player": "§6Spieler",
+	"item-food-once-challenge-everyone": "§5Jeder",
 	"item-chunk-deconstruction-challenge": [
 		"§bChunk Deconstruction",
 		"*Chunks*, in denen sich Spieler befinden,",
@@ -746,6 +877,7 @@
 		"verschwinden alle *Blöcke* im *Chunk*",
 		"eines *bestimmten Types*"
 	],
+	"menu-all-blocks-disappear-challenge-settings": "Alle Blöcke verschwinden",
 	"item-all-blocks-disappear-break-challenge": [
 		"§bBeim Abbauen",
 		"Wenn du einen Block *abbaust*, werden",
@@ -763,7 +895,7 @@
 	],
 	"item-max-biome-time-challenge": [
 		"§2Maximale Biom Zeit",
-		"Die *Zeit* die du in jedem *Biom*",
+		"Die *Zeit*, die du in jedem *Biom*",
 		"sein darfst, ist *begrenzt*"
 	],
 	"item-max-height-time-challenge": [
@@ -817,6 +949,7 @@
 		"Du bekommst in einem gesetzen *Intervall*",
 		"einen *zufälligen Trank Effekt*"
 	],
+	"menu-random-effect-challenge-settings": "Random Effekte",
 	"item-random-effect-time-challenge": [
 		"§6Intervall",
 		"Das *Intervall*, in dem man",
@@ -846,6 +979,7 @@
 		"§cAmboss Regen",
 		"Vom *Himmel* fallen *Ambosse*"
 	],
+	"menu-anvil-rain-challenge-settings": "Amboss Regen",
 	"item-anvil-rain-time-challenge": [
 		"§6Intervall",
 		"Das *Intervall*, in",
@@ -888,6 +1022,8 @@
 		"den du dich *fortbewegst*, ein Item",
 		"aus deinem Inventar *gelöscht*"
 	],
+	"item-block-chunk-item-remove-challenge-block": "§6Block",
+	"item-block-chunk-item-remove-challenge-chunk": "§6Chunk",
 	"item-higher-jumps-challenge": [
 		"§aHigher Jumps",
 		"*Umso öfter* du springst,",
@@ -1046,6 +1182,15 @@
 		"Aus jedem abgebautem Block, *spawnt ein Mob*,",
 		"dass *getötet* werden muss, um den Block *zu erhalten*"
 	],
+	"item-entity-loot-randomizer-challenge": [
+		"§6Entity Loot Randomizer",
+		"Alle Mob Drops sind *zufällig vertauscht*."
+	],
+	"item-no-shared-advancements-challenge": [
+		"§2Keine Gleichen Advancements",
+		"Spieler dürfen *nicht* die *gleichen Advancements*",
+		"abschließen, sonst *stirbt* der *Spieler*"
+	],
 	"item-dragon-goal": [
 		"§5Enderdrache",
 		"Töte den *Enderdrachen* um zu gewinnen"
@@ -1057,6 +1202,10 @@
 	"item-elder-guardian-goal": [
 		"§bElder Guardian",
 		"Töte einen *Elder Guardian* um zu gewinnen"
+	],
+	"item-warden-goal": [
+		"§5Warden",
+		"Töte einen *Warden* um zu gewinnen"
 	],
 	"item-iron-golem-goal": [
 		"§bEisengolem",
@@ -1097,8 +1246,16 @@
 		"Wer als *erstes* alle *Holzarten*, die",
 		"*eingestellt* sind, gesammelt hat, gewinnt"
 	],
+	"item-collect-wood-goal-overworld": "§aOverworld",
+	"item-collect-wood-goal-nether": "§cNether",
+	"item-collect-wood-goal-both": "§9Beide",
 	"item-all-bosses-goal": [
 		"§bAlle Bosse",
+		"Es müssen *alle Bosse* einmal",
+		"*getötet* werden, um zu *gewinnen*"
+	],
+	"item-all-bosses-new-goal": [
+		"§5Alle Bosse (+ Warden)",
 		"Es müssen *alle Bosse* einmal",
 		"*getötet* werden, um zu *gewinnen*"
 	],
@@ -1188,10 +1345,41 @@
 	"item-force-item-battle-goal": [
 		"§5Force Item Battle",
 		"Jeder Spieler bekommt ein *zufälliges Item*,",
-		"dass er finden muss.",
-		"Wer am Ende die *meisten Items* hat, gewinnt",
-		"",
-		"Der eingestellte Wert legt die Anzahl an *Jokern* fest."
+		"das er finden muss.",
+		"Wer am Ende die *meisten Items* hat, gewinnt"
+	],
+	"menu-force-item-battle-goal-settings": "Force Item Battle",
+	"item-force-item-battle-goal-give-item": [
+		"§bItem bei Skippen geben",
+		"Wenn ein Spieler ein Item *skippt*,",
+		"wird dieses in sein *Inventar hinzugefügt*"
+	],
+	"item-force-mob-battle-goal": [
+		"§bForce Mob Battle",
+		"Jeder Spieler bekommt ein *zufälliges Mob*,",
+		"das er töten muss."
+	],
+	"menu-force-mob-battle-goal-settings": "Force Mob Battle",
+	"item-force-advancement-battle-goal": [
+		"§6Force Advancement Battle",
+		"Jeder Spieler bekommt ein *zufälliges*",
+		"*Advancement*, welches er erreichen muss."
+	],
+	"menu-force-advancement-battle-goal-settings": "Force Advancement Battle",
+	"item-force-block-battle-goal": [
+		"§aForce Block Battle",
+		"Jeder Spieler bekommt einen *zufälligen*",
+		"*Block*, auf welchem er stehen muss"
+	],
+	"menu-force-block-battle-goal-settings": "Force Block Battle",
+	"item-force-block-battle-goal-give-block": [
+		"§bBlock bei Skippen geben",
+		"Wenn ein Spieler einen Block *skippt*,",
+		"wird dieser in sein *Inventar hinzugefügt*"
+	],
+	"item-get-full-health-goal": [
+		"§aRegeneriere Volle Leben",
+		"The first player to gain full health wins."
 	],
 	"item-damage-rule-none": [
 		"§6Genereller Schaden",

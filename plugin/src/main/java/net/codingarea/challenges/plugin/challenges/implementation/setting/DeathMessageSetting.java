@@ -50,7 +50,7 @@ public class DeathMessageSetting extends Modifier {
 			case ENABLED:
 				return DefaultItem.enabled();
 			case VANILLA:
-				return DefaultItem.create(MaterialWrapper.SIGN, "§6Vanilla");
+				return DefaultItem.create(MaterialWrapper.SIGN, Message.forName("item-death-message-setting-vanilla"));
 		}
 	}
 
@@ -61,7 +61,7 @@ public class DeathMessageSetting extends Modifier {
 				ChallengeHelper.playToggleChallengeTitle(this, true);
 				return;
 			case VANILLA:
-				ChallengeHelper.playChangeChallengeValueTitle(this, "§6Vanilla");
+				ChallengeHelper.playChangeChallengeValueTitle(this, Message.forName("item-death-message-setting-vanilla"));
 				return;
 			default:
 				ChallengeHelper.playToggleChallengeTitle(this, false);

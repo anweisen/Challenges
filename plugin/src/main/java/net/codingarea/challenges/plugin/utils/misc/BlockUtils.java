@@ -18,6 +18,12 @@ import java.util.List;
  */
 public final class BlockUtils {
 
+	private static final BlockFace[] faces = {
+			BlockFace.UP, BlockFace.DOWN,
+			BlockFace.NORTH, BlockFace.EAST,
+			BlockFace.SOUTH, BlockFace.WEST
+	};
+
 	private BlockUtils() {
 	}
 
@@ -51,12 +57,6 @@ public final class BlockUtils {
 		if (chunk1.getWorld() != chunk2.getWorld()) return false;
 		return chunk1.getX() == chunk2.getX() && chunk1.getZ() == chunk2.getZ();
 	}
-
-	private static final BlockFace[] faces = {
-			BlockFace.UP, BlockFace.DOWN,
-			BlockFace.NORTH, BlockFace.EAST,
-			BlockFace.SOUTH, BlockFace.WEST
-	};
 
 	/**
 	 * @param block middle block

@@ -1,11 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -27,6 +27,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 
 	public MaxBiomeTimeChallenge() {
 		super(MenuType.CHALLENGES, 3, 20);
+		setCategory(SettingCategory.LIMITED_TIME);
 	}
 
 	@Override
@@ -34,7 +35,7 @@ public class MaxBiomeTimeChallenge extends SettingModifier {
 		bossbar.setContent((bossbar, player) -> {
 			int currentTime = getCurrentTime(player);
 			int maxTime = (getValue() * 60);
-			bossbar.setTitle(Message.forName("bossbar-biome-time-left").asString(StringUtils.getEnumName(getBiome(player)), maxTime - currentTime));
+			bossbar.setTitle(Message.forName("bossbar-biome-time-left").asComponent(getBiome(player), maxTime - currentTime));
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(1 - ((float) currentTime / maxTime));
 		});

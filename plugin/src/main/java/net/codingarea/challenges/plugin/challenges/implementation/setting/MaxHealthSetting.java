@@ -33,7 +33,7 @@ public class MaxHealthSetting extends Modifier {
 	private Document valueOffset = new GsonDocument();
 
 	public MaxHealthSetting() {
-		super(MenuType.SETTINGS, 1, 100 * 2, 20);
+		super(MenuType.SETTINGS, 1, 200 * 2, 20);
 	}
 
 	@Nonnull

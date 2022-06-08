@@ -20,6 +20,11 @@ public class PlayerIgnoreStatusChangeEvent extends PlayerEvent {
 		this.isIgnored = isIgnored;
 	}
 
+	@NotNull
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+
 	public boolean isIgnored() {
 		return isIgnored;
 	}
@@ -31,11 +36,6 @@ public class PlayerIgnoreStatusChangeEvent extends PlayerEvent {
 	@NotNull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	@NotNull
-	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 

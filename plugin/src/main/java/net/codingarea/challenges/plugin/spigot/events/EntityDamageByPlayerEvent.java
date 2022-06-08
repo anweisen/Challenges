@@ -26,6 +26,11 @@ public class EntityDamageByPlayerEvent extends EntityEvent implements Cancellabl
 		this.parentEvent = parent;
 	}
 
+	@NotNull
+	public static HandlerList getHandlerList() {
+		return handlers;
+	}
+
 	public Player getDamager() {
 		return damager;
 	}
@@ -47,11 +52,6 @@ public class EntityDamageByPlayerEvent extends EntityEvent implements Cancellabl
 	@NotNull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	@NotNull
-	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 

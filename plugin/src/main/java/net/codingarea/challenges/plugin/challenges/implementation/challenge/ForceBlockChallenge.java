@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.EndingForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -9,6 +9,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
@@ -16,6 +17,7 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -33,6 +35,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 	public ForceBlockChallenge() {
 		super(MenuType.CHALLENGES, 2, 15);
+		setCategory(SettingCategory.FORCE);
 	}
 
 	@Nonnull
@@ -63,7 +66,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asString(StringUtils.getEnumName(block), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-block-instruction").asComponent(block, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
@@ -82,7 +85,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 	@Override
 	protected void broadcastFailedMessage(@Nonnull Player player) {
-		Message.forName("force-block-fail").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(player.getLocation().subtract(0, 1, 0).getBlock().getType()));
+		Message.forName("force-block-fail").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), player.getLocation().subtract(0, 1, 0).getBlock().getType());
 	}
 
 	@Override
@@ -96,6 +99,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 				.filter(Material::isBlock)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.filter(material -> !BlockUtils.isTooHardToGet(material))
+				.filter(material -> !material.name().contains("WALL"))
 				.toArray(length -> new Material[length]);
 		block = globalRandom.choose(materials);
 	}
@@ -108,6 +112,21 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 	@Override
 	protected int getForcingTime() {
 		return globalRandom.range(4 * 60, 6 * 60);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			block = document.getEnum("target", Material.class);
+			setState(block == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", block);
 	}
 
 }

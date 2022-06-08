@@ -5,6 +5,7 @@ import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
@@ -33,7 +34,8 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 	int currentTime = 0;
 
 	public RandomPotionEffectChallenge() {
-		super(MenuType.CHALLENGES, "Random Effect");
+		super(MenuType.CHALLENGES, Message.forName("menu-random-effect-challenge-settings"));
+		setCategory(SettingCategory.EFFECT);
 		registerSetting("time", new NumberSubSetting(
 						() -> new ItemBuilder(Material.CLOCK, Message.forName("item-random-effect-time-challenge")),
 						value -> null,
@@ -64,6 +66,17 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 
 	}
 
+	@Nullable
+	public static PotionEffectType getNewRandomEffect(@Nonnull LivingEntity entity) {
+		List<PotionEffectType> activeEffects = entity.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
+
+		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
+		possibleEffects.removeAll(activeEffects);
+		possibleEffects.remove(PotionEffectType.HEAL);
+		possibleEffects.remove(PotionEffectType.HARM);
+		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
+	}
+
 	@Nonnull
 	@Override
 	public ItemBuilder createDisplayItem() {
@@ -89,17 +102,6 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		PotionEffectType effect = getNewRandomEffect(entity);
 		if (effect == null) return;
 		applyEffect(entity, effect);
-	}
-
-	@Nullable
-	public static PotionEffectType getNewRandomEffect(@Nonnull LivingEntity entity) {
-		List<PotionEffectType> activeEffects = entity.getActivePotionEffects().stream().map(PotionEffect::getType).collect(Collectors.toList());
-
-		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
-		possibleEffects.removeAll(activeEffects);
-		possibleEffects.remove(PotionEffectType.HEAL);
-		possibleEffects.remove(PotionEffectType.HARM);
-		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
 	}
 
 	private void applyEffect(@Nonnull Player player, @Nonnull PotionEffectType effectType) {

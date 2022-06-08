@@ -53,6 +53,17 @@ public abstract class Modifier extends AbstractChallenge implements IModifier {
 	}
 
 	@Override
+	public void restoreDefaults() {
+		setValue(defaultValue);
+	}
+
+	@Override
+	@Nonnegative
+	public final int getValue() {
+		return value;
+	}
+
+	@Override
 	public void setValue(int value) {
 		if (value > max) throw new IllegalArgumentException("value > max");
 		if (value < min) throw new IllegalArgumentException("value < min");
@@ -65,17 +76,6 @@ public abstract class Modifier extends AbstractChallenge implements IModifier {
 		}
 
 		updateItems();
-	}
-
-	@Override
-	public void restoreDefaults() {
-		setValue(defaultValue);
-	}
-
-	@Override
-	@Nonnegative
-	public final int getValue() {
-		return value;
 	}
 
 	@Override

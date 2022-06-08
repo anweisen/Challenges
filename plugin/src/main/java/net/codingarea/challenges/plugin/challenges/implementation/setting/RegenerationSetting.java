@@ -41,7 +41,7 @@ public class RegenerationSetting extends Modifier {
 		} else if (getValue() == 2) {
 			return DefaultItem.enabled();
 		}
-		return DefaultItem.create(Material.ORANGE_DYE, "§6Not Natural");
+		return DefaultItem.create(Material.ORANGE_DYE, Message.forName("item-regeneration-setting-not_natural"));
 	}
 
 	@Override
@@ -50,7 +50,7 @@ public class RegenerationSetting extends Modifier {
 			ChallengeHelper.playToggleChallengeTitle(this, false);
 			return;
 		}
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? "§aEnabled" : "§6Not Natural");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 2 ? Message.forName("enabled") : Message.forName("item-regeneration-setting-not_natural"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)

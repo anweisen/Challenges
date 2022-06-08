@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeScoreboard;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -38,19 +39,18 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
 	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
 
-	protected final MenuType menu;
-	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
-	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
-
-	private String name;
-
-	private ItemStack cachedDisplayItem;
-
 	static {
 		Document ignoreDocument = Challenges.getInstance().getConfigDocument().getDocument("ignore-players");
 		ignoreCreativePlayers = ignoreDocument.getBoolean("creative");
 		ignoreSpectatorPlayers = ignoreDocument.getBoolean("spectator");
 	}
+
+	protected final MenuType menu;
+	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
+	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+	protected SettingCategory category;
+	private String name;
+	private ItemStack cachedDisplayItem;
 
 	public AbstractChallenge(@Nonnull MenuType menu) {
 		this.menu = menu;
@@ -58,9 +58,59 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	@Nonnull
+	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
+		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));
+	}
+
+	public static void broadcast(@Nonnull Consumer<? super Player> action) {
+		Bukkit.getOnlinePlayers().forEach(action);
+	}
+
+	public static void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (ignorePlayer(player)) continue;
+			action.accept(player);
+		}
+	}
+
+	public static void broadcastIgnored(@Nonnull Consumer<? super Player> action) {
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			if (!ignorePlayer(player)) continue;
+			action.accept(player);
+		}
+	}
+
+	@CheckReturnValue
+	public static boolean ignorePlayer(@Nonnull Player player) {
+		return ignoreGameMode(player.getGameMode());
+	}
+
+	@CheckReturnValue
+	public static boolean ignoreGameMode(@Nonnull GameMode gameMode) {
+		return (isIgnoreSpectatorPlayers() && gameMode == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && gameMode == GameMode.CREATIVE);
+	}
+
+	public static boolean isIgnoreCreativePlayers() {
+		return ignoreCreativePlayers;
+	}
+
+	public static boolean isIgnoreSpectatorPlayers() {
+		return ignoreSpectatorPlayers;
+	}
+
+	@Nonnull
 	@Override
 	public final MenuType getType() {
 		return menu;
+	}
+
+	@Override
+	public SettingCategory getCategory() {
+		return category;
+	}
+
+	public void setCategory(SettingCategory category) {
+		this.category = category;
 	}
 
 	protected final void updateItems() {
@@ -181,47 +231,6 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	public ChallengeBossBar getBossbar() {
 		return bossbar;
-	}
-
-	@Nonnull
-	public static <C extends AbstractChallenge> C getFirstInstance(@Nonnull Class<C> classOfChallenge) {
-		return classOfChallenge.cast(firstInstanceByClass.get(classOfChallenge));
-	}
-
-	public static void broadcast(@Nonnull Consumer<? super Player> action) {
-		Bukkit.getOnlinePlayers().forEach(action);
-	}
-
-	public static void broadcastFiltered(@Nonnull Consumer<? super Player> action) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (ignorePlayer(player)) continue;
-			action.accept(player);
-		}
-	}
-
-	public static void broadcastIgnored(@Nonnull Consumer<? super Player> action) {
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (!ignorePlayer(player)) continue;
-			action.accept(player);
-		}
-	}
-
-	@CheckReturnValue
-	public static boolean ignorePlayer(@Nonnull Player player) {
-		return ignoreGameMode(player.getGameMode());
-	}
-
-	@CheckReturnValue
-	public static boolean ignoreGameMode(@Nonnull GameMode gameMode) {
-		return (isIgnoreSpectatorPlayers() && gameMode == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && gameMode == GameMode.CREATIVE);
-	}
-
-	public static boolean isIgnoreCreativePlayers() {
-		return ignoreCreativePlayers;
-	}
-
-	public static boolean isIgnoreSpectatorPlayers() {
-		return ignoreSpectatorPlayers;
 	}
 
 }

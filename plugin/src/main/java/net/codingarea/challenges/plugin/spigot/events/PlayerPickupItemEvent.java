@@ -17,13 +17,18 @@ public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
 	private static final HandlerList handlers = new HandlerList();
 
 	private final Item item;
-	private boolean cancel = false;
 	private final int remaining;
+	private boolean cancel = false;
 
 	public PlayerPickupItemEvent(@Nonnull Player player, @Nonnull Item item, int remaining) {
 		super(player);
 		this.item = item;
 		this.remaining = remaining;
+	}
+
+	@Nonnull
+	public static HandlerList getHandlerList() {
+		return handlers;
 	}
 
 	/**
@@ -58,11 +63,6 @@ public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
 	@Nonnull
 	@Override
 	public HandlerList getHandlers() {
-		return handlers;
-	}
-
-	@Nonnull
-	public static HandlerList getHandlerList() {
 		return handlers;
 	}
 }

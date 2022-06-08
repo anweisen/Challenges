@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -39,9 +38,9 @@ public class FoodOnceChallenge extends SettingModifier {
 	public ItemBuilder createSettingsItem() {
 		switch (getValue()) {
 			case 1:
-				return DefaultItem.create(Material.PLAYER_HEAD, "§6Player");
+				return DefaultItem.create(Material.PLAYER_HEAD, Message.forName("item-food-once-challenge-player"));
 			case 2:
-				return DefaultItem.create(Material.ENDER_CHEST, "§5Everyone");
+				return DefaultItem.create(Material.ENDER_CHEST, Message.forName("item-food-once-challenge-everyone"));
 			default:
 				return super.createSettingsItem();
 		}
@@ -49,7 +48,7 @@ public class FoodOnceChallenge extends SettingModifier {
 
 	@Override
 	public void playValueChangeTitle() {
-		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 1 ? "§6Player" : "§5Everyone");
+		ChallengeHelper.playChangeChallengeValueTitle(this, getValue() == 1 ? Message.forName("item-food-once-challenge-player") : Message.forName("item-food-once-challenge-everyone"));
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -59,14 +58,14 @@ public class FoodOnceChallenge extends SettingModifier {
 
 		Material type = event.getItem().getType();
 		if (hasEaten(event.getPlayer(), type)) {
-			Message.forName("food-once-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+			Message.forName("food-once-failed").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 			kill(event.getPlayer(), 1);
 		} else {
 			addFood(event.getPlayer(), type);
 			if (teamFoodsActivated()) {
-				Message.forName("food-once-new-food-team").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+				Message.forName("food-once-new-food-team").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 			} else {
-				Message.forName("food-once-new-food").send(event.getPlayer(), Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), StringUtils.getEnumName(type));
+				Message.forName("food-once-new-food").send(event.getPlayer(), Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()), type);
 
 			}
 		}

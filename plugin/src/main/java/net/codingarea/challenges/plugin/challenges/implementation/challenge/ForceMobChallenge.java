@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.anweisen.utilities.common.misc.StringUtils;
+import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CompletableForceChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -20,6 +21,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDeathEvent;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -39,6 +41,7 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 
 	public ForceMobChallenge() {
 		super(MenuType.CHALLENGES, 2, 15);
+		setCategory(SettingCategory.FORCE);
 	}
 
 	@Nonnull
@@ -69,18 +72,18 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 
 			bossbar.setColor(BarColor.GREEN);
 			bossbar.setProgress(getProgress());
-			bossbar.setTitle(Message.forName("bossbar-force-mob-instruction").asString(StringUtils.getEnumName(entity), ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
+			bossbar.setTitle(Message.forName("bossbar-force-mob-instruction").asComponent(entity, ChallengeAPI.formatTime(getSecondsLeftUntilNextActivation())));
 		};
 	}
 
 	@Override
 	protected void broadcastFailedMessage() {
-		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, StringUtils.getEnumName(entity));
+		Message.forName("force-mob-fail").broadcast(Prefix.CHALLENGES, entity);
 	}
 
 	@Override
 	protected void broadcastSuccessMessage(@Nonnull Player player) {
-		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), StringUtils.getEnumName(entity));
+		Message.forName("force-mob-success").broadcast(Prefix.CHALLENGES, NameHelper.getName(player), entity);
 	}
 
 	@Override
@@ -110,6 +113,21 @@ public class ForceMobChallenge extends CompletableForceChallenge {
 		Player killer = entity.getKiller();
 		if (killer == null) return;
 		completeForcing(killer);
+	}
+
+	@Override
+	public void loadGameState(@NotNull Document document) {
+		super.loadGameState(document);
+		if (document.contains("target")) {
+			entity = document.getEnum("target", EntityType.class);
+			setState(entity == null ? WAITING : COUNTDOWN);
+		}
+	}
+
+	@Override
+	public void writeGameState(@NotNull Document document) {
+		super.writeGameState(document);
+		document.set("target", entity);
 	}
 
 }

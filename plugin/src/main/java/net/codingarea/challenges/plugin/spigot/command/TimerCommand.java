@@ -63,7 +63,7 @@ public class TimerCommand implements SenderCommand, Completer {
 				Challenges.getInstance().getChallengeTimer().reset();
 				break;
 			case "set":
-				long seconds = StringUtils.parseSeconds(StringUtils.getArrayAsString(args, " "));
+				long seconds = StringUtils.parseSeconds(String.join(" ", args));
 				if (seconds >= Integer.MAX_VALUE || seconds < 0) {
 					seconds = Integer.MAX_VALUE;
 				}

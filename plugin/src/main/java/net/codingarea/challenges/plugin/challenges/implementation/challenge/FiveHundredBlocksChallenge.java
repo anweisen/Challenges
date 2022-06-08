@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
@@ -44,6 +45,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
 
 	public FiveHundredBlocksChallenge() {
 		super(MenuType.CHALLENGES, 1, 5, 5);
+		setCategory(SettingCategory.MOVEMENT);
 
 		// Loot Generate Event was added in 1.15
 		try {
@@ -178,7 +180,7 @@ public class FiveHundredBlocksChallenge extends SettingModifier {
 			} catch (IllegalArgumentException exception) {
 				plugin.getLogger().severe("Error while loading 500 Blocks Challenge, "
 						+ "key '" + key + "' is not a valid uuid");
-				exception.printStackTrace();
+				Challenges.getInstance().getLogger().error("", exception);
 			}
 		}
 	}

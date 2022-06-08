@@ -2,10 +2,10 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
-import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.CollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -25,6 +25,7 @@ public class CollectMostItemsGoal extends CollectionGoal {
 
 	public CollectMostItemsGoal() {
 		super(Material.values());
+		setCategory(SettingCategory.SCORE_POINTS);
 	}
 
 	@Nonnull
@@ -58,7 +59,7 @@ public class CollectMostItemsGoal extends CollectionGoal {
 
 	protected void handleNewItem(@Nonnull Material material, @Nonnull Player player) {
 		collect(player, material, () -> {
-			Message.forName("item-collected").send(player, Prefix.CHALLENGES, StringUtils.getEnumName(material));
+			Message.forName("item-collected").send(player, Prefix.CHALLENGES, material);
 			SoundSample.PLING.play(player);
 		});
 	}

@@ -33,24 +33,6 @@ public class DamageDisplaySetting extends Setting {
 		super(MenuType.SETTINGS, true);
 	}
 
-	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
-	public void onDamage(@Nonnull EntityDamageEvent event) {
-		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled())
-			return;
-		if (!(event.getEntity() instanceof Player)) return;
-		if (ChallengeHelper.finalDamageIsNull(event)) return;
-
-		double damage = event.getFinalDamage();
-		String damageDisplay = damage >= 1000 ? "∞" : Display.HEARTS.formatChat(damage);
-		Message.forName("player-damage-display").broadcast(Prefix.DAMAGE, NameHelper.getName((Player) event.getEntity()), damageDisplay, getCause(event));
-	}
-
-	@Nonnull
-	@Override
-	public ItemBuilder createDisplayItem() {
-		return new ItemBuilder(Material.COMMAND_BLOCK, Message.forName("item-damage-display-setting"));
-	}
-
 	public static String getCause(@Nonnull EntityDamageEvent event) {
 
 		if (event.getCause() == DamageCause.CUSTOM) return Message.forName("undefined").asString();
@@ -86,5 +68,23 @@ public class DamageDisplaySetting extends Setting {
 			}
 		}
 		return cause;
+	}
+
+	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+	public void onDamage(@Nonnull EntityDamageEvent event) {
+		if (ChallengeAPI.isPaused() || event.getCause() == DamageCause.CUSTOM || !isEnabled())
+			return;
+		if (!(event.getEntity() instanceof Player)) return;
+		if (ChallengeHelper.finalDamageIsNull(event)) return;
+
+		double damage = event.getFinalDamage();
+		String damageDisplay = damage >= 1000 ? "∞" : Display.HEARTS.formatChat(damage);
+		Message.forName("player-damage-display").broadcast(Prefix.DAMAGE, NameHelper.getName((Player) event.getEntity()), damageDisplay, getCause(event));
+	}
+
+	@Nonnull
+	@Override
+	public ItemBuilder createDisplayItem() {
+		return new ItemBuilder(Material.COMMAND_BLOCK, Message.forName("item-damage-display-setting"));
 	}
 }

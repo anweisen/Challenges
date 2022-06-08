@@ -43,6 +43,7 @@ public class SwapRandomMobAction extends ChallengeAction {
 		Collections.shuffle(swapTargets, IRandom.create(seed).asRandom());
 		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (Entity target : targets) {
+				if (swapTargets.isEmpty()) break;
 				if (!(target instanceof LivingEntity)) continue;
 				if (target.getWorld() == world) {
 					int i = targets.indexOf(target);

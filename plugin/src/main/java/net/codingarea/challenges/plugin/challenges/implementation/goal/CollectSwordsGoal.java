@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ItemCollectionGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.jetbrains.annotations.NotNull;
@@ -20,6 +21,7 @@ import java.util.List;
 public class CollectSwordsGoal extends ItemCollectionGoal {
 
 	public CollectSwordsGoal() {
+		setCategory(SettingCategory.FASTEST_TIME);
 		List<Material> targets = new ArrayList<>(Arrays.asList(
 				Material.WOODEN_SWORD, Material.STONE_SWORD,
 				Material.IRON_SWORD, Material.GOLDEN_SWORD,

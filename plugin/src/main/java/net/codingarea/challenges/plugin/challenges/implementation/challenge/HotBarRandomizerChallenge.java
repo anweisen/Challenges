@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallen
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
@@ -37,6 +38,22 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 
 	public HotBarRandomizerChallenge() {
 		super(MenuType.CHALLENGES, 1, 10, 5);
+		setCategory(SettingCategory.RANDOMIZER);
+	}
+
+	/**
+	 * @param force if true only sets items if inventory is empty
+	 */
+	public static void addItems(Player player, boolean force) {
+
+		if (!force && !player.getInventory().isEmpty()) {
+			return;
+		}
+
+		player.getInventory().clear();
+		for (int i = 0; i < 9; i++) {
+			player.getInventory().setItem(i, InventoryUtils.getRandomItem(false, true));
+		}
 	}
 
 	@NotNull
@@ -68,21 +85,6 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 			addItems(player, true);
 		});
 		restartTimer();
-	}
-
-	/**
-	 * @param force if true only sets items if inventory is empty
-	 */
-	public static void addItems(Player player, boolean force) {
-
-		if (!force && !player.getInventory().isEmpty()) {
-			return;
-		}
-
-		player.getInventory().clear();
-		for (int i = 0; i < 9; i++) {
-			player.getInventory().setItem(i, InventoryUtils.getRandomItem(false, true));
-		}
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING)

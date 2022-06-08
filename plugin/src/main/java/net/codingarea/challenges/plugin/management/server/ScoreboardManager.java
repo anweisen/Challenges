@@ -64,6 +64,11 @@ public final class ScoreboardManager {
 		Bukkit.getOnlinePlayers().forEach(bossbar::applyHide);
 	}
 
+	@Nullable
+	public ChallengeScoreboard getCurrentScoreboard() {
+		return currentScoreboard;
+	}
+
 	public void setCurrentScoreboard(@Nullable ChallengeScoreboard scoreboard) {
 		if (currentScoreboard == scoreboard) return;
 
@@ -77,11 +82,6 @@ public final class ScoreboardManager {
 		// Add new scoreboard if available
 		if (scoreboard == null) return;
 		scoreboard.update();
-	}
-
-	@Nullable
-	public ChallengeScoreboard getCurrentScoreboard() {
-		return currentScoreboard;
 	}
 
 	public void disable() {

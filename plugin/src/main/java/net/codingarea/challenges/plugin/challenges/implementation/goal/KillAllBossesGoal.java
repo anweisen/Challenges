@@ -1,8 +1,11 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.KillMobsGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -19,6 +22,7 @@ public class KillAllBossesGoal extends KillMobsGoal {
 
 	public KillAllBossesGoal() {
 		super(Arrays.asList(EntityType.ENDER_DRAGON, EntityType.WITHER, EntityType.ELDER_GUARDIAN));
+		setCategory(SettingCategory.KILL_ENTITY);
 	}
 
 	@Override

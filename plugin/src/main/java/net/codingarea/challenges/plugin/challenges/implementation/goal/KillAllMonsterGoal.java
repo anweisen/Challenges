@@ -1,8 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.KillMobsGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -22,6 +24,25 @@ public class KillAllMonsterGoal extends KillMobsGoal {
 
 	public KillAllMonsterGoal() {
 		super(getAllMobsToKill());
+		setCategory(SettingCategory.KILL_ENTITY);
+	}
+
+	static List<EntityType> getAllMobsToKill() {
+		LinkedList<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
+		list.removeIf(type -> !type.isAlive());
+		list.removeIf(type -> !Monster.class.isAssignableFrom(type.getEntityClass()));
+		list.add(EntityType.PHANTOM);
+		list.add(EntityType.ENDER_DRAGON);
+		list.add(EntityType.SHULKER);
+		list.add(EntityType.GHAST);
+		list.add(EntityType.MAGMA_CUBE);
+		list.add(EntityType.SLIME);
+		list.remove(EntityType.GIANT);
+		list.remove(EntityType.ILLUSIONER);
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_16)) {
+			list.add(EntityType.HOGLIN);
+		}
+		return list;
 	}
 
 	@NotNull
@@ -33,22 +54,6 @@ public class KillAllMonsterGoal extends KillMobsGoal {
 	@Override
 	public Message getBossbarMessage() {
 		return Message.forName("bossbar-kill-all-monster");
-	}
-
-	static List<EntityType> getAllMobsToKill() {
-		LinkedList<EntityType> list = new LinkedList<>(Arrays.asList(EntityType.values()));
-		list.removeIf(type -> !type.isAlive());
-		list.removeIf(type -> !Monster.class.isAssignableFrom(type.getEntityClass()));
-		list.add(EntityType.PHANTOM);
-		list.add(EntityType.ENDER_DRAGON);
-		list.add(EntityType.SHULKER);
-		list.add(EntityType.GHAST);
-		list.add(EntityType.HOGLIN);
-		list.add(EntityType.MAGMA_CUBE);
-		list.add(EntityType.SLIME);
-		list.remove(EntityType.GIANT);
-		list.remove(EntityType.ILLUSIONER);
-		return list;
 	}
 
 }

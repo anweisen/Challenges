@@ -30,11 +30,6 @@ public abstract class ChallengeTrigger extends ChallengeSetting implements
 		super(name, builderSupplier);
 	}
 
-	@Override
-	public final String getMessage() {
-		return "item-custom-trigger-" + getMessageSuffix();
-	}
-
 	public static LinkedHashMap<String, ItemStack> getMenuItems() {
 		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
@@ -43,6 +38,11 @@ public abstract class ChallengeTrigger extends ChallengeSetting implements
 		}
 
 		return map;
+	}
+
+	@Override
+	public final String getMessage() {
+		return "item-custom-trigger-" + getMessageSuffix();
 	}
 
 }

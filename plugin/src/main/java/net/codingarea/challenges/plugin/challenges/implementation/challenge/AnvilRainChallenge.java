@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
@@ -32,7 +33,8 @@ public class AnvilRainChallenge extends MenuSetting {
 	int currentTime = 0;
 
 	public AnvilRainChallenge() {
-		super(MenuType.CHALLENGES, "Anvil Rain");
+		super(MenuType.CHALLENGES, Message.forName("menu-anvil-rain-challenge-settings"));
+		setCategory(SettingCategory.WORLD);
 		registerSetting("time", new NumberSubSetting(
 						() -> new ItemBuilder(Material.CLOCK, Message.forName("item-anvil-rain-time-challenge")),
 						value -> null,

@@ -14,32 +14,19 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 public final class LoaderRegistry {
 
-	private static class Subscribers {
-
-		private final Class<? extends ContentLoader> loader;
-		private final Collection<Runnable> actions = new ArrayList<>(1);
-		private boolean executed = false;
-
-		public Subscribers(Class<? extends ContentLoader> loader) {
-			this.loader = loader;
-		}
-
-		public void execute() {
-			Logger.debug("Executing subscribers for {}", loader.getSimpleName());
-			executed = true;
-			for (Runnable subscriber : actions) {
-				LoaderRegistry.execute(loader, subscriber);
-			}
-		}
-
-	}
-
 	private static final AtomicInteger loading = new AtomicInteger(); // Keeps track of how many loaders are still loading
 	private final Map<Class<? extends ContentLoader>, Subscribers> subscribers = new HashMap<>();
 	private final Collection<ContentLoader> loaders;
-
 	public LoaderRegistry(@Nonnull ContentLoader... loaders) {
 		this.loaders = Arrays.asList(loaders);
+	}
+
+	private static void execute(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
+		try {
+			action.run();
+		} catch (Exception ex) {
+			Logger.error("Could not execute subscriber for {}", classOfLoader.getSimpleName(), ex);
+		}
 	}
 
 	public void load() {
@@ -96,18 +83,33 @@ public final class LoaderRegistry {
 			execute(classOfLoader, action);
 	}
 
-	private static void execute(@Nonnull Class<? extends ContentLoader> classOfLoader, @Nonnull Runnable action) {
-		try {
-			action.run();
-		} catch (Exception ex) {
-			Logger.error("Could not execute subscriber for {}", classOfLoader.getSimpleName(), ex);
-		}
-	}
-
 	@SuppressWarnings("unchecked")
 	public <T extends ContentLoader> T getFirstLoaderByClass(@Nonnull Class<T> clazz) {
-		ContentLoader loader = loaders.stream().filter(contentLoader -> contentLoader.getClass().equals(clazz)).findFirst().orElse(null);
-		if (loader == null) return null;
-		return (T) loader;
+		for (ContentLoader loader : loaders) {
+			if (loader.getClass().equals(clazz)) {
+				return (T) loader;
+			}
+		}
+		return null;
+	}
+
+	private static class Subscribers {
+
+		private final Class<? extends ContentLoader> loader;
+		private final Collection<Runnable> actions = new ArrayList<>(1);
+		private boolean executed = false;
+
+		public Subscribers(Class<? extends ContentLoader> loader) {
+			this.loader = loader;
+		}
+
+		public void execute() {
+			Logger.debug("Executing subscribers for {}", loader.getSimpleName());
+			executed = true;
+			for (Runnable subscriber : actions) {
+				LoaderRegistry.execute(loader, subscriber);
+			}
+		}
+
 	}
 }

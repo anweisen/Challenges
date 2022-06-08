@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.challenges.annotations.CanInstaKillOnEnable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
@@ -28,6 +29,7 @@ public class OnlyDirtChallenge extends Setting {
 
 	public OnlyDirtChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.MOVEMENT);
 	}
 
 	@Nonnull

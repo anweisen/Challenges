@@ -38,14 +38,18 @@ public class OneTeamLifeSetting extends Setting {
 		if (!shouldExecuteEffect()) return;
 		if (isKilling) return;
 
-		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = true);
-		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player == event.getEntity()) continue;
-			if (ignorePlayer(player)) continue;
-			ChallengeHelper.kill(player);
-		}
-		AbstractChallenge.getFirstInstance(RespawnSetting.class).checkAllPlayersDead();
-		AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = false);
+		Bukkit.getScheduler().runTask(plugin, () -> {
+			AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = true);
+			for (Player player : Bukkit.getOnlinePlayers()) {
+				if (player == event.getEntity()) continue;
+				if (ignorePlayer(player)) continue;
+				ChallengeHelper.kill(player);
+			}
+
+			AbstractChallenge.getFirstInstance(RespawnSetting.class).checkAllPlayersDead();
+			AbstractChallenge.getFirstInstance(DeathMessageSetting.class).setHideMessagesTemporarily(isKilling = false);
+		});
+
 	}
 
 }

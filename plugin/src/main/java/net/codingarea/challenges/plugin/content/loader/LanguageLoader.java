@@ -31,11 +31,19 @@ public final class LanguageLoader extends ContentLoader {
 
 	private static volatile boolean loaded = false;
 	private String language;
+	private boolean smallCapsFont;
+
+	public static boolean isLoaded() {
+		return loaded;
+	}
 
 	@Override
 	protected void load() {
 
 		Document config = Challenges.getInstance().getConfigDocument();
+
+		smallCapsFont = config.getBoolean("small-caps", false);
+
 		if (config.contains(DIRECT_FILE_PATH)) {
 			language = Challenges.getInstance().getConfigDocument().getString("language", DEFAULT_LANGUAGE);
 			String path = config.getString(DIRECT_FILE_PATH);
@@ -84,9 +92,9 @@ public final class LanguageLoader extends ContentLoader {
 
 					Logger.debug("Writing language {} to {}", name, file);
 					verifyLanguage(language, file, name);
-				} catch (Exception ex) {
-					ex.printStackTrace();
-					Logger.error("Could not download language for {}. {}: {}", element, ex.getClass().getSimpleName(), ex.getMessage());
+				} catch (Exception exception) {
+					Challenges.getInstance().getLogger().error("", exception);
+					Logger.error("Could not download language for {}. {}: {}", element, exception.getClass().getSimpleName(), exception.getMessage());
 				}
 			}
 
@@ -125,7 +133,7 @@ public final class LanguageLoader extends ContentLoader {
 				Message message = Message.forName(entry.getKey());
 				JsonElement element = entry.getValue();
 				if (element.isJsonPrimitive()) {
-					message.setValue(element.getAsString());
+					message.setValue(new String[]{element.getAsString()});
 					messages++;
 				} else if (element.isJsonArray()) {
 					message.setValue(GsonUtils.convertJsonArrayToStringArray(element.getAsJsonArray()));
@@ -143,12 +151,12 @@ public final class LanguageLoader extends ContentLoader {
 		}
 	}
 
-	public static boolean isLoaded() {
-		return loaded;
-	}
-
 	public String getLanguage() {
 		return language;
+	}
+
+	public boolean isSmallCapsFont() {
+		return smallCapsFont;
 	}
 
 }

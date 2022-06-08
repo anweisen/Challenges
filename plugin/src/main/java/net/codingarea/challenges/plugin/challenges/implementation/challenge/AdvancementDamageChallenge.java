@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModif
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
@@ -21,6 +22,7 @@ public class AdvancementDamageChallenge extends SettingModifier {
 
 	public AdvancementDamageChallenge() {
 		super(MenuType.CHALLENGES, 1, 40);
+		setCategory(SettingCategory.DAMAGE);
 	}
 
 	@Override
@@ -44,7 +46,7 @@ public class AdvancementDamageChallenge extends SettingModifier {
 	public void onPlayerAdvancementDone(@Nonnull PlayerAdvancementDoneEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (event.getAdvancement().getKey().toString().contains("minecraft:recipes/")) return;
+		if (event.getAdvancement().getKey().toString().contains(":recipes/")) return;
 
 		event.getPlayer().setNoDamageTicks(0);
 		event.getPlayer().damage(getValue());

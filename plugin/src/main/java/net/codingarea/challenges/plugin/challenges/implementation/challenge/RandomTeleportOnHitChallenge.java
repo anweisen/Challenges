@@ -4,6 +4,7 @@ import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.EntityDamageByPlayerEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Location;
@@ -27,6 +28,17 @@ public class RandomTeleportOnHitChallenge extends Setting {
 
 	public RandomTeleportOnHitChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.RANDOMIZER);
+	}
+
+	public static void switchEntityLocations(LivingEntity entity1, LivingEntity entity2) {
+		entity1.setInvisible(true);
+		entity2.setInvisible(false);
+		Location entity2Location = entity2.getLocation().clone();
+		entity2.teleport(entity1.getLocation());
+		entity1.teleport(entity2Location);
+		entity2.setInvisible(false);
+		entity1.setInvisible(false);
 	}
 
 	@NotNull
@@ -46,16 +58,6 @@ public class RandomTeleportOnHitChallenge extends Setting {
 		LivingEntity entity = globalRandom.choose(livingEntities);
 
 		switchEntityLocations(entity, event.getDamager());
-	}
-
-	public static void switchEntityLocations(LivingEntity entity1, LivingEntity entity2) {
-		entity1.setInvisible(true);
-		entity2.setInvisible(false);
-		Location entity2Location = entity2.getLocation().clone();
-		entity2.teleport(entity1.getLocation());
-		entity1.teleport(entity2Location);
-		entity2.setInvisible(false);
-		entity1.setInvisible(false);
 	}
 
 }

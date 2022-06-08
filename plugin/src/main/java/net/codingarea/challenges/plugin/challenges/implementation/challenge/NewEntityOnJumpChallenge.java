@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.R
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.spigot.events.PlayerJumpEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.LeatherArmorBuilder;
@@ -16,7 +17,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 
 import javax.annotation.Nonnull;
-import java.util.Random;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -25,10 +25,9 @@ import java.util.Random;
 @Since("2.0")
 public class NewEntityOnJumpChallenge extends Setting {
 
-	private final Random random = new Random();
-
 	public NewEntityOnJumpChallenge() {
 		super(MenuType.CHALLENGES);
+		setCategory(SettingCategory.ENTITIES);
 	}
 
 	@Nonnull

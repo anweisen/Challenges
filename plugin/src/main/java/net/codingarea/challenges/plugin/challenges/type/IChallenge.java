@@ -4,10 +4,12 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.challenges.ChallengeManager;
 import net.codingarea.challenges.plugin.management.challenges.entities.GamestateSaveable;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.menu.info.ChallengeMenuClickInfo;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -46,7 +48,7 @@ public interface IChallenge extends GamestateSaveable {
 	 * Returns the internal name of this challenges.
 	 * This name will be used for saving and assigning the right settings or gamestate.
 	 * If multiple instances of class are registered, they must not return the same value.
-	 * Multiple challenges cannot have the same name.
+	 * Multiple challenges should not have the same name.
 	 *
 	 * @return the internal name of this challenge
 	 */
@@ -62,6 +64,9 @@ public interface IChallenge extends GamestateSaveable {
 	 */
 	@Nonnull
 	MenuType getType();
+
+	@Nullable
+	SettingCategory getCategory();
 
 	@Nonnull
 	ItemStack getDisplayItem();
