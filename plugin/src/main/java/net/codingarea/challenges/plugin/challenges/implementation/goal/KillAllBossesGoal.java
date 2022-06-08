@@ -1,10 +1,8 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
-import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.KillMobsGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
@@ -17,7 +15,7 @@ import java.util.Arrays;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
-@Since("2.0")
+@Since("2.2.0")
 public class KillAllBossesGoal extends KillMobsGoal {
 
 	public KillAllBossesGoal() {
