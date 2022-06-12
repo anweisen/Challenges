@@ -1710,6 +1710,10 @@
 		"Tausche ein Mob mit einem zufälligen",
 		"anderem Mob aus der gleichen Welt"
 	],
+	"item-custom-action-place_random_structure": [
+		"§aZufällige Struktur",
+		"Platziert eine zufällige Struktur"
+	],
 	"item-custom-setting-target-current": [
 		"§6Aktives Entity",
 		"Die Aktion wird für das *aktive Entity* ausgeführt"

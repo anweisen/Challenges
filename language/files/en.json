@@ -1672,6 +1672,10 @@
 		"§5Swap mobs",
 		"Swap a mob with another of the same world"
 	],
+	"item-custom-action-place_random_structure": [
+		"§aRandom Structure",
+		"Place a random structure"
+	],
 	"item-custom-setting-target-current": [
 		"§6Current Entity",
 		"The action will be executed for the *current entity*"

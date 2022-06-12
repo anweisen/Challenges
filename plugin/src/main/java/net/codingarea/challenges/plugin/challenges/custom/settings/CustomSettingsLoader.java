@@ -1,10 +1,13 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.*;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl.*;
+import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import org.bukkit.Bukkit;
 
 import javax.annotation.Nullable;
@@ -87,12 +90,22 @@ public class CustomSettingsLoader {
 				new JumpAndRunAction("jnr"),
 				new RandomHotBarAction("random_hotbar"),
 				new ChangeWorldBorderAction("modify_border"),
-				new SwapRandomMobAction("swap_mobs")
+				new SwapRandomMobAction("swap_mobs"),
+				new PlaceRandomStructureAction("place_random_structure")
 		);
 	}
 
 	public void registerTriggers(ChallengeTrigger... trigger) {
 		for (ChallengeTrigger trigger1 : trigger) {
+			if(trigger1.getClass().isAnnotationPresent(RequireVersion.class)) {
+				RequireVersion requireVersion = trigger1.getClass().getAnnotation(RequireVersion.class);
+				MinecraftVersion minVersion = requireVersion.value();
+
+				if (!MinecraftVersion.current().isNewerOrEqualThan(minVersion)) {
+					Logger.debug("Did not register trigger {}, requires version {}, server running on {}", trigger1.getClass().getSimpleName(), minVersion, MinecraftVersion.current());
+					continue;
+				}
+			}
 			triggers.put(trigger1.getName(), trigger1);
 			Bukkit.getPluginManager().registerEvents(trigger1, Challenges.getInstance());
 		}
@@ -100,6 +113,15 @@ public class CustomSettingsLoader {
 
 	public void registerActions(ChallengeAction... action) {
 		for (ChallengeAction action1 : action) {
+			if(action1.getClass().isAnnotationPresent(RequireVersion.class)) {
+				RequireVersion requireVersion = action1.getClass().getAnnotation(RequireVersion.class);
+				MinecraftVersion minVersion = requireVersion.value();
+
+				if (!MinecraftVersion.current().isNewerOrEqualThan(minVersion)) {
+					Logger.debug("Did not register action {}, requires version {}, server running on {}", action1.getClass().getSimpleName(), minVersion, MinecraftVersion.current());
+					continue;
+				}
+			}
 			actions.put(action1.getName(), action1);
 		}
 	}
