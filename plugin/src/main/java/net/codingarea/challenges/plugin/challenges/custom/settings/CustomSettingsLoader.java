@@ -79,7 +79,7 @@ public class CustomSettingsLoader {
 				new RandomPotionEffectAction("random_effect"),
 				new ClearInventoryAction("clear_inventory"),
 				new DropRandomItemAction("drop_random_item"),
-				new DropRandomItemAction("remove_random_item"),
+				new RemoveRandomItemAction("remove_random_item"),
 				new SwapRandomItemAction("swap_random_item"),
 				new FreezeAction("freeze"),
 				new InvertHealthAction("invert_health"),

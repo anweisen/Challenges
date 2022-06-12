@@ -129,7 +129,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 		// Display Item
 		inventory.setItem(MATERIAL_SLOT, new ItemBuilder(material == null ? Material.BARRIER : material, Message.forName("item-custom-info-material"))
-				.appendLore(currently + (material != null ? BukkitStringUtils.getItemName(material) : none)).build());
+				.appendLore(currently + (material != null ? BukkitStringUtils.getItemName(material).toPlainText() : none)).build());
 
 		// Name Item
 		inventory.setItem(NAME_SLOT, new ItemBuilder(Material.NAME_TAG, Message.forName("item-custom-info-name"))
