@@ -90,10 +90,10 @@ public class ForceItemBattleGoal extends ForceBattleDisplayGoal<Material> {
 
 	@Override
 	public void handleJokerUse(Player player) {
-		super.handleJokerUse(player);
 		if (giveItemOnSkip()) {
 			InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), currentTarget.get(player.getUniqueId()));
 		}
+		super.handleJokerUse(player);
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
