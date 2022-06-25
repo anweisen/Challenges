@@ -147,7 +147,7 @@ public class MessageImpl implements Message {
 		}
 	}
 
-	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, @Nonnull BaseComponent component) {
+	private void doSendLine(@Nonnull Consumer<? super BaseComponent> sender, @Nonnull Prefix prefix, BaseComponent component) {
 		LanguageLoader loader = Challenges.getInstance().getLoaderRegistry().getFirstLoaderByClass(LanguageLoader.class);
 		boolean capsFont = false;
 		if (loader != null) capsFont = loader.isSmallCapsFont();
@@ -172,7 +172,12 @@ public class MessageImpl implements Message {
 				}
 			}
 		}
-		sender.accept(component1);
+
+		// Weird bugs can cause this to be null if the line is empty and kicks the player in 1.19+
+		if (component1 != null) {
+			sender.accept(component1);
+		}
+
 	}
 
 	@Override

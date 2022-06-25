@@ -91,8 +91,7 @@ public final class Challenges extends BukkitModule {
 		loaderRegistry = new LoaderRegistry(
 				new LanguageLoader(),
 				new PrefixLoader(),
-				new UpdateLoader(),
-				new ServiceLoader()
+				new UpdateLoader()
 		);
 
 		databaseManager = new DatabaseManager();

@@ -51,10 +51,10 @@
 	"not-alive": "§e{0} §7ist kein lebendes Entity",
 	"no-loot": "§e{0} §7hat keine Drops",
 	"deprecated-plugin-version": [
-		"",
+		" ",
 		"§7Ein neues Update ist verfügbar!",
 		"§7Download: §e§l{0}",
-		""
+		" "
 	],
 	"deprecated-config-version": [
 		"Deine Plugin Config ist §cveraltet §7(§c{1} §7< §a{0}§7)",
@@ -307,55 +307,55 @@
 	"your-place": "§7Dein Platz §8» §e{0}",
 	"server-reset": [
 		"§8————————————————————",
-		"",
+		" ",
 		"§8» §cServerreset",
-		"",
+		" ",
 		"§7Reset durch §4§l{0}",
 		"§7Der Server startet nun §cneu",
-		"",
+		" ",
 		"§8————————————————————"
 	],
 	"challenge-end-timer-hit-zero": [
-		"",
+		" ",
 		"§cDie Challenge ist vorbei!",
 		"§7Seed: §e§l{2}",
-		""
+		" "
 	],
 	"challenge-end-timer-hit-zero-winner": [
-		"",
+		" ",
 		"§cDie Challenge ist vorbei!",
 		"§7Gewinner: §e§l{1}",
 		"§7Seed: §e§l{2}",
-		""
+		" "
 	],
 	"challenge-end-goal-reached": [
-		"",
+		" ",
 		"§7Die Challenge wurde beendet!",
 		"§7Zeit benötigt: §a§l{0}",
 		"§7Seed: §e§l{2}",
-		""
+		" "
 	],
 	"challenge-end-goal-reached-winner": [
-		"",
+		" ",
 		"§7Die Challenge wurde beendet!",
 		"§7Gewinner: §e§l{1}",
 		"§7Zeit benötigt: §a§l{0}",
 		"§7Seed: §e§l{2}",
-		""
+		" "
 	],
 	"challenge-end-goal-failed": [
-		"",
+		" ",
 		"§cDie Challenge ist vorbei! §6#FeelsBadMan ✞",
 		"§7Zeit verschwendet: §a§l{0}",
 		"§7Seed: §e§l{2}",
-		""
+		" "
 	],
 	"title-timer-started": [
-		"",
+		" ",
 		"§8» §7Timer §afortgesetzt"
 	],
 	"title-timer-paused": [
-		"",
+		" ",
 		"§8» §7Timer §cpausiert"
 	],
 	"title-challenge-enabled": [
@@ -464,7 +464,7 @@
 		"§bForce Battles",
 		"Erfülle die *vorgegebenen Zwischenziele*,",
 		"um Punkte zu erhalten.",
-		"",
+		" ",
 		"Der Spieler mit den *meisten Punkten* gewinnt."
 	],
 	"item-time-seconds-description": "§8» §7Zeit: §e{0} §7Sekunden",
@@ -797,7 +797,7 @@
 		"Wenn du einen *Mob* tötest,",
 		"spawnen *doppelt* so viele",
 		"wie beim *vorherigen* mal",
-		"",
+		" ",
 		"Maximum beträgt *512* Mobs gleichzeitig"
 	],
 	"item-floor-lava-challenge": [
@@ -1074,7 +1074,7 @@
 		"In einem *gesetztem Intervall*",
 		"*steigt* das *Wasser* in der *Overworld*",
 		"und die *Lava* in im *Nether*",
-		"",
+		" ",
 		"Sollte mit wenigen Personen gespielt werden!"
 	],
 	"item-all-mobs-to-death-position-challenge": [
@@ -1450,12 +1450,12 @@
 	"custom-command-not-allowed": "Der Command §e{0} §7ist in der Config nicht als erlaubter Command angegeben",
 	"custom-chars-max_length": "Du hast die Maximale Anzahl von §e{0} Zeichen §7überschritten",
 	"custom-not-loaded": [
-		"",
+		" ",
 		"Es sind derzeit keine Custom Challenges geladen.",
 		"Du vermisst deine Challenges? §e/db load customs",
 		"Du hast Probleme beim Speichern?",
 		"Speichere vorm verlassen manuell §e/db save customs",
-		""
+		" "
 	],
 	"custom-main-view-challenges": "§6Challenges Ansehen",
 	"custom-main-create-challenge": "§aChallenge Erstellen",
@@ -1709,6 +1709,10 @@
 		"§5Mobs tauschen",
 		"Tausche ein Mob mit einem zufälligen",
 		"anderem Mob aus der gleichen Welt"
+	],
+	"item-custom-action-place_random_structure": [
+		"§aZufällige Struktur",
+		"Platziert eine zufällige Struktur"
 	],
 	"item-custom-setting-target-current": [
 		"§6Aktives Entity",
