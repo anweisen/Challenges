@@ -29,7 +29,7 @@ public class BukkitStringUtils {
 		List<BaseComponent> results = new ArrayList<>();
 		for (String value : array) {
 			String s = value;
-			if (!s.isEmpty() && prefix != null) {
+			if (!s.trim().isEmpty() && prefix != null) {
 				s = prefix + s;
 			}
 			BaseComponent comp = null;
