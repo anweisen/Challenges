@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
- * @since 2.3
+ * @since 2.2.2
  */
 @RequireVersion(MinecraftVersion.V1_19)
 public class PlaceStructureAction extends EntityTargetAction {
