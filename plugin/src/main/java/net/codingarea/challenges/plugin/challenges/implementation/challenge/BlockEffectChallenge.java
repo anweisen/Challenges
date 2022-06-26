@@ -97,7 +97,7 @@ public class BlockEffectChallenge extends Setting {
 	public void onMove(PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockLocation(event.getFrom(), event.getTo())) return;
+		if (event.getTo() == null) return;
 		Block fromBlock = BlockUtils.getBlockBelow(event.getFrom());
 		Block toBlock = BlockUtils.getBlockBelow(event.getTo());
 		if (toBlock != null && fromBlock != null) {
@@ -111,7 +111,7 @@ public class BlockEffectChallenge extends Setting {
 	public void onTeleport(PlayerTeleportEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockLocation(event.getFrom(), event.getTo())) return;
+		if (event.getTo() == null) return;
 		Block fromBlock = BlockUtils.getBlockBelow(event.getFrom());
 		Block toBlock = BlockUtils.getBlockBelow(event.getTo());
 		if (toBlock != null && fromBlock != null) {
