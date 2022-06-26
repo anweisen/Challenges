@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.collection.IRandom;
+import net.codingarea.challenges.plugin.challenges.custom.settings.FallbackNames;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  * @since 2.2.2
  */
 @RequireVersion(MinecraftVersion.V1_19)
+@FallbackNames({"place_random_structure"})
 public class PlaceStructureAction extends EntityTargetAction {
 
     private List<NamespacedKey> structureKeys;

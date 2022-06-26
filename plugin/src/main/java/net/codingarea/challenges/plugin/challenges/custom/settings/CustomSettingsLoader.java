@@ -21,11 +21,16 @@ import java.util.Map;
 public class CustomSettingsLoader {
 
 	private final Map<String, ChallengeTrigger> triggers;
+	private final Map<String, ChallengeTrigger> fallbackTriggers;
+
 	private final Map<String, ChallengeAction> actions;
+	private final Map<String, ChallengeAction> fallbackActions;
 
 	public CustomSettingsLoader() {
 		actions = new LinkedHashMap<>();
+		fallbackActions = new LinkedHashMap<>();
 		triggers = new LinkedHashMap<>();
+		fallbackTriggers = new LinkedHashMap<>();
 	}
 
 	public void enable() {
@@ -106,6 +111,14 @@ public class CustomSettingsLoader {
 					continue;
 				}
 			}
+			if(trigger1.getClass().isAnnotationPresent(FallbackNames.class)) {
+				FallbackNames fallbackName = trigger1.getClass().getAnnotation(FallbackNames.class);
+				String[] fallbackNames = fallbackName.value();
+
+				for (String name : fallbackNames) {
+					fallbackTriggers.put(name, trigger1);
+				}
+			}
 			triggers.put(trigger1.getName(), trigger1);
 			Bukkit.getPluginManager().registerEvents(trigger1, Challenges.getInstance());
 		}
@@ -122,18 +135,26 @@ public class CustomSettingsLoader {
 					continue;
 				}
 			}
+			if(action1.getClass().isAnnotationPresent(FallbackNames.class)) {
+				FallbackNames fallbackName = action1.getClass().getAnnotation(FallbackNames.class);
+				String[] fallbackNames = fallbackName.value();
+
+				for (String name : fallbackNames) {
+					fallbackActions.put(name, action1);
+				}
+			}
 			actions.put(action1.getName(), action1);
 		}
 	}
 
 	@Nullable
 	public ChallengeAction getActionByName(String name) {
-		return actions.get(name);
+		return actions.getOrDefault(name, fallbackActions.get(name));
 	}
 
 	@Nullable
 	public ChallengeTrigger getTriggerByName(String name) {
-		return triggers.get(name);
+		return triggers.getOrDefault(name, fallbackTriggers.get(name));
 	}
 
 	public Map<String, ChallengeAction> getActions() {
