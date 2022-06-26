@@ -137,6 +137,8 @@ public class BlockEffectChallenge extends Setting {
 		if (blockBelow == null) return;
 		PotionEffectType type = getEffect(blockBelow.getType()).getType();
 		player.removePotionEffect(type);
+
+		removeEffectInCache(player);
 	}
 
 
@@ -152,6 +154,13 @@ public class BlockEffectChallenge extends Setting {
 		} else if (player.hasPotionEffect(effect.getType())) return;
 		player.addPotionEffect(effect);
 		currentPotionEffects.put(player.getUniqueId(), effect);
+	}
+
+	public void removeEffectInCache(Player player) {
+		PotionEffect currentEffect = currentPotionEffects.get(player.getUniqueId());
+		if (currentEffect != null) {
+			player.removePotionEffect(currentEffect.getType());
+		}
 	}
 
 	private PotionEffect getEffect(Material material) {
