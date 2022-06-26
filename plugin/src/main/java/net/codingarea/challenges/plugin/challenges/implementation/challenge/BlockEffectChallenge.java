@@ -39,7 +39,9 @@ import java.util.UUID;
 @Since("2.1.2")
 public class BlockEffectChallenge extends Setting {
 
-	// Saving potion effect to prevent the possibility that an effect remove was somehow skipped
+	/*
+	 * 	Saving potion effect to prevent the possibility that an effect remove was somehow skipped
+ 	 */
 	private Map<UUID, PotionEffect> currentPotionEffects = new HashMap<>();
 
 	public BlockEffectChallenge() {
