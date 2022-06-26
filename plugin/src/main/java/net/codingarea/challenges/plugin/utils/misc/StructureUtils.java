@@ -10,7 +10,7 @@ import org.bukkit.StructureType;
 public class StructureUtils {
     public static Material getStructureIcon(StructureType structureType) {
 
-        switch (structureType.getKey().getKey()) {
+        switch (structureType.getName()) {
             case "nether_fossil":
                 return Material.BONE_BLOCK;
             case "jungle_pyramid":
