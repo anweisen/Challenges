@@ -56,7 +56,8 @@ public class PlaceStructureAction extends EntityTargetAction {
 
         Location location = entity.getLocation();
         String locationString = (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ();
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:place structure " + structureKey + " " + locationString);
+        String command = String.format("minecraft:place structure %s %s", structureKey, locationString);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), command);
     }
 
     private void reloadStructureKeys() {
