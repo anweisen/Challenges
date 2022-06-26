@@ -9,6 +9,7 @@ import org.bukkit.*;
 import org.bukkit.entity.Entity;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -18,13 +19,13 @@ import java.util.stream.Collectors;
  * @since 2.3
  */
 @RequireVersion(MinecraftVersion.V1_19)
-public class PlaceRandomStructureAction extends EntityTargetAction {
+public class PlaceStructureAction extends EntityTargetAction {
 
     private List<NamespacedKey> structureKeys;
     private List<NamespacedKey> villageKeys;
 
-    public PlaceRandomStructureAction(String name) {
-        super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true));
+    public PlaceStructureAction(String name) {
+        super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true).addChild(SubSettingsHelper.createStructureSettingsBuilder()));
     }
 
     @Override
@@ -34,16 +35,28 @@ public class PlaceRandomStructureAction extends EntityTargetAction {
 
     @Override
     public void executeFor(Entity entity, Map<String, String[]> subActions) {
-        if(structureKeys == null) {
-            reloadStructureKeys();
+        String structureString = subActions.get(SubSettingsHelper.STRUCTURE)[0];
+
+        NamespacedKey structureKey;
+
+        if(structureString.equals("random_structure")) {
+            if(structureKeys == null) {
+                reloadStructureKeys();
+            }
+
+            structureKey = structureKeys.get(IRandom.singleton().nextInt(structureKeys.size()));
+            if(structureKey == StructureType.VILLAGE.getKey()) {
+                structureKey = villageKeys.get(IRandom.singleton().nextInt(villageKeys.size()));
+            }
+        } else {
+            StructureType structureType = StructureType.getStructureTypes().get(structureString);
+            structureKey = getStructureKey(structureType);
         }
+
+
         Location location = entity.getLocation();
         String locationString = (int) location.getX() + " " + (int) location.getY() + " " + (int) location.getZ();
-        NamespacedKey structure = structureKeys.get(IRandom.singleton().nextInt(structureKeys.size()));
-        if(structure == StructureType.VILLAGE.getKey()) {
-            structure = villageKeys.get(IRandom.singleton().nextInt(villageKeys.size()));
-        }
-        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:place structure " + structure + " " + locationString);
+        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "minecraft:place structure " + structureKey + " " + locationString);
     }
 
     private void reloadStructureKeys() {
@@ -61,6 +74,17 @@ public class PlaceRandomStructureAction extends EntityTargetAction {
         villageKeys.add(NamespacedKey.minecraft("village_savanna"));
         villageKeys.add(NamespacedKey.minecraft("village_snowy"));
         villageKeys.add(NamespacedKey.minecraft("village_taiga"));
+    }
+
+    private NamespacedKey getStructureKey(StructureType structureType) {
+        if(structureType == StructureType.OCEAN_RUIN) {
+            List<NamespacedKey> oceanRuins = Arrays.asList(NamespacedKey.minecraft("ocean_ruin_cold"), NamespacedKey.minecraft("ocean_ruin_warm"));
+            return oceanRuins.get(IRandom.singleton().nextInt(oceanRuins.size()));
+        }
+        if(structureType == StructureType.VILLAGE) {
+            return villageKeys.get(IRandom.singleton().nextInt(villageKeys.size()));
+        }
+        return structureType.getKey();
     }
 
 }

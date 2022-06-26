@@ -91,7 +91,7 @@ public class CustomSettingsLoader {
 				new RandomHotBarAction("random_hotbar"),
 				new ChangeWorldBorderAction("modify_border"),
 				new SwapRandomMobAction("swap_mobs"),
-				new PlaceRandomStructureAction("place_random_structure")
+				new PlaceStructureAction("place_structure")
 		);
 	}
 
