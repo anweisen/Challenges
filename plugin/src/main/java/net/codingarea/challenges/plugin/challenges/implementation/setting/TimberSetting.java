@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
@@ -66,10 +67,12 @@ public class TimberSetting extends SettingModifier {
 
 		final int[] index = {0};
 
+		boolean damageItem = !item.getItemMeta().isUnbreakable() && !AbstractChallenge.getFirstInstance(NoItemDamageSetting.class).isEnabled();
+
 		Bukkit.getScheduler().runTaskTimer(plugin, timer -> {
 			for (int i = 0; i < 2 && !treeBlocks.isEmpty(); i++) {
 				Block block = treeBlocks.get(index[0]);
-				breakBlock(block, item);
+				breakBlock(block, item, damageItem);
 
 				index[0]++;
 				if (index[0] >= treeBlocks.size()) {
@@ -81,10 +84,12 @@ public class TimberSetting extends SettingModifier {
 
 	}
 
-	private void breakBlock(@Nonnull Block block, @Nonnull ItemStack item) {
+	private void breakBlock(@Nonnull Block block, @Nonnull ItemStack item, boolean damageItem) {
 		if (isLog(block.getType())) {
 			ChallengeHelper.breakBlock(block, item);
-			ItemUtils.damageItem(item);
+			if(damageItem) {
+				ItemUtils.damageItem(item);
+			}
 		} else if (isLeaves(block.getType())) {
 			ChallengeHelper.breakBlock(block, item);
 		}
