@@ -219,3 +219,9 @@ commands:
     usage: "/skiptimer"
     description: "Skips all activated timers"
     permission: "challenges.skiptimer"
+  godmode:
+    usage: "/godmode [player]"
+    description: "Disable damage for a player"
+    permission: "challenges.godmode"
+    aliases:
+      - "god"
