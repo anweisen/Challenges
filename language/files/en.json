@@ -609,6 +609,10 @@
 		"You don't lose any *items*",
 		"when you die"
 	],
+	"item-mob-griefing-setting": [
+		"§5Mob Griefing",
+		"Monsters *can't destroy* anything"
+	],
 	"item-no-item-damage-setting": [
 		"§5No Item Damage",
 		"*Items* are *unbreakable*"

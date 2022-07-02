@@ -44,19 +44,21 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoHungerSetting.class);
 
 		register(NoItemDamageSetting.class);
+		register(MobGriefingSetting.class);
 		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
 		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
 		register(TimberSetting.class);
 		register(PvPSetting.class);
+
 		register(NoHitDelaySetting.class);
 		registerWithCommand(TopCommandSetting.class, "top");
-
 		register(MaxHealthSetting.class);
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
 		register(FortressSpawnSetting.class);
 		register(BastionSpawnSetting.class);
+
 		register(NoOffhandSetting.class);
 		register(ImmediateRespawnSetting.class);
 
