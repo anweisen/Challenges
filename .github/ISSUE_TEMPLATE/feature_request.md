@@ -1,8 +1,8 @@
 ---
 name: "\U0001F4A1 Feature request"
-about: "Create an issue describing a bug"
+about: "Create an issue describing a feature request"
 title: ''
-labels: "enhancement"
+labels: "type: feature"
 assignees: ''
 
 ---
