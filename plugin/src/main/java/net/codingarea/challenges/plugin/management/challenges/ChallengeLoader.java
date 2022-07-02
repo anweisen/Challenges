@@ -44,8 +44,8 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoHungerSetting.class);
 
 		register(NoItemDamageSetting.class);
-		register(KeepInventorySetting.class);
 		register(MobGriefingSetting.class);
+		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
 		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
 		register(TimberSetting.class);
