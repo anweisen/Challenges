@@ -611,6 +611,10 @@
 		"Du verlierst keine *Items*,",
 		"wenn du *stirbst*"
 	],
+	"item-mob-griefing-setting": [
+		"§5Mob Griefing",
+		"Monster können *nichts* Zerstören"
+	],
 	"item-no-item-damage-setting": [
 		"§5Kein Itemschaden",
 		"*Items* sind *unzerstörbar*"
