@@ -58,7 +58,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(CutCleanSetting.class);
 		register(FortressSpawnSetting.class);
 		register(BastionSpawnSetting.class);
-		
+
 		register(NoOffhandSetting.class);
 		register(ImmediateRespawnSetting.class);
 
