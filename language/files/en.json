@@ -1360,6 +1360,12 @@
 		"If a player *skips* a block,",
 		"they will *receive* it"
 	],
+	"item-extreme-force-battle-goal": [
+		"§cExtreme Force Battle",
+		"Each player gets a *random target*,",
+		"that he has to reach."
+	],
+	"menu-extreme-force-battle-goal-settings": "Extreme Force Battle",
 	"item-damage-rule-none": [
 		"§6General Damage",
 		"Sets whether you can get damage or not"

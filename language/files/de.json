@@ -1382,6 +1382,12 @@
 		"Wenn ein Spieler einen Block *skippt*,",
 		"wird dieser in sein *Inventar hinzugefügt*"
 	],
+	"item-extreme-force-battle-goal": [
+		"§cExtreme Force Battle",
+		"Jeder Spieler bekommt ein *zufälliges Ziel*,",
+		"welches er erreichen muss"
+	],
+	"menu-extreme-force-battle-goal-settings": "Extreme Force Battle",
 	"item-get-full-health-goal": [
 		"§aRegeneriere Volle Leben",
 		"The first player to gain full health wins."
