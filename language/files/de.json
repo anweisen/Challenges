@@ -240,6 +240,7 @@
 	"force-battle-block-target-display": "§eBlock: {0}",
 	"force-battle-item-target-display":"§eItem: {0}",
 	"force-battle-height-target-display": "§eHöhe: {0}",
+	"force-battle-mob-target-display": "§eMob: {0}",
 	"extreme-force-battle-new-height": "Höhe zu erreichen: §e{0}",
 	"extreme-force-battle-reached-height": "Du hast die Höhe §e{0} §7erreicht!",
 	"random-event-speed": [

@@ -2,13 +2,9 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebat
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
-import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.BlockTarget;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ForceTarget;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.HeightTarget;
-import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ItemTarget;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.*;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
@@ -21,9 +17,15 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -189,19 +191,24 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         ITEM(string -> {
             return new ItemTarget(Material.valueOf(string));
         }, player -> {
-            return new ItemTarget(IRandom.singleton().choose(ItemTarget.getPossibleItems()));
+            return new ItemTarget(globalRandom.choose(ItemTarget.getPossibleItems()));
         }),
         BLOCK(string -> {
             return new BlockTarget(Material.valueOf(string));
         }, player -> {
-            return new BlockTarget(IRandom.singleton().choose(BlockTarget.getPossibleBlocks()));
+            return new BlockTarget(globalRandom.choose(BlockTarget.getPossibleBlocks()));
         }),
         HEIGHT(string -> {
             return new HeightTarget(Integer.valueOf(string));
         }, player -> {
             World world = ChallengeAPI.getGameWorld(World.Environment.NORMAL);
-            int height = IRandom.singleton().range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
+            int height = globalRandom.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
             return new HeightTarget(height);
+        }),
+        MOB(string -> {
+            return new MobTarget(EntityType.valueOf(string));
+        }, player -> {
+            return new MobTarget(globalRandom.choose(MobTarget.getPossibleMobs()));
         });
 
         private final Function<String, ForceTarget<?>> parseFunction;
@@ -218,6 +225,21 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
 
         public Function<Player, ForceTarget<?>> getRandomTarget() {
             return randomTargetFunction;
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onKill(@Nonnull EntityDeathEvent event) {
+        if (!shouldExecuteEffect()) return;
+        LivingEntity entity = event.getEntity();
+        Player killer = entity.getKiller();
+        if (killer == null) return;
+        if (ignorePlayer(killer)) return;
+        if (currentTarget.get(killer.getUniqueId()) == null) return;
+        if (currentTarget.get(killer.getUniqueId()) instanceof MobTarget) {
+            MobTarget target = (MobTarget) currentTarget.get(killer.getUniqueId());
+            if (target.getTarget() != entity.getType()) return;
+            handleTargetFound(killer);
         }
     }
 

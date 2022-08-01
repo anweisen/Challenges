@@ -32,6 +32,10 @@ public abstract class ForceTarget<T> {
         return target.toString();
     }
 
+    public T getTarget() {
+        return target;
+    }
+
     protected void resetDisplayStand(@NotNull ArmorStand armorStand) {
         armorStand.getEquipment().setHelmet(null);
     }
