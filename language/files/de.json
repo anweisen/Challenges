@@ -241,8 +241,11 @@
 	"force-battle-item-target-display":"§eItem: {0}",
 	"force-battle-height-target-display": "§eHöhe: {0}",
 	"force-battle-mob-target-display": "§eMob: {0}",
+	"force-battle-biome-target-display": "§eBiom: {0}",
 	"extreme-force-battle-new-height": "Höhe zu erreichen: §e{0}",
 	"extreme-force-battle-reached-height": "Du hast die Höhe §e{0} §7erreicht!",
+	"extreme-force-battle-new-biome": "Biom zu finden: §e{0}",
+	"extreme-force-battle-found-biome": "Du hast das Biom §e{0} §7gefunden!",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"

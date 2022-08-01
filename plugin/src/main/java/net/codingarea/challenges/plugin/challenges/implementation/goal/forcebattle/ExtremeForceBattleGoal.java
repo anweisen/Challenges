@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.block.Biome;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
@@ -209,6 +210,11 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             return new MobTarget(EntityType.valueOf(string));
         }, player -> {
             return new MobTarget(globalRandom.choose(MobTarget.getPossibleMobs()));
+        }),
+        BIOME(string -> {
+            return new BiomeTarget(Biome.valueOf(string));
+        }, player -> {
+            return new BiomeTarget(globalRandom.choose(BiomeTarget.getPossibleBiomes()));
         });
 
         private final Function<String, ForceTarget<?>> parseFunction;
