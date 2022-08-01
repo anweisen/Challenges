@@ -44,7 +44,7 @@ public abstract class ForceTarget<T> {
         }
     }
 
-    public String targetToString() {
+    public Object getTargetSaveObject() {
         return target.toString();
     }
 

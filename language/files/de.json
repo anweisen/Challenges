@@ -244,12 +244,16 @@
 	"force-battle-biome-target-display": "§eBiom: {0}",
 	"force-battle-damage-target-display": "§eSchaden: §c{0} ❤",
 	"force-battle-advancement-target-display": "§eAdvancement: {0}",
+	"force-battle-position-target-display": "§ePosition: {0}",
 	"extreme-force-battle-new-height": "Höhe zu erreichen: §e{0}",
 	"extreme-force-battle-reached-height": "Du hast die Höhe §e{0} §7erreicht!",
 	"extreme-force-battle-new-biome": "Biom zu finden: §e{0}",
 	"extreme-force-battle-found-biome": "Du hast das Biom §e{0} §7gefunden!",
 	"extreme-force-battle-new-damage": "Schaden zu nehmen: §c{0} ❤",
 	"extreme-force-battle-took-damage": "Du hast §c{0} ❤ §7Schaden genommen!",
+	"extreme-force-battle-position": "§eX: {0} §8┃ §eZ: {1}",
+	"extreme-force-battle-new-position": "Position zu erreichen: §e{0}",
+	"extreme-force-battle-reached-position": "Du hast die Position §e{0} §7erreicht!",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"

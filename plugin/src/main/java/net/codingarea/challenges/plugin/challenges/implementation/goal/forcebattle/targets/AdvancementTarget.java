@@ -67,7 +67,7 @@ public class AdvancementTarget extends ForceTarget<Advancement> {
     }
 
     @Override
-    public String targetToString() {
+    public Object getTargetSaveObject() {
         return target.getKey().toString();
     }
 

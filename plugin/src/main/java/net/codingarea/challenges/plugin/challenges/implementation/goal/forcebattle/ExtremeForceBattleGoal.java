@@ -97,7 +97,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         List<ForceTarget<?>> targets = new ArrayList<>();
         for (Document targetDocument : targetDocuments) {
             String targetTypeString = targetDocument.getString("type");
-            String value = targetDocument.getString("value");
+            Object value = targetDocument.getObject("value");
 
             TargetType targetType = TargetType.valueOf(targetTypeString);
             targets.add(targetType.parse().apply(value));
@@ -107,14 +107,14 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
 
     @Override
     public void setTargetInDocument(Document document, String key, ForceTarget<?> target) {
-        document.set(key, Document.create().set("type", target.getType().name()).set("value", target.targetToString()));
+        document.set(key, Document.create().set("type", target.getType().name()).set("value", target.getTargetSaveObject()));
     }
 
     @Override
     public void setFoundListInDocument(Document document, String key, List<ForceTarget<?>> targets) {
         List<Document> documents = new ArrayList<>();
         for (ForceTarget<?> forceTarget : targets) {
-            documents.add(Document.create().set("type", forceTarget.getType().name()).set("value", forceTarget.targetToString()));
+            documents.add(Document.create().set("type", forceTarget.getType().name()).set("value", forceTarget.getTargetSaveObject()));
         }
         document.set(key, documents);
     }
@@ -197,53 +197,57 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     }
 
     public enum TargetType {
-        ITEM(string -> {
-            return new ItemTarget(Material.valueOf(string));
+        ITEM(object -> {
+            return new ItemTarget(Material.valueOf((String) object));
         }, player -> {
             return new ItemTarget(globalRandom.choose(ItemTarget.getPossibleItems()));
         }),
-        BLOCK(string -> {
-            return new BlockTarget(Material.valueOf(string));
+        BLOCK(object -> {
+            return new BlockTarget(Material.valueOf((String) object));
         }, player -> {
             return new BlockTarget(globalRandom.choose(BlockTarget.getPossibleBlocks()));
         }),
-        HEIGHT(string -> {
-            return new HeightTarget(Integer.valueOf(string));
+        HEIGHT(object -> {
+            return new HeightTarget(Integer.valueOf((String) object));
         }, player -> {
             World world = ChallengeAPI.getGameWorld(World.Environment.NORMAL);
             int height = globalRandom.range(BukkitReflectionUtils.getMinHeight(world), world.getMaxHeight());
             return new HeightTarget(height);
         }),
-        MOB(string -> {
-            return new MobTarget(EntityType.valueOf(string));
+        MOB(object -> {
+            return new MobTarget(EntityType.valueOf((String) object));
         }, player -> {
             return new MobTarget(globalRandom.choose(MobTarget.getPossibleMobs()));
         }),
-        BIOME(string -> {
-            return new BiomeTarget(Biome.valueOf(string));
+        BIOME(object -> {
+            return new BiomeTarget(Biome.valueOf((String) object));
         }, player -> {
             return new BiomeTarget(globalRandom.choose(BiomeTarget.getPossibleBiomes()));
         }),
-        DAMAGE(string -> {
-            return new DamageTarget(Integer.valueOf(string));
+        DAMAGE(object -> {
+            return new DamageTarget(Integer.valueOf((String) object));
         }, player -> {
             return new DamageTarget(globalRandom.range(1, 19));
         }),
-        ADVANCEMENT(string -> {
-            return new AdvancementTarget(Bukkit.getAdvancement(NamespacedKey.fromString(string)));
+        ADVANCEMENT(object -> {
+            return new AdvancementTarget(Bukkit.getAdvancement(NamespacedKey.fromString((String) object)));
         }, player -> {
             return new AdvancementTarget(globalRandom.choose(AdvancementTarget.getPossibleAdvancements()));
-        });
+        }),
+        POSITION(object -> {
+            Document document = (Document) object;
+            return new PositionTarget(document.getDouble("x"), document.getDouble("z"));
+        }, PositionTarget::new);
 
-        private final Function<String, ForceTarget<?>> parseFunction;
+        private final Function<Object, ForceTarget<?>> parseFunction;
         private final Function<Player, ForceTarget<?>> randomTargetFunction;
 
-        TargetType(Function<String, ForceTarget<?>> parseFunction, Function<Player, ForceTarget<?>> randomTargetFunction) {
+        TargetType(Function<Object, ForceTarget<?>> parseFunction, Function<Player, ForceTarget<?>> randomTargetFunction) {
             this.parseFunction = parseFunction;
             this.randomTargetFunction = randomTargetFunction;
         }
 
-        public Function<String, ForceTarget<?>> parse() {
+        public Function<Object, ForceTarget<?>> parse() {
             return parseFunction;
         }
 
