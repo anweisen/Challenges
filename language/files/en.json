@@ -243,6 +243,7 @@
 	"force-battle-mob-target-display": "§eMob: {0}",
 	"force-battle-biome-target-display": "§eBiome: {0}",
 	"force-battle-damage-target-display": "§eDamage: §c{0} ❤",
+	"force-battle-advancement-target-display": "§eAdvancement: {0}",
 	"extreme-force-battle-new-height": "Height to reach: §e{0}",
 	"extreme-force-battle-reached-height": "You've reached height §e{0}!",
 	"extreme-force-battle-new-biome": "Biome to find: §e{0}",

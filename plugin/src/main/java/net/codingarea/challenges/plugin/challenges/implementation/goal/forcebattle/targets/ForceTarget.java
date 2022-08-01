@@ -44,4 +44,8 @@ public abstract class ForceTarget<T> {
         }
     }
 
+    public String targetToString() {
+        return target.toString();
+    }
+
 }

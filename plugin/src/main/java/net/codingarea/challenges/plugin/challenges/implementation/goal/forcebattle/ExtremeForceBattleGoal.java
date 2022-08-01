@@ -16,7 +16,9 @@ import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.World;
+import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.block.Biome;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
@@ -105,14 +107,14 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
 
     @Override
     public void setTargetInDocument(Document document, String key, ForceTarget<?> target) {
-        document.set(key, Document.create().set("type", target.getType().name()).set("value", target.toString()));
+        document.set(key, Document.create().set("type", target.getType().name()).set("value", target.targetToString()));
     }
 
     @Override
     public void setFoundListInDocument(Document document, String key, List<ForceTarget<?>> targets) {
         List<Document> documents = new ArrayList<>();
         for (ForceTarget<?> forceTarget : targets) {
-            documents.add(Document.create().set("type", forceTarget.getType().name()).set("value", forceTarget.toString()));
+            documents.add(Document.create().set("type", forceTarget.getType().name()).set("value", forceTarget.targetToString()));
         }
         document.set(key, documents);
     }
@@ -149,6 +151,11 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         TargetType targetType = globalRandom.choose(TargetType.values());
         ForceTarget<?> newTarget = targetType.getRandomTarget().apply(player);
 
+        if(newTarget instanceof AdvancementTarget) {
+            AdvancementProgress progress = player.getAdvancementProgress(((AdvancementTarget) newTarget).getTarget());
+            progress.getAwardedCriteria().forEach(progress::revokeCriteria);
+        }
+
         currentTarget.put(player.getUniqueId(), newTarget);
         getNewTargetMessage(newTarget)
                 .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(newTarget));
@@ -158,7 +165,6 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             scoreboard.update();
         }
 
-        //ToDo reset advancement progress if the target is an advancement target
     }
 
     @Override
@@ -222,6 +228,11 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             return new DamageTarget(Integer.valueOf(string));
         }, player -> {
             return new DamageTarget(globalRandom.range(1, 19));
+        }),
+        ADVANCEMENT(string -> {
+            return new AdvancementTarget(Bukkit.getAdvancement(NamespacedKey.fromString(string)));
+        }, player -> {
+            return new AdvancementTarget(globalRandom.choose(AdvancementTarget.getPossibleAdvancements()));
         });
 
         private final Function<String, ForceTarget<?>> parseFunction;
