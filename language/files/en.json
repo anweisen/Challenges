@@ -242,10 +242,13 @@
 	"force-battle-height-target-display": "§eHeight: {0}",
 	"force-battle-mob-target-display": "§eMob: {0}",
 	"force-battle-biome-target-display": "§eBiome: {0}",
+	"force-battle-damage-target-display": "§eDamage: §c{0} ❤",
 	"extreme-force-battle-new-height": "Height to reach: §e{0}",
 	"extreme-force-battle-reached-height": "You've reached height §e{0}!",
 	"extreme-force-battle-new-biome": "Biome to find: §e{0}",
 	"extreme-force-battle-found-biome": "You've found the biome §e{0}!",
+	"extreme-force-battle-new-damage": "Damage to take: §c{0} ❤",
+	"extreme-force-battle-took-damage": "You took §c{0} ❤ §7damage!",
 	"random-event-speed": [
 		"Sonic? Is it you?",
 		"Woahh! That's fast"

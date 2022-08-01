@@ -6,6 +6,7 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.*;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -23,6 +24,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityDeathEvent;
 import org.jetbrains.annotations.NotNull;
 
@@ -215,6 +217,11 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             return new BiomeTarget(Biome.valueOf(string));
         }, player -> {
             return new BiomeTarget(globalRandom.choose(BiomeTarget.getPossibleBiomes()));
+        }),
+        DAMAGE(string -> {
+            return new DamageTarget(Integer.valueOf(string));
+        }, player -> {
+            return new DamageTarget(globalRandom.range(1, 19));
         });
 
         private final Function<String, ForceTarget<?>> parseFunction;
@@ -246,6 +253,21 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             MobTarget target = (MobTarget) currentTarget.get(killer.getUniqueId());
             if (target.getTarget() != entity.getType()) return;
             handleTargetFound(killer);
+        }
+    }
+
+    @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
+    public void onDamage(@Nonnull EntityDamageEvent event) {
+        if (!shouldExecuteEffect()) return;
+        if (!(event.getEntity() instanceof Player)) return;
+        Player player = (Player) event.getEntity();
+        if (ignorePlayer(player)) return;
+        if (currentTarget.get(player.getUniqueId()) == null) return;
+        if (currentTarget.get(player.getUniqueId()) instanceof DamageTarget) {
+            DamageTarget target = (DamageTarget) currentTarget.get(player.getUniqueId());
+            int damage = (int) ChallengeHelper.getFinalDamage(event);
+            if(damage != target.getTarget()) return;
+            handleTargetFound(player);
         }
     }
 
