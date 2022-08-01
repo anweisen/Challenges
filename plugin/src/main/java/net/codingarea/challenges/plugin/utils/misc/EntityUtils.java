@@ -2,9 +2,11 @@ package net.codingarea.challenges.plugin.utils.misc;
 
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -33,6 +35,16 @@ public final class EntityUtils {
 			}
 		}
 		return false;
+	}
+
+	@Nullable
+	public static Material getSpawnEgg(EntityType type) {
+		if (!type.isSpawnable() || !type.isAlive()) return null;
+		try {
+			return Material.valueOf(type.name() + "_SPAWN_EGG");
+		} catch (Exception ex) {
+			return null;
+		}
 	}
 
 }

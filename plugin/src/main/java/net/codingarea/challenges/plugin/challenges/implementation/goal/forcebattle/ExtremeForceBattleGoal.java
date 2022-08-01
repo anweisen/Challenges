@@ -52,7 +52,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     @Override
     public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
         if(currentTarget.containsKey(player.getUniqueId())) {
-            currentTarget.get(player.getUniqueId()).updateDisplayStand(player, armorStand);
+            currentTarget.get(player.getUniqueId()).updateDisplayStand(armorStand);
         }
     }
 

@@ -2,8 +2,10 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebat
 
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.ExtremeForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 /**
@@ -18,8 +20,6 @@ public abstract class ForceTarget<T> {
     }
 
     public abstract boolean check(Player player);
-
-    public abstract void updateDisplayStand(@NotNull Player player, @NotNull ArmorStand armorStand);
     public abstract Object toMessage();
     public abstract String getName();
     public abstract Message getNewTargetMessage();
@@ -36,8 +36,12 @@ public abstract class ForceTarget<T> {
         return target;
     }
 
-    protected void resetDisplayStand(@NotNull ArmorStand armorStand) {
-        armorStand.getEquipment().setHelmet(null);
+    public void updateDisplayStand(@NotNull ArmorStand armorStand) {
+        if(target instanceof Material) {
+            armorStand.getEquipment().setHelmet(new ItemStack((Material) target));
+        } else {
+            armorStand.getEquipment().setHelmet(null);
+        }
     }
 
 }

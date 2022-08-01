@@ -2,9 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebat
 
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.ExtremeForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
@@ -19,11 +17,6 @@ public class HeightTarget extends ForceTarget<Integer> {
     @Override
     public boolean check(Player player) {
         return player.getLocation().getBlockY() == target;
-    }
-
-    @Override
-    public void updateDisplayStand(@NotNull Player player, @NotNull ArmorStand armorStand) {
-        resetDisplayStand(armorStand);
     }
 
     @Override

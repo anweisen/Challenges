@@ -3,10 +3,13 @@ package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebat
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.ExtremeForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
+import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
+import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -38,11 +41,6 @@ public class MobTarget extends ForceTarget<EntityType> {
     }
 
     @Override
-    public void updateDisplayStand(@NotNull Player player, @NotNull ArmorStand armorStand) {
-        resetDisplayStand(armorStand);
-    }
-
-    @Override
     public Object toMessage() {
         return target;
     }
@@ -70,6 +68,16 @@ public class MobTarget extends ForceTarget<EntityType> {
     @Override
     public Message getScoreboardDisplayMessage() {
         return Message.forName("force-battle-mob-target-display");
+    }
+
+    @Override
+    public void updateDisplayStand(@NotNull ArmorStand armorStand) {
+        Material spawnEgg = EntityUtils.getSpawnEgg(target);
+        if (spawnEgg == null) {
+            armorStand.getEquipment().setHelmet(null);
+        } else {
+            armorStand.getEquipment().setHelmet(new ItemStack(spawnEgg));
+        }
     }
 
 }

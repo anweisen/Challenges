@@ -6,10 +6,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import org.bukkit.Material;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,14 +32,6 @@ public class BlockTarget extends ForceTarget<Material> {
         materials.removeIf(material -> !material.isBlock());
         materials.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
         return materials;
-    }
-
-    @Override
-    public void updateDisplayStand(@NotNull Player player, @NotNull ArmorStand armorStand) {
-        ItemStack helmet = armorStand.getEquipment().getHelmet();
-        if(helmet == null || helmet.getType() != target) {
-            armorStand.getEquipment().setHelmet(new ItemStack(target));
-        }
     }
 
     @Override
