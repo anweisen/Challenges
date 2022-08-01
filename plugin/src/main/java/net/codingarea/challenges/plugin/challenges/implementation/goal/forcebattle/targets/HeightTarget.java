@@ -12,7 +12,7 @@ import org.jetbrains.annotations.NotNull;
  */
 public class HeightTarget extends ForceTarget<Integer> {
 
-    protected HeightTarget(Integer target) {
+    public HeightTarget(Integer target) {
         super(target);
     }
 

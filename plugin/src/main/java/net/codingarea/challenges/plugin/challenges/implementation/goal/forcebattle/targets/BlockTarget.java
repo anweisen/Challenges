@@ -21,7 +21,7 @@ import java.util.List;
  */
 public class BlockTarget extends ForceTarget<Material> {
 
-    protected BlockTarget(Material target) {
+    public BlockTarget(Material target) {
         super(target);
     }
 

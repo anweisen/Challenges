@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class ItemTarget extends ForceTarget<Material> {
 
-    protected ItemTarget(Material target) {
+    public ItemTarget(Material target) {
         super(target);
     }
 
