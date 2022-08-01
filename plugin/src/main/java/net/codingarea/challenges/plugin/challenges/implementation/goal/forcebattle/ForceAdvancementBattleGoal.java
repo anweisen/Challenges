@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.implementation.goal;
+package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle;
 
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.anweisen.utilities.common.annotations.Since;
@@ -64,9 +64,9 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	}
 
 	@Override
-	public void setFoundListInDocument(Document document, String key, List<Advancement> target) {
+	public void setFoundListInDocument(Document document, String key, List<Advancement> targets) {
 		List<String> foundItems = new LinkedList<>();
-		for (Advancement advancement : target) {
+		for (Advancement advancement : targets) {
 			foundItems.add(advancement.getKey().toString());
 		}
 		document.set(key, foundItems);
@@ -99,12 +99,12 @@ public class ForceAdvancementBattleGoal extends ForceBattleGoal<Advancement> {
 	}
 
 	@Override
-	protected Message getNewTargetMessage() {
+	protected Message getNewTargetMessage(Advancement newTarget) {
 		return Message.forName("force-advancement-battle-new-advancement");
 	}
 
 	@Override
-	protected Message getTargetFoundMessage() {
+	protected Message getTargetCompletedMessage(Advancement target) {
 		return Message.forName("force-advancement-battle-completed");
 	}
 

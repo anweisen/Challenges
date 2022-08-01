@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.implementation.goal;
+package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
@@ -65,12 +65,12 @@ public class ForceMobBattleGoal extends ForceBattleGoal<EntityType> {
 	}
 
 	@Override
-	protected Message getNewTargetMessage() {
+	protected Message getNewTargetMessage(EntityType newTarget) {
 		return Message.forName("force-mob-battle-new-mob");
 	}
 
 	@Override
-	protected Message getTargetFoundMessage() {
+	protected Message getTargetCompletedMessage(EntityType target) {
 		return Message.forName("force-mob-battle-killed");
 	}
 

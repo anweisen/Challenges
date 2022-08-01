@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.implementation.goal;
+package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
@@ -79,12 +79,12 @@ public class ForceItemBattleGoal extends ForceBattleDisplayGoal<Material> {
 	}
 
 	@Override
-	protected Message getNewTargetMessage() {
+	protected Message getNewTargetMessage(Material newTarget) {
 		return Message.forName("force-item-battle-new-item");
 	}
 
 	@Override
-	protected Message getTargetFoundMessage() {
+	protected Message getTargetCompletedMessage(Material target) {
 		return Message.forName("force-item-battle-found");
 	}
 

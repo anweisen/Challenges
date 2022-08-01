@@ -1,4 +1,4 @@
-package net.codingarea.challenges.plugin.challenges.implementation.goal;
+package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle;
 
 import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.ArmorStand;
@@ -17,7 +18,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -42,6 +42,7 @@ public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<Material> {
     protected Material[] getTargetsPossibleToFind() {
         List<Material> materials = new ArrayList<>(Arrays.asList(Material.values()));
         materials.removeIf(material -> !material.isBlock());
+        //ToDo Blocks like powder snow and bedrock are filtered out although they can be obtained as blocks.
         materials.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
         materials.removeIf(material -> material.name().contains("WALL"));
         return materials.toArray(new Material[0]);
@@ -79,12 +80,12 @@ public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<Material> {
     }
 
     @Override
-    protected Message getNewTargetMessage() {
+    protected Message getNewTargetMessage(Material newTarget) {
         return Message.forName("force-block-battle-new-block");
     }
 
     @Override
-    protected Message getTargetFoundMessage() {
+    protected Message getTargetCompletedMessage(Material target) {
         return Message.forName("force-block-battle-found");
     }
 
@@ -100,22 +101,10 @@ public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<Material> {
     public void checkBlocks() {
         if(!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if(isStandingOnBlock(player, currentTarget.get(player.getUniqueId()))) {
+            if(EntityUtils.isStandingOnBlock(player, currentTarget.get(player.getUniqueId()))) {
                 handleTargetFound(player);
             }
         });
-    }
-
-    protected boolean isStandingOnBlock(@Nonnull Player player, Material block) {
-        for (int x = -1; x <= 1; x++) {
-            for (int z = -1; z <= 1; z++) {
-                for (int y = -1; y <= 1; y++) {
-                    Material type = player.getLocation().add(x, y, z).getBlock().getType();
-                    if (type == block) return true;
-                }
-            }
-        }
-        return false;
     }
 
     @Override

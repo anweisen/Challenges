@@ -237,6 +237,8 @@
 	"force-block-battle-new-block": "Block zu suchen: §e{0}",
 	"force-block-battle-leaderboard": "§8➜ §7Force Block Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"extreme-force-battle-new-height": "Höhe zu erreichen: §e{0}",
+	"extreme-force-battle-reached-height": "Du hast die Höhe §e{0} §7erreicht!",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"

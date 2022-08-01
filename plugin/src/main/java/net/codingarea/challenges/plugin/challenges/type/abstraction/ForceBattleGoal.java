@@ -65,10 +65,12 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 				() -> new ItemBuilder(Material.BOOK, Message.forName("item-force-battle-show-scoreboard")),
 				true
 		));
-		registerSetting("dupedTargets", new BooleanSubSetting(
-				() -> new ItemBuilder(Material.PAPER, Message.forName("item-force-battle-duped-targets")),
-				true
-		));
+		if(shouldRegisterDupedTargetsSetting()) {
+			registerSetting("dupedTargets", new BooleanSubSetting(
+					() -> new ItemBuilder(Material.PAPER, Message.forName("item-force-battle-duped-targets")),
+					true
+			));
+		}
 	}
 
 	@Override
@@ -205,8 +207,8 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		document.set(key, target);
 	}
 
-	public void setFoundListInDocument(Document document, String key, List<T> target) {
-		document.set(key, target);
+	public void setFoundListInDocument(Document document, String key, List<T> targets) {
+		document.set(key, targets);
 	}
 
 	public abstract T getTargetFromDocument(Document document, String key);
@@ -230,7 +232,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		if (!list.isEmpty()) {
 			T target = globalRandom.choose(list);
 			currentTarget.put(player.getUniqueId(), target);
-			getNewTargetMessage()
+			getNewTargetMessage(target)
 					.send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
 			SoundSample.PLING.play(player);
 		} else {
@@ -241,9 +243,9 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 	}
 
-	protected abstract Message getNewTargetMessage();
+	protected abstract Message getNewTargetMessage(T newTarget);
 
-	protected abstract Message getTargetFoundMessage();
+	protected abstract Message getTargetCompletedMessage(T target);
 
 	public void handleTargetFound(Player player) {
 		T foundTarget = currentTarget.get(player.getUniqueId());
@@ -251,7 +253,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 			List<T> list = foundTargets
 					.computeIfAbsent(player.getUniqueId(), uuid -> new LinkedList<>());
 			list.add(foundTarget);
-			getTargetFoundMessage().send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
+			getTargetCompletedMessage(foundTarget).send(player, Prefix.CHALLENGES, getTargetMessageReplacement(foundTarget));
 		}
 		setRandomTarget(player);
 	}
@@ -425,6 +427,10 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 	private boolean showScoreboard() {
 		return getSetting("showScoreboard").getAsBoolean();
+	}
+
+	protected boolean shouldRegisterDupedTargetsSetting() {
+		return true;
 	}
 
 }
