@@ -70,6 +70,11 @@ public class ItemTarget extends ForceTarget<Material> {
     }
 
     @Override
+    public Message getScoreboardDisplayMessage() {
+        return Message.forName("force-battle-item-target-display");
+    }
+
+    @Override
     public String toString() {
         return target.name();
     }

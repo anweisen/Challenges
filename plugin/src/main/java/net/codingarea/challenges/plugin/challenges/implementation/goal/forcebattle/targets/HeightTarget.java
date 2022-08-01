@@ -51,4 +51,9 @@ public class HeightTarget extends ForceTarget<Integer> {
         return ExtremeForceBattleGoal.TargetType.HEIGHT;
     }
 
+    @Override
+    public Message getScoreboardDisplayMessage() {
+        return Message.forName("force-battle-height-target-display");
+    }
+
 }

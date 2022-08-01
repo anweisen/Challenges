@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -153,6 +154,30 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         }
 
         //ToDo reset advancement progress if the target is an advancement target
+    }
+
+    @Override
+    protected void setScoreboardContent() {
+        scoreboard.setContent((board, player) -> {
+            List<Player> ingamePlayers = ChallengeAPI.getIngamePlayers();
+            int emptyLinesAvailable = 15 - ingamePlayers.size();
+
+            if (emptyLinesAvailable > 0) {
+                board.addLine("");
+                emptyLinesAvailable--;
+            }
+
+            for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
+                Player ingamePlayer = ingamePlayers.get(i);
+                ForceTarget<?> target = currentTarget.get(ingamePlayer.getUniqueId());
+                String display = target == null ? Message.forName("none").asString() : (target.getScoreboardDisplayMessage().asString(getTargetName(target)));
+                board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
+            }
+
+            if (emptyLinesAvailable > 0) {
+                board.addLine("");
+            }
+        });
     }
 
     @Override

@@ -25,6 +25,7 @@ public abstract class ForceTarget<T> {
     public abstract Message getNewTargetMessage();
     public abstract Message getCompletedMessage();
     public abstract ExtremeForceBattleGoal.TargetType getType();
+    public abstract Message getScoreboardDisplayMessage();
 
     @Override
     public String toString() {

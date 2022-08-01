@@ -71,6 +71,11 @@ public class BlockTarget extends ForceTarget<Material> {
     }
 
     @Override
+    public Message getScoreboardDisplayMessage() {
+        return Message.forName("force-battle-block-target-display");
+    }
+
+    @Override
     public String toString() {
         return target.name();
     }

@@ -51,7 +51,6 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 	public ForceBattleGoal(@NotNull MenuType menu, @NotNull Message title) {
 		super(menu, title);
 		setCategory(SettingCategory.FORCE_BATTLE);
-		;
 
 		registerSetting("jokers", new NumberSubSetting(
 				() -> new ItemBuilder(Material.BARRIER, Message.forName("item-force-battle-goal-jokers")),
@@ -82,26 +81,7 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		broadcastFiltered(this::updateJokersInInventory);
 		broadcastFiltered(this::setRandomTargetIfCurrentlyNone);
 
-		scoreboard.setContent((board, player) -> {
-			List<Player> ingamePlayers = ChallengeAPI.getIngamePlayers();
-			int emptyLinesAvailable = 15 - ingamePlayers.size();
-
-			if (emptyLinesAvailable > 0) {
-				board.addLine("");
-				emptyLinesAvailable--;
-			}
-
-			for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
-				Player ingamePlayer = ingamePlayers.get(i);
-				T target = currentTarget.get(ingamePlayer.getUniqueId());
-				String display = target == null ? Message.forName("none").asString() : getTargetName(target);
-				board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
-			}
-
-			if (emptyLinesAvailable > 0) {
-				board.addLine("");
-			}
-		});
+		setScoreboardContent();
 		if (showScoreboard()) {
 			scoreboard.show();
 		}
@@ -348,6 +328,29 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		this.jokerUsed.put(player.getUniqueId(), jokerUsed);
 		handleTargetFound(player);
 		updateJokersInInventory(player);
+	}
+
+	protected void setScoreboardContent() {
+		scoreboard.setContent((board, player) -> {
+			List<Player> ingamePlayers = ChallengeAPI.getIngamePlayers();
+			int emptyLinesAvailable = 15 - ingamePlayers.size();
+
+			if (emptyLinesAvailable > 0) {
+				board.addLine("");
+				emptyLinesAvailable--;
+			}
+
+			for (int i = 0; i < ingamePlayers.size() && i < 15; i++) {
+				Player ingamePlayer = ingamePlayers.get(i);
+				T target = currentTarget.get(ingamePlayer.getUniqueId());
+				String display = target == null ? Message.forName("none").asString() : getTargetName(target);
+				board.addLine(NameHelper.getName(ingamePlayer) + " §8» §e" + display);
+			}
+
+			if (emptyLinesAvailable > 0) {
+				board.addLine("");
+			}
+		});
 	}
 
 	@TimerTask(status = TimerStatus.RUNNING, async = false)
