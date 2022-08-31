@@ -2,7 +2,7 @@
 name: "\U0001F41E Bug report"
 about: "Create an issue which describes a bug in the project"
 title: ''
-labels: "bug"
+labels: "type: bug"
 assignees: ''
 
 ---
