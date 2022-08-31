@@ -440,7 +440,7 @@ public class ReflectionUtil {
 		}
 
 		if (Modifier.isFinal(modifiers)) {
-			modifiersStr.add("static");
+			modifiersStr.add("final");
 		}
 
 		if (Modifier.isTransient(modifiers)) {
