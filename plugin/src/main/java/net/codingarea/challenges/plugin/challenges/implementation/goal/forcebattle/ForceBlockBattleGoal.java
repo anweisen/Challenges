@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle;
 
-import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
+import net.codingarea.challenges.plugin.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
@@ -41,9 +41,7 @@ public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<Material> {
     @Override
     protected Material[] getTargetsPossibleToFind() {
         List<Material> materials = new ArrayList<>(Arrays.asList(Material.values()));
-        materials.removeIf(material -> !material.isBlock());
-        //ToDo Blocks like powder snow and bedrock are filtered out although they can be obtained as blocks.
-        materials.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
+        materials.removeIf(material -> !ItemUtils.blockIsAvailableInSurvival(material));
         materials.removeIf(material -> material.name().contains("WALL"));
         return materials.toArray(new Material[0]);
     }

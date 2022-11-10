@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.command;
 
-import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
+import net.codingarea.challenges.plugin.utils.item.ItemUtils;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;

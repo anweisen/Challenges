@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
+import net.codingarea.challenges.plugin.utils.item.ItemUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.SeededRandomWrapper;
 import net.anweisen.utilities.common.config.Document;

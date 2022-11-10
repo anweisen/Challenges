@@ -1,6 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets;
 
-import net.anweisen.utilities.bukkit.utils.item.ItemUtils;
+import net.codingarea.challenges.plugin.utils.item.ItemUtils;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.ExtremeForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
