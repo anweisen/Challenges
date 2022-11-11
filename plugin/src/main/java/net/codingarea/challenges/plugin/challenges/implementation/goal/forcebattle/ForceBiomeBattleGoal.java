@@ -4,7 +4,6 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.BiomeTarget;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
 public class ForceBiomeBattleGoal extends ForceBattleGoal<BiomeTarget> {
 
     public ForceBiomeBattleGoal() {
-        super(MenuType.GOAL, Message.forName("menu-force-biome-battle-goal-settings"));
+        super(Message.forName("menu-force-biome-battle-goal-settings"));
     }
 
     @NotNull

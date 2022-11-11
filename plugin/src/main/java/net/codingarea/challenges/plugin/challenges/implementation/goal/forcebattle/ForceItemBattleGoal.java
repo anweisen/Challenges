@@ -5,7 +5,6 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ItemTarget;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -27,7 +26,7 @@ import java.util.stream.Collectors;
 public class ForceItemBattleGoal extends ForceBattleDisplayGoal<ItemTarget> {
 
 	public ForceItemBattleGoal() {
-		super(MenuType.GOAL, Message.forName("menu-force-item-battle-goal-settings"));
+		super(Message.forName("menu-force-item-battle-goal-settings"));
 
 		registerSetting("give-item", new BooleanSubSetting(
 				() -> new ItemBuilder(Material.CHEST, Message.forName("item-force-item-battle-goal-give-item")),

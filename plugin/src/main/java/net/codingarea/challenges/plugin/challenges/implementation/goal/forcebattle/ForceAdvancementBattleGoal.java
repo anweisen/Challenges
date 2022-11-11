@@ -6,7 +6,6 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.AdvancementTarget;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -30,7 +29,7 @@ import java.util.List;
 public class ForceAdvancementBattleGoal extends ForceBattleGoal<AdvancementTarget> {
 
 	public ForceAdvancementBattleGoal() {
-		super(MenuType.GOAL, Message.forName("menu-force-advancement-battle-goal-settings"));
+		super(Message.forName("menu-force-advancement-battle-goal-settings"));
 	}
 
 	private void resetAdvancementProgress(Player player, Advancement advancement) {

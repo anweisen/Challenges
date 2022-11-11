@@ -3,7 +3,6 @@ package net.codingarea.challenges.plugin.challenges.type.abstraction;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ForceTarget;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
 import org.bukkit.World;
 import org.bukkit.entity.ArmorStand;
@@ -27,8 +26,8 @@ public abstract class ForceBattleDisplayGoal<T extends ForceTarget<?>> extends F
 
     private Map<Player, ArmorStand> displayStands;
 
-    public ForceBattleDisplayGoal(@NotNull MenuType menu, @NotNull Message title) {
-        super(menu, title);
+    public ForceBattleDisplayGoal(@NotNull Message title) {
+        super(title);
     }
 
     @Override

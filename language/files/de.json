@@ -255,6 +255,7 @@
 	"extreme-force-battle-new-position": "Position zu erreichen: §e{0}",
 	"extreme-force-battle-reached-position": "Du hast die Position §e{0} §7erreicht!",
 	"force-biome-battle-leaderboard": "§8➜ §7Force Biome Battle Leaderboard",
+	"force-damage-battle-leaderboard": "§8➜ §7Force Damage Battle Leaderboard",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -1405,6 +1406,12 @@
 		"das er betreten muss"
 	],
 	"menu-force-biome-battle-goal-settings": "Force Biome Battle",
+	"item-force-damage-battle-goal": [
+		"§2Force Damage Battle",
+		"Jeder Spieler bekommt eine *zufällige Anzahl Schaden*,",
+		"die er *erhalten* muss"
+	],
+	"menu-force-damage-battle-goal-settings": "Force Damage Battle",
 	"item-extreme-force-battle-goal": [
 		"§cExtreme Force Battle",
 		"Jeder Spieler bekommt ein *zufälliges Ziel*,",

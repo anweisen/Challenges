@@ -9,7 +9,6 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleD
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -45,7 +44,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
 
 
     public ExtremeForceBattleGoal() {
-        super(MenuType.GOAL, Message.forName("menu-extreme-force-battle-goal-settings"));
+        super(Message.forName("menu-extreme-force-battle-goal-settings"));
 
         registerSetting("give-item", new BooleanSubSetting(
                 () -> new ItemBuilder(Material.CHEST, Message.forName("item-force-item-battle-goal-give-item")),

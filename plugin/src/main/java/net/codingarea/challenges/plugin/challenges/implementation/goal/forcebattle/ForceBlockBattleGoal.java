@@ -5,7 +5,6 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.BlockTarget;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
@@ -25,7 +24,7 @@ import java.util.stream.Collectors;
 public class ForceBlockBattleGoal extends ForceBattleDisplayGoal<BlockTarget> {
 
     public ForceBlockBattleGoal() {
-        super(MenuType.GOAL, Message.forName("menu-force-block-battle-goal-settings"));
+        super(Message.forName("menu-force-block-battle-goal-settings"));
 
         registerSetting("give-block", new BooleanSubSetting(
                 () -> new ItemBuilder(Material.CHEST, Message.forName("item-force-block-battle-goal-give-block")),

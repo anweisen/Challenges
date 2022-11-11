@@ -49,8 +49,8 @@ public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal
 	protected T[] targetsPossibleToFind;
 	private ItemStack jokerItem;
 
-	public ForceBattleGoal(@NotNull MenuType menu, @NotNull Message title) {
-		super(menu, title);
+	public ForceBattleGoal(@NotNull Message title) {
+		super(MenuType.GOAL, title);
 		setCategory(SettingCategory.FORCE_BATTLE);
 
 		registerSetting("jokers", new NumberSubSetting(
@@ -204,14 +204,9 @@ public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal
 	}
 
 	public void setRandomTarget(Player player) {
+		T target = getRandomTarget(player);
 
-		LinkedList<T> list = new LinkedList<>(Arrays.asList(targetsPossibleToFind));
-		if (!getSetting("dupedTargets").getAsBoolean()) {
-			list.removeAll(foundTargets.getOrDefault(player.getUniqueId(), new LinkedList<>()));
-		}
-
-		if (!list.isEmpty()) {
-			T target = globalRandom.choose(list);
+		if (target != null) {
 			currentTarget.put(player.getUniqueId(), target);
 			getNewTargetMessage(target)
 					.send(player, Prefix.CHALLENGES, getTargetMessageReplacement(target));
@@ -222,6 +217,17 @@ public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal
 		}
 		scoreboard.update();
 
+	}
+
+	protected T getRandomTarget(Player player) {
+		LinkedList<T> list = new LinkedList<>(Arrays.asList(targetsPossibleToFind));
+		if (!getSetting("dupedTargets").getAsBoolean()) {
+			list.removeAll(foundTargets.getOrDefault(player.getUniqueId(), new LinkedList<>()));
+		}
+		if(!list.isEmpty()) {
+			return globalRandom.choose(list);
+		}
+		return null;
 	}
 
 	protected Message getNewTargetMessage(T newTarget) {

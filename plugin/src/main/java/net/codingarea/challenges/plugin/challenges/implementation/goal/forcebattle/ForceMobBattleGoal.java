@@ -5,7 +5,6 @@ import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.MobTarget;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.ForceBattleDisplayGoal;
 import net.codingarea.challenges.plugin.content.Message;
-import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
@@ -28,7 +27,7 @@ import java.util.stream.Collectors;
 public class ForceMobBattleGoal extends ForceBattleDisplayGoal<MobTarget> {
 
 	public ForceMobBattleGoal() {
-		super(MenuType.GOAL, Message.forName("menu-force-mob-battle-goal-settings"));
+		super(Message.forName("menu-force-mob-battle-goal-settings"));
 	}
 
 	@Override
