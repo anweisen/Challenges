@@ -508,7 +508,8 @@
 		"§bScoreboard anzeigen"
 	],
 	"item-force-battle-duped-targets": [
-		"§cDoppelte Ziele"
+		"§cDoppelte Ziele",
+		"Ziele können *mehrfach* vorkommen"
 	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",

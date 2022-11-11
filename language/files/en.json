@@ -503,7 +503,8 @@
 		"§bShow Scoreboard"
 	],
 	"item-force-battle-duped-targets": [
-		"§cDuped Targets"
+		"§cDuped Targets",
+		"Targets can occur *multiple times*"
 	],
 	"item-difficulty-setting": [
 		"§aDifficulty",
