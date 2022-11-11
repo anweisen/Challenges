@@ -20,7 +20,6 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.World;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.block.Biome;
-import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -55,13 +54,6 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     }
 
     @Override
-    public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
-        if(currentTarget.containsKey(player.getUniqueId())) {
-            currentTarget.get(player.getUniqueId()).updateDisplayStand(armorStand);
-        }
-    }
-
-    @Override
     protected ForceTarget<?>[] getTargetsPossibleToFind() {
         //Currently not needed as the setRandomTarget logic of the ForceBattleGoal class is not used
         return new ForceTarget<?>[0];
@@ -82,8 +74,8 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     }
 
     @Override
-    public ForceTarget<?> getTargetFromDocument(Document document, String key) {
-        Document targetDocument = document.getDocument(key);
+    public ForceTarget<?> getTargetFromDocument(Document document, String path) {
+        Document targetDocument = document.getDocument(path);
         String targetTypeString = targetDocument.getString("type");
         String value = targetDocument.getString("value");
 
@@ -92,8 +84,8 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     }
 
     @Override
-    public List<ForceTarget<?>> getListFromDocument(Document document, String key) {
-        List<Document> targetDocuments = document.getDocumentList(key);
+    public List<ForceTarget<?>> getListFromDocument(Document document, String path) {
+        List<Document> targetDocuments = document.getDocumentList(path);
         List<ForceTarget<?>> targets = new ArrayList<>();
         for (Document targetDocument : targetDocuments) {
             String targetTypeString = targetDocument.getString("type");
@@ -106,37 +98,17 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     }
 
     @Override
-    public void setTargetInDocument(Document document, String key, ForceTarget<?> target) {
-        document.set(key, Document.create().set("type", target.getType().name()).set("value", target.getTargetSaveObject()));
+    public void setTargetInDocument(Document document, String path, ForceTarget<?> target) {
+        document.set(path, Document.create().set("type", target.getType().name()).set("value", target.getTargetSaveObject()));
     }
 
     @Override
-    public void setFoundListInDocument(Document document, String key, List<ForceTarget<?>> targets) {
+    public void setFoundListInDocument(Document document, String path, List<ForceTarget<?>> targets) {
         List<Document> documents = new ArrayList<>();
         for (ForceTarget<?> forceTarget : targets) {
             documents.add(Document.create().set("type", forceTarget.getType().name()).set("value", forceTarget.getTargetSaveObject()));
         }
-        document.set(key, documents);
-    }
-
-    @Override
-    protected Message getNewTargetMessage(ForceTarget<?> newTarget) {
-        return newTarget.getNewTargetMessage();
-    }
-
-    @Override
-    protected Message getTargetCompletedMessage(ForceTarget<?> target) {
-        return target.getCompletedMessage();
-    }
-
-    @Override
-    public Object getTargetMessageReplacement(ForceTarget<?> target) {
-        return target.toMessage();
-    }
-
-    @Override
-    public String getTargetName(ForceTarget<?> target) {
-        return target.getName();
+        document.set(path, documents);
     }
 
     @Override

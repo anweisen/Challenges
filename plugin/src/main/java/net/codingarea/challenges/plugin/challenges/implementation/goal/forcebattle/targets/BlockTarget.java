@@ -29,8 +29,7 @@ public class BlockTarget extends ForceTarget<Material> {
 
     public static List<Material> getPossibleBlocks() {
         List<Material> materials = new ArrayList<>(Arrays.asList(Material.values()));
-        materials.removeIf(material -> !material.isBlock());
-        materials.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
+        materials.removeIf(material -> !ItemUtils.blockIsAvailableInSurvival(material));
         return materials;
     }
 

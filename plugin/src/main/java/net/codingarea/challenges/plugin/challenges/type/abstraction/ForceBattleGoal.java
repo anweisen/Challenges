@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ForceTarget;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -40,7 +41,7 @@ import java.util.stream.Collectors;
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
  * @since 2.2.0
  */
-public abstract class ForceBattleGoal<T> extends MenuGoal {
+public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal {
 
 	protected final Map<UUID, Integer> jokerUsed = new HashMap<>();
 	protected final Map<UUID, List<T>> foundTargets = new HashMap<>();
@@ -183,17 +184,17 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		document.set("players", playersDocuments);
 	}
 
-	public void setTargetInDocument(Document document, String key, T target) {
-		document.set(key, target);
+	public void setTargetInDocument(Document document, String path, T target) {
+		document.set(path, target.getTargetSaveObject());
 	}
 
-	public void setFoundListInDocument(Document document, String key, List<T> targets) {
-		document.set(key, targets);
+	public void setFoundListInDocument(Document document, String path, List<T> targets) {
+		document.set(path, targets.stream().map(ForceTarget::getTargetSaveObject).collect(Collectors.toList()));
 	}
 
-	public abstract T getTargetFromDocument(Document document, String key);
+	public abstract T getTargetFromDocument(Document document, String path);
 
-	public abstract List<T> getListFromDocument(Document document, String key);
+	public abstract List<T> getListFromDocument(Document document, String path);
 
 	public void setRandomTargetIfCurrentlyNone(Player player) {
 		if (currentTarget.containsKey(player.getUniqueId())) {
@@ -223,9 +224,13 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 
 	}
 
-	protected abstract Message getNewTargetMessage(T newTarget);
+	protected Message getNewTargetMessage(T newTarget) {
+		return newTarget.getNewTargetMessage();
+	}
 
-	protected abstract Message getTargetCompletedMessage(T target);
+	protected Message getTargetCompletedMessage(T target) {
+		return target.getCompletedMessage();
+	}
 
 	public void handleTargetFound(Player player) {
 		T foundTarget = currentTarget.get(player.getUniqueId());
@@ -238,9 +243,13 @@ public abstract class ForceBattleGoal<T> extends MenuGoal {
 		setRandomTarget(player);
 	}
 
-	public abstract Object getTargetMessageReplacement(T target);
+	public Object getTargetMessageReplacement(T target) {
+		return target.toMessage();
+	}
 
-	public abstract String getTargetName(T target);
+	public String getTargetName(T target) {
+		return target.getName();
+	}
 
 	@Override
 	public void getWinnersOnEnd(@NotNull List<Player> winners) {

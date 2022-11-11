@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
 import net.anweisen.utilities.common.config.Document;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.targets.ForceTarget;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.spigot.events.PlayerIgnoreStatusChangeEvent;
@@ -22,7 +23,7 @@ import java.util.Map;
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
  * @since 2.2.0
  */
-public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
+public abstract class ForceBattleDisplayGoal<T extends ForceTarget<?>> extends ForceBattleGoal<T> {
 
     private Map<Player, ArmorStand> displayStands;
 
@@ -63,7 +64,13 @@ public abstract class ForceBattleDisplayGoal<T> extends ForceBattleGoal<T> {
         handleDisplayStandUpdate(player, armorStand);
     }
 
-    public abstract void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand);
+    public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
+        if(currentTarget.containsKey(player.getUniqueId())) {
+            currentTarget.get(player.getUniqueId()).updateDisplayStand(armorStand);
+        } else if(armorStand.getEquipment().getHelmet() != null) {
+            armorStand.getEquipment().setHelmet(null);
+        }
+    }
 
     @Override
     public void loadGameState(@NotNull Document document) {
