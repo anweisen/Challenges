@@ -161,7 +161,7 @@ public class BukkitStringUtils {
 		for (int i = 0; i < args.length; i++) {
 			Object arg = args[i];
 
-			arg = arg instanceof Material ? getItemName((Material) arg) :
+			arg = arg instanceof Material ? getItemComponent((Material) arg) :
 					arg instanceof EntityType ? getEntityName((EntityType) arg) :
 					arg instanceof PotionEffectType ? getPotionEffectName((PotionEffectType) arg) :
 					arg instanceof Biome ? getBiomeName((Biome) arg) :
@@ -185,6 +185,22 @@ public class BukkitStringUtils {
 	public static TranslatableComponent getItemName(@Nonnull Material material) {
 		NamespacedKey key = material.getKey();
 		return new TranslatableComponent((material.isBlock() ? "block" : "item") + "." + key.getNamespace() + "." + key.getKey());
+	}
+
+	public static @Nullable BaseComponent getItemDescription(@Nonnull Material material) {
+		if(!material.name().startsWith("MUSIC_DISC")) return null;
+		String key = "item.minecraft." + material.name().toLowerCase() + ".desc";
+		return new TranslatableComponent(key);
+	}
+
+	public static BaseComponent getItemComponent(@Nonnull Material material) {
+		BaseComponent component = getItemName(material);
+		BaseComponent description = getItemDescription(material);
+		if(description != null) {
+			description.setColor(net.md_5.bungee.api.ChatColor.GRAY);
+			component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(description).create()));
+		}
+		return component;
 	}
 
 
