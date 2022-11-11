@@ -13,6 +13,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -45,6 +46,15 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
 
     public ExtremeForceBattleGoal() {
         super(MenuType.GOAL, Message.forName("menu-extreme-force-battle-goal-settings"));
+
+        registerSetting("give-item", new BooleanSubSetting(
+                () -> new ItemBuilder(Material.CHEST, Message.forName("item-force-item-battle-goal-give-item")),
+                false
+        ));
+        registerSetting("give-block", new BooleanSubSetting(
+                () -> new ItemBuilder(Material.CHEST, Message.forName("item-force-block-battle-goal-give-block")),
+                false
+        ));
     }
 
     @NotNull
@@ -168,6 +178,19 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         return false;
     }
 
+    @Override
+    public void handleJokerUse(Player player) {
+        ForceTarget<?> target = currentTarget.get(player.getUniqueId());
+        if(giveItemOnSkip() && target instanceof ItemTarget) {
+            ItemTarget itemTarget = (ItemTarget) target;
+            InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), itemTarget.getTarget());
+        } else if(giveBlockOnSkip() && target instanceof BlockTarget) {
+            BlockTarget blockTarget = (BlockTarget) target;
+            InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), blockTarget.getTarget());
+        }
+        super.handleJokerUse(player);
+    }
+
     public enum TargetType {
         ITEM(object -> {
             return new ItemTarget(Material.valueOf((String) object));
@@ -256,6 +279,14 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             if(damage != target.getTarget()) return;
             handleTargetFound(player);
         }
+    }
+
+    private boolean giveItemOnSkip() {
+        return getSetting("give-item").getAsBoolean();
+    }
+
+    private boolean giveBlockOnSkip() {
+        return getSetting("give-block").getAsBoolean();
     }
 
 }
