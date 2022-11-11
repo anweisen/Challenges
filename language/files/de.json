@@ -254,6 +254,7 @@
 	"extreme-force-battle-position": "§eX: {0} §8┃ §eZ: {1}",
 	"extreme-force-battle-new-position": "Position zu erreichen: §e{0}",
 	"extreme-force-battle-reached-position": "Du hast die Position §e{0} §7erreicht!",
+	"force-biome-battle-leaderboard": "§8➜ §7Force Biome Battle Leaderboard",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -1398,6 +1399,12 @@
 		"Wenn ein Spieler einen Block *skippt*,",
 		"wird dieser in sein *Inventar hinzugefügt*"
 	],
+	"item-force-biome-battle-goal": [
+		"§2Force Biome Battle",
+		"Jeder Spieler bekommt ein *zufälliges Biom*,",
+		"das er betreten muss"
+	],
+	"menu-force-biome-battle-goal-settings": "Force Biome Battle",
 	"item-extreme-force-battle-goal": [
 		"§cExtreme Force Battle",
 		"Jeder Spieler bekommt ein *zufälliges Ziel*,",
