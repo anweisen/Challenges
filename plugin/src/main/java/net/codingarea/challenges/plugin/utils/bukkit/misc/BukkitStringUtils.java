@@ -187,7 +187,7 @@ public class BukkitStringUtils {
 		return new TranslatableComponent((material.isBlock() ? "block" : "item") + "." + key.getNamespace() + "." + key.getKey());
 	}
 
-	public static @Nullable BaseComponent getItemDescription(@Nonnull Material material) {
+	public static @Nullable BaseComponent getMusicDiscName(@Nonnull Material material) {
 		if(!material.name().startsWith("MUSIC_DISC")) return null;
 		String key = "item.minecraft." + material.name().toLowerCase() + ".desc";
 		return new TranslatableComponent(key);
@@ -195,10 +195,11 @@ public class BukkitStringUtils {
 
 	public static BaseComponent getItemComponent(@Nonnull Material material) {
 		BaseComponent component = getItemName(material);
-		BaseComponent description = getItemDescription(material);
-		if(description != null) {
-			description.setColor(net.md_5.bungee.api.ChatColor.GRAY);
-			component.setHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ComponentBuilder(description).create()));
+		BaseComponent musicDiscName = getMusicDiscName(material);
+		if(musicDiscName != null) {
+			component.addExtra(" (");
+			component.addExtra(musicDiscName);
+			component.addExtra(")");
 		}
 		return component;
 	}
