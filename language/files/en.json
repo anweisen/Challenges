@@ -257,6 +257,7 @@
 	"force-biome-battle-leaderboard": "§8➜ §7Force Biome Battle Leaderboard",
 	"force-damage-battle-leaderboard": "§8➜ §7Force Damage Battle Leaderboard",
 	"force-height-battle-leaderboard": "§8➜ §7Force Height Battle Leaderboard",
+	"force-position-battle-leaderboard": "§8➜ §7Force Position Battle Leaderboard",
 	"random-event-speed": [
 		"Sonic? Is it you?",
 		"Woahh! That's fast"
@@ -1397,6 +1398,12 @@
 		"that he has to *reach*."
 	],
 	"menu-force-height-battle-goal-settings": "Force Height Battle",
+	"item-force-position-battle-goal": [
+		"§aForce Position Battle",
+		"Each player gets a *random position*,",
+		"that he has to *reach*."
+	],
+	"menu-force-position-battle-goal-settings": "Force Position Battle",
 	"item-extreme-force-battle-goal": [
 		"§cExtreme Force Battle",
 		"Each player gets a *random target*,",
