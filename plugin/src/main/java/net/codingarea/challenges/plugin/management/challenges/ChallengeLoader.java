@@ -226,6 +226,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ForceBlockBattleGoal.class);
 		register(ForceBiomeBattleGoal.class);
 		register(ForceDamageBattleGoal.class);
+		register(ForceHeightBattleGoal.class);
 		register(ExtremeForceBattleGoal.class);
 
 		// Misc
