@@ -21,6 +21,14 @@ import java.util.stream.Collectors;
 public class ForcePositionBattleGoal extends ForceBattleGoal<PositionTarget> {
     public ForcePositionBattleGoal() {
         super(Message.forName("menu-force-position-battle-goal-settings"));
+        registerSetting("radius", new NumberSubSetting(
+                () -> new ItemBuilder(Material.DIAMOND_BOOTS, Message.forName("item-force-position-battle-radius")),
+                value -> null,
+                value -> "§e" + (value * 100),
+                1,
+                100,
+                15
+        ));
     }
 
     @NotNull
@@ -36,7 +44,7 @@ public class ForcePositionBattleGoal extends ForceBattleGoal<PositionTarget> {
 
     @Override
     protected PositionTarget getRandomTarget(Player player) {
-        return new PositionTarget(player);
+        return new PositionTarget(player, getRadius());
     }
 
     @Override
@@ -70,5 +78,9 @@ public class ForcePositionBattleGoal extends ForceBattleGoal<PositionTarget> {
                 handleTargetFound(player);
             }
         });
+    }
+
+    protected int getRadius() {
+        return getSetting("radius").getAsInt() * 100;
     }
 }

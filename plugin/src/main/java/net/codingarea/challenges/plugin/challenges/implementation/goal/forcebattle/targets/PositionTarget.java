@@ -18,11 +18,15 @@ public class PositionTarget extends ForceTarget<Tuple<Double, Double>> {
         super(Tuple.of(x, z));
     }
 
-    public PositionTarget(Player player) {
+    public PositionTarget(Player player, int radius) {
         super(Tuple.of(
-                player.getLocation().getBlockX() + (double) IRandom.singleton().range(-1500, 1500),
-                player.getLocation().getBlockZ() + (double) IRandom.singleton().range(-1500, 1500)
+                player.getLocation().getBlockX() + (double) IRandom.singleton().range(-radius, radius),
+                player.getLocation().getBlockZ() + (double) IRandom.singleton().range(-radius, radius)
         ));
+    }
+
+    public PositionTarget(Player player) {
+        this(player, 1500);
     }
 
     @Override

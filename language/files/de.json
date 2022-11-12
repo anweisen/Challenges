@@ -515,6 +515,11 @@
 		"§cDoppelte Ziele",
 		"Ziele können *mehrfach* vorkommen"
 	],
+	"item-force-position-battle-radius": [
+		"§bRadius",
+		"Der *maximale Radius*, in dem sich die",
+		"Positionen befinden können"
+	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
 		"Stellt die *Schwierigkeitsstufe* ein"

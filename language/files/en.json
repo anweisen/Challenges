@@ -510,6 +510,11 @@
 		"§cDuped Targets",
 		"Targets can occur *multiple times*"
 	],
+	"item-force-position-battle-radius": [
+		"§bRadius",
+		"The *maximum radius*, in which the",
+		"positions will be located"
+	],
 	"item-difficulty-setting": [
 		"§aDifficulty",
 		"Sets the *Difficulty*"
