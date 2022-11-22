@@ -68,6 +68,4 @@ public class ItemTarget extends ForceTarget<Material> {
         return target.name();
     }
 
-    //ToDo add give-item setting
-
 }
