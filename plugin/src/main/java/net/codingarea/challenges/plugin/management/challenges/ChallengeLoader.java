@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
@@ -225,6 +226,11 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ForceMobBattleGoal.class);
 		register(ForceAdvancementBattleGoal.class);
 		register(ForceBlockBattleGoal.class);
+		register(ForceBiomeBattleGoal.class);
+		register(ForceDamageBattleGoal.class);
+		register(ForceHeightBattleGoal.class);
+		register(ForcePositionBattleGoal.class);
+		register(ExtremeForceBattleGoal.class);
 
 		// Misc
 		register(LastManStandingGoal.class);
