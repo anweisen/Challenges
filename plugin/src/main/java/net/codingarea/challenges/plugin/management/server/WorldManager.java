@@ -166,12 +166,10 @@ public final class WorldManager {
 			Location location = player.getBedSpawnLocation();
 			if (location == null) {
 				World world = Bukkit.getWorld(levelName);
-				if (world != null) {
-					location = world.getSpawnLocation();
-				} else {
+				if (world == null) {
 					world = ChallengeAPI.getGameWorld(Environment.NORMAL);
-					location = world.getSpawnLocation();
 				}
+				location = world.getSpawnLocation();
 			}
 
 			player.teleport(location);

@@ -15,8 +15,8 @@ public class CraftPlayer {
 	static {
 		try {
 			CLASS = ReflectionUtil.getBukkitClass("entity.CraftPlayer");
-		} catch (Exception e) {
-			Challenges.getInstance().getLogger().error(e);
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 		}
 	}
 
@@ -31,8 +31,8 @@ public class CraftPlayer {
 		Object craftPlayer;
 		try {
 			craftPlayer = ReflectionUtil.invokeMethod(CLASS, player, "getHandle");
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 			craftPlayer = null;
 		}
 		this.craftPlayer = craftPlayer;
@@ -49,8 +49,8 @@ public class CraftPlayer {
                 return new PlayerConnection(ReflectionUtil.getObject(this.craftPlayer, "playerConnection"));
             }
             return new PlayerConnection(ReflectionUtil.getObject(this.craftPlayer, "b"));
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 			return null;
 		}
 	}

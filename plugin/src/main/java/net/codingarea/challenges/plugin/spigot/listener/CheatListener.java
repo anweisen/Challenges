@@ -26,8 +26,7 @@ public class CheatListener implements Listener {
 	public CheatListener() {
 		Bukkit.getOnlinePlayers().stream()
 				.filter(player -> player.getGameMode() == GameMode.CREATIVE)
-				.findFirst().ifPresent(player -> handleCheatsDetected(player)
-		);
+				.findFirst().ifPresent(this::handleCheatsDetected);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -194,19 +195,20 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 		private int getSpawnLimit(@Nonnull World world) {
 			switch (this) {
 				case AMBIENT:
-					return world.getAmbientSpawnLimit();
+					return world.getSpawnLimit(SpawnCategory.AMBIENT);
 				case HOSTILE:
-					return world.getMonsterSpawnLimit();
+					return world.getSpawnLimit(SpawnCategory.MONSTER);
 				case ANIMAL:
-					return world.getAnimalSpawnLimit();
+					return world.getSpawnLimit(SpawnCategory.ANIMAL);
 				case WATER_AMBIENT: { // getWaterAmbientSpawnLimit is not available in lower versions like 1.13, default to water animal then
 					try {
-						return world.getWaterAmbientSpawnLimit();
-					} catch (Throwable ex) {
+						return world.getSpawnLimit(SpawnCategory.WATER_AMBIENT);
+					} catch (Throwable throwable) {
+						Challenges.getInstance().getLogger().error("", throwable);
 					}
 				}
 				case WATER_ANIMAL:
-					return world.getWaterAnimalSpawnLimit();
+					return world.getSpawnLimit(SpawnCategory.WATER_ANIMAL);
 				default:
 					return 0;
 			}

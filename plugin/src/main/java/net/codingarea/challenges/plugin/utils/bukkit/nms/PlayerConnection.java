@@ -43,8 +43,8 @@ public class PlayerConnection {
             } else {
                 ReflectionUtil.invokeMethod(this.connection, "a", new Class<?>[]{packetClass}, new Object[]{packet});
             }
-		} catch (Exception e) {
-			e.printStackTrace();
+		} catch (Exception exception) {
+			Challenges.getInstance().getLogger().error("", exception);
 		}
 	}
 }

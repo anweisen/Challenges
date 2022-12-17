@@ -65,8 +65,8 @@ public class BackCommand implements PlayerCommand, TabCompleter, Listener {
 		player.teleport(location);
 		inTeleport = false;
 
-		for (int i = 0; i < countToTeleport; i++) {
-			list.remove(0);
+		if (countToTeleport > 0) {
+			list.subList(0, countToTeleport).clear();
 		}
 	}
 
