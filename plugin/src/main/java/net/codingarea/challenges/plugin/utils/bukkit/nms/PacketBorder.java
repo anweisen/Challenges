@@ -122,7 +122,7 @@ public class PacketBorder {
         private final Class<?> packetClass;
 
         UpdateType(String packetName) {
-            this.packetClass = NMSUtils.getClass("network.protocol.game. " + packetName);
+            this.packetClass = NMSUtils.getClass("network.protocol.game." + packetName);
         }
 
         public Class<?> getPacketClass() {
