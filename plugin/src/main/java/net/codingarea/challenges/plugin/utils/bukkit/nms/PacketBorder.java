@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 
 /**
@@ -12,6 +13,12 @@ public class PacketBorder {
 
     private static final Class<?> worldBorderClass;
     private static final Class<?> settingsClass;
+
+    private double size = 0;
+    private double centerX = 0;
+    private double centerZ = 0;
+    private int warningTime = 0;
+    private int warningDistance = 0;
 
     static {
         worldBorderClass = NMSUtils.getClass("world.level.border.WorldBorder");
@@ -29,6 +36,7 @@ public class PacketBorder {
     }
 
     public void setSize(double size) {
+        this.size = size;
         try {
             ReflectionUtil.invokeMethod(worldBorder, "a", new Class[] {double.class}, new Object[]{size});
         } catch (Exception exception) {
@@ -37,6 +45,8 @@ public class PacketBorder {
     }
 
     public void setCenter(double x, double z) {
+        this.centerX = x;
+        this.centerZ = z;
         try {
             ReflectionUtil.invokeMethod(worldBorder, "c", new Class[] {double.class, double.class}, new Object[]{x, z});
         } catch (Exception exception) {
@@ -45,6 +55,7 @@ public class PacketBorder {
     }
 
     public void setWarningTime(int time) {
+        this.warningTime = time;
         try {
             ReflectionUtil.invokeMethod(worldBorder, "b", new Class[] {int.class}, new Object[]{time});
         } catch (Exception exception) {
@@ -53,11 +64,21 @@ public class PacketBorder {
     }
 
     public void setWarningDistance(int distance) {
+        this.warningDistance = distance;
         try {
             ReflectionUtil.invokeMethod(worldBorder, "c", new Class[] {int.class}, new Object[]{distance});
         } catch (Exception exception) {
             exception.printStackTrace();
         }
+    }
+
+    public void reset(Player player) {
+        WorldBorder border = player.getWorld().getWorldBorder();
+        setSize(border.getSize());
+        setCenter(border.getCenter().getX(), border.getCenter().getZ());
+        setWarningTime(border.getWarningTime());
+        setWarningDistance(border.getWarningDistance());
+        send(player, UpdateType.values());
     }
 
     public void send(Player player, UpdateType... updateTypes) {
@@ -70,6 +91,26 @@ public class PacketBorder {
                 exception.printStackTrace();
             }
         }
+    }
+
+    public double getSize() {
+        return size;
+    }
+
+    public double getCenterX() {
+        return centerX;
+    }
+
+    public double getCenterZ() {
+        return centerZ;
+    }
+
+    public int getWarningTime() {
+        return warningTime;
+    }
+
+    public int getWarningDistance() {
+        return warningDistance;
     }
 
     public enum UpdateType {

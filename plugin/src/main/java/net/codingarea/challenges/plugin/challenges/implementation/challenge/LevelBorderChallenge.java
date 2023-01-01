@@ -38,11 +38,13 @@ import java.util.UUID;
 @ExcludeFromRandomChallenges
 public class LevelBorderChallenge extends Setting {
     private final Map<World, Location> worldCenters = new HashMap<>();
-    private final Map<UUID, WorldBorder> playerWorldBorders = new HashMap<>();
-    private final Map<UUID, PacketBorder> playerPacketBorders = new HashMap<>();
+    private WorldBorder playerWorldBorder;
+    private PacketBorder packetBorder;
+
+    private final boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
 
     private UUID bestPlayerUUID = null;
-    private int bestPlayerLevel = 0;
+    private int bestPlayerLevel = 1; //set to 1 by default - otherwise border won't show up
 
     public LevelBorderChallenge() {
         super(MenuType.CHALLENGES);
@@ -51,6 +53,12 @@ public class LevelBorderChallenge extends Setting {
 
     @Override
     protected void onEnable() {
+        if(useAPI) {
+            playerWorldBorder = Bukkit.createWorldBorder();
+        } else {
+            packetBorder = new PacketBorder();
+        }
+
         bossbar.setContent((bar, player) -> {
             bar.setTitle(Message.forName("bossbar-level-border").asString(bestPlayerLevel));
         });
@@ -99,23 +107,37 @@ public class LevelBorderChallenge extends Setting {
     public void playerSpawnTeleport() {
         broadcastFiltered(player -> {
             World world = player.getWorld();
-            if(isOutsideBorder(world, player.getLocation())) {
+            if(isOutsideBorder(player.getLocation())) {
                 teleportInsideBorder(world, player);
             }
         });
     }
 
-    public boolean isOutsideBorder(@NotNull World world, Location location) {
-        WorldBorder worldBorder = world.getWorldBorder();
-        return !worldBorder.isInside(location);
+    public boolean isOutsideBorder(Location location) {
+        double size = bestPlayerLevel + 1;
+        double dis = Math.max(Math.abs(location.getBlockX()), Math.abs(location.getBlockZ()));
+        return dis >= size;
+    }
+
+    private Location getCenter(World world) {
+        Location center;
+        if(useAPI) {
+            center = playerWorldBorder.getCenter();
+        } else {
+            double centerX = packetBorder.getCenterX();
+            double centerZ = packetBorder.getCenterZ();
+            center = new Location(world, centerX, world.getHighestBlockYAt((int) centerX, (int) centerZ), centerZ);
+        }
+        return center;
     }
 
     public void teleportInsideBorder(@NotNull World world, Player player) {
+        Location center = getCenter(world).clone();
+        center.setWorld(world);
         if(world.getEnvironment() != World.Environment.NORMAL) {
-            player.teleport(world.getWorldBorder().getCenter());
+            player.teleport(center);
         } else {
-            player.teleport(world.getHighestBlockAt(
-                    world.getWorldBorder().getCenter()).getLocation().add(0.5, 1, 0.5));
+            player.teleport(center.add(0.5, 1, 0.5));
         }
     }
 
@@ -142,24 +164,18 @@ public class LevelBorderChallenge extends Setting {
     private void updateBorderSize(@Nonnull World world, boolean animate) {
         Location location = worldCenters.get(world);
         if (location == null) return;
-        WorldBorder worldBorder = world.getWorldBorder();
-        worldBorder.setCenter(location);
-        worldBorder.setWarningDistance(0);
         int newSize = bestPlayerLevel + 1;
-
+        updateBorder(location, newSize, animate);
         for (Player player : world.getPlayers()) {
-            sendBorder(player, location, newSize, animate);
-        }
-        if (animate) {
-            worldBorder.setSize(newSize, 1);
-        } else {
-            worldBorder.setSize(newSize);
+            sendBorder(player);
         }
     }
 
     public void borderReset() {
-        for (World world : ChallengeAPI.getGameWorlds()) {
-            world.getWorldBorder().reset();
+        if(useAPI) {
+            playerWorldBorder.reset();
+        } else {
+            broadcast(packetBorder::reset);
         }
     }
 
@@ -221,8 +237,8 @@ public class LevelBorderChallenge extends Setting {
         if (!shouldExecuteEffect()) return;
         if (event.getDamager().getType() != EntityType.PLAYER) return;
         if (!event.isCancelled()) return;
-        if (isOutsideBorder(event.getEntity().getWorld(), event.getEntity().getLocation()) &&
-                !isOutsideBorder(event.getDamager().getWorld(), event.getDamager().getLocation())) {
+        if (isOutsideBorder(event.getEntity().getLocation()) &&
+                !isOutsideBorder(event.getDamager().getLocation())) {
             event.setCancelled(false);
         }
     }
@@ -274,25 +290,29 @@ public class LevelBorderChallenge extends Setting {
         document.set("uuid", bestPlayerUUID);
     }
 
-    private void sendBorder(@Nonnull Player player, Location center, int size, boolean animate) {
-        boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
+    private void updateBorder(Location center, int size, boolean animate) {
         if(useAPI) {
-            WorldBorder worldBorder = playerWorldBorders.computeIfAbsent(player.getUniqueId(), uuid -> {
-                WorldBorder border = Bukkit.createWorldBorder();
-                player.setWorldBorder(border);
-                return border;
-            });
-            worldBorder.setCenter(center);
+            playerWorldBorder.setCenter(center);
             if(animate) {
-                worldBorder.setSize(size, 1);
+                playerWorldBorder.setSize(size, 1);
             } else {
-                worldBorder.setSize(size);
+                playerWorldBorder.setSize(size);
             }
+            playerWorldBorder.setWarningDistance(0);
+            playerWorldBorder.setWarningTime(0);
         } else {
-            //ToDo test if this works for all versions
-            PacketBorder packetBorder = playerPacketBorders.computeIfAbsent(player.getUniqueId(), uuid -> new PacketBorder());
             packetBorder.setCenter(center.getX(), center.getZ());
             packetBorder.setSize(size);
+            packetBorder.setWarningDistance(0);
+            packetBorder.setWarningTime(0);
+        }
+    }
+
+    private void sendBorder(@Nonnull Player player) {
+        if(useAPI) {
+            player.setWorldBorder(playerWorldBorder);
+        } else {
+            //ToDo test if this works for all versions
             packetBorder.send(player, PacketBorder.UpdateType.values());
         }
     }
