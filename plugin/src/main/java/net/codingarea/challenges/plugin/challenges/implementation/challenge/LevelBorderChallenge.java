@@ -47,7 +47,7 @@ public class LevelBorderChallenge extends Setting {
     private final boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
 
     private UUID bestPlayerUUID = null;
-    private int bestPlayerLevel = 1; //set to 1 by default - otherwise border won't show up
+    private int bestPlayerLevel = 0;
 
     public LevelBorderChallenge() {
         super(MenuType.CHALLENGES);
@@ -175,7 +175,7 @@ public class LevelBorderChallenge extends Setting {
         Location location = worldCenters.get(world);
         if (location == null) return;
         int newSize = bestPlayerLevel + 1;
-        updateBorder(location, newSize, animate);
+        updateBorder(location, newSize == 0 ? 1 : newSize, animate);
         for (Player player : world.getPlayers()) {
             sendBorder(player);
         }
