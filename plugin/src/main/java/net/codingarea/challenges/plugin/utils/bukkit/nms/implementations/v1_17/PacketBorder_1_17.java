@@ -56,6 +56,15 @@ public class PacketBorder_1_17 extends PacketBorder {
     }
 
     @Override
+    protected void transitionSizeBetween(double oldSize, double newSize, long animationTime) {
+        try {
+            ReflectionUtil.invokeMethod(worldBorder, "transitionSizeBetween", new Class[]{double.class, double.class, long.class}, new Object[]{oldSize, newSize, animationTime});
+        } catch (Exception exception) {
+            Challenges.getInstance().getLogger().error("", exception);
+        }
+    }
+
+    @Override
     protected void setCenterField(double x, double z) {
         try {
             ReflectionUtil.invokeMethod(worldBorder, "setCenter", new Class[] {double.class, double.class}, new Object[]{x, z});

@@ -55,7 +55,20 @@ public abstract class PacketBorder extends AbstractNMSClass {
         setSizeField(size);
     }
 
+    /**
+     * Sets the size of the border with an animation
+     * @param size The size of the border
+     * @param animationTime The time the animation should take (in seconds)
+     */
+    public void setSize(double size, long animationTime) {
+        animationTime *= 1000; // Convert to milliseconds
+        System.out.println("Transitioning size from " + this.size + " to " + size + " in " + animationTime + "ms");
+        transitionSizeBetween(this.size, size, animationTime);
+        this.size = size;
+    }
+
     protected abstract void setSizeField(double size);
+    protected abstract void transitionSizeBetween(double oldSize, double newSize, long animationTime);
 
     /**
      * Sets the center of the border

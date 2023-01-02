@@ -305,7 +305,11 @@ public class LevelBorderChallenge extends Setting {
         } else {
             packetBorders.forEach((world, border) -> {
                 border.setCenter(center.getX(), center.getZ());
-                border.setSize(size);
+                if(animate) {
+                    border.setSize(size, 1);
+                } else {
+                    border.setSize(size);
+                }
                 border.setWarningDistance(0);
                 border.setWarningTime(0);
             });
