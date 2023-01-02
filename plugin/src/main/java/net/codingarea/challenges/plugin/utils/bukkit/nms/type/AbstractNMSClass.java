@@ -16,4 +16,7 @@ public abstract class AbstractNMSClass {
         this.nmsClass = nmsClass;
     }
 
+    public Class<?> getNMSClass() {
+        return nmsClass;
+    }
 }

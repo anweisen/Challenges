@@ -1,11 +1,12 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms.type;
 
 import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSProvider;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSUtils;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.PacketBorder_1_17;
 import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
+
+import java.util.function.Function;
 
 /**
  * Provides a WorldBorder that can be sent to the client via packets
@@ -149,20 +150,24 @@ public abstract class PacketBorder extends AbstractNMSClass {
         return warningDistance;
     }
 
+    public Object getWorldBorderObject() {
+        return worldBorder;
+    }
+
     public enum UpdateType {
-        CENTER("ClientboundSetBorderCenterPacket"),
-        SIZE("ClientboundSetBorderSizePacket"),
-        WARNING_DELAY("ClientboundSetBorderWarningDelayPacket"),
-        WARNING_DISTANCE("ClientboundSetBorderWarningDistancePacket");
+        CENTER(NMSProvider.getBorderPacketFactory()::center),
+        SIZE(NMSProvider.getBorderPacketFactory()::size),
+        WARNING_DELAY(NMSProvider.getBorderPacketFactory()::warningDelay),
+        WARNING_DISTANCE(NMSProvider.getBorderPacketFactory()::warningDistance);
 
-        private final Class<?> packetClass;
+        private final Function<PacketBorder, Object> packetFactory;
 
-        UpdateType(String packetName) {
-            this.packetClass = NMSUtils.getClass("network.protocol.game." + packetName);
+        UpdateType(Function<PacketBorder, Object> packetFactory) {
+            this.packetFactory = packetFactory;
         }
 
-        public Class<?> getPacketClass() {
-            return packetClass;
+        public Object createPacket(PacketBorder border) {
+            return packetFactory.apply(border);
         }
     }
 }
