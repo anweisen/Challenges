@@ -38,7 +38,7 @@ public class PacketBorder {
     public void setSize(double size) {
         this.size = size;
         try {
-            ReflectionUtil.invokeMethod(worldBorder, "a", new Class[] {double.class}, new Object[]{size});
+            ReflectionUtil.invokeMethod(worldBorder, "setSize", new Class[] {double.class}, new Object[]{size});
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -48,7 +48,7 @@ public class PacketBorder {
         this.centerX = x;
         this.centerZ = z;
         try {
-            ReflectionUtil.invokeMethod(worldBorder, "c", new Class[] {double.class, double.class}, new Object[]{x, z});
+            ReflectionUtil.invokeMethod(worldBorder, "setCenter", new Class[] {double.class, double.class}, new Object[]{x, z});
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -57,7 +57,7 @@ public class PacketBorder {
     public void setWarningTime(int time) {
         this.warningTime = time;
         try {
-            ReflectionUtil.invokeMethod(worldBorder, "b", new Class[] {int.class}, new Object[]{time});
+            ReflectionUtil.invokeMethod(worldBorder, "setWarningTime", new Class[] {int.class}, new Object[]{time});
         } catch (Exception exception) {
             exception.printStackTrace();
         }
@@ -66,7 +66,7 @@ public class PacketBorder {
     public void setWarningDistance(int distance) {
         this.warningDistance = distance;
         try {
-            ReflectionUtil.invokeMethod(worldBorder, "c", new Class[] {int.class}, new Object[]{distance});
+            ReflectionUtil.invokeMethod(worldBorder, "setWarningDistance", new Class[] {int.class}, new Object[]{distance});
         } catch (Exception exception) {
             exception.printStackTrace();
         }
