@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.codingarea.challenges.plugin.Challenges;
+import org.bukkit.World;
 import org.bukkit.WorldBorder;
 import org.bukkit.entity.Player;
 
@@ -14,6 +16,7 @@ public class PacketBorder {
     private static final Class<?> worldBorderClass;
     private static final Class<?> settingsClass;
 
+    private final World world;
     private double size = 0;
     private double centerX = 0;
     private double centerZ = 0;
@@ -25,14 +28,28 @@ public class PacketBorder {
         settingsClass = NMSUtils.getClass("world.level.border.WorldBorder$c");
     }
 
-    public PacketBorder() {
+    public PacketBorder(World world) {
+        this.world = world;
         try {
             worldBorder = ReflectionUtil.invokeConstructor(worldBorderClass);
             Object defaultSettings = ReflectionUtil.getField(worldBorderClass, "d").get(worldBorder);
             ReflectionUtil.invokeMethod(worldBorder, "a", new Class[]{settingsClass}, new Object[]{defaultSettings});
+            setWorld(world);
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
+    }
+
+    private void setWorld(World world) {
+        try {
+            ReflectionUtil.setFieldValue(worldBorder, "world", getWorldServer(world));
+        } catch (Exception exception) {
+            Challenges.getInstance().getLogger().error("", exception);
+        }
+    }
+
+    private Object getWorldServer(World world) {
+        return new WorldServer(world).getWorldServer();
     }
 
     public void setSize(double size) {
@@ -40,7 +57,7 @@ public class PacketBorder {
         try {
             ReflectionUtil.invokeMethod(worldBorder, "setSize", new Class[] {double.class}, new Object[]{size});
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
     }
 
@@ -50,7 +67,7 @@ public class PacketBorder {
         try {
             ReflectionUtil.invokeMethod(worldBorder, "setCenter", new Class[] {double.class, double.class}, new Object[]{x, z});
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
     }
 
@@ -59,7 +76,7 @@ public class PacketBorder {
         try {
             ReflectionUtil.invokeMethod(worldBorder, "setWarningTime", new Class[] {int.class}, new Object[]{time});
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
     }
 
@@ -68,7 +85,7 @@ public class PacketBorder {
         try {
             ReflectionUtil.invokeMethod(worldBorder, "setWarningDistance", new Class[] {int.class}, new Object[]{distance});
         } catch (Exception exception) {
-            exception.printStackTrace();
+            Challenges.getInstance().getLogger().error("", exception);
         }
     }
 
@@ -88,7 +105,7 @@ public class PacketBorder {
                 CraftPlayer craftPlayer = new CraftPlayer(player);
                 craftPlayer.getConnection().sendPacket(packet);
             } catch (Exception exception) {
-                exception.printStackTrace();
+                Challenges.getInstance().getLogger().error("", exception);
             }
         }
     }

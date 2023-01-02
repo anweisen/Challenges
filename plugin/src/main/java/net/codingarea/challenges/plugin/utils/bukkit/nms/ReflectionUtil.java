@@ -176,6 +176,20 @@ public class ReflectionUtil {
 	}
 
 	/**
+	 * Sets the value of a field
+	 * @param instance The instance of the class in which the field is defined
+	 * @param fieldName The name of the field
+	 * @param value The value the field should be set to
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
+	public static void setFieldValue(Object instance, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+		Field field = instance.getClass().getDeclaredField(fieldName);
+		field.setAccessible(true);
+		field.set(instance, value);
+	}
+
+	/**
 	 * Get a Method
 	 *
 	 * @param clazz      The Class in which the Method is defined

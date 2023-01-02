@@ -14,7 +14,7 @@ public class PlayerConnection {
 	static {
 		try {
             if (ReflectionUtil.getMajorVersion() >= 16) {
-                packetClass = ReflectionUtil.getNmsClass("Packet");
+                packetClass = NMSUtils.getClass("network.protocol.Packet");
             } else {
                 packetClass = ReflectionUtil.getMinecraftClass("network.protocol.Packet");
             }

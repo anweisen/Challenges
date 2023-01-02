@@ -39,7 +39,7 @@ import java.util.UUID;
 public class LevelBorderChallenge extends Setting {
     private final Map<World, Location> worldCenters = new HashMap<>();
     private WorldBorder playerWorldBorder;
-    private PacketBorder packetBorder;
+    private final Map<World, PacketBorder> packetBorders = new HashMap<>();
 
     private final boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
 
@@ -56,7 +56,9 @@ public class LevelBorderChallenge extends Setting {
         if(useAPI) {
             playerWorldBorder = Bukkit.createWorldBorder();
         } else {
-            packetBorder = new PacketBorder();
+            for (World world : ChallengeAPI.getGameWorlds()) {
+                packetBorders.put(world, new PacketBorder(world));
+            }
         }
 
         bossbar.setContent((bar, player) -> {
@@ -124,6 +126,7 @@ public class LevelBorderChallenge extends Setting {
         if(useAPI) {
             center = playerWorldBorder.getCenter();
         } else {
+            PacketBorder packetBorder = packetBorders.get(world);
             double centerX = packetBorder.getCenterX();
             double centerZ = packetBorder.getCenterZ();
             center = new Location(world, centerX, world.getHighestBlockYAt((int) centerX, (int) centerZ), centerZ);
@@ -175,7 +178,7 @@ public class LevelBorderChallenge extends Setting {
         if(useAPI) {
             playerWorldBorder.reset();
         } else {
-            broadcast(packetBorder::reset);
+            broadcast(player -> packetBorders.get(player.getWorld()).reset(player));
         }
     }
 
@@ -301,10 +304,12 @@ public class LevelBorderChallenge extends Setting {
             playerWorldBorder.setWarningDistance(0);
             playerWorldBorder.setWarningTime(0);
         } else {
-            packetBorder.setCenter(center.getX(), center.getZ());
-            packetBorder.setSize(size);
-            packetBorder.setWarningDistance(0);
-            packetBorder.setWarningTime(0);
+            packetBorders.forEach((world, border) -> {
+                border.setCenter(center.getX(), center.getZ());
+                border.setSize(size);
+                border.setWarningDistance(0);
+                border.setWarningTime(0);
+            });
         }
     }
 
@@ -313,7 +318,7 @@ public class LevelBorderChallenge extends Setting {
             player.setWorldBorder(playerWorldBorder);
         } else {
             //ToDo test if this works for all versions
-            packetBorder.send(player, PacketBorder.UpdateType.values());
+            packetBorders.get(player.getWorld()).send(player, PacketBorder.UpdateType.values());
         }
     }
 }

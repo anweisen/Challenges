@@ -45,9 +45,6 @@ public class CraftPlayer {
 	 */
 	public PlayerConnection getConnection() {
 		try {
-            if (ReflectionUtil.getMajorVersion() >= 16) {
-                return new PlayerConnection(ReflectionUtil.getObject(this.craftPlayer, "playerConnection"));
-            }
             return new PlayerConnection(ReflectionUtil.getObject(this.craftPlayer, "b"));
 		} catch (Exception exception) {
 			Challenges.getInstance().getLogger().error("", exception);
