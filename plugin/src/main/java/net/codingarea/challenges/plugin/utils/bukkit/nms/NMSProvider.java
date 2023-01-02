@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.*;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v_1_13.*;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_13.*;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.type.*;
 import org.bukkit.World;
 import org.bukkit.entity.Player;

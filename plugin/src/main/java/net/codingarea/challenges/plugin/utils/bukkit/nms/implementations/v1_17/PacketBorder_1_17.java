@@ -3,7 +3,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSUtils;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.ReflectionUtil;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v_1_13.PacketBorder_1_13;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_13.PacketBorder_1_13;
 import org.bukkit.World;
 
 /**
