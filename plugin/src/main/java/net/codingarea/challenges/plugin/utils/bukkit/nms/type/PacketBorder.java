@@ -63,7 +63,6 @@ public abstract class PacketBorder extends AbstractNMSClass {
      */
     public void setSize(double size, long animationTime) {
         animationTime *= 1000; // Convert to milliseconds
-        System.out.println("Transitioning size from " + this.size + " to " + size + " in " + animationTime + "ms");
         transitionSizeBetween(this.size, size, animationTime);
         this.size = size;
     }
