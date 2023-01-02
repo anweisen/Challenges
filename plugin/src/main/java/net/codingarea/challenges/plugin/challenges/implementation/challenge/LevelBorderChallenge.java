@@ -13,7 +13,8 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.PacketBorder;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSProvider;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.type.PacketBorder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.*;
 import org.bukkit.entity.EntityType;
@@ -57,7 +58,7 @@ public class LevelBorderChallenge extends Setting {
             playerWorldBorder = Bukkit.createWorldBorder();
         } else {
             for (World world : ChallengeAPI.getGameWorlds()) {
-                packetBorders.put(world, new PacketBorder(world));
+                packetBorders.put(world, NMSProvider.createPacketBorder(world));
             }
         }
 
@@ -286,9 +287,7 @@ public class LevelBorderChallenge extends Setting {
     public void writeGameState(@NotNull Document document) {
         document.set("level", bestPlayerLevel);
         GsonDocument doc = new GsonDocument();
-        worldCenters.forEach((world, location) -> {
-            doc.set(world.getName(), location);
-        });
+        worldCenters.forEach((world, location) -> doc.set(world.getName(), location));
         document.set("worlds", doc);
         document.set("uuid", bestPlayerUUID);
     }
