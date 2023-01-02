@@ -320,7 +320,6 @@ public class LevelBorderChallenge extends Setting {
         if(useAPI) {
             player.setWorldBorder(playerWorldBorder);
         } else {
-            //ToDo test if this works for all versions
             packetBorders.get(player.getWorld()).send(player, PacketBorder.UpdateType.values());
         }
     }
