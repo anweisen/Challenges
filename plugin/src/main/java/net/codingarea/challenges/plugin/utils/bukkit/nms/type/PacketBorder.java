@@ -23,16 +23,12 @@ public abstract class PacketBorder extends AbstractNMSClass {
     protected int warningTime = 0;
     protected int warningDistance = 0;
 
-    protected final Class<?> settingsClass;
-
     /**
      * @param nmsClass      The NMS class
      * @param world The world the border is in
-     * @param settingsClass The WorldBorder Settings class
      */
-    public PacketBorder(Class<?> nmsClass, Class<?> settingsClass, World world) {
+    public PacketBorder(Class<?> nmsClass, World world) {
         super(nmsClass);
-        this.settingsClass = settingsClass;
         this.world = world;
 
         worldBorder = createWorldBorder();

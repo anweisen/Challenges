@@ -18,13 +18,11 @@ public class PacketBorder_1_13 extends PacketBorder {
      * Creates a new packet border.
      * Use this constructor if you override this implementation.
      * @param nmsClass      The NMS class
-     * @param settingsClass The WorldBorder Settings class
      * @param world         The world the border is in
      */
-    protected PacketBorder_1_13(World world, Class<?> nmsClass, Class<?> settingsClass) {
+    protected PacketBorder_1_13(World world, Class<?> nmsClass) {
         super(
             nmsClass,
-            settingsClass,
             world
         );
     }
@@ -36,8 +34,7 @@ public class PacketBorder_1_13 extends PacketBorder {
     public PacketBorder_1_13(World world) {
         this(
             world,
-            NMSUtils.getClass("WorldBorder"),
-            NMSUtils.getClass("WorldBorder$c")
+            NMSUtils.getClass("WorldBorder")
         );
     }
 

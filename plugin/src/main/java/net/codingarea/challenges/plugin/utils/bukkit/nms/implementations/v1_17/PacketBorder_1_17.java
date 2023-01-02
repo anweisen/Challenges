@@ -16,18 +16,14 @@ public class PacketBorder_1_17 extends PacketBorder_1_13 {
     public PacketBorder_1_17(World world) {
         super(
             world,
-            NMSUtils.getClass("world.level.border.WorldBorder"),
-            NMSUtils.getClass("world.level.border.WorldBorder$c")
+            NMSUtils.getClass("world.level.border.WorldBorder")
         );
     }
 
     @Override
     protected Object createWorldBorder() {
         try {
-            Object worldBorder = ReflectionUtil.invokeConstructor(nmsClass);
-            Object defaultSettings = ReflectionUtil.getField(nmsClass, "d").get(worldBorder);
-            ReflectionUtil.invokeMethod(worldBorder, "a", new Class[]{settingsClass}, new Object[]{defaultSettings});
-            return worldBorder;
+            return ReflectionUtil.invokeConstructor(nmsClass);
         } catch (Exception exception) {
             Challenges.getInstance().getLogger().error("", exception);
             return null;
