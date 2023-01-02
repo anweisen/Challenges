@@ -11,7 +11,6 @@ import org.bukkit.entity.Player;
  */
 public class CraftPlayer_1_13 extends CraftPlayer {
     /**
-     * @param nmsClass The NMS class
      * @param player   The player to create the CraftPlayer for
      */
     public CraftPlayer_1_13(Player player) throws ClassNotFoundException {
