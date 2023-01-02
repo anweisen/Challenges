@@ -37,7 +37,7 @@ public class ReflectionUtil {
 			useNewSpigotPackaging = majorVersion >= 17;
 
 		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-			Challenges.getInstance().getLogger().error("", e);
+			Challenges.getInstance().getLogger().error("Failed to initialize the ReflectionUtil:", e);
 		}
 	}
 

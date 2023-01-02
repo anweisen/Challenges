@@ -29,7 +29,7 @@ public class CraftPlayer_1_13 extends CraftPlayer {
         try {
             craftPlayer = ReflectionUtil.invokeMethod(nmsClass, player, "getHandle");
         } catch (Exception exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create CraftPlayer:", exception);
             craftPlayer = null;
         }
         return craftPlayer;
@@ -43,7 +43,7 @@ public class CraftPlayer_1_13 extends CraftPlayer {
         try {
             return ReflectionUtil.getObject(this.nmsObject, "playerConnection");
         } catch (Exception exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to get the playerConnection object:", exception);
             return null;
         }
     }

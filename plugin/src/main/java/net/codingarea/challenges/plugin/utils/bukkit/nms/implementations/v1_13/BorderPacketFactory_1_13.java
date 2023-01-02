@@ -42,7 +42,7 @@ public class BorderPacketFactory_1_13 extends BorderPacketFactory {
                 }
             }
         } catch (Exception exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create packet for action {}:", worldBorderAction, exception);
         }
         return null;
     }

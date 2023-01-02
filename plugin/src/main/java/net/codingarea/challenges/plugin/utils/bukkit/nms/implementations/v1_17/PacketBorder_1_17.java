@@ -25,7 +25,7 @@ public class PacketBorder_1_17 extends PacketBorder_1_13 {
         try {
             return ReflectionUtil.invokeConstructor(nmsClass);
         } catch (Exception exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create world border:", exception);
             return null;
         }
     }

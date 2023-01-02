@@ -42,9 +42,9 @@ public class NMSProvider {
                 return new WorldServer_1_13(world);
             }
         } catch (ClassNotFoundException exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create WorldServer instance for version {}:", majorVersion, exception);
         }
-        return null; //ToDo
+        return null;
     }
 
     /**
@@ -54,7 +54,6 @@ public class NMSProvider {
      */
     @Nullable
     public static CraftPlayer createCraftPlayer(Player player) {
-
         try {
             if(versionIsAtLeast(17)) {
                 return new CraftPlayer_1_17(player);
@@ -62,7 +61,7 @@ public class NMSProvider {
                 return new CraftPlayer_1_13(player);
             }
         } catch (ClassNotFoundException exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create CraftPlayer instance for version {}:", majorVersion, exception);
         }
         return null;
     }
@@ -81,7 +80,7 @@ public class NMSProvider {
                 return new PlayerConnection_1_13(player.getPlayerConnectionObject());
             }
         } catch (ClassNotFoundException exception) {
-            Challenges.getInstance().getLogger().error("", exception);
+            Challenges.getInstance().getLogger().error("Failed to create PlayerConnection instance for version {}:", majorVersion, exception);
         }
 
         return null;
