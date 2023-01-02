@@ -1,8 +1,12 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
 import net.codingarea.challenges.plugin.Challenges;
-import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.*;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_13.*;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.BorderPacketFactory_1_17;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.CraftPlayer_1_17;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.PacketBorder_1_17;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_18.PacketBorder_1_18;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_18.PlayerConnection_1_18;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.type.*;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
@@ -71,7 +75,9 @@ public class NMSProvider {
     @Nullable
     public static PlayerConnection createPlayerConnection(CraftPlayer player) {
         try {
-            if(versionIsAtLeast(13)) {
+            if(versionIsAtLeast(18)) {
+                return new PlayerConnection_1_18(player.getPlayerConnectionObject());
+            } else if(versionIsAtLeast(13)) {
                 return new PlayerConnection_1_13(player.getPlayerConnectionObject());
             }
         } catch (ClassNotFoundException exception) {
@@ -87,7 +93,9 @@ public class NMSProvider {
      */
     @Nullable
     public static PacketBorder createPacketBorder(World world) {
-        if(versionIsAtLeast(17)) {
+        if(versionIsAtLeast(18)) {
+            return new PacketBorder_1_18(world);
+        } else if(versionIsAtLeast(17)) {
             return new PacketBorder_1_17(world);
         } else if(versionIsAtLeast(13)) {
             return new PacketBorder_1_13(world);
