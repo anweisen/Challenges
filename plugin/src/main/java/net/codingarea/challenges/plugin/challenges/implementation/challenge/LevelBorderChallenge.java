@@ -11,6 +11,8 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
+import net.codingarea.challenges.plugin.management.scheduler.policy.TimerPolicy;
+import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSProvider;
@@ -107,8 +109,10 @@ public class LevelBorderChallenge extends Setting {
         bossbar.update();
     }
 
+    @ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.STARTED)
     public void playerSpawnTeleport() {
         broadcastFiltered(player -> {
+            if(player.isDead()) return;
             World world = player.getWorld();
             if(isOutsideBorder(player.getLocation())) {
                 teleportInsideBorder(world, player);
@@ -118,8 +122,10 @@ public class LevelBorderChallenge extends Setting {
 
     public boolean isOutsideBorder(Location location) {
         double size = bestPlayerLevel + 1;
-        double dis = Math.max(Math.abs(location.getBlockX()), Math.abs(location.getBlockZ()));
-        return dis >= size;
+        Location center = worldCenters.get(location.getWorld());
+        double x = Math.abs(location.getX()) - Math.abs(center.getX());
+        double z = Math.abs(location.getZ()) - Math.abs(center.getZ());
+        return x > size || z > size;
     }
 
     private Location getCenter(World world) {
