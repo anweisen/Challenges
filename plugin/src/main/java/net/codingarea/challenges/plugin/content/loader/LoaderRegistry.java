@@ -39,12 +39,10 @@ public final class LoaderRegistry {
 	}
 
 	private void executeLoader(@Nonnull ContentLoader loader) {
-		Challenges.getInstance().runAsync(() -> {
-			loading.incrementAndGet();
-			loader.load();
-			loading.decrementAndGet();
-			handleCompleteLoading(loader.getClass());
-		});
+		loading.incrementAndGet();
+		loader.load();
+		loading.decrementAndGet();
+		handleCompleteLoading(loader.getClass());
 	}
 
 	private void handleCompleteLoading(@Nonnull Class<? extends ContentLoader> classOfLoader) {
