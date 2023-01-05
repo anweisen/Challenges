@@ -90,22 +90,20 @@ public class LevelBorderChallenge extends Setting {
         for (Player player : ChallengeAPI.getIngamePlayers()) {
             int level = player.getLevel();
 
-            if(bestPlayerUUID != null) {
+            if(bestPlayerUUID == null || currentBestPlayer == null) {
                 bestPlayerLevel = level;
                 bestPlayerUUID = player.getUniqueId();
-                updateBorderSize(animate);
                 // Checks if the player is better than the saved level or if online the current player level.
                 // Checking with the player instance is required to fix issues with dying and the level of the best player being 0.
-            } else if (level > bestPlayerLevel || (currentBestPlayer != null && level > currentBestPlayer.getLevel())) {
+            } else if (level > bestPlayerLevel || level > currentBestPlayer.getLevel()) {
                 bestPlayerLevel = level;
                 bestPlayerUUID = player.getUniqueId();
-                updateBorderSize(animate);
             } else if (player.getUniqueId().equals(bestPlayerUUID)) {
                 bestPlayerLevel = level;
-                updateBorderSize(animate);
             }
         }
 
+        updateBorderSize(animate);
         bossbar.update();
     }
 
@@ -206,7 +204,7 @@ public class LevelBorderChallenge extends Setting {
     public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        checkBorderSize(false);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> checkBorderSize(false), 1);
         playerSpawnTeleport();
     }
 
@@ -214,7 +212,7 @@ public class LevelBorderChallenge extends Setting {
     public void onPlayerLeave(@Nonnull PlayerQuitEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        checkBorderSize(false);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> checkBorderSize(false), 1);
     }
 
     /**
@@ -226,7 +224,10 @@ public class LevelBorderChallenge extends Setting {
     public void onRespawn(@Nonnull PlayerRespawnEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        Bukkit.getScheduler().runTaskLater(plugin, this::playerSpawnTeleport, 1);
+        Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            checkBorderSize(false);
+            playerSpawnTeleport();
+        }, 1);
     }
 
     /**
