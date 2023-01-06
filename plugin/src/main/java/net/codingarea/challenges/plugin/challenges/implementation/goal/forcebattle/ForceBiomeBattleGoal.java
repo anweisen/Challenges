@@ -53,9 +53,9 @@ public class ForceBiomeBattleGoal extends ForceBattleGoal<BiomeTarget> {
 
     @ScheduledTask(ticks = 5, async = false, timerPolicy = TimerPolicy.STARTED)
     public void checkBiomes() {
-        if(!shouldExecuteEffect()) return;
+        if (!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if(currentTarget.get(player.getUniqueId()).check(player)) {
+            if (currentTarget.get(player.getUniqueId()).check(player)) {
                 handleTargetFound(player);
             }
         });

@@ -78,7 +78,7 @@ public class ItemUtils {
     }
 
     public static boolean blockIsAvailableInSurvival(@Nonnull Material material) {
-        if(!material.isBlock()) return false;
+        if (!material.isBlock()) return false;
         String name = material.name();
         if (BukkitReflectionUtils.isAir(material)) return false;
         if (name.startsWith("LEGACY_")) return false; // Legacy items should not be obtainable

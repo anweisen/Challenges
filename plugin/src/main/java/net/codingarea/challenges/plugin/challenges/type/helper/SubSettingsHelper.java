@@ -153,7 +153,7 @@ public class SubSettingsHelper {
 		return SubSettingsBuilder.createChooseItem(STRUCTURE).fill(builder -> {
 			builder.addSetting("random_structure", new ItemBuilder(Material.STRUCTURE_BLOCK, Message.forName("item-custom-action-place_structure-random")).build());
 			for (StructureType structure : StructureType.getStructureTypes().values()) {
-				builder.addSetting(structure.getKey().getKey(), new ItemBuilder(StructureUtils.getStructureIcon(structure), DefaultItem.getItemPrefix() + StringUtils.getEnumName(structure.getKey().getKey())).build());
+				builder.addSetting(structure.getName(), new ItemBuilder(StructureUtils.getStructureIcon(structure), DefaultItem.getItemPrefix() + StringUtils.getEnumName(structure.getName())).build());
 			}
 		});
 	}

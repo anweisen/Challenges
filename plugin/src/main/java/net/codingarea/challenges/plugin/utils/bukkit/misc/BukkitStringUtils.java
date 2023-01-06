@@ -188,7 +188,7 @@ public class BukkitStringUtils {
 	}
 
 	public static @Nullable BaseComponent getMusicDiscName(@Nonnull Material material) {
-		if(!material.name().startsWith("MUSIC_DISC")) return null;
+		if (!material.name().startsWith("MUSIC_DISC")) return null;
 		String key = "item.minecraft." + material.name().toLowerCase() + ".desc";
 		return new TranslatableComponent(key);
 	}
@@ -196,7 +196,7 @@ public class BukkitStringUtils {
 	public static BaseComponent getItemComponent(@Nonnull Material material) {
 		BaseComponent component = getItemName(material);
 		BaseComponent musicDiscName = getMusicDiscName(material);
-		if(musicDiscName != null) {
+		if (musicDiscName != null) {
 			component.addExtra(" (");
 			component.addExtra(musicDiscName);
 			component.addExtra(")");

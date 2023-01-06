@@ -141,6 +141,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlocksDisappearAfterTimeChallenge.class);
 		register(LoopChallenge.class);
 		register(IceFloorChallenge.class);
+		register(LevelBorderChallenge.class);
 
 		// Inventory
 		register(PermanentItemChallenge.class);

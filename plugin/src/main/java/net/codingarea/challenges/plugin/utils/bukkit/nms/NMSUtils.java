@@ -63,7 +63,7 @@ public final class NMSUtils {
                 return ReflectionUtil.getMinecraftClass(path);
             } else {
                 String[] split = path.split("\\.");
-                String className = split[split.length - 1];
+                String className = split.length == 1 ? path : split[split.length - 1];
                 return ReflectionUtil.getNmsClass(className);
             }
         } catch (Exception exception) {

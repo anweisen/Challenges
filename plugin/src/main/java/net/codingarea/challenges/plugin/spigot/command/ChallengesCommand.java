@@ -24,12 +24,12 @@ public class ChallengesCommand implements PlayerCommand, Completer {
 
 	@Override
 	public void onCommand(@Nonnull Player player, @Nonnull String[] args) {
-		if(args.length > 1) {
+		if (args.length > 1) {
 			Message.forName("syntax").send(player, Prefix.CHALLENGES, "challenges [menu]");
 			return;
 		}
 
-		if(args.length == 1) {
+		if (args.length == 1) {
 			String menuName = args[0].toUpperCase();
 			try {
 				MenuType menuType = MenuType.valueOf(menuName);

@@ -72,7 +72,7 @@ public class ForceDamageBattleGoal extends ForceBattleGoal<DamageTarget> {
         if (currentTarget.get(player.getUniqueId()) == null) return;
         DamageTarget target = currentTarget.get(player.getUniqueId());
         int damage = (int) ChallengeHelper.getFinalDamage(event);
-        if(damage != target.getTarget()) return;
+        if (damage != target.getTarget()) return;
         handleTargetFound(player);
     }
 

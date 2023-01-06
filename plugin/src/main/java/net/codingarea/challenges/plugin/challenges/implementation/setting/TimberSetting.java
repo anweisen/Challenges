@@ -85,7 +85,7 @@ public class TimberSetting extends SettingModifier {
 	private void breakBlock(@Nonnull Block block, @Nonnull ItemStack item, boolean damageItem) {
 		if (isLog(block.getType())) {
 			ChallengeHelper.breakBlock(block, item);
-			if(damageItem) {
+			if (damageItem) {
 				ItemUtils.damageItem(item);
 			}
 		} else if (isLeaves(block.getType())) {

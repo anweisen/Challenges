@@ -41,13 +41,13 @@ public class PlaceStructureAction extends EntityTargetAction {
 
         NamespacedKey structureKey;
 
-        if(structureString.equals("random_structure")) {
-            if(structureKeys == null) {
+        if (structureString.equals("random_structure")) {
+            if (structureKeys == null) {
                 reloadStructureKeys();
             }
 
             structureKey = structureKeys.get(IRandom.singleton().nextInt(structureKeys.size()));
-            if(structureKey == StructureType.VILLAGE.getKey()) {
+            if (structureKey == StructureType.VILLAGE.getKey()) {
                 structureKey = villageKeys.get(IRandom.singleton().nextInt(villageKeys.size()));
             }
         } else {
@@ -80,11 +80,11 @@ public class PlaceStructureAction extends EntityTargetAction {
     }
 
     private NamespacedKey getStructureKey(StructureType structureType) {
-        if(structureType == StructureType.OCEAN_RUIN) {
+        if (structureType == StructureType.OCEAN_RUIN) {
             List<NamespacedKey> oceanRuins = Arrays.asList(NamespacedKey.minecraft("ocean_ruin_cold"), NamespacedKey.minecraft("ocean_ruin_warm"));
             return oceanRuins.get(IRandom.singleton().nextInt(oceanRuins.size()));
         }
-        if(structureType == StructureType.VILLAGE) {
+        if (structureType == StructureType.VILLAGE) {
             return villageKeys.get(IRandom.singleton().nextInt(villageKeys.size()));
         }
         return structureType.getKey();
