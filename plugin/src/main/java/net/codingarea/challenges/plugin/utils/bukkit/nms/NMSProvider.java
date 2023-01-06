@@ -21,9 +21,9 @@ public class NMSProvider {
 
     static {
         majorVersion = ReflectionUtil.getMajorVersion();
-        if(versionIsAtLeast(17)) {
+        if (versionIsAtLeast(17)) {
             borderPacketFactory = new BorderPacketFactory_1_17();
-        } else if(versionIsAtLeast(13)) {
+        } else if (versionIsAtLeast(13)) {
             borderPacketFactory = new BorderPacketFactory_1_13();
         } else {
             throw new IllegalStateException("Could not find a BorderPacketFactory implementation for version 1." + majorVersion);
@@ -39,7 +39,7 @@ public class NMSProvider {
      */
     public static WorldServer createWorldServer(World world) {
         try {
-            if(versionIsAtLeast(13)) {
+            if (versionIsAtLeast(13)) {
                 return new WorldServer_1_13(world);
             }
         } catch (ClassNotFoundException exception) {
@@ -56,9 +56,9 @@ public class NMSProvider {
      */
     public static CraftPlayer createCraftPlayer(Player player) {
         try {
-            if(versionIsAtLeast(17)) {
+            if (versionIsAtLeast(17)) {
                 return new CraftPlayer_1_17(player);
-            } else if(versionIsAtLeast(13)) {
+            } else if (versionIsAtLeast(13)) {
                 return new CraftPlayer_1_13(player);
             }
         } catch (ClassNotFoundException exception) {
@@ -75,9 +75,9 @@ public class NMSProvider {
      */
     public static PlayerConnection createPlayerConnection(CraftPlayer player) {
         try {
-            if(versionIsAtLeast(18)) {
+            if (versionIsAtLeast(18)) {
                 return new PlayerConnection_1_18(player.getPlayerConnectionObject());
-            } else if(versionIsAtLeast(13)) {
+            } else if (versionIsAtLeast(13)) {
                 return new PlayerConnection_1_13(player.getPlayerConnectionObject());
             }
         } catch (ClassNotFoundException exception) {
@@ -93,11 +93,11 @@ public class NMSProvider {
      * @throws IllegalStateException If no implementation was found for the current version
      */
     public static PacketBorder createPacketBorder(World world) {
-        if(versionIsAtLeast(18)) {
+        if (versionIsAtLeast(18)) {
             return new PacketBorder_1_18(world);
-        } else if(versionIsAtLeast(17)) {
+        } else if (versionIsAtLeast(17)) {
             return new PacketBorder_1_17(world);
-        } else if(versionIsAtLeast(13)) {
+        } else if (versionIsAtLeast(13)) {
             return new PacketBorder_1_13(world);
         }
         throw new IllegalStateException("Could not find a PacketBorder implementation for version 1." + majorVersion);

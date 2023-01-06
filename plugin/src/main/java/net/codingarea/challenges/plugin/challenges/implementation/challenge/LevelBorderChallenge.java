@@ -56,7 +56,7 @@ public class LevelBorderChallenge extends Setting {
 
     @Override
     protected void onEnable() {
-        if(useAPI) {
+        if (useAPI) {
             playerWorldBorder = Bukkit.createWorldBorder();
         } else {
             for (World world : ChallengeAPI.getGameWorlds()) {
@@ -90,7 +90,7 @@ public class LevelBorderChallenge extends Setting {
         for (Player player : ChallengeAPI.getIngamePlayers()) {
             int level = player.getLevel();
 
-            if(bestPlayerUUID == null || currentBestPlayer == null) {
+            if (bestPlayerUUID == null || currentBestPlayer == null) {
                 bestPlayerLevel = level;
                 bestPlayerUUID = player.getUniqueId();
                 // Checks if the player is better than the saved level or if online the current player level.
@@ -110,9 +110,9 @@ public class LevelBorderChallenge extends Setting {
     @ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.STARTED)
     public void playerSpawnTeleport() {
         broadcastFiltered(player -> {
-            if(player.isDead()) return;
+            if (player.isDead()) return;
             World world = player.getWorld();
-            if(isOutsideBorder(player.getLocation())) {
+            if (isOutsideBorder(player.getLocation())) {
                 teleportInsideBorder(world, player);
             }
         });
@@ -128,7 +128,7 @@ public class LevelBorderChallenge extends Setting {
 
     private Location getCenter(World world) {
         Location center;
-        if(useAPI) {
+        if (useAPI) {
             center = playerWorldBorder.getCenter();
         } else {
             PacketBorder packetBorder = packetBorders.get(world);
@@ -142,7 +142,7 @@ public class LevelBorderChallenge extends Setting {
     public void teleportInsideBorder(@NotNull World world, Player player) {
         Location center = getCenter(world).clone();
         center.setWorld(world);
-        if(world.getEnvironment() != World.Environment.NORMAL) {
+        if (world.getEnvironment() != World.Environment.NORMAL) {
             player.teleport(center);
         } else {
             player.teleport(center.add(0.5, 1, 0.5));
@@ -180,7 +180,7 @@ public class LevelBorderChallenge extends Setting {
     }
 
     public void borderReset() {
-        if(useAPI) {
+        if (useAPI) {
             playerWorldBorder.reset();
         } else {
             broadcast(player -> packetBorders.get(player.getWorld()).reset(player));
@@ -300,9 +300,9 @@ public class LevelBorderChallenge extends Setting {
     }
 
     private void updateBorder(Location center, int size, boolean animate) {
-        if(useAPI) {
+        if (useAPI) {
             playerWorldBorder.setCenter(center);
-            if(animate) {
+            if (animate) {
                 playerWorldBorder.setSize(size, 1);
             } else {
                 playerWorldBorder.setSize(size);
@@ -312,7 +312,7 @@ public class LevelBorderChallenge extends Setting {
         } else {
             packetBorders.forEach((world, border) -> {
                 border.setCenter(center.getX(), center.getZ());
-                if(animate) {
+                if (animate) {
                     border.setSize(size, 1);
                 } else {
                     border.setSize(size);
@@ -324,7 +324,7 @@ public class LevelBorderChallenge extends Setting {
     }
 
     private void sendBorder(@Nonnull Player player) {
-        if(useAPI) {
+        if (useAPI) {
             player.setWorldBorder(playerWorldBorder);
         } else {
             packetBorders.get(player.getWorld()).send(player, PacketBorder.UpdateType.values());

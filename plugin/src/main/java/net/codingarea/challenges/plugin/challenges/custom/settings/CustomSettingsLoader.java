@@ -102,7 +102,7 @@ public class CustomSettingsLoader {
 
 	public void registerTriggers(ChallengeTrigger... trigger) {
 		for (ChallengeTrigger trigger1 : trigger) {
-			if(trigger1.getClass().isAnnotationPresent(RequireVersion.class)) {
+			if (trigger1.getClass().isAnnotationPresent(RequireVersion.class)) {
 				RequireVersion requireVersion = trigger1.getClass().getAnnotation(RequireVersion.class);
 				MinecraftVersion minVersion = requireVersion.value();
 
@@ -111,7 +111,7 @@ public class CustomSettingsLoader {
 					continue;
 				}
 			}
-			if(trigger1.getClass().isAnnotationPresent(FallbackNames.class)) {
+			if (trigger1.getClass().isAnnotationPresent(FallbackNames.class)) {
 				FallbackNames fallbackName = trigger1.getClass().getAnnotation(FallbackNames.class);
 				String[] fallbackNames = fallbackName.value();
 
@@ -126,7 +126,7 @@ public class CustomSettingsLoader {
 
 	public void registerActions(ChallengeAction... action) {
 		for (ChallengeAction action1 : action) {
-			if(action1.getClass().isAnnotationPresent(RequireVersion.class)) {
+			if (action1.getClass().isAnnotationPresent(RequireVersion.class)) {
 				RequireVersion requireVersion = action1.getClass().getAnnotation(RequireVersion.class);
 				MinecraftVersion minVersion = requireVersion.value();
 
@@ -135,7 +135,7 @@ public class CustomSettingsLoader {
 					continue;
 				}
 			}
-			if(action1.getClass().isAnnotationPresent(FallbackNames.class)) {
+			if (action1.getClass().isAnnotationPresent(FallbackNames.class)) {
 				FallbackNames fallbackName = action1.getClass().getAnnotation(FallbackNames.class);
 				String[] fallbackNames = fallbackName.value();
 

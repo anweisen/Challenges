@@ -37,7 +37,7 @@ public class BorderPacketFactory_1_13 extends BorderPacketFactory {
             Class<?> clazz = NMSUtils.getClass("PacketPlayOutWorldBorder");
             Class<?> actionClazz = NMSUtils.getClass("PacketPlayOutWorldBorder$EnumWorldBorderAction");
             for (Object enumConstant : actionClazz.getEnumConstants()) {
-                if(enumConstant.toString().equalsIgnoreCase(worldBorderAction)) {
+                if (enumConstant.toString().equalsIgnoreCase(worldBorderAction)) {
                     return ReflectionUtil.invokeConstructor(clazz, new Class[]{packetBorder.getNMSClass(), actionClazz}, new Object[]{packetBorder.getWorldBorderObject(), enumConstant});
                 }
             }

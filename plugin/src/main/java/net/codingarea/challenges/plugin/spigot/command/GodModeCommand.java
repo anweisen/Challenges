@@ -73,18 +73,18 @@ public class GodModeCommand implements SenderCommand, Completer, Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void onDamage(EntityDamageEvent event) {
-        if(!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
-        if(godModePlayers.contains(player.getUniqueId())) {
+        if (godModePlayers.contains(player.getUniqueId())) {
             event.setCancelled(true);
         }
     }
 
     @EventHandler
     private void onFoodLevelChange(FoodLevelChangeEvent event) {
-        if(!(event.getEntity() instanceof Player)) return;
+        if (!(event.getEntity() instanceof Player)) return;
         Player player = (Player) event.getEntity();
-        if(godModePlayers.contains(player.getUniqueId())) {
+        if (godModePlayers.contains(player.getUniqueId())) {
             event.setCancelled(true);
         }
     }

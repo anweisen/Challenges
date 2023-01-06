@@ -65,7 +65,7 @@ public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal
 				() -> new ItemBuilder(Material.BOOK, Message.forName("item-force-battle-show-scoreboard")),
 				true
 		));
-		if(shouldRegisterDupedTargetsSetting()) {
+		if (shouldRegisterDupedTargetsSetting()) {
 			registerSetting("dupedTargets", new BooleanSubSetting(
 					() -> new ItemBuilder(Material.PAPER, Message.forName("item-force-battle-duped-targets")),
 					true
@@ -224,7 +224,7 @@ public abstract class ForceBattleGoal<T extends ForceTarget<?>> extends MenuGoal
 		if (!getSetting("dupedTargets").getAsBoolean()) {
 			list.removeAll(foundTargets.getOrDefault(player.getUniqueId(), new LinkedList<>()));
 		}
-		if(!list.isEmpty()) {
+		if (!list.isEmpty()) {
 			return globalRandom.choose(list);
 		}
 		return null;
