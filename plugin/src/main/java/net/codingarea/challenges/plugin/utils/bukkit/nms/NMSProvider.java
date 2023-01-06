@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_13.*;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.BorderPacketFactory_1_17;
@@ -27,10 +28,9 @@ public class NMSProvider {
         } else if (versionIsAtLeast(13)) {
             borderPacketFactory = new BorderPacketFactory_1_13();
         } else {
-            throw new IllegalStateException("Could not find a BorderPacketFactory implementation for version 1." + majorVersion);
+            throw new IllegalStateException("Could not find a BorderPacketFactory implementation for version " + getFormattedVersion());
         }
     }
-
 
     /**
      * Creates a world server for the given world
@@ -46,7 +46,7 @@ public class NMSProvider {
         } catch (ClassNotFoundException exception) {
             Challenges.getInstance().getLogger().error("Failed to create WorldServer instance for version {}:", majorVersion, exception);
         }
-        throw new IllegalStateException("Could not find a WorldServer implementation for version 1." + majorVersion);
+        throw new IllegalStateException("Could not find a WorldServer implementation for version " + getFormattedVersion());
     }
 
     /**
@@ -65,7 +65,7 @@ public class NMSProvider {
         } catch (ClassNotFoundException exception) {
             Challenges.getInstance().getLogger().error("Failed to create CraftPlayer instance for version {}:", majorVersion, exception);
         }
-        throw new IllegalStateException("Could not find a CraftServer implementation for version 1." + majorVersion);
+        throw new IllegalStateException("Could not find a CraftServer implementation for version " + getFormattedVersion());
     }
 
     /**
@@ -85,7 +85,7 @@ public class NMSProvider {
             Challenges.getInstance().getLogger().error("Failed to create PlayerConnection instance for version {}:", majorVersion, exception);
         }
 
-        throw new IllegalStateException("Could not find a PlayerConnection implementation for version 1." + majorVersion);
+        throw new IllegalStateException("Could not find a PlayerConnection implementation for version " + getFormattedVersion());
     }
 
     /** Creates a packet border for the given world
@@ -101,7 +101,7 @@ public class NMSProvider {
         } else if (versionIsAtLeast(13)) {
             return new PacketBorder_1_13(world);
         }
-        throw new IllegalStateException("Could not find a PacketBorder implementation for version 1." + majorVersion);
+        throw new IllegalStateException("Could not find a PacketBorder implementation for version " + getFormattedVersion());
     }
 
     /**
@@ -115,4 +115,9 @@ public class NMSProvider {
     private static boolean versionIsAtLeast(int majorVersion) {
         return NMSProvider.majorVersion >= majorVersion;
     }
+
+    private static String getFormattedVersion() {
+        return MinecraftVersion.current().format();
+    }
+
 }
