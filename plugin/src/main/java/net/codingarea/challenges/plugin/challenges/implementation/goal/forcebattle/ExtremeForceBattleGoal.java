@@ -74,9 +74,9 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
             UUID uuid = entry.getKey();
             ForceTarget<?> target = entry.getValue();
             Player player = Bukkit.getPlayer(uuid);
-            if(player == null || ignorePlayer(player)) continue;
+            if (player == null || ignorePlayer(player)) continue;
 
-            if(target.check(player)) {
+            if (target.check(player)) {
                 handleTargetFound(player);
             }
         }
@@ -132,7 +132,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         TargetType targetType = globalRandom.choose(TargetType.values());
         ForceTarget<?> newTarget = targetType.getRandomTarget().apply(player);
 
-        if(newTarget instanceof AdvancementTarget) {
+        if (newTarget instanceof AdvancementTarget) {
             AdvancementProgress progress = player.getAdvancementProgress(((AdvancementTarget) newTarget).getTarget());
             progress.getAwardedCriteria().forEach(progress::revokeCriteria);
         }
@@ -142,7 +142,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
                 .send(player, Prefix.CHALLENGES, getTargetMessageReplacement(newTarget));
         SoundSample.PLING.play(player);
 
-        if(scoreboard.isShown()) {
+        if (scoreboard.isShown()) {
             scoreboard.update();
         }
 
@@ -180,10 +180,10 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
     @Override
     public void handleJokerUse(Player player) {
         ForceTarget<?> target = currentTarget.get(player.getUniqueId());
-        if(giveItemOnSkip() && target instanceof ItemTarget) {
+        if (giveItemOnSkip() && target instanceof ItemTarget) {
             ItemTarget itemTarget = (ItemTarget) target;
             InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), itemTarget.getTarget());
-        } else if(giveBlockOnSkip() && target instanceof BlockTarget) {
+        } else if (giveBlockOnSkip() && target instanceof BlockTarget) {
             BlockTarget blockTarget = (BlockTarget) target;
             InventoryUtils.dropOrGiveItem(player.getInventory(), player.getLocation(), blockTarget.getTarget());
         }
@@ -275,7 +275,7 @@ public class ExtremeForceBattleGoal extends ForceBattleDisplayGoal<ForceTarget<?
         if (currentTarget.get(player.getUniqueId()) instanceof DamageTarget) {
             DamageTarget target = (DamageTarget) currentTarget.get(player.getUniqueId());
             int damage = (int) ChallengeHelper.getFinalDamage(event);
-            if(damage != target.getTarget()) return;
+            if (damage != target.getTarget()) return;
             handleTargetFound(player);
         }
     }

@@ -64,9 +64,9 @@ public abstract class ForceBattleDisplayGoal<T extends ForceTarget<?>> extends F
     }
 
     public void handleDisplayStandUpdate(@NotNull Player player, @NotNull ArmorStand armorStand) {
-        if(currentTarget.containsKey(player.getUniqueId())) {
+        if (currentTarget.containsKey(player.getUniqueId())) {
             currentTarget.get(player.getUniqueId()).updateDisplayStand(armorStand);
-        } else if(armorStand.getEquipment().getHelmet() != null) {
+        } else if (armorStand.getEquipment().getHelmet() != null) {
             armorStand.getEquipment().setHelmet(null);
         }
     }
@@ -74,7 +74,7 @@ public abstract class ForceBattleDisplayGoal<T extends ForceTarget<?>> extends F
     @Override
     public void loadGameState(@NotNull Document document) {
         super.loadGameState(document);
-        if(isEnabled()) {
+        if (isEnabled()) {
             broadcastFiltered(this::updateDisplayStand);
         }
     }

@@ -22,9 +22,9 @@ public class NMSProvider {
 
     static {
         majorVersion = ReflectionUtil.getMajorVersion();
-        if(versionIsAtLeast(17)) {
+        if (versionIsAtLeast(17)) {
             borderPacketFactory = new BorderPacketFactory_1_17();
-        } else if(versionIsAtLeast(13)) {
+        } else if (versionIsAtLeast(13)) {
             borderPacketFactory = new BorderPacketFactory_1_13();
         }
     }
@@ -38,7 +38,7 @@ public class NMSProvider {
     @Nullable
     public static WorldServer createWorldServer(World world) {
         try {
-            if(versionIsAtLeast(13)) {
+            if (versionIsAtLeast(13)) {
                 return new WorldServer_1_13(world);
             }
         } catch (ClassNotFoundException exception) {
@@ -55,9 +55,9 @@ public class NMSProvider {
     @Nullable
     public static CraftPlayer createCraftPlayer(Player player) {
         try {
-            if(versionIsAtLeast(17)) {
+            if (versionIsAtLeast(17)) {
                 return new CraftPlayer_1_17(player);
-            } else if(versionIsAtLeast(13)) {
+            } else if (versionIsAtLeast(13)) {
                 return new CraftPlayer_1_13(player);
             }
         } catch (ClassNotFoundException exception) {
@@ -74,9 +74,9 @@ public class NMSProvider {
     @Nullable
     public static PlayerConnection createPlayerConnection(CraftPlayer player) {
         try {
-            if(versionIsAtLeast(18)) {
+            if (versionIsAtLeast(18)) {
                 return new PlayerConnection_1_18(player.getPlayerConnectionObject());
-            } else if(versionIsAtLeast(13)) {
+            } else if (versionIsAtLeast(13)) {
                 return new PlayerConnection_1_13(player.getPlayerConnectionObject());
             }
         } catch (ClassNotFoundException exception) {
@@ -92,11 +92,11 @@ public class NMSProvider {
      */
     @Nullable
     public static PacketBorder createPacketBorder(World world) {
-        if(versionIsAtLeast(18)) {
+        if (versionIsAtLeast(18)) {
             return new PacketBorder_1_18(world);
-        } else if(versionIsAtLeast(17)) {
+        } else if (versionIsAtLeast(17)) {
             return new PacketBorder_1_17(world);
-        } else if(versionIsAtLeast(13)) {
+        } else if (versionIsAtLeast(13)) {
             return new PacketBorder_1_13(world);
         }
         return null;

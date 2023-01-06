@@ -37,7 +37,7 @@ public abstract class ForceTarget<T> {
     }
 
     public void updateDisplayStand(@NotNull ArmorStand armorStand) {
-        if(target instanceof Material) {
+        if (target instanceof Material) {
             armorStand.getEquipment().setHelmet(new ItemStack((Material) target));
         } else {
             armorStand.getEquipment().setHelmet(null);

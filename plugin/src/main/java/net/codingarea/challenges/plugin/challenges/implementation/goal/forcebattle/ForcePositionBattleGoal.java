@@ -72,9 +72,9 @@ public class ForcePositionBattleGoal extends ForceBattleGoal<PositionTarget> {
 
     @ScheduledTask(ticks = 5, async = false, timerPolicy = TimerPolicy.STARTED)
     public void checkPositions() {
-        if(!shouldExecuteEffect()) return;
+        if (!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if(currentTarget.get(player.getUniqueId()).check(player)) {
+            if (currentTarget.get(player.getUniqueId()).check(player)) {
                 handleTargetFound(player);
             }
         });
