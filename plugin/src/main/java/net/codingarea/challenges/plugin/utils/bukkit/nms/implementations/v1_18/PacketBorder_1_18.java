@@ -10,6 +10,7 @@ import org.bukkit.World;
  * @since 2.2.3
  */
 public class PacketBorder_1_18 extends PacketBorder_1_17 {
+
     public PacketBorder_1_18(World world) {
         super(world);
     }

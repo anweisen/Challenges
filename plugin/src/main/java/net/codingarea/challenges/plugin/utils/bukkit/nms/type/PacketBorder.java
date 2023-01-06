@@ -14,6 +14,7 @@ import java.util.function.Function;
  * @since 2.2.3
  */
 public abstract class PacketBorder extends AbstractNMSClass {
+
     protected Object worldBorder;
 
     protected final World world;

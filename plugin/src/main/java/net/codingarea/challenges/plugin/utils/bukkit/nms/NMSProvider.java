@@ -16,6 +16,7 @@ import org.bukkit.entity.Player;
  * @since 2.2.3
  */
 public class NMSProvider {
+
     private final static int majorVersion;
     private static final BorderPacketFactory borderPacketFactory;
 

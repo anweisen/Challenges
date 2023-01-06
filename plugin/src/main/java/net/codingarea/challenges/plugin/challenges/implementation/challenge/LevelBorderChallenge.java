@@ -40,6 +40,7 @@ import java.util.UUID;
 @Since("2.2.3")
 @ExcludeFromRandomChallenges
 public class LevelBorderChallenge extends Setting {
+
     private final Map<World, Location> worldCenters = new HashMap<>();
     private WorldBorder playerWorldBorder;
     private final Map<World, PacketBorder> packetBorders = new HashMap<>();

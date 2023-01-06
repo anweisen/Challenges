@@ -7,6 +7,7 @@ package net.codingarea.challenges.plugin.utils.bukkit.nms.type;
  * @since 2.2.3
  */
 public abstract class BukkitNMSClass<T> extends AbstractNMSClass {
+
     public Object nmsObject;
 
     /**
