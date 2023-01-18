@@ -131,6 +131,7 @@ public class LevelBorderChallenge extends Setting {
         Location center;
         if (useAPI) {
             center = playerWorldBorder.getCenter();
+            center.setY(world.getHighestBlockYAt((int) center.getX(), (int) center.getZ()));
         } else {
             PacketBorder packetBorder = packetBorders.get(world);
             double centerX = packetBorder.getCenterX();
