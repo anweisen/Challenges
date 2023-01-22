@@ -137,17 +137,18 @@ public final class WorldManager {
 	private void loadExtraWorld() {
 		if (!Challenges.getInstance().isReloaded())
 			deleteWorld("challenges-extra");
+			deleteWorld("void");
 
 		try {
 			flatWorld = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
 			if (flatWorld == null) return;
 			flatWorld.setSpawnFlags(false, false);
-			disableGameRule("doMobSpawning");
-			disableGameRule("doTraderSpawning");
-			disableGameRule("doWeatherCycle");
-			disableGameRule("doDaylightCycle");
-			disableGameRule("disableRaids");
-			disableGameRule("mobGriefing");
+			disableGameRuleInFlatWorld("doMobSpawning");
+			disableGameRuleInFlatWorld("doTraderSpawning");
+			disableGameRuleInFlatWorld("doWeatherCycle");
+			disableGameRuleInFlatWorld("doDaylightCycle");
+			disableGameRuleInFlatWorld("disableRaids");
+			disableGameRuleInFlatWorld("mobGriefing");
 
 		} catch (Exception ex) {
 			Logger.error("Could not load extra world!", ex);
@@ -177,7 +178,7 @@ public final class WorldManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void disableGameRule(@Nonnull String name) {
+	private void disableGameRuleInFlatWorld(@Nonnull String name) {
 		GameRule<Boolean> gamerule = (GameRule<Boolean>) GameRule.getByName(name);
 		if (gamerule == null) return;
 		flatWorld.setGameRule(gamerule, false);
