@@ -202,7 +202,6 @@ public final class WorldManager {
 				deletePreGeneratedWorld(world);
 			}
 		}
-		deleteWorld("void");
 
 		for (String world : Challenges.getInstance().getGameWorldStorage().getCustomGeneratedGameWorlds()) {
 			deleteWorld(world);
