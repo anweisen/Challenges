@@ -37,7 +37,7 @@ public final class WorldManager {
 	private boolean shutdownBecauseOfReset = false;
 	private boolean useCustomSeed;
 	private WorldSettings settings = new WorldSettings();
-	private World world;
+	private World flatWorld;
 	private boolean worldIsInUse;
 	public WorldManager() {
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
@@ -139,9 +139,9 @@ public final class WorldManager {
 			deleteWorld("challenges-extra");
 
 		try {
-			world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
-			if (world == null) return;
-			world.setSpawnFlags(false, false);
+			flatWorld = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
+			if (flatWorld == null) return;
+			flatWorld.setSpawnFlags(false, false);
 			disableGameRule("doMobSpawning");
 			disableGameRule("doTraderSpawning");
 			disableGameRule("doWeatherCycle");
@@ -161,7 +161,7 @@ public final class WorldManager {
 
 	private void teleportPlayersOutOfExtraWorld() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getWorld() != world) continue;
+			if (player.getWorld() != flatWorld) continue;
 
 			Location location = player.getBedSpawnLocation();
 			if (location == null) {
@@ -180,7 +180,7 @@ public final class WorldManager {
 	private void disableGameRule(@Nonnull String name) {
 		GameRule<Boolean> gamerule = (GameRule<Boolean>) GameRule.getByName(name);
 		if (gamerule == null) return;
-		world.setGameRule(gamerule, false);
+		flatWorld.setGameRule(gamerule, false);
 	}
 
 	private void executeWorldResetIfNecessary() {
@@ -334,7 +334,7 @@ public final class WorldManager {
 
 	@Nonnull
 	public World getExtraWorld() {
-		return world;
+		return flatWorld;
 	}
 
 	@Nonnull
