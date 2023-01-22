@@ -122,6 +122,7 @@ public class LevelBorderChallenge extends Setting {
     public boolean isOutsideBorder(Location location) {
         double size = bestPlayerLevel + 1;
         Location center = worldCenters.get(location.getWorld());
+        if (center == null) return false;
         double x = Math.abs(location.getX()) - Math.abs(center.getX());
         double z = Math.abs(location.getZ()) - Math.abs(center.getZ());
         return x > size || z > size;
