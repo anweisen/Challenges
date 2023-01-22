@@ -67,7 +67,8 @@ public class ForceHeightBattleGoal extends ForceBattleGoal<HeightTarget> {
     public void checkHeights() {
         if (!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if (currentTarget.get(player.getUniqueId()).check(player)) {
+            HeightTarget target = currentTarget.get(player.getUniqueId());
+            if (target != null && target.check(player)) {
                 handleTargetFound(player);
             }
         });

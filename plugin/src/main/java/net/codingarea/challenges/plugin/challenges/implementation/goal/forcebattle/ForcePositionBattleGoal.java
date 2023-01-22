@@ -74,7 +74,8 @@ public class ForcePositionBattleGoal extends ForceBattleGoal<PositionTarget> {
     public void checkPositions() {
         if (!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if (currentTarget.get(player.getUniqueId()).check(player)) {
+            PositionTarget target = currentTarget.get(player.getUniqueId());
+            if (target != null && target.check(player)) {
                 handleTargetFound(player);
             }
         });

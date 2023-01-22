@@ -55,7 +55,8 @@ public class ForceBiomeBattleGoal extends ForceBattleGoal<BiomeTarget> {
     public void checkBiomes() {
         if (!shouldExecuteEffect()) return;
         broadcastFiltered(player -> {
-            if (currentTarget.get(player.getUniqueId()).check(player)) {
+            BiomeTarget target = currentTarget.get(player.getUniqueId());
+            if (target != null && target.check(player)) {
                 handleTargetFound(player);
             }
         });
