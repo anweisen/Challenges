@@ -137,7 +137,6 @@ public final class WorldManager {
 	private void loadExtraWorld() {
 		if (!Challenges.getInstance().isReloaded())
 			deleteWorld("challenges-extra");
-			deleteWorld("void");
 
 		try {
 			flatWorld = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
@@ -203,6 +202,7 @@ public final class WorldManager {
 				deletePreGeneratedWorld(world);
 			}
 		}
+		deleteWorld("void");
 
 		for (String world : Challenges.getInstance().getGameWorldStorage().getCustomGeneratedGameWorlds()) {
 			deleteWorld(world);
