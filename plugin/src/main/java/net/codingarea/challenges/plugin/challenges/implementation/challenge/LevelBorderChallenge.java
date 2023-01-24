@@ -42,7 +42,7 @@ import java.util.UUID;
 public class LevelBorderChallenge extends Setting {
 
     private final Map<World, Location> worldCenters = new HashMap<>();
-    private WorldBorder playerWorldBorder;
+    private final Map<World, WorldBorder> playerWorldBorders = new HashMap<>();
     private final Map<World, PacketBorder> packetBorders = new HashMap<>();
 
     private final boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
@@ -57,10 +57,10 @@ public class LevelBorderChallenge extends Setting {
 
     @Override
     protected void onEnable() {
-        if (useAPI) {
-            playerWorldBorder = Bukkit.createWorldBorder();
-        } else {
-            for (World world : ChallengeAPI.getGameWorlds()) {
+        for (World world : ChallengeAPI.getGameWorlds()) {
+            if(useAPI) {
+                playerWorldBorders.put(world, Bukkit.createWorldBorder());
+            } else {
                 packetBorders.put(world, NMSProvider.createPacketBorder(world));
             }
         }
@@ -108,6 +108,11 @@ public class LevelBorderChallenge extends Setting {
         bossbar.update();
     }
 
+    @ScheduledTask(ticks = 100, async = false, timerPolicy = TimerPolicy.STARTED)
+    public void checkBorderSize() {
+        checkBorderSize(true);
+    }
+
     @ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.STARTED)
     public void playerSpawnTeleport() {
         broadcastFiltered(player -> {
@@ -125,13 +130,13 @@ public class LevelBorderChallenge extends Setting {
         if (center == null) return false;
         double x = Math.abs(location.getX()) - Math.abs(center.getX());
         double z = Math.abs(location.getZ()) - Math.abs(center.getZ());
-        return x > size || z > size;
+        return Math.abs(x) > size || Math.abs(z) > size;
     }
 
     private Location getCenter(World world) {
         Location center;
         if (useAPI) {
-            center = playerWorldBorder.getCenter().subtract(0.5, 0, 0.5);
+            center = playerWorldBorders.get(world).getCenter().subtract(0.5, 0, 0.5);
             center.setY(world.getHighestBlockYAt((int) center.getX(), (int) center.getZ()));
         } else {
             PacketBorder packetBorder = packetBorders.get(world);
@@ -176,7 +181,7 @@ public class LevelBorderChallenge extends Setting {
         Location location = worldCenters.get(world);
         if (location == null) return;
         int newSize = bestPlayerLevel + 1;
-        updateBorder(location, newSize == 0 ? 1 : newSize, animate);
+        updateBorder(world, location, newSize == 0 ? 1 : newSize, animate);
         for (Player player : world.getPlayers()) {
             sendBorder(player);
         }
@@ -184,7 +189,7 @@ public class LevelBorderChallenge extends Setting {
 
     public void borderReset() {
         if (useAPI) {
-            playerWorldBorder.reset();
+            playerWorldBorders.values().forEach(WorldBorder::reset);
         } else {
             broadcast(player -> packetBorders.get(player.getWorld()).reset(player));
         }
@@ -265,11 +270,10 @@ public class LevelBorderChallenge extends Setting {
         if (event.getCause() != PlayerTeleportEvent.TeleportCause.NETHER_PORTAL &&
                 event.getCause() != PlayerTeleportEvent.TeleportCause.END_PORTAL) return;
         World world = event.getTo().getWorld();
-        if (worldCenters.containsKey(world)) return;
         if (world == null) return;
         if (world == Challenges.getInstance().getWorldManager().getExtraWorld()) return;
         Location location = event.getTo().getBlock().getLocation().add(0.5, 0, 0.5);
-        worldCenters.put(world, location);
+        if (!worldCenters.containsKey(world)) worldCenters.put(world, location);
         updateBorderSize(world, false);
     }
 
@@ -302,33 +306,37 @@ public class LevelBorderChallenge extends Setting {
         document.set("uuid", bestPlayerUUID);
     }
 
-    private void updateBorder(Location center, int size, boolean animate) {
+    private void updateBorder(World world, Location center, int size, boolean animate) {
         if (useAPI) {
-            playerWorldBorder.setCenter(center);
+            WorldBorder border = playerWorldBorders.get(world);
+            border.setCenter(center);
+            double x = center.getX();
+            double z = center.getZ();
+            border.setCenter(x, z);
             if (animate) {
-                playerWorldBorder.setSize(size, 1);
+                border.setSize(size, 1);
             } else {
-                playerWorldBorder.setSize(size);
+                border.setSize(size);
             }
-            playerWorldBorder.setWarningDistance(0);
-            playerWorldBorder.setWarningTime(0);
+            border.setWarningDistance(0);
+            border.setWarningTime(0);
         } else {
-            packetBorders.forEach((world, border) -> {
-                border.setCenter(center.getX(), center.getZ());
-                if (animate) {
-                    border.setSize(size, 1);
-                } else {
-                    border.setSize(size);
-                }
-                border.setWarningDistance(0);
-                border.setWarningTime(0);
-            });
+            PacketBorder border = packetBorders.get(world);
+            border.setCenter(center.getX(), center.getZ());
+            if (animate) {
+                border.setSize(size, 1);
+            } else {
+                border.setSize(size);
+            }
+            border.setWarningDistance(0);
+            border.setWarningTime(0);
         }
     }
 
     private void sendBorder(@Nonnull Player player) {
         if (useAPI) {
-            player.setWorldBorder(playerWorldBorder);
+            WorldBorder border = playerWorldBorders.get(player.getWorld());
+            player.setWorldBorder(border);
         } else {
             packetBorders.get(player.getWorld()).send(player, PacketBorder.UpdateType.values());
         }
