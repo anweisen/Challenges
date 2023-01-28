@@ -168,6 +168,9 @@
 	"command-back-teleported": "Du wurdest §e{0} §7Position zurück teleportiert",
 	"command-back-teleported-multiple": "Du wurdest §e{0} §7Positionen zurück teleportiert",
 	"command-result-no-battle-active": "Es ist aktuell §ckein §7Force-Battle aktiviert",
+	"command-god-mode-enabled": "Du bist nun im §aGod-Mode",
+	"command-god-mode-disabled": "Du bist nun §cnicht mehr im God-Mode",
+	"command-god-mode-toggled-others": "§e{0} §7Spieler sind jetzt im §eGod-Mode",
 	"traffic-light-challenge-fail": "§e{0} §7ist über §crot §7gegangen",
 	"player-damage-display": "§e{0} §7nahm §7{1} §7Schaden durch §e{2}",
 	"death-message": "§e{0} §7ist gestorben",
@@ -234,6 +237,28 @@
 	"force-block-battle-new-block": "Block zu suchen: §e{0}",
 	"force-block-battle-leaderboard": "§8➜ §7Force Block Battle Leaderboard",
 	"force-battle-leaderboard-entry": "{0}#{1} §8» §e{2} §8┃ §e{3}",
+	"force-battle-block-target-display": "§eBlock: {0}",
+	"force-battle-item-target-display":"§eItem: {0}",
+	"force-battle-height-target-display": "§eHöhe: {0}",
+	"force-battle-mob-target-display": "§eMob: {0}",
+	"force-battle-biome-target-display": "§eBiom: {0}",
+	"force-battle-damage-target-display": "§eSchaden: §c{0} ❤",
+	"force-battle-advancement-target-display": "§eAdvancement: {0}",
+	"force-battle-position-target-display": "§ePosition: {0}",
+	"extreme-force-battle-new-height": "Höhe zu erreichen: §e{0}",
+	"extreme-force-battle-reached-height": "Du hast die Höhe §e{0} §7erreicht!",
+	"extreme-force-battle-new-biome": "Biom zu finden: §e{0}",
+	"extreme-force-battle-found-biome": "Du hast das Biom §e{0} §7gefunden!",
+	"extreme-force-battle-new-damage": "Schaden zu nehmen: §c{0} ❤",
+	"extreme-force-battle-took-damage": "Du hast §c{0} ❤ §7Schaden genommen!",
+	"extreme-force-battle-position": "§eX: {0} §8┃ §eZ: {1}",
+	"extreme-force-battle-new-position": "Position zu erreichen: §e{0}",
+	"extreme-force-battle-reached-position": "Du hast die Position §e{0} §7erreicht!",
+	"extreme-force-battle-leaderboard": "§8➜ §7Extreme Force Battle Leaderboard",
+	"force-biome-battle-leaderboard": "§8➜ §7Force Biome Battle Leaderboard",
+	"force-damage-battle-leaderboard": "§8➜ §7Force Damage Battle Leaderboard",
+	"force-height-battle-leaderboard": "§8➜ §7Force Height Battle Leaderboard",
+	"force-position-battle-leaderboard": "§8➜ §7Force Position Battle Leaderboard",
 	"random-event-speed": [
 		"Sonic? Bist du es?",
 		"Woahh! Das ist aber schnell"
@@ -289,6 +314,7 @@
 	"bossbar-ice-floor": "§8» §fEisboden §8┃ {0}",
 	"bossbar-dont-stop-running": "§8» §7Bewege dich in §8┃ §e{0}",
 	"bossbar-five-hundred-blocks": "§8» §fBlöcke Gelaufen §8┃ §7{0} §8/ §7{1}",
+	"bossbar-level-border": "§8» §7Border Größe §8┃ §7{0}",
 	"bossbar-race-goal-info": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1} §8┃ §e{2} Blöcke",
 	"bossbar-race-goal": "§8» §fZiel §8┃ §7X: {0} §8/ §7Z: {1}",
 	"bossbar-first-at-height-goal": "§8» §fZiel §8┃ §7Y: {0}",
@@ -386,7 +412,7 @@
 	"menu-item_blocks": "§4Blöcke & Items",
 	"menu-challenges": "§cChallenges",
 	"menu-settings": "§eEinstellungen",
-	"menu-custom": "§aBenutzerdefiniert",
+	"menu-custom": "§aIndividuelle Challenges",
 	"lore-category-activated-count": "§7Aktiviert §8» §a{0}§8/§7{1}",
 	"lore-category-activated": "§7Aktiviert §8» §aJa",
 	"lore-category-deactivated": "§7Aktiviert §8» §cNein",
@@ -488,7 +514,13 @@
 		"§bScoreboard anzeigen"
 	],
 	"item-force-battle-duped-targets": [
-		"§cDoppelte Ziele"
+		"§cDoppelte Ziele",
+		"Ziele können *mehrfach* vorkommen"
+	],
+	"item-force-position-battle-radius": [
+		"§bRadius",
+		"Der *maximale Radius*, in dem sich die",
+		"Positionen befinden können"
 	],
 	"item-difficulty-setting": [
 		"§aSchwierigkeit",
@@ -610,6 +642,10 @@
 		"§5Keep Inventory",
 		"Du verlierst keine *Items*,",
 		"wenn du *stirbst*"
+	],
+	"item-mob-griefing-setting": [
+		"§5Mob Griefing",
+		"Monster können *nichts zerstören*"
 	],
 	"item-no-item-damage-setting": [
 		"§5Kein Itemschaden",
@@ -1142,6 +1178,11 @@
 		"Es droppen *keine Items* von",
 		"*Blöcken* und *Entities* mehr."
 	],
+	"item-level-border-challenges": [
+		"§eLevel = Border",
+		"Die *Border-Größe* passt sich dem *Spieler*",
+		"mit den *meisten Leveln* an."
+	],
 	"item-chunk-effect-challenge": [
 		"§3Zufällige Chunk Effekte",
 		"In *jedem Chunk* bekommst du",
@@ -1377,6 +1418,36 @@
 		"Wenn ein Spieler einen Block *skippt*,",
 		"wird dieser in sein *Inventar hinzugefügt*"
 	],
+	"item-force-biome-battle-goal": [
+		"§2Force Biome Battle",
+		"Jeder Spieler bekommt ein *zufälliges Biom*,",
+		"das er betreten muss"
+	],
+	"menu-force-biome-battle-goal-settings": "Force Biome Battle",
+	"item-force-damage-battle-goal": [
+		"§3Force Damage Battle",
+		"Jeder Spieler bekommt eine *zufällige Anzahl Schaden*,",
+		"die er *erhalten* muss"
+	],
+	"menu-force-damage-battle-goal-settings": "Force Damage Battle",
+	"item-force-height-battle-goal": [
+		"§6Force Height Battle",
+		"Jeder Spieler bekommt eine *zufällige Höhe*,",
+		"auf der er sich befinden muss."
+	],
+	"menu-force-height-battle-goal-settings": "Force Height Battle",
+	"item-force-position-battle-goal": [
+		"§aForce Position Battle",
+		"Jeder Spieler bekommt eine *zufällige Position*,",
+		"die er erreichen muss."
+	],
+	"menu-force-position-battle-goal-settings": "Force Position Battle",
+	"item-extreme-force-battle-goal": [
+		"§cExtreme Force Battle",
+		"Jeder Spieler bekommt ein *zufälliges Ziel*,",
+		"welches er erreichen muss"
+	],
+	"menu-extreme-force-battle-goal-settings": "Extreme Force Battle",
 	"item-get-full-health-goal": [
 		"§aRegeneriere Volle Leben",
 		"The first player to gain full health wins."
@@ -1710,10 +1781,11 @@
 		"Tausche ein Mob mit einem zufälligen",
 		"anderem Mob aus der gleichen Welt"
 	],
-	"item-custom-action-place_random_structure": [
-		"§aZufällige Struktur",
-		"Platziert eine zufällige Struktur"
+	"item-custom-action-place_structure": [
+		"§aStruktur Platzieren",
+		"Platziert eine Struktur"
 	],
+	"item-custom-action-place_structure-random": "§bZufällige Struktur",
 	"item-custom-setting-target-current": [
 		"§6Aktives Entity",
 		"Die Aktion wird für das *aktive Entity* ausgeführt"

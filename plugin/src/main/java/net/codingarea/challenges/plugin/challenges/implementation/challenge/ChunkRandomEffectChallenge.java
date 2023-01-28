@@ -24,12 +24,21 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
+
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.1
  */
 @Since("2.1.1")
 public class ChunkRandomEffectChallenge extends Setting {
+
+	/*
+	 * 	Saving potion effect to prevent the possibility that an effect remove was somehow skipped
+	 */
+	private Map<UUID, PotionEffect> currentPotionEffects = new HashMap<>();
 
 	private long worldSeed;
 
@@ -46,6 +55,7 @@ public class ChunkRandomEffectChallenge extends Setting {
 
 	@Override
 	protected void onEnable() {
+		currentPotionEffects = new HashMap<>();
 		worldSeed = ChallengeAPI.getGameWorld(Environment.NORMAL).getSeed();
 		broadcastFiltered(player -> {
 			addEffect(player, player.getLocation());
@@ -58,6 +68,7 @@ public class ChunkRandomEffectChallenge extends Setting {
 			removeEffect(player, player.getLocation());
 		});
 		worldSeed = 0;
+		currentPotionEffects = null;
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -100,13 +111,26 @@ public class ChunkRandomEffectChallenge extends Setting {
 	public void removeEffect(Player player, Location location) {
 		PotionEffectType type = getEffect(location.getChunk()).getType();
 		player.removePotionEffect(type);
+
+		removeEffectInCache(player);
 	}
 
 	public void addEffect(Player player, Location location) {
 		Chunk chunk = location.getChunk();
 		PotionEffect effect = getEffect(chunk);
+
+		removeEffectInCache(player);
+
 		if (player.hasPotionEffect(effect.getType())) return;
 		player.addPotionEffect(effect);
+		currentPotionEffects.put(player.getUniqueId(), effect);
+	}
+
+	public void removeEffectInCache(Player player) {
+		PotionEffect currentEffect = currentPotionEffects.remove(player.getUniqueId());
+		if (currentEffect != null) {
+			player.removePotionEffect(currentEffect.getType());
+		}
 	}
 
 	public PotionEffect getEffect(Chunk chunk) {

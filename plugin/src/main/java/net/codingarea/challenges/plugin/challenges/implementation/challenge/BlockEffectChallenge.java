@@ -39,7 +39,9 @@ import java.util.UUID;
 @Since("2.1.2")
 public class BlockEffectChallenge extends Setting {
 
-	// Saving potion effect to prevent the possibility that an effect remove was somehow skipped
+	/*
+	 * 	Saving potion effect to prevent the possibility that an effect remove was somehow skipped
+ 	 */
 	private Map<UUID, PotionEffect> currentPotionEffects = new HashMap<>();
 
 	public BlockEffectChallenge() {
@@ -97,7 +99,7 @@ public class BlockEffectChallenge extends Setting {
 	public void onMove(PlayerMoveEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockLocation(event.getFrom(), event.getTo())) return;
+		if (event.getTo() == null) return;
 		Block fromBlock = BlockUtils.getBlockBelow(event.getFrom());
 		Block toBlock = BlockUtils.getBlockBelow(event.getTo());
 		if (toBlock != null && fromBlock != null) {
@@ -111,7 +113,7 @@ public class BlockEffectChallenge extends Setting {
 	public void onTeleport(PlayerTeleportEvent event) {
 		if (!shouldExecuteEffect()) return;
 		if (ignorePlayer(event.getPlayer())) return;
-		if (BlockUtils.isSameBlockLocation(event.getFrom(), event.getTo())) return;
+		if (event.getTo() == null) return;
 		Block fromBlock = BlockUtils.getBlockBelow(event.getFrom());
 		Block toBlock = BlockUtils.getBlockBelow(event.getTo());
 		if (toBlock != null && fromBlock != null) {
@@ -135,6 +137,8 @@ public class BlockEffectChallenge extends Setting {
 		if (blockBelow == null) return;
 		PotionEffectType type = getEffect(blockBelow.getType()).getType();
 		player.removePotionEffect(type);
+
+		removeEffectInCache(player);
 	}
 
 
@@ -150,6 +154,13 @@ public class BlockEffectChallenge extends Setting {
 		} else if (player.hasPotionEffect(effect.getType())) return;
 		player.addPotionEffect(effect);
 		currentPotionEffects.put(player.getUniqueId(), effect);
+	}
+
+	public void removeEffectInCache(Player player) {
+		PotionEffect currentEffect = currentPotionEffects.get(player.getUniqueId());
+		if (currentEffect != null) {
+			player.removePotionEffect(currentEffect.getType());
+		}
 	}
 
 	private PotionEffect getEffect(Material material) {

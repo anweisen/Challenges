@@ -31,7 +31,7 @@ public class StandsNotOnSpecificBlockTrigger extends ChallengeTrigger {
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onMove(PlayerMoveEvent event) {
 		if (BlockUtils.isSameBlockLocation(event.getTo(), event.getFrom())) return;
-
+		if (event.getTo() == null) return;
 		Block blockBelow = BlockUtils.getBlockBelow(event.getTo());
 		if (blockBelow == null) return;
 

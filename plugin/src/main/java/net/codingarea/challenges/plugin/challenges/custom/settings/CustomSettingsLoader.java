@@ -21,11 +21,16 @@ import java.util.Map;
 public class CustomSettingsLoader {
 
 	private final Map<String, ChallengeTrigger> triggers;
+	private final Map<String, ChallengeTrigger> fallbackTriggers;
+
 	private final Map<String, ChallengeAction> actions;
+	private final Map<String, ChallengeAction> fallbackActions;
 
 	public CustomSettingsLoader() {
 		actions = new LinkedHashMap<>();
+		fallbackActions = new LinkedHashMap<>();
 		triggers = new LinkedHashMap<>();
+		fallbackTriggers = new LinkedHashMap<>();
 	}
 
 	public void enable() {
@@ -91,19 +96,27 @@ public class CustomSettingsLoader {
 				new RandomHotBarAction("random_hotbar"),
 				new ChangeWorldBorderAction("modify_border"),
 				new SwapRandomMobAction("swap_mobs"),
-				new PlaceRandomStructureAction("place_random_structure")
+				new PlaceStructureAction("place_structure")
 		);
 	}
 
 	public void registerTriggers(ChallengeTrigger... trigger) {
 		for (ChallengeTrigger trigger1 : trigger) {
-			if(trigger1.getClass().isAnnotationPresent(RequireVersion.class)) {
+			if (trigger1.getClass().isAnnotationPresent(RequireVersion.class)) {
 				RequireVersion requireVersion = trigger1.getClass().getAnnotation(RequireVersion.class);
 				MinecraftVersion minVersion = requireVersion.value();
 
 				if (!MinecraftVersion.current().isNewerOrEqualThan(minVersion)) {
 					Logger.debug("Did not register trigger {}, requires version {}, server running on {}", trigger1.getClass().getSimpleName(), minVersion, MinecraftVersion.current());
 					continue;
+				}
+			}
+			if (trigger1.getClass().isAnnotationPresent(FallbackNames.class)) {
+				FallbackNames fallbackName = trigger1.getClass().getAnnotation(FallbackNames.class);
+				String[] fallbackNames = fallbackName.value();
+
+				for (String name : fallbackNames) {
+					fallbackTriggers.put(name, trigger1);
 				}
 			}
 			triggers.put(trigger1.getName(), trigger1);
@@ -113,7 +126,7 @@ public class CustomSettingsLoader {
 
 	public void registerActions(ChallengeAction... action) {
 		for (ChallengeAction action1 : action) {
-			if(action1.getClass().isAnnotationPresent(RequireVersion.class)) {
+			if (action1.getClass().isAnnotationPresent(RequireVersion.class)) {
 				RequireVersion requireVersion = action1.getClass().getAnnotation(RequireVersion.class);
 				MinecraftVersion minVersion = requireVersion.value();
 
@@ -122,18 +135,26 @@ public class CustomSettingsLoader {
 					continue;
 				}
 			}
+			if (action1.getClass().isAnnotationPresent(FallbackNames.class)) {
+				FallbackNames fallbackName = action1.getClass().getAnnotation(FallbackNames.class);
+				String[] fallbackNames = fallbackName.value();
+
+				for (String name : fallbackNames) {
+					fallbackActions.put(name, action1);
+				}
+			}
 			actions.put(action1.getName(), action1);
 		}
 	}
 
 	@Nullable
 	public ChallengeAction getActionByName(String name) {
-		return actions.get(name);
+		return actions.getOrDefault(name, fallbackActions.get(name));
 	}
 
 	@Nullable
 	public ChallengeTrigger getTriggerByName(String name) {
-		return triggers.get(name);
+		return triggers.getOrDefault(name, fallbackTriggers.get(name));
 	}
 
 	public Map<String, ChallengeAction> getActions() {

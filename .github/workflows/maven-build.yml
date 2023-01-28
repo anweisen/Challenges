@@ -21,3 +21,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn -B package --file pom.xml
+      - name: Capture build artifacts
+        uses: actions/upload-artifact@v2
+        with:
+          name: Artifacts
+          path: |
+            plugin/target/Challenges.jar
+            mongo-connector/target/Challenges-MongoConnector.jar

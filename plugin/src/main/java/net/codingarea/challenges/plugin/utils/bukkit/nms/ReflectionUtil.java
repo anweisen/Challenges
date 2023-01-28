@@ -37,7 +37,7 @@ public class ReflectionUtil {
 			useNewSpigotPackaging = majorVersion >= 17;
 
 		} catch (ClassNotFoundException | IllegalAccessException | IllegalArgumentException | InvocationTargetException | NoSuchMethodException e) {
-			Challenges.getInstance().getLogger().error("", e);
+			Challenges.getInstance().getLogger().error("Failed to initialize the ReflectionUtil:", e);
 		}
 	}
 
@@ -173,6 +173,20 @@ public class ReflectionUtil {
 		Field f = clazz.getDeclaredField(fieldName);
 		f.setAccessible(true);
 		return f;
+	}
+
+	/**
+	 * Sets the value of a field
+	 * @param instance The instance of the class in which the field is defined
+	 * @param fieldName The name of the field
+	 * @param value The value the field should be set to
+	 * @throws NoSuchFieldException
+	 * @throws IllegalAccessException
+	 */
+	public static void setFieldValue(Object instance, String fieldName, Object value) throws NoSuchFieldException, IllegalAccessException {
+		Field field = instance.getClass().getDeclaredField(fieldName);
+		field.setAccessible(true);
+		field.set(instance, value);
 	}
 
 	/**
@@ -440,7 +454,7 @@ public class ReflectionUtil {
 		}
 
 		if (Modifier.isFinal(modifiers)) {
-			modifiersStr.add("static");
+			modifiersStr.add("final");
 		}
 
 		if (Modifier.isTransient(modifiers)) {

@@ -73,6 +73,7 @@ public class ResetCommand implements SenderCommand, Completer {
 				try {
 					seed = Long.parseLong(seedInput);
 				} catch (NumberFormatException exception) {
+					Challenges.getInstance().getLogger().error("", exception);
 				}
 			}
 		}

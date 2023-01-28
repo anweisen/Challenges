@@ -4,6 +4,7 @@ import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.*;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.*;
+import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.*;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.*;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ArmorUtils;
@@ -44,19 +45,21 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(NoHungerSetting.class);
 
 		register(NoItemDamageSetting.class);
+		register(MobGriefingSetting.class);
 		register(KeepInventorySetting.class);
 		registerWithCommand(BackpackSetting.class, "backpack");
 		registerWithCommand(EnderChestCommandSetting.class, "enderchest");
 		register(TimberSetting.class);
 		register(PvPSetting.class);
+
 		register(NoHitDelaySetting.class);
 		registerWithCommand(TopCommandSetting.class, "top");
-
 		register(MaxHealthSetting.class);
 		register(DamageMultiplierModifier.class);
 		register(CutCleanSetting.class);
 		register(FortressSpawnSetting.class);
 		register(BastionSpawnSetting.class);
+
 		register(NoOffhandSetting.class);
 		register(ImmediateRespawnSetting.class);
 
@@ -138,6 +141,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(BlocksDisappearAfterTimeChallenge.class);
 		register(LoopChallenge.class);
 		register(IceFloorChallenge.class);
+		register(LevelBorderChallenge.class);
 
 		// Inventory
 		register(PermanentItemChallenge.class);
@@ -223,6 +227,11 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(ForceMobBattleGoal.class);
 		register(ForceAdvancementBattleGoal.class);
 		register(ForceBlockBattleGoal.class);
+		register(ForceBiomeBattleGoal.class);
+		register(ForceDamageBattleGoal.class);
+		register(ForceHeightBattleGoal.class);
+		register(ForcePositionBattleGoal.class);
+		register(ExtremeForceBattleGoal.class);
 
 		// Misc
 		register(LastManStandingGoal.class);

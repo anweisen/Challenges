@@ -37,7 +37,7 @@ public final class WorldManager {
 	private boolean shutdownBecauseOfReset = false;
 	private boolean useCustomSeed;
 	private WorldSettings settings = new WorldSettings();
-	private World world;
+	private World flatWorld;
 	private boolean worldIsInUse;
 	public WorldManager() {
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
@@ -139,15 +139,15 @@ public final class WorldManager {
 			deleteWorld("challenges-extra");
 
 		try {
-			world = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
-			if (world == null) return;
-			world.setSpawnFlags(false, false);
-			disableGameRule("doMobSpawning");
-			disableGameRule("doTraderSpawning");
-			disableGameRule("doWeatherCycle");
-			disableGameRule("doDaylightCycle");
-			disableGameRule("disableRaids");
-			disableGameRule("mobGriefing");
+			flatWorld = new WorldCreator("challenges-extra").type(WorldType.FLAT).generateStructures(false).createWorld();
+			if (flatWorld == null) return;
+			flatWorld.setSpawnFlags(false, false);
+			disableGameRuleInFlatWorld("doMobSpawning");
+			disableGameRuleInFlatWorld("doTraderSpawning");
+			disableGameRuleInFlatWorld("doWeatherCycle");
+			disableGameRuleInFlatWorld("doDaylightCycle");
+			disableGameRuleInFlatWorld("disableRaids");
+			disableGameRuleInFlatWorld("mobGriefing");
 
 		} catch (Exception ex) {
 			Logger.error("Could not load extra world!", ex);
@@ -161,17 +161,15 @@ public final class WorldManager {
 
 	private void teleportPlayersOutOfExtraWorld() {
 		for (Player player : Bukkit.getOnlinePlayers()) {
-			if (player.getWorld() != world) continue;
+			if (player.getWorld() != flatWorld) continue;
 
 			Location location = player.getBedSpawnLocation();
 			if (location == null) {
 				World world = Bukkit.getWorld(levelName);
-				if (world != null) {
-					location = world.getSpawnLocation();
-				} else {
+				if (world == null) {
 					world = ChallengeAPI.getGameWorld(Environment.NORMAL);
-					location = world.getSpawnLocation();
 				}
+				location = world.getSpawnLocation();
 			}
 
 			player.teleport(location);
@@ -179,10 +177,10 @@ public final class WorldManager {
 	}
 
 	@SuppressWarnings("unchecked")
-	private void disableGameRule(@Nonnull String name) {
+	private void disableGameRuleInFlatWorld(@Nonnull String name) {
 		GameRule<Boolean> gamerule = (GameRule<Boolean>) GameRule.getByName(name);
 		if (gamerule == null) return;
-		world.setGameRule(gamerule, false);
+		flatWorld.setGameRule(gamerule, false);
 	}
 
 	private void executeWorldResetIfNecessary() {
@@ -336,7 +334,7 @@ public final class WorldManager {
 
 	@Nonnull
 	public World getExtraWorld() {
-		return world;
+		return flatWorld;
 	}
 
 	@Nonnull

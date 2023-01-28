@@ -19,7 +19,7 @@ public interface IGoal extends IChallenge {
 
 	/**
 	 * Enabled / disabled this goal.
-	 * This must to call {@link ChallengeManager#setCurrentGoal(IGoal)} with
+	 * This must call {@link ChallengeManager#setCurrentGoal(IGoal)} with
 	 * {@code this} if {@code enabled} is {@code true} or {@code null} if {@code enabled} is {@code false} and this goal is the current.
 	 * This can be checked by comparing {@link ChallengeManager#getCurrentGoal()} to {@code this}.
 	 * You may just call {@link GoalHelper#handleSetEnabled(IGoal, boolean)} with {@code this}, {@code enabled}
@@ -45,7 +45,7 @@ public interface IGoal extends IChallenge {
 	SoundSample getWinSound();
 
 	/**
-	 * This method will be called, when the challenges is being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) and when there is no player supplier given in order to determine the winner of this challenge run.
+	 * This method will be called, when the challenges are being ended with a winnable cause ({@link ChallengeEndCause#isWinnable()}) and when there is no player supplier given in order to determine the winner of this challenge run.
 	 * If no players are added to the winners list, the {@link ChallengeEndCause#getNoWinnerMessage()} will be shown instead of the {@link ChallengeEndCause#getWinnerMessage()}.
 	 *
 	 * @param winners the list to which the winners should be added

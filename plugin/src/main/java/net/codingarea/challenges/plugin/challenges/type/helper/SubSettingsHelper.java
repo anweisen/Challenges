@@ -10,7 +10,9 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.StructureUtils;
 import org.bukkit.Material;
+import org.bukkit.StructureType;
 import org.bukkit.entity.EntityType;
 import org.bukkit.potion.PotionEffectType;
 
@@ -26,7 +28,8 @@ public class SubSettingsHelper {
 			ANY = "any",
 			ITEM = "item",
 			LIQUID = "liquid",
-			TARGET_ENTITY = "target_entity";
+			TARGET_ENTITY = "target_entity",
+			STRUCTURE = "structure";
 
 	public static ChooseMultipleItemSubSettingBuilder createEntityTypeSettingsBuilder(boolean any, boolean player) {
 		return SubSettingsBuilder.createChooseMultipleItem(ENTITY_TYPE).fill(builder -> {
@@ -145,4 +148,14 @@ public class SubSettingsHelper {
 
 		return potionSettings;
 	}
+
+	public static SubSettingsBuilder createStructureSettingsBuilder() {
+		return SubSettingsBuilder.createChooseItem(STRUCTURE).fill(builder -> {
+			builder.addSetting("random_structure", new ItemBuilder(Material.STRUCTURE_BLOCK, Message.forName("item-custom-action-place_structure-random")).build());
+			for (StructureType structure : StructureType.getStructureTypes().values()) {
+				builder.addSetting(structure.getName(), new ItemBuilder(StructureUtils.getStructureIcon(structure), DefaultItem.getItemPrefix() + StringUtils.getEnumName(structure.getName())).build());
+			}
+		});
+	}
+
 }

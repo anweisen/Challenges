@@ -1,7 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
+import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -192,21 +194,23 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 		OTHER;
 
 		private int getSpawnLimit(@Nonnull World world) {
+			boolean useSpawnCategories = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19); // World#getSpawnLimit was added in 1.19
 			switch (this) {
 				case AMBIENT:
-					return world.getAmbientSpawnLimit();
+					return useSpawnCategories ? world.getSpawnLimit(SpawnCategory.AMBIENT) : world.getAmbientSpawnLimit();
 				case HOSTILE:
-					return world.getMonsterSpawnLimit();
+					return useSpawnCategories ? world.getSpawnLimit(SpawnCategory.MONSTER) : world.getMonsterSpawnLimit();
 				case ANIMAL:
-					return world.getAnimalSpawnLimit();
+					return useSpawnCategories ? world.getSpawnLimit(SpawnCategory.ANIMAL) : world.getAnimalSpawnLimit();
 				case WATER_AMBIENT: { // getWaterAmbientSpawnLimit is not available in lower versions like 1.13, default to water animal then
 					try {
-						return world.getWaterAmbientSpawnLimit();
-					} catch (Throwable ex) {
+						return useSpawnCategories ? world.getSpawnLimit(SpawnCategory.WATER_AMBIENT) : world.getWaterAmbientSpawnLimit();
+					} catch (Throwable throwable) {
+						Challenges.getInstance().getLogger().error("", throwable);
 					}
 				}
 				case WATER_ANIMAL:
-					return world.getWaterAnimalSpawnLimit();
+					return useSpawnCategories ? world.getSpawnLimit(SpawnCategory.WATER_ANIMAL) : world.getWaterAnimalSpawnLimit();
 				default:
 					return 0;
 			}
