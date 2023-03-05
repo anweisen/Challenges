@@ -184,8 +184,6 @@ public class LevelEffectChallenge extends Setting {
             }
             updateBorderSize(world, animate);
             for(Player player: world.getPlayers()){
-                Logger.error("player"+player.toString());
-                Logger.error("setEffect");
                 setEffect(player);
             }
         }
@@ -194,12 +192,10 @@ public class LevelEffectChallenge extends Setting {
     private void setEffect(Player player){
         Logger.error("setEffect");
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
-        Logger.error("player"+player.toString());
         int level = player.getLevel();
-        Logger.error("level"+level);
         PotionEffectType potionEffectType = effectTypes.get(level);
         Logger.error("potionEffectType"+potionEffectType.toString());
-        PotionEffect effect = potionEffectType.createEffect(60 * 20 + 1, 5);
+        PotionEffect effect = potionEffectType.createEffect(Integer.MAX_VALUE, 5);
         player.addPotionEffect(effect);
     }
 
