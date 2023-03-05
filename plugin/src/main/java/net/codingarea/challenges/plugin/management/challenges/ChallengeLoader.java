@@ -142,6 +142,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LoopChallenge.class);
 		register(IceFloorChallenge.class);
 		register(LevelBorderChallenge.class);
+		register(LevelEffectChallenge.class);
 
 		// Inventory
 		register(PermanentItemChallenge.class);
