@@ -54,14 +54,12 @@ public class LevelEffectChallenge extends Setting {
     private UUID bestPlayerUUID = null;
     private int bestPlayerLevel = 0;
 
-//    private List<PotionEffectType> effectTypes;
-    private List<PotionEffectType> effectTypes = Arrays.asList(PotionEffectType.values());
+    private List<PotionEffectType> effectTypes = new ArrayList<>();
 
 
     public LevelEffectChallenge() {
         super(MenuType.CHALLENGES);
         setCategory(SettingCategory.WORLD);
-        Collections.shuffle(effectTypes);
     }
 
     @Override
@@ -310,18 +308,19 @@ public class LevelEffectChallenge extends Setting {
         bestPlayerLevel = document.getInt("level");
         String uuid = document.getString("uuid");
         Logger.error("LoadGameState");
-//        List<Integer> loadedEffects = document.getIntegerList("loadedEffects");
-//        List<PotionEffectType> allEffects = Arrays.asList(PotionEffectType.values());
-//        if(loadedEffects.isEmpty()){
-//            effectTypes = allEffects;
-//            Collections.shuffle(effectTypes);
-//        }
-//        else{
-//            for (int i = 0; i < loadedEffects.size(); i++)
-//            {
-//               effectTypes = loadedEffects.stream().map(allEffects::get).collect(Collectors.toList());
-//            }
-//        }
+        List<Integer> loadedEffects = document.getIntegerList("loadedEffects");
+        List<PotionEffectType> allEffects = Arrays.asList(PotionEffectType.values());
+        if(loadedEffects.isEmpty()){
+            effectTypes = allEffects;
+            Collections.shuffle(effectTypes);
+        }
+        else{
+            Map<Integer, PotionEffectType> potionEffectTypeMap = new HashMap<>();
+            for(PotionEffectType effect: allEffects){
+                potionEffectTypeMap.put(effect.getId(), effect);
+            }
+            effectTypes = loadedEffects.stream().map(potionEffectTypeMap::get).collect(Collectors.toList());
+        }
 
         if (uuid != null) {
             bestPlayerUUID = UUID.fromString(uuid);
@@ -347,7 +346,7 @@ public class LevelEffectChallenge extends Setting {
         worldCenters.forEach((world, location) -> doc.set(world.getName(), location));
         document.set("worlds", doc);
         document.set("uuid", bestPlayerUUID);
-//        document.set("loadedEffects", effectTypes.stream().map(PotionEffectType::getId));
+        document.set("loadedEffects", effectTypes.stream().map(PotionEffectType::getId).collect(Collectors.toList()));
     }
 
     private void updateBorder(World world, Location center, int size, boolean animate) {
