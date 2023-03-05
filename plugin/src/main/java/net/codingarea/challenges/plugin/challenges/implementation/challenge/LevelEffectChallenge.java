@@ -4,7 +4,8 @@ import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
-import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
+import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
+import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.ExcludeFromRandomChallenges;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -23,6 +24,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -32,14 +34,15 @@ import java.util.stream.Collectors;
  */
 @Since("2.2.3")
 @ExcludeFromRandomChallenges
-public class LevelEffectChallenge extends Setting {
+public class LevelEffectChallenge extends SettingModifier
+{
 
     private List<PotionEffectType> effectTypes = new ArrayList<>();
-
+    private List<Integer> amplifierList = new ArrayList<>();
 
     public LevelEffectChallenge() {
-        super(MenuType.CHALLENGES);
-        setCategory(SettingCategory.WORLD);
+        super(MenuType.CHALLENGES, 1, 8, 5);
+        setCategory(SettingCategory.EFFECT);
     }
 
     @Override
@@ -55,15 +58,11 @@ public class LevelEffectChallenge extends Setting {
     @NotNull
     @Override
     public ItemBuilder createDisplayItem() {
-        return new ItemBuilder(Material.ENCHANTING_TABLE, Message.forName("item-level-border-challenges"));
+        return new ItemBuilder(Material.EXPERIENCE_BOTTLE, Message.forName("item-level-effect-challenges"));
     }
 
-    public void checkBorderSize() {
-        updateEffects();
-    }
-
-    private void updateEffects() {
-        Logger.error("updateBorderSize");
+    public void updateEffects() {
+        Logger.error("updateEffects");
         for (World world : ChallengeAPI.getGameWorlds()) {
             if (world.getPlayers().isEmpty()) {
                 continue;
@@ -74,40 +73,60 @@ public class LevelEffectChallenge extends Setting {
         }
     }
 
+    private int getNewAmplifier(){
+        Logger.error("getNewAmplifier");
+        return getValue() == getMaxValue() ? (int) (Math.random() * getValue()): (getValue() - 1);
+    }
+
     private void setEffect(Player player){
         Logger.error("setEffect");
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         int level = player.getLevel();
+        Logger.error("level "+ level);
+        while(level + 10 >= effectTypes.size()){
+            Logger.error("effectTypes.size()"+effectTypes.size());
+            effectTypes.add(RandomPotionEffectChallenge
+                .getRandomEffect());
+        }
+        while(level + 10 >= amplifierList.size()){
+            Logger.error("amplifierList.size()"+amplifierList.size());
+            amplifierList.add(getNewAmplifier());
+        }
+
         PotionEffectType potionEffectType = effectTypes.get(level);
-        Logger.error("potionEffectType"+potionEffectType.toString());
-        PotionEffect effect = potionEffectType.createEffect(10 * 60 * 20, 5);
+        int amplifier = amplifierList.get(level);
+
+        Logger.error("potionEffectType "+potionEffectType.toString());
+        Logger.error("amplifier "+amplifier);
+
+        PotionEffect effect = potionEffectType.createEffect(10 * 60 * 20, amplifier);
         player.addPotionEffect(effect);
     }
 
     @TimerTask(status = TimerStatus.RUNNING, async = false)
     public void onTimerStart() {
         if (!isEnabled()) return;
-        checkBorderSize();
+        updateEffects();
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     public void onLevelChange(@Nonnull PlayerLevelChangeEvent event) {
         if (!shouldExecuteEffect()) return;
-        checkBorderSize();
+        updateEffects();
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerJoin(@Nonnull PlayerJoinEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        Bukkit.getScheduler().runTaskLater(plugin, this::checkBorderSize, 1);
+        Bukkit.getScheduler().runTaskLater(plugin, this::updateEffects, 1);
     }
 
     @EventHandler(priority = EventPriority.HIGH)
     public void onPlayerLeave(@Nonnull PlayerQuitEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        Bukkit.getScheduler().runTaskLater(plugin, this::checkBorderSize, 1);
+        Bukkit.getScheduler().runTaskLater(plugin, this::updateEffects, 1);
     }
 
     /**
@@ -119,7 +138,7 @@ public class LevelEffectChallenge extends Setting {
     public void onRespawn(@Nonnull PlayerRespawnEvent event) {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
-        Bukkit.getScheduler().runTaskLater(plugin, this::checkBorderSize, 1);
+        Bukkit.getScheduler().runTaskLater(plugin, this::updateEffects, 1);
     }
 
     /**
@@ -137,9 +156,12 @@ public class LevelEffectChallenge extends Setting {
 
     @Override
     public void loadGameState(@NotNull Document document) {
+        super.loadGameState(document);
         Logger.error("LoadGameState");
         List<Integer> loadedEffects = document.getIntegerList("loadedEffects");
+        Logger.error("loadedEffects", loadedEffects.toString());
         List<PotionEffectType> allEffects = Arrays.asList(PotionEffectType.values());
+        amplifierList = document.getIntegerList("amplifier");
         if(loadedEffects.isEmpty()){
             effectTypes = allEffects;
             Collections.shuffle(effectTypes);
@@ -152,13 +174,51 @@ public class LevelEffectChallenge extends Setting {
             effectTypes = loadedEffects.stream().map(potionEffectTypeMap::get).collect(Collectors.toList());
         }
         if (isEnabled()) {
-            checkBorderSize();
+            updateEffects();
         }
     }
 
     @Override
     public void writeGameState(@NotNull Document document) {
-        Logger.error("writeGameState");
-        document.set("loadedEffects", effectTypes.stream().map(PotionEffectType::getId).collect(Collectors.toList()));
+        super.writeGameState(document);
+        List<Integer> effects = effectTypes.stream().map(PotionEffectType::getId).collect(Collectors.toList());
+        Logger.error("writeGameState", effects.toString());
+        document.set("loadedEffects", effects);
+        document.set("amplifier", amplifierList);
     }
+
+
+    @Nonnull
+    @Override
+    public ItemBuilder createSettingsItem() {
+        int amount = 1;
+        if(isEnabled()){
+            amount = getValue();
+        }
+        if(amount == getMaxValue()){
+           return super.createSettingsItem().setType(Material.COMMAND_BLOCK).setAmount(1);
+        }
+        return super.createSettingsItem().amount(isEnabled() ? getValue() : 1);
+    }
+
+    @Override
+    public void playValueChangeTitle() {
+        ChallengeHelper.playChallengeHeartsValueChangeTitle(this, getValue() * 100);
+    }
+
+
+    @Override
+    protected void onValueChange() {
+        amplifierList = new ArrayList<>();
+        updateEffects();
+    }
+
+    @Nullable
+    @Override
+    protected String[] getSettingsDescription() {
+        return Message.forName(getValue() == getMaxValue()? "item-level-random-effect-description" :"item-level-effect-description").asArray(getValue());
+    }
+
+
+
 }

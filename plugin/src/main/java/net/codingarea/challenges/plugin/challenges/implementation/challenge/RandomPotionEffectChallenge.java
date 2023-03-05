@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.MenuSetting;
@@ -74,6 +75,13 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 		possibleEffects.removeAll(activeEffects);
 		possibleEffects.remove(PotionEffectType.HEAL);
 		possibleEffects.remove(PotionEffectType.HARM);
+		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
+	}
+
+	@Nullable
+	public static PotionEffectType getRandomEffect() {
+		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
+		Logger.error("possibleEffects.size()"+possibleEffects.size());
 		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
 	}
 
