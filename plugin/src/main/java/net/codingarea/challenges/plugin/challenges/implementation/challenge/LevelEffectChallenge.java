@@ -35,6 +35,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author sehrschlechtYT | https://github.com/sehrschlechtYT
@@ -53,6 +54,7 @@ public class LevelEffectChallenge extends Setting {
     private UUID bestPlayerUUID = null;
     private int bestPlayerLevel = 0;
 
+//    private List<PotionEffectType> effectTypes;
     private List<PotionEffectType> effectTypes = Arrays.asList(PotionEffectType.values());
 
 
@@ -92,6 +94,7 @@ public class LevelEffectChallenge extends Setting {
     }
 
     public void checkBorderSize(boolean animate) {
+        Logger.error("checkBorderSize");
         Player currentBestPlayer = bestPlayerUUID != null ? Bukkit.getPlayer(bestPlayerUUID) : null;
 
         for (Player player : ChallengeAPI.getIngamePlayers()) {
@@ -176,6 +179,7 @@ public class LevelEffectChallenge extends Setting {
     }
 
     private void updateBorderSize(boolean animate) {
+        Logger.error("updateBorderSize");
         for (World world : ChallengeAPI.getGameWorlds()) {
             if (world.getPlayers().isEmpty()) {
                 continue;
@@ -190,6 +194,7 @@ public class LevelEffectChallenge extends Setting {
     }
 
     private void setEffect(Player player){
+        Logger.error("setEffect");
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
         Logger.error("player"+player.toString());
         int level = player.getLevel();
@@ -304,6 +309,20 @@ public class LevelEffectChallenge extends Setting {
     public void loadGameState(@NotNull Document document) {
         bestPlayerLevel = document.getInt("level");
         String uuid = document.getString("uuid");
+        Logger.error("LoadGameState");
+//        List<Integer> loadedEffects = document.getIntegerList("loadedEffects");
+//        List<PotionEffectType> allEffects = Arrays.asList(PotionEffectType.values());
+//        if(loadedEffects.isEmpty()){
+//            effectTypes = allEffects;
+//            Collections.shuffle(effectTypes);
+//        }
+//        else{
+//            for (int i = 0; i < loadedEffects.size(); i++)
+//            {
+//               effectTypes = loadedEffects.stream().map(allEffects::get).collect(Collectors.toList());
+//            }
+//        }
+
         if (uuid != null) {
             bestPlayerUUID = UUID.fromString(uuid);
         }
@@ -322,11 +341,13 @@ public class LevelEffectChallenge extends Setting {
 
     @Override
     public void writeGameState(@NotNull Document document) {
+        Logger.error("writeGameState");
         document.set("level", bestPlayerLevel);
         GsonDocument doc = new GsonDocument();
         worldCenters.forEach((world, location) -> doc.set(world.getName(), location));
         document.set("worlds", doc);
         document.set("uuid", bestPlayerUUID);
+//        document.set("loadedEffects", effectTypes.stream().map(PotionEffectType::getId));
     }
 
     private void updateBorder(World world, Location center, int size, boolean animate) {
