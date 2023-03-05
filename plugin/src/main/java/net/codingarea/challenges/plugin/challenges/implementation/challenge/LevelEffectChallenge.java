@@ -46,8 +46,6 @@ import java.util.stream.Collectors;
 public class LevelEffectChallenge extends Setting {
 
     private final Map<World, Location> worldCenters = new HashMap<>();
-    private final Map<World, WorldBorder> playerWorldBorders = new HashMap<>();
-    private final Map<World, PacketBorder> packetBorders = new HashMap<>();
 
     private final boolean useAPI = MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_19);
 
@@ -64,17 +62,6 @@ public class LevelEffectChallenge extends Setting {
 
     @Override
     protected void onEnable() {
-        for (World world : ChallengeAPI.getGameWorlds()) {
-            if(useAPI) {
-                playerWorldBorders.put(world, Bukkit.createWorldBorder());
-            } else {
-                packetBorders.put(world, NMSProvider.createPacketBorder(world));
-            }
-        }
-        bossbar.setContent((bar, player) -> {
-            bar.setTitle(Message.forName("bossbar-level-border").asString(bestPlayerLevel));
-        });
-        bossbar.show();
         updateBorderSize(false);
         worldCenters.put(ChallengeAPI.getGameWorld(World.Environment.NORMAL), getDefaultWorldSpawn());
     }
@@ -82,7 +69,6 @@ public class LevelEffectChallenge extends Setting {
     @Override
     protected void onDisable() {
         borderReset();
-        bossbar.hide();
     }
 
     @NotNull
@@ -92,77 +78,11 @@ public class LevelEffectChallenge extends Setting {
     }
 
     public void checkBorderSize(boolean animate) {
-        Logger.error("checkBorderSize");
-        Player currentBestPlayer = bestPlayerUUID != null ? Bukkit.getPlayer(bestPlayerUUID) : null;
-
-        for (Player player : ChallengeAPI.getIngamePlayers()) {
-            int level = player.getLevel();
-
-            if (bestPlayerUUID == null || currentBestPlayer == null) {
-                bestPlayerLevel = level;
-                bestPlayerUUID = player.getUniqueId();
-                // Checks if the player is better than the saved level or if online the current player level.
-                // Checking with the player instance is required to fix issues with dying and the level of the best player being 0.
-            } else if (level > bestPlayerLevel || level > currentBestPlayer.getLevel()) {
-                bestPlayerLevel = level;
-                bestPlayerUUID = player.getUniqueId();
-            } else if (player.getUniqueId().equals(bestPlayerUUID)) {
-                bestPlayerLevel = level;
-            }
-        }
-
         updateBorderSize(animate);
-        bossbar.update();
-    }
-
-    @ScheduledTask(ticks = 100, async = false, timerPolicy = TimerPolicy.STARTED)
-    public void checkBorderSize() {
-        checkBorderSize(true);
-    }
-
-    @ScheduledTask(ticks = 20, async = false, timerPolicy = TimerPolicy.STARTED)
-    public void playerSpawnTeleport() {
-        broadcastFiltered(player -> {
-            if (player.isDead()) return;
-            World world = player.getWorld();
-            if (isOutsideBorder(player.getLocation())) {
-                teleportInsideBorder(world, player);
-            }
-        });
-
     }
 
     public boolean isOutsideBorder(Location location) {
-        double size = bestPlayerLevel + 1;
-        Location center = worldCenters.get(location.getWorld());
-        if (center == null) return false;
-        double x = Math.abs(location.getX()) - Math.abs(center.getX());
-        double z = Math.abs(location.getZ()) - Math.abs(center.getZ());
-        return Math.abs(x) > size || Math.abs(z) > size;
-    }
-
-    private Location getCenter(World world) {
-        Location center;
-        if (useAPI) {
-            center = playerWorldBorders.get(world).getCenter().subtract(0.5, 0, 0.5);
-            center.setY(world.getHighestBlockYAt((int) center.getX(), (int) center.getZ()));
-        } else {
-            PacketBorder packetBorder = packetBorders.get(world);
-            double centerX = packetBorder.getCenterX();
-            double centerZ = packetBorder.getCenterZ();
-            center = new Location(world, centerX, world.getHighestBlockYAt((int) centerX, (int) centerZ), centerZ);
-        }
-        return center;
-    }
-
-    public void teleportInsideBorder(@NotNull World world, Player player) {
-        Location center = getCenter(world).clone();
-        center.setWorld(world);
-        if (world.getEnvironment() != World.Environment.NORMAL) {
-            player.teleport(center);
-        } else {
-            player.teleport(center.add(0.5, 1, 0.5));
-        }
+        return false;
     }
 
     private Location getDefaultWorldSpawn() {
@@ -182,7 +102,6 @@ public class LevelEffectChallenge extends Setting {
             if (world.getPlayers().isEmpty()) {
                 continue;
             }
-            updateBorderSize(world, animate);
             for(Player player: world.getPlayers()){
                 setEffect(player);
             }
@@ -195,33 +114,17 @@ public class LevelEffectChallenge extends Setting {
         int level = player.getLevel();
         PotionEffectType potionEffectType = effectTypes.get(level);
         Logger.error("potionEffectType"+potionEffectType.toString());
-        PotionEffect effect = potionEffectType.createEffect(Integer.MAX_VALUE, 5);
+        PotionEffect effect = potionEffectType.createEffect(10 * 60 * 20, 5);
         player.addPotionEffect(effect);
     }
 
-    private void updateBorderSize(@Nonnull World world, boolean animate) {
-        Location location = worldCenters.get(world);
-        if (location == null) return;
-        int newSize = bestPlayerLevel + 1;
-        updateBorder(world, location, newSize == 0 ? 1 : newSize, animate);
-        for (Player player : world.getPlayers()) {
-            sendBorder(player);
-        }
-    }
-
     public void borderReset() {
-        if (useAPI) {
-            playerWorldBorders.values().forEach(WorldBorder::reset);
-        } else {
-            broadcast(player -> packetBorders.get(player.getWorld()).reset(player));
-        }
     }
 
     @TimerTask(status = TimerStatus.RUNNING, async = false)
     public void onTimerStart() {
         if (!isEnabled()) return;
         checkBorderSize(false);
-        playerSpawnTeleport();
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
@@ -235,7 +138,6 @@ public class LevelEffectChallenge extends Setting {
         if (!shouldExecuteEffect()) return;
         if (ignorePlayer(event.getPlayer())) return;
         Bukkit.getScheduler().runTaskLater(plugin, () -> checkBorderSize(false), 1);
-        playerSpawnTeleport();
     }
 
     @EventHandler(priority = EventPriority.HIGH)
@@ -256,7 +158,6 @@ public class LevelEffectChallenge extends Setting {
         if (ignorePlayer(event.getPlayer())) return;
         Bukkit.getScheduler().runTaskLater(plugin, () -> {
             checkBorderSize(false);
-            playerSpawnTeleport();
         }, 1);
     }
 
@@ -296,7 +197,6 @@ public class LevelEffectChallenge extends Setting {
         if (world == Challenges.getInstance().getWorldManager().getExtraWorld()) return;
         Location location = event.getTo().getBlock().getLocation().add(0.5, 0, 0.5);
         if (!worldCenters.containsKey(world)) worldCenters.put(world, location);
-        updateBorderSize(world, false);
     }
 
     @Override
@@ -343,41 +243,5 @@ public class LevelEffectChallenge extends Setting {
         document.set("worlds", doc);
         document.set("uuid", bestPlayerUUID);
         document.set("loadedEffects", effectTypes.stream().map(PotionEffectType::getId).collect(Collectors.toList()));
-    }
-
-    private void updateBorder(World world, Location center, int size, boolean animate) {
-        if (useAPI) {
-            WorldBorder border = playerWorldBorders.get(world);
-            border.setCenter(center);
-            double x = center.getX();
-            double z = center.getZ();
-            border.setCenter(x, z);
-            if (animate) {
-                border.setSize(size, 1);
-            } else {
-                border.setSize(size);
-            }
-            border.setWarningDistance(0);
-            border.setWarningTime(0);
-        } else {
-            PacketBorder border = packetBorders.get(world);
-            border.setCenter(center.getX(), center.getZ());
-            if (animate) {
-                border.setSize(size, 1);
-            } else {
-                border.setSize(size);
-            }
-            border.setWarningDistance(0);
-            border.setWarningTime(0);
-        }
-    }
-
-    private void sendBorder(@Nonnull Player player) {
-        if (useAPI) {
-            WorldBorder border = playerWorldBorders.get(player.getWorld());
-            player.setWorldBorder(border);
-        } else {
-            packetBorders.get(player.getWorld()).send(player, PacketBorder.UpdateType.values());
-        }
     }
 }
