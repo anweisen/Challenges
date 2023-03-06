@@ -2,6 +2,7 @@ package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 
 import net.anweisen.utilities.common.annotations.Since;
+import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
@@ -39,10 +40,13 @@ public class LevelEffectChallenge extends SettingModifier
 
     private List<PotionEffectType> effectTypes = new ArrayList<>();
     private List<Integer> amplifierList = new ArrayList<>();
+    List<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
 
     public LevelEffectChallenge() {
         super(MenuType.CHALLENGES, 1, 8, 5);
         setCategory(SettingCategory.EFFECT);
+        possibleEffects = possibleEffects.stream().filter(effect -> !effect.equals(PotionEffectType.HARM) || !effect.equals(PotionEffectType.HEAL)).collect(
+            Collectors.toList());
     }
 
     @Override
@@ -78,6 +82,10 @@ public class LevelEffectChallenge extends SettingModifier
         return getValue() == getMaxValue() ? (int) (Math.random() * getValue()): (getValue() - 1);
     }
 
+    private PotionEffectType getRandomEffect() {
+        return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
+    }
+
     private void setEffect(Player player){
         Logger.error("setEffect");
         player.getActivePotionEffects().forEach(effect -> player.removePotionEffect(effect.getType()));
@@ -85,8 +93,7 @@ public class LevelEffectChallenge extends SettingModifier
         Logger.error("level "+ level);
         while(level + 10 >= effectTypes.size()){
             Logger.error("effectTypes.size()"+effectTypes.size());
-            effectTypes.add(RandomPotionEffectChallenge
-                .getRandomEffect());
+            effectTypes.add(getRandomEffect());
         }
         while(level + 10 >= amplifierList.size()){
             Logger.error("amplifierList.size()"+amplifierList.size());
