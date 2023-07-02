@@ -139,6 +139,18 @@ set-spectator-on-win: false
 # The players' items will be dropped into the floor if the challenge was not won or if the challenge was won, the player didn't win
 drop-items-on-end: false
 
+# You can add permissions and groups in ./permissions.yml
+#groups:
+#  admin:
+#    permissions:
+#      - 'challenges.gui'
+#      - 'challenges.timer'
+#users:
+#  userName:
+#    groups:
+#    - admin
+groups-and-permissions: false
+
 # We currently support: (API Versions)
 # - cloudnet (Always latest cloudnet version)
 # - cloudnet3 (3.3)

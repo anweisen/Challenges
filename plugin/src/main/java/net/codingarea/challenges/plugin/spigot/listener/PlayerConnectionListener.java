@@ -11,6 +11,8 @@ import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Particle;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,6 +21,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
 import javax.annotation.Nonnull;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -33,6 +36,7 @@ public class PlayerConnectionListener implements Listener {
 	private final boolean resetOnLastQuit;
 	private final boolean pauseOnLastQuit;
 	private final boolean restoreDefaultsOnLastQuit;
+	private final boolean groupsAndPermissions;
 
 	public PlayerConnectionListener() {
 		Document config = Challenges.getInstance().getConfigDocument();
@@ -42,6 +46,7 @@ public class PlayerConnectionListener implements Listener {
 		resetOnLastQuit = config.getBoolean("reset-on-last-leave");
 		pauseOnLastQuit = config.getBoolean("pause-on-last-leave");
 		restoreDefaultsOnLastQuit = config.getBoolean("restore-defaults-on-last-leave");
+		groupsAndPermissions = config.getBoolean("groups-and-permissions");
 	}
 
 	@EventHandler(priority = EventPriority.HIGH)
@@ -107,6 +112,28 @@ public class PlayerConnectionListener implements Listener {
 
 		if (Challenges.getInstance().getDatabaseManager().isConnected()) {
 			Challenges.getInstance().runAsync(() -> DatabaseHelper.savePlayerData(player));
+		}
+
+		if (groupsAndPermissions) {
+			File permissionsFile = new File("./permissions.yml");
+			YamlConfiguration permissionsConfig = YamlConfiguration.loadConfiguration(permissionsFile);
+
+			ConfigurationSection usersSection = permissionsConfig.getConfigurationSection("users");
+			if (usersSection != null) {
+				ConfigurationSection userSection = usersSection.getConfigurationSection(player.getName());
+				if (userSection != null) {
+					List<String> groups = userSection.getStringList("groups");
+					for (String group : groups) {
+						ConfigurationSection groupSection = permissionsConfig.getConfigurationSection("groups." + group);
+						if (groupSection != null) {
+							List<String> permissions = groupSection.getStringList("permissions");
+							for (String permission : permissions) {
+								player.addAttachment(Challenges.getInstance(), permission, true);
+							}
+						}
+					}
+				}
+			}
 		}
 
 	}
