@@ -312,6 +312,11 @@ public class LevelBorderChallenge extends Setting {
             border.setCenter(center);
             double x = center.getX();
             double z = center.getZ();
+            // fix bug that causes border to be misplaced
+            if (world.getEnvironment() == World.Environment.NETHER) {
+                x *= 8;
+                z *= 8;
+            }
             border.setCenter(x, z);
             if (animate) {
                 border.setSize(size, 1);
