@@ -9,8 +9,10 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
+import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -65,10 +67,11 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	private void loadAllEntities() {
 		for (World world : ChallengeAPI.getGameWorlds()) {
 			for (LivingEntity entity : world.getLivingEntities()) {
-				if (!entityRandomizer.containsKey(entity.getType())) continue;
-				entity.remove();
-				entity.getWorld().spawnEntity(entity.getLocation(), entity.getType());
-
+				Bukkit.getScheduler().runTask(Challenges.getInstance(), () -> {
+					if (!entityRandomizer.containsKey(entity.getType())) return;
+					entity.remove();
+					entity.getWorld().spawnEntity(entity.getLocation(), entityRandomizer.get(entity.getType()));
+				});
 			}
 
 		}
@@ -114,14 +117,21 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	}
 
 	public List<EntityType> getSpawnAbleEntities() {
-		return new ListBuilder<>(EntityType.values())
+		ListBuilder<EntityType> builder = new ListBuilder<>(EntityType.values())
 				.removeIf(type -> !type.isSpawnable())
 				.removeIf(type -> !type.isAlive())
 				.remove(EntityType.ENDER_DRAGON)
 				.remove(EntityType.WITHER)
 				.remove(EntityType.GIANT)
-				.remove(EntityType.ILLUSIONER)
-				.build();
+				.remove(EntityType.ILLUSIONER);
+
+		try {
+			builder.removeIf(type -> !type.isEnabledByFeature(plugin.getGameWorldStorage().getWorld(World.Environment.NORMAL)));
+		} catch (Exception e) {
+			// OLD VERSION
+		}
+
+		return builder.build();
 	}
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
