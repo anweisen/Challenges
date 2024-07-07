@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import org.bukkit.ChatColor;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -82,11 +81,11 @@ public final class ColorConversions {
 	public static Material convertDyeColorToMaterial(@Nonnull DyeColor color) {
 		switch (color) {
 			case YELLOW:
-				return MaterialWrapper.YELLOW_DYE;
+				return MinecraftNameWrapper.YELLOW_DYE;
 			case RED:
-				return MaterialWrapper.RED_DYE;
+				return MinecraftNameWrapper.RED_DYE;
 			case GREEN:
-				return MaterialWrapper.GREEN_DYE;
+				return MinecraftNameWrapper.GREEN_DYE;
 			case BLACK:
 				return Material.INK_SAC;
 			case GRAY:

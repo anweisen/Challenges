@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.SettingModifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -7,6 +9,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -15,10 +18,6 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -63,19 +62,19 @@ public class FreezeChallenge extends SettingModifier {
 		if (event.getTo() == null) return;
 		if (event.getTo().getY() == event.getFrom().getY() && event.getTo().getX() == event.getFrom().getX() && event.getTo().getZ() == event.getFrom().getZ())
 			return;
-		PotionEffect effect = event.getPlayer().getPotionEffect(PotionEffectType.SLOW);
+		PotionEffect effect = event.getPlayer().getPotionEffect(MinecraftNameWrapper.SLOWNESS);
 		if (effect == null || effect.getAmplifier() != 255) return;
 		event.setCancelled(true);
 	}
 
 	public void setFreeze(LivingEntity entity, double damage) {
 		int time = (int) (damage * getValue() * 20 / 2);
-		PotionEffect effect = entity.getPotionEffect(PotionEffectType.SLOW);
-		entity.removePotionEffect(PotionEffectType.SLOW);
+		PotionEffect effect = entity.getPotionEffect(MinecraftNameWrapper.SLOWNESS);
+		entity.removePotionEffect(MinecraftNameWrapper.SLOWNESS);
 
 		if (effect != null && effect.getAmplifier() == 255) time += effect.getDuration();
 
-		entity.addPotionEffect(new PotionEffect(PotionEffectType.SLOW, time, 255));
+		entity.addPotionEffect(new PotionEffect(MinecraftNameWrapper.SLOWNESS, time, 255));
 	}
 
 }

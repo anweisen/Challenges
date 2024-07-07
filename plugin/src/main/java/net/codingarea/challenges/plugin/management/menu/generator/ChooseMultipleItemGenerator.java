@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.List;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -11,17 +16,11 @@ import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPo
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import java.util.LinkedHashMap;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -126,7 +125,7 @@ public abstract class ChooseMultipleItemGenerator extends MultiPageMenuGenerator
 			itemBuilder.hideAttributes();
 
 			if (selectedKeys.contains(key)) {
-				itemBuilder.addEnchantment(Enchantment.DURABILITY, 1);
+				itemBuilder.addEnchantment(MinecraftNameWrapper.UNBREAKING, 1);
 				itemBuilder.appendName(" §8┃ §2§l✔");
 			} else {
 				itemBuilder.appendName(" §8┃ §c✖");

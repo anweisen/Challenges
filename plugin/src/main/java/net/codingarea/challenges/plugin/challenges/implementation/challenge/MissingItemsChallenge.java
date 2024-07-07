@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.ClickEvent;
@@ -77,7 +78,7 @@ public class MissingItemsChallenge extends TimedChallenge implements PlayerComma
 
 	@Override
 	protected void onEnable() {
-		materials = Arrays.stream(Material.values())
+		materials = Arrays.stream(ExperimentalUtils.getMaterials())
 				.filter(Material::isItem)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.collect(Collectors.toList());

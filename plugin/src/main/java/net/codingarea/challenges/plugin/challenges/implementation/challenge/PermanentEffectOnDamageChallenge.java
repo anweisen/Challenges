@@ -1,5 +1,12 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Random;
+import java.util.UUID;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.annotations.Since;
 import net.anweisen.utilities.common.collection.pair.Tuple;
@@ -14,6 +21,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.TriConsumer;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -28,10 +36,6 @@ import org.bukkit.event.player.PlayerItemConsumeEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.*;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -155,8 +159,8 @@ public class PermanentEffectOnDamageChallenge extends SettingModifier {
 	@Nullable
 	private PotionEffectType getNewRandomEffect() {
 		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
-		possibleEffects.remove(PotionEffectType.HEAL);
-		possibleEffects.remove(PotionEffectType.HARM);
+		possibleEffects.remove(MinecraftNameWrapper.INSTANT_HEALTH);
+		possibleEffects.remove(MinecraftNameWrapper.INSTANT_DAMAGE);
 		return possibleEffects.get(random.nextInt(possibleEffects.size()));
 	}
 

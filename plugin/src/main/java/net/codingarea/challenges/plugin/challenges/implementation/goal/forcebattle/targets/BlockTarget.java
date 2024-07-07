@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebatt
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.misc.EntityUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -28,7 +29,7 @@ public class BlockTarget extends ForceTarget<Material> {
     }
 
     public static List<Material> getPossibleBlocks() {
-        List<Material> materials = new ArrayList<>(Arrays.asList(Material.values()));
+        List<Material> materials = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
         materials.removeIf(material -> !ItemUtils.blockIsAvailableInSurvival(material));
         return materials;
     }

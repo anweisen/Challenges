@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
@@ -12,6 +11,7 @@ import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
 import net.md_5.bungee.api.chat.TranslatableComponent;
@@ -59,11 +59,11 @@ public class DifficultySetting extends Modifier implements SenderCommand, TabCom
 			case 0:
 				return DefaultItem.create(Material.LIME_DYE, getDifficultyName());
 			case 1:
-				return DefaultItem.create(MaterialWrapper.GREEN_DYE, getDifficultyName());
+				return DefaultItem.create(MinecraftNameWrapper.GREEN_DYE, getDifficultyName());
 			case 2:
 				return DefaultItem.create(Material.ORANGE_DYE, getDifficultyName());
 			default:
-				return DefaultItem.create(MaterialWrapper.RED_DYE, getDifficultyName());
+				return DefaultItem.create(MinecraftNameWrapper.RED_DYE, getDifficultyName());
 		}
 	}
 

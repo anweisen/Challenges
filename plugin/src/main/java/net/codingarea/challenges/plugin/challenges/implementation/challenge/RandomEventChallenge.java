@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -183,7 +184,7 @@ public class RandomEventChallenge extends TimedChallenge {
 
 		@Override
 		public void run(@Nonnull Player player) {
-			player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, 7 * 20, 0));
+			player.addPotionEffect(new PotionEffect(MinecraftNameWrapper.NAUSEA, 7 * 20, 0));
 			player.addPotionEffect(new PotionEffect(PotionEffectType.WITHER, 3 * 20, 1));
 			player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5 * 20, 1));
 		}

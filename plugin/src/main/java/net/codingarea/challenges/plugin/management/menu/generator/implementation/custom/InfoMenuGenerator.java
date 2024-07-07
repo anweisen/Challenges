@@ -19,6 +19,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.spigot.listener.ChatInputListener;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
 import org.bukkit.Bukkit;
@@ -44,7 +45,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	static {
 		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
-		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		list.removeIf(material1 -> !material1.isItem());
 		defaultMaterials = list.toArray(new Material[0]);
 	}

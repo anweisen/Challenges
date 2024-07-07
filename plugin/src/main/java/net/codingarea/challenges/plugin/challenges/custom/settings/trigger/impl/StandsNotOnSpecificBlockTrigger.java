@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.trigger.impl
 import net.codingarea.challenges.plugin.challenges.custom.settings.trigger.ChallengeTrigger;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.event.EventHandler;
@@ -37,7 +38,7 @@ public class StandsNotOnSpecificBlockTrigger extends ChallengeTrigger {
 
 		Material type = blockBelow.getType();
 
-		List<Material> materials = new LinkedList<>(Arrays.asList(Material.values()));
+		List<Material> materials = new LinkedList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		materials.remove(type);
 		materials.removeIf(material -> !material.isBlock() || !material.isItem());
 

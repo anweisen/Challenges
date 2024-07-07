@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.LivingEntity;
@@ -72,8 +73,8 @@ public class RandomPotionEffectChallenge extends MenuSetting {
 
 		ArrayList<PotionEffectType> possibleEffects = new ArrayList<>(Arrays.asList(PotionEffectType.values()));
 		possibleEffects.removeAll(activeEffects);
-		possibleEffects.remove(PotionEffectType.HEAL);
-		possibleEffects.remove(PotionEffectType.HARM);
+		possibleEffects.remove(MinecraftNameWrapper.INSTANT_HEALTH);
+		possibleEffects.remove(MinecraftNameWrapper.INSTANT_DAMAGE);
 		return possibleEffects.get(IRandom.threadLocal().nextInt(possibleEffects.size()));
 	}
 

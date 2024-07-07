@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -58,7 +59,7 @@ public class InfectionChallenge extends Setting {
 
 		List<Entity> entities = getNearbyTargets(player, 2);
 		if (entities.isEmpty()) {
-			player.removePotionEffect(PotionEffectType.CONFUSION);
+			player.removePotionEffect(MinecraftNameWrapper.NAUSEA);
 			return;
 		}
 
@@ -67,7 +68,7 @@ public class InfectionChallenge extends Setting {
 			if (player.getLocation().distance(currentEntity.getLocation()) <= 1.5) value = 2;
 		}
 
-		player.addPotionEffect(new PotionEffect(PotionEffectType.CONFUSION, Integer.MAX_VALUE, 15));
+		player.addPotionEffect(new PotionEffect(MinecraftNameWrapper.NAUSEA, Integer.MAX_VALUE, 15));
 		if (value == 1) {
 			if (!player.hasPotionEffect(PotionEffectType.WITHER)) {
 				player.addPotionEffect(new PotionEffect(PotionEffectType.POISON, 5 * 20, 2));
@@ -80,7 +81,7 @@ public class InfectionChallenge extends Setting {
 	}
 
 	private void removeEffects(@Nonnull Player player) {
-		player.removePotionEffect(PotionEffectType.CONFUSION);
+		player.removePotionEffect(MinecraftNameWrapper.NAUSEA);
 		player.removePotionEffect(PotionEffectType.POISON);
 		player.removePotionEffect(PotionEffectType.WITHER);
 	}

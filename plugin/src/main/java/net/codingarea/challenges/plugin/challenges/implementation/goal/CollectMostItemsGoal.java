@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,7 +25,7 @@ import javax.annotation.Nonnull;
 public class CollectMostItemsGoal extends CollectionGoal {
 
 	public CollectMostItemsGoal() {
-		super(Material.values());
+		super(ExperimentalUtils.getMaterials());
 		setCategory(SettingCategory.SCORE_POINTS);
 	}
 

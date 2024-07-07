@@ -14,6 +14,7 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -57,7 +58,7 @@ public class CollectAllItemsGoal extends SettingGoal implements SenderCommand {
 	}
 
 	private void reloadItemsToFind() {
-		allItemsToFind = new ArrayList<>(Arrays.asList(Material.values()));
+		allItemsToFind = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		allItemsToFind.removeIf(material -> !material.isItem());
 		allItemsToFind.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
 		Collections.shuffle(allItemsToFind, random);

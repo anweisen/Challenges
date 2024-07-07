@@ -16,6 +16,7 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
@@ -93,7 +94,7 @@ public class ForceItemChallenge extends CompletableForceChallenge {
 
 	@Override
 	protected void chooseForcing() {
-		List<Material> items = new ArrayList<>(Arrays.asList(Material.values()));
+		List<Material> items = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		items.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
 		items.removeIf(material -> !material.isItem());
 		items.removeIf(BlockUtils::isTooHardToGet);

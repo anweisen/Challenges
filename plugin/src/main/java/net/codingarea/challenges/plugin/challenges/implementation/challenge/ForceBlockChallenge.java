@@ -13,6 +13,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.categorised.Se
 import net.codingarea.challenges.plugin.management.server.scoreboard.ChallengeBossBar.BossBarInstance;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Material;
 import org.bukkit.boss.BarColor;
@@ -95,7 +96,7 @@ public class ForceBlockChallenge extends EndingForceChallenge {
 
 	@Override
 	protected void chooseForcing() {
-		Material[] materials = Arrays.stream(Material.values())
+		Material[] materials = Arrays.stream(ExperimentalUtils.getMaterials())
 				.filter(Material::isBlock)
 				.filter(ItemUtils::isObtainableInSurvival)
 				.filter(material -> !BlockUtils.isTooHardToGet(material))

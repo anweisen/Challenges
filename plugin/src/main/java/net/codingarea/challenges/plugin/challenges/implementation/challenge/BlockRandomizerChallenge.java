@@ -1,6 +1,9 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
-import net.codingarea.challenges.plugin.utils.item.ItemUtils;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSetting;
@@ -9,12 +12,9 @@ import net.codingarea.challenges.plugin.management.blocks.BlockDropManager;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.item.ItemUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -36,11 +36,11 @@ public class BlockRandomizerChallenge extends RandomizerSetting {
 	protected void reloadRandomization() {
 		BlockDropManager manager = Challenges.getInstance().getBlockDropManager();
 
-		List<Material> blocks = new ArrayList<>(Arrays.asList(Material.values()));
+		List<Material> blocks = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		blocks.removeIf(material -> !ItemUtils.isObtainableInSurvival(material) || !material.isBlock() || BukkitReflectionUtils.isAir(material));
 		random.shuffle(blocks);
 
-		List<Material> drops = new ArrayList<>(Arrays.asList(Material.values()));
+		List<Material> drops = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		drops.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
 		random.shuffle(drops);
 

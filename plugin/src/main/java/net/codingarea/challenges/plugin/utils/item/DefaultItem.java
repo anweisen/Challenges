@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -45,12 +45,12 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(getTitle(Message.forName("disabled"))).hideAttributes();
+		return new ItemBuilder(MinecraftNameWrapper.RED_DYE).setName(getTitle(Message.forName("disabled"))).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(getTitle(Message.forName("customize"))).hideAttributes();
+		return new ItemBuilder(MinecraftNameWrapper.SIGN).setName(getTitle(Message.forName("customize"))).hideAttributes();
 	}
 
 	@Nonnull

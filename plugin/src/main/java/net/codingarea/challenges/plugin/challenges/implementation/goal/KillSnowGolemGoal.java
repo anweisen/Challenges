@@ -1,16 +1,15 @@
 package net.codingarea.challenges.plugin.challenges.implementation.goal;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.KillEntityGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.SettingCategory;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 import org.bukkit.Sound;
-import org.bukkit.entity.EntityType;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -20,7 +19,7 @@ import javax.annotation.Nonnull;
 public class KillSnowGolemGoal extends KillEntityGoal {
 
 	public KillSnowGolemGoal() {
-		super(EntityType.SNOWMAN);
+		super(MinecraftNameWrapper.SNOW_GOLEM);
 		setCategory(SettingCategory.KILL_ENTITY);
 		this.killerNeeded = true;
 	}

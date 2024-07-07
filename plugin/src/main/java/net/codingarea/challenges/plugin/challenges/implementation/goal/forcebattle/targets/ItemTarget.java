@@ -4,6 +4,7 @@ import net.codingarea.challenges.plugin.utils.item.ItemUtils;
 import net.codingarea.challenges.plugin.challenges.implementation.goal.forcebattle.ExtremeForceBattleGoal;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -27,7 +28,7 @@ public class ItemTarget extends ForceTarget<Material> {
     }
 
     public static List<Material> getPossibleItems() {
-        List<Material> materials = new ArrayList<>(Arrays.asList(Material.values()));
+        List<Material> materials = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
         materials.removeIf(material -> !material.isItem());
         materials.removeIf(material -> !ItemUtils.isObtainableInSurvival(material));
         return materials;

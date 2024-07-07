@@ -5,6 +5,7 @@ import net.codingarea.challenges.plugin.challenges.type.abstraction.RandomizerSe
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -35,11 +36,11 @@ public class CraftingRandomizerChallenge extends RandomizerSetting {
 	@Override
 	protected void reloadRandomization() {
 
-		List<Material> from = new ArrayList<>(Arrays.asList(Material.values()));
+		List<Material> from = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		from.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
 		random.shuffle(from);
 
-		List<Material> to = new ArrayList<>(Arrays.asList(Material.values()));
+		List<Material> to = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		to.removeIf(material -> !material.isItem() || !ItemUtils.isObtainableInSurvival(material));
 		random.shuffle(to);
 

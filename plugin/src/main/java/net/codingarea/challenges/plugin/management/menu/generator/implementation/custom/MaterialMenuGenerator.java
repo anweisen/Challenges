@@ -3,6 +3,7 @@ package net.codingarea.challenges.plugin.management.menu.generator.implementatio
 import net.anweisen.utilities.bukkit.utils.misc.BukkitReflectionUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
 import net.codingarea.challenges.plugin.management.menu.generator.ChooseItemGenerator;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.MapUtils;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -26,7 +27,7 @@ public class MaterialMenuGenerator extends ChooseItemGenerator {
 	public static LinkedHashMap<String, ItemStack> createMaterialsMap() {
 		LinkedHashMap<String, ItemStack> map = new LinkedHashMap<>();
 
-		for (Material material : Material.values()) {
+		for (Material material : ExperimentalUtils.getMaterials()) {
 			if (BukkitReflectionUtils.isAir(material)) continue;
 			if (!material.isItem()) continue;
 			map.put(material.name(), new ItemStack(material));

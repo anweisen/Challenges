@@ -1,7 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation;
 
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -16,6 +15,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.PotionBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -60,7 +60,7 @@ public class TimerMenuGenerator extends MenuGenerator {
 		Inventory inventory = inventories.get(0);
 		inventory.setItem(START_SLOT, Challenges.getInstance().getChallengeTimer().isStarted() ?
 				new ItemBuilder(Material.LIME_DYE).name(Message.forName("timer-is-running")).build() :
-				new ItemBuilder(MaterialWrapper.RED_DYE).name(Message.forName("timer-is-paused")).build());
+				new ItemBuilder(MinecraftNameWrapper.RED_DYE).name(Message.forName("timer-is-paused")).build());
 		inventory.setItem(MODE_SLOT, Challenges.getInstance().getChallengeTimer().isCountingUp() ?
 				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.LIME).name(Message.forName("timer-counting-up")).hideAttributes().build() :
 				new PotionBuilder(Material.TIPPED_ARROW).setColor(Color.RED).name(Message.forName("timer-counting-down")).hideAttributes().build());

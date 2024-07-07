@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.DropPriority;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -61,7 +62,7 @@ public class LowDropRateChallenge extends SettingModifier {
 	}
 
 	protected void reloadChances() {
-		Arrays.stream(Material.values()).filter(Material::isBlock).forEach(block -> {
+		Arrays.stream(ExperimentalUtils.getMaterials()).filter(Material::isBlock).forEach(block -> {
 			Challenges.getInstance().getBlockDropManager().setDropChance(block, DropPriority.CHANCE, () -> random.nextInt(10) < getValue());
 		});
 	}

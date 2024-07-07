@@ -17,6 +17,7 @@ import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.bukkit.jumpgeneration.RandomJumpGenerator;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.*;
@@ -207,7 +208,8 @@ public class JumpAndRunChallenge extends WorldDependentChallenge {
 	@ScheduledTask(ticks = 20, timerPolicy = TimerPolicy.ALWAYS, worldPolicy = ExtraWorldPolicy.USED)
 	public void spawnParticles() {
 		if (targetBlock == null) return;
-		ParticleUtils.spawnParticleCircle(targetBlock.getLocation().add(0.5, 1.05, 0.5), Particle.SPELL_INSTANT, 13, 0.35);
+		ParticleUtils.spawnParticleCircle(targetBlock.getLocation().add(0.5, 1.05, 0.5),
+			MinecraftNameWrapper.INSTANT_EFFECT, 13, 0.35);
 	}
 
 	@EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

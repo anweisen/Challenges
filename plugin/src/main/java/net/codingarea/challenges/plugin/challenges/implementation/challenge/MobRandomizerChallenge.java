@@ -1,5 +1,10 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -9,23 +14,25 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.scheduler.task.TimerTask;
 import net.codingarea.challenges.plugin.management.scheduler.timer.TimerStatus;
-import net.codingarea.challenges.plugin.management.server.GameWorldStorage;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
-import org.bukkit.entity.*;
+import org.bukkit.entity.Animals;
+import org.bukkit.entity.Drowned;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.Guardian;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Monster;
+import org.bukkit.entity.SpawnCategory;
+import org.bukkit.entity.WaterMob;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.entity.EntitySpawnEvent;
-
-import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -117,19 +124,13 @@ public class MobRandomizerChallenge extends RandomizerSetting {
 	}
 
 	public List<EntityType> getSpawnAbleEntities() {
-		ListBuilder<EntityType> builder = new ListBuilder<>(EntityType.values())
+		ListBuilder<EntityType> builder = new ListBuilder<>(ExperimentalUtils.getEntityTypes())
 				.removeIf(type -> !type.isSpawnable())
 				.removeIf(type -> !type.isAlive())
 				.remove(EntityType.ENDER_DRAGON)
 				.remove(EntityType.WITHER)
 				.remove(EntityType.GIANT)
 				.remove(EntityType.ILLUSIONER);
-
-		try {
-			builder.removeIf(type -> !type.isEnabledByFeature(plugin.getGameWorldStorage().getWorld(World.Environment.NORMAL)));
-		} catch (Exception e) {
-			// OLD VERSION
-		}
 
 		return builder.build();
 	}

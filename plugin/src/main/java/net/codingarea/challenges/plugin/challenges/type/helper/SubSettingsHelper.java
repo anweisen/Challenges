@@ -10,6 +10,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.StructureUtils;
 import org.bukkit.Material;
 import org.bukkit.StructureType;
@@ -58,7 +59,7 @@ public class SubSettingsHelper {
 	public static ChooseMultipleItemSubSettingBuilder createBlockSettingsBuilder() {
 		return SubSettingsBuilder.createChooseMultipleItem(BLOCK).fill(builder -> {
 			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-block-any")).build());
-			for (Material material : Material.values()) {
+			for (Material material : ExperimentalUtils.getMaterials()) {
 				if (material.isBlock() && material.isItem() && !BukkitReflectionUtils.isAir(material)) {
 					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
@@ -69,7 +70,7 @@ public class SubSettingsHelper {
 	public static ChooseMultipleItemSubSettingBuilder createItemSettingsBuilder() {
 		return SubSettingsBuilder.createChooseMultipleItem(ITEM).fill(builder -> {
 			builder.addSetting(ANY, new ItemBuilder(Material.NETHER_STAR, Message.forName("item-custom-setting-item-any")).build());
-			for (Material material : Material.values()) {
+			for (Material material : ExperimentalUtils.getMaterials()) {
 				if (material.isItem() && !BukkitReflectionUtils.isAir(material)) {
 					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
