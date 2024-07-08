@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.misc.CompatibilityUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.TimedChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
@@ -114,12 +115,13 @@ public class HotBarRandomizerChallenge extends TimedChallenge {
 
 	@EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
 	public void onInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
+		Player player = event.getPlayer();
 		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
+		if (ignorePlayer(player)) return;
 		Inventory clickedInventory = event.getClickedInventory();
 		if (event.getCursor() == null) return;
 		if (clickedInventory == null) return;
-		InventoryType type = event.getPlayer().getOpenInventory().getTopInventory().getType();
+		InventoryType type = CompatibilityUtils.getTopInventory(player).getType();
 		if (type == InventoryType.WORKBENCH || type == InventoryType.CRAFTING) return;
 		if (clickedInventory.getType() == InventoryType.CRAFTING) return;
 		if (clickedInventory.getType() == InventoryType.PLAYER) {

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.challenge;
 
+import net.anweisen.utilities.bukkit.utils.misc.CompatibilityUtils;
 import net.anweisen.utilities.common.annotations.Since;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Setting;
 import net.codingarea.challenges.plugin.content.Message;
@@ -8,6 +9,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.categorised.Se
 import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.Material;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.inventory.InventoryType;
@@ -36,12 +38,13 @@ public class PermanentItemChallenge extends Setting {
 
 	@EventHandler(priority = EventPriority.HIGH)
 	public void onInventoryClick(@Nonnull PlayerInventoryClickEvent event) {
+		Player player = event.getPlayer();
 		if (!shouldExecuteEffect()) return;
-		if (ignorePlayer(event.getPlayer())) return;
+		if (ignorePlayer(player)) return;
 		Inventory clickedInventory = event.getClickedInventory();
 		if (event.getCursor() == null) return;
 		if (clickedInventory == null) return;
-		InventoryType type = event.getPlayer().getOpenInventory().getTopInventory().getType();
+		InventoryType type = CompatibilityUtils.getTopInventory(player).getType();
 		if (type == InventoryType.WORKBENCH || type == InventoryType.CRAFTING) return;
 		if (clickedInventory.getType() == InventoryType.CRAFTING) return;
 		if (clickedInventory.getType() == InventoryType.PLAYER) {

@@ -1,16 +1,16 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import java.util.List;
+import javax.annotation.Nonnegative;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
+import net.anweisen.utilities.bukkit.utils.misc.CompatibilityUtils;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.management.menu.position.GeneratorMenuPosition;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
-
-import javax.annotation.Nonnegative;
-import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * @author KxmischesDomi | https://github.com/kxmischesdomi
@@ -28,7 +28,9 @@ public abstract class MenuGenerator {
 
 	public boolean hasInventoryOpen(Player player) {
 		MenuPosition menuPosition = MenuPosition.get(player);
-		return menuPosition instanceof GeneratorMenuPosition && player.getOpenInventory().getTopInventory().getType() != InventoryType.CRAFTING && ((GeneratorMenuPosition) menuPosition).getGenerator() == this;
+		return menuPosition instanceof GeneratorMenuPosition
+			&& CompatibilityUtils.getTopInventory(player).getType() != InventoryType.CRAFTING
+			&& ((GeneratorMenuPosition) menuPosition).getGenerator() == this;
 	}
 
 	public int getPage(Player player) {
