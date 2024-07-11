@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.core.BukkitModule;
 import net.anweisen.utilities.common.version.Version;
 import net.codingarea.challenges.plugin.challenges.custom.settings.CustomSettingsLoader;
@@ -29,6 +30,7 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
+@Getter
 public final class Challenges extends BukkitModule {
 
 	private static Challenges instance;
@@ -48,10 +50,10 @@ public final class Challenges extends BukkitModule {
 	private WorldManager worldManager;
 	private TitleManager titleManager;
 	private MenuManager menuManager;
-	private ChallengeTimer timer;
+	private ChallengeTimer challengeTimer;
 	private LoaderRegistry loaderRegistry;
 	private MetricsLoader metricsLoader;
-	private GameWorldStorage gameWorldStorage;
+  private GameWorldStorage gameWorldStorage;
 	private GeneratorWorldPortalManager generatorWorldPortalManager;
 
 	@Nonnull
@@ -101,7 +103,7 @@ public final class Challenges extends BukkitModule {
 		scoreboardManager = new ScoreboardManager();
 		cloudSupportManager = new CloudSupportManager();
 		titleManager = new TitleManager();
-		timer = new ChallengeTimer();
+		challengeTimer = new ChallengeTimer();
 		blockDropManager = new BlockDropManager();
 		challengeManager = new ChallengeManager();
 		challengeLoader = new ChallengeLoader();
@@ -127,8 +129,8 @@ public final class Challenges extends BukkitModule {
 		customSettingsLoader.enable();
 		databaseManager.enable();
 		worldManager.enable();
-		timer.loadSession();
-		timer.enable();
+		challengeTimer.loadSession();
+		challengeTimer.enable();
 		challengeManager.enable();
 		statsManager.register();
 		scheduler.start();
@@ -196,7 +198,7 @@ public final class Challenges extends BukkitModule {
 		boolean restoreDefaultsOnReset = getConfigDocument().getBoolean("restore-defaults-on-reset");
 
 		if (playerInventoryManager != null) playerInventoryManager.handleDisable();
-		if (timer != null && !shutdownBecauseOfReset) timer.saveSession(false);
+		if (challengeTimer != null && !shutdownBecauseOfReset) challengeTimer.saveSession(false);
 		if (scheduler != null) scheduler.stop();
 		if (loaderRegistry != null) loaderRegistry.disable();
 		if (databaseManager != null) databaseManager.disconnectIfConnected();
@@ -215,104 +217,6 @@ public final class Challenges extends BukkitModule {
 			}
 			challengeManager.clearChallengeCache();
 		}
-	}
-
-	public GeneratorWorldPortalManager getGeneratorWorldManager() {
-		return generatorWorldPortalManager;
-	}
-
-	public GameWorldStorage getGameWorldStorage() {
-		return gameWorldStorage;
-	}
-
-	@Nonnull
-	public CustomSettingsLoader getCustomSettingsLoader() {
-		return customSettingsLoader;
-	}
-
-	@Nonnull
-	public CustomChallengesLoader getCustomChallengesLoader() {
-		return customChallengesLoader;
-	}
-
-	@Nonnull
-	public ChallengeManager getChallengeManager() {
-		return challengeManager;
-	}
-
-	@Nonnull
-	public MenuManager getMenuManager() {
-		return menuManager;
-	}
-
-	@Nonnull
-	public ChallengeTimer getChallengeTimer() {
-		return timer;
-	}
-
-	@Nonnull
-	public ServerManager getServerManager() {
-		return serverManager;
-	}
-
-	@Nonnull
-	public ScheduleManager getScheduler() {
-		return scheduler;
-	}
-
-	@Nonnull
-	public ConfigManager getConfigManager() {
-		return configManager;
-	}
-
-	@Nonnull
-	public PlayerInventoryManager getPlayerInventoryManager() {
-		return playerInventoryManager;
-	}
-
-	@Nonnull
-	public WorldManager getWorldManager() {
-		return worldManager;
-	}
-
-	@Nonnull
-	public DatabaseManager getDatabaseManager() {
-		return databaseManager;
-	}
-
-	@Nonnull
-	public StatsManager getStatsManager() {
-		return statsManager;
-	}
-
-	@Nonnull
-	public ScoreboardManager getScoreboardManager() {
-		return scoreboardManager;
-	}
-
-	@Nonnull
-	public CloudSupportManager getCloudSupportManager() {
-		return cloudSupportManager;
-	}
-
-	@Nonnull
-	public ChallengeLoader getChallengeLoader() {
-		return challengeLoader;
-	}
-
-	@Nonnull
-	public BlockDropManager getBlockDropManager() {
-		return blockDropManager;
-	}
-
-	@Nonnull
-	public TitleManager getTitleManager() {
-		return titleManager;
-	}
-
-	@Nonnull
-	public LoaderRegistry getLoaderRegistry() {
-		return loaderRegistry;
 	}
 
 }

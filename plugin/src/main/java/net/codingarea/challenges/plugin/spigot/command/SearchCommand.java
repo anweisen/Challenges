@@ -68,12 +68,11 @@ public class SearchCommand implements SenderCommand, Completer {
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		return args.length != 1 ? null :
-				Arrays.stream(ExperimentalUtils.getMaterials())
-						.filter(ItemUtils::isObtainableInSurvival)
-						.filter(Material::isItem)
-						.map(material -> material.name().toLowerCase())
-						.collect(Collectors.toList()
-						);
+			Arrays.stream(ExperimentalUtils.getMaterials())
+				.filter(ItemUtils::isObtainableInSurvival)
+				.filter(Material::isItem)
+				.map(material -> material.name().toLowerCase())
+				.collect(Collectors.toList());
 	}
 
 }

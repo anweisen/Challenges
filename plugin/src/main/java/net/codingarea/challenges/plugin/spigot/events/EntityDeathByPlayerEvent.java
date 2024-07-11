@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.events;
 
+import lombok.Getter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -15,6 +16,7 @@ public class EntityDeathByPlayerEvent extends EntityEvent implements Cancellable
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Getter
 	private final Player killer;
 	private final Cancellable parentEvent;
 
@@ -27,10 +29,6 @@ public class EntityDeathByPlayerEvent extends EntityEvent implements Cancellable
 	@NotNull
 	public static HandlerList getHandlerList() {
 		return handlers;
-	}
-
-	public Player getKiller() {
-		return killer;
 	}
 
 	@Override

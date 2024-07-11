@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import lombok.Setter;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import org.bukkit.World.Environment;
@@ -21,7 +22,9 @@ public abstract class KillEntityGoal extends SettingGoal {
 
 	protected final EntityType entity;
 	protected final Environment environment;
-	protected boolean oneWinner = true, killerNeeded = false;
+	@Setter
+  protected boolean oneWinner = true;
+	protected boolean killerNeeded = false;
 	protected Player winner;
 
 	public KillEntityGoal(@Nonnull EntityType entity) {
@@ -61,10 +64,6 @@ public abstract class KillEntityGoal extends SettingGoal {
 			}
 		}
 		ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED);
-	}
-
-	public void setOneWinner(boolean oneWinner) {
-		this.oneWinner = oneWinner;
 	}
 
 }

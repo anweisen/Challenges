@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.helper;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -40,7 +41,8 @@ import java.util.stream.Collectors;
  */
 public final class ChallengeHelper {
 
-	private static boolean inInstantKill = false;
+	@Getter
+  private static boolean inInstantKill = false;
 
 	private ChallengeHelper() {
 	}
@@ -61,11 +63,7 @@ public final class ChallengeHelper {
 		Bukkit.getScheduler().runTaskLater(Challenges.getInstance(), () -> kill(player), delay);
 	}
 
-	public static boolean isInInstantKill() {
-		return inInstantKill;
-	}
-
-	public static void updateItems(@Nonnull IChallenge challenge) {
+  public static void updateItems(@Nonnull IChallenge challenge) {
 		challenge.getType().executeWithGenerator(ChallengeMenuGenerator.class, gen -> gen.updateItem(challenge));
 	}
 

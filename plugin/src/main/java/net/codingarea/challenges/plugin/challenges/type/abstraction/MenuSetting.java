@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -345,7 +346,8 @@ public abstract class MenuSetting extends Setting {
 		private final Function<Integer, String> name;
 		private final int max, min;
 		private final int defaultValue;
-		private int value;
+		@Getter
+    private int value;
 
 		public NumberSubSetting(@Nonnull Supplier<ItemBuilder> item, @Nonnull Function<Integer, String[]> description, @Nullable Function<Integer, String> name) {
 			this(item, description, name, 64);
@@ -431,11 +433,7 @@ public abstract class MenuSetting extends Setting {
 			this.setValue(defaultValue);
 		}
 
-		public int getValue() {
-			return value;
-		}
-
-		public void setValue(int value) {
+    public void setValue(int value) {
 			if (this.value == value) return;
 			this.value = value;
 

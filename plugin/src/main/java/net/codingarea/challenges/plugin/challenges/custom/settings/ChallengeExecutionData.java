@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
+import lombok.Getter;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.impl.CancelEventAction;
@@ -20,10 +21,14 @@ import java.util.*;
  */
 public class ChallengeExecutionData {
 
+	@Getter
 	private final IChallengeTrigger trigger;
+	@Getter
 	private final Map<String, List<String>> triggerData;
+	@Getter
 	private Entity entity;
 	private Runnable cancelAction;
+	@Getter
 	private int timesExecuting;
 
 	public ChallengeExecutionData(
@@ -88,22 +93,6 @@ public class ChallengeExecutionData {
 				cancelAction.run();
 			}
 		}
-	}
-
-	public IChallengeTrigger getTrigger() {
-		return trigger;
-	}
-
-	public Map<String, List<String>> getTriggerData() {
-		return triggerData;
-	}
-
-	public Entity getEntity() {
-		return entity;
-	}
-
-	public int getTimesExecuting() {
-		return timesExecuting;
 	}
 
 }

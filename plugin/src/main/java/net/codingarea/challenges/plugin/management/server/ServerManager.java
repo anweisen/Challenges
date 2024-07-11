@@ -29,7 +29,6 @@ import java.util.function.Supplier;
  */
 public final class ServerManager {
 
-
 	private final boolean setSpectatorOnWin;
 	private final boolean dropItemsOnEnd;
 	private final boolean winSounds;

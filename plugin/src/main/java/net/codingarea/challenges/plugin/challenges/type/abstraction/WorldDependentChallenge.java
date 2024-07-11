@@ -83,7 +83,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 	protected void teleportToWorld(boolean allowJoinCatchUp, @Nonnull BiConsumer<Player, Integer> action) {
 		if (Challenges.getInstance().getWorldManager().isWorldInUse()) return;
-		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = true);
+		Challenges.getInstance().getWorldManager().setWorldInUse(inExtraWorld = true);
 		lastTeleport = allowJoinCatchUp ? action : null;
 
 		teleportIndex = 0;
@@ -96,7 +96,7 @@ public abstract class WorldDependentChallenge extends TimedChallenge {
 
 	protected void teleportBack() {
 		if (!Challenges.getInstance().getWorldManager().isWorldInUse()) return;
-		Challenges.getInstance().getWorldManager().setWorldIsInUse(inExtraWorld = false);
+		Challenges.getInstance().getWorldManager().setWorldInUse(inExtraWorld = false);
 		lastTeleport = null;
 		teleportIndex = 0;
 	}

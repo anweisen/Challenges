@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.Challenges;
@@ -112,9 +114,11 @@ public final class ChallengeScoreboard {
 		}
 	}
 
+	@ToString
 	public static final class ScoreboardInstance {
 
 		private final String[] lines = new String[15];
+		@Getter
 		private String title = Message.forName("scoreboard-title").asString();
 		private int linesIndex = 0;
 
@@ -139,23 +143,10 @@ public final class ChallengeScoreboard {
 			return list;
 		}
 
-		@Nullable
-		public String getTitle() {
-			return title;
-		}
-
 		@Nonnull
 		public ScoreboardInstance setTitle(@Nonnull String title) {
 			this.title = title;
 			return this;
-		}
-
-		@Override
-		public String toString() {
-			return "ScoreboardInstance{" +
-					"lines=" + Arrays.toString(lines) +
-					", title='" + title + '\'' +
-					'}';
 		}
 	}
 

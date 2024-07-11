@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.Challenges;
@@ -20,9 +21,11 @@ import java.util.Map;
  */
 public class CustomSettingsLoader {
 
+	@Getter
 	private final Map<String, ChallengeTrigger> triggers;
 	private final Map<String, ChallengeTrigger> fallbackTriggers;
 
+	@Getter
 	private final Map<String, ChallengeAction> actions;
 	private final Map<String, ChallengeAction> fallbackActions;
 
@@ -155,14 +158,6 @@ public class CustomSettingsLoader {
 	@Nullable
 	public ChallengeTrigger getTriggerByName(String name) {
 		return triggers.getOrDefault(name, fallbackTriggers.get(name));
-	}
-
-	public Map<String, ChallengeAction> getActions() {
-		return actions;
-	}
-
-	public Map<String, ChallengeTrigger> getTriggers() {
-		return triggers;
 	}
 
 }

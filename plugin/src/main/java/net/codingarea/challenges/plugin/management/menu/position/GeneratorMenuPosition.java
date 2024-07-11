@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.position;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 
@@ -7,6 +8,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
+@Getter
 public abstract class GeneratorMenuPosition implements MenuPosition {
 
 	protected final MenuGenerator generator;
@@ -15,14 +17,6 @@ public abstract class GeneratorMenuPosition implements MenuPosition {
 	public GeneratorMenuPosition(MenuGenerator generator, int page) {
 		this.generator = generator;
 		this.page = page;
-	}
-
-	public int getPage() {
-		return page;
-	}
-
-	public MenuGenerator getGenerator() {
-		return generator;
 	}
 
 }

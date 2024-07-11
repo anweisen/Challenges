@@ -12,7 +12,7 @@ import java.util.function.BooleanSupplier;
 public enum FreshnessPolicy implements IPolicy {
 
 	ALWAYS(() -> true),
-	FRESH(() -> ChallengeAPI.isFresh()),
+	FRESH(ChallengeAPI::isFresh),
 	NOT_FRESH(() -> !ChallengeAPI.isFresh());
 
 	private final BooleanSupplier check;

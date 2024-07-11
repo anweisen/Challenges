@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.events;
 
+import lombok.Getter;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.inventory.InventoryClickEvent;
@@ -14,6 +15,7 @@ public class PlayerInventoryClickEvent extends InventoryClickEventWrapper {
 
 	private static final HandlerList handlers = new HandlerList();
 
+	@Getter
 	private final Player player;
 
 	public PlayerInventoryClickEvent(@Nonnull InventoryClickEvent event) {
@@ -24,11 +26,6 @@ public class PlayerInventoryClickEvent extends InventoryClickEventWrapper {
 	@Nonnull
 	public static HandlerList getHandlerList() {
 		return handlers;
-	}
-
-	@Nonnull
-	public Player getPlayer() {
-		return player;
 	}
 
 	@Nonnull

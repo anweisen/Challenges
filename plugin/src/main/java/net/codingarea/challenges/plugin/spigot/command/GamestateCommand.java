@@ -28,7 +28,7 @@ public class GamestateCommand implements SenderCommand, Completer {
 			return;
 		}
 
-		FileDocument gamestate = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument gamestate = Challenges.getInstance().getConfigManager().getGamestateConfig();
 		switch (args[0].toLowerCase()) {
 			case "reset":
 				gamestate.clear();

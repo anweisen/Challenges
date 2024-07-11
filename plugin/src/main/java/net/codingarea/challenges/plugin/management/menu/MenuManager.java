@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.AnimatedInventory;
 import net.anweisen.utilities.bukkit.utils.animation.AnimationFrame;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
@@ -26,7 +27,8 @@ public final class MenuManager {
 
 	public static final String MANAGE_GUI_PERMISSION = "challenges.manage";
 	public static final int[] GUI_SLOTS = {30, 32, 19, 25, 11, 15, 4};
-	private final boolean displayNewInFront;
+	@Getter
+  private final boolean displayNewInFront;
 	private final boolean permissionToManageGUI;
 	private AnimatedInventory gui;
 	private boolean generated = false;
@@ -120,11 +122,7 @@ public final class MenuManager {
 		return true;
 	}
 
-	public boolean isDisplayNewInFront() {
-		return displayNewInFront;
-	}
-
-	public void playNoPermissionsEffect(@Nonnull Player player) {
+  public void playNoPermissionsEffect(@Nonnull Player player) {
 		SoundSample.BASS_OFF.play(player);
 		Message.forName("no-permission").send(player, Prefix.CHALLENGES);
 	}

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.scheduler.timer;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -30,12 +31,16 @@ import javax.annotation.Nonnull;
  */
 public final class ChallengeTimer {
 
+	@Getter
 	private final TimerFormat format;
 	private final String stoppedMessage, upMessage, downMessage;
 	private final boolean specificStartSounds, defaultStartSound;
-	private long time = 0;
-	private boolean countingUp = true;
-	private boolean paused = true;
+	@Getter
+  private long time = 0;
+	@Getter
+  private boolean countingUp = true;
+	@Getter
+  private boolean paused = true;
 	private boolean hidden = false;
 	private boolean sentEmpty;
 
@@ -210,33 +215,16 @@ public final class ChallengeTimer {
 		return format.format(time);
 	}
 
-	@Nonnull
-	public TimerFormat getFormat() {
-		return format;
-	}
-
-	public long getTime() {
-		return time;
-	}
-
-	@Nonnull
+  @Nonnull
 	public TimerStatus getStatus() {
 		return paused ? TimerStatus.PAUSED : TimerStatus.RUNNING;
 	}
 
-	public boolean isPaused() {
-		return paused;
-	}
-
-	public boolean isStarted() {
+  public boolean isStarted() {
 		return !paused;
 	}
 
-	public boolean isCountingUp() {
-		return countingUp;
-	}
-
-	public void setCountingUp(boolean countingUp) {
+  public void setCountingUp(boolean countingUp) {
 		if (this.countingUp == countingUp) return;
 
 		this.countingUp = countingUp;

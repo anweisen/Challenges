@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import lombok.Setter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
@@ -17,7 +18,8 @@ import javax.annotation.Nonnull;
 public abstract class TimedChallenge extends SettingModifier {
 
 	private final boolean runAsync;
-	protected int secondsUntilActivation;
+	@Setter
+  protected int secondsUntilActivation;
 	private int originalSecondsUntilActivation;
 	private boolean timerStatus = false;
 	private boolean startedBefore = false;
@@ -131,11 +133,7 @@ public abstract class TimedChallenge extends SettingModifier {
 
 	protected abstract int getSecondsUntilNextActivation();
 
-	public void setSecondsUntilActivation(int secondsUntilActivation) {
-		this.secondsUntilActivation = secondsUntilActivation;
-	}
-
-	protected void restartTimer(int seconds) {
+  protected void restartTimer(int seconds) {
 		Logger.debug("Restarting timer of {} with {} second(s)", this.getClass().getSimpleName(), seconds);
 
 		startedBefore = true;

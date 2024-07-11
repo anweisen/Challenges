@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.type.abstraction;
 
+import lombok.Getter;
+import lombok.Setter;
 import net.anweisen.utilities.common.annotations.DeprecatedSince;
 import net.anweisen.utilities.common.collection.IRandom;
 import net.anweisen.utilities.common.config.Document;
@@ -37,7 +39,8 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	protected static final IRandom globalRandom = IRandom.create();
 
 	private static final Map<Class<? extends AbstractChallenge>, AbstractChallenge> firstInstanceByClass = new HashMap<>();
-	private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
+	@Getter
+  private static final boolean ignoreCreativePlayers, ignoreSpectatorPlayers;
 
 	static {
 		Document ignoreDocument = Challenges.getInstance().getConfigDocument().getDocument("ignore-players");
@@ -46,8 +49,11 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	}
 
 	protected final MenuType menu;
-	protected final ChallengeBossBar bossbar = new ChallengeBossBar();
-	protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+	@Getter
+  protected final ChallengeBossBar bossbar = new ChallengeBossBar();
+	@Getter
+  protected final ChallengeScoreboard scoreboard = new ChallengeScoreboard();
+	@Setter
 	protected SettingCategory category;
 	private String name;
 	private ItemStack cachedDisplayItem;
@@ -90,15 +96,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 		return (isIgnoreSpectatorPlayers() && gameMode == GameMode.SPECTATOR) || (isIgnoreCreativePlayers() && gameMode == GameMode.CREATIVE);
 	}
 
-	public static boolean isIgnoreCreativePlayers() {
-		return ignoreCreativePlayers;
-	}
-
-	public static boolean isIgnoreSpectatorPlayers() {
-		return ignoreSpectatorPlayers;
-	}
-
-	@Nonnull
+  @Nonnull
 	@Override
 	public final MenuType getType() {
 		return menu;
@@ -107,10 +105,6 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Override
 	public SettingCategory getCategory() {
 		return category;
-	}
-
-	public void setCategory(SettingCategory category) {
-		this.category = category;
 	}
 
 	protected final void updateItems() {
@@ -212,7 +206,7 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 
 	@Nonnull
 	protected final Document getGameStateData() {
-		return plugin.getConfigManager().getGameStateConfig().getDocument(this.getUniqueGamestateName());
+		return plugin.getConfigManager().getGamestateConfig().getDocument(this.getUniqueGamestateName());
 	}
 
 	@Nonnull
@@ -223,14 +217,6 @@ public abstract class AbstractChallenge implements IChallenge, Listener {
 	@Nonnull
 	protected final Document getPlayerData(@Nonnull Player player) {
 		return getPlayerData(player.getUniqueId());
-	}
-
-	public ChallengeScoreboard getScoreboard() {
-		return scoreboard;
-	}
-
-	public ChallengeBossBar getBossbar() {
-		return bossbar;
 	}
 
 }

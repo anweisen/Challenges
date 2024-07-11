@@ -1,5 +1,8 @@
 package net.codingarea.challenges.plugin.management.server;
 
+import java.nio.file.Files;
+import lombok.Getter;
+import lombok.Setter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -29,16 +32,19 @@ public final class WorldManager {
 
 	private static final String customSeedWorldPrefix = "pregenerated_";
 	private final boolean restartOnReset;
+	@Getter
 	private final boolean enableFreshReset;
 	private final long customSeed;
 	private final String levelName;
 	private final String[] worlds;
 	private final Map<UUID, PlayerData> playerData = new HashMap<>();
-	private boolean shutdownBecauseOfReset = false;
+	@Getter
+  private boolean shutdownBecauseOfReset = false;
 	private boolean useCustomSeed;
 	private WorldSettings settings = new WorldSettings();
 	private World flatWorld;
-	private boolean worldIsInUse;
+	@Getter
+	private boolean worldInUse;
 	public WorldManager() {
 		Document pluginConfig = Challenges.getInstance().getConfigDocument();
 		restartOnReset = pluginConfig.getBoolean("restart-on-reset");
@@ -128,7 +134,7 @@ public final class WorldManager {
 		}
 		sessionConfig.save();
 
-		FileDocument gamestateConfig = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument gamestateConfig = Challenges.getInstance().getConfigManager().getGamestateConfig();
 		gamestateConfig.clear();
 		gamestateConfig.save();
 
@@ -163,7 +169,7 @@ public final class WorldManager {
 		for (Player player : Bukkit.getOnlinePlayers()) {
 			if (player.getWorld() != flatWorld) continue;
 
-			Location location = player.getBedSpawnLocation();
+			Location location = player.getRespawnLocation();
 			if (location == null) {
 				World world = Bukkit.getWorld(levelName);
 				if (world == null) {
@@ -267,7 +273,7 @@ public final class WorldManager {
 	}
 
 	private void copyFile(@Nonnull File source, @Nonnull File target) throws IOException {
-		try (InputStream in = new FileInputStream(source); OutputStream out = new FileOutputStream(target)) {
+		try (InputStream in = Files.newInputStream(source.toPath()); OutputStream out = Files.newOutputStream(target.toPath())) {
 			byte[] buf = new byte[1024];
 			int length;
 			while ((length = in.read(buf)) > 0)
@@ -288,21 +294,9 @@ public final class WorldManager {
 		}
 	}
 
-	public boolean isEnableFreshReset() {
-		return enableFreshReset;
-	}
-
-	public boolean isShutdownBecauseOfReset() {
-		return shutdownBecauseOfReset;
-	}
-
-	public boolean isWorldInUse() {
-		return worldIsInUse;
-	}
-
-	public void setWorldIsInUse(boolean worldIsInUse) {
-		this.worldIsInUse = worldIsInUse;
-		if (worldIsInUse) {
+	public void setWorldInUse(boolean worldInUse) {
+		this.worldInUse = worldInUse;
+		if (worldInUse) {
 			cachePlayerData();
 		} else {
 			settings = new WorldSettings();
@@ -342,45 +336,15 @@ public final class WorldManager {
 		return settings;
 	}
 
-	public static class WorldSettings {
+	@Setter
+  @Getter
+  public static class WorldSettings {
 
 		private boolean placeBlocks = false;
 		private boolean destroyBlocks = false;
 		private boolean dropItems = false;
 		private boolean pickupItems = false;
 
-		public boolean isDestroyBlocks() {
-			return destroyBlocks;
-		}
-
-		public void setDestroyBlocks(boolean destroyBlocks) {
-			this.destroyBlocks = destroyBlocks;
-		}
-
-		public boolean isPlaceBlocks() {
-			return placeBlocks;
-		}
-
-		public void setPlaceBlocks(boolean placeBlocks) {
-			this.placeBlocks = placeBlocks;
-		}
-
-		public boolean isDropItems() {
-			return dropItems;
-		}
-
-		public void setDropItems(boolean dropItems) {
-			this.dropItems = dropItems;
-		}
-
-		public boolean isPickupItems() {
-			return pickupItems;
-		}
-
-		public void setPickupItems(boolean pickupItems) {
-			this.pickupItems = pickupItems;
-		}
-
-	}
+  }
 
 }

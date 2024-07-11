@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.files;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.FileDocument;
@@ -23,7 +24,8 @@ import java.util.List;
 public final class ConfigManager {
 
 	private final List<String> missingConfigSettings;
-	private FileDocument sessionConfig, gamestateConfig, settingsConfig, customChallengesConfig;
+	@Getter
+  private FileDocument sessionConfig, gamestateConfig, settingsConfig, customChallengesConfig;
 
 	public ConfigManager() {
 		missingConfigSettings = new LinkedList<>();
@@ -61,7 +63,7 @@ public final class ConfigManager {
 		try {
 			// Create Temp File for loading the yaml configuration
 			File defaultConfigTempFile = new File("defaultConfig.yml");
-			// Create a output stream from that file to write into it
+			// Create an output stream from that file to write into it
 			FileOutputStream stream = new FileOutputStream(defaultConfigTempFile);
 			// Copy the default config inside the temp file
 			InputStream resource = plugin.getResource("config.yml");
@@ -104,27 +106,8 @@ public final class ConfigManager {
 	}
 
 	@Nonnull
-	public FileDocument getSessionConfig() {
-		return sessionConfig;
-	}
-
-	@Nonnull
-	public FileDocument getGameStateConfig() {
-		return gamestateConfig;
-	}
-
-	@Nonnull
-	public FileDocument getSettingsConfig() {
-		return settingsConfig;
-	}
-
-	@Nonnull
 	public List<String> getMissingConfigSettings() {
 		return new LinkedList<>(missingConfigSettings);
-	}
-
-	public FileDocument getCustomChallengesConfig() {
-		return customChallengesConfig;
 	}
 
 }

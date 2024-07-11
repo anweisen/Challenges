@@ -60,7 +60,7 @@ public final class BlockUtils {
 
 	/**
 	 * @param block middle block
-	 * @return returns the block above, under, in the front, behind, to the left and to the right of the middle block
+	 * @return the block above, under, in the front, behind, to the left and to the right of the middle block
 	 */
 	@Nonnull
 	public static List<Block> getBlocksAroundBlock(@Nonnull Block block) {

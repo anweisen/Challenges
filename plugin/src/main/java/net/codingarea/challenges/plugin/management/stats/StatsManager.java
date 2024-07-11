@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.stats;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.database.exceptions.DatabaseException;
 import net.codingarea.challenges.plugin.ChallengeAPI;
@@ -29,7 +30,8 @@ import java.util.stream.Collectors;
  */
 public final class StatsManager implements Listener {
 
-	private final boolean enabled, noStatsAfterCheating;
+	@Getter
+  private final boolean enabled, noStatsAfterCheating;
 
 	private final Map<UUID, PlayerStats> cache = new ConcurrentHashMap<>();
 
@@ -181,16 +183,8 @@ public final class StatsManager implements Listener {
 		return index;
 	}
 
-	public boolean isEnabled() {
-		return enabled;
-	}
-
-	public boolean hasDatabaseConnection() {
+  public boolean hasDatabaseConnection() {
 		return Challenges.getInstance().getDatabaseManager().getDatabase() != null && Challenges.getInstance().getDatabaseManager().isConnected();
-	}
-
-	public boolean isNoStatsAfterCheating() {
-		return noStatsAfterCheating;
 	}
 
 }

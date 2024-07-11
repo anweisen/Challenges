@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.info;
 
+import lombok.ToString;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
@@ -11,6 +12,7 @@ import javax.annotation.Nonnull;
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@ToString
 public class ChallengeMenuClickInfo extends MenuClickInfo {
 
 	protected final boolean upperItem;
@@ -40,18 +42,6 @@ public class ChallengeMenuClickInfo extends MenuClickInfo {
 	@Nonnull
 	public Inventory getInventory() {
 		return inventory;
-	}
-
-	@Override
-	public String toString() {
-		return "ChallengeMenuClickInfo{" +
-				"upperItem=" + upperItem +
-				", player=" + player +
-				", inventory=" + inventory +
-				", shiftClick=" + shiftClick +
-				", rightClick=" + rightClick +
-				", slot=" + slot +
-				'}';
 	}
 
 }

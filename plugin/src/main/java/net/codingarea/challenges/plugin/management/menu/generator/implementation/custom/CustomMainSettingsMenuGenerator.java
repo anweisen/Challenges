@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import lombok.Getter;
 import net.codingarea.challenges.plugin.challenges.custom.settings.IChallengeSetting;
 import net.codingarea.challenges.plugin.challenges.custom.settings.SettingType;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
@@ -19,7 +20,8 @@ import java.util.function.Function;
  */
 public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator implements IParentCustomGenerator {
 
-	private final IParentCustomGenerator parent;
+	@Getter
+  private final IParentCustomGenerator parent;
 	private final SettingType type;
 	private final String title;
 	private final String key;
@@ -48,11 +50,7 @@ public class CustomMainSettingsMenuGenerator extends ChooseItemGenerator impleme
 		return MainCustomMenuGenerator.NAVIGATION_SLOTS;
 	}
 
-	public IParentCustomGenerator getParent() {
-		return parent;
-	}
-
-	@Override
+  @Override
 	public void accept(Player player, SettingType type, Map<String, String[]> data) {
 
 		subSettings.putAll(data);

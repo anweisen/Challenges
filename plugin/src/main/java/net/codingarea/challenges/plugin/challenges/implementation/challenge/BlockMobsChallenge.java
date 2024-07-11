@@ -52,7 +52,7 @@ public class BlockMobsChallenge extends Setting {
 		Collection<ItemStack> drops = event.getBlock().getDrops(event.getPlayer().getEquipment().getItemInMainHand());
 
 		int i = 0;
-		// Put every stack in different slot to make sure everything drops properly
+		// Put every stack in a different slot to make sure everything drops properly
 		for (ItemStack drop : drops) {
 
 			EquipmentSlot slot = EquipmentSlot.HEAD;

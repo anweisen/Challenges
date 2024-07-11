@@ -1,14 +1,15 @@
 package net.codingarea.challenges.plugin.management.scheduler;
 
-import javax.annotation.Nonnull;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.Objects;
+import javax.annotation.Nonnull;
+import lombok.EqualsAndHashCode;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@EqualsAndHashCode
 public final class ScheduledFunction {
 
 	private final Method method;
@@ -33,19 +34,6 @@ public final class ScheduledFunction {
 
 	private boolean shouldInvoke() {
 		return policies.allPoliciesAreTrue(holder);
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		ScheduledFunction function = (ScheduledFunction) o;
-		return method.equals(function.method) && holder.equals(function.holder);
-	}
-
-	@Override
-	public int hashCode() {
-		return Objects.hash(method, holder);
 	}
 
 	@Nonnull

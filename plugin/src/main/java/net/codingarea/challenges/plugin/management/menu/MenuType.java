@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu;
 
+import lombok.Getter;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.categorised.CategorisedMenuGenerator;
@@ -28,9 +29,12 @@ public enum MenuType {
 	CUSTOM("custom", Material.WRITABLE_BOOK, new MainCustomMenuGenerator());
 
 	private final String key;
-	private final Material displayItem;
-	private final MenuGenerator menuGenerator;
-	private final boolean usable;
+	@Getter
+  private final Material displayItem;
+	@Getter
+  private final MenuGenerator menuGenerator;
+	@Getter
+  private final boolean usable;
 
 	MenuType(@Nonnull String key, @Nonnull Material displayItem, MenuGenerator menuGenerator, boolean usable) {
 		this.key = key;
@@ -55,19 +59,7 @@ public enum MenuType {
 		return Message.forName("menu-" + key).asString();
 	}
 
-	public Material getDisplayItem() {
-		return displayItem;
-	}
-
-	public boolean isUsable() {
-		return usable;
-	}
-
-	public MenuGenerator getMenuGenerator() {
-		return menuGenerator;
-	}
-
-	@SuppressWarnings("unchecked")
+  @SuppressWarnings("unchecked")
 	public <T extends MenuGenerator> void executeWithGenerator(Class<T> clazz, Consumer<T> action) {
 		if (clazz.isAssignableFrom(menuGenerator.getClass())) {
 			action.accept((T) menuGenerator);

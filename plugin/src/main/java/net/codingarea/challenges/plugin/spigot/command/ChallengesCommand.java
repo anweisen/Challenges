@@ -48,12 +48,11 @@ public class ChallengesCommand implements PlayerCommand, Completer {
 	@Nullable
 	@Override
 	public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull String[] args) {
-		return args.length != 1 ? null :
-				Utils.filterRecommendations(args[0],
-						Arrays.stream(MenuType.values())
-								.map(menuType -> menuType.name().toLowerCase())
-								.toArray(String[]::new)
-				);
+		return args.length != 1 ? null : Utils.filterRecommendations(args[0],
+			Arrays.stream(MenuType.values())
+				.map(menuType -> menuType.name().toLowerCase())
+				.toArray(String[]::new)
+		);
 	}
 
 }
