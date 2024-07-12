@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
@@ -15,8 +16,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.jetbrains.annotations.NotNull;
-
-import javax.annotation.Nonnull;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -97,7 +96,7 @@ public class MaxHealthSetting extends Modifier {
 				double newHealth = oldHealth + (newMaxHealth - oldMaxHealth);
 				player.setHealth(Math.min(Math.max(newHealth, 0), newMaxHealth));
 			}
-
+			player.sendHealthUpdate();
 		}
 	}
 
