@@ -2,12 +2,15 @@ package net.codingarea.challenges.plugin.challenges.implementation.setting;
 
 import javax.annotation.Nonnull;
 import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.anweisen.utilities.common.config.Document;
 import net.anweisen.utilities.common.config.document.GsonDocument;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.Modifier;
 import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSProvider;
+import net.codingarea.challenges.plugin.utils.bukkit.nms.type.CraftPlayer;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import org.bukkit.attribute.Attribute;
@@ -96,7 +99,10 @@ public class MaxHealthSetting extends Modifier {
 				double newHealth = oldHealth + (newMaxHealth - oldMaxHealth);
 				player.setHealth(Math.min(Math.max(newHealth, 0), newMaxHealth));
 			}
-			player.sendHealthUpdate();
+			if (MinecraftVersion.current().isNewerThan(MinecraftVersion.V1_19)) {
+				player.sendHealthUpdate();
+			}
+			// TODO: Versions lower than 1.19 need to update health via nms
 		}
 	}
 
