@@ -2,7 +2,7 @@ package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.ChallengeAction;
-import net.codingarea.challenges.plugin.challenges.implementation.challenge.WaterMLGChallenge;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.extraworld.WaterMLGChallenge;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
 import org.bukkit.Material;
 

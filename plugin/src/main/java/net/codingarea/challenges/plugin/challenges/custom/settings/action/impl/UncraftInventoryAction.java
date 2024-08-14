@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.EntityTargetAction;
-import net.codingarea.challenges.plugin.challenges.implementation.challenge.UncraftItemsChallenge;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.inventory.UncraftItemsChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Entity;
