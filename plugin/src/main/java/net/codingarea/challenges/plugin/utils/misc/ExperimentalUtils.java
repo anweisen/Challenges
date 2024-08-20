@@ -49,7 +49,7 @@ public class ExperimentalUtils {
         if (!type.isEnabledByFeature(Challenges.getInstance().getGameWorldStorage().getWorld(World.Environment.NORMAL))) {
           continue;
         }
-      } catch (NoSuchMethodError ignored) {} // only NoSuchMethodException
+      } catch (NoSuchMethodError | IllegalArgumentException ignored) {} // only NoSuchMethodException
 
       entityTypes.add(type);
     }
