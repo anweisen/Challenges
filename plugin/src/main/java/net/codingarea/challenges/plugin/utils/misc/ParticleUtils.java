@@ -1,16 +1,22 @@
 package net.codingarea.challenges.plugin.utils.misc;
 
-import org.bukkit.*;
+import java.util.Objects;
+import java.util.function.BiConsumer;
+import javax.annotation.Nonnull;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
+import net.anweisen.utilities.common.collection.IRandom;
+import org.bukkit.Bukkit;
+import org.bukkit.Color;
+import org.bukkit.Effect;
+import org.bukkit.Location;
+import org.bukkit.Particle;
+import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.util.BoundingBox;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.Nullable;
-
-import javax.annotation.Nonnull;
-import java.util.Objects;
-import java.util.function.BiConsumer;
 
 /**
  * This class contains util methods to create fancy particles.
@@ -20,6 +26,8 @@ import java.util.function.BiConsumer;
  * @since 2.0
  */
 public final class ParticleUtils {
+
+	private static final IRandom iRandom = IRandom.create();
 
 	private ParticleUtils() {
 	}
@@ -52,12 +60,28 @@ public final class ParticleUtils {
 		}
 	}
 
-	public static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Effect particle, int points, double radius, double height) {
-		spawnUpGoingParticleCircle(plugin, location, points, radius, height, (world, point) -> world.playEffect(point, particle, 1));
+	public static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Effect effect, int points, double radius, double height) {
+		spawnUpGoingParticleCircle(plugin, location, points, radius, height, (world, point) -> world.playEffect(point, effect, 1));
 	}
 
 	public static void spawnUpGoingParticleCircle(@Nonnull JavaPlugin plugin, @Nonnull Location location, @Nonnull Particle particle, int points, double radius, double height) {
-		spawnUpGoingParticleCircle(plugin, location, points, radius, height, (world, point) -> world.spawnParticle(particle, point, 1));
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_20_5)) {
+			for (double y = 0, i = 0; y < height; y += .25, i++) {
+				final double Y = y;
+
+				Color color = Color.fromRGB(
+					iRandom.nextInt(255),
+					iRandom.nextInt(255),
+					iRandom.nextInt(255)
+				);
+
+				Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
+					spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, (world, l) -> world.spawnParticle(particle, l, 1, color));
+				}, (long) i);
+			}
+		} else {
+			spawnUpGoingParticleCircle(plugin, location, points, radius, height, (world, point) -> world.spawnParticle(particle, point, 1));
+		}
 	}
 
 	public static void spawnParticleCircleAroundEntity(@Nonnull JavaPlugin plugin, @Nonnull Entity entity) {
