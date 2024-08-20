@@ -90,15 +90,15 @@ public final class ChallengeBossBar {
 		}
 	}
 
-	public final void show() {
+	public void show() {
 		Challenges.getInstance().getScoreboardManager().showBossBar(this);
 	}
 
-	public final void hide() {
+	public void hide() {
 		Challenges.getInstance().getScoreboardManager().hideBossBar(this);
 	}
 
-	public final boolean isShown() {
+	public boolean isShown() {
 		return Challenges.getInstance().getScoreboardManager().isShown(this);
 	}
 
