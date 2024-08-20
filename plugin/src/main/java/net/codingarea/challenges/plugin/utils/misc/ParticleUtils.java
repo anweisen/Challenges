@@ -70,13 +70,17 @@ public final class ParticleUtils {
 				final double Y = y;
 
 				Color color = Color.fromRGB(
-					iRandom.nextInt(255),
-					iRandom.nextInt(255),
-					iRandom.nextInt(255)
+					iRandom.range(0, 255),
+					iRandom.range(0, 255),
+					iRandom.range(0, 255)
 				);
 
 				Bukkit.getScheduler().runTaskLaterAsynchronously(plugin, () -> {
-					spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, (world, l) -> world.spawnParticle(particle, l, 1, color));
+					if (particle == Particle.ENTITY_EFFECT) {
+						spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, (world, loc) -> world.spawnParticle(particle, loc, 1, color));
+					} else {
+						spawnParticleCircle(location.clone().add(0, Y, 0), points, radius, (world, loc) -> world.spawnParticle(particle, loc, 1));
+					}
 				}, (long) i);
 			}
 		} else {
