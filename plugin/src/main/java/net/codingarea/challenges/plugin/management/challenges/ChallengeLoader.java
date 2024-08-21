@@ -84,6 +84,7 @@ import net.codingarea.challenges.plugin.challenges.implementation.challenge.worl
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.BlockFlyInAirChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.BlocksDisappearAfterTimeChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.ChunkDeconstructionChallenge;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.ChunkDeletionChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.FloorIsLavaChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.IceFloorChallenge;
 import net.codingarea.challenges.plugin.challenges.implementation.challenge.world.LevelBorderChallenge;
@@ -231,6 +232,7 @@ public final class ChallengeLoader extends ModuleChallengeLoader {
 		register(LoopChallenge.class);
 		register(IceFloorChallenge.class);
 		register(LevelBorderChallenge.class);
+		register(ChunkDeletionChallenge.class);
 
 		// Inventory
 		register(PermanentItemChallenge.class);

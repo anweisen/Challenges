@@ -322,6 +322,7 @@
 	"bossbar-kill-all-bosses": "§8» §cAlle Bosse §8┃ §e{0}/{1}",
 	"bossbar-kill-all-mobs": "§8» §cAlle Mobs §8┃ §e{0}/{1}",
 	"bossbar-kill-all-monster": "§8» §cAlle Monster §8┃ §e{0}/{1}",
+	"bossbar-chunk-deletion": "§8» §7Zeit übrig im Chunk §6{0}s",
 	"subtitle-time-seconds": "§e{0} §7Sekunden",
 	"subtitle-time-seconds-range": "§e{0}-{1} §7Sekunden",
 	"subtitle-time-minutes": "§e{0} §7Minuten",
@@ -1009,7 +1010,7 @@
 	"item-random-challenge-challenge": [
 		"§cRandom Challenge",
 		"In einem *gesetzten Intervall*",
-		"wird eine *random Challenge* aktiviert"
+		"wird eine *Random Challenge* aktiviert"
 	],
 	"item-anvil-rain-challenge": [
 		"§cAmboss Regen",
@@ -1231,6 +1232,11 @@
 		"§2Keine Gleichen Advancements",
 		"Spieler dürfen *nicht* die *gleichen Advancements*",
 		"abschließen, sonst *stirbt* der *Spieler*"
+	],
+	"item-chunk-deletion-challenge": [
+		"§6Chunk Löschung",
+		"*Chunks*, in denen sich *Spieler* befinden,",
+		"werden nach gegebener *Zeit* komplett *gelöscht*"
 	],
 	"item-dragon-goal": [
 		"§5Enderdrache",
