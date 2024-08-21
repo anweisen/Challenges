@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms.type;
 
+import lombok.Getter;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.NMSProvider;
 import net.codingarea.challenges.plugin.utils.bukkit.nms.implementations.v1_17.PacketBorder_1_17;
 import org.bukkit.World;
@@ -18,10 +19,15 @@ public abstract class PacketBorder extends AbstractNMSClass {
     protected Object worldBorder;
 
     protected final World world;
+    @Getter
     protected double size = 0;
+    @Getter
     protected double centerX = 0;
+    @Getter
     protected double centerZ = 0;
+    @Getter
     protected int warningTime = 0;
+    @Getter
     protected int warningDistance = 0;
 
     /**
@@ -126,27 +132,7 @@ public abstract class PacketBorder extends AbstractNMSClass {
     }
     public abstract void send(Player player, PacketBorder_1_17.UpdateType updateType);
 
-    public double getSize() {
-        return size;
-    }
-
-    public double getCenterX() {
-        return centerX;
-    }
-
-    public double getCenterZ() {
-        return centerZ;
-    }
-
-    public int getWarningTime() {
-        return warningTime;
-    }
-
-    public int getWarningDistance() {
-        return warningDistance;
-    }
-
-    public Object getWorldBorderObject() {
+  public Object getWorldBorderObject() {
         return worldBorder;
     }
 

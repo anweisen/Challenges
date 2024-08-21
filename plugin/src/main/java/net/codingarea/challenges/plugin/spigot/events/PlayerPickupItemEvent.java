@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.events;
 
+import lombok.Getter;
 import org.bukkit.entity.Item;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -12,6 +13,7 @@ import javax.annotation.Nonnull;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.0
  */
+@Getter
 public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
 
 	private static final HandlerList handlers = new HandlerList();
@@ -29,25 +31,6 @@ public class PlayerPickupItemEvent extends PlayerEvent implements Cancellable {
 	@Nonnull
 	public static HandlerList getHandlerList() {
 		return handlers;
-	}
-
-	/**
-	 * Gets the Item picked up by the player.
-	 *
-	 * @return Item
-	 */
-	@Nonnull
-	public Item getItem() {
-		return item;
-	}
-
-	/**
-	 * Gets the amount remaining on the ground, if any
-	 *
-	 * @return amount remaining on the ground
-	 */
-	public int getRemaining() {
-		return remaining;
 	}
 
 	@Override

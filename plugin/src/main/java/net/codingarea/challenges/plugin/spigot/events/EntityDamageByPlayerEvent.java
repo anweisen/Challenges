@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.spigot.events;
 
+import lombok.Getter;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Cancellable;
@@ -15,8 +16,10 @@ public class EntityDamageByPlayerEvent extends EntityEvent implements Cancellabl
 
 	private static final HandlerList handlers = new HandlerList();
 
-	private final Player damager;
-	private final double finalDamage;
+	@Getter
+  private final Player damager;
+	@Getter
+  private final double finalDamage;
 	private final Cancellable parentEvent;
 
 	public EntityDamageByPlayerEvent(@NotNull Entity victim, Player damager, double finalDamage, Cancellable parent) {
@@ -31,15 +34,7 @@ public class EntityDamageByPlayerEvent extends EntityEvent implements Cancellabl
 		return handlers;
 	}
 
-	public Player getDamager() {
-		return damager;
-	}
-
-	public double getFinalDamage() {
-		return finalDamage;
-	}
-
-	@Override
+  @Override
 	public boolean isCancelled() {
 		return parentEvent.isCancelled();
 	}

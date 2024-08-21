@@ -1,8 +1,9 @@
 package net.codingarea.challenges.plugin.utils.item;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
+import java.util.UUID;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder.SkullBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 
 import javax.annotation.Nonnull;
@@ -13,6 +14,11 @@ import javax.annotation.Nonnull;
  */
 public final class DefaultItem {
 
+	// Owner: MHF_ArrowLeft
+	private static final UUID ARROW_LEFT_UUID = UUID.fromString("a68f0b64-8d14-4000-a95f-4b9ba14f8df9");
+	// Owner: MHF_ArrowRight
+	private static final UUID ARROW_RIGHT_UUID = UUID.fromString("50c8510b-5ea0-4d60-be9a-7d542d6cd156");
+
 	@Nonnull
 	public static String getItemPrefix() {
 		return Message.forName("item-prefix").asString() + "§e";
@@ -20,12 +26,12 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder navigateBack() {
-		return new SkullBuilder("MHF_ArrowLeft").setName(Message.forName("navigate-back")).hideAttributes();
+		return new SkullBuilder(ARROW_LEFT_UUID, "MHF_ArrowLeft").setName(Message.forName("navigate-back")).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder navigateNext() {
-		return new SkullBuilder("MHF_ArrowRight").setName(Message.forName("navigate-next")).hideAttributes();
+		return new SkullBuilder(ARROW_RIGHT_UUID, "MHF_ArrowRight").setName(Message.forName("navigate-next")).hideAttributes();
 	}
 
 	@Nonnull
@@ -45,12 +51,12 @@ public final class DefaultItem {
 
 	@Nonnull
 	public static ItemBuilder disabled() {
-		return new ItemBuilder(MaterialWrapper.RED_DYE).setName(getTitle(Message.forName("disabled"))).hideAttributes();
+		return new ItemBuilder(MinecraftNameWrapper.RED_DYE).setName(getTitle(Message.forName("disabled"))).hideAttributes();
 	}
 
 	@Nonnull
 	public static ItemBuilder customize() {
-		return new ItemBuilder(MaterialWrapper.SIGN).setName(getTitle(Message.forName("customize"))).hideAttributes();
+		return new ItemBuilder(MinecraftNameWrapper.SIGN).setName(getTitle(Message.forName("customize"))).hideAttributes();
 	}
 
 	@Nonnull

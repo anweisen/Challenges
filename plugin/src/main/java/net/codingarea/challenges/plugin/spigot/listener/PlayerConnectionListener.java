@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.spigot.listener;
 
+import java.util.List;
+import javax.annotation.Nonnull;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
@@ -7,19 +9,16 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.content.loader.UpdateLoader;
 import net.codingarea.challenges.plugin.utils.misc.DatabaseHelper;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.Bukkit;
-import org.bukkit.Particle;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 /**
  * @author anweisen | https://github.com/anweisen
@@ -50,7 +49,8 @@ public class PlayerConnectionListener implements Listener {
 		Player player = event.getPlayer();
 
 		player.getLocation().getChunk().load(true);
-		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(), Particle.SPELL_MOB, 17, 1, 2);
+		ParticleUtils.spawnUpGoingParticleCircle(Challenges.getInstance(), player.getLocation(),
+			MinecraftNameWrapper.ENTITY_EFFECT, 17, 1, 2);
 		Challenges.getInstance().getScoreboardManager().handleJoin(player);
 
 		if (player.hasPermission("challenges.gui")) {

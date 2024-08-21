@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.database;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.pair.Tuple;
 import net.anweisen.utilities.common.config.Document;
@@ -30,8 +31,10 @@ import java.util.Map;
 public final class DatabaseManager {
 
 	private final Map<String, Tuple<String, JavaPlugin>> registry = new HashMap<>();
-	private String type;
-	private Database database;
+	@Getter
+  private String type;
+	@Getter
+  private Database database;
 
 	{
 		// Database types supported by default
@@ -142,15 +145,7 @@ public final class DatabaseManager {
 		return database != null;
 	}
 
-	public Database getDatabase() {
-		return database;
-	}
-
-	public String getType() {
-		return type;
-	}
-
-	private boolean checkDependencies(@Nonnull String... classes) {
+  private boolean checkDependencies(@Nonnull String... classes) {
 		try {
 			for (String name : classes) {
 				Class.forName(name);

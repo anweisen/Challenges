@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import net.anweisen.utilities.common.misc.StringUtils;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.ValueSetting;
@@ -25,6 +26,7 @@ import java.util.function.Function;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
+@Getter
 public class ValueSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
 	private final LinkedHashMap<ValueSetting, String> defaultSettings = new LinkedHashMap<>();
@@ -109,10 +111,6 @@ public class ValueSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
 	public boolean hasSettings() {
 		return !defaultSettings.isEmpty();
-	}
-
-	public LinkedHashMap<ValueSetting, String> getDefaultSettings() {
-		return defaultSettings;
 	}
 
 }

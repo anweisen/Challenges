@@ -13,7 +13,7 @@ public enum ChallengeStatusPolicy implements IPolicy {
 
 	ALWAYS(challenge -> true),
 	DISABLED(challenge -> !challenge.isEnabled()),
-	ENABLED(challenge -> challenge.isEnabled());
+	ENABLED(IChallenge::isEnabled);
 
 	private final Predicate<IChallenge> check;
 

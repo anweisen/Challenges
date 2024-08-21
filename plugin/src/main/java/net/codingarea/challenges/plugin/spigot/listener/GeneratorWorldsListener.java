@@ -22,7 +22,7 @@ public class GeneratorWorldsListener implements Listener {
 	public void onChangeWorld(PlayerTeleportEvent event) {
 		if (event.getTo() == null) return;
 
-		GeneratorWorldPortalManager worldManager = Challenges.getInstance().getGeneratorWorldManager();
+		GeneratorWorldPortalManager worldManager = Challenges.getInstance().getGeneratorWorldPortalManager();
 		Player player = event.getPlayer();
 		World from = event.getFrom().getWorld();
 		World to = event.getTo().getWorld();

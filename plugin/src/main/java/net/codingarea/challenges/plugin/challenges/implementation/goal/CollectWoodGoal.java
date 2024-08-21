@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.spigot.events.PlayerInventoryClickEvent;
 import net.codingarea.challenges.plugin.spigot.events.PlayerPickupItemEvent;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.ListBuilder;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -80,7 +81,7 @@ public class CollectWoodGoal extends SettingModifierCollectionGoal {
 	@Nonnull
 	private Object[] getWoodMaterials() {
 		return new ListBuilder<Material>().fill(builder -> {
-			for (Material material : Material.values()) {
+			for (Material material : ExperimentalUtils.getMaterials()) {
 				if (isSearched(material))
 					builder.add(material);
 			}

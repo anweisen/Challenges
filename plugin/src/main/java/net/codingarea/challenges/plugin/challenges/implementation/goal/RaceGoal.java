@@ -15,6 +15,7 @@ import net.codingarea.challenges.plugin.management.scheduler.task.ScheduledTask;
 import net.codingarea.challenges.plugin.management.server.ChallengeEndCause;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
 import net.codingarea.challenges.plugin.utils.misc.BlockUtils;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import org.bukkit.*;
@@ -112,12 +113,13 @@ public class RaceGoal extends SettingModifierGoal {
 			Location relativeGoal = goal.clone();
 			relativeGoal.setY(player.getLocation().getY());
 			relativeGoal.add(0.5, 0, 0.5);
-			ParticleUtils.drawLine(player, player.getLocation(), relativeGoal, Particle.REDSTONE, new DustOptions(
+			ParticleUtils.drawLine(player, player.getLocation(), relativeGoal, MinecraftNameWrapper.REDSTONE_DUST, new DustOptions(
 					Color.LIME, 1), 1, 0.5, 50);
 
 			if (player.getWorld() != goal.getWorld()) return;
 			if (player.getLocation().distance(relativeGoal) > 20) return;
-			ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), relativeGoal, Particle.SPELL_INSTANT, 0.75, 0.5);
+			ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), relativeGoal,
+				MinecraftNameWrapper.INSTANT_EFFECT, 0.75, 0.5);
 		});
 	}
 
@@ -131,7 +133,7 @@ public class RaceGoal extends SettingModifierGoal {
 		if (BlockUtils.isSameBlockLocationIgnoreHeight(event.getTo(), goal)) {
 			Message.forName("race-goal-reached").broadcast(Prefix.CHALLENGES, NameHelper.getName(event.getPlayer()));
 			ChallengeAPI.endChallenge(ChallengeEndCause.GOAL_REACHED, () -> Collections.singletonList(event.getPlayer()));
-			ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), event.getTo(), Particle.SPELL_MOB, 0.75, 2);
+			ParticleUtils.spawnParticleCircleAroundRadius(Challenges.getInstance(), event.getTo(), MinecraftNameWrapper.ENTITY_EFFECT, 0.75, 2);
 		}
 	}
 

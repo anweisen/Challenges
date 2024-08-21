@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.sub.builder;
 
 import com.google.common.collect.Lists;
+import lombok.Getter;
 import net.codingarea.challenges.plugin.challenges.custom.settings.sub.SubSettingsBuilder;
 import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.management.menu.generator.implementation.custom.IParentCustomGenerator;
@@ -19,6 +20,7 @@ import java.util.function.Consumer;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
+@Getter
 public class ChooseItemSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
 	protected final LinkedHashMap<String, ItemStack> settings = new LinkedHashMap<>();
@@ -72,10 +74,6 @@ public class ChooseItemSubSettingsBuilder extends GeneratorSubSettingsBuilder {
 
 	public boolean hasSettings() {
 		return !settings.isEmpty();
-	}
-
-	public LinkedHashMap<String, ItemStack> getSettings() {
-		return settings;
 	}
 
 }

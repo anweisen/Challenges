@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.inventory;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.pair.Triple;
@@ -261,7 +262,8 @@ public final class PlayerInventoryManager implements Listener {
 		return pairs;
 	}
 
-	public static class HotbarItem {
+	@Getter
+  public static class HotbarItem {
 
 		private final int slot;
 		private final String message;
@@ -277,26 +279,6 @@ public final class PlayerInventoryManager implements Listener {
 			this.permission = permission;
 		}
 
-		public int getSlot() {
-			return slot;
-		}
-
-		public String getMessage() {
-			return message;
-		}
-
-		public Material getMaterial() {
-			return material;
-		}
-
-		public Consumer<Player> getAction() {
-			return action;
-		}
-
-		public String getPermission() {
-			return permission;
-		}
-
-	}
+  }
 
 }

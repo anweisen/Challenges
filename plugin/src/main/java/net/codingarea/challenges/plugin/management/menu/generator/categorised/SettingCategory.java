@@ -1,8 +1,8 @@
 package net.codingarea.challenges.plugin.management.menu.generator.categorised;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 
 import java.util.function.Supplier;
@@ -18,7 +18,7 @@ public class SettingCategory {
 	public static final SettingCategory RANDOMIZER = new SettingCategory(1, Material.COMMAND_BLOCK, () -> Message.forName("category-randomizer"));
 	public static final SettingCategory FORCE = new SettingCategory(2, Material.BLUE_BANNER, () -> Message.forName("category-force"));
 	public static final SettingCategory ENTITIES = new SettingCategory(3, Material.PIG_SPAWN_EGG, () -> Message.forName("category-entities"));
-	public static final SettingCategory DAMAGE = new SettingCategory(4, MaterialWrapper.RED_DYE, () -> Message.forName("category-damage"));
+	public static final SettingCategory DAMAGE = new SettingCategory(4, MinecraftNameWrapper.RED_DYE, () -> Message.forName("category-damage"));
 	public static final SettingCategory EFFECT = new SettingCategory(5, Material.FERMENTED_SPIDER_EYE, () -> Message.forName("category-effect"));
 	public static final SettingCategory WORLD = new SettingCategory(6, Material.TNT, () -> Message.forName("category-world"));
 	public static final SettingCategory INVENTORY = new SettingCategory(7, Material.CHEST, () -> Message.forName("category-inventory"));

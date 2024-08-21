@@ -12,8 +12,8 @@ import java.util.function.BooleanSupplier;
 public enum TimerPolicy implements IPolicy {
 
 	ALWAYS(() -> true),
-	PAUSED(() -> ChallengeAPI.isPaused()),
-	STARTED(() -> ChallengeAPI.isStarted());
+	PAUSED(ChallengeAPI::isPaused),
+	STARTED(ChallengeAPI::isStarted);
 
 	private final BooleanSupplier check;
 

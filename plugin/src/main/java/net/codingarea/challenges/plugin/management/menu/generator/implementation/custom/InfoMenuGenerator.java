@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.management.menu.generator.implementation.custom;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -19,6 +21,7 @@ import net.codingarea.challenges.plugin.management.menu.generator.MenuGenerator;
 import net.codingarea.challenges.plugin.spigot.listener.ChatInputListener;
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils;
 import net.codingarea.challenges.plugin.utils.misc.InventoryUtils.InventorySetter;
 import org.bukkit.Bukkit;
@@ -35,6 +38,7 @@ import java.util.*;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
+@ToString
 public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGenerator {
 
 	public static final int DELETE_SLOT = 19 + 9, SAVE_SLOT = 25 + 9, CONDITION_SLOT = 21 + 9, ACTION_SLOT = 23 + 9, MATERIAL_SLOT = 14, NAME_SLOT = 12;
@@ -44,7 +48,7 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 
 	static {
 		savePlayerChallenges = Challenges.getInstance().getConfigDocument().getBoolean("save-player_challenges");
-		ArrayList<Material> list = new ArrayList<>(Arrays.asList(Material.values()));
+		ArrayList<Material> list = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		list.removeIf(material1 -> !material1.isItem());
 		defaultMaterials = list.toArray(new Material[0]);
 	}
@@ -191,17 +195,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 				trigger, subTriggers, action, subActions, true);
 	}
 
-	@Override
-	public String toString() {
-		return "InfoMenuGenerator{" +
-				"name='" + name + '\'' +
-				", trigger=" + trigger +
-				", subTriggers=" + subTriggers.entrySet() +
-				", action=" + action +
-				", subActions=" + subActions.entrySet() +
-				'}';
-	}
-
 	public void openChallengeMenu(Player player) {
 		CustomChallenge challenge = Challenges.getInstance().getCustomChallengesLoader()
 				.getCustomChallenges().get(uuid);
@@ -217,7 +210,8 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 	public class InfoMenuPosition implements MenuPosition {
 
 		private final int page;
-		private final InfoMenuGenerator generator;
+		@Getter
+    private final InfoMenuGenerator generator;
 
 		public InfoMenuPosition(int page, InfoMenuGenerator generator) {
 			this.page = page;
@@ -314,9 +308,6 @@ public class InfoMenuGenerator extends MenuGenerator implements IParentCustomGen
 			}
 		}
 
-		public InfoMenuGenerator getGenerator() {
-			return generator;
-		}
-	}
+  }
 
 }

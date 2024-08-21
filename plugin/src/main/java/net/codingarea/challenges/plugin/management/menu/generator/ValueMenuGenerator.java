@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.menu.generator;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.animation.SoundSample;
 import net.anweisen.utilities.bukkit.utils.menu.MenuClickInfo;
 import net.anweisen.utilities.bukkit.utils.menu.MenuPosition;
@@ -21,6 +22,7 @@ import java.util.Map;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 1.0
  */
+@Getter
 public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
 
 	public static final int FINISH_SLOT = 31;
@@ -118,9 +120,5 @@ public abstract class ValueMenuGenerator extends MultiPageMenuGenerator {
 	public abstract void onSaveItemClick(Player player);
 
 	public abstract void onBackToMenuItemClick(Player player);
-
-	public Map<ValueSetting, String> getSettings() {
-		return settings;
-	}
 
 }

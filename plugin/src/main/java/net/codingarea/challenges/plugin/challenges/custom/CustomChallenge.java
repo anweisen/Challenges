@@ -1,5 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom;
 
+import lombok.Getter;
+import lombok.ToString;
 import net.anweisen.utilities.common.config.Document;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.custom.settings.ChallengeExecutionData;
@@ -26,6 +28,8 @@ import java.util.UUID;
  * @author KxmischesDomi | https://github.com/kxmischesdomi
  * @since 2.1.0
  */
+@Getter
+@ToString
 public class CustomChallenge extends Setting {
 
 	private final UUID uuid;
@@ -36,12 +40,12 @@ public class CustomChallenge extends Setting {
 	private ChallengeAction action;
 	private Map<String, String[]> subActions;
 
-	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String name, ChallengeTrigger trigger,
+	public CustomChallenge(MenuType menuType, UUID uuid, Material displayItem, String displayName, ChallengeTrigger trigger,
 						   Map<String, String[]> subTriggers, ChallengeAction action, Map<String, String[]> subActions) {
 		super(menuType);
 		this.uuid = uuid;
 		this.material = displayItem;
-		this.name = name;
+		this.name = displayName;
 		this.trigger = trigger;
 		this.subTriggers = subTriggers;
 		this.action = action;
@@ -177,20 +181,8 @@ public class CustomChallenge extends Setting {
 		this.subActions = subActions;
 	}
 
-	public ChallengeAction getAction() {
-		return action;
-	}
-
-	public ChallengeTrigger getTrigger() {
-		return trigger;
-	}
-
 	public UUID getUniqueId() {
 		return uuid;
-	}
-
-	public Material getMaterial() {
-		return material;
 	}
 
 	@Nonnull
@@ -202,27 +194,6 @@ public class CustomChallenge extends Setting {
 	@Override
 	public String getUniqueName() {
 		return uuid.toString();
-	}
-
-	public Map<String, String[]> getSubTriggers() {
-		return subTriggers;
-	}
-
-	public Map<String, String[]> getSubActions() {
-		return subActions;
-	}
-
-	@Override
-	public String toString() {
-		return "CustomChallenge{" +
-				"uuid=" + uuid +
-				", material=" + material +
-				", name='" + name + '\'' +
-				", trigger=" + trigger +
-				", subTriggers=" + subTriggers +
-				", action=" + action +
-				", subActions=" + subActions +
-				'}';
 	}
 
 }

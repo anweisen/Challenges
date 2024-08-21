@@ -1,14 +1,15 @@
 package net.codingarea.challenges.plugin.management.server;
 
-import net.codingarea.challenges.plugin.content.Message;
-
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import lombok.Getter;
+import net.codingarea.challenges.plugin.content.Message;
 
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 1.0
  */
+@Getter
 public enum ChallengeEndCause {
 
 	TIMER_HIT_ZERO(Message.forName("challenge-end-timer-hit-zero"), Message.forName("challenge-end-timer-hit-zero-winner")),
@@ -25,16 +26,6 @@ public enum ChallengeEndCause {
 	@Nonnull
 	public Message getMessage(boolean withWinner) {
 		return withWinner && winnerMessage != null ? winnerMessage : noWinnerMessage;
-	}
-
-	@Nonnull
-	public Message getNoWinnerMessage() {
-		return noWinnerMessage;
-	}
-
-	@Nullable
-	public Message getWinnerMessage() {
-		return winnerMessage;
 	}
 
 	public boolean isWinnable() {

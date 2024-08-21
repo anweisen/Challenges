@@ -323,6 +323,7 @@
 	"bossbar-kill-all-bosses": "§8» §cAll Bosses §8┃ §e{0}/{1}",
 	"bossbar-kill-all-mobs": "§8» §cAll Mobs §8┃ §e{0}/{1}",
 	"bossbar-kill-all-monster": "§8» §cAll Monsters §8┃ §e{0}/{1}",
+	"bossbar-chunk-deletion": "§8» §7Time left in chunk §6{0}s",
 	"subtitle-time-seconds": "§e{0} §7seconds",
 	"subtitle-time-seconds-range": "§e{0}-{1} §7seconds",
 	"subtitle-time-minutes": "§e{0} §7minutes",
@@ -1211,6 +1212,11 @@
 		"§2No Shared Advancements",
 		"You're *not allowed* to get *advancements* someone else",
 		"*already did*. Else *you'll die*."
+	],
+	"item-chunk-deletion-challenge": [
+		"§6Chunk Deletion",
+		"*Chunks* that players are in *delete*",
+		"completely after the given *time*"
 	],
 	"item-dragon-goal": [
 		"§5Ender Dragon",

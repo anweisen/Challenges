@@ -35,7 +35,7 @@ public final class InventoryUtils {
 
 	static {
 		random = IRandom.create();
-		items = new ArrayList<>(Arrays.asList(Material.values()));
+		items = new ArrayList<>(Arrays.asList(ExperimentalUtils.getMaterials()));
 		items.removeIf(material -> !material.isItem());
 	}
 

@@ -1,7 +1,7 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
-import net.codingarea.challenges.plugin.challenges.implementation.challenge.RandomItemDroppingChallenge;
+import net.codingarea.challenges.plugin.challenges.implementation.challenge.randomizer.RandomItemDroppingChallenge;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;

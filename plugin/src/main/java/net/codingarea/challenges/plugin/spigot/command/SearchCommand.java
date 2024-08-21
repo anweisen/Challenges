@@ -8,6 +8,7 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.blocks.BlockDropManager.RegisteredDrops;
 import net.codingarea.challenges.plugin.utils.bukkit.command.Completer;
 import net.codingarea.challenges.plugin.utils.bukkit.command.SenderCommand;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
 import org.bukkit.Material;
 import org.bukkit.command.CommandSender;
@@ -67,12 +68,11 @@ public class SearchCommand implements SenderCommand, Completer {
 	@Override
 	public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull String[] args) {
 		return args.length != 1 ? null :
-				Arrays.stream(Material.values())
-						.filter(ItemUtils::isObtainableInSurvival)
-						.filter(Material::isItem)
-						.map(material -> material.name().toLowerCase())
-						.collect(Collectors.toList()
-						);
+			Arrays.stream(ExperimentalUtils.getMaterials())
+				.filter(ItemUtils::isObtainableInSurvival)
+				.filter(Material::isItem)
+				.map(material -> material.name().toLowerCase())
+				.collect(Collectors.toList());
 	}
 
 }

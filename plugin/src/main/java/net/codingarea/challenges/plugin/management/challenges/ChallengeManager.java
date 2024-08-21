@@ -38,8 +38,8 @@ public final class ChallengeManager {
 		return Collections.unmodifiableList(challenges);
 	}
 
-	public void registerGameStateSaver(@Nonnull GamestateSaveable saveable) {
-		additionalSaver.add(saveable);
+	public void registerGameStateSaver(@Nonnull GamestateSaveable savable) {
+		additionalSaver.add(savable);
 	}
 
 	public void register(@Nonnull IChallenge challenge) {
@@ -103,7 +103,7 @@ public final class ChallengeManager {
 	}
 
 	public void enable() {
-		loadGamestate(Challenges.getInstance().getConfigManager().getGameStateConfig().readonly());
+		loadGamestate(Challenges.getInstance().getConfigManager().getGamestateConfig().readonly());
 		loadSettings(Challenges.getInstance().getConfigManager().getSettingsConfig().readonly());
 		loadCustomChallenges(Challenges.getInstance().getConfigManager().getCustomChallengesConfig().readonly());
 	}
@@ -190,7 +190,7 @@ public final class ChallengeManager {
 	}
 
 	public synchronized void saveGamestate(boolean async) {
-		FileDocument config = Challenges.getInstance().getConfigManager().getGameStateConfig();
+		FileDocument config = Challenges.getInstance().getConfigManager().getGamestateConfig();
 		saveGameStateInto(config);
 		config.save(async);
 	}

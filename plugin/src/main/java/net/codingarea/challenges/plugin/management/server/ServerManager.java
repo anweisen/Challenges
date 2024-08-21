@@ -9,12 +9,12 @@ import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.challenges.type.IGoal;
 import net.codingarea.challenges.plugin.content.Prefix;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.World.Environment;
-import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
@@ -28,7 +28,6 @@ import java.util.function.Supplier;
  * @since 1.0
  */
 public final class ServerManager {
-
 
 	private final boolean setSpectatorOnWin;
 	private final boolean dropItemsOnEnd;
@@ -109,7 +108,7 @@ public final class ServerManager {
 			SoundSample.BLAST.play(player);
 
 			try {
-				player.getWorld().spawnEntity(player.getLocation(), EntityType.FIREWORK);
+				player.getWorld().spawnEntity(player.getLocation(), MinecraftNameWrapper.FIREWORK);
 			} catch (IllegalArgumentException ex) {
 				// We cant spawn fireworks like that in some versions of spigot
 			}

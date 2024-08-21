@@ -14,7 +14,7 @@ public enum PlayerCountPolicy implements IPolicy {
 	ALWAYS((online, max) -> true),
 	EMPTY((online, max) -> online == 0),
 	SOMEONE((online, max) -> online > 0),
-	FULL((online, max) -> online.equals(max));
+	FULL(Integer::equals);
 
 	private final BiPredicate<Integer, Integer> check;
 

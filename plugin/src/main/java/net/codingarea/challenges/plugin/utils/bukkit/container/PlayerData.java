@@ -1,27 +1,26 @@
 package net.codingarea.challenges.plugin.utils.bukkit.container;
 
+import java.util.Collection;
+import javax.annotation.Nonnull;
+import lombok.Data;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
 
-import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Objects;
-
 /**
  * @author anweisen | https://github.com/anweisen
  * @since 2.0
  */
+@Data
 public final class PlayerData {
 
-	private final Collection<PotionEffect> effects;
 	private final GameMode gamemode;
 	private final Location location;
 	private final ItemStack[] inventory;
 	private final ItemStack[] armor;
+	private final Collection<PotionEffect> effects;
 
 	private final double health;
 	private final int food;
@@ -31,13 +30,34 @@ public final class PlayerData {
 	private final boolean flying;
 
 	public PlayerData(@Nonnull Player player) {
-		this(player.getGameMode(), player.getLocation(), player.getInventory().getContents(), player.getInventory().getArmorContents(),
-				player.getActivePotionEffects(), player.getHealth(), player.getFoodLevel(), player.getSaturation(), player.getInventory().getHeldItemSlot(),
-				player.getAllowFlight(), player.isFlying());
+		this(
+			player.getGameMode(),
+			player.getLocation(),
+			player.getInventory().getContents(),
+			player.getInventory().getArmorContents(),
+			player.getActivePotionEffects(),
+			player.getHealth(),
+			player.getFoodLevel(),
+			player.getSaturation(),
+			player.getInventory().getHeldItemSlot(),
+			player.getAllowFlight(),
+			player.isFlying()
+		);
 	}
 
-	public PlayerData(@Nonnull GameMode gamemode, @Nonnull Location location, @Nonnull ItemStack[] inventory, @Nonnull ItemStack[] armor,
-					  @Nonnull Collection<PotionEffect> effects, double health, int food, float saturation, int heldItemSlot, boolean allowedFlight, boolean flying) {
+	public PlayerData(
+		@Nonnull GameMode gamemode,
+		@Nonnull Location location,
+		@Nonnull ItemStack[] inventory,
+		@Nonnull ItemStack[] armor,
+		@Nonnull Collection<PotionEffect> effects,
+		double health,
+		int food,
+		float saturation,
+		int heldItemSlot,
+		boolean allowedFlight,
+		boolean flying
+	) {
 		this.gamemode = gamemode;
 		this.location = location;
 		this.inventory = inventory;
@@ -66,39 +86,6 @@ public final class PlayerData {
 		player.addPotionEffects(effects);
 		player.setAllowFlight(allowedFlight);
 		player.setFlying(flying);
-	}
-
-	@Override
-	public String toString() {
-		return "PlayerData{" +
-				"effects=" + effects +
-				", gamemode=" + gamemode +
-				", location=" + location +
-				", inventory=" + Arrays.toString(inventory) +
-				", armor=" + Arrays.toString(armor) +
-				", health=" + health +
-				", food=" + food +
-				", saturation=" + saturation +
-				", heldItemSlot=" + heldItemSlot +
-				", allowedFlight=" + allowedFlight +
-				", flying=" + flying +
-				'}';
-	}
-
-	@Override
-	public boolean equals(Object o) {
-		if (this == o) return true;
-		if (o == null || getClass() != o.getClass()) return false;
-		PlayerData that = (PlayerData) o;
-		return Double.compare(that.health, health) == 0 && food == that.food && Float.compare(that.saturation, saturation) == 0 && heldItemSlot == that.heldItemSlot && allowedFlight == that.allowedFlight && flying == that.flying && Objects.equals(effects, that.effects) && gamemode == that.gamemode && Objects.equals(location, that.location) && Arrays.equals(inventory, that.inventory) && Arrays.equals(armor, that.armor);
-	}
-
-	@Override
-	public int hashCode() {
-		int result = Objects.hash(effects, gamemode, location, health, food, saturation, heldItemSlot, allowedFlight, flying);
-		result = 31 * result + Arrays.hashCode(inventory);
-		result = 31 * result + Arrays.hashCode(armor);
-		return result;
 	}
 
 }

@@ -1,5 +1,6 @@
 package net.codingarea.challenges.plugin.management.cloud;
 
+import lombok.Getter;
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
 import net.anweisen.utilities.common.collection.WrappedException;
 import net.anweisen.utilities.common.config.Document;
@@ -30,7 +31,8 @@ public final class CloudSupportManager implements Listener {
 	private final boolean nameSupport;
 	private final boolean resetToLobby;
 	private final boolean setIngame;
-	private final String type;
+	@Getter
+  private final String type;
 	private final boolean startNewService;
 	private boolean startedNewService = false;
 	private CloudSupport support;
@@ -144,11 +146,7 @@ public final class CloudSupportManager implements Listener {
 		}
 	}
 
-	public String getType() {
-		return type;
-	}
-
-	private boolean isEnabled() {
+  private boolean isEnabled() {
 		return support != null;
 	}
 

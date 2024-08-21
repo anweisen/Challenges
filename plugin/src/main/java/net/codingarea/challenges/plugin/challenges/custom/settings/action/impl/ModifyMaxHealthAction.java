@@ -1,6 +1,5 @@
 package net.codingarea.challenges.plugin.challenges.custom.settings.action.impl;
 
-import net.anweisen.utilities.bukkit.utils.item.MaterialWrapper;
 import net.codingarea.challenges.plugin.challenges.custom.settings.action.PlayerTargetAction;
 import net.codingarea.challenges.plugin.challenges.implementation.setting.MaxHealthSetting;
 import net.codingarea.challenges.plugin.challenges.type.abstraction.AbstractChallenge;
@@ -8,6 +7,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.ChallengeHelper;
 import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper;
 import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
@@ -23,7 +23,7 @@ public class ModifyMaxHealthAction extends PlayerTargetAction {
 		super(name, SubSettingsHelper.createEntityTargetSettingsBuilder(false, true)
 				.createValueChild().fill(builder -> {
 					builder.addModifierSetting("health_offset",
-							new ItemBuilder(MaterialWrapper.RED_DYE,
+							new ItemBuilder(MinecraftNameWrapper.RED_DYE,
 									Message.forName("item-custom-action-max_health-offset")),
 							0, -20, 20,
 							integer -> "", integer -> "HP §8(§e" + (integer / 2f) + " §c❤§8)");
@@ -32,7 +32,7 @@ public class ModifyMaxHealthAction extends PlayerTargetAction {
 
 	@Override
 	public Material getMaterial() {
-		return MaterialWrapper.RED_DYE;
+		return MinecraftNameWrapper.RED_DYE;
 	}
 
 	@Override

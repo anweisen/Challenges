@@ -11,6 +11,7 @@ import net.codingarea.challenges.plugin.content.Prefix;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.bukkit.command.PlayerCommand;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.MinecraftNameWrapper;
 import net.codingarea.challenges.plugin.utils.misc.NameHelper;
 import net.codingarea.challenges.plugin.utils.misc.ParticleUtils;
 import net.codingarea.challenges.plugin.utils.misc.Utils;
@@ -149,7 +150,8 @@ public class PositionSetting extends Setting implements PlayerCommand, TabComple
 		Bukkit.getScheduler().runTaskTimer(plugin, task -> {
 			current[0]++;
 			if (current[0] >= 10) task.cancel();
-			ParticleUtils.drawLine(player, player.getLocation(), target, Particle.REDSTONE, new DustOptions(Color.LIME, 1), 1, 0.5, 50);
+			ParticleUtils.drawLine(player, player.getLocation(), target,
+				MinecraftNameWrapper.REDSTONE_DUST, new DustOptions(Color.LIME, 1), 1, 0.5, 50);
 		}, 0, 10);
 	}
 

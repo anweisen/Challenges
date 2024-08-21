@@ -1,10 +1,15 @@
 package net.codingarea.challenges.plugin.utils.bukkit.nms;
 
-import net.codingarea.challenges.plugin.Challenges;
-
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.StringJoiner;
 import java.util.regex.Pattern;
+import lombok.Getter;
+import net.codingarea.challenges.plugin.Challenges;
+import org.bukkit.Bukkit;
 
 /**
  * @author TobiasDeBruijn | https://github.com/TobiasDeBruijn
@@ -14,22 +19,65 @@ import java.util.regex.Pattern;
 public class ReflectionUtil {
 
 	public static String SERVER_VERSION;
-	private static boolean useNewSpigotPackaging;
+  /**
+   * -- GETTER --
+   *  Check if the new way of packaging Spigot is used<br>
+   *  For >=1.17 this will be true, for =<1.16 this will be false.<br>
+   *  <p>
+   *  This dictates if you should use
+   *  (<=1.16) or
+   *  (>=1.17).
+   *
+   * @return Returns true if it is, false if it is now
+   */
+  @Getter
+  private static boolean useNewSpigotPackaging;
 
-	private static int majorVersion;
-	private static int minorVersion;
+  /**
+   * -- GETTER --
+   *  Get the current major Minecraft version.
+   *  <p>
+   *  E.g for Minecraft 1.18 this is 18.
+   *
+   * @return The current major Minecraft version
+   */
+  @Getter
+  private static int majorVersion;
+  /**
+   * -- GETTER --
+   *  Get the current minor Minecraft version.
+   *  <p>
+   *  E.g. for Minecraft 1.18.2 this is 2.
+   *
+   * @return The current minor Minecraft version
+   */
+  @Getter
+  private static int minorVersion;
 
 	static {
 		try {
+			// Legacy support
 			Class<?> bukkitClass = Class.forName("org.bukkit.Bukkit");
 			Object serverObject = getMethod(bukkitClass, "getServer").invoke(null);
 			String serverPackageName = serverObject.getClass().getPackage().getName();
 
 			SERVER_VERSION = serverPackageName.substring(serverPackageName.lastIndexOf('.') + 1);
 
-			String[] versionParts = SERVER_VERSION.split(Pattern.quote("_"));
-			String major = versionParts[1];
-			String minor = versionParts[2].replace("R", "");
+			// example: Bukkit version: 3638-Spigot-d90018e-7dcb59b (MC: 1.19.3)
+			String version = Bukkit.getVersion();
+
+			String[] parts = version.split(Pattern.quote("(MC: "));
+			String[] versionParts = parts[1].split(Pattern.quote("."));
+
+			// There's a minor version
+			String major, minor;
+			if(versionParts.length > 2) {
+				major = versionParts[1];
+				minor = versionParts[2].replace(")", "");
+			} else {
+				major = versionParts[1].replace(")", "");
+				minor = "0";
+			}
 
 			majorVersion = Integer.parseInt(major);
 			minorVersion = Integer.parseInt(minor);
@@ -41,41 +89,7 @@ public class ReflectionUtil {
 		}
 	}
 
-	/**
-	 * Check if the new way of packaging Spigot is used<br>
-	 * For >=1.17 this will be true, for =<1.16 this will be false.<br>
-	 * <p>
-	 * This dictates if you should use {@link #getNmsClass(String)} (<=1.16) or {@link #getMinecraftClass(String)} (>=1.17).
-	 *
-	 * @return Returns true if it is, false if it is now
-	 */
-	public static boolean isUseNewSpigotPackaging() {
-		return useNewSpigotPackaging;
-	}
-
-	/**
-	 * Get the current major Minecraft version.
-	 * <p>
-	 * E.g for Minecraft 1.18 this is 18.
-	 *
-	 * @return The current major Minecraft version
-	 */
-	public static int getMajorVersion() {
-		return majorVersion;
-	}
-
-	/**
-	 * Get the current minor Minecraft version.
-	 * <p>
-	 * E.g. for Minecraft 1.18.2 this is 2.
-	 *
-	 * @return The current minor Minecraft version
-	 */
-	public static int getMinorVersion() {
-		return minorVersion;
-	}
-
-	/**
+  /**
 	 * Get a Class from the org.bukkit.craftbukkit.SERVER_VERSION. package
 	 *
 	 * @param className The name of the class

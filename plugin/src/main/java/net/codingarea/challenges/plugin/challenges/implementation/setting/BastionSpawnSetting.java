@@ -7,6 +7,7 @@ import net.codingarea.challenges.plugin.content.Message;
 import net.codingarea.challenges.plugin.management.challenges.annotations.RequireVersion;
 import net.codingarea.challenges.plugin.management.menu.MenuType;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.StructureType;
 
@@ -24,7 +25,7 @@ public class BastionSpawnSetting extends NetherPortalSpawnSetting {
 
 	public BastionSpawnSetting() {
 		super(MenuType.SETTINGS, StructureType.BASTION_REMNANT, "unable-to-find-bastion",
-				Arrays.stream(Material.values()).filter(material -> material.name().contains("BASALT")).collect(Collectors.toList()));
+				Arrays.stream(ExperimentalUtils.getMaterials()).filter(material -> material.name().contains("BASALT")).collect(Collectors.toList()));
 	}
 
 	@Nonnull

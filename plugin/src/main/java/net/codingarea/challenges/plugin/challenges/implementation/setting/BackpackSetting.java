@@ -135,7 +135,7 @@ public class BackpackSetting extends SettingModifier implements PlayerCommand {
 				int index = Integer.parseInt(key);
 				ItemStack item = document.getSerializable(key, ItemStack.class);
 				inventory.setItem(index, item);
-			} catch (Exception ex) {
+			} catch (Exception ignored) {
 			}
 		}
 	}

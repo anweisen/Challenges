@@ -1,6 +1,7 @@
 package net.codingarea.challenges.plugin.management.server.scoreboard;
 
 import net.anweisen.utilities.bukkit.utils.logging.Logger;
+import net.anweisen.utilities.bukkit.utils.misc.MinecraftVersion;
 import net.codingarea.challenges.plugin.ChallengeAPI;
 import net.codingarea.challenges.plugin.Challenges;
 import net.codingarea.challenges.plugin.content.Message;
@@ -35,7 +36,11 @@ public final class ChallengeBossBar {
 	}
 
 	private void apply(@Nonnull BossBar bossbar, @Nonnull BossBarInstance instance) {
-		NMSUtils.setBossBarTitle(bossbar, instance.title);
+		if (MinecraftVersion.current().isNewerOrEqualThan(MinecraftVersion.V1_20_5)) {
+			bossbar.setTitle(instance.title.toPlainText());
+		} else {
+			NMSUtils.setBossBarTitle(bossbar, instance.title);
+		}
 		bossbar.setColor(instance.color);
 		bossbar.setStyle(instance.style);
 		bossbar.setProgress(instance.progress);
@@ -85,15 +90,15 @@ public final class ChallengeBossBar {
 		}
 	}
 
-	public final void show() {
+	public void show() {
 		Challenges.getInstance().getScoreboardManager().showBossBar(this);
 	}
 
-	public final void hide() {
+	public void hide() {
 		Challenges.getInstance().getScoreboardManager().hideBossBar(this);
 	}
 
-	public final boolean isShown() {
+	public boolean isShown() {
 		return Challenges.getInstance().getScoreboardManager().isShown(this);
 	}
 

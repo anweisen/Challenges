@@ -84,7 +84,7 @@ public final class ScheduleManager {
 		ScheduledTaskExecutor executor = scheduledTaskExecutorsByConfig.get(config);
 		if (executor != null) return executor;
 
-		// Create new task
+		// Create a new task
 		executor = new ScheduledTaskExecutor(config);
 		if (started) executor.start();
 		scheduledTaskExecutorsByConfig.put(config, executor);
@@ -96,7 +96,7 @@ public final class ScheduleManager {
 		TimerTaskExecutor executor = timerTaskExecutorsByConfig.get(config);
 		if (executor != null) return executor;
 
-		// Create new task
+		// Create a new task
 		executor = new TimerTaskExecutor(config);
 		timerTaskExecutorsByConfig.put(config, executor);
 		return executor;

@@ -6,6 +6,7 @@ import net.codingarea.challenges.plugin.challenges.type.helper.SubSettingsHelper
 import net.codingarea.challenges.plugin.utils.bukkit.misc.BukkitStringUtils;
 import net.codingarea.challenges.plugin.utils.item.DefaultItem;
 import net.codingarea.challenges.plugin.utils.item.ItemBuilder;
+import net.codingarea.challenges.plugin.utils.misc.ExperimentalUtils;
 import org.bukkit.Material;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -19,7 +20,7 @@ public class ConsumeItemTrigger extends ChallengeTrigger {
 
 	public ConsumeItemTrigger(String name) {
 		super(name, SubSettingsBuilder.createChooseMultipleItem(SubSettingsHelper.ITEM).fill(builder -> {
-			for (Material material : Material.values()) {
+			for (Material material : ExperimentalUtils.getMaterials()) {
 				if (material.isEdible()) {
 					builder.addSetting(material.name(), new ItemBuilder(material, DefaultItem.getItemPrefix() + BukkitStringUtils.getItemName(material).toPlainText()).build());
 				}
